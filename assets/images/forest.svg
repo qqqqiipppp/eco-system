@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 470" preserveAspectRatio="none">
+<defs>
+ <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#e4edd6"/><stop offset="1" stop-color="#cedfba"/></linearGradient>
+ <linearGradient id="soil" x2="0" y2="1"><stop stop-color="#96734f"/><stop offset="1" stop-color="#796045"/></linearGradient>
+ <g id="grass"><path d="M0 0Q-14-10-17-26Q-6-20-3-8Q-9-31 0-39Q6-22 4-9Q10-28 20-30Q17-13 9 0" fill="#6a8e46"/><path d="M3-1 0-26m3 24 10-17" stroke="#a2bc6c" stroke-width="2" fill="none"/></g>
+ <g id="smallgrass"><path d="m0 0-5-10m6 10 2-15m-1 14 7-9" stroke="#8ca15a" stroke-width="3" stroke-linecap="round"/></g>
+ <g id="tree">
+  <ellipse cx="0" cy="13" rx="105" ry="15" fill="#769551" opacity=".22"/>
+  <path d="M-19 4-12-149H13L21 4l18 9H-38Z" fill="#8b6e48"/>
+  <path d="M-8-124 0 0H13L5-145Z" fill="#a58659"/>
+  <path d="m-4-66-43-54m52 34 44-57" fill="none" stroke="#8b6e48" stroke-width="12" stroke-linecap="round"/>
+  <path d="M-95-100c-41-7-50-55-21-76-11-38 20-72 55-66 18-37 70-41 93-17 42-9 82 19 79 54 41 21 47 61 17 89 3 42-42 64-80 50-34 25-80 20-104-4-24 3-42-8-39-30" fill="#507344"/>
+  <path d="M-116-176c-11-38 20-72 55-66 18-37 70-41 93-17 42-9 82 19 79 54 18 5 29 24 28 37-22 25-64 33-87 15-25 24-63 30-89 4-22 13-69 6-79-27" fill="#70934f"/>
+  <path d="M-78-233c27-25 56-12 70-22 15-12 27-1 25 14-16 19-43 30-66 22-17 12-36 5-29-14" fill="#8ca85d"/>
+  <path d="M48-235c19 3 36 13 38 29-23 1-35-5-38-29m-131 58c19-6 30-1 34 10-14 8-26 6-34-10m90 51c23-5 37 1 42 12-18 9-36 6-42-12" fill="#87a357"/>
+  <path d="m-12-186 14-4m61 21 12 4m-130 38 11 5m33 40 10-1" stroke="#a4b775" stroke-width="4" stroke-linecap="round"/>
+ </g>
+</defs>
+<path fill="url(#sky)" d="M0 0h1200v470H0z"/>
+<!-- Static, lightweight scene. The final artwork can replace this SVG. -->
+<circle cx="699" cy="66" r="52" fill="#f4e9b1" opacity=".45"/><circle cx="699" cy="66" r="35" fill="#fff1bb"/><path d="m673 10-5-12m71 25 8-8m8 58 14 3m-56 40 5 13m-66-32-10 7" stroke="#f3e7b8" stroke-width="4" stroke-linecap="round"/>
+<path d="M68 100c6-13 22-12 27-4 5-20 34-20 41-1 15-6 26 1 28 9H65" fill="#f4f5df" opacity=".8"/><path d="M470 61c5-11 17-12 22-4 7-19 27-15 34 0 15-6 22 4 23 8h-80" fill="#f5f5e2" opacity=".7"/>
+<path d="M0 240C146 133 235 213 343 196S523 108 635 184 824 152 970 183s153 19 230-15v270H0" fill="#c3d5ad"/>
+<path d="M0 278c181-53 246 25 376-10s212-53 360-13 289-74 464-5v188H0" fill="#b2ca96"/>
+<!-- Distant canopy silhouettes -->
+<g fill="#a3bd88"><path d="M3 270V160c-31-22 9-67 24-39 23-29 62 9 39 36 25 28 8 59-21 53v66z"/><path d="M1138 257V139c-31-15-18-55 7-54 12-41 66-26 61 13 26 19 14 56-11 54l-12 107z"/><path d="M431 272v-94c-30-22-5-54 16-43 12-18 39 1 33 23 27 20 11 48-19 44l-6 72z"/></g>
+<path d="M0 351c103-35 213-9 330-19s194-29 308-15 181 35 308 12 206-9 254 7v134H0" fill="url(#soil)"/>
+<path d="M0 340c103-35 213-9 330-19s194-29 308-15 181 35 308 12 206-9 254 7v29c-115-25-173-14-269 0s-172 0-281-20-181 2-294 9S118 330 0 365Z" fill="#89a858"/>
+<path d="M0 353c95-35 219-6 330-18s196-27 310-12 184 32 292 14 203-9 268 3" stroke="#b2c879" stroke-width="7" fill="none"/>
+<!-- Roots are part of the illustrative soil cutaway. -->
+<g fill="none" stroke="#c5a479" stroke-width="3" stroke-linecap="round"><path d="m291 347-8 33-31 19-24 9m56-26 22 28 4 24m-16-39-3 29m-27-30-5-8m384-50 9 40-15 29m17-24 32 15 13 26m-48-26-23 4"/><path d="m521 351-8 22 9 20m-10-19-10 7" stroke-width="2"/></g>
+<g fill="#c2a17a" opacity=".6"><ellipse cx="97" cy="390" rx="4" ry="2"/><ellipse cx="165" cy="416" rx="7" ry="3"/><ellipse cx="363" cy="388" rx="5" ry="3"/><ellipse cx="437" cy="426" rx="6" ry="2"/><ellipse cx="744" cy="384" rx="6" ry="3"/><ellipse cx="893" cy="406" rx="8" ry="3"/><ellipse cx="1021" cy="384" rx="4" ry="2"/><ellipse cx="1116" cy="419" rx="6" ry="3"/></g>
+<use href="#tree" transform="translate(292 325) scale(.91)"/>
+<use href="#tree" transform="translate(673 310) scale(.7)"/>
+<g><use href="#grass" transform="translate(484 337) scale(.86)"/><use href="#grass" transform="translate(521 342) scale(1.05)"/><use href="#grass" transform="translate(551 338) scale(.65)"/><use href="#grass" transform="translate(88 336) scale(.75)"/><use href="#grass" transform="translate(802 350) scale(.7)"/><use href="#grass" transform="translate(1075 331) scale(.8)"/></g>
+<g><use href="#smallgrass" transform="translate(156 333)"/><use href="#smallgrass" transform="translate(372 325)"/><use href="#smallgrass" transform="translate(586 320)"/><use href="#smallgrass" transform="translate(744 342)"/><use href="#smallgrass" transform="translate(1137 334)"/><use href="#smallgrass" transform="translate(26 345)"/></g>
+<g fill="#cad790"><ellipse cx="183" cy="352" rx="4" ry="2"/><ellipse cx="409" cy="339" rx="5" ry="2"/><ellipse cx="717" cy="346" rx="4" ry="2"/><ellipse cx="1000" cy="346" rx="5" ry="2"/></g>
+<g><path d="M381 350q1-19 18-21 18-2 24 20Z" fill="#9a9b7a"/><path d="m388 338 12-6 11 4-4 11h-21" fill="#b8b799"/><path d="M913 349q4-15 17-15 13 2 17 16Z" fill="#a5a385"/></g>
+</svg>

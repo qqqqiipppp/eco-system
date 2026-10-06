@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#244c38">
+  <meta name="description" content="초등학교 4학년 생물과 환경 — 카드를 골라 나의 숲에 생물을 놓아 보세요">
+  <title>작은 숲 연구소 | 나의 숲 생태계</title>
+  <link rel="icon" href="./assets/images/leaf.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/game.css">
+  <link rel="stylesheet" href="./css/placement.css">
+  <script type="module" src="./js/main.js"></script>
+</head>
+<body>
+  <main class="game-shell">
+    <header class="app-header">
+      <div class="brand"><img src="./assets/images/leaf.svg" width="38" height="38" alt=""><div><h1>작은 숲 연구소</h1><p>4학년 과학 · 생물과 환경</p></div></div>
+      <div class="preview-note"><span class="status-dot"></span>생물 놓아 보기 <span class="note-detail">· 아직 환경은 변하지 않아요</span></div>
+    </header>
+
+    <section class="dashboard" aria-label="나의 생태계 상태">
+      <div class="metric stability"><span class="metric-icon" aria-hidden="true">♡</span><div><h2>생태계 안정도</h2><p id="stability-value">관찰 준비</p><span class="metric-caption">숲의 균형을 알아볼 거예요</span></div><span class="metric-mark" aria-hidden="true">—</span></div>
+      <div class="metric"><span class="metric-icon point-icon" aria-hidden="true">✦</span><div><h2>생태계 포인트</h2><p><span id="points-value">0</span><small> P</small></p><span class="metric-caption">보전 행동으로 모을 수 있어요</span></div></div>
+      <div class="metric"><span class="metric-icon" aria-hidden="true">❧</span><div><h2>생물 다양성</h2><p><span id="diversity-value">2</span><small>종</small></p><span class="metric-caption">숲에 있는 생물의 종류</span></div></div>
+      <div class="metric environment"><span class="metric-icon sun-icon" aria-hidden="true">☀</span><div><h2>현재 환경 상태</h2><p id="environment-value">맑은 숲</p><span class="metric-caption">처음 설정된 환경이에요</span></div></div>
+    </section>
+
+    <section class="forest" aria-labelledby="forest-title">
+      <img class="forest-art" src="./assets/images/forest.svg" alt="햇빛 아래 나무와 풀이 자라는 임시 숲 배경. 땅 아래에는 흙과 뿌리가 보여요." draggable="false">
+      <button id="placement-surface" class="placement-surface" type="button" aria-label="숲 배치 영역. 먼저 아래에서 생물 카드를 선택하세요."></button>
+      <div id="placement-guide" class="placement-guide" aria-hidden="true" hidden></div>
+      <div id="organism-layer" class="organism-layer" role="group" aria-label="숲에 배치한 생물"></div>
+      <span id="placement-cursor" class="placement-cursor" aria-hidden="true" hidden></span>
+      <div class="forest-heading" data-scene-ui><span class="eyebrow">MY LITTLE FOREST</span><h2 id="forest-title">나의 숲 <span>01</span></h2></div>
+      <div class="abiotic-status" data-scene-ui aria-label="숲의 비생물 요소"><span><i aria-hidden="true">☀</i> 햇빛 <b>충분</b></span><span><i aria-hidden="true">◈</i> 물 <b>알맞음</b></span><span><i aria-hidden="true">≋</i> 공기 <b>깨끗함</b></span></div>
+
+      <aside class="observation" data-scene-ui aria-labelledby="observation-title">
+        <span class="observation-tag">살펴보기</span>
+        <h3 id="observation-title">누가 누구를<br>먹을까요?</h3>
+        <p><strong>풀 → 메뚜기 → 개구리</strong><br>화살표는 먹히는 생물에서<br>먹는 생물로 향해요.</p>
+        <div class="observation-footer">풀, 메뚜기, 개구리를 놓고<br>먹이를 찾는 모습을 살펴보세요.</div>
+      </aside>
+      <span class="soil-label" data-scene-ui>흙 <span>뿌리를 지탱하고, 물과 양분을 품어요</span></span>
+      <div class="scene-caption" data-scene-ui><span aria-hidden="true">◌</span> 카드를 골라 숲에 생물을 놓아 보세요.</div>
+      <p id="placement-feedback" class="placement-feedback" role="status" aria-live="polite" aria-atomic="true" hidden></p>
+    </section>
+
+    <section class="inventory" aria-labelledby="inventory-title">
+      <div class="inventory-heading"><div><h2 id="inventory-title">나의 생물 카드 <span id="card-count">6</span></h2><p>카드를 고르고, 숲을 터치해요.</p></div><span class="inventory-note">옆으로 밀면 다른 카드도 보여요</span></div>
+      <div class="inventory-content"><div id="card-list" class="card-list" role="group" aria-label="획득한 생물 카드"></div>
+        <aside id="selection-panel" class="selection-panel" aria-label="선택한 생물 정보" aria-live="polite" aria-atomic="true"></aside>
+      </div>
+    </section>
+    <footer class="game-footer"><span>관찰 <i>→</i> 판단 <i>→</i> 상호작용 <i>→</i> 변화 확인</span><span>목표는 건강하고 안정적인 생태계예요.</span></footer>
+  </main>
+  <noscript><p class="load-error">생물 카드를 보려면 브라우저에서 JavaScript를 켜 주세요.</p></noscript>
+  <p id="load-error" class="load-error" hidden>화면을 불러오지 못했어요. 새로고침해서 다시 시도해 주세요.</p>
+</body>
+</html>

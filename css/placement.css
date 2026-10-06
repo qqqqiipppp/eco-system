@@ -1,0 +1,30 @@
+/* The existing background artwork remains untouched. These are temporary objects. */
+.placement-surface{position:absolute;inset:0;z-index:0;width:100%;height:100%;padding:0;border:0;border-radius:inherit;background:transparent;touch-action:manipulation}
+.placement-surface:focus-visible{outline-offset:-4px}
+.is-placing .placement-surface{cursor:crosshair}
+.placement-guide{position:absolute;z-index:1;border:2px dashed #355637;border-radius:12px;background:#f1f6d82b;pointer-events:none}
+.organism-layer{position:absolute;inset:0;pointer-events:none;z-index:2;overflow:hidden}
+.organism-object{position:absolute;left:0;top:0;width:0;height:0}
+.organism-visual{position:absolute;left:calc(var(--sprite-width) / -2);top:calc(0px - var(--sprite-height));width:var(--sprite-width);height:calc(var(--sprite-height) + 20px);text-align:center;transform-origin:50% var(--sprite-height)}
+.organism-visual img{display:block;width:var(--sprite-width);height:var(--sprite-height);object-fit:contain}
+.organism-name{display:block;height:20px;line-height:20px;border-radius:8px;background:#fffdf0e8;color:#29462f;font-size:10px;font-weight:700;white-space:nowrap}
+.organism-enter{animation:organism-appear 220ms ease-out both}
+@keyframes organism-appear{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+.forest [data-scene-ui]{z-index:3}
+.placement-cursor{position:absolute;z-index:4;width:22px;height:22px;border:3px solid #fff;outline:2px solid #244c38;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none}
+.placement-feedback{position:absolute;z-index:5;bottom:6px;left:50%;transform:translateX(-50%);max-width:90%;width:max-content;padding:8px 13px;border-radius:9px;background:#244c38;color:#fff;font-size:11px;line-height:1.5;text-align:center;pointer-events:none}
+.placement-feedback[data-result="error"]{background:#6b4928}
+.organism-card[aria-pressed="true"]{box-shadow:inset 0 0 0 2px #4f7848}
+.card-selected{padding:2px 4px;border-radius:4px;background:#244c38;color:white}
+.card-name{overflow-wrap:anywhere}
+/* On narrow screens keep scene UI above, not over the placement area. */
+@media(max-width:800px){.observation{display:none}.placement-feedback{font-size:10px}.organism-name{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.organism-enter{animation:none}}
+.card-list{grid-template-columns:repeat(6,minmax(170px,1fr));overflow-x:auto;scrollbar-width:thin;padding-bottom:5px}
+.card-placeholder{display:grid;place-items:center;font-size:32px;line-height:1}
+.organism-placeholder{display:grid;place-items:center;width:var(--sprite-width);height:var(--sprite-height);font-size:30px;line-height:1}
+.is-eating .organism-visual::after{content:'먹는 중';position:absolute;top:0;left:0;right:0;border-radius:6px;background:#244c38;color:#fff;font-size:9px;line-height:15px}
+.is-depleted .organism-visual>img{opacity:.5}
+.organism-debug{position:absolute;bottom:20px;left:0;min-width:150px;white-space:pre;background:#fff;color:#222;font:9px/1.4 monospace;z-index:10}
+@media(max-height:720px) and (min-width:801px){.forest{min-height:215px}}
+@media(max-width:800px){.card-list{grid-template-columns:repeat(6,minmax(105px,1fr))}}
