@@ -13,6 +13,8 @@ const input = (x = 0.4, y = 0.72) => ({ position: { x, y }, isPlayArea: true, is
 
 test('rejects absent selection, unacquired species, invalid coordinates and UI without mutations', () => {
   const state = createGameState();
+  // These geometry/motion scenarios explicitly use already unlocked cards.
+  state.inventory.forEach(item => { item.acquired = true; });
   const initial = structuredClone(state);
   assert.equal(validatePlacement(state, null, input(), layout).reason, 'selection');
   assert.equal(validatePlacement(state, 'unknown', input(), layout).ok, false);
@@ -26,6 +28,8 @@ test('rejects absent selection, unacquired species, invalid coordinates and UI w
 
 test('ground rules, sprite/UI intersection, and large-plant spacing', () => {
   const state = createGameState();
+  // These geometry/motion scenarios explicitly use already unlocked cards.
+  state.inventory.forEach(item => { item.acquired = true; });
   assert.equal(validatePlacement(state, 'oak', input(0.4, 0.60), layout).ok, false);
   assert.equal(validatePlacement(state, 'rabbit', input(0.4, 0.60), layout).ok, true);
   assert.equal(validatePlacement(state, 'mushroom', input(0.4, 0.72), layout).ok, true);
@@ -36,6 +40,8 @@ test('ground rules, sprite/UI intersection, and large-plant spacing', () => {
 
 test('duplicate species receive unique minimal instances; permissions survive; cap is enforced', () => {
   const state = createGameState();
+  // These geometry/motion scenarios explicitly use already unlocked cards.
+  state.inventory.forEach(item => { item.acquired = true; });
   const inventory = structuredClone(state.inventory);
   while (state.organisms.length < placementConfig.maxOrganisms) {
     const result = placeOrganism(state, 'rabbit', input(), layout);
@@ -51,6 +57,8 @@ test('duplicate species receive unique minimal instances; permissions survive; c
 
 test('wander walks, pauses, reverses and stays inside screen rules; plants never move', () => {
   const state = createGameState();
+  // These geometry/motion scenarios explicitly use already unlocked cards.
+  state.inventory.forEach(item => { item.acquired = true; });
   const plantSnapshot = structuredClone(state.organisms);
   const animal = placeOrganism(state, 'rabbit', input(0.685, 0.72), layout).instance;
   const wander = createWanderSystem(() => 0.75);

@@ -15,5 +15,5 @@ export const forestDefinition = {
     { instanceId: 'oak-02', speciesId: 'oak', position: { x: 0.56, y: 0.71 } },
     { instanceId: 'grass-01', speciesId: 'grass', position: { x: 0.46, y: 0.75 } },
   ],
-  initialInventory: ['oak', 'grass', 'grasshopper', 'frog', 'rabbit', 'mushroom'],
+  initialInventory: ['oak', 'grass', 'grasshopper'],
 };

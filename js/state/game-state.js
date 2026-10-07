@@ -1,3 +1,5 @@
+import { activities } from '../../data/activities.js';
+import { organisms } from '../../data/organisms.js';
 import { forestDefinition } from '../../data/forest.js';
 import { createOrganismInstance } from './organism-instance.js';
 
@@ -7,7 +9,8 @@ import { createOrganismInstance } from './organism-instance.js';
  */
 export function createGameState() {
   return {
-    schemaVersion: 5,
+    schemaVersion: 6,
+    activities: activities.map(item => ({activityId:item.activityId,completed:false,attempts:0,completedAt:null})),
     simulationTime: 0,
     rewardHistory: [],
     managementHistory: [],
@@ -20,7 +23,7 @@ export function createGameState() {
     metrics: { stability: null, points: 0 },
     environment: JSON.parse(JSON.stringify(forestDefinition.abiotic)),
     organisms: forestDefinition.initialOrganisms.map(item => createOrganismInstance(item.speciesId, item.instanceId, item.position)),
-    inventory: forestDefinition.initialInventory.map(speciesId => ({ speciesId, acquired: true })),
+    inventory: organisms.map(({id:speciesId}) => ({ speciesId, acquired: forestDefinition.initialInventory.includes(speciesId) })),
   };
 }
 

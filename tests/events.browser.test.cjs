@@ -1,3 +1,4 @@
+const { useUnlockedCards } = require('./fixtures.cjs');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const assert=require('node:assert/strict');
 (async()=>{
@@ -7,7 +8,8 @@ const assert=require('node:assert/strict');
   const page=await browser.newPage({viewport:{width:1138,height:712},hasTouch:true});
   page.on('pageerror',error=>errors.push(error.message));
   await page.route('**/data/forest.js',async route=>{const response=await route.fetch();await route.fulfill({response,body:(await response.text()).replace(/initialOrganisms: \[[\s\S]*?\],/,'initialOrganisms: [],')});});
-  await page.goto(process.env.BASE_URL||'http://127.0.0.1:8080/',{waitUntil:'networkidle'});
+  await useUnlockedCards(page);
+    await page.goto(process.env.BASE_URL||'http://127.0.0.1:8080/',{waitUntil:'networkidle'});
   await page.emulateMedia({reducedMotion:'reduce'});
   for(const [species,count] of Object.entries(counts)){
    await page.locator(`.organism-card[data-species-id="${species}"]`).tap();

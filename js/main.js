@@ -14,6 +14,8 @@ import { ecologyConfig } from '../data/ecology-config.js';
 import { growthConfig } from '../data/environment-config.js';
 import { createEventSystem } from './systems/events.js';
 import { createEventView } from './ui/event-view.js';
+import { completeActivity } from './systems/activities.js';
+import { createActivityView } from './ui/activity-view.js';
 import { executeManagement, availableManagement } from './systems/management.js';
 
 // Readable export for module-level checks; no global debug API or persistence.
@@ -27,6 +29,20 @@ try {
   const forest = document.querySelector('.forest');
   const scene = createOrganismLayer(forest, () => gameState.organisms);
   const wander = createWanderSystem();
+  const activityView = createActivityView(gameState,(activityId,answer) => {
+    stabilitySystem.update(gameState);
+    const response = completeActivity(gameState,activityId,answer);
+    if(response.unlocked) {
+      renderCards(gameState,selectSpecies,openLockedActivity);
+      renderSelection(uiState,clearSelection);
+    }
+    renderDashboard(gameState);
+    return response;
+  });
+  function openLockedActivity(activityId) {
+    clearSelection();
+    activityView.open(activityId);
+  }
   const eventView = createEventView(gameState, scene, (eventId, answer) => {
     const response = eventSystem.acknowledge(gameState,eventId,answer);
     renderDashboard(gameState);
@@ -58,7 +74,7 @@ try {
       scene.remove(result.removedIds);
       scene.paintChanges(result.moved);
       if (result.ticked) scene.showStates(result.updated);
-      if (result.ticked) renderDashboard(gameState);
+      if (result.ticked) { renderDashboard(gameState); activityView.render(); }
       if (result.eventTicked || result.removedIds.length) eventView.render();
       if (result.feedingEvents.length) scene.showFeedback(feedingFeedback(result.feedingEvents), true);
     },
@@ -97,7 +113,7 @@ try {
     loop.refresh();
   });
   renderDashboard(gameState);
-  renderCards(gameState, selectSpecies);
+  renderCards(gameState, selectSpecies, openLockedActivity);
   renderSelection(uiState, clearSelection);
   gameState.organisms.forEach(instance => scene.add(instance));
   eventView.render();

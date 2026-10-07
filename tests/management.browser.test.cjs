@@ -1,3 +1,4 @@
+const { useUnlockedCards } = require('./fixtures.cjs');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const assert=require('node:assert/strict');
 (async()=>{
@@ -8,7 +9,8 @@ const assert=require('node:assert/strict');
   page.on('pageerror',e=>errors.push(e.message));
   await page.addInitScript(()=>{window.intervals=0;const original=window.setInterval;window.setInterval=(...args)=>{window.intervals++;return original(...args)}});
   await page.route('**/data/forest.js',async route=>{const response=await route.fetch();await route.fulfill({response,body:(await response.text()).replace(/initialOrganisms: \[[\s\S]*?\],/,'initialOrganisms: [],')});});
-  await page.goto(process.env.BASE_URL||'http://127.0.0.1:8080/',{waitUntil:'networkidle'});await page.emulateMedia({reducedMotion:'reduce'});
+  await useUnlockedCards(page);
+    await page.goto(process.env.BASE_URL||'http://127.0.0.1:8080/',{waitUntil:'networkidle'});await page.emulateMedia({reducedMotion:'reduce'});
   for(const [species,count] of Object.entries(counts)){
    await page.locator(`.organism-card[data-species-id="${species}"]`).tap();
    for(let i=0;i<count;i++){const box=await page.locator('#placement-surface').boundingBox();await page.touchscreen.tap(box.x+box.width*(.16+(i%6)*.08),box.y+box.height*(species==='grass'?.74:.6+Math.floor(i/6)*.035));}

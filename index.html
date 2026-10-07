@@ -11,18 +11,19 @@
   <link rel="stylesheet" href="./css/game.css">
   <link rel="stylesheet" href="./css/placement.css">
   <link rel="stylesheet" href="./css/events.css">
+  <link rel="stylesheet" href="./css/activities.css">
   <script type="module" src="./js/main.js"></script>
 </head>
 <body>
   <main class="game-shell">
     <header class="app-header">
       <div class="brand"><img src="./assets/images/leaf.svg" width="38" height="38" alt=""><div><h1>작은 숲 연구소</h1><p>4학년 과학 · 생물과 환경</p></div></div>
-      <button id="observations-open" type="button">발견 기록 <span id="observation-count">0</span></button>
+      <div class="header-actions"><button id="activities-open" type="button">배움</button><button id="observations-open" type="button">발견 기록 <span id="observation-count">0</span></button></div>
     </header>
 
     <section class="dashboard" aria-label="나의 생태계 상태">
       <div class="metric stability"><span class="metric-icon" aria-hidden="true">♡</span><div><h2>생태계 안정도</h2><p id="stability-value">관찰 준비</p><progress id="stability-meter" max="100" value="0" aria-label="생태계 안정도"></progress></div></div>
-      <div class="metric"><span class="metric-icon point-icon" aria-hidden="true">✦</span><div><h2>생태계 포인트</h2><p><span id="points-value">0</span><small> P</small></p><span class="metric-caption">보전 행동으로 모을 수 있어요</span></div></div>
+      <div class="metric"><span class="metric-icon point-icon" aria-hidden="true">✦</span><div><h2>생태계 포인트</h2><p><span id="points-value">0</span><small> P</small></p><span class="metric-caption">관찰과 배움으로 얻어요</span></div></div>
       <div class="metric"><span class="metric-icon" aria-hidden="true">❧</span><div><h2>생물 다양성</h2><p><span id="diversity-value">2</span><small>종</small></p><span class="metric-caption">숲에 있는 생물의 종류</span></div></div>
       <div class="metric environment"><span class="metric-icon sun-icon" aria-hidden="true">☀</span><div><h2>현재 환경 상태 · 살펴보기 ›</h2><p id="environment-value">맑은 숲</p><span class="metric-caption">눌러서 환경을 비교해 보세요</span></div><button id="environment-open" type="button" aria-label="환경 살펴보기"></button></div>
     </section>
@@ -64,6 +65,13 @@
     <p id="stability-hint" role="status"></p>
     <p id="management-status" role="status"></p>
     <small>안정도는 이 게임에서 숲의 균형을 살펴보는 기준이에요.</small>
+  </dialog>
+  <dialog id="activity-dialog" aria-labelledby="activity-title">
+    <nav id="activity-nav" aria-label="숲에서 배우기"></nav>
+    <h2 id="activity-title"></h2><p id="activity-prompt"></p>
+    <p id="activity-conditions"></p><div id="activity-choices"></div>
+    <p id="activity-result" role="status" aria-live="polite"></p>
+    <button id="activity-close" type="button">숲으로 돌아가기</button>
   </dialog>
   <noscript><p class="load-error">생물 카드를 보려면 브라우저에서 JavaScript를 켜 주세요.</p></noscript>
   <dialog id="event-dialog" aria-labelledby="event-title">

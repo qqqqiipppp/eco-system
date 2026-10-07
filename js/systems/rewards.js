@@ -1,3 +1,4 @@
+import { activityById } from '../../data/activities.js';
 import { rewardConfig } from '../../data/management-actions.js';
 import { producerGrowth } from '../../data/environment-config.js';
 import { growthSuitability } from './environment.js';
@@ -5,7 +6,7 @@ import { eventConfig } from '../../data/event-config.js';
 
 // Called only after a domain system has verified the achievement.
 export function grantReward(state, category, semanticId, sourceId) {
-  const amount = rewardConfig[category];
+  const amount = category === 'activity' ? (state.activities.some(item => item.activityId===semanticId && item.completed) ? activityById[semanticId]?.pointReward : 0) : (Object.hasOwn(rewardConfig,category) ? rewardConfig[category] : 0);
   const rewardId = `${category}:${semanticId}`;
   if (!amount || state.rewardHistory.some(item => item.rewardId === rewardId)) return 0;
   state.metrics.points += amount;

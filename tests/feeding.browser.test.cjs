@@ -1,3 +1,4 @@
+const { useUnlockedCards } = require('./fixtures.cjs');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const assert = require('node:assert/strict');
 
@@ -15,6 +16,7 @@ const assert = require('node:assert/strict');
       const body = (await response.text()).replace(/initialOrganisms: \[[\s\S]*?\],/, 'initialOrganisms: [],');
       await route.fulfill({ response, body });
     });
+    await useUnlockedCards(page);
     await page.goto(process.env.BASE_URL || 'http://127.0.0.1:8080/', { waitUntil: 'networkidle' });
     await page.emulateMedia({ reducedMotion: 'reduce' });
     const snapshot = () => page.evaluate(async () => {

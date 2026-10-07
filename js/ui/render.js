@@ -1,3 +1,4 @@
+import { activityForSpecies } from '../../data/activities.js';
 import { organismById, roleLabels } from '../../data/organisms.js';
 import { qualityLabel, environmentQuality, factorValue } from '../systems/environment.js';
 import { getSpeciesCount } from '../state/game-state.js';
@@ -17,24 +18,25 @@ export function renderDashboard(state) {
   document.querySelectorAll('.abiotic-status b').forEach((node, index) => { const label = qualityLabel(factorValue(state.environment, labels[index])); if (node.textContent !== label) node.textContent = label; });
 }
 
-export function renderCards(state, onSelect) {
+export function renderCards(state, onSelect, onLocked = () => {}) {
   const list = document.querySelector('#card-list');
   list.replaceChildren();
-  state.inventory.filter(item => item.acquired).forEach(({ speciesId }) => {
+  state.inventory.forEach(({ speciesId, acquired }) => {
     const species = organismById[speciesId];
     const button = document.createElement('button');
     button.type = 'button';
-    button.className = 'organism-card';
+    button.className = acquired ? 'organism-card' : 'organism-card locked-card';
+    button.dataset.locked = String(!acquired);
     button.dataset.speciesId = speciesId;
     button.setAttribute('aria-pressed', 'false');
-    button.setAttribute('aria-label', `${species.name}, ${roleLabels[species.role]}, 배치할 생물 선택`);
+    button.setAttribute('aria-label', acquired ? `${species.name}, ${roleLabels[species.role]}, 배치할 생물 선택` : `${species.name}, 잠김, 해금 조건 보기`);
     // Only trusted, local species definitions are used in this template.
     const visual = species.image ? `<img class="card-art" src="${species.image}" alt="" draggable="false">` : `<span class="card-art card-placeholder" aria-hidden="true">${species.placeholder}</span>`;
-    button.innerHTML = `${visual}<span><span class="card-role ${species.role}">${roleLabels[species.role]}</span><span class="card-name">${species.name}</span><span class="card-caption">${species.caption}</span></span><span class="card-selected" aria-hidden="true" hidden>✓ 선택</span>`;
-    button.addEventListener('click', () => onSelect(speciesId));
+    button.innerHTML = `${visual}<span><span class="card-role ${species.role}">${roleLabels[species.role]}</span><span class="card-name">${species.name}</span><span class="card-caption">${acquired ? species.caption : '🔒 ' + activityForSpecies[speciesId]?.unlockHint}</span></span><span class="card-selected" aria-hidden="true" hidden>✓ 선택</span>`;
+    button.addEventListener('click', () => acquired ? onSelect(speciesId) : onLocked(activityForSpecies[speciesId]?.activityId));
     list.append(button);
   });
-  document.querySelector('#card-count').textContent = list.childElementCount;
+  document.querySelector('#card-count').textContent = `${state.inventory.filter(item=>item.acquired).length} / ${state.inventory.length}`;
 }
 
 export function feedingFeedback(events) {

@@ -9,7 +9,7 @@
 - 환경: environment.sunlight/water/air/soil.value. 내부 0~1, 학생 표시는 좋음/보통/나쁨. good=1, normal=0.6, bad=0.15.
 - 생산자: growth 추가, 기본 1. 풀의 foodStock은 기존 값을 유지하되 실제 최대량은 growth에 비례.
 - metrics.stability: 내부 0~100. stabilitySummary: score, label, hint, breakdown.
-- schemaVersion=5. 저장 기능은 없으므로 데이터 이전은 구현하지 않음.
+- schemaVersion=6. 저장 기능은 없으므로 데이터 이전은 구현하지 않음.
 - 기존 메뚜기/개구리 hunger, behaviorState, targetInstanceId, 부족 시간 등 유지.
 
 ## 환경 영향
@@ -86,4 +86,25 @@ nextInstanceSequence는 포식 뒤 instanceId 재사용을 방지합니다. 관�
 
 상황별 관리 옵션은 availableManagement가 제공합니다. UI는 관리 호출과 짧은 결과 표시만 합니다. 선택창은 재진입 시 실제 환경 값으로 동기화합니다. 포인트 부족 안내는 사용 가능한 학습 경로도 알려줍니다. 기존 환경 비교 선택은 이전 단계 기능으로 유지합니다.
 
-학습 활동 확장 시 검증된 완료 시스템에서 rewardConfig 및 grantReward에 의미별 보상을 추가합니다. 카드 해금은 inventory의 acquired를 검증 후 바꾸고 renderCards를 갱신하는 지점에 연결합니다. 아직 해금/퀴즈 모듈은 만들지 않았습니다.
+6단계에서 마련한 grantReward와 inventory/renderCards 연결 지점을 아래 7단계 학습·해금 시스템이 사용합니다.
+
+## 7단계 학습 활동과 카드 해금
+
+실제 game observation/environment → activity condition → activity completion → unlock system → inventory acquired → existing placement → 새로운 먹이 상호작용/관찰.
+
+- data/activities.js: quiz/classify/observation/habitat 각 1개. activityId/type/title/prompt/choices/correctAnswer/requirements/hint/learningOutcome/unlockSpeciesId/pointReward/unlockHint. 필요한 유형만 해당 필드를 사용합니다.
+- js/systems/activity-rules.js: 실제 observations, 생물 역할/종, 네 환경, 기존 안정도를 읽는 순수 조건 함수. UI가 관찰 기록을 만들어 넣지 않습니다.
+- js/systems/activities.js: 유효 답안·대상·조건 확인 후 진행을 완료하고 해금/보상을 호출합니다. 오답에는 시도 횟수만 남기며 다시 선택할 수 있습니다.
+- js/systems/unlocks.js: 종/인벤토리/활동 대상 일치, 완료 여부, 실제 근거를 검증한 뒤 acquired 변경. 재해금은 추가 변경/보상이 없습니다.
+- js/systems/rewards.js: 기존 observation/question/management를 유지하면서 activity:<activityId> 보상을 확장합니다. 활동 데이터의 pointReward를 사용하고 완료 기록과 rewardHistory로 최초만 지급합니다.
+- js/ui/activity-view.js: 잠긴 카드 또는 작은 배움 버튼에서 여는 활동 창. 시스템 호출/안내만 담당합니다. main.js는 해금 성공 시 기존 renderCards 및 선택 표시를 갱신합니다.
+
+inventory는 모든 6종의 speciesId/acquired를 유지합니다. forest.initialInventory는 처음 획득한 oak/grass/grasshopper만 정의합니다. frog/rabbit/mushroom은 잠금으로 보이며 클릭 시 선택을 해제하고 조건 안내를 엽니다. placement의 acquired 검증은 변경하지 않았습니다.
+
+state.activities는 activityId/completed/attempts/completedAt과 정답 완료 시 lastAnswer(선택지 ID)만 저장합니다. 전체 답변 이력이나 개인정보는 없습니다. completedAt은 simulationTime과 같은 활성 시뮬레이션 초입니다. 틀린 답을 제출해도 기존 완료 상태를 되돌리지 않습니다. 다시 풀 수 있지만 보상은 최초 한 번입니다.
+
+토끼 조건: 서로 다른 생산자 2종 이상, 풀 존재, 네 환경 값 각각 0.4 이상, 기존 stability 점수 60 이상. 오래된 화면 점수만으로 해금하지 않도록 현재 상태의 evaluateStability도 확인합니다. main.js는 완료 요청 직전에 기존 stabilitySystem.update를 호출합니다. 학생에게는 숫자 대신 체크 문장을 보여줍니다. 조건 만족은 해금 가능 상태이며 학생이 확인해야 완료됩니다. 해금 후 환경이 나빠져도 카드를 다시 잠그지 않습니다.
+
+별도 timer/RAF가 없고 활동 창이 열려 있을 때만 기존 ecology tick에서 조건 문구를 갱신합니다. 생물 DOM은 손대지 않습니다. habitat은 자동 배치가 없으며, 분해·토끼 먹이 AI·새 먹이 관계를 추가하지 않습니다.
+
+다음 단계 연결: 안정도는 기존 stabilitySystem.update와 metrics.stabilitySummary, 숲 목표는 observations/activities/managementHistory와 실제 생태 상태를 읽는 별도 조건으로 구성할 수 있습니다. 저장은 schemaVersion=6의 domain state를 검증하여 복원하는 경계가 필요합니다. 현재 이벤트 시스템의 내부 clock/cooldown, feeding 내부 상태 등은 직렬화되지 않으므로 단순 JSON 저장만으로 완전 복원이 되는 구조는 아닙니다. 저장·클리어 시스템은 이번에 구현하지 않았습니다.
