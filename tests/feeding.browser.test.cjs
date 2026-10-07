@@ -40,8 +40,8 @@ const assert = require('node:assert/strict');
       Element.prototype.getBoundingClientRect = function () { window.stage3Changes.reads++; return bounds.call(this); };
       new MutationObserver(records => {
         for (const record of records) {
-          window.stage3Changes.added += record.addedNodes.length;
-          window.stage3Changes.removed += record.removedNodes.length;
+          window.stage3Changes.added += [...record.addedNodes].filter(node=>node.classList?.contains('organism-object')).length;
+          window.stage3Changes.removed += [...record.removedNodes].filter(node=>node.classList?.contains('organism-object')).length;
         }
       }).observe(document.querySelector('#organism-layer'), { childList: true, subtree: true });
       new MutationObserver(() => {
@@ -93,7 +93,7 @@ const assert = require('node:assert/strict');
     if (name === 'A' || name === 'B' || name === 'E') {
       assert(rendering.eatingSeen && rendering.feedbackSeen);
     }
-    assert.deepEqual(current.metrics, { stability: null, points: 0 });
+    assert.equal(current.metrics.points, 0); assert(Number.isFinite(current.metrics.stability));
     // Hidden signal freezes hunger, stock, motion and low-frequency tick together.
     await page.evaluate(() => {
       Object.defineProperty(document, 'visibilityState', { configurable: true, get: () => 'hidden' });

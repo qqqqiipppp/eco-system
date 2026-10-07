@@ -1,14 +1,20 @@
 import { organismById, roleLabels } from '../../data/organisms.js';
-import { forestDefinition } from '../../data/forest.js';
+import { qualityLabel, environmentQuality, factorValue } from '../systems/environment.js';
 import { getSpeciesCount } from '../state/game-state.js';
 
 export function renderDashboard(state) {
-  document.querySelector('#stability-value').textContent = state.metrics.stability === null ? '관찰 준비' : `${state.metrics.stability}%`;
-  document.querySelector('#points-value').textContent = state.metrics.points;
-  document.querySelector('#diversity-value').textContent = getSpeciesCount(state);
-  document.querySelector('#environment-value').textContent = forestDefinition.environmentLabel;
-  const labels = ['sunlight', 'water', 'air'];
-  document.querySelectorAll('.abiotic-status b').forEach((node, index) => { node.textContent = state.environment[labels[index]].label; });
+  const summary = state.metrics.stabilitySummary;
+  const setText = (selector, value) => { const node = document.querySelector(selector); if (node.textContent !== String(value)) node.textContent = value; };
+  setText('#stability-value', summary?.label || '관찰 준비');
+  const meter = document.querySelector('#stability-meter');
+  if (meter.value !== state.metrics.stability) meter.value = state.metrics.stability || 0;
+  if (summary) { setText('#stability-hint', summary.hint); meter.setAttribute('aria-label', `생태계 안정도: ${summary.label}`); }
+  setText('#points-value', state.metrics.points);
+  setText('#management-status', state.managementEffects.length ? '서식지 회복 중이에요. 한동안 식물의 성장과 먹이 회복을 도와요.' : '💡 발견 기록과 ? 조사로 생태계 포인트를 얻고, !에서 숲을 돌볼 수 있어요.');
+  setText('#diversity-value', getSpeciesCount(state));
+  setText('#environment-value', qualityLabel(environmentQuality(state.environment)));
+  const labels = ['sunlight', 'water', 'air', 'soil'];
+  document.querySelectorAll('.abiotic-status b').forEach((node, index) => { const label = qualityLabel(factorValue(state.environment, labels[index])); if (node.textContent !== label) node.textContent = label; });
 }
 
 export function renderCards(state, onSelect) {

@@ -7,7 +7,15 @@ import { createOrganismInstance } from './organism-instance.js';
  */
 export function createGameState() {
   return {
-    schemaVersion: 2,
+    schemaVersion: 5,
+    simulationTime: 0,
+    rewardHistory: [],
+    managementHistory: [],
+    managementCooldowns: {},
+    managementEffects: [],
+    events: [],
+    observations: [],
+    nextInstanceSequence: forestDefinition.initialOrganisms.length + 1,
     ecosystemId: forestDefinition.id,
     metrics: { stability: null, points: 0 },
     environment: JSON.parse(JSON.stringify(forestDefinition.abiotic)),

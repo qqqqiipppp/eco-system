@@ -5,10 +5,10 @@
 export const forestDefinition = {
   id: 'forest', name: '나의 숲', environmentLabel: '맑은 숲',
   abiotic: {
-    sunlight: { level: 'adequate', label: '충분' },
-    water: { level: 'adequate', label: '알맞음' },
-    air: { level: 'clean', label: '깨끗함' },
-    soil: { level: 'initial', label: '기본 흙' },
+    sunlight: { value: 1 },
+    water: { value: 1 },
+    air: { value: 1 },
+    soil: { value: 1 },
   },
   initialOrganisms: [
     { instanceId: 'oak-01', speciesId: 'oak', position: { x: 0.25, y: 0.72 } },

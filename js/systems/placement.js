@@ -39,11 +39,12 @@ export function validatePlacement(state, speciesId, input, layout) {
 export function placeOrganism(state, speciesId, input, layout) {
   const result = validatePlacement(state, speciesId, input, layout);
   if (!result.ok) return result;
-  // At most 30 instances: a state-derived counter is sufficient and reload-safe.
-  let sequence = state.organisms.length + 1;
+  // Event history outlives consumed organisms, so never reuse an ID this session.
+  let sequence = state.nextInstanceSequence ?? state.organisms.length + 1;
   while (state.organisms.some(item => item.instanceId === `organism-${sequence}`)) sequence += 1;
   const instance = createOrganismInstance(speciesId, `organism-${sequence}`, input.position);
   state.organisms.push(instance);
+  state.nextInstanceSequence = sequence + 1;
   return { ok: true, instance };
 }
 

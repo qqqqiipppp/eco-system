@@ -132,7 +132,7 @@ const assert = require('node:assert/strict');
     assert.equal(perf.reads, 0);
     assert.equal(perf.maxPending, 1);
     for (const organism of (await state()).organisms) {
-      const expectedKeys = organism.speciesId === 'grass' ? ['foodStock', 'instanceId', 'position', 'speciesId'] : ['instanceId', 'position', 'speciesId'];
+      const expectedKeys = organism.speciesId === 'grass' ? ['foodStock', 'growth', 'instanceId', 'position', 'speciesId'] : organism.speciesId === 'oak' ? ['growth', 'instanceId', 'position', 'speciesId'] : ['instanceId', 'position', 'speciesId'];
       assert.deepEqual(Object.keys(organism).sort(), expectedKeys);
       assert(organism.position.x >= 0 && organism.position.x <= 1 && organism.position.y >= 0 && organism.position.y <= 1);
     }
@@ -141,7 +141,7 @@ const assert = require('node:assert/strict');
     await page.waitForTimeout(150);
     assert.deepEqual(await state(), reducedState);
     assert.equal(await page.locator('.organism-object').count(), 30);
-    assert.deepEqual((await state()).metrics, { stability: null, points: 0 });
+    assert.equal((await state()).metrics.points, 0); assert(Number.isFinite((await state()).metrics.stability));
     console.log('30-object structure:', JSON.stringify(perf));
     if (process.env.SCREENSHOT_PATH) await page.screenshot({ path: process.env.SCREENSHOT_PATH, fullPage: true });
     await page.reload({ waitUntil: 'networkidle' });

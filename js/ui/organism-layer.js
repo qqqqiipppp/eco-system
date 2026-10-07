@@ -90,6 +90,11 @@ export function createOrganismLayer(forest, getOrganisms) {
   function showState(instance) {
     const entry = nodes.get(instance.instanceId);
     if (!entry) return;
+    if (instance.growth !== undefined && entry.growth !== instance.growth) {
+      entry.image.style.transform = `scale(${0.65 + instance.growth * 0.35})`;
+      entry.image.style.transformOrigin = '50% 100%';
+      entry.growth = instance.growth;
+    }
     const eating = instance.behaviorState === 'eat';
     const depleted = foodResourceConfig[instance.speciesId] && instance.foodStock < foodResourceConfig[instance.speciesId].portion;
     if (entry.eating !== eating) { entry.anchor.classList.toggle('is-eating', eating); entry.eating = eating; }
@@ -150,6 +155,7 @@ export function createOrganismLayer(forest, getOrganisms) {
     add, remove, showSelection, showFeedback, readInput,
     showStates: instances => { for (const instance of instances) showState(instance); },
     getLayout: () => layout,
+    getEventAnchor: instanceId => nodes.get(instanceId)?.anchor,
     paintChanges: changed => { for (const { instance, direction } of changed) paint(instance, direction); },
     dispose() { observer.disconnect(); window.removeEventListener('resize', measure); clearTimeout(feedbackTimer); },
   };

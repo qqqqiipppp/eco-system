@@ -1,7 +1,9 @@
+import { advanceManagement, producerRecoveryMultiplier } from './management.js';
 import { foodRelations } from '../../data/food-relations.js';
 import { ecologyConfig, feedingConfig, foodResourceConfig } from '../../data/ecology-config.js';
 import { isPositionAllowed } from './placement.js';
 import { hasFoodStock, consumeFoodStock, recoverFoodStock } from './food-resources.js';
+import { updateProducerGrowth, animalActivity } from './environment.js';
 
 const distance = (a, b) => Math.hypot(a.position.x - b.position.x, a.position.y - b.position.y);
 const edibleSpecies = new Map();
@@ -110,7 +112,7 @@ export function createFeedingSystem() {
         context.result.removedIds.push(target.instanceId);
         diagnostics.predations += 1;
       }
-      context.result.feedingEvents.push({ consumerSpeciesId: instance.speciesId, foodSpeciesId: target.speciesId });
+      context.result.feedingEvents.push({ consumerSpeciesId: instance.speciesId, foodSpeciesId: target.speciesId, consumerInstanceId: instance.instanceId, foodInstanceId: target.instanceId });
       instance.hunger = Math.max(0, instance.hunger - feedingConfig[instance.speciesId].mealRelief);
       instance.lastSuccessfulFeedingAt = simulationTime;
       instance.foodShortageDuration = 0;
@@ -121,8 +123,13 @@ export function createFeedingSystem() {
   function tick(state, layout, result) {
     diagnostics.ticks += 1;
     simulationTime += ecologyConfig.tickSeconds;
+    advanceManagement(state, ecologyConfig.tickSeconds);
+    const recoveryMultiplier = producerRecoveryMultiplier(state);
     rebuildIndex(state);
-    for (const instance of state.organisms) recoverFoodStock(instance, ecologyConfig.tickSeconds);
+    for (const instance of state.organisms) {
+      updateProducerGrowth(instance, ecologyConfig.tickSeconds, state.environment, recoveryMultiplier);
+      recoverFoodStock(instance, ecologyConfig.tickSeconds, state.environment, recoveryMultiplier);
+    }
     // Snapshot iteration: predation may splice the live state during this tick.
     for (const instance of [...byId.values()]) {
       const config = feedingConfig[instance.speciesId];
@@ -164,8 +171,9 @@ export function createFeedingSystem() {
         accumulator -= ecologyConfig.tickSeconds;
         tick(state, layout, result);
       }
+      const activity = animalActivity(state.environment);
       for (const instance of state.organisms) {
-        if (instance.behaviorState === 'moveToFood' && move(instance, dt, layout)) result.moved.push({ instance, direction: instance.direction });
+        if (instance.behaviorState === 'moveToFood' && move(instance, dt * activity, layout)) result.moved.push({ instance, direction: instance.direction });
       }
       return result;
     },

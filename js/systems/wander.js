@@ -8,7 +8,7 @@ export function createWanderSystem(random = Math.random) {
   const motions = new Map();
   const between = ([min, max]) => min + random() * (max - min);
   return {
-    update(organisms, deltaSeconds, layout) {
+    update(organisms, deltaSeconds, layout, activity = 1) {
       const changed = [];
       const dt = Math.min(Math.max(deltaSeconds, 0), 0.1);
       for (const instance of organisms) {
@@ -29,8 +29,8 @@ export function createWanderSystem(random = Math.random) {
         }
         if (!motion.walking) continue;
         const position = {
-          x: instance.position.x + motion.dx * wanderConfig.speedX * dt,
-          y: instance.position.y + motion.dy * wanderConfig.speedY * dt,
+          x: instance.position.x + motion.dx * wanderConfig.speedX * dt * activity,
+          y: instance.position.y + motion.dy * wanderConfig.speedY * dt * activity,
         };
         if (!isPositionAllowed(instance.speciesId, position, layout)) {
           // Bounce within the same walk, then briefly stop if the corner is tight.

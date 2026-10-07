@@ -28,3 +28,12 @@
 .organism-debug{position:absolute;bottom:20px;left:0;min-width:150px;white-space:pre;background:#fff;color:#222;font:9px/1.4 monospace;z-index:10}
 @media(max-height:720px) and (min-width:801px){.forest{min-height:215px}}
 @media(max-width:800px){.card-list{grid-template-columns:repeat(6,minmax(105px,1fr))}}
+.metric.environment{position:relative}.metric.environment:hover{border-color:#52764b}
+#environment-open{position:absolute;inset:0;border:0;background:transparent;border-radius:15px;min-height:44px}
+.stability>div{flex:1;min-width:0}.stability p{font-size:18px}#stability-meter{width:100%;max-width:165px;height:8px;display:block;margin-top:8px;accent-color:#b7d895}
+#environment-dialog{width:min(490px,calc(100% - 28px));max-height:90vh;overflow:auto;border:1px solid #b8c6aa;border-radius:16px;padding:24px;color:var(--ink);background:var(--white)}
+#environment-dialog::backdrop{background:#16372388}.environment-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}.environment-heading h2{font-size:20px}#environment-close{min-height:44px;padding:8px 16px;border:1px solid #b8c6aa;border-radius:8px;background:#edf3df}
+#environment-dialog p{font-size:13px;line-height:1.7;margin:12px 0}#environment-dialog small{font-size:11px;color:#65765d}
+#environment-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}#environment-fields label{font-size:14px;font-weight:700}#environment-fields select{display:block;width:100%;min-height:44px;margin-top:6px;padding:8px;border:1px solid #b8c6aa;border-radius:8px;background:white;color:var(--ink);font:inherit}
+#stability-hint{padding:10px;background:#edf3df;border-radius:8px}
+@media(max-width:1050px){.stability p{font-size:15px}}
