@@ -153,6 +153,7 @@ export function createOrganismLayer(forest, getOrganisms) {
   measure();
   return {
     add, remove, showSelection, showFeedback, readInput,
+    reset() { remove([...nodes.keys()]); clearTimeout(feedbackTimer); feedback.hidden=true; keyboardPosition={x:0.4,y:0.72}; showSelection(null); },
     showStates: instances => { for (const instance of instances) showState(instance); },
     getLayout: () => layout,
     getEventAnchor: instanceId => nodes.get(instanceId)?.anchor,

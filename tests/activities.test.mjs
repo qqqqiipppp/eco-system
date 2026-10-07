@@ -50,7 +50,7 @@ test('unlock rejects missing species/inventory, wrong activity and incomplete ev
  for(const [id,activity]of [['missing','decomposer_classify'],['frog','decomposer_classify'],['frog','grass_observation']])assert.equal(unlockSpecies(s,id,activity).ok,false);
  assert.deepEqual(s,before);s.inventory=s.inventory.filter(c=>c.speciesId!=='mushroom');const next=structuredClone(s);assert.equal(completeActivity(s,'decomposer_classify','decomposer').ok,false);assert.deepEqual(s,next);
 });
-test('activity reward cannot be granted before completion; reload resets progress',()=>{
+test('activity reward cannot be granted before completion; fresh new-game state resets progress',()=>{
  const s=createGameState();assert.equal(grantReward(s,'activity','producer_quiz','producer_quiz'),0);s.simulationTime=9;completeActivity(s,'producer_quiz','grass');
  assert.equal(s.rewardHistory[0].rewardId,'activity:producer_quiz');assert.equal(s.activities[0].completedAt,9);assert.equal(createGameState().activities[0].completed,false);
 });

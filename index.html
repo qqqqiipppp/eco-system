@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="./css/placement.css">
   <link rel="stylesheet" href="./css/events.css">
   <link rel="stylesheet" href="./css/activities.css">
+  <link rel="stylesheet" href="./css/progress.css">
   <script type="module" src="./js/main.js"></script>
 </head>
 <body>
@@ -54,7 +55,7 @@
         <aside id="selection-panel" class="selection-panel" aria-label="선택한 생물 정보" aria-live="polite" aria-atomic="true"></aside>
       </div>
     </section>
-    <footer class="game-footer"><span>관찰 <i>→</i> 판단 <i>→</i> 상호작용 <i>→</i> 변화 확인</span><span>목표는 건강하고 안정적인 생태계예요.</span></footer>
+    <footer class="game-footer"><button id="goal-open" type="button"><span id="goal-label">숲 목표 살펴보기</span></button><span id="save-status" role="status">자동 저장 준비</span></footer>
   </main>
   <dialog id="environment-dialog" aria-labelledby="environment-title">
     <div class="environment-heading"><h2 id="environment-title">환경 살펴보기</h2><button id="environment-close" type="button">닫기</button></div>
@@ -72,6 +73,21 @@
     <p id="activity-conditions"></p><div id="activity-choices"></div>
     <p id="activity-result" role="status" aria-live="polite"></p>
     <button id="activity-close" type="button">숲으로 돌아가기</button>
+  </dialog>
+  <dialog id="goal-dialog" aria-labelledby="goal-title">
+    <h2 id="goal-title">숲을 안정적으로 운영해요</h2>
+    <p>관찰하고 배운 내용을 숲에 적용해 보세요.</p>
+    <label>숲의 학습·게임 진행 <progress id="forest-progress" max="100" value="0"></progress></label>
+    <ul id="goal-checks"></ul>
+    <label>안정 상태 유지 <progress id="hold-progress" max="1" value="0"></progress></label>
+    <p id="goal-status" role="status"></p>
+    <button id="goal-close" type="button">숲으로 돌아가기</button>
+    <button id="restart-open" type="button">처음부터 다시 하기</button>
+  </dialog>
+  <dialog id="restart-dialog" aria-labelledby="restart-title">
+    <h2 id="restart-title">처음부터 다시 할까요?</h2><p>현재 숲과 학습·발견·해금·클리어 기록이 모두 지워집니다.</p>
+    <button id="restart-cancel" type="button">취소</button><button id="restart-confirm" type="button">처음부터 시작</button>
+    <p id="restart-result" role="status"></p>
   </dialog>
   <noscript><p class="load-error">생물 카드를 보려면 브라우저에서 JavaScript를 켜 주세요.</p></noscript>
   <dialog id="event-dialog" aria-labelledby="event-title">

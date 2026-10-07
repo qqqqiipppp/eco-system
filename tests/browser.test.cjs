@@ -48,6 +48,9 @@ const assert = require('node:assert/strict');
     });
     assert.equal(await page.locator('.organism-card').count(), 6);
     assert.equal(await page.locator('.organism-card[data-species-id="rabbit"]').getAttribute('data-locked'), 'true');
+    await page.locator('#goal-open').click();
+    await page.locator('#restart-open').click();
+    await page.locator('#restart-confirm').click();
     await page.reload({ waitUntil: 'networkidle' });
 
     await tap(0.4, 0.72);
@@ -99,7 +102,7 @@ const assert = require('node:assert/strict');
       await page.waitForTimeout(100);
       assert.deepEqual(await state(), hiddenState);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
-      if (width >= 960) assert.equal(await page.evaluate(() => document.documentElement.scrollHeight > innerHeight), false);
+      if (width >= 960) assert.equal(await page.evaluate(() => document.documentElement.scrollHeight > innerHeight), false, `vertical overflow ${width}x${height}`);
       assert.equal(await page.evaluate(() => {
         const layer = document.querySelector('#organism-layer').getBoundingClientRect();
         return [...document.querySelectorAll('.organism-visual')].every(node => {
@@ -146,6 +149,9 @@ const assert = require('node:assert/strict');
     assert.equal((await state()).metrics.points, 0); assert(Number.isFinite((await state()).metrics.stability));
     console.log('30-object structure:', JSON.stringify(perf));
     if (process.env.SCREENSHOT_PATH) await page.screenshot({ path: process.env.SCREENSHOT_PATH, fullPage: true });
+    await page.locator('#goal-open').click();
+    await page.locator('#restart-open').click();
+    await page.locator('#restart-confirm').click();
     await page.reload({ waitUntil: 'networkidle' });
     await choose('mushroom');
     await page.locator('#placement-surface').focus();

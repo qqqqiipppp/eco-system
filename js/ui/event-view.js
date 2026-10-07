@@ -122,5 +122,5 @@ export function createEventView(state, scene, onAcknowledge, management = {optio
   document.querySelector('#observations-open').addEventListener('click',()=>document.querySelector('#observations-dialog').showModal());
   document.querySelector('#observations-close').addEventListener('click',()=>document.querySelector('#observations-dialog').close());
   window.addEventListener('resize',render);
-  return {render};
+  return {render,reset() { if(dialog.open)dialog.close();openId=null;shownStatus=null;inspected=false;managementSignature='';managementArea.replaceChildren();for(const entry of markers.values())entry.node.remove();markers.clear();render(); }};
 }

@@ -77,8 +77,8 @@ const assert=require('node:assert/strict');
    await page.waitForTimeout(4500);
    assert.equal((await snapshot(page)).events.filter(e=>e.key==='discovery:grass_to_grasshopper').length,1);
    assert.equal((await snapshot(page)).observations.length,1);
-   await page.reload({waitUntil:'networkidle'});assert.equal((await snapshot(page)).observations.length,0);
-   console.log('discovery: actual meal, explicit recording, no repeats, no persistence');await page.close();
+   await page.reload({waitUntil:'networkidle'});assert.equal((await snapshot(page)).observations.length,1);
+   console.log('discovery: actual meal, explicit recording, no repeats, persisted record');await page.close();
   }
   // F: 30 live animals with event conditions, existing organism DOM remains.
   {

@@ -70,7 +70,7 @@ test('E: 30 mixed organisms; low-frequency species-only searches and no natural 
   assert(stats.searches < stats.ticks * 20);
   assert(stats.candidateChecks < stats.searches * 30);
   assert(sim.state.organisms.length <= 30);
-  assert.deepEqual(sim.state.metrics, { stability: null, points: 0 });
+  assert.deepEqual(sim.state.metrics, { stability: null, points: 0, bestStability: 0 });
   console.log('E diagnostics:', stats, 'remaining:', sim.state.organisms.length);
 });
 test('depleted plant cannot be consumed, then recovers and is usable again', () => {

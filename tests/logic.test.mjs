@@ -52,7 +52,7 @@ test('duplicate species receive unique minimal instances; permissions survive; c
   assert.equal(placeOrganism(state, 'rabbit', input(), layout).reason, 'limit');
   assert.equal(new Set(state.organisms.map(item => item.instanceId)).size, 30);
   assert.deepEqual(state.inventory, inventory);
-  assert.deepEqual(state.metrics, { stability: null, points: 0 });
+  assert.deepEqual(state.metrics, { stability: null, points: 0, bestStability: 0 });
 });
 
 test('wander walks, pauses, reverses and stays inside screen rules; plants never move', () => {

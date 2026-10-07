@@ -16,9 +16,9 @@ for (const relation of foodRelations) {
 /** Low-frequency decisions plus lightweight pursuit movement. No DOM or timers.
  * All time is active simulation time; hidden tabs cannot accumulate hunger.
  */
-export function createFeedingSystem() {
+export function createFeedingSystem(initialTime = 0) {
   let accumulator = 0;
-  let simulationTime = 0;
+  let simulationTime = initialTime;
   let byId = new Map();
   let bySpecies = new Map();
   const timing = new Map();

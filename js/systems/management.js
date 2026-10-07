@@ -58,6 +58,7 @@ export function executeManagement(state,actionId,eventId) {
   state.metrics.points -= action.cost;
   state.managementCooldowns[key] = state.simulationTime+action.cooldown;
   state.managementHistory.push(record);
+  state.managementActionCount += 1;
   // Bounded session log; cooldowns and reward history are independent.
   if (state.managementHistory.length > 100) state.managementHistory.shift();
   const message = actionId === 'food-support' ? '임시 먹이 지원을 했어요. 원래 먹이가 부족하면 다시 배고파져요.' : actionId === 'habitat-care' ? '서식지 회복을 시작했어요. 식물의 변화를 천천히 살펴봐요.' : actionId === 'water-care' ? '물 환경을 한 단계 개선했습니다.' : '토양을 한 단계 돌보았습니다.';

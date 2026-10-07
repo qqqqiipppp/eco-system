@@ -6,12 +6,12 @@ import { producerGrowth, environmentFactors } from '../../data/environment-confi
 /** Actual ecology signals only. No DOM, wall-clock timers, random generation or
  * automatic discovery credit. A discovery is recorded by acknowledge().
  */
-export function createEventSystem() {
-  let time = 0, accumulated = 0, sequence = 0, checks = 0;
+export function createEventSystem(initialTime = 0, memory = {}) {
+  let time = initialTime, accumulated = 0, sequence = memory?.sequence || 0, checks = 0;
   const slowSince = new Map();
-  const cooldowns = new Map();
-  const questionDone = new Set();
-  const pendingDiscoveries = new Map();
+  const cooldowns = new Map(memory?.cooldowns || []);
+  const questionDone = new Set(memory?.questionDone || []);
+  const pendingDiscoveries = new Map(memory?.pendingDiscoveries || []);
   let hasConditions = false;
 
   function close(event, status) { event.status = status; event.closedAt = time; }
@@ -101,6 +101,7 @@ export function createEventSystem() {
       const reward = event.kind === 'insight' ? grantReward(state,'observation',event.payload.relationId,eventId) : event.kind === 'question' ? grantReward(state,'question',`producer_${event.payload.factor}_limit`,eventId) : 0;
       return { ok:true, message:(event.kind==='insight' ? '발견 기록에 남겼어요!' : '확인했어요. 숲의 변화를 계속 살펴봐요.') + (reward ? ` 생태계 포인트 ${reward}를 받았어요.` : '') };
     },
+    exportMemory: () => ({sequence,cooldowns:[...cooldowns],questionDone:[...questionDone],pendingDiscoveries:[...pendingDiscoveries]}),
     getDiagnostics: () => ({ checks, time }),
   };
 }

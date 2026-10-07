@@ -34,7 +34,7 @@ export function createUpdateLoop({ update, render, hasWork }) {
   document.addEventListener('visibilitychange', refresh);
   reducedMotion.addEventListener('change', refresh);
   return {
-    refresh,
+    refresh, stop,
     dispose() {
       disposed = true;
       stop();

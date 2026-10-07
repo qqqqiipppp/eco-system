@@ -9,18 +9,20 @@ import { createOrganismInstance } from './organism-instance.js';
  */
 export function createGameState() {
   return {
-    schemaVersion: 6,
+    schemaVersion: 7,
+    forestProgress: {cleared:false,clearedAt:null,stableSeconds:0},
     activities: activities.map(item => ({activityId:item.activityId,completed:false,attempts:0,completedAt:null})),
     simulationTime: 0,
     rewardHistory: [],
     managementHistory: [],
+    managementActionCount: 0,
     managementCooldowns: {},
     managementEffects: [],
     events: [],
     observations: [],
     nextInstanceSequence: forestDefinition.initialOrganisms.length + 1,
     ecosystemId: forestDefinition.id,
-    metrics: { stability: null, points: 0 },
+    metrics: { stability: null, points: 0, bestStability: 0 },
     environment: JSON.parse(JSON.stringify(forestDefinition.abiotic)),
     organisms: forestDefinition.initialOrganisms.map(item => createOrganismInstance(item.speciesId, item.instanceId, item.position)),
     inventory: organisms.map(({id:speciesId}) => ({ speciesId, acquired: forestDefinition.initialInventory.includes(speciesId) })),

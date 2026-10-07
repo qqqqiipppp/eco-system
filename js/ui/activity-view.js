@@ -23,5 +23,5 @@ export function createActivityView(state,onComplete) {
  }
  document.querySelector('#activities-open').addEventListener('click',()=>open());
  document.querySelector('#activity-close').addEventListener('click',()=>dialog.close());
- return {open,render};
+ return {open,render,reset() { if(dialog.open)dialog.close();current=null;signature='';choices.replaceChildren();status.textContent=''; }};
 }
