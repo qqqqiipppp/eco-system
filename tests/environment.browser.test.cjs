@@ -1,3 +1,4 @@
+const { dismissWelcome, useDeveloperEnvironment } = require('./fixtures.cjs');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const assert = require('node:assert/strict');
 (async()=>{
@@ -5,7 +6,7 @@ const assert = require('node:assert/strict');
  try {
   const page=await browser.newPage({viewport:{width:1138,height:712},hasTouch:true});
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
-  await page.goto(process.env.BASE_URL||'http://127.0.0.1:8080/',{waitUntil:'networkidle'});
+  await useDeveloperEnvironment(page); await page.goto(process.env.BASE_URL||'http://127.0.0.1:8080/',{waitUntil:'networkidle'}); await dismissWelcome(page);
   const state=()=>page.evaluate(async()=>structuredClone((await import('./js/main.js')).gameState));
   const initial=await state(); assert(Number.isFinite(initial.metrics.stability));
   assert.equal(await page.locator('.abiotic-status b').count(),4);

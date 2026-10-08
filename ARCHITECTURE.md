@@ -1,4 +1,4 @@
-# 현재 설계 — 1~8단계
+# 현재 설계 — 1~9단계
 
 ## 핵심 책임
 
@@ -36,7 +36,7 @@ metrics.bestStability는 최고값만 유지합니다. 진행률은 관찰20/핵
 
 - services/save-format.js: 버전 7 스냅샷의 whitelist 생성과 검증/정리. 도메인 전체를 그대로 stringify하지 않습니다.
 - services/save-service.js: 로드, 저장 요청 병합, flush, reset, 오류 상태. adapter를 주입받습니다.
-- adapters/local-storage.js: 유일한 localStorage 접근 지점. key는 eco-system:forest-save.
+- adapters/local-storage.js: 게임 저장의 localStorage 접근 지점. key는 eco-system:forest-save. 안내 선호는 별도 guide-preference adapter가 담당합니다.
 - ui/forest-view.js: 목표/저장 문구/초기화 확인. 저장 데이터를 직접 쓰지 않습니다.
 
 저장 외피는 schemaVersion=7, savedAt(ISO 실제 저장 시각), domain, eventMemory입니다. domain.schemaVersion도 7입니다. savedAt은 게임 계산에 사용하지 않습니다.
@@ -76,3 +76,37 @@ pagehide와 hidden 전환에서 동기 최종 flush를 시도합니다. 저장 �
 services/progress-summary.js의 createProgressSummary(state,lastUpdated)는 상태를 변경하지 않는 순수 함수입니다. theme/progress/cleared/카드·활동·관찰 수/누적 관리 횟수/currentStability/bestStability/lastUpdated/schemaVersion을 반환하며 studentId=null입니다. lastUpdated에는 saveService.getSavedAt()을 전달할 수 있습니다. 학생 이름/번호를 만들지 않고 전송하지 않습니다.
 
 저장 서비스의 read/write/remove adapter와 진행 요약은 별도 책임입니다. 미래 remote adapter 또는 관리자 연동은 이 경계를 사용하되 지금 빈 원격 모듈은 없습니다. 다음 테마·분해·번식·오염·새 먹이그물은 이번 범위 밖입니다.
+
+## 9단계 안내와 목표 표시
+
+`game state → 기존 forest goal evaluation → 목표 UI`
+
+systems/goal-guidance.js의 goalPresentation은 기존 evaluateForestGoal의 다섯 check와 forestProgress의 실제 연속 유지/클리어를 여섯 학생 목표로 표현합니다. forest-goal 설정에서 관찰·활동·종·환경 기준·70점·30초를 읽고 부족한 실제 이름과 수를 계산합니다. 목표 UI용 새 도메인 기록은 없습니다. 이미 클리어한 뒤 현재 조건이 악화하면 현재 조건은 미달성으로 표시하면서 달성 이력은 보존합니다.
+
+nextAction은 현재 카드/개체, 실제 발견 후보·관찰, 완료 활동, 환경, 포인트, 실제 먹이 부족, 기존 안정도 hint를 읽는 순수 함수입니다. 최초 보상을 받을 수 있는 질문과 미완료 활동을 안내하고 잠긴 개구리의 선행 관찰을 설명합니다. 한 번에 한 문장만 표시합니다. stability 공식·goal 판정·활동 조건을 별도로 복제하지 않습니다.
+
+ui/forest-view.js는 여섯 행의 DOM을 한 번 만들고 바뀐 문구와 체크만 갱신합니다. 기본 화면에는 한 줄 목표 수와 상세 버튼을 두고 기존 사이드 영역에 다음 행동을 표시합니다. 별도 갱신 loop를 추가하지 않고 기존 dashboard refresh 경로를 사용합니다.
+
+ui/help-view.js는 새 게임 목적/조작 안내와 재열기를 담당합니다. main.js가 restored.status==='new'일 때만 최초 자동 표시를 요청합니다. 닫기·Escape·건너뛰기도 확인으로 처리합니다. adapters/guide-preference.js는 선택적인 UI key eco-system:forest-guide-seen만 읽고 쓰며 오류가 게임 실행을 중단시키지 않습니다. schemaVersion 7 도메인 저장과 독립적입니다.
+
+## 9단계 환경 관찰과 유료 회복
+
+`환경 변화 또는 관리 행동 → environment system → 생태계 상태 → 이벤트/안정도`
+
+학생 UI는 environment 조회 가능 / 무료 직접 변경 불가입니다. ui/environment-panel.js는 qualityLabel로 네 상태와 실제 효과를 보여줍니다. main.js의 기존 무료 조절 callback을 제거했으며 UI에서 setEnvironmentLevel 또는 environment 필드 쓰기를 하지 않습니다. 환경은 기존 가중 생산자 적합도·먹이 회복·공기 활동 배율에 계속 연결됩니다.
+
+물/토양/먹이 지원/서식지 회복 네 관리 행동은 기존 event payload → management 검증 흐름을 유지합니다. 이전 저장의 나쁜 햇빛·공기를 복원할 길이 없던 문제는 사용자 승인에 따라 기존 habitat-care만 최소 보완했습니다. 데이터 effect.recoveryFactors와 minimumRecoveryValue로 대상과 기준을 분리했습니다. 나쁜 요소 하나를 normal로 올리며 8포인트·공유 cooldown 75초·생산자 회복 배율 1.35/60초는 기존 값을 유지합니다.
+
+햇빛/공기는 기존 실제 alert에서 회복할 수도 있고 읽기 전용 환경 패널에서 명시적인 유료 회복을 요청할 수도 있습니다. 후자는 `{sourceType:'environment',sourceId:factor}`를 management에 전달하고 검증된 요청 맥락만 내부 구성합니다. 신규 이벤트를 state에 삽입하지 않습니다. action/허용 요소/실제 나쁜 값/존재/비용/대기를 먼저 검증한 후 environment API로 상태를 바꿉니다. event.status를 강제로 해결하지 않습니다. 기존 물/토양 실제 해결 보상은 유지하되 햇빛/공기에 새 해결 보상을 만들지 않습니다.
+
+save-format은 관리 기록의 factor를 기존 네 알려진 환경 key로 검증하도록 확장했습니다. 기존 optional factor/valueAfter 필드를 재사용하고 schema/key를 유지합니다. 로드할 때 나쁜 요소를 몰래 개선하지 않습니다. 저장 당시 진행/카드/활동/보상/클리어를 유지합니다.
+
+## 개발 테스트 경계와 후속 연결
+
+`별도의 개발 경계 → environment 변경 가능`
+
+js/dev/environment-tools.js는 기존 네 환경 비교 선택창을 environment API와 연결하는 명시적 설치 함수입니다. production main.js가 import하지 않고 전역 객체/URL 매개변수/학생 토글도 없습니다. tests/fixtures.cjs가 테스트용 main 응답에만 해당 import와 설치를 삽입하고 기존 event/stability/goal/render/save 갱신을 호출합니다. 예전 비교 검사는 이 경계를 사용하며 새 학생 경로 검사는 일반 앱을 사용합니다. 이는 정적 클라이언트의 인증 체계가 아니라 제공되는 학생 조작 경계입니다.
+
+10단계 23종 확장은 data/organisms.js, forest의 카드 초기 목록, ecology/environment 설정, activities/event 관계 정의에서 시작합니다. 인스턴스/placement/layer/카드/해금/저장은 현재 알려진 종 데이터와 시스템 경계를 활용합니다. 새 먹이 관계가 생기면 실제 ecology와 discovery 정의, 표시 이름, forest-goal 조건을 함께 검토해야 합니다. 모든 종이 현재 소비자 AI를 자동으로 갖는다고 가정하지 않습니다. 저장 종 검증과 진행 요약도 함께 검사합니다.
+
+12단계 환경 변화는 기존 environment API를 통해 연결하고 15단계 유지시간은 forest-goal 설정에서 조정할 수 있습니다. 이번에는 날씨·위기·분해·번식·종 확대·관리자 UI/원격 서비스를 구현하지 않습니다. 최초 보상이 전부 소진된 저포인트 저장은 여전히 유료 관리가 막힐 수 있으므로 후속 경제 설계에서 별도 제한 회복 보상 등을 검토해야 합니다.

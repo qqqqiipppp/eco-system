@@ -1,8 +1,9 @@
+const { dismissWelcome, useDeveloperEnvironment } = require('./fixtures.cjs');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');const assert=require('node:assert/strict');
 (async()=>{const browser=await chromium.launch({channel:'msedge',headless:true});try{
  const page=await browser.newPage({viewport:{width:1138,height:712},hasTouch:true});const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.addInitScript(()=>{window.intervals=0;const original=setInterval;window.setInterval=(...args)=>{window.intervals++;return original(...args)}});
- await page.goto(process.env.BASE_URL||'http://127.0.0.1:8081/',{waitUntil:'networkidle'});
+ await useDeveloperEnvironment(page); await page.goto(process.env.BASE_URL||'http://127.0.0.1:8081/',{waitUntil:'networkidle'}); await dismissWelcome(page);
  const state=()=>page.evaluate(async()=>structuredClone((await import('./js/main.js')).gameState));
  const card=id=>page.locator(`.organism-card[data-species-id="${id}"]`);
  const tap=async(x,y)=>{const b=await page.locator('#placement-surface').boundingBox();await page.touchscreen.tap(b.x+x*b.width,b.y+y*b.height)};
@@ -27,7 +28,11 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');const asse
  assert.equal((await state()).organisms.filter(o=>o.speciesId==='frog').length,1);
  await page.locator('.event-insight[aria-label*="개구리"]').waitFor({timeout:40000});
  const predation=await state();assert(predation.organisms.filter(o=>o.speciesId==='grasshopper').length<preyBefore);console.log('D: unlocked frog placed and real predation produces next discovery');
- await card('rabbit').tap();await page.emulateMedia({reducedMotion:'reduce'});
+ // Record the real predation marker before the population test: tapping an
+ // active marker correctly opens its modal instead of placing another animal.
+ await page.emulateMedia({reducedMotion:'reduce'});
+ await page.locator('.event-insight[aria-label*="개구리"]').tap();await page.getByRole('button',{name:'살펴보기',exact:true}).click();await page.getByRole('button',{name:'발견 기록하기',exact:true}).click();await page.locator('#event-close').click();
+ await card('rabbit').tap();
  for(let i=0;i<35&&(await state()).organisms.length<30;i++)await tap(.13+(i%8)*.065,.64+(i%3)*.035);
  assert.equal((await state()).organisms.length,30);await page.emulateMedia({reducedMotion:'no-preference'});
  await page.locator('#activities-open').tap();await page.evaluate(()=>{window.nodes=[...document.querySelectorAll('.organism-object')];window.reads=0;const original=Element.prototype.getBoundingClientRect;Element.prototype.getBoundingClientRect=function(){window.reads++;return original.call(this)}});

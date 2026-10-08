@@ -1,10 +1,11 @@
+const { dismissWelcome, useDeveloperEnvironment } = require('./fixtures.cjs');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');const assert=require('node:assert/strict');
 const BASE=process.env.BASE_URL||'http://127.0.0.1:8082/eco-system/';const KEY='eco-system:forest-save';
 (async()=>{const browser=await chromium.launch({channel:'msedge',headless:true});const errors=[];const contexts=[];
  const snapshot=p=>p.evaluate(async()=>structuredClone((await import('./js/main.js')).gameState));
  async function setup(raw,reduce=true){const c=await browser.newContext({viewport:{width:1138,height:712},hasTouch:true,reducedMotion:reduce?'reduce':'no-preference'});contexts.push(c);
   await c.addInitScript(({raw,key})=>{if(raw!==undefined&&!sessionStorage.getItem('seeded')){localStorage.setItem(key,raw);sessionStorage.setItem('seeded','yes')}window.writes=0;const original=Storage.prototype.setItem;Storage.prototype.setItem=function(...args){if(this===localStorage)window.writes++;return original.apply(this,args)};},{raw,key:KEY});
-  const p=await c.newPage();p.on('pageerror',e=>errors.push(e.message));p.on('response',r=>{if(r.status()>=400)errors.push(`${r.status()} ${r.url()}`)});await p.goto(BASE,{waitUntil:'networkidle'});return p;}
+  const p=await c.newPage();p.on('pageerror',e=>errors.push(e.message));p.on('response',r=>{if(r.status()>=400)errors.push(`${r.status()} ${r.url()}`)});await useDeveloperEnvironment(p); await p.goto(BASE,{waitUntil:'networkidle'}); await dismissWelcome(p);return p;}
  async function environment(p,factor,level){await p.locator('#environment-open').click();await p.getByLabel(`${factor} 상태`,{exact:true}).selectOption(level);await p.locator('#environment-close').click();}
  async function place(p,id,x=.4,y=.72){await p.locator(`.organism-card[data-species-id="${id}"]`).tap();const box=await p.locator('#placement-surface').boundingBox();await p.touchscreen.tap(box.x+x*box.width,box.y+y*box.height);}
  async function seedSnapshot(p,count=12){return p.evaluate(async(count)=>{
@@ -64,9 +65,9 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8082/eco-system/';const KEY='
   const profile=fs.mkdtempSync(path.join(os.tmpdir(),'eco-system-save-'));
   try {
     let persistent=await chromium.launchPersistentContext(profile,{channel:'msedge',headless:true,reducedMotion:'reduce'});
-    let tab=await persistent.newPage();await tab.goto(BASE,{waitUntil:'networkidle'});await tab.locator('#activities-open').click();await tab.locator('[data-answer="grass"]').click();await tab.waitForTimeout(1500);assert.equal((await snapshot(tab)).metrics.points,3);await persistent.close();
+    let tab=await persistent.newPage();await useDeveloperEnvironment(tab); await tab.goto(BASE,{waitUntil:'networkidle'}); await dismissWelcome(tab);await tab.locator('#activities-open').click();await tab.locator('[data-answer="grass"]').click();await tab.waitForTimeout(1500);assert.equal((await snapshot(tab)).metrics.points,3);await persistent.close();
     persistent=await chromium.launchPersistentContext(profile,{channel:'msedge',headless:true,reducedMotion:'reduce'});
-    tab=await persistent.newPage();await tab.goto(BASE,{waitUntil:'networkidle'});assert.equal((await snapshot(tab)).metrics.points,3);assert((await snapshot(tab)).activities.find(a=>a.activityId==='producer_quiz').completed);await persistent.close();
+    tab=await persistent.newPage();await useDeveloperEnvironment(tab); await tab.goto(BASE,{waitUntil:'networkidle'}); await dismissWelcome(tab);assert.equal((await snapshot(tab)).metrics.points,3);assert((await snapshot(tab)).activities.find(a=>a.activityId==='producer_quiz').completed);await persistent.close();
   } finally {
     const root=fs.realpathSync(os.tmpdir()),target=fs.realpathSync(profile);
     if(target.startsWith(root+path.sep)&&path.basename(target).startsWith('eco-system-save-'))fs.rmSync(target,{recursive:true,force:true});

@@ -1,3 +1,5 @@
+import { createHelpView } from './ui/help-view.js';
+import { createGuideAdapter } from './adapters/guide-preference.js';
 import { updateForestGoal } from './systems/forest-progress.js';
 import { createSaveService } from './services/save-service.js';
 import { createLocalAdapter } from './adapters/local-storage.js';
@@ -11,7 +13,7 @@ import { createUpdateLoop } from './systems/update-loop.js';
 import { speciesProfiles } from '../data/interaction-config.js';
 import { createFeedingSystem } from './systems/feeding.js';
 import { foodResourceConfig } from '../data/ecology-config.js';
-import { growthSuitability, animalActivity, setEnvironmentLevel } from './systems/environment.js';
+import { growthSuitability, animalActivity } from './systems/environment.js';
 import { createStabilitySystem } from './systems/stability.js';
 import { bindEnvironmentPanel } from './ui/environment-panel.js';
 import { ecologyConfig } from '../data/ecology-config.js';
@@ -20,7 +22,7 @@ import { createEventSystem } from './systems/events.js';
 import { createEventView } from './ui/event-view.js';
 import { completeActivity } from './systems/activities.js';
 import { createActivityView } from './ui/activity-view.js';
-import { executeManagement, availableManagement } from './systems/management.js';
+import { executeManagement, availableManagement, availableEnvironmentalRecovery } from './systems/management.js';
 
 // Module exports support integration checks; there is no global debug API.
 export const gameState = createGameState();
@@ -38,6 +40,7 @@ try {
   let wander = createWanderSystem();
   let lastCheckpoint = gameState.simulationTime;
   const forestView = createForestView(gameState,restartGame);
+  const helpView = createHelpView(createGuideAdapter());
   function refreshProgress(seconds=0) {
     const cleared=updateForestGoal(gameState,seconds);
     forestView.render();
@@ -99,7 +102,7 @@ try {
       scene.remove(result.removedIds);
       scene.paintChanges(result.moved);
       if (result.ticked) scene.showStates(result.updated);
-      if (result.ticked) { renderDashboard(gameState); activityView.render(); }
+      if (result.ticked) { renderDashboard(gameState); activityView.render(); environmentPanel.render(); }
       if (result.eventTicked || result.removedIds.length) eventView.render();
       if (result.feedingEvents.length) scene.showFeedback(feedingFeedback(result.feedingEvents), true);
     },
@@ -131,16 +134,15 @@ try {
     loop.refresh();
   });
   stabilitySystem.update(gameState);
-  bindEnvironmentPanel(gameState, (factor, level) => {
-    if (!setEnvironmentLevel(gameState, factor, level)) return;
-    saveService.schedule();
-    stabilitySystem.update(gameState);
-    refreshProgress();
-    renderDashboard(gameState);
-    eventSystem.refresh(gameState);
-    eventView.render();
-    loop.refresh();
+  const environmentPanel = bindEnvironmentPanel(gameState, {
+    options:()=>availableEnvironmentalRecovery(gameState),
+    execute:factor=>{
+      const response=executeManagement(gameState,'habitat-care',{sourceType:'environment',sourceId:factor});
+      if(response.ok){eventSystem.refresh(gameState);stabilitySystem.update(gameState);refreshProgress();renderDashboard(gameState);eventView.render();saveService.schedule();loop.refresh();}
+      return response;
+    },
   });
+  // Development harness installs its environment controls at this explicit boundary.
   renderDashboard(gameState);
   renderCards(gameState, selectSpecies, openLockedActivity);
   renderSelection(uiState, clearSelection);
@@ -165,6 +167,7 @@ try {
     return true;
   }
   loop.refresh();
+  helpView.showForNewGame(restored.status === 'new');
 } catch (error) {
   document.querySelector('#load-error').hidden = false;
   console.error('Forest screen initialization failed.', error);

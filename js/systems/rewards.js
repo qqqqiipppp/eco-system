@@ -16,7 +16,7 @@ export function grantReward(state, category, semanticId, sourceId) {
 
 export function rewardResolvedManagement(state) {
   for (const record of state.managementHistory) {
-    if (record.result !== 'applied' || !record.factor) continue;
+    if (record.result !== 'applied' || !['water','soil'].includes(record.factor)) continue;
     const event = state.events.find(item => item.eventId === record.sourceEventId);
     if (event?.status !== 'resolved') continue;
     // A later free environment comparison must not be credited as this action.

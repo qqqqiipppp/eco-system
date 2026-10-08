@@ -13,20 +13,21 @@
   <link rel="stylesheet" href="./css/events.css">
   <link rel="stylesheet" href="./css/activities.css">
   <link rel="stylesheet" href="./css/progress.css">
+  <link rel="stylesheet" href="./css/guidance.css">
   <script type="module" src="./js/main.js"></script>
 </head>
 <body>
   <main class="game-shell">
     <header class="app-header">
       <div class="brand"><img src="./assets/images/leaf.svg" width="38" height="38" alt=""><div><h1>작은 숲 연구소</h1><p>4학년 과학 · 생물과 환경</p></div></div>
-      <div class="header-actions"><button id="activities-open" type="button">배움</button><button id="observations-open" type="button">발견 기록 <span id="observation-count">0</span></button></div>
+      <div class="header-actions"><button id="help-open" type="button">도움말</button><button id="activities-open" type="button">배움</button><button id="observations-open" type="button">발견 기록 <span id="observation-count">0</span></button></div>
     </header>
 
     <section class="dashboard" aria-label="나의 생태계 상태">
       <div class="metric stability"><span class="metric-icon" aria-hidden="true">♡</span><div><h2>생태계 안정도</h2><p id="stability-value">관찰 준비</p><progress id="stability-meter" max="100" value="0" aria-label="생태계 안정도"></progress></div></div>
       <div class="metric"><span class="metric-icon point-icon" aria-hidden="true">✦</span><div><h2>생태계 포인트</h2><p><span id="points-value">0</span><small> P</small></p><span class="metric-caption">관찰과 배움으로 얻어요</span></div></div>
       <div class="metric"><span class="metric-icon" aria-hidden="true">❧</span><div><h2>생물 다양성</h2><p><span id="diversity-value">2</span><small>종</small></p><span class="metric-caption">숲에 있는 생물의 종류</span></div></div>
-      <div class="metric environment"><span class="metric-icon sun-icon" aria-hidden="true">☀</span><div><h2>현재 환경 상태 · 살펴보기 ›</h2><p id="environment-value">맑은 숲</p><span class="metric-caption">눌러서 환경을 비교해 보세요</span></div><button id="environment-open" type="button" aria-label="환경 살펴보기"></button></div>
+      <div class="metric environment"><span class="metric-icon sun-icon" aria-hidden="true">☀</span><div><h2>현재 환경 상태 · 살펴보기 ›</h2><p id="environment-value">맑은 숲</p><span class="metric-caption">눌러서 환경을 관찰해요</span></div><button id="environment-open" type="button" aria-label="환경 살펴보기"></button></div>
     </section>
 
     <section class="forest" aria-labelledby="forest-title">
@@ -40,8 +41,8 @@
 
       <aside class="observation" data-scene-ui aria-labelledby="observation-title">
         <span class="observation-tag">살펴보기</span>
-        <h3 id="observation-title">누가 누구를<br>먹을까요?</h3>
-        <p><strong>풀 → 메뚜기 → 개구리</strong><br>화살표는 먹히는 생물에서<br>먹는 생물로 향해요.</p>
+        <h3 id="observation-title">지금 해 볼 일</h3>
+        <p id="next-action">메뚜기를 풀 가까이에 놓아 주세요.</p>
         <div class="observation-footer">풀, 메뚜기, 개구리를 놓고<br>먹이를 찾는 모습을 살펴보세요.</div>
       </aside>
       <span class="soil-label" data-scene-ui>흙 <span>뿌리를 지탱하고, 물과 양분을 품어요</span></span>
@@ -55,14 +56,14 @@
         <aside id="selection-panel" class="selection-panel" aria-label="선택한 생물 정보" aria-live="polite" aria-atomic="true"></aside>
       </div>
     </section>
-    <footer class="game-footer"><button id="goal-open" type="button"><span id="goal-label">숲 목표 살펴보기</span></button><span id="save-status" role="status">자동 저장 준비</span></footer>
+    <footer class="game-footer"><button id="goal-open" type="button"><span id="goal-label">🌲 숲 생태계 목표</span> <span id="goal-count">0/6개 달성</span></button><span id="save-status" role="status">자동 저장 준비</span></footer>
   </main>
   <dialog id="environment-dialog" aria-labelledby="environment-title">
     <div class="environment-heading"><h2 id="environment-title">환경 살펴보기</h2><button id="environment-close" type="button">닫기</button></div>
-    <p>상태를 바꾸고 숲의 변화를 관찰해 보세요.</p>
-    <div id="environment-fields"></div>
+    <p>현재 상태를 관찰해요. 환경 문제는 !에서 원인을 보고 생태계 포인트로 관리해요.</p>
+    <div id="environment-fields"></div><div id="environment-recovery"></div><p id="environment-result" role="status"></p>
     <p>햇빛·물·공기·토양은 식물의 성장과 먹이 회복에 영향을 줘요. 공기가 나쁘면 동물도 천천히 움직여요.</p>
-    <p>변화는 서서히 나타나요. 좋은 환경으로 바꾸면 식물이 다시 회복해요.</p>
+    <p>물·햇빛 부족과 나쁜 토양은 식물의 회복에 불리해요. 관리 결과는 기존 생태 규칙에 따라 서서히 나타나요.</p>
     <p id="stability-hint" role="status"></p>
     <p id="management-status" role="status"></p>
     <small>안정도는 이 게임에서 숲의 균형을 살펴보는 기준이에요.</small>
@@ -75,11 +76,11 @@
     <button id="activity-close" type="button">숲으로 돌아가기</button>
   </dialog>
   <dialog id="goal-dialog" aria-labelledby="goal-title">
-    <h2 id="goal-title">숲을 안정적으로 운영해요</h2>
+    <h2 id="goal-title">숲 생태계 완성 목표</h2>
     <p>관찰하고 배운 내용을 숲에 적용해 보세요.</p>
     <label>숲의 학습·게임 진행 <progress id="forest-progress" max="100" value="0"></progress></label>
     <ul id="goal-checks"></ul>
-    <label>안정 상태 유지 <progress id="hold-progress" max="1" value="0"></progress></label>
+    <label><span id="hold-label">최종 안정 상태 30초 유지</span> <progress id="hold-progress" max="1" value="0"></progress></label>
     <p id="goal-status" role="status"></p>
     <button id="goal-close" type="button">숲으로 돌아가기</button>
     <button id="restart-open" type="button">처음부터 다시 하기</button>
@@ -88,6 +89,19 @@
     <h2 id="restart-title">처음부터 다시 할까요?</h2><p>현재 숲과 학습·발견·해금·클리어 기록이 모두 지워집니다.</p>
     <button id="restart-cancel" type="button">취소</button><button id="restart-confirm" type="button">처음부터 시작</button>
     <p id="restart-result" role="status"></p>
+  </dialog>
+  <dialog id="help-dialog" aria-labelledby="help-title">
+    <button id="help-close" type="button" aria-label="도움말 닫기">닫기</button>
+    <section id="help-purpose"><h2 id="help-title">나만의 숲 생태계 만들기</h2>
+      <p><strong>게임 목표</strong><br>여러 생물이 함께 살아갈 수 있는 안정적인 숲을 만들어요.</p>
+      <p><strong>학습 목표</strong><br>생물과 환경, 생물의 역할과 먹이 관계를 알아봐요.</p>
+      <p>생물을 배치하고 관찰해요. 발견을 기록하고, 포인트로 숲의 문제를 돌봐요.</p>
+      <button id="help-start" type="button">게임 시작하기</button>
+    </section>
+    <section id="help-controls" hidden><h2>기본 조작</h2><ol>
+      <li>생물 카드를 터치하고 숲에 놓아요.</li><li>생물이 먹이를 찾는 모습을 관찰해요.</li><li>💡를 눌러 발견을 기록해요.</li><li>잠긴 카드와 배움에서 다음 생물을 해금해요.</li><li>!의 원인을 보고 포인트로 관리해요.</li>
+    </ol><p>숲 목표에서 부족한 조건과 30초 유지 도전을 확인해요.</p><button id="help-finish" type="button">숲으로 가기</button></section>
+    <button id="help-skip" type="button">안내 건너뛰기</button>
   </dialog>
   <noscript><p class="load-error">생물 카드를 보려면 브라우저에서 JavaScript를 켜 주세요.</p></noscript>
   <dialog id="event-dialog" aria-labelledby="event-title">

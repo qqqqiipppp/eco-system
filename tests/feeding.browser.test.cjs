@@ -1,3 +1,4 @@
+const { dismissWelcome } = require('./fixtures.cjs');
 const { useUnlockedCards } = require('./fixtures.cjs');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const assert = require('node:assert/strict');
@@ -17,7 +18,7 @@ const assert = require('node:assert/strict');
       await route.fulfill({ response, body });
     });
     await useUnlockedCards(page);
-    await page.goto(process.env.BASE_URL || 'http://127.0.0.1:8080/', { waitUntil: 'networkidle' });
+    await page.goto(process.env.BASE_URL || 'http://127.0.0.1:8080/', { waitUntil: 'networkidle' }); await dismissWelcome(page);
     await page.emulateMedia({ reducedMotion: 'reduce' });
     const snapshot = () => page.evaluate(async () => {
       const { gameState, feedingSystem } = await import('./js/main.js');

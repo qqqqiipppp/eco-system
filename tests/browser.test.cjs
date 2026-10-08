@@ -1,3 +1,4 @@
+const { dismissWelcome } = require('./fixtures.cjs');
 const { useUnlockedCards } = require('./fixtures.cjs');
 // Requires Playwright and a local static server; no application dependencies.
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
@@ -26,7 +27,7 @@ const assert = require('node:assert/strict');
       Element.prototype.getBoundingClientRect = function () { window.loopStats.reads++; return bounds.call(this); };
     });
     await useUnlockedCards(page);
-    await page.goto(process.env.BASE_URL || 'http://127.0.0.1:8080/', { waitUntil: 'networkidle' });
+    await page.goto(process.env.BASE_URL || 'http://127.0.0.1:8080/', { waitUntil: 'networkidle' }); await dismissWelcome(page);
     const state = () => page.evaluate(async () => structuredClone((await import('./js/main.js')).gameState));
     const count = async () => (await state()).organisms.length;
     const choose = id => page.locator(`.organism-card[data-species-id="${id}"]`).tap();

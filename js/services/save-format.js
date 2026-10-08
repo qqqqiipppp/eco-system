@@ -105,8 +105,8 @@ export function decodeSave(raw) {
  });
  state.managementHistory=array(d.managementHistory,100).flatMap(item=>{
   const rule=managementActions.find(rule=>rule.actionId===item?.actionId);if(!rule){repaired=true;return [];}
-  const record={actionId:rule.actionId,sourceEventId:text(item.sourceEventId),sourceId:text(item.sourceId),executedAt:time(item.executedAt),cost:rule.cost,result:['resolved','changed-elsewhere','interrupted'].includes(item.result)?item.result:item.result==='applied'&&!['water','soil'].includes(item.factor)?'applied':'interrupted'};
-  if(['water','soil'].includes(item.factor)){record.factor=item.factor;record.valueAfter=number(item.valueAfter,0,1);}
+  const record={actionId:rule.actionId,sourceEventId:text(item.sourceEventId),sourceId:text(item.sourceId),executedAt:time(item.executedAt),cost:rule.cost,result:['resolved','changed-elsewhere','interrupted'].includes(item.result)?item.result:item.result==='applied'&&!Object.hasOwn(environmentFactors,item.factor)?'applied':'interrupted'};
+  if(Object.hasOwn(environmentFactors,item.factor)){record.factor=item.factor;record.valueAfter=number(item.valueAfter,0,1);}
   return [record];
  });
  state.managementActionCount=Math.max(state.managementHistory.length,Math.floor(number(d.managementActionCount,0,1e9,state.managementHistory.length)));
