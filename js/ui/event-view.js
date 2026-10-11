@@ -1,4 +1,4 @@
-import { eventConfig, discoveryEvents } from '../../data/event-config.js';
+import { eventConfig, discoveryEvents, eventPriority } from '../../data/event-config.js';
 const symbols = { alert:'!', question:'?', insight:'💡' };
 
 /** Markers follow existing organism anchors. Rules and mutations stay in systems. */
@@ -78,7 +78,7 @@ export function createEventView(state, scene, onAcknowledge, management = {optio
   function render() {
     const selected=[]; const sources=new Set(); const positions=[];
     const layout=scene.getLayout();
-    const active=state.events.filter(event=>event.status==='active').sort((a,b)=>eventConfig.priority[b.kind]-eventConfig.priority[a.kind] || a.createdAt-b.createdAt);
+    const active=state.events.filter(event=>event.status==='active').sort((a,b)=>eventPriority(b)-eventPriority(a) || a.createdAt-b.createdAt);
     for(const event of active) {
       if(selected.length>=eventConfig.maxVisible) break;
       const source=`${event.sourceType}:${event.sourceId}`;

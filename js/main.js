@@ -60,6 +60,7 @@ try {
   });
   function openLockedActivity(activityId) {
     clearSelection();
+    if(!activityId){scene.showFeedback('이 카드는 추후 해금 예정이에요. 지금은 획득한 생물로 숲 목표를 진행해요.',false);return;}
     activityView.open(activityId);
   }
   const eventView = createEventView(gameState, scene, (eventId, answer) => {

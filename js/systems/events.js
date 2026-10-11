@@ -1,4 +1,5 @@
-import { eventConfig, shortageEvents, discoveryEvents, growthInvestigation } from '../../data/event-config.js';
+import { eventConfig, shortageEvents, discoveryEvents, growthInvestigation, eventPriority } from '../../data/event-config.js';
+import {relationFor} from '../../data/food-relations.js';
 import { growthSuitability, factorValue } from './environment.js';
 import { grantReward, rewardResolvedManagement } from './rewards.js';
 import { producerGrowth, environmentFactors } from '../../data/environment-config.js';
@@ -57,7 +58,7 @@ export function createEventSystem(initialTime = 0, memory = {}) {
         event.sourceId = candidate.sourceId; event.sourceType = candidate.sourceType;
       }
     }
-    const ordered = [...candidates.values()].sort((a,b)=>eventConfig.priority[b.kind]-eventConfig.priority[a.kind]);
+    const ordered = [...candidates.values()].sort((a,b)=>eventPriority(b)-eventPriority(a));
     for (const candidate of ordered) {
       if (active.has(candidate.key) || time < (cooldowns.get(candidate.key) || 0) || active.size >= eventConfig.maxActive) continue;
       const event = { ...candidate, eventId: `event-${++sequence}`, status: 'active', createdAt: time };
@@ -75,8 +76,8 @@ export function createEventSystem(initialTime = 0, memory = {}) {
     update(state, seconds, feedingEvents = []) {
       time += seconds; accumulated += seconds;
       for (const signal of feedingEvents) {
-        const entry = Object.entries(discoveryEvents).find(([,definition]) => definition.foodSpeciesId === signal.foodSpeciesId && definition.consumerSpeciesId === signal.consumerSpeciesId);
-        if (entry && !pendingDiscoveries.has(entry[0]) && !state.observations.some(item=>item.relationId===entry[0])) pendingDiscoveries.set(entry[0], signal);
+        const relation=relationFor(signal.foodSpeciesId,signal.consumerSpeciesId);
+        if (relation && !pendingDiscoveries.has(relation.relationId) && !state.observations.some(item=>item.relationId===relation.relationId)) pendingDiscoveries.set(relation.relationId, signal);
       }
       if (accumulated + 1e-9 < eventConfig.tickSeconds) return false;
       accumulated %= eventConfig.tickSeconds; evaluate(state); return true;

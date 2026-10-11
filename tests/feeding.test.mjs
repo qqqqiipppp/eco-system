@@ -34,8 +34,10 @@ function scenario(counts) {
   return { state, feeding, run, history };
 }
 
-test('relation arrows identify food -> consumer and omit rabbit/decomposer links', () => {
-  assert.deepEqual(foodRelations.map(edge => [edge.sourceSpeciesId, edge.targetSpeciesId]), [['grass', 'grasshopper'], ['grasshopper', 'frog']]);
+test('legacy relation arrows stay food -> consumer; decomposers are never live predators', () => {
+  assert.deepEqual(foodRelations.filter(edge=>edge.core).map(edge => [edge.sourceSpeciesId, edge.targetSpeciesId]), [['grass', 'grasshopper'], ['grasshopper', 'frog']]);
+  assert(foodRelations.some(edge=>edge.sourceSpeciesId==='grass'&&edge.targetSpeciesId==='rabbit'));
+  assert(!foodRelations.some(edge=>['mushroom','litter-mold','soil-bacteria'].includes(edge.targetSpeciesId)));
 });
 test('A: 3 grass + 2 grasshoppers consume renewable stock, leaving plants alive', () => {
   const sim = scenario({ grass: 3, grasshopper: 2 });

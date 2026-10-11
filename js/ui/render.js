@@ -1,4 +1,5 @@
 import { activityForSpecies } from '../../data/activities.js';
+import {relationFor,foodPartLabels} from '../../data/food-relations.js';
 import { organismById, roleLabels } from '../../data/organisms.js';
 import { qualityLabel, environmentQuality, factorValue } from '../systems/environment.js';
 import { getSpeciesCount } from '../state/game-state.js';
@@ -29,24 +30,29 @@ export function renderCards(state, onSelect, onLocked = () => {}) {
     button.dataset.locked = String(!acquired);
     button.dataset.speciesId = speciesId;
     button.setAttribute('aria-pressed', 'false');
-    button.setAttribute('aria-label', acquired ? `${species.name}, ${roleLabels[species.role]}, 배치할 생물 선택` : `${species.name}, 잠김, 해금 조건 보기`);
+    const unlock=activityForSpecies[speciesId];
+    const upcoming=!acquired&&!unlock;
+    button.dataset.upcoming=String(upcoming);
+    button.setAttribute('aria-label', acquired ? `${species.name}, ${roleLabels[species.role]}, 배치할 생물 선택` : `${species.name}, 잠김, ${upcoming?'추후 해금 예정':'해금 조건 보기'}`);
     // Only trusted, local species definitions are used in this template.
     const visual = species.image ? `<img class="card-art" src="${species.image}" alt="" draggable="false">` : `<span class="card-art card-placeholder" aria-hidden="true">${species.placeholder}</span>`;
-    button.innerHTML = `${visual}<span><span class="card-role ${species.role}">${roleLabels[species.role]}</span><span class="card-name">${species.name}</span><span class="card-caption">${acquired ? species.caption : '🔒 ' + activityForSpecies[speciesId]?.unlockHint}</span></span><span class="card-selected" aria-hidden="true" hidden>✓ 선택</span>`;
-    button.addEventListener('click', () => acquired ? onSelect(speciesId) : onLocked(activityForSpecies[speciesId]?.activityId));
+    button.innerHTML = `${visual}<span><span class="card-role ${species.role}">${roleLabels[species.role]}</span><span class="card-name">${species.name}</span><span class="card-caption">${acquired ? species.caption : '🔒 ' + (unlock?.unlockHint||'추후 해금 예정')}</span></span><span class="card-selected" aria-hidden="true" hidden>✓ 선택</span>`;
+    button.addEventListener('click', () => acquired ? onSelect(speciesId) : onLocked(unlock?.activityId));
     list.append(button);
   });
   document.querySelector('#card-count').textContent = `${state.inventory.filter(item=>item.acquired).length} / ${state.inventory.length}`;
 }
 
 export function feedingFeedback(events) {
-  // At most two distinct relations here. Coalesce a busy tick into one message.
+  // Coalesce a busy web tick into at most two readable examples.
   const descriptions = new Set(events.map(event => {
     const consumer = organismById[event.consumerSpeciesId];
     const food = organismById[event.foodSpeciesId];
-    return `${consumer.name}가 ${food.name}${food.role === 'producer' ? '을' : '를'} 먹었어요.`;
+    const relation=relationFor(food.id,consumer.id);
+    if(relation?.core)return `${consumer.name}가 ${food.name}${food.role==='producer'?'을':'를'} 먹었어요.`;
+    return relation?.feedingMode==='resource'?`${consumer.name}: ${food.name}의 ${foodPartLabels[relation.foodPart]}에서 먹이를 얻었어요.`:`${consumer.name}가 ${food.name}를 먹었어요.`;
   }));
-  return [...descriptions].join(' ');
+  const examples=[...descriptions];return examples.slice(0,2).join(' ')+(examples.length>2?' 다른 먹이 관계도 일어났어요.':'');
 }
 
 export function renderSelection(uiState, onClear) {

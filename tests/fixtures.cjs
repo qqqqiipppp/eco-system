@@ -7,16 +7,19 @@ exports.useUnlockedCards = async page => {
  });
 };
 // Only test response injection installs this developer module; production has no flag.
-exports.useDeveloperEnvironment = async page => {
+async function useDeveloperHarness(page,{species=false}={}) {
  await page.route('**/js/main.js',async route=>{
   const response=await route.fetch();let body=await response.text();
   body="import { installEnvironmentTools } from './dev/environment-tools.js';\n"+body;
+  if(species)body="import { installSpeciesTools } from './dev/species-tools.js';\n"+body;
   body=body.replace('// Development harness installs its environment controls at this explicit boundary.',`installEnvironmentTools(gameState,()=>{
     eventSystem.refresh(gameState);stabilitySystem.update(gameState);refreshProgress();renderDashboard(gameState);eventView.render();environmentPanel.render();saveService.schedule();loop.refresh();
-  });`);
+  });${species?`installSpeciesTools(gameState,()=>{clearSelection();renderCards(gameState,selectSpecies,openLockedActivity);renderDashboard(gameState);refreshProgress();saveService.schedule();loop.refresh();});`:''}`);
   await route.fulfill({response,body});
  });
-};
+}
+exports.useDeveloperEnvironment = page => useDeveloperHarness(page);
+exports.useDeveloperSpecies = page => useDeveloperHarness(page,{species:true});
 exports.dismissWelcome = async page => {
  const dialog=page.locator('#help-dialog');
  if(await dialog.evaluate(node=>node.open))await page.locator('#help-skip').click();

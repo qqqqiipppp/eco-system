@@ -37,7 +37,7 @@ const assert = require('node:assert/strict');
     };
     assert.equal(await count(), 3);
     assert.equal(await page.locator('.organism-object').count(), 3);
-    assert.equal(await page.locator('.organism-card').count(), 6);
+    assert.equal(await page.locator('.organism-card').count(), 23);
     assert.match(await page.locator('.organism-card[data-species-id="oak"]').textContent(), /상수리나무/);
     assert.equal(await page.evaluate(() => window.loopStats.callbacks), 0);
 
@@ -47,7 +47,7 @@ const assert = require('node:assert/strict');
       gameState.inventory.find(item => item.speciesId === 'rabbit').acquired = false;
       (await import('./js/ui/render.js')).renderCards(gameState, () => {});
     });
-    assert.equal(await page.locator('.organism-card').count(), 6);
+    assert.equal(await page.locator('.organism-card').count(), 23);
     assert.equal(await page.locator('.organism-card[data-species-id="rabbit"]').getAttribute('data-locked'), 'true');
     await page.locator('#goal-open').click();
     await page.locator('#restart-open').click();
@@ -72,7 +72,7 @@ const assert = require('node:assert/strict');
     await tap(0.4, 0.72);
     assert.equal(await count(), 4);
     assert.equal((await state()).organisms.at(-1).speciesId, 'oak');
-    assert.equal((await state()).inventory.length, 6);
+    assert.equal((await state()).inventory.length, 23);
     await tap(0.081, 0.73);
     assert.equal(await count(), 5);
     assert.equal(await page.locator('.organism-card[data-species-id="oak"]').getAttribute('aria-pressed'), 'true');
@@ -138,7 +138,7 @@ const assert = require('node:assert/strict');
     assert.equal(perf.reads, 0);
     assert.equal(perf.maxPending, 1);
     for (const organism of (await state()).organisms) {
-      const expectedKeys = organism.speciesId === 'grass' ? ['foodStock', 'growth', 'instanceId', 'position', 'speciesId'] : organism.speciesId === 'oak' ? ['growth', 'instanceId', 'position', 'speciesId'] : ['instanceId', 'position', 'speciesId'];
+      const expectedKeys = ['grass','oak'].includes(organism.speciesId) ? ['foodStock', 'growth', 'instanceId', 'position', 'speciesId'] : organism.speciesId==='rabbit' ? ['behaviorState','direction','foodShortageDuration','hunger','instanceId','lastSuccessfulFeedingAt','position','speciesId','targetInstanceId'] : ['instanceId', 'position', 'speciesId'];
       assert.deepEqual(Object.keys(organism).sort(), expectedKeys);
       assert(organism.position.x >= 0 && organism.position.x <= 1 && organism.position.y >= 0 && organism.position.y <= 1);
     }

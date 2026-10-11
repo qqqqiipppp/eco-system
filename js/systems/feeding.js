@@ -1,17 +1,11 @@
 import { advanceManagement, producerRecoveryMultiplier } from './management.js';
-import { foodRelations } from '../../data/food-relations.js';
-import { ecologyConfig, feedingConfig, foodResourceConfig } from '../../data/ecology-config.js';
+import { relationsByConsumer, relationFor } from '../../data/food-relations.js';
+import { ecologyConfig, feedingConfig } from '../../data/ecology-config.js';
 import { isPositionAllowed } from './placement.js';
 import { hasFoodStock, consumeFoodStock, recoverFoodStock } from './food-resources.js';
 import { updateProducerGrowth, animalActivity } from './environment.js';
 
 const distance = (a, b) => Math.hypot(a.position.x - b.position.x, a.position.y - b.position.y);
-const edibleSpecies = new Map();
-for (const relation of foodRelations) {
-  const list = edibleSpecies.get(relation.targetSpeciesId) || [];
-  list.push(relation.sourceSpeciesId);
-  edibleSpecies.set(relation.targetSpeciesId, list);
-}
 
 /** Low-frequency decisions plus lightweight pursuit movement. No DOM or timers.
  * All time is active simulation time; hidden tabs cannot accumulate hunger.
@@ -40,7 +34,8 @@ export function createFeedingSystem(initialTime = 0) {
   }
   function availableTarget(instance) {
     const target = byId.get(instance.targetInstanceId);
-    return target && edibleSpecies.get(instance.speciesId)?.includes(target.speciesId) && hasFoodStock(target) ? target : null;
+    const relation=target&&relationFor(target.speciesId,instance.speciesId);
+    return relation && hasFoodStock(target,relation) ? target : null;
   }
   function returnToWander(instance, clock, shortage = false) {
     instance.behaviorState = 'wander';
@@ -53,10 +48,11 @@ export function createFeedingSystem(initialTime = 0) {
     diagnostics.searches += 1;
     let nearest = null;
     let nearestDistance = feedingConfig[instance.speciesId].searchRadius;
-    for (const speciesId of edibleSpecies.get(instance.speciesId) || []) {
+    for (const relation of relationsByConsumer.get(instance.speciesId) || []) {
+      const speciesId=relation.sourceSpeciesId;
       for (const candidate of bySpecies.get(speciesId) || []) {
         diagnostics.candidateChecks += 1;
-        if (!byId.has(candidate.instanceId) || !hasFoodStock(candidate)) continue;
+        if (!byId.has(candidate.instanceId) || candidate.instanceId===instance.instanceId || !hasFoodStock(candidate,relation)) continue;
         // Screen constraints only: skip goals this animal cannot stand at.
         if (!isPositionAllowed(instance.speciesId, candidate.position, layout)) continue;
         const separation = distance(instance, candidate);
@@ -99,8 +95,9 @@ export function createFeedingSystem(initialTime = 0) {
       }
       clock.eatRemaining -= ecologyConfig.tickSeconds;
       if (clock.eatRemaining > 0) return;
-      if (foodResourceConfig[target.speciesId]) {
-        if (!consumeFoodStock(target)) { returnToWander(instance, clock, true); return; }
+      const relation=relationFor(target.speciesId,instance.speciesId);
+      if (relation.feedingMode==='resource') {
+        if (!consumeFoodStock(target,relation)) { returnToWander(instance, clock, true); return; }
         diagnostics.plantMeals += 1;
       } else {
         // Synchronous deletion from both state and index prevents double predation.
@@ -112,7 +109,7 @@ export function createFeedingSystem(initialTime = 0) {
         context.result.removedIds.push(target.instanceId);
         diagnostics.predations += 1;
       }
-      context.result.feedingEvents.push({ consumerSpeciesId: instance.speciesId, foodSpeciesId: target.speciesId, consumerInstanceId: instance.instanceId, foodInstanceId: target.instanceId });
+      context.result.feedingEvents.push({ relationId:relation.relationId,foodPart:relation.foodPart,consumerSpeciesId: instance.speciesId, foodSpeciesId: target.speciesId, consumerInstanceId: instance.instanceId, foodInstanceId: target.instanceId });
       instance.hunger = Math.max(0, instance.hunger - feedingConfig[instance.speciesId].mealRelief);
       instance.lastSuccessfulFeedingAt = simulationTime;
       instance.foodShortageDuration = 0;

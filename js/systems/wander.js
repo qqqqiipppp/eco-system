@@ -13,15 +13,16 @@ export function createWanderSystem(random = Math.random) {
       const dt = Math.min(Math.max(deltaSeconds, 0), 0.1);
       for (const instance of organisms) {
         if (!speciesProfiles[instance.speciesId]?.wanders || (instance.behaviorState && instance.behaviorState !== 'wander')) continue;
+        const config=speciesProfiles[instance.speciesId].motion||wanderConfig;
         let motion = motions.get(instance.instanceId);
         if (!motion) {
-          motion = { walking: false, remaining: between(wanderConfig.pauseSeconds), dx: 1, dy: 0 };
+          motion = { walking: false, remaining: between(config.pauseSeconds), dx: 1, dy: 0 };
           motions.set(instance.instanceId, motion);
         }
         motion.remaining -= dt;
         if (motion.remaining <= 0) {
           motion.walking = !motion.walking;
-          motion.remaining = between(motion.walking ? wanderConfig.walkSeconds : wanderConfig.pauseSeconds);
+          motion.remaining = between(motion.walking ? config.walkSeconds : config.pauseSeconds);
           if (motion.walking) {
             motion.dx = random() < 0.5 ? -1 : 1;
             motion.dy = random() * 2 - 1;
@@ -29,8 +30,8 @@ export function createWanderSystem(random = Math.random) {
         }
         if (!motion.walking) continue;
         const position = {
-          x: instance.position.x + motion.dx * wanderConfig.speedX * dt * activity,
-          y: instance.position.y + motion.dy * wanderConfig.speedY * dt * activity,
+          x: instance.position.x + motion.dx * config.speedX * dt * activity,
+          y: instance.position.y + motion.dy * config.speedY * dt * activity,
         };
         if (!isPositionAllowed(instance.speciesId, position, layout)) {
           // Bounce within the same walk, then briefly stop if the corner is tight.

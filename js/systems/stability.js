@@ -1,6 +1,6 @@
 import { stabilityConfig as config } from '../../data/stability-config.js';
 import { organismById } from '../../data/organisms.js';
-import { foodRelations } from '../../data/food-relations.js';
+import { relationsByConsumer } from '../../data/food-relations.js';
 import { foodResourceConfig } from '../../data/ecology-config.js';
 import { environmentQuality } from './environment.js';
 
@@ -22,10 +22,13 @@ export function evaluateStability(state, previousCounts = {}) {
   const share = (roles.consumer || 0) / Math.max(1, total);
   const shareScore = share < config.consumerShare.low ? share / config.consumerShare.low : share > config.consumerShare.high ? (1 - share) / (1 - config.consumerShare.high) : 1;
   const composition = config.roles.filter(role => roles[role]).length / config.roles.length * (0.5 + 0.5 * shareScore);
-  const applicable = foodRelations.filter(edge => counts[edge.targetSpeciesId]);
-  const food = applicable.length ? applicable.reduce((sum, edge) => {
-    const consumers = state.organisms.filter(item => item.speciesId === edge.targetSpeciesId);
-    const suppliers = state.organisms.filter(item => item.speciesId === edge.sourceSpeciesId);
+  // Alternative foods serve a consumer together; an absent alternative is not
+  // another compulsory condition. Keep the original weights and scoring factors.
+  const applicable = [...relationsByConsumer].filter(([speciesId]) => counts[speciesId]);
+  const food = applicable.length ? applicable.reduce((sum, [speciesId,relations]) => {
+    const consumers = state.organisms.filter(item => item.speciesId === speciesId);
+    const sources=new Set(relations.map(edge=>edge.sourceSpeciesId));
+    const suppliers = state.organisms.filter(item => sources.has(item.speciesId));
     const supply = suppliers.reduce((amount, item) => amount + (foodResourceConfig[item.speciesId] ? item.foodStock / foodResourceConfig[item.speciesId].maximum : 1), 0);
     const adequacy = clamp(supply / (consumers.length * config.minimumFoodPerConsumer));
     const nutrition = consumers.reduce((value, item) => value + 1 - (item.hunger ?? 0), 0) / consumers.length;

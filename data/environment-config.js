@@ -9,6 +9,9 @@ export const environmentLevels = {
 export const producerGrowth = {
   oak: { weights: { sunlight: 0.3, water: 0.2, air: 0.05, soil: 0.45 } },
   grass: { weights: { sunlight: 0.35, water: 0.35, air: 0.1, soil: 0.2 } },
+  pine: {weights:{sunlight:.4,water:.2,air:.1,soil:.3}},
+  raspberry: {weights:{sunlight:.35,water:.3,air:.1,soil:.25}},
+  hazel: {weights:{sunlight:.3,water:.25,air:.1,soil:.35}},
 };
 export const growthConfig = { recoveryPerSecond: 0.015, declinePerSecond: 0.025, minimumGrowth: 0.15 };
 export const activityConfig = { minimum: 0.4, airWeight: 0.6 };

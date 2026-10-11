@@ -1,0 +1,8 @@
+/* A bounded strip keeps 23 definitions from consuming the forest height. */
+.card-list{display:flex;min-width:0;overflow-x:auto;gap:9px;padding:3px 3px 8px;scroll-snap-type:x proximity;overscroll-behavior-x:contain}
+.organism-card{flex:0 0 158px;scroll-snap-align:start;min-width:0}
+.card-name{white-space:normal;overflow-wrap:anywhere;line-height:1.35}
+.card-caption{white-space:normal;line-height:1.5}
+.organism-card[data-upcoming=true]{border-style:dashed}
+@media(max-width:1050px){.organism-card{flex-basis:145px}}
+@media(max-width:800px){.organism-card{flex-basis:122px}}

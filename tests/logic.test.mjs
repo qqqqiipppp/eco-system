@@ -46,7 +46,8 @@ test('duplicate species receive unique minimal instances; permissions survive; c
   while (state.organisms.length < placementConfig.maxOrganisms) {
     const result = placeOrganism(state, 'rabbit', input(), layout);
     assert.equal(result.ok, true);
-    assert.deepEqual(Object.keys(result.instance).sort(), ['instanceId', 'position', 'speciesId']);
+    assert.equal(result.instance.behaviorState,'wander');assert.equal(result.instance.targetInstanceId,null);assert(Number.isFinite(result.instance.hunger));
+    assert(!('role' in result.instance)&&!('foods' in result.instance)&&!('description' in result.instance));
     assert.deepEqual(result.instance.position, { x: 0.4, y: 0.72 });
   }
   assert.equal(placeOrganism(state, 'rabbit', input(), layout).reason, 'limit');
@@ -73,5 +74,5 @@ test('wander walks, pauses, reverses and stays inside screen rules; plants never
   assert(moving > 0 && paused > 0);
   assert.equal(directions.size, 2);
   assert.deepEqual(state.organisms.slice(0, 3), plantSnapshot);
-  assert.deepEqual(Object.keys(animal).sort(), ['instanceId', 'position', 'speciesId']);
+  assert.equal(animal.behaviorState,'wander');assert.equal(animal.targetInstanceId,null);assert(Number.isFinite(animal.hunger));
 });

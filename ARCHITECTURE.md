@@ -1,4 +1,4 @@
-# 현재 설계 — 1~9단계
+# 현재 설계 — 1~10단계
 
 ## 핵심 책임
 
@@ -6,13 +6,13 @@
 
 공통 update-loop 하나가 최대 30fps로 이동을 갱신합니다. feeding/ecology는 0.5초, event 평가는 1초 간격입니다. hidden 및 prefers-reduced-motion 중에는 기존 정책대로 시뮬레이션을 멈춥니다. 복귀할 때 시간 차를 누적 처리하지 않습니다.
 
-placement는 inventory.acquired/정규화 좌표/영역/나무 겹침/30개 제한을 검증합니다. organism-layer는 개체별 DOM을 만들고 이동 transform/상태만 갱신합니다. wander, 먹이 탐색/섭식과 삭제, 환경/생산자 회복은 기존 시스템을 유지합니다. 풀 → 메뚜기 → 개구리만 실제 먹이 관계입니다. 버섯의 실제 분해와 토끼 먹이 AI는 없습니다.
+placement는 inventory.acquired/정규화 좌표/영역/나무 겹침/30개 제한을 검증합니다. organism-layer는 개체별 DOM을 만들고 이동 transform/상태만 갱신합니다. 23개 카드 정의 중 15개 소비자가 27개 관계에 따라 실제 섭식합니다. 토끼의 풀 섭식도 연결했습니다. 3개 분해자의 실제 분해는 없습니다.
 
 ## 환경·안정도·이벤트·학습
 
 environment-config와 environment.js는 네 환경의 종별 가중 적합도, 성장 회복/감소, 공기 활동 배율을 유지합니다. food-resources는 growth에 비례한 먹이 한도/회복을 계산합니다.
 
-stability-config/stability.js는 기존 다양성 20%, 역할 구성 20%, 먹이 25%, 환경 20%, 편중/최근 감소 15% 공식을 그대로 유지합니다. 이번 단계에서 공식이나 가중치를 변경하지 않았습니다. role에서 버섯의 존재를 계산하는 기존 지표와 실제 분해 시뮬레이션은 구별합니다.
+stability-config/stability.js는 기존 다양성 20%, 역할 구성 20%, 먹이 25%, 환경 20%, 편중/최근 감소 15% 가중치를 유지합니다. 10단계에서 먹이 항목만 소비자 종류별 평가로 최소 조정했습니다. 허용 먹이 공급을 합산해 대체 먹이가 모두 있어야 점수가 나오는 오류를 막습니다. 먹이 충족/영양의 기존 계수와 다른 항목, 클리어 기준은 유지합니다. 분해자의 존재를 계산하는 역할 지표와 실제 분해 시뮬레이션은 구별합니다.
 
 events는 실제 조건과 섭식 신호에서 !/?/💡를 만들고 key/cooldown/상한으로 중복을 제한합니다. 화면 표시는 최대 4개입니다. 기록 전 발견 후보와 학생이 확인한 observations는 다릅니다. rewards는 의미 ID당 한 번만 지급합니다.
 
@@ -75,7 +75,7 @@ pagehide와 hidden 전환에서 동기 최종 flush를 시도합니다. 저장 �
 
 services/progress-summary.js의 createProgressSummary(state,lastUpdated)는 상태를 변경하지 않는 순수 함수입니다. theme/progress/cleared/카드·활동·관찰 수/누적 관리 횟수/currentStability/bestStability/lastUpdated/schemaVersion을 반환하며 studentId=null입니다. lastUpdated에는 saveService.getSavedAt()을 전달할 수 있습니다. 학생 이름/번호를 만들지 않고 전송하지 않습니다.
 
-저장 서비스의 read/write/remove adapter와 진행 요약은 별도 책임입니다. 미래 remote adapter 또는 관리자 연동은 이 경계를 사용하되 지금 빈 원격 모듈은 없습니다. 다음 테마·분해·번식·오염·새 먹이그물은 이번 범위 밖입니다.
+저장 서비스의 read/write/remove adapter와 진행 요약은 별도 책임입니다. 미래 remote adapter 또는 관리자 연동은 이 경계를 사용하되 지금 빈 원격 모듈은 없습니다. 다음 테마·분해·번식·오염·완성형 먹이그물 화면은 이번 범위 밖입니다.
 
 ## 9단계 안내와 목표 표시
 
@@ -107,6 +107,25 @@ save-format은 관리 기록의 factor를 기존 네 알려진 환경 key로 검
 
 js/dev/environment-tools.js는 기존 네 환경 비교 선택창을 environment API와 연결하는 명시적 설치 함수입니다. production main.js가 import하지 않고 전역 객체/URL 매개변수/학생 토글도 없습니다. tests/fixtures.cjs가 테스트용 main 응답에만 해당 import와 설치를 삽입하고 기존 event/stability/goal/render/save 갱신을 호출합니다. 예전 비교 검사는 이 경계를 사용하며 새 학생 경로 검사는 일반 앱을 사용합니다. 이는 정적 클라이언트의 인증 체계가 아니라 제공되는 학생 조작 경계입니다.
 
-10단계 23종 확장은 data/organisms.js, forest의 카드 초기 목록, ecology/environment 설정, activities/event 관계 정의에서 시작합니다. 인스턴스/placement/layer/카드/해금/저장은 현재 알려진 종 데이터와 시스템 경계를 활용합니다. 새 먹이 관계가 생기면 실제 ecology와 discovery 정의, 표시 이름, forest-goal 조건을 함께 검토해야 합니다. 모든 종이 현재 소비자 AI를 자동으로 갖는다고 가정하지 않습니다. 저장 종 검증과 진행 요약도 함께 검사합니다.
+11단계의 개체 수 변화는 공유 개체 생성자와 nextInstanceSequence, placement의 30개 상한, 생물 DOM 추가/삭제 경계에서 연결합니다. 번식·사망의 새 원인은 feeding의 포식 삭제와 구별하고, 먹이 대상 캐시 정리와 저장·목표 재평가를 함께 검사해야 합니다. 현재 상한을 늘리거나 빈 모듈을 추가하지 않았습니다.
+
+## 10단계 먹이그물 데이터 흐름
+
+`OrganismDefinition → FoodRelation → organisms instance → feeding / food-resource system → 실제 상호작용 → observation event → 저장 → 이후 먹이그물 UI`
+
+- `organisms.js`: 안정적인 id, 이름, 역할, 서식 환경, 설명, 기존 이미지/placeholder, behaviorType. 신규 17종의 unlockStage=14는 예정 정보이며 해금 권한이 아니다.
+- `food-relations.js`: 먹히는 쪽 source → 먹는 쪽 target. relationId, foodPart, feedingMode, evidenceId, core. 관계별 출처는 FOREST_SPECIES.md에 대응한다. 소비자별 목록과 종 쌍 Map을 한 번 만들어 조회한다.
+- `ecology-config.js`: 5개 생산자의 먹이량/회복/허용 부위, 15개 소비자의 배고픔·속도·탐색 범위. 식물 부위들은 현재 동일 foodStock을 공유한다. environment-config가 새 생산자에 네 비생물 요소의 적합도를 제공한다.
+- 실제 개체에는 위치·성장·먹이량·배고픔·추적 상태만 둔다. 정의나 먹이 관계를 개체마다 복제하지 않는다.
+- feeding은 낮은 빈도로 살아 있는 개체를 종별로 색인한다. 허용 관계 안에서 존재·남은 자원·거리·접근 가능성을 검사한다. 타깃 고갈/삭제 시 기존 재탐색 상태로 돌아가 다른 먹이를 찾는다. 식물 자원 소비와 동물 삭제를 feedingMode로 구분한다. 동기 삭제 후 stale target을 정리한다.
+- wander는 종별 motion 설정을 사용하며 식물/분해자를 이동시키지 않는다. 새 RAF·setInterval·무거운 효과는 없다.
+- 실제 섭식 신호의 relationId/foodPart를 feedback과 events가 사용한다. 발견 후보는 자동 수집하지만 observations와 최초 보상은 학생 확인 후 기록한다. 기존 두 핵심 관계를 우선하고 화면 4개 제한, 중복/재보상 방지를 유지한다.
+- save-format은 관계 정의에서 허용 관찰·보상·후보를 검증한다. 관찰/후보 상한은 27개 정의에 맞춰 확장한다. 누락된 신규 inventory는 잠금으로 추가한다. 이전 상수리/토끼의 새 runtime 필드 누락은 정상 기본값으로 보충한다. schemaVersion=7과 key는 동일하다.
+
+## 카드와 개발 경계
+
+cards.css의 한 줄 가로 스크롤로 23개를 담고 이름 줄바꿈과 터치 크기를 유지한다. 기존 6종은 기존 활동/해금 조건을 사용한다. 신규 17종은 ‘추후 해금 예정’이며 클릭해도 가짜 학습 활동을 열거나 무단 배치하지 않는다.
+
+학생 main.js는 dev 모듈을 가져오지 않는다. useDeveloperSpecies 테스트 fixture만 main 응답의 명시적 경계에 installSpeciesTools를 연결한다. 카드 권한을 열어도 포인트·학습 기록은 지급하지 않는다. URL 플래그는 없다. 이 경계는 개발 검증 편의 기능이며 개발자 도구로 저장을 직접 변조하는 행위까지 막는 인증 시스템은 아니다.
 
 12단계 환경 변화는 기존 environment API를 통해 연결하고 15단계 유지시간은 forest-goal 설정에서 조정할 수 있습니다. 이번에는 날씨·위기·분해·번식·종 확대·관리자 UI/원격 서비스를 구현하지 않습니다. 최초 보상이 전부 소진된 저포인트 저장은 여전히 유료 관리가 막힐 수 있으므로 후속 경제 설계에서 별도 제한 회복 보상 등을 검토해야 합니다.

@@ -65,14 +65,16 @@ export function decodeSave(raw) {
   if(!object(item)||!own(organismById,item.speciesId)||!validId(item.instanceId)||ids.has(item.instanceId)||!object(item.position)||!Number.isFinite(item.position.x)||!Number.isFinite(item.position.y)){repaired=true;continue;}
   const organism=createOrganismInstance(item.speciesId,item.instanceId,{x:number(item.position.x,0,1),y:number(item.position.y,0,1)});
   if('growth' in organism)organism.growth=number(item.growth,growthConfig.minimumGrowth,1,1);
-  if('foodStock' in organism)organism.foodStock=number(item.foodStock,0,foodResourceConfig[item.speciesId].maximum*organism.growth);
-  if('hunger' in organism){organism.hunger=number(item.hunger,0,1,organism.hunger);organism.foodShortageDuration=number(item.foodShortageDuration,0,1e6);organism.lastSuccessfulFeedingAt=item.lastSuccessfulFeedingAt===null?null:time(item.lastSuccessfulFeedingAt);}
+  // Older oak/rabbit instances predate their resource/feeding fields. Initialize
+  // only absent newly supported fields; do not treat definition expansion as damage.
+  if('foodStock' in organism)organism.foodStock=item.foodStock===undefined?foodResourceConfig[item.speciesId].maximum*organism.growth:number(item.foodStock,0,foodResourceConfig[item.speciesId].maximum*organism.growth);
+  if('hunger' in organism){organism.hunger=item.hunger===undefined?organism.hunger:number(item.hunger,0,1,organism.hunger);organism.foodShortageDuration=item.foodShortageDuration===undefined?0:number(item.foodShortageDuration,0,1e6);organism.lastSuccessfulFeedingAt=item.lastSuccessfulFeedingAt==null?null:time(item.lastSuccessfulFeedingAt);}
   ids.add(item.instanceId);state.organisms.push(organism);
  }
  const suffixes=state.organisms.map(item=>Math.min(1e9,Number(item.instanceId.match(/(\d+)$/)?.[1]||0)));
  state.nextInstanceSequence=Math.max(1,...suffixes.map(n=>n+1),Math.floor(number(d.nextInstanceSequence,1,1e9,1)));
  const seenObservations=new Set();
- state.observations=array(d.observations,20).flatMap(item=>{
+ state.observations=array(d.observations,Object.keys(discoveryEvents).length).flatMap(item=>{
   if(!item||!own(discoveryEvents,item.relationId)||seenObservations.has(item.relationId)){repaired=true;return [];}
   seenObservations.add(item.relationId);return [{relationId:item.relationId,eventId:text(item.eventId),discoveredAt:time(item.discoveredAt)}];
  });
@@ -128,6 +130,7 @@ export function decodeSave(raw) {
  const validKey=key=>typeof key==='string'&&((key.startsWith('shortage:')&&ids.has(key.slice(9)))||Object.keys(environmentFactors).some(f=>key===`growth:${f}`||key===`investigate:${f}`));
  for(const entry of array(memory.cooldowns,40))if(Array.isArray(entry)&&validKey(entry[0])){const until=deadline(entry[1],eventConfig.cooldownSeconds);if(until>state.simulationTime)eventMemory.cooldowns.push([entry[0],until]);}
  eventMemory.questionDone=array(memory.questionDone,4).filter(key=>Object.keys(environmentFactors).some(f=>key===`investigate:${f}`));
- for(const entry of array(memory.pendingDiscoveries,2))if(Array.isArray(entry)&&own(discoveryEvents,entry[0])&&!seenObservations.has(entry[0]))eventMemory.pendingDiscoveries.push([entry[0],{consumerInstanceId:validId(entry[1]?.consumerInstanceId)?entry[1].consumerInstanceId:null}]);
+ const pendingSeen=new Set();
+ for(const entry of array(memory.pendingDiscoveries,Object.keys(discoveryEvents).length))if(Array.isArray(entry)&&own(discoveryEvents,entry[0])&&!seenObservations.has(entry[0])&&!pendingSeen.has(entry[0])){pendingSeen.add(entry[0]);eventMemory.pendingDiscoveries.push([entry[0],{consumerInstanceId:validId(entry[1]?.consumerInstanceId)?entry[1].consumerInstanceId:null}]);}
  return {state,eventMemory,savedAt:typeof input.savedAt==='string'&&Number.isFinite(Date.parse(input.savedAt))?input.savedAt:null,status:repaired?'recovered':'loaded',blocked:false};
 }

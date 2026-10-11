@@ -12,14 +12,15 @@ export function recoverFoodStock(instance, seconds, environment, recoveryMultipl
   instance.foodStock = Math.min(capacity, instance.foodStock + rule.recoveryPerSecond * growth * growthSuitability(instance.speciesId, environment) * seconds * recoveryMultiplier);
 }
 
-export function hasFoodStock(instance) {
+export function hasFoodStock(instance,relation) {
   const rule = foodResourceConfig[instance.speciesId];
+  if(relation && (relation.sourceSpeciesId!==instance.speciesId || (relation.feedingMode==='resource' ? !rule?.parts.includes(relation.foodPart) : Boolean(rule))))return false;
   return !rule || instance.foodStock >= rule.portion;
 }
 
-export function consumeFoodStock(instance) {
+export function consumeFoodStock(instance,relation) {
   const rule = foodResourceConfig[instance.speciesId];
-  if (!rule || !hasFoodStock(instance)) return false;
+  if (!rule || !hasFoodStock(instance,relation)) return false;
   instance.foodStock = Math.max(0, instance.foodStock - rule.portion);
   return true;
 }
