@@ -1,4 +1,5 @@
 import test from 'node:test';
+import {enableDevelopmentPlacement} from '../js/systems/population.js';
 import assert from 'node:assert/strict';
 import { createGameState } from '../js/state/game-state.js';
 import { createOrganismInstance } from '../js/state/organism-instance.js';
@@ -75,7 +76,7 @@ test('30 shortages: bounded history, stable active identity and one-second scans
  assert.equal(state.events.find(e=>e.eventId===id).status,'dismissed');
 });
 test('placement does not reuse a consumed instance ID that may remain in event history',()=>{
- const {state}=scenario([]);state.inventory.find(item=>item.speciesId==='frog').acquired=true; // already-unlocked fixture for ID reuse
+ const {state}=scenario([]);enableDevelopmentPlacement(state);state.inventory.find(item=>item.speciesId==='frog').acquired=true; // isolated ID reuse regression
  const layout={footprints:Object.fromEntries(Object.keys(speciesProfiles).map(id=>[id,{halfWidth:.02,above:.1,below:.03}])),blockedRects:[]};
  const input={position:{x:.4,y:.72},isPlayArea:true,isUI:false};
  const first=placeOrganism(state,'frog',input,layout).instance;state.organisms=[];

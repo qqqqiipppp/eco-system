@@ -3,7 +3,9 @@
 exports.useUnlockedCards = async page => {
  await page.route('**/js/state/game-state.js',async route=>{
   const response=await route.fetch();
-  await route.fulfill({response,body:(await response.text()).replace('acquired: forestDefinition.initialInventory.includes(speciesId)','acquired: true')});
+  let body=(await response.text()).replaceAll('\r\n','\n');
+  body="import {enableDevelopmentPlacement} from '../systems/population.js';\n"+body.replace('return {','const state = {').replace('  };\n}', '  };\n  enableDevelopmentPlacement(state);return state;\n}').replace('acquired: forestDefinition.initialInventory.includes(speciesId)','acquired: true');
+  await route.fulfill({response,body});
  });
 };
 // Only test response injection installs this developer module; production has no flag.

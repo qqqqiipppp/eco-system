@@ -1,6 +1,7 @@
 import { organismById } from '../../data/organisms.js';
 import { foodResourceConfig, feedingConfig } from '../../data/ecology-config.js';
 import { producerGrowth } from '../../data/environment-config.js';
+import {populationConfig} from '../../data/population-config.js';
 
 /** Shared constructor for initial organisms and placements. Definitions stay static.
  * Only species taking part in feeding receive feeding runtime state.
@@ -17,6 +18,10 @@ export function createOrganismInstance(speciesId, instanceId, position) {
     hunger: feedingConfig[speciesId].initialHunger,
     foodShortageDuration: 0,
     lastSuccessfulFeedingAt: null,
+    deprivationSeconds:0,
+    bornAt:0,
+    satietyUntil:0,
+    acclimationUntil:populationConfig.graceSeconds,
   });
   return instance;
 }

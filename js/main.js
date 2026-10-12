@@ -23,6 +23,9 @@ import { createEventView } from './ui/event-view.js';
 import { completeActivity } from './systems/activities.js';
 import { createActivityView } from './ui/activity-view.js';
 import { executeManagement, availableManagement, availableEnvironmentalRecovery } from './systems/management.js';
+import {createPopulationView} from './ui/population-view.js';
+import {removeOrganism} from './systems/lifecycle.js';
+import {populationMessage} from './systems/population.js';
 
 // Module exports support integration checks; there is no global debug API.
 export const gameState = createGameState();
@@ -39,6 +42,13 @@ try {
   const scene = createOrganismLayer(forest, () => gameState.organisms);
   let wander = createWanderSystem();
   let lastCheckpoint = gameState.simulationTime;
+  let lastPopulationSequence=gameState.population.sequence;
+  const populationButton=document.createElement('button');populationButton.id='population-open';populationButton.type='button';populationButton.textContent='생물 상태';document.querySelector('.header-actions').append(populationButton);
+  const populationView=createPopulationView(gameState,id=>{
+    const record=removeOrganism(gameState,id,'release');if(!record)return;
+    feedingSystem.forget([id]);wander.forget([id]);scene.remove([id]);scene.showFeedback(populationMessage(record),true);
+    eventSystem.refresh(gameState);eventView.render();stabilitySystem.update(gameState);refreshProgress();renderDashboard(gameState);saveService.schedule();loop.refresh();
+  });
   const forestView = createForestView(gameState,restartGame);
   const helpView = createHelpView(createGuideAdapter());
   function refreshProgress(seconds=0) {
@@ -85,27 +95,33 @@ try {
     },
   });
   const loop = createUpdateLoop({
-    hasWork: () => gameState.managementEffects.length > 0 || Object.keys(gameState.managementCooldowns).length > 0 || eventSystem.needsTick() || gameState.organisms.some(instance => speciesProfiles[instance.speciesId]?.wanders || instance.foodStock < foodResourceConfig[instance.speciesId]?.maximum * (instance.growth ?? 1) || (instance.growth !== undefined && Math.abs(instance.growth - Math.max(growthConfig.minimumGrowth, growthSuitability(instance.speciesId, gameState.environment))) > 0.001)),
+    hasWork: () => gameState.organisms.length>0 || Object.values(gameState.decomposition.organicMatter).some(v=>v>0) || Object.values(gameState.population.introductions).some(v=>v.nextAt>gameState.simulationTime) || eventSystem.needsTick(),
     update: dt => {
       const result = feedingSystem.update(gameState, dt, scene.getLayout());
       wander.forget(result.removedIds);
       result.moved.push(...wander.update(gameState.organisms, dt, scene.getLayout(), animalActivity(gameState.environment)));
       if (result.ticked) stabilitySystem.update(gameState, ecologyConfig.tickSeconds);
       result.eventTicked = result.ticked && eventSystem.update(gameState, ecologyConfig.tickSeconds, result.feedingEvents);
+      if(result.removedIds.length||result.added.length){eventSystem.refresh(gameState);result.eventTicked=true;}
       if(result.ticked) {
         refreshProgress(ecologyConfig.tickSeconds);
-        if(result.feedingEvents.length)saveService.schedule();
+        if(result.feedingEvents.length||result.added.length||result.removedIds.length)saveService.schedule();
         if(gameState.simulationTime-lastCheckpoint>=15) { lastCheckpoint=gameState.simulationTime;saveService.schedule(); }
       }
       return result;
     },
     render: result => {
       scene.remove(result.removedIds);
+      for(const instance of result.added)scene.add(instance);
       scene.paintChanges(result.moved);
       if (result.ticked) scene.showStates(result.updated);
-      if (result.ticked) { renderDashboard(gameState); activityView.render(); environmentPanel.render(); }
+      if (result.ticked) { renderDashboard(gameState); activityView.render(); environmentPanel.render();populationView.render(); }
       if (result.eventTicked || result.removedIds.length) eventView.render();
-      if (result.feedingEvents.length) scene.showFeedback(feedingFeedback(result.feedingEvents), true);
+      let notice;
+      if(gameState.population.sequence>lastPopulationSequence)for(const record of gameState.population.history)if(record.sequence>lastPopulationSequence&&['starvation','reproduction'].includes(record.cause))notice=record;
+      if(notice)scene.showFeedback(populationMessage(notice),notice.cause==='reproduction');
+      else if (result.feedingEvents.length) scene.showFeedback(feedingFeedback(result.feedingEvents), true);
+      lastPopulationSequence=gameState.population.sequence;
     },
   });
   function clearSelection() {
@@ -119,6 +135,7 @@ try {
     uiState.selectedSpeciesId = speciesId;
     renderSelection(uiState, clearSelection);
     scene.showSelection(speciesId);
+    populationView.select(speciesId);
   }
   forest.addEventListener('click', event => {
     if (event.target.closest('[data-event-marker]')) return;
@@ -159,7 +176,7 @@ try {
     for(const key of Object.keys(gameState))delete gameState[key];
     Object.assign(gameState,createGameState());
     feedingSystem=createFeedingSystem();eventSystem=createEventSystem();stabilitySystem=createStabilitySystem();wander=createWanderSystem();
-    lastCheckpoint=0;uiState.selectedSpeciesId=null;
+    lastCheckpoint=0;lastPopulationSequence=0;uiState.selectedSpeciesId=null;populationView.reset();
     document.querySelectorAll('dialog[open]').forEach(dialog=>dialog.close());
     scene.reset();activityView.reset();eventView.reset();
     stabilitySystem.update(gameState);refreshProgress();

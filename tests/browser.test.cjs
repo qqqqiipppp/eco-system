@@ -39,7 +39,7 @@ const assert = require('node:assert/strict');
     assert.equal(await page.locator('.organism-object').count(), 3);
     assert.equal(await page.locator('.organism-card').count(), 23);
     assert.match(await page.locator('.organism-card[data-species-id="oak"]').textContent(), /상수리나무/);
-    assert.equal(await page.evaluate(() => window.loopStats.callbacks), 0);
+    assert.equal(await page.evaluate(() => window.loopStats.maxPending), 1); // decomposition shares the existing ecology scheduler even with plants only
 
     // Locked cards remain visible with a hint; fixture reload restores unlocked regression setup.
     await page.evaluate(async () => {
@@ -138,7 +138,7 @@ const assert = require('node:assert/strict');
     assert.equal(perf.reads, 0);
     assert.equal(perf.maxPending, 1);
     for (const organism of (await state()).organisms) {
-      const expectedKeys = ['grass','oak'].includes(organism.speciesId) ? ['foodStock', 'growth', 'instanceId', 'position', 'speciesId'] : organism.speciesId==='rabbit' ? ['behaviorState','direction','foodShortageDuration','hunger','instanceId','lastSuccessfulFeedingAt','position','speciesId','targetInstanceId'] : ['instanceId', 'position', 'speciesId'];
+      const expectedKeys = ['grass','oak'].includes(organism.speciesId) ? ['foodStock', 'growth', 'instanceId', 'position', 'speciesId'] : organism.speciesId==='rabbit' ? ['acclimationUntil','behaviorState','bornAt','deprivationSeconds','direction','foodShortageDuration','hunger','instanceId','lastSuccessfulFeedingAt','position','satietyUntil','speciesId','targetInstanceId'] : ['instanceId', 'position', 'speciesId'];
       assert.deepEqual(Object.keys(organism).sort(), expectedKeys);
       assert(organism.position.x >= 0 && organism.position.x <= 1 && organism.position.y >= 0 && organism.position.y <= 1);
     }

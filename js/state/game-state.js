@@ -9,7 +9,9 @@ import { createOrganismInstance } from './organism-instance.js';
  */
 export function createGameState() {
   return {
-    schemaVersion: 7,
+    schemaVersion: 8,
+    population: {sequence:0,history:[],totals:{},breeding:{},introductions:Object.fromEntries([...new Set(forestDefinition.initialOrganisms.map(o=>o.speciesId))].map(id=>[id,{count:forestDefinition.initialOrganisms.filter(o=>o.speciesId===id).length,nextAt:0}]))},
+    decomposition: {organicMatter:{wood:.3,litter:.5,remains:0},soilNutrients:0,processed:0},
     forestProgress: {cleared:false,clearedAt:null,stableSeconds:0},
     activities: activities.map(item => ({activityId:item.activityId,completed:false,attempts:0,completedAt:null})),
     simulationTime: 0,

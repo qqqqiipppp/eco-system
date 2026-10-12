@@ -4,6 +4,10 @@ import { ecologyConfig, feedingConfig } from '../../data/ecology-config.js';
 import { isPositionAllowed } from './placement.js';
 import { hasFoodStock, consumeFoodStock, recoverFoodStock } from './food-resources.js';
 import { updateProducerGrowth, animalActivity } from './environment.js';
+import {removeOrganism} from './lifecycle.js';
+import {updateSurvival,recoverSurvival,survivalActivity,updateReproduction} from './population.js';
+import {updateDecomposition,decompositionMultiplier} from './decomposition.js';
+import {satietySeconds} from '../../data/population-config.js';
 
 const distance = (a, b) => Math.hypot(a.position.x - b.position.x, a.position.y - b.position.y);
 
@@ -103,7 +107,7 @@ export function createFeedingSystem(initialTime = 0) {
         // Synchronous deletion from both state and index prevents double predation.
         const index = context.state.organisms.findIndex(item => item.instanceId === target.instanceId);
         if (index < 0) { returnToWander(instance, clock, true); return; }
-        context.state.organisms.splice(index, 1);
+        removeOrganism(context.state,target.instanceId,'predation',{consumerSpeciesId:instance.speciesId});
         byId.delete(target.instanceId);
         timing.delete(target.instanceId);
         context.result.removedIds.push(target.instanceId);
@@ -112,7 +116,9 @@ export function createFeedingSystem(initialTime = 0) {
       context.result.feedingEvents.push({ relationId:relation.relationId,foodPart:relation.foodPart,consumerSpeciesId: instance.speciesId, foodSpeciesId: target.speciesId, consumerInstanceId: instance.instanceId, foodInstanceId: target.instanceId });
       instance.hunger = Math.max(0, instance.hunger - feedingConfig[instance.speciesId].mealRelief);
       instance.lastSuccessfulFeedingAt = simulationTime;
+      if(relation.feedingMode==='predation')instance.satietyUntil=simulationTime+(satietySeconds[instance.speciesId]||0);
       instance.foodShortageDuration = 0;
+      recoverSurvival(instance);
       returnToWander(instance, clock);
     },
   };
@@ -121,7 +127,8 @@ export function createFeedingSystem(initialTime = 0) {
     diagnostics.ticks += 1;
     simulationTime += ecologyConfig.tickSeconds;
     advanceManagement(state, ecologyConfig.tickSeconds);
-    const recoveryMultiplier = producerRecoveryMultiplier(state);
+    updateDecomposition(state,ecologyConfig.tickSeconds);
+    const recoveryMultiplier = producerRecoveryMultiplier(state)*decompositionMultiplier(state);
     rebuildIndex(state);
     for (const instance of state.organisms) {
       updateProducerGrowth(instance, ecologyConfig.tickSeconds, state.environment, recoveryMultiplier);
@@ -132,14 +139,17 @@ export function createFeedingSystem(initialTime = 0) {
       const config = feedingConfig[instance.speciesId];
       if (!config || !byId.has(instance.instanceId)) continue;
       const clock = clockFor(instance);
-      instance.hunger = Math.min(1, instance.hunger + config.hungerPerSecond * ecologyConfig.tickSeconds);
+      if(simulationTime>=instance.satietyUntil)instance.hunger = Math.min(1, instance.hunger + config.hungerPerSecond * ecologyConfig.tickSeconds);
       if (clock.shortage) instance.foodShortageDuration += ecologyConfig.tickSeconds;
       handlers[instance.behaviorState](instance, clock, { state, layout, result });
     }
+    const starved=updateSurvival(state,ecologyConfig.tickSeconds);
+    for(const id of starved){byId.delete(id);timing.delete(id);result.removedIds.push(id);}
     // Other predators may have targeted the same prey. Clear stale IDs now.
     for (const instance of state.organisms) {
       if (instance.targetInstanceId && !byId.has(instance.targetInstanceId)) returnToWander(instance, clockFor(instance), true);
     }
+    result.added=updateReproduction(state,ecologyConfig.tickSeconds,layout);
     result.updated = state.organisms;
     result.ticked = true;
   }
@@ -149,7 +159,7 @@ export function createFeedingSystem(initialTime = 0) {
     if (!target) return false;
     const separation = distance(instance, target);
     if (separation <= ecologyConfig.arrivalDistance * 0.7) return false;
-    const step = Math.min(feedingConfig[instance.speciesId].speed * dt, separation);
+    const step = Math.min(feedingConfig[instance.speciesId].speed * dt * survivalActivity(instance), separation);
     const dx = (target.position.x - instance.position.x) / separation * step;
     const dy = (target.position.y - instance.position.y) / separation * step;
     const position = { x: instance.position.x + dx, y: instance.position.y + dy };
@@ -162,7 +172,7 @@ export function createFeedingSystem(initialTime = 0) {
   return {
     update(state, deltaSeconds, layout) {
       const dt = Math.min(Math.max(deltaSeconds, 0), 0.1);
-      const result = { moved: [], updated: [], removedIds: [], feedingEvents: [], ticked: false };
+      const result = { moved: [], updated: [], added:[], removedIds: [], feedingEvents: [], ticked: false };
       accumulator += dt;
       if (accumulator + 1e-9 >= ecologyConfig.tickSeconds) {
         accumulator -= ecologyConfig.tickSeconds;
@@ -175,5 +185,6 @@ export function createFeedingSystem(initialTime = 0) {
       return result;
     },
     getDiagnostics: () => ({ ...diagnostics }),
+    forget(ids){for(const id of ids){byId.delete(id);timing.delete(id);}},
   };
 }

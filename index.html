@@ -111,6 +111,16 @@
     <p id="event-result" role="status" aria-live="polite"></p>
     <button id="event-close" type="button">닫기</button>
   </dialog>
+  <dialog id="population-dialog" aria-labelledby="population-title">
+    <h2 id="population-title">생물 상태와 개체 수</h2>
+    <label>살펴볼 생물 <select id="population-species"></select></label>
+    <p id="population-role"></p><p id="population-state" role="status"></p>
+    <p id="population-introduction"></p><p id="population-breeding"></p>
+    <p id="population-soil"></p><ul id="population-history"></ul>
+    <p>30개체까지 함께 살아요. 공간이 꽉 찼다면 한 개체를 돌려보내고 필요한 생물을 들여요. 돌려보낸 생물은 현재 숲에서 실제로 줄어들어요.</p>
+    <button id="population-release" type="button">한 개체를 돌려보내 공간 마련</button>
+    <button id="population-close" type="button">숲으로 돌아가기</button>
+  </dialog>
   <dialog id="observations-dialog" aria-labelledby="observations-title">
     <h2 id="observations-title">내가 발견한 먹이 관계</h2>
     <ul id="observation-records"></ul><p>지금 숲에서 확인한 발견이에요. 새로 시작하면 기록도 새로 시작해요.</p>

@@ -7,8 +7,10 @@ import {environmentFactors,growthConfig} from '../../data/environment-config.js'
 import {foodResourceConfig} from '../../data/ecology-config.js';
 import {managementActions,rewardConfig} from '../../data/management-actions.js';
 import {forestGoal} from '../../data/forest-goal.js';
+import {populationConfig,reproductionRules,decompositionConfig,satietySeconds} from '../../data/population-config.js';
+import {relationFor} from '../../data/food-relations.js';
 
-export const SAVE_VERSION=7;
+export const SAVE_VERSION=8;
 const object=value=>value!==null&&typeof value==='object'&&!Array.isArray(value);
 const validId=value=>typeof value==='string'&&/^[a-zA-Z0-9_-]{1,80}$/.test(value);
 const text=value=>typeof value==='string'?value.slice(0,100):'';
@@ -21,7 +23,7 @@ export function createSaveSnapshot(state,eventMemory,savedAt) {
   inventory:state.inventory.map(({speciesId,acquired})=>({speciesId,acquired})),
   organisms:state.organisms.map(item=>{
    const saved={instanceId:item.instanceId,speciesId:item.speciesId,position:{...item.position}};
-   for(const key of ['growth','foodStock','hunger','foodShortageDuration','lastSuccessfulFeedingAt'])if(key in item)saved[key]=item[key];
+   for(const key of ['growth','foodStock','hunger','foodShortageDuration','lastSuccessfulFeedingAt','deprivationSeconds','bornAt','satietyUntil'])if(key in item)saved[key]=item[key];
    return saved;
   }),
   environment:Object.fromEntries(Object.entries(state.environment).map(([key,item])=>[key,{value:item.value}])),
@@ -34,6 +36,11 @@ export function createSaveSnapshot(state,eventMemory,savedAt) {
   managementCooldowns:{...state.managementCooldowns},
   managementEffects:state.managementEffects.map(({actionId,startedAt,expiresAt,multiplier})=>({actionId,startedAt,expiresAt,multiplier})),
   forestProgress:{...state.forestProgress},
+  population:{sequence:state.population.sequence,totals:{...state.population.totals},
+    history:state.population.history.map(({sequence,speciesId,changeType,cause,simulationTime,countBefore,countAfter,consumerSpeciesId,mode,noted})=>({sequence,speciesId,changeType,cause,simulationTime,countBefore,countAfter,consumerSpeciesId,mode,noted})),
+    breeding:Object.fromEntries(Object.entries(state.population.breeding).map(([id,v])=>[id,{healthySeconds:v.healthySeconds,nextAt:v.nextAt}])),
+    introductions:Object.fromEntries(Object.entries(state.population.introductions).map(([id,v])=>[id,{count:v.count,nextAt:v.nextAt}]))},
+  decomposition:{organicMatter:{...state.decomposition.organicMatter},soilNutrients:state.decomposition.soilNutrients,processed:state.decomposition.processed},
  },eventMemory};
 }
 
@@ -43,9 +50,9 @@ export function decodeSave(raw) {
  let input;
  try {if(typeof raw!=='string'||raw.length>1000000)return fresh('damaged');input=JSON.parse(raw);}catch{return fresh('damaged');}
  if(!object(input)||!Number.isInteger(input.schemaVersion))return fresh('missing-version');
- if(input.schemaVersion!==SAVE_VERSION)return fresh(input.schemaVersion>SAVE_VERSION?'future-version':'old-version',true);
+ if(![7,SAVE_VERSION].includes(input.schemaVersion))return fresh(input.schemaVersion>SAVE_VERSION?'future-version':'old-version',true);
  const d=input.domain;
- if(!object(d)||d.schemaVersion!==SAVE_VERSION||d.ecosystemId!=='forest'||!Array.isArray(d.organisms)||!Array.isArray(d.inventory)||!object(d.environment)||!object(d.metrics))return fresh('damaged');
+ if(!object(d)||d.schemaVersion!==input.schemaVersion||d.ecosystemId!=='forest'||!Array.isArray(d.organisms)||!Array.isArray(d.inventory)||!object(d.environment)||!object(d.metrics))return fresh('damaged');
  let repaired=false;
  const number=(value,min,max,fallback=0)=>{if(!Number.isFinite(value)){repaired=true;return fallback;}const v=Math.max(min,Math.min(max,value));if(v!==value)repaired=true;return v;};
  const array=(value,max)=>{if(!Array.isArray(value)){repaired=true;return [];}if(value.length>max)repaired=true;return value.slice(0,max);};
@@ -69,10 +76,33 @@ export function decodeSave(raw) {
   // only absent newly supported fields; do not treat definition expansion as damage.
   if('foodStock' in organism)organism.foodStock=item.foodStock===undefined?foodResourceConfig[item.speciesId].maximum*organism.growth:number(item.foodStock,0,foodResourceConfig[item.speciesId].maximum*organism.growth);
   if('hunger' in organism){organism.hunger=item.hunger===undefined?organism.hunger:number(item.hunger,0,1,organism.hunger);organism.foodShortageDuration=item.foodShortageDuration===undefined?0:number(item.foodShortageDuration,0,1e6);organism.lastSuccessfulFeedingAt=item.lastSuccessfulFeedingAt==null?null:time(item.lastSuccessfulFeedingAt);}
+  if('hunger'in organism){organism.bornAt=input.schemaVersion===7?state.simulationTime:time(item.bornAt);organism.deprivationSeconds=input.schemaVersion===7?0:number(item.deprivationSeconds,0,1000);organism.satietyUntil=input.schemaVersion===7?0:number(item.satietyUntil,0,state.simulationTime+(satietySeconds[item.speciesId]||0));organism.acclimationUntil=state.simulationTime+(input.schemaVersion===7?populationConfig.graceSeconds:populationConfig.restoreGraceSeconds);}
   ids.add(item.instanceId);state.organisms.push(organism);
  }
  const suffixes=state.organisms.map(item=>Math.min(1e9,Number(item.instanceId.match(/(\d+)$/)?.[1]||0)));
  state.nextInstanceSequence=Math.max(1,...suffixes.map(n=>n+1),Math.floor(number(d.nextInstanceSequence,1,1e9,1)));
+ const causes=['placement','reintroduction','reproduction','predation','starvation','release'];
+ if(input.schemaVersion===8){
+  const p=object(d.population)?d.population:{};
+  const seen=new Set();
+  state.population.history=array(p.history,populationConfig.historyLimit).flatMap(r=>{
+   if(!object(r)||!own(organismById,r.speciesId)||!causes.includes(r.cause)||r.changeType!==r.cause||!Number.isInteger(r.sequence)||r.sequence<1||r.sequence>1e9||seen.has(r.sequence)||!Number.isInteger(r.countBefore)||!Number.isInteger(r.countAfter)||r.countBefore<0||r.countAfter<0||r.countBefore>30||r.countAfter>30||r.countAfter-r.countBefore!==(['predation','starvation','release'].includes(r.cause)?-1:1)){repaired=true;return [];}
+   if(r.cause==='predation'&&!relationFor(r.speciesId,r.consumerSpeciesId)){repaired=true;return [];}
+   seen.add(r.sequence);const record={sequence:r.sequence,speciesId:r.speciesId,changeType:r.cause,cause:r.cause,simulationTime:time(r.simulationTime),countBefore:r.countBefore,countAfter:r.countAfter,noted:r.noted===true};
+   if(r.cause==='predation')record.consumerSpeciesId=r.consumerSpeciesId;
+   if(r.cause==='reproduction')record.mode=r.mode==='seed-spread'?'seed-spread':'animal';
+   return [record];
+  });
+  state.population.sequence=Math.max(...state.population.history.map(r=>r.sequence),0,Math.floor(number(p.sequence,0,1e9)));
+  for(const cause of causes)state.population.totals[cause]=Math.max(state.population.history.filter(r=>r.cause===cause).length,Math.floor(number(p.totals?.[cause]??0,0,1e9)));
+  state.population.introductions={};
+  for(const id of Object.keys(organismById))if(object(p.introductions?.[id]))state.population.introductions[id]={count:Math.floor(number(p.introductions[id].count,0,1e6)),nextAt:number(p.introductions[id].nextAt,0,state.simulationTime+populationConfig.introductionCooldown)};
+  for(const [id,rule]of Object.entries(reproductionRules))if(object(p.breeding?.[id]))state.population.breeding[id]={healthySeconds:number(p.breeding[id].healthySeconds,0,rule.healthySeconds),nextAt:number(p.breeding[id].nextAt,0,state.simulationTime+rule.cooldown)};
+  const organic=d.decomposition?.organicMatter;
+  for(const part of ['wood','litter','remains'])state.decomposition.organicMatter[part]=number(organic?.[part],0,decompositionConfig.maximum);
+  state.decomposition.soilNutrients=number(d.decomposition?.soilNutrients,0,1);state.decomposition.processed=number(d.decomposition?.processed,0,1e6);
+ }
+ for(const card of state.inventory)if(!state.population.introductions[card.speciesId]&&(card.acquired||state.organisms.some(o=>o.speciesId===card.speciesId)))state.population.introductions[card.speciesId]={count:state.organisms.filter(o=>o.speciesId===card.speciesId).length,nextAt:0};
  const seenObservations=new Set();
  state.observations=array(d.observations,Object.keys(discoveryEvents).length).flatMap(item=>{
   if(!item||!own(discoveryEvents,item.relationId)||seenObservations.has(item.relationId)){repaired=true;return [];}
@@ -127,7 +157,7 @@ export function decodeSave(raw) {
  state.forestProgress={cleared,clearedAt:cleared?d.forestProgress.clearedAt:null,stableSeconds:cleared?forestGoal.stableSeconds:0};
  const memory=object(input.eventMemory)?input.eventMemory:{};
  const eventMemory={sequence:Math.floor(number(memory.sequence,0,1e9)),cooldowns:[],questionDone:[],pendingDiscoveries:[]};
- const validKey=key=>typeof key==='string'&&((key.startsWith('shortage:')&&ids.has(key.slice(9)))||Object.keys(environmentFactors).some(f=>key===`growth:${f}`||key===`investigate:${f}`));
+ const validKey=key=>typeof key==='string'&&((key.startsWith('shortage:')&&ids.has(key.slice(9)))||(key.startsWith('competition:')&&own(organismById,key.slice(12)))||Object.keys(environmentFactors).some(f=>key===`growth:${f}`||key===`investigate:${f}`));
  for(const entry of array(memory.cooldowns,40))if(Array.isArray(entry)&&validKey(entry[0])){const until=deadline(entry[1],eventConfig.cooldownSeconds);if(until>state.simulationTime)eventMemory.cooldowns.push([entry[0],until]);}
  eventMemory.questionDone=array(memory.questionDone,4).filter(key=>Object.keys(environmentFactors).some(f=>key===`investigate:${f}`));
  const pendingSeen=new Set();

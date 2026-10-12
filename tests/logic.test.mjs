@@ -4,6 +4,7 @@ import { createGameState } from '../js/state/game-state.js';
 import { placeOrganism, validatePlacement, isPositionAllowed } from '../js/systems/placement.js';
 import { createWanderSystem } from '../js/systems/wander.js';
 import { placementConfig, speciesProfiles } from '../data/interaction-config.js';
+import {enableDevelopmentPlacement} from '../js/systems/population.js';
 
 const layout = {
   footprints: Object.fromEntries(Object.keys(speciesProfiles).map(id => [id, { halfWidth: 0.025, above: 0.12, below: 0.04 }])),
@@ -40,6 +41,7 @@ test('ground rules, sprite/UI intersection, and large-plant spacing', () => {
 
 test('duplicate species receive unique minimal instances; permissions survive; cap is enforced', () => {
   const state = createGameState();
+  enableDevelopmentPlacement(state); // Geometry/cap regression; introduction policy is tested separately.
   // These geometry/motion scenarios explicitly use already unlocked cards.
   state.inventory.forEach(item => { item.acquired = true; });
   const inventory = structuredClone(state.inventory);

@@ -6,6 +6,8 @@ import {organismById} from '../../data/organisms.js';
 import {activityById,activityForSpecies} from '../../data/activities.js';
 import {managementActions} from '../../data/management-actions.js';
 import {discoveryEvents,eventConfig} from '../../data/event-config.js';
+import {survivalStage,validateIntroduction} from './population.js';
+import {placementConfig} from '../../data/interaction-config.js';
 
 const relationNames={grass_to_grasshopper:'풀 → 메뚜기',grasshopper_to_frog:'메뚜기 → 개구리'};
 export function goalPresentation(state) {
@@ -34,6 +36,13 @@ export function nextAction(state) {
  const acquired=id=>state.inventory.some(item=>item.speciesId===id&&item.acquired);
  const completed=id=>state.activities.some(item=>item.activityId===id&&item.completed);
  const poor=Object.keys(environmentFactors).filter(key=>factorValue(state.environment,key)<forestGoal.minimumEnvironment);
+ const weak=state.organisms.find(o=>survivalStage(o)==='weak');
+ if(weak)return `${organismById[weak.speciesId].name}가 쇠약해졌어요. !에서 먹이와 회복 방법을 살펴보세요.`;
+ const missingCore=forestGoal.requiredSpecies.find(id=>!has(id)&&acquired(id));
+ if(missingCore){
+  if(state.organisms.length>=placementConfig.maxOrganisms)return '생물 상태에서 서식 공간을 마련한 뒤 필요한 생물을 다시 들여요.';
+  const introduction=validateIntroduction(state,missingCore);if(!introduction.ok)return introduction.message;
+ }
  if(state.forestProgress.cleared&&!poor.length)return '숲 목표를 달성했어요! 계속 관찰하고 생물과 환경을 돌봐요.';
  if(!has('grass'))return '풀 카드를 고르고 숲에 놓아 주세요. 풀은 메뚜기의 먹이가 돼요.';
  if(!has('grasshopper'))return '메뚜기 카드를 고르고 풀 가까이에 놓아 주세요.';

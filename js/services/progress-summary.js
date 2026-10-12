@@ -6,5 +6,6 @@ export function createProgressSummary(state,lastUpdated=null) {
   acquiredSpeciesCount:state.inventory.filter(item=>item.acquired).length,
   completedActivitiesCount:state.activities.filter(item=>item.completed).length,
   observationsCount:state.observations.length,managementActionCount:state.managementActionCount,
-  currentStability:state.metrics.stability,bestStability:state.metrics.bestStability,lastUpdated};
+  currentStability:state.metrics.stability,bestStability:state.metrics.bestStability,lastUpdated,
+  activeOrganismCount:state.organisms.length,populationChanges:{...state.population.totals}};
 }

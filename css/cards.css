@@ -6,3 +6,10 @@
 .organism-card[data-upcoming=true]{border-style:dashed}
 @media(max-width:1050px){.organism-card{flex-basis:145px}}
 @media(max-width:800px){.organism-card{flex-basis:122px}}
+.header-actions{flex-wrap:wrap;justify-content:flex-end}
+#population-open{min-height:44px;padding:6px 10px;border:1px solid #b8c6aa;border-radius:8px;background:#edf3df;font-size:12px}
+#population-dialog{width:min(520px,calc(100% - 28px));max-height:85vh;overflow:auto;border:1px solid #b8c6aa;border-radius:16px;padding:22px;background:var(--white);color:var(--ink)}
+#population-dialog::backdrop{background:#16372388}
+#population-dialog p,#population-dialog li{font-size:14px;line-height:1.7;margin:12px 0}
+#population-dialog button,#population-dialog select{min-height:44px;max-width:100%;padding:8px 12px;border:1px solid #b8c6aa;border-radius:8px;background:#edf3df;font-size:14px}
+.organism-object[data-survival=weak] .organism-name{background:#f7e4c4;border-bottom:2px solid #8c692d}

@@ -1,5 +1,6 @@
 import { speciesProfiles, wanderConfig } from '../../data/interaction-config.js';
 import { isPositionAllowed } from './placement.js';
+import {survivalActivity} from './population.js';
 
 /** Visual wandering only. Temporary timing/direction live here, never in
  * OrganismDefinition or saved organism instances. No detection/feeding/AI.
@@ -30,8 +31,8 @@ export function createWanderSystem(random = Math.random) {
         }
         if (!motion.walking) continue;
         const position = {
-          x: instance.position.x + motion.dx * config.speedX * dt * activity,
-          y: instance.position.y + motion.dy * config.speedY * dt * activity,
+          x: instance.position.x + motion.dx * config.speedX * dt * activity * survivalActivity(instance),
+          y: instance.position.y + motion.dy * config.speedY * dt * activity * survivalActivity(instance),
         };
         if (!isPositionAllowed(instance.speciesId, position, layout)) {
           // Bounce within the same walk, then briefly stop if the corner is tight.

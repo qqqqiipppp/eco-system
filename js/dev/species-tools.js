@@ -1,7 +1,9 @@
 import {organismById} from '../../data/organisms.js';
+import {enableDevelopmentPlacement} from '../systems/population.js';
 
 /** Explicit test/developer installation only; production never imports this. */
 export function grantDevelopmentCards(state){
+  enableDevelopmentPlacement(state);
   for(const card of state.inventory)if(Object.hasOwn(organismById,card.speciesId))card.acquired=true;
 }
 export function installSpeciesTools(state,onChanged){

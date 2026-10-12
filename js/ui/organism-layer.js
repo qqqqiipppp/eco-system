@@ -1,6 +1,7 @@
 import { organismById } from '../../data/organisms.js';
 import { speciesProfiles, placementConfig } from '../../data/interaction-config.js';
 import { DEBUG_MODE, foodResourceConfig } from '../../data/ecology-config.js';
+import {survivalStage} from '../systems/population.js';
 
 /** DOM adapter: creates each organism once and paints positions using transforms.
  * Geometry reads happen only on resize or input, never in the update loop.
@@ -96,6 +97,7 @@ export function createOrganismLayer(forest, getOrganisms) {
       entry.growth = instance.growth;
     }
     const eating = instance.behaviorState === 'eat';
+    const survival=survivalStage(instance);if(entry.survival!==survival){entry.anchor.dataset.survival=survival;entry.survival=survival;}
     const depleted = foodResourceConfig[instance.speciesId] && instance.foodStock < foodResourceConfig[instance.speciesId].portion;
     if (entry.eating !== eating) { entry.anchor.classList.toggle('is-eating', eating); entry.eating = eating; }
     if (entry.depleted !== Boolean(depleted)) { entry.anchor.classList.toggle('is-depleted', Boolean(depleted)); entry.depleted = Boolean(depleted); }

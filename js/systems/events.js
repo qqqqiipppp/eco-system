@@ -1,8 +1,11 @@
 import { eventConfig, shortageEvents, discoveryEvents, growthInvestigation, eventPriority } from '../../data/event-config.js';
-import {relationFor} from '../../data/food-relations.js';
+import {relationFor,foodRelations} from '../../data/food-relations.js';
+import {foodResourceConfig,feedingConfig} from '../../data/ecology-config.js';
 import { growthSuitability, factorValue } from './environment.js';
 import { grantReward, rewardResolvedManagement } from './rewards.js';
 import { producerGrowth, environmentFactors } from '../../data/environment-config.js';
+import {survivalStage,populationMessage} from './population.js';
+import {organismById} from '../../data/organisms.js';
 
 /** Actual ecology signals only. No DOM, wall-clock timers, random generation or
  * automatic discovery credit. A discovery is recorded by acknowledge().
@@ -23,8 +26,17 @@ export function createEventSystem(initialTime = 0, memory = {}) {
     for (const instance of state.organisms) {
       if (shortageEvents[instance.speciesId] && instance.foodShortageDuration >= eventConfig.shortageSeconds && instance.hunger >= 0.6) {
         const key = `shortage:${instance.instanceId}`;
-        candidates.set(key, { key, kind: 'alert', sourceType: 'organism', sourceId: instance.instanceId, ...shortageEvents[instance.speciesId], payload: { speciesId: instance.speciesId } });
+        const stage=survivalStage(instance),weak=stage==='weak'||stage==='severe';
+        candidates.set(key, { key, kind: 'alert', sourceType: 'organism', sourceId: instance.instanceId, ...shortageEvents[instance.speciesId], ...(weak?{title:`${organismById[instance.speciesId].name}가 오랫동안 먹이를 먹지 못했어요`,message:'먹이를 살펴보고 회복할 시간을 마련해 주세요.'}:{}), payload: { speciesId: instance.speciesId, urgent:weak } });
       }
+    }
+    for(const sourceId of new Set(foodRelations.map(r=>r.sourceSpeciesId))){
+      const foods=state.organisms.filter(o=>o.speciesId===sourceId);if(!foods.length)continue;
+      const targets=new Set(foodRelations.filter(r=>r.sourceSpeciesId===sourceId).map(r=>r.targetSpeciesId));
+      const consumers=state.organisms.filter(o=>targets.has(o.speciesId)&&foods.some(f=>Math.hypot(f.position.x-o.position.x,f.position.y-o.position.y)<=feedingConfig[o.speciesId].searchRadius));
+      const shared=consumers.length>=3||consumers.length>=2&&new Set(consumers.map(o=>o.speciesId)).size>1;
+      const supply=foods.reduce((sum,o)=>sum+(foodResourceConfig[sourceId]?o.foodStock/foodResourceConfig[sourceId].maximum:1),0);
+      if(shared&&supply<consumers.length*.6){const key=`competition:${sourceId}`;candidates.set(key,{key,kind:'alert',sourceType:'environment',sourceId:'forest',title:'여러 생물이 같은 먹이를 이용하고 있어요',message:`${organismById[sourceId].name}를 이용하는 생물들이 먹이를 얻기 어려울 수 있어요.`,explanation:'개체 수가 늘면 먹이 소비도 늘어요. 먹이 자원과 다른 먹이 관계를 함께 살펴보세요.',payload:{competitionSpeciesId:sourceId}});}
     }
     const slow = state.organisms.filter(instance => producerGrowth[instance.speciesId] && growthSuitability(instance.speciesId, state.environment) < eventConfig.growthThreshold);
     const worst = slow.length ? Object.keys(environmentFactors).sort((a,b) => factorValue(state.environment,a)-factorValue(state.environment,b))[0] : null;
@@ -49,6 +61,12 @@ export function createEventSystem(initialTime = 0, memory = {}) {
       const key = `discovery:${relationId}`;
       candidates.set(key, { key, kind: 'insight', sourceType: sourceExists ? 'organism' : 'environment', sourceId: sourceExists ? signal.consumerInstanceId : 'forest', title: definition.title, message: definition.message, explanation: definition.explanation, payload: { relationId } });
     }
+    const notices=new Map();
+    for(const record of state.population.history)if(!record.noted&&!['placement','reintroduction'].includes(record.cause))notices.set(`${record.cause}:${record.speciesId}`,record);
+    for(const record of [...notices.values()].slice(-6)){
+      const key=`population:${record.sequence}`;
+      candidates.set(key,{key,kind:'alert',sourceType:'environment',sourceId:'forest',title:'숲의 개체 수가 달라졌어요',message:populationMessage(record),explanation:record.cause==='predation'?'포식으로 먹이를 얻은 소비자와 줄어든 먹이 생물을 함께 살펴보세요.':'먹이·환경·개체 수의 관계를 살펴보세요.',payload:{populationSequence:record.sequence,urgent:record.cause==='starvation'}});
+    }
     hasConditions = candidates.size > 0 || slowSince.size > 0;
     const active = new Map(state.events.filter(event => event.status === 'active').map(event => [event.key,event]));
     for (const event of active.values()) {
@@ -57,6 +75,7 @@ export function createEventSystem(initialTime = 0, memory = {}) {
       else if (event.sourceId !== candidate.sourceId || event.sourceType !== candidate.sourceType) {
         event.sourceId = candidate.sourceId; event.sourceType = candidate.sourceType;
       }
+      if(candidate){event.title=candidate.title;event.message=candidate.message;event.payload=candidate.payload;}
     }
     const ordered = [...candidates.values()].sort((a,b)=>eventPriority(b)-eventPriority(a));
     for (const candidate of ordered) {
@@ -97,6 +116,7 @@ export function createEventSystem(initialTime = 0, memory = {}) {
         state.observations.push({ relationId: event.payload.relationId, eventId, discoveredAt: time });
         pendingDiscoveries.delete(event.payload.relationId);
       }
+      if(event.payload.populationSequence){const record=state.population.history.find(r=>r.sequence===event.payload.populationSequence);if(record)record.noted=true;}
       close(event, event.kind === 'insight' ? 'resolved' : 'dismissed');
       cooldowns.set(event.key,time+eventConfig.cooldownSeconds);
       const reward = event.kind === 'insight' ? grantReward(state,'observation',event.payload.relationId,eventId) : event.kind === 'question' ? grantReward(state,'question',`producer_${event.payload.factor}_limit`,eventId) : 0;

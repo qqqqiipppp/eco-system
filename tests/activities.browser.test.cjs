@@ -33,7 +33,12 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');const asse
  await page.emulateMedia({reducedMotion:'reduce'});
  await page.locator('.event-insight[aria-label*="개구리"]').tap();await page.getByRole('button',{name:'살펴보기',exact:true}).click();await page.getByRole('button',{name:'발견 기록하기',exact:true}).click();await page.locator('#event-close').click();
  await card('rabbit').tap();
- for(let i=0;i<35&&(await state()).organisms.length<30;i++)await tap(.13+(i%8)*.065,.64+(i%3)*.035);
+ // Verify the new student introduction limit, then use an explicit saved fixture
+ // for the independent 30-DOM activity-panel performance regression.
+ for(let i=0;i<3;i++)await tap(.25+i*.06,.72);
+ const capped=(await state()).organisms.length;await tap(.44,.72);assert.equal((await state()).organisms.length,capped);assert.match(await page.locator('#placement-feedback').textContent(),/기다려요/);
+ await page.evaluate(async()=>{const {gameState,saveService}=await import('./js/main.js');const {createOrganismInstance}=await import('./js/state/organism-instance.js');while(gameState.organisms.length<30)gameState.organisms.push(createOrganismInstance('rabbit','perf-'+gameState.organisms.length,{x:.2+(gameState.organisms.length%6)*.06,y:.72}));saveService.flush(true)});
+ await page.reload({waitUntil:'networkidle'});
  assert.equal((await state()).organisms.length,30);await page.emulateMedia({reducedMotion:'no-preference'});
  await page.locator('#activities-open').tap();await page.evaluate(()=>{window.nodes=[...document.querySelectorAll('.organism-object')];window.reads=0;const original=Element.prototype.getBoundingClientRect;Element.prototype.getBoundingClientRect=function(){window.reads++;return original.call(this)}});
  await page.waitForTimeout(2200);const perf=await page.evaluate(()=>({stable:[...document.querySelectorAll('.organism-object')].every(n=>window.nodes.includes(n)),reads:window.reads,intervals:window.intervals}));assert(perf.stable);assert.equal(perf.reads,0);assert.equal(perf.intervals,0);

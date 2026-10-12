@@ -1,4 +1,4 @@
-# 현재 설계 — 1~10단계
+# 현재 설계 — 1~11단계
 
 ## 핵심 책임
 
@@ -6,7 +6,7 @@
 
 공통 update-loop 하나가 최대 30fps로 이동을 갱신합니다. feeding/ecology는 0.5초, event 평가는 1초 간격입니다. hidden 및 prefers-reduced-motion 중에는 기존 정책대로 시뮬레이션을 멈춥니다. 복귀할 때 시간 차를 누적 처리하지 않습니다.
 
-placement는 inventory.acquired/정규화 좌표/영역/나무 겹침/30개 제한을 검증합니다. organism-layer는 개체별 DOM을 만들고 이동 transform/상태만 갱신합니다. 23개 카드 정의 중 15개 소비자가 27개 관계에 따라 실제 섭식합니다. 토끼의 풀 섭식도 연결했습니다. 3개 분해자의 실제 분해는 없습니다.
+placement는 inventory.acquired/정규화 좌표/영역/나무 겹침/30개 제한을 검증합니다. organism-layer는 개체별 DOM을 만들고 이동 transform/상태만 갱신합니다. 23개 카드 정의 중 15개 소비자가 27개 관계에 따라 실제 섭식합니다. 토끼의 풀 섭식도 연결했습니다. 3개 분해자는 별도의 유기물 풀에서 기초 분해를 수행합니다.
 
 ## 환경·안정도·이벤트·학습
 
@@ -34,12 +34,12 @@ metrics.bestStability는 최고값만 유지합니다. 진행률은 관찰20/핵
 
 `game state → save service → localStorage adapter`
 
-- services/save-format.js: 버전 7 스냅샷의 whitelist 생성과 검증/정리. 도메인 전체를 그대로 stringify하지 않습니다.
+- services/save-format.js: 버전 8 스냅샷의 whitelist 및 버전 7 이전 생성과 검증/정리. 도메인 전체를 그대로 stringify하지 않습니다.
 - services/save-service.js: 로드, 저장 요청 병합, flush, reset, 오류 상태. adapter를 주입받습니다.
 - adapters/local-storage.js: 게임 저장의 localStorage 접근 지점. key는 eco-system:forest-save. 안내 선호는 별도 guide-preference adapter가 담당합니다.
 - ui/forest-view.js: 목표/저장 문구/초기화 확인. 저장 데이터를 직접 쓰지 않습니다.
 
-저장 외피는 schemaVersion=7, savedAt(ISO 실제 저장 시각), domain, eventMemory입니다. domain.schemaVersion도 7입니다. savedAt은 게임 계산에 사용하지 않습니다.
+저장 외피는 schemaVersion=8, savedAt(ISO 실제 저장 시각), domain, eventMemory입니다. domain.schemaVersion도 8입니다. 7버전은 기존 진행을 보존하고 새 필드만 보충합니다. savedAt은 게임 계산에 사용하지 않습니다.
 
 지속 데이터: ecosystemId/simulationTime/nextInstanceSequence, inventory, organisms의 ID/종/정규화 위치/성장/foodStock/hunger/부족 누적/최근 섭식 활성 시각, environment, points/bestStability, observations, activities, rewardHistory, 관리 이력/누적 횟수/cooldown/effect, forestProgress.
 
@@ -75,7 +75,7 @@ pagehide와 hidden 전환에서 동기 최종 flush를 시도합니다. 저장 �
 
 services/progress-summary.js의 createProgressSummary(state,lastUpdated)는 상태를 변경하지 않는 순수 함수입니다. theme/progress/cleared/카드·활동·관찰 수/누적 관리 횟수/currentStability/bestStability/lastUpdated/schemaVersion을 반환하며 studentId=null입니다. lastUpdated에는 saveService.getSavedAt()을 전달할 수 있습니다. 학생 이름/번호를 만들지 않고 전송하지 않습니다.
 
-저장 서비스의 read/write/remove adapter와 진행 요약은 별도 책임입니다. 미래 remote adapter 또는 관리자 연동은 이 경계를 사용하되 지금 빈 원격 모듈은 없습니다. 다음 테마·분해·번식·오염·완성형 먹이그물 화면은 이번 범위 밖입니다.
+저장 서비스의 read/write/remove adapter와 진행 요약은 별도 책임입니다. 미래 remote adapter 또는 관리자 연동은 이 경계를 사용하되 지금 빈 원격 모듈은 없습니다. 다음 테마·정밀 물질 순환·오염·완성형 먹이그물 화면은 이번 범위 밖입니다.
 
 ## 9단계 안내와 목표 표시
 
@@ -87,7 +87,7 @@ nextAction은 현재 카드/개체, 실제 발견 후보·관찰, 완료 활동,
 
 ui/forest-view.js는 여섯 행의 DOM을 한 번 만들고 바뀐 문구와 체크만 갱신합니다. 기본 화면에는 한 줄 목표 수와 상세 버튼을 두고 기존 사이드 영역에 다음 행동을 표시합니다. 별도 갱신 loop를 추가하지 않고 기존 dashboard refresh 경로를 사용합니다.
 
-ui/help-view.js는 새 게임 목적/조작 안내와 재열기를 담당합니다. main.js가 restored.status==='new'일 때만 최초 자동 표시를 요청합니다. 닫기·Escape·건너뛰기도 확인으로 처리합니다. adapters/guide-preference.js는 선택적인 UI key eco-system:forest-guide-seen만 읽고 쓰며 오류가 게임 실행을 중단시키지 않습니다. schemaVersion 7 도메인 저장과 독립적입니다.
+ui/help-view.js는 새 게임 목적/조작 안내와 재열기를 담당합니다. main.js가 restored.status==='new'일 때만 최초 자동 표시를 요청합니다. 닫기·Escape·건너뛰기도 확인으로 처리합니다. adapters/guide-preference.js는 선택적인 UI key eco-system:forest-guide-seen만 읽고 쓰며 오류가 게임 실행을 중단시키지 않습니다. schemaVersion 8 도메인 저장과 독립적입니다.
 
 ## 9단계 환경 관찰과 유료 회복
 
@@ -120,7 +120,7 @@ js/dev/environment-tools.js는 기존 네 환경 비교 선택창을 environment
 - feeding은 낮은 빈도로 살아 있는 개체를 종별로 색인한다. 허용 관계 안에서 존재·남은 자원·거리·접근 가능성을 검사한다. 타깃 고갈/삭제 시 기존 재탐색 상태로 돌아가 다른 먹이를 찾는다. 식물 자원 소비와 동물 삭제를 feedingMode로 구분한다. 동기 삭제 후 stale target을 정리한다.
 - wander는 종별 motion 설정을 사용하며 식물/분해자를 이동시키지 않는다. 새 RAF·setInterval·무거운 효과는 없다.
 - 실제 섭식 신호의 relationId/foodPart를 feedback과 events가 사용한다. 발견 후보는 자동 수집하지만 observations와 최초 보상은 학생 확인 후 기록한다. 기존 두 핵심 관계를 우선하고 화면 4개 제한, 중복/재보상 방지를 유지한다.
-- save-format은 관계 정의에서 허용 관찰·보상·후보를 검증한다. 관찰/후보 상한은 27개 정의에 맞춰 확장한다. 누락된 신규 inventory는 잠금으로 추가한다. 이전 상수리/토끼의 새 runtime 필드 누락은 정상 기본값으로 보충한다. schemaVersion=7과 key는 동일하다.
+- save-format은 관계 정의에서 허용 관찰·보상·후보를 검증한다. 관찰/후보 상한은 27개 정의에 맞춰 확장한다. 누락된 신규 inventory는 잠금으로 추가한다. 이전 상수리/토끼의 새 runtime 필드 누락은 정상 기본값으로 보충한다. 관계 ID와 key는 동일하며 현재 저장은 schemaVersion=8, 이전 7은 안전하게 읽는다.
 
 ## 카드와 개발 경계
 
@@ -128,4 +128,22 @@ cards.css의 한 줄 가로 스크롤로 23개를 담고 이름 줄바꿈과 터
 
 학생 main.js는 dev 모듈을 가져오지 않는다. useDeveloperSpecies 테스트 fixture만 main 응답의 명시적 경계에 installSpeciesTools를 연결한다. 카드 권한을 열어도 포인트·학습 기록은 지급하지 않는다. URL 플래그는 없다. 이 경계는 개발 검증 편의 기능이며 개발자 도구로 저장을 직접 변조하는 행위까지 막는 인증 시스템은 아니다.
 
-12단계 환경 변화는 기존 environment API를 통해 연결하고 15단계 유지시간은 forest-goal 설정에서 조정할 수 있습니다. 이번에는 날씨·위기·분해·번식·종 확대·관리자 UI/원격 서비스를 구현하지 않습니다. 최초 보상이 전부 소진된 저포인트 저장은 여전히 유료 관리가 막힐 수 있으므로 후속 경제 설계에서 별도 제한 회복 보상 등을 검토해야 합니다.
+12단계 환경 변화는 기존 environment API를 통해 연결하고 15단계 유지시간은 forest-goal 설정에서 조정할 수 있습니다. 이번에는 날씨·위기·정밀 물질 순환·종 확대·관리자 UI/원격 서비스를 구현하지 않습니다. 최초 보상이 전부 소진된 저포인트 저장은 여전히 유료 관리가 막힐 수 있으므로 후속 경제 설계에서 별도 제한 회복 보상 등을 검토해야 합니다.
+
+## 11단계: 생명주기와 기초 분해
+
+- data/population-config.js: 모든 활성 시간·쇠약·회복·번식·도입·자원 상한 조정값. 실측 생태 시간은 아니다.
+- lifecycle.js: 고유 ID 생성, 실제 organisms 추가/제거, 추적 참조 해제, 종별 실제 수에서 변화 이력/누적 통계를 기록한다. 포식·굶주림·번식·배치·재도입·학생의 돌려보내기를 구별한다. 포식은 유기물을 중복 생성하지 않고 굶주림만 잔존 유기물을 만든다.
+- population.js: 생존 단계/활동 배율, 성공 섭식 회복, 지원 완화, 도입 검증, 조건부 번식을 담당한다. 초기 대기 면제는 종별 도입 횟수로 기록하고, 감소 시 대기를 적용한다. 현재 개체 수는 별도 저장하지 않고 organisms에서 계산한다.
+- placement-rules.js: 순수 화면 영역/footprint/나무 간격 검증을 분리해 학생 배치와 자연 발생이 공유한다. placement.js는 카드 권한·전체 상한과 도입 정책을 검증한 뒤 공통 생성 경로를 쓴다. 개발 검사에서만 WeakSet 권한으로 도입 제한을 우회하며 상한/영역/카드 권한은 그대로 검증한다.
+- feeding.js: 기존 0.5초 tick에서 실제 섭식·포식 → 생존 감소 → 번식, 같은 tick에서 유기물 분해/생산자 회복을 연결한다. 실제 동물 섭식 후 포만 기한에는 hunger 증가를 멈춘다. 학생의 즉시 반복 배치/포인트 지원은 성공 섭식으로 취급하지 않는다.
+- decomposition.js: wood/litter/remains 각 최대 30. 소량의 배경 분해와 3분해자의 자원별 활동, soilNutrients(0~1)를 계산한다. 양분은 최대 1.12배 회복 배율이며 환경 quality 값을 직접 변경하지 않는다.
+- main.js: added/removedIds를 organism-layer의 추가/삭제에 연결하고 실제 변화 후 이벤트·안정도·목표·저장을 갱신한다. 생물별 타이머나 별도 번식 scheduler는 없다. 식물만 있을 때에도 기존 공통 loop에서 분해/씨앗 확산을 처리한다.
+- events.js: 쇠약/굶주림 감소는 기존 핵심 발견보다 우선, 먹이 경쟁과 제한적 번식도 실제 상태에서 알린다. 최근 이력은 원인/종별 최신 항목을 묶어 최대 6후보를 만들며 화면 최대 4개를 유지한다. population notice 확인은 noted만 기록하고 새 보상을 지급하지 않는다.
+- population-view.js: 23종 선택 상태 패널, 실제 수/생존/도입 조건/최근 이력/유기물 질적 표현. 두 번 확인하는 돌려보내기는 release 원인으로 제거하며 유기물/포인트를 만들지 않는다. 30개체에서 재도입 공간을 마련하는 최소 복구 경로다.
+
+현재 1 instance = 1 화면 개체인 방식 A를 채택한다. 종별 번식 상한과 전체 30개체를 유지한다. 23종 모두에게 번식 짝을 두기는 좁으므로 대표 개체 분리는 향후 성능·저장·관찰 의미를 검토한 뒤 판단한다.
+
+8버전 저장은 bornAt/deprivationSeconds/satietyUntil, 종별 breeding/introductions, organicMatter/soilNutrients/processed, 변화 이력 80건/누적 통계를 whitelist로 검증한다. DOM/추적 대상/행동 캐시/현재 팝업은 저장하지 않는다. 7버전은 새 누적 없이 적응 120초, 8버전은 누적 유지와 복원 대응 30초를 제공한다. 미래 스키마 덮어쓰기 차단은 유지한다.
+
+안정도 가중치는 변경하지 않았다. 실제 counts·hunger·허용 먹이·종 구성·최근 감소가 기존 평가에 들어가며 감소당 고정 벌점은 없다. 진행 요약에 activeOrganismCount와 populationChanges를 추가했지만 학생 식별/전송은 없다. 12단계 환경 위기는 기존 environment API와 이 생존/자원 계산을 통해 연결한다.

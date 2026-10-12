@@ -18,7 +18,7 @@ export const organisms = [
   { id: 'grasshopper', name: '메뚜기', role: 'consumer', behaviorType: 'forager', caption: '풀을 찾아 먹어요', description: '이 카드의 메뚜기는 벼과 풀의 잎을 먹어요. 개구리의 먹이가 되기도 해요.',habitat:'해가 드는 풀밭', placeholder: '🦗' },
   { id: 'frog', name: '개구리', role: 'consumer', behaviorType: 'forager', caption: '작은 동물을 먹어요', description: '이 카드는 성체 개구리를 대표해요. 가까운 메뚜기와 작은 거미를 찾아 먹어요.',habitat:'습한 숲 가장자리와 물가 주변', placeholder: '🐸' },
   { id: 'rabbit', name: '토끼', role: 'consumer', behaviorType: 'forager', caption: '풀을 먹는 초식 동물', description: '풀의 잎을 찾아 먹어요. 이 카드는 숲 가장자리의 멧토끼를 대표해요.', habitat:'숲 가장자리와 풀밭', image: './assets/images/rabbit.svg' },
-  { id: 'mushroom', name: '버섯', role: 'decomposer', behaviorType: 'static', caption: '숲의 양분을 돌려주기', description: '죽은 나무를 분해하는 버섯 유형이에요. 지금은 배치와 역할 학습만 가능하며 실제 분해는 아직 구현하지 않았어요.',habitat:'숲의 죽은 나무 주변', image: './assets/images/mushroom.svg' },
+  { id: 'mushroom', name: '버섯', role: 'decomposer', behaviorType: 'static', caption: '숲의 양분을 돌려주기', description: '죽은 나무를 분해하는 버섯 유형이에요. 죽은 나무의 유기물 분해를 도와 토양 양분에 기여해요.',habitat:'숲의 죽은 나무 주변', image: './assets/images/mushroom.svg' },
   { id:'pine',name:'소나무',role:'producer',behaviorType:'static',caption:'씨앗을 공급해요',description:'햇빛으로 양분을 만들어요. 다람쥐가 소나무 씨앗을 먹을 수 있어요.',habitat:'산지의 소나무 숲',placeholder:'🌲',unlockStage:14 },
   { id:'raspberry',name:'산딸기',role:'producer',behaviorType:'static',caption:'새가 먹는 열매',description:'숲 가장자리에서 자라요. 직박구리가 열매를 먹을 수 있어요.',habitat:'햇빛이 드는 숲 가장자리',placeholder:'🌿',unlockStage:14 },
   { id:'hazel',name:'개암나무',role:'producer',behaviorType:'static',caption:'열매와 수액',description:'개암 열매는 다람쥐의 먹이예요. 개암나무에 사는 진딧물은 수액을 빨아 먹어요.',habitat:'산지 숲 가장자리',placeholder:'🌳',unlockStage:14 },
@@ -34,8 +34,8 @@ export const organisms = [
   { id:'snake',name:'유혈목이',role:'consumer',behaviorType:'forager',caption:'개구리를 먹는 뱀',description:'개구리를 찾아 먹는 뱀이에요. 실제 야생 뱀은 가까이 가거나 만지지 않아요.',habitat:'습한 숲 가장자리와 풀밭',placeholder:'🐍',unlockStage:14 },
   { id:'weasel',name:'족제비',role:'consumer',behaviorType:'forager',caption:'여러 동물을 먹어요',description:'쥐, 다람쥐, 개구리, 메뚜기 등 이용할 수 있는 먹이를 찾아요.',habitat:'숲 가장자리와 농경지 주변',placeholder:'🐾',unlockStage:14 },
   { id:'goshawk',name:'참매',role:'consumer',behaviorType:'forager',caption:'숲의 상위 소비자',description:'토끼, 다람쥐, 직박구리 같은 동물을 사냥해요. 이 게임은 가까운 먹이를 향한 이동으로 단순화했어요.',habitat:'큰 나무가 있는 산림',placeholder:'🦅',unlockStage:14 },
-  { id:'litter-mold',name:'낙엽 분해 곰팡이',role:'decomposer',behaviorType:'static',caption:'죽은 낙엽의 물질',description:'낙엽을 분해하는 곰팡이 무리를 대표해요. 지금은 배치만 가능하고 실제 분해는 다음 단계에 연결해요.',habitat:'습한 낙엽층',placeholder:'〰',unlockStage:14 },
-  { id:'soil-bacteria',name:'토양 분해 세균',role:'decomposer',behaviorType:'static',caption:'작은 분해자의 역할',description:'죽은 유기물을 분해하는 토양 세균 무리를 대표해요. 눈에 보이지 않는 생물을 표시로 나타냈어요.',habitat:'유기물이 있는 토양',placeholder:'⋯',unlockStage:14 },
+  { id:'litter-mold',name:'낙엽 분해 곰팡이',role:'decomposer',behaviorType:'static',caption:'죽은 낙엽의 물질',description:'낙엽을 분해하는 곰팡이 무리를 대표해요. 낙엽의 유기물 분해를 도와요.',habitat:'습한 낙엽층',placeholder:'〰',unlockStage:14 },
+  { id:'soil-bacteria',name:'토양 분해 세균',role:'decomposer',behaviorType:'static',caption:'작은 분해자의 역할',description:'죽은 생물의 유기물 분해를 돕는 토양 세균 무리를 대표해요. 눈에 보이지 않는 생물을 표시로 나타냈어요.',habitat:'유기물이 있는 토양',placeholder:'⋯',unlockStage:14 },
 ];
 export const roleLabels = { producer: '생산자', consumer: '소비자', decomposer: '분해자' };
 export const organismById = Object.fromEntries(organisms.map(organism => [organism.id, organism]));

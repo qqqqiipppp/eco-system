@@ -110,7 +110,8 @@ export function createEventView(state, scene, onAcknowledge, management = {optio
     }
     if(openId) {
       const event=state.events.find(item=>item.eventId===openId);
-      if(!event||event.status!==shownStatus){shownStatus=event?.status;actions.replaceChildren();setText(result,'상황이 달라졌어요. 문제가 해결되었거나 생물이 숲에서 사라졌어요.');}
+      if(!event||event.status!==shownStatus){shownStatus=event?.status;actions.replaceChildren();setText(result,'상황이 달라졌어요. 문제가 해결되었거나 생물이 자연으로 돌아갔어요.');}
+      if(event?.status==='active'){setText(title,`${symbols[event.kind]} ${event.title}`);setText(message,event.message);setText(detail,event.explanation);}
       renderManagement(event);
     }
     const records=state.observations.map(item=>discoveryEvents[item.relationId]?.title).filter(Boolean);
