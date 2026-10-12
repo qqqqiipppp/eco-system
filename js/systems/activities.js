@@ -11,6 +11,7 @@ export function completeActivity(state,activityId,answer) {
  if(definition.choices&&!definition.choices.some(item=>item.id===answer))return {ok:false,message:'답을 골라 주세요.'};
  const card=definition.unlockSpeciesId&&state.inventory.find(item=>item.speciesId===definition.unlockSpeciesId);
  if(definition.unlockSpeciesId&&(!card||!Object.hasOwn(organismById,definition.unlockSpeciesId)))return {ok:false,message:'카드 정보를 확인할 수 없어요.'};
+ if(progress.completed&&progress.ecologyRevision===1&&!definition.choices)return {ok:true,message:'이전 구성에서 완료한 학습과 카드 권한을 유지했어요. 현재 생물의 발견은 새로 관찰하고 기록해요.',unlocked:false};
  const condition=activityCondition(state,activityId,answer);
  progress.attempts++;
  if(!condition.ok)return {ok:false,message:condition.message};

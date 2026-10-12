@@ -1,4 +1,5 @@
 import { eventConfig, discoveryEvents, eventPriority } from '../../data/event-config.js';
+import {legacyEcology} from '../../data/legacy-ecology.js';
 const symbols = { alert:'!', question:'?', insight:'💡' };
 
 /** Markers follow existing organism anchors. Rules and mutations stay in systems. */
@@ -119,6 +120,10 @@ export function createEventView(state, scene, onAcknowledge, management = {optio
     const list=document.querySelector('#observation-records');
     const signature=records.join('|');
     if(list.dataset.signature!==signature){list.dataset.signature=signature;list.replaceChildren();for(const text of records){const item=document.createElement('li');item.textContent=text;list.append(item);}if(!records.length){const item=document.createElement('li');item.textContent='💡를 눌러 발견을 기록해 보세요.';list.append(item);}}
+    const history=state.legacyEcology.observations;
+    document.querySelector('#legacy-observations').hidden=!history.length;
+    const oldList=document.querySelector('#legacy-observation-records'),oldSignature=history.map(r=>r.relationId).join('|');
+    if(oldList.dataset.signature!==oldSignature){oldList.dataset.signature=oldSignature;oldList.replaceChildren();for(const record of history){const relation=legacyEcology.relations.find(r=>r.relationId===record.relationId);if(!relation)continue;const li=document.createElement('li');li.textContent=`이전 구성: ${legacyEcology.names[relation.sourceSpeciesId]} → ${legacyEcology.names[relation.targetSpeciesId]}`;oldList.append(li);}}
   }
   document.querySelector('#observations-open').addEventListener('click',()=>document.querySelector('#observations-dialog').showModal());
   document.querySelector('#observations-close').addEventListener('click',()=>document.querySelector('#observations-dialog').close());

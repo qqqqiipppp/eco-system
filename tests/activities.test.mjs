@@ -25,7 +25,7 @@ test('B/C/D: actual feeding -> recorded observation -> frog unlock -> actual pre
  run(20);const insight=s.events.find(e=>e.kind==='insight');assert(insight);assert.equal(completeActivity(s,'grass_observation').ok,false);assert.equal(s.metrics.points,0);
  events.acknowledge(s,insight.eventId);assert.equal(s.metrics.points,12);assert(activityCondition(s,'grass_observation').ok);
  assert(completeActivity(s,'grass_observation').unlocked);assert.equal(s.metrics.points,16);assert(acquired(s,'frog'));
- assert(placeOrganism(s,'frog',input,layout).ok);run(25);assert(s.events.some(e=>e.payload.relationId==='grasshopper_to_frog'));assert(feeding.getDiagnostics().predations>0);
+ assert(placeOrganism(s,'frog',input,layout).ok);run(25);assert(s.events.some(e=>e.payload.relationId==='v2_grasshopper_to_frog'));assert(feeding.getDiagnostics().predations>0);
 });
 test('E/F/I: classify feedback, retry, one reward, no soil effect or auto placement',()=>{
  const s=createGameState(),before=structuredClone(s.environment),count=s.organisms.length;

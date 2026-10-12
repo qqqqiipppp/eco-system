@@ -1,75 +1,89 @@
-# 숲 23종류의 실제 생애와 게임 수명 — 11.5단계
+# 숲23종류의 실제 생애와 게임 수명 — 11.55단계
 
-검토일: 2026-10-12. 이 표는 정확한 분류학적 23종이 아니라 카드 23종류의 근거와 교육용 모델을 구분한다. 정부·대학·연구기관 설명, 논문과 표지/장수 데이터베이스를 검토했다. 야생 평균 생존, 사육 최대 기록, 개체의 수령, 성숙까지의 기간은 서로 다른 지표다. 포식 때문에 짧아지는 야생 생존을 다시 자연사 기간에 대입하지 않았다. 자료를 찾지 못한 정확한 수명은 숫자를 만들지 않고 생애주기와 불확실성을 적었다. 모든 자료는 링크의 확인 가능한 범위만 사용했으며 실제 수명이 게임 분으로 환산되는 생물학적 법칙은 아니다.
+검토일: 2026-10-12. 생산자5종·소비자15종·분해자3종류를 유지한다. 낙엽 분해 곰팡이 군집은 교육용 기능군이며 단일 학명이 없다. 학명·이명·국명 대응의 한계는 [FOREST_SPECIES.md](FOREST_SPECIES.md)에 기록한다. 슬롯 ID 유지가 생물학적으로 동일 종이라는 뜻은 아니다.
 
-## 압축과 개체별 차이
+**활성 분, 초기 나이, 유기물량, 번식·보충·갱신 시간은 모두 게임 시험값이다. 실제 수명·성장률·산란수의 측정값이나 선형 환산값이 아니다.** 야생 관찰 연령·사육 장수·평균 생존·성체/유충 기간·나무 수령을 구분한다. 정확한 종별 수명을 확인하지 못한 항목에는 실제 수명 숫자를 만들지 않았다. 기존 억새·등줄쥐·진딧물·사냥 거미·무당벌레 자료를 새 종의 수명 근거로 쓰지 않는다.
 
-단일 선형 환산식 대신 **생물군별 구간 압축**을 사용한다. 수주/계절 단위의 작은 동물, 다년생 초본, 수년의 척추동물, 관목, 수십~수백 년의 교목을 서로 다른 게임 범위에 배정한다. 일~수백 년의 실제 차이를 약 12~240 활성 분으로 좁힌다. 로그/제곱근처럼 긴 수명의 차이를 강하게 압축하는 방향을 검토했지만, 지표가 다른 최대/평균/단계 기간을 한 공식에 넣는 것은 피했다. 기간의 정확한 순위를 자료 이상으로 주장하지 않으며 게임 범위도 겹친다. 개암·산딸기·균류는 특히 줄기/포기/군집의 지속을 구분한다.
+## 압축 기준과 저장
 
-동식물 생성 때 `duration=min+(max-min)×u`로 게임 범위 안에서 한 번 정한다. `u`는 종+유일 ID의 혼합 해시(0 이상 1 미만)이며 생물학적 확률 분포를 뜻하지 않는다. 기본 성체/자리 잡은 포기 도입은 duration의 5~18%를 초기 상대 나이로, 실제 번식 자식/새 유충/알 부화는 0으로 둔다. 이는 실제 성숙 연령 비율이 아니라 기존 성체 그림의 생략과 학습 보호를 위한 조정이다. 기간과 초기 나이, 시작 활성 시각을 저장하며 렌더/새로고침/관리로 다시 정하지 않는다. 8·7 저장은 로드 활성 시각에 안전한 상대 나이를 할당한다.
+생물군·생애 단계별 구간 압축이다. 한해살이/계절 곤충은 한 수업 중 교체를 관찰할 분 단위로, 다년 척추동물·목본은 더 긴 구간으로 조정한다. 범위는 겹치며 실제 수명 순위가 아니다. 팽나무는 개암 관목90~120분에서 장수 교목180~240분, 고슴도치는 등줄쥐32~46분에서55~80분으로 바뀌었다. 청동풍뎅이는 성충22~32분, 홍단딱정벌레는 성충35~50분이며 이전 진딧물/무당벌레의 생애가 아니다.
 
-군집의 5~18분은 수명이 아니라 **내부 갱신 기회를 확인하는 게임 주기**다. 실제 세균 세대 시간의 환산이 아니다. 자원/환경이 맞을 때 세대 기록이 늘고 같은 군집/DOM은 유지된다. 자원이 적으면 활동을 낮추고 쉬며, 나쁜 물/토양/공기가 지속되면 20~30분의 게임 스트레스 끝에 군집이 줄 수 있다. 정확한 미생물 사멸 시간이나 모든 균의 휴면 능력을 주장하는 모델은 아니다.
+기간은 생성 시 duration=min+(max-min)×u로 한 번 정한다. 종+유일 ID의 혼합 해시 u는 생물학적 확률 분포가 아니다. 직접 도입은 기간의5~18%를 초기 상대 나이로, 번식 자식·새 유충·알 부화는0으로 둔다. 실제 성숙 연령 비율이 아니다. 기간·초기 나이·시작 활성 시각을 저장하며 새로고침·관리로 재추첨하지 않는다. 탭 비활성/일시정지의 현실 시간은 나이에 더하지 않는다.
+
+수명이 없는7·8 저장은 안전하게 초기화한다. 수명이 있는 이전 저장은 변경된 grass, hazel, field-mouse, caterpillar, aphid, spider, ladybird의 상대 나이와 범위 내 수명 위치를 새 구간으로 이전한다. 상대 나이는 최대90%로 제한해 이전 직후 연쇄 종료를 피한다. 바뀌기 전 수명/생존은 legacyEcology에 보존하며 변경하지 않은 수명은 유지한다. 이 저장 이전은 실제 생물의 종 변환을 의미하지 않는다.
+
+군집의5~18분은 내부 갱신을 확인하는 게임 주기다. 자실체 생존 일수나 한 세포의 분열 시간을 전체 군집 수명으로 쓰지 않는다. 자원/환경이 맞으면 같은 화면 군집을 유지하며 세대 기록이 늘고, 자원이 적으면 활력이 낮아져 쉬며, 나쁜 물·토양·공기가 지속되면 게임 스트레스 시간 뒤 군집이 줄 수 있다. 고초균 휴면/활성의 단순화이며 포자 AI를 추가하지 않는다.
 
 ## 실제 자료와 게임 범위
 
-아래 ‘대표’는 근거 종/군을 카드에 적용한 경우다. ‘종 자료’여도 한국 전 지역의 평균/최대 수명을 확정하는 뜻은 아니다. 게임 범위는 전체 duration이고 직접 도입 개체의 남은 시간은 초기 상대 나이만큼 짧다.
+자료는 한국 모든 개체의 평균/최대 수명을 보장하지 않는다. 게임 범위는 전체 duration이고 직접 도입의 남은 시간은 초기 상대 나이만큼 짧다.
 
-|번호|speciesId · 이름|생물군|실제 자료 / 생애 설명|근거|적용 범위·불확실성|게임 범위(활성 분)|압축 기준|
-|---|---|---|---|---|---|---|---|
-|1|oak · 상수리나무|교목/생산자|정확한 최대 불명; 참나무류는 수백 년 가능하다는 대학 설명|[L01](https://arboretum.buffalostate.edu/quercus-acutissima)|상수리 종 설명+참나무류 장수 근거; 모든 상수리 수백 년 보장 아님|180~240|장수목 상한 압축, 한 판 보호|
-|2|grass · 풀|초본/생산자|동아시아 벼과 억새는 여러해살이; 모든 풀은 한해살이가 아님|[L03](https://plants.ces.ncsu.edu/plants/miscanthus-sinensis/common-name/maiden-grass/)|여러해살이 벼과 포기 대표; 정확한 포기/유전적 개체의 최대 수명 미확정, 억새 크기/뿌리 모델 아님|24~32|포기의 세대교체를 수업 중 경험할 하한; 나무보다 짧게|
-|3|pine · 소나무|교목/생산자|강원 보호수 공고에 소나무 추정 수령 300~400년 사례|[L02](https://state.gwd.go.kr/upload/report/kw_nws_data/kw_mgr_5100_20241115095939.pdf)|수령 사례는 평균/최대가 아니며 수령 추정 오차 존재|150~210|장수목 상한 압축, 상수리와 범위 겹침|
-|4|raspberry · 산딸기|관목/생산자|Rubus류 뿌리/근관은 다년생, 많은 유형의 가지는 두 여름|[L04](https://extension.umn.edu/garden-and-home/yard-and-garden/gardening-in-minnesota/growing-raspberries-in-the-home-garden)|한국 산딸기 정확 수명 아님; 재배 산딸기류 자료를 뿌리를 포함한 포기에 대표 적용|70~100|가지의 2년을 전체 포기 죽음으로 처리하지 않음|
-|5|hazel · 개암나무|관목/생산자|Corylus heterophylla는 낙엽 관목/소교목; 장기간 목질 생장|[L05](https://landscapeplants.oregonstate.edu/plants/corylus-heterophylla)|종 생장 형태 확인, 정확한 최대 연령 미확정|90~120|목본 지속, 초본과 다른 긴 범위|
-|6|grasshopper · 메뚜기|곤충/소비자|대표 벼메뚜기류는 알 월동 및 계절 세대; 약충→성체→산란|[L06](https://genebank.rda.go.kr/PB/jw/insectView.bo?page=3&species_id=ZE1AA0021&use_kind=03), [L06b](https://www.jstage.jst.go.jp/article/aez1966/32/3/32_3_465/_article/-char/ja)|벼과 식물 먹는 대표군; 알의 대기와 성체 생활을 구분, 정확한 성체 평균 미확정|14~20|짧은 계절 생애를 몇 초 대신 분 단위로, 앞선 번식/알 유지 연결|
-|7|frog · 개구리|양서류/소비자|참개구리 자료 비교에서 중국/일본 관찰 연령 약 4~6년 보고|[L07](https://kpfu.ru/staff_files/F_861741570/animals_15_01273.pdf)|성체 개구리 대표; 논문의 기존 연구 비교값이며 모든 개구리/평균 자연 수명 아님|55~75|수년 단위의 성체 생애, 초기 도입도 40분 이상|
-|8|rabbit · 토끼|포유류/소비자|멧토끼 야생 첫해 감소가 많고 사육 약 5년 보고|[L08](https://animaldiversity.org/accounts/Lepus_coreanus/)|멧토끼 대표; 야생 포식 생존을 자연 수명과 동일시하지 않음, 제한적 자료|55~80|포식은 별도, 잠재 생애를 수년군으로 압축|
-|9|chipmunk · 다람쥐|포유류/소비자|시베리아 다람쥐 야생 약 3년, 사육 약 8년 추정|[L09](https://ofb.gouv.fr/especes/tamia-de-siberie-tamias-sibiricus)|종 자료; 지역/사육 조건 차이, 최대/평균 혼용 금지|50~70|작은 다년생 포유류 구간|
-|10|field-mouse · 등줄쥐|포유류/소비자|ADW 사육 수명 표값 4년; 연중 여러 번 출산 가능|[L10](https://animaldiversity.org/accounts/Apodemus_agrarius/)|종 자료이나 야생 평균/자연 최대 미확정, 게임 유입은 주변 서식지의 대표 모델|32~46|짧은 세대의 설치류, 장수목/조류보다 짧은 게임 구간|
-|11|caterpillar · 나방 애벌레|곤충 유충/소비자|참나무류를 먹는 나방 유충 사례: 섭식 약 5~6주 후 번데기|[L11](https://www.fs.usda.gov/foresthealth/docs/fidls/FIDL-182-FallCankerworm.pdf)|미국 사례의 대표 유충군, 한국 특정 나방/전체 수명 값 아님|유충 단계 12~18|단계 압축; 자연사 대신 life_stage_exit|
-|12|aphid · 진딧물|곤충/소비자|진딧물 종 사례 성체 31~61일(서늘한 조건); 빠른 발육·단위생식 등 복잡한 세대|[L12](https://cms.ctahr.hawaii.edu/ckm/Home/Insects-and-Other-Pests/Aphids/Lipaphis-erysimi)|개암 기주 진딧물의 정확 수치 아님; 대표군/온도 영향 큼|12~16|짧은 생애지만 기존 6분 번식 대기와 겹쳐 세대가 이어질 하한|
-|13|snail · 달팽이|육상 연체동물/소비자|육상 정원 달팽이 사례 성숙까지 약 2년; 성숙 기간은 수명 아님|[L13](https://ipm.ucanr.edu/home-and-landscape/snails-and-slugs/)|잎 먹는 육상 유형 대표; 한국 정확 종/최대 수명 미확정, 유충/곤충보다 다년 생활을 나타냄|45~65|수년 단위 대표군 구간, 수명 숫자 추정은 게임 조정|
-|14|spider · 거미|거미류/소비자|CSU의 지역 거미 다수는 1년 생애; 종에 따라 다름|[L14](https://agsci.colostate.edu/agbio/ipm-pests/spiders-in-the-home/)|작은 사냥 거미 대표; 장수 타란툴라/모든 거미 아님|24~36|계절/연간 소형 거미 구간|
-|15|ladybird · 무당벌레|곤충/소비자|진딧물 포식 무당벌레는 알·유충·번데기·성체, 성체 월동 가능|[L15](https://biocontrol.entomology.cornell.edu/predators/ladybeetles.php)|포식 무당벌레 대표; 정확한 한국 종별 성체 수명 미확정|28~42|월동 성체를 짧은 유충 단계보다 길게; 다른 곤충과 범위 겹침|
-|16|tit · 박새|조류/소비자|관련 Parus major의 야생 장수 기록 15.4년|[L16](https://genomics.senescence.info/species/entry.php?species=Parus_major)|한국 박새 Parus minor의 정확 수명이 아닌 관련 박새류 대표; 최대 기록은 평균 아님|65~90|다년 조류 구간, 관련 종의 최대를 선형 환산하지 않음|
-|17|bulbul · 직박구리|조류/소비자|일본 표지 재관찰 기간 10년 4개월 기록|[L17](https://www.yamashina.or.jp/ashiwa/ashiwa_index.html)|직박구리 종의 표지기간 하한 사례, 평균/출생부터의 수명 아님; 검색 색인에 공개된 표 확인, 본문 직접 수집은 실패|65~95|다년 조류 구간, 박새류와 순위 확정하지 않음|
-|18|snake · 유혈목이|파충류/소비자|연령 연구의 유혈목이 사육 표본 약 4년; 불완전 출생 기록|[L18](https://pmc.ncbi.nlm.nih.gov/articles/PMC5971835/)|종의 연령 사례만 확인, 최대/평균 수명과 정확한 자연사 원인은 미확정|75~100|다년 파충류 구간의 보수적인 게임 설정; 생물학적 순위 확정 아님|
-|19|weasel · 족제비|포유류/소비자|일본 야생 연구 평균 약 2.1년, 최고 5~6년; 사육 8.8년 기록|[L19](https://genomics.senescence.info/species/entry.php?species=Mustela_sibirica)|지역 평균과 사육 최대 구분, 모든 족제비 보장 아님|50~75|작은 포식 포유류 구간, 상위 소비자라고 무조건 최고 수명 아님|
-|20|goshawk · 참매|조류/소비자|AnAge의 유럽 참매 야생 장수 기록 22년|[L20](https://genomics.senescence.info/species/entry.php?species=Accipiter_gentilis)|당시 넓은 Accipiter gentilis 분류 기록; 한국/아시아 집단의 정확한 최대 아님, 기록≠평균|90~120|상대적으로 긴 맹금류 구간, 초기 도입 한 판 보호|
-|21|mushroom · 버섯|균류 군집/분해자|자실체는 균류의 일부이고 균사체가 기질 속에서 유지됨|[L21](https://www.fs.usda.gov/r6/reo/survey-and-manage/downloads/fungi/handbook-fu-pnwgtr476-1999.pdf)|죽은 나무 분해 균류 군집 대표; 자실체 일수≠전체 군집 수명|갱신 기회 12~18|wood/환경에 따른 군집 유지, 나쁜 환경 연속 30분이면 쇠퇴|
-|22|litter-mold · 낙엽 분해 곰팡이|균류 군집/분해자|낙엽/유기물을 이용하는 토양 균류의 균사 성장과 군집 활동|[L22](https://www.nrcs.usda.gov/state-offices/illinois/soil-tech-note-11a-biological-underground-community)|혼합 분해 군집 대표; 단일 곰팡이 종의 수명 숫자는 설정 안 함|갱신 기회 8~12|litter/환경에 따른 군집 유지, 나쁜 환경 연속 20분이면 쇠퇴|
-|23|soil-bacteria · 토양 분해 세균|세균 군집/분해자|토양 미생물 실험에서 휴면/활성 전환과 군집 회복이 구분됨|[L23](https://pmc.ncbi.nlm.nih.gov/articles/PMC7133531/), [L22](https://www.nrcs.usda.gov/state-offices/illinois/soil-tech-note-11a-biological-underground-community)|혼합 군집 대표; 개별 세포의 세대 시간≠군집 유지 기간|갱신 기회 5~9|remains/환경에 따른 군집 유지, 나쁜 환경 연속 25분이면 쇠퇴|
+|번호 · speciesId|speciesId · 이름|현재 학명/생애 단위|실제 자료와 불확실성|근거|게임 범위(활성 분)·이유|
+|---|---|---|---|---|---|
+|1 oak|oak · 상수리나무|Quercus acutissima / 교목|최대 연령 미확정. 대학의 참나무류 장수 설명은 모든 상수리의 수백 년 보장이 아니다.|[L01 SUNY 수목원](https://arboretum.buffalostate.edu/quercus-acutissima)|180~240; 장수목 압축|
+|2 grass|grass · 강아지풀|Setaria viridis / 한해살이|한해살이 벼과·씨앗 번식 확인. 억새의 다년생 뿌리 근거 제거. 지역별 발아→종료 일수 미확정.|[L02 NC State](https://plants.ces.ncsu.edu/plants/setaria-viridis/common-name/bottle-grass/)|24~32; 한해살이 종료/다음 씨앗 세대|
+|3 pine|pine · 소나무|Pinus densiflora / 교목|보호수 추정 수령300·350·400년 사례. 평균/최대 수명이 아니다.|[L03 강원도보5100호95쪽](https://state.gwd.go.kr/upload/report/kw_nws_data/kw_mgr_5100_20241115095939.pdf)|150~210; 장수목, 상수리와 순위 단정 없음|
+|4 raspberry|raspberry · 산딸기|Rubus crataegifolius / 뿌리 포함 포기|재배 Rubus류의 다년 뿌리·두 여름 가지를 구분. 한국 산딸기 포기 최대 수명은 미확정.|[L04 UMN Extension](https://extension.umn.edu/garden-and-home/yard-and-garden/gardening-in-minnesota/growing-raspberries-in-the-home-garden)|70~100; 가지와 전체 개체 종료 구분|
+|5 hazel|hazel · 팽나무|Celtis sinensis / 교목|낙엽 교목·적절한 조건의 장수 확인. 정확한 평균/최대 연령 미확정. 개암 관목 근거 제거.|[L05 NC State](https://plants.ces.ncsu.edu/plants/celtis-sinensis/)|180~240; 큰 장수 교목|
+|6 grasshopper|grasshopper · 방아깨비|Acrida cinerea / 계절 곤충|농촌진흥청 출현7~10월은 한 성충의 수명이 아니다. 성충 평균/최대 및 국내 알 월동 기간 미확정.|[L06 농촌진흥청](https://genebank.rda.go.kr/PB/st/cyberView.bo?ord_gb=0&species_id=ZE1AA0027&viewMenuList=0)|14~20; 계절 교체, 제한 번식/알 보충은 교육용 생략|
+|7 frog|frog · 참개구리|Pelophylax nigromaculatus / 성체|연령 비교 논문이 지역별 참개구리 관찰 연령 차이를 인용. 수년 생애이나 평균 자연 수명/사인과 다르다.|[L07 Animals10~11쪽](https://kpfu.ru/staff_files/F_861741570/animals_15_01273.pdf)|55~75; 성체 다년 생활|
+|8 rabbit|rabbit · 멧토끼|Lepus coreanus / 포유류|국립생물자원관 생활 형태 확인. 정확한 수명 미확정. 11.5 ADW 사육약5년은 이번 본문 재접속 실패로 확정 수치에서 제외.|[L08 국립생물자원관50쪽](https://www.nibr.go.kr/aiibook/access/ecatalogt.jsp?Dir=1324&callmode=admin&catimage=&eclang=ko&start=50&um=s)|55~80; 다년 포유류 게임 구간 유지|
+|9 chipmunk|chipmunk · 다람쥐|Eutamias sibiricus / 자료의 Tamias sibiricus|야생약3년·사육약8년 추정을 구분. 지역/조건별 차이, 보장 수명 아님.|[L09 OFB](https://ofb.gouv.fr/especes/tamia-de-siberie-tamias-sibiricus)|50~70; 작은 다년 포유류|
+|10 field-mouse|field-mouse · 고슴도치|Erinaceus amurensis / 포유류|사육 추정8년은 단일 장수 기록·매우 작은 표본. 야생 평균/한국 집단 미확정. 등줄쥐4년·다산 근거 제거.|[L10 AnAge](https://genomics.senescence.info/species/entry.php?species=Erinaceus_amurensis)|55~80; 등줄쥐의 짧은 세대에서 연장|
+|11 caterpillar|caterpillar · 솔나방 애벌레(송충이)|Dendrolimus spectabilis / 유충|솔잎 이용·연1~2세대·유충 월동 확인. 유충 단계는 성충 포함 전체 수명 아님. 지역/온도별 차이 있음.|[L11 EFSA](https://efsa.onlinelibrary.wiley.com/doi/10.2903/j.efsa.2022.7622), [L11b 일본산림학회445쪽](https://www.jstage.jst.go.jp/article/jjfs1953/59/12/59_12_442/_pdf)|유충18~26; 월동 유충, life_stage_exit|
+|12 aphid|aphid · 청동풍뎅이|Anomala albopilosa / 성충|일본 A. a. albopilosa 사육 성충 수컷평균62.5일(42~83), 암컷69.6일(23~131). 출현 계절은 개체 수명이 아니며 한국 집단 보장 아님. 유충 뿌리 먹이 제외.|[L12 Nakano2015](https://www.jstage.jst.go.jp/article/jjeez/26/2/26_55/_pdf)|성충22~32; 진딧물12~16분/단위생식과 분리|
+|13 snail|snail · 명주달팽이|Acusta despecta / 분류 대응 추가 확인|노지 발생·산란 계절·동면 설명 확인. 연1회 발생/부화12일은 수명이 아님. 정확 수명 미확정. 다른 정원 달팽이 성숙2년 제거.|[L13 농사로](https://www.nongsaro.go.kr/portal/ps/pss/pssa/hlsctSearchDtl.ps?hlsctCode=H00000535&menuId=PS00202&pageIndex=1&pageSize=10)|45~65; 기존 구간 유지의 게임 시험값|
+|14 spider|spider · 무당거미|Trichonephila clavata / 자료의 Nephila clavata|국립생물자원관 검색 자료는 알 월동→초여름 부화→가을 성체/산란→겨울 성체 감소. 정확 수명 미확정, 본문 재접속 실패 기록. 사냥 거미 근거 제거.|[L14 국립생물자원관157쪽](https://www.nibr.go.kr/aiibook/access/ecatalogt.jsp?Dir=1216&callmode=admin&catimage=&eclang=ko&start=157&um=s)|24~36; 계절 개체, 자동 유입 없음|
+|15 ladybird|ladybird · 홍단딱정벌레|Carabus smaragdinus / 성충|종/이명 확인. 정확 성충 수명·한국 월동률 미확정, 숫자 추정 안 함. 무당벌레 월동/진딧물 근거 제거. 식성 사육 지침은 수명 실험 아님.|[L15 NCBI 종/이명](https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=120930&mode=Info)|성충35~50; 임시 게임 구간|
+|16 tit|tit · 박새|Parus minor / 조류|관련 Parus major 야생 장수15.4년은 참고군. 한국 P. minor의 정확 수명/평균으로 옮기지 않음.|[L16 AnAge 관련 종](https://genomics.senescence.info/species/entry.php?species=Parus_major)|65~90; 다년 조류|
+|17 bulbul|bulbul · 직박구리|Hypsipetes amaurotis / 조류|현재 종 확인. 정확 수명 미확정. 11.5 표지 재관찰10년4개월은 본문 재열람 실패로 확정 수치에서 제외. 재관찰은 출생부터 수명 아님.|[L17 국립생물자원관168쪽](https://www.nibr.go.kr/aiibook/access/ecatalogt.jsp?Dir=1403&callmode=admin&catimage=&eclang=ko&start=168&um=s)|65~95; 다년 조류 구간 유지|
+|18 snake|snake · 유혈목이|Rhabdophis tigrinus / 파충류|성장선 연구 사육 표본 추정약4년. 출생/사인 불완전, 야생 평균/최대 아님.|[L18 PeerJ 표1](https://pmc.ncbi.nlm.nih.gov/articles/PMC5971835/)|75~100; 다년 파충류 게임값|
+|19 weasel|weasel · 족제비|Mustela sibirica / 포유류|한 야생 연구 평균2.1년·최고5~6년과 사육8.8년 구분. 집단/조건별 값.|[L19 AnAge](https://genomics.senescence.info/species/entry.php?species=Mustela_sibirica)|50~75; 작은 다년 포식 포유류|
+|20 goshawk|goshawk · 참매|Astur gentilis / 자료의 Accipiter gentilis|당시 넓은 분류의 야생 장수22년 기록. 현재 한국/아시아 집단 평균·최대 아님, 북미 분류와 구분.|[L20 AnAge 당시 분류](https://genomics.senescence.info/species/entry.php?species=Accipiter_gentilis)|90~120; 긴 맹금류 생애 압축|
+|21 mushroom|mushroom · 구름송편버섯|Trametes versicolor / 균류 군집|죽은 목재 백색부후·자실체 계절성 확인. 자실체의 연간성/잔존은 균사체 포함 군집 수명이 아님. 군집 최대 지속 미확정.|[L21 NC State 균류 표본관](https://ncslg.cals.ncsu.edu/trametes-versicolor-l-lloyd/)|갱신기회12~18; wood/환경, 나쁜 환경 스트레스30분|
+|22 litter-mold|litter-mold · 낙엽 분해 곰팡이 군집|교육용 기능군; 단일 학명 없음|유기물 분해 균류·환경별 군집 활동. 여러 종을 한 종의 수명 숫자로 처리하지 않음.|[L22 USDA NRCS](https://www.nrcs.usda.gov/state-offices/illinois/soil-tech-note-11a-biological-underground-community)|갱신기회8~12; litter/환경, 스트레스20분|
+|23 soil-bacteria|soil-bacteria · 고초균|Bacillus subtilis / 군집|포자 연구의 영양 제한 휴면·조건 회복 활성. 한 세포/포자 생존과 군집 유지 기간 구분. 본문 재접속 한계는 아래 기록.|[L23 고초균 포자 리뷰](https://academic.oup.com/femsre/article/36/1/131/534503?searchresult=1), [L22 토양 군집](https://www.nrcs.usda.gov/state-offices/illinois/soil-tech-note-11a-biological-underground-community)|갱신기회5~9; remains/환경, 스트레스25분|
 
-## 종료·회복 정책과 35~40분 예상
+## 종료·번식·보충과35~40분 예상
 
-모든 동식물은 위 범위 안에서 개체별 기간을 한 번 정한다. 모든 군집은 위 범위 안에서 서로 다른 갱신 기한을 정한다. 아래 ‘카드 재도입’은 **획득 권한, 종별 60초 대기, 실제 먹이/화면 위치, 종별/전체 30 상한을 유지하는 무료 경로**다. 나쁜 환경 저장의 유료 관리 비용 문제는 기존 경제 한계로 남고 수명 때문에 카드를 잃지는 않는다. 아직 잠긴 17종은 개발 fixture에서만 시험했다.
+아래는 새 도입·적절한 먹이/환경을 전제로 한 수명 요인의 예상이다. 포식·굶주림·관리·배치 수가 실제 결과를 바꾼다. 전체30개체·종별 상한을 유지한다. 카드 재도입은 획득 권한·종별60초 대기·배치 위치/상한을 확인하며 수명 종료로 잠긴 카드를 자동 해금하지 않는다.
 
-|번호 · speciesId|도입 초기 상대 나이|종료/개체별 차이|유기물|번식·보충·군집·재도입|35~40분 예상|후속 조정|
-|---|---|---|---|---|---|---|
-|1 oak|12%|개체별 기간, natural_lifespan|wood 3|자동 성목 없음, 획득 카드 재도입|수명 때문에 감소하지 않음|장수 범위/초기 나이, 묘목 생략|
-|2 grass|5%|개체별 기간, natural_lifespan|litter 1|기존 씨앗 확산, 전멸하면 카드 재도입|포기 교체·새 포기 성장 가능|대표 포기와 뿌리, 공간/씨앗 유지|
-|3 pine|15%|개체별 기간, natural_lifespan|wood 3|자동 성목 없음, 카드 재도입|수명 때문에 감소하지 않음|oak와 장수 범위의 교차, 묘목|
-|4 raspberry|10%|개체별 기간, natural_lifespan|litter 2|뿌리 포함 포기, 카드 재도입|수명 때문에 보통 유지|가지·뿌리의 별도 갱신|
-|5 hazel|15%|개체별 기간, natural_lifespan|wood 2|자동 성숙 관목 없음, 카드 재도입|수명 때문에 유지|정확 종의 연령 자료와 새싹|
-|6 grasshopper|8%|개체별 기간, natural_lifespan|remains 1|기존 2개체 번식. 실제 번식 이후 알 보충 예산 ≤6, 먹이/환경 좋고 2개체 미만이면 제한 부화; 카드 재도입|자연 감소·새 세대, 먹이그물 유지 가능|알 예산은 실제 산란수 아님, 5분 조건/3분 부화 대기와 포식 균형|
-|7 frog|12%|개체별 기간, natural_lifespan|remains 1|현재 성체 번식 없음, 곤충을 마련한 뒤 카드 재도입|자연 수명은 한 판보다 길고 포식/굶주림은 별도|물가/올챙이 없이 자동 발생 안 함|
-|8 rabbit|15%|개체별 기간, natural_lifespan|remains 1|기존 2개체 번식, 카드 재도입|자연 수명은 대체로 유지, 새끼 가능|포식·번식/수명과 실제 멧토끼 근거|
-|9 chipmunk|15%|개체별 기간, natural_lifespan|remains 1|열매/씨앗을 마련한 뒤 카드 재도입|가장 짧은 도입도 약 42.5분, 포식 별도|자연 번식·저장 행동은 이후|
-|10 field-mouse|12%|개체별 기간, natural_lifespan|remains 1|먹이/환경 지속 10분과 공간이 맞으면 주변에서 제한 유입, 목표 2/대기 15분; 카드 재도입|일부 교체·주변 유입 가능|야생 연령/유입 속도와 숨은 서식지 가정|
-|11 caterpillar|10%|개체별 유충 기간, life_stage_exit|없음: 변태는 자연사 아님|참나무 잎 환경 지속 7분이면 새 유충, 목표 2/대기 10분; 카드 재도입|유충 단계 교체 가능|화면 밖 나방 산란의 생략, 실제 계절/기주|
-|12 aphid|10%|개체별 기간, natural_lifespan|remains 1|기존 2개체 번식, 카드 재도입|먹이가 충분하면 수회 교체 가능|실제 단위생식/성별 생략, 공급과 12분 하한|
-|13 snail|15%|개체별 기간, natural_lifespan|remains 1|풀/서식 환경을 살피고 카드 재도입|짧은 도입 개체는 40분 무렵 종료 가능, 보통 1회 이내|정확 대표종·휴면·기존 수명 추정|
-|14 spider|10%|개체별 기간, natural_lifespan|remains 1|허용 작은 먹이/환경 지속 8분이면 제한 주변 유입, 목표 2/대기 12분; 카드 재도입|일부 자연 감소·유입 가능|사냥 거미 대표와 유입 근거 지역화|
-|15 ladybird|10%|개체별 기간, natural_lifespan|remains 1|진딧물/환경 지속 8분이면 제한 주변 유입, 목표 2/대기 12분; 카드 재도입|일부 감소·유입 가능|성체 월동/실제 비행과 계절은 이후|
-|16 tit|12%|개체별 기간, natural_lifespan|remains 1|곤충·거미 마련 뒤 카드 재도입|자연 수명 때문에 유지|관련 종 자료 대신 한국 박새 자료 확보|
-|17 bulbul|12%|개체별 기간, natural_lifespan|remains 1|산딸기 마련 뒤 카드 재도입|자연 수명 때문에 유지|표지 기록과 평균의 차이, 식단 확대|
-|18 snake|15%|개체별 기간, natural_lifespan|remains 1|개구리 마련 뒤 카드 재도입|자연 수명 때문에 유지|야생 최대/평균 부족, 초기 성체 나이|
-|19 weasel|12%|개체별 기간, natural_lifespan|remains 1|허용 먹이 마련 뒤 카드 재도입|자연 수명 때문에 유지|지역 평균·잠재 생애와 먹이량|
-|20 goshawk|18%|개체별 기간, natural_lifespan|remains 1|허용 먹이 마련 뒤 카드 재도입|자연 수명 때문에 유지|아시아 참매 자료, 느린 번식은 이후|
-|21 mushroom|나이 대신 활력 1|개체별 갱신 기한, 같은 군집 내부 교체; 환경 스트레스 쇠퇴|갱신/쇠퇴 추가 유기물 없음|wood/환경 적절하면 갱신, 자원 부족 휴면; 카드 재도입|군집은 남고 내부 세대 변화|자실체 표시/기질 소진과 환경 임계|
-|22 litter-mold|나이 대신 활력 1|개체별 갱신 기한, 동일 군집 유지/환경 쇠퇴|갱신/쇠퇴 추가 유기물 없음|litter/환경 적절하면 갱신, 자원 부족 휴면; 카드 재도입|군집은 남고 내부 세대 변화|균사/혼합군집 구성·습도/기질 임계|
-|23 soil-bacteria|나이 대신 활력 1|개체별 갱신 기한, 세포 교체≠군집 소멸|갱신/쇠퇴 추가 유기물 없음|remains/환경 적절하면 갱신, 자원 부족 휴면; 카드 재도입|자원 따라 활동/갱신 또는 쉬는 군집|세포 다양성·휴면/성장률과 기질 종류|
+|speciesId · 이름|직접 도입 초기 상대 나이|종료 원인/유기물|현재 번식·보충·회복|35~40분 예상/후속 조정|
+|---|---|---|---|---|
+|oak · 상수리나무|12%|natural_lifespan / wood3|자동 성목 없음; 획득 카드 재도입|수명 감소 없음; 묘목 후속|
+|grass · 강아지풀|5%|natural_lifespan / litter1|씨앗 확산 건강180초/대기240초/최대8; 전멸 시 카드 재도입|한해살이 종료·새 세대 가능; 씨앗 휴면/계절 미구현|
+|pine · 소나무|15%|natural_lifespan / wood3|자동 성목 없음; 카드 재도입|수명 감소 없음; 솔잎 회복 별도|
+|raspberry · 산딸기|10%|natural_lifespan / litter2|뿌리 포함 포기; 카드 재도입|대체로 유지; 가지/뿌리 갱신 후속|
+|hazel · 팽나무|12%|natural_lifespan / wood2|자동 성목 없음; 카드 재도입|수명 감소 없음; 개암 관목 유입 없음|
+|grasshopper · 방아깨비|8%|natural_lifespan / remains1|2개체 번식 건강240초/대기360초/최대8. 번식 후 알 예산최대6, 보충 건강300초/대기180초/목표2; 카드 재도입|감소·새 세대·포식 가능; 예산6은 실제 산란수 아님|
+|frog · 참개구리|12%|natural_lifespan / remains1|성체 자동 번식 없음; 곤충 마련 뒤 카드 재도입|수명은 한 판보다 길다; 포식/굶주림 별도, 올챙이 미구현|
+|rabbit · 멧토끼|15%|natural_lifespan / remains1|2개체 번식 건강360초/대기480초/최대4; 카드 재도입|대체로 유지·새끼 가능; 성별/계절 미구현|
+|chipmunk · 다람쥐|15%|natural_lifespan / remains1|자동 번식 없음; 도토리/소나무 씨앗과 카드 재도입|최단 도입도 수명상42.5분; 포식 별도|
+|field-mouse · 고슴도치|12%|natural_lifespan / remains1|등줄쥐 유입 비활성; 자동 번식/보충 없음, 카드 재도입|수명 한 판 이상; 제한 곤충 먹이망의 굶주림 별도|
+|caterpillar · 솔나방 애벌레(송충이)|10%|life_stage_exit / 없음|소나무 솔잎/환경 건강420초/대기600초/목표2에서 새 유충; 카드 재도입|유충 교체 가능; 종료 개체를 성충으로 유지 안 함, 화면 밖 산란 생략|
+|aphid · 청동풍뎅이|8%|natural_lifespan / remains1|진딧물 번식 비활성; 성충 자동 번식/유충 보충 없음, 카드 재도입|성충 종료 가능; 팽나무 잎 공급/경쟁·포식 확인, 유충 뿌리 AI 없음|
+|snail · 명주달팽이|15%|natural_lifespan / remains1|자동 번식 없음; 잎/환경 확보와 카드 재도입|최단38.25분부터 종료 가능; 정확 수명/휴면 후속|
+|spider · 무당거미|10%|natural_lifespan / remains1|사냥 거미 유입 비활성; 고정 위치 대기 포획, 자동 번식/보충 없음|계절 종료 가능; 카드 재도입, 알/거미줄 발달 미구현|
+|ladybird · 홍단딱정벌레|10%|natural_lifespan / remains1|무당벌레 유입 비활성; 달팽이류 지상 포식, 자동 번식/보충 없음|최단31.5분부터 종료 가능; 카드 재도입, 실제 수명/먹이량 조정 후속|
+|tit · 박새|12%|natural_lifespan / remains1|자동 번식 없음; 솔나방 유충/거미 마련과 카드 재도입|수명 유지; 한국 종 연령 후속|
+|bulbul · 직박구리|12%|natural_lifespan / remains1|자동 번식 없음; 산딸기/팽나무 열매와 카드 재도입|수명 유지; 대체 열매/자원량 별도|
+|snake · 유혈목이|15%|natural_lifespan / remains1|자동 번식 없음; 참개구리와 카드 재도입|수명 유지; 야생 연령/먹이량 후속|
+|weasel · 족제비|12%|natural_lifespan / remains1|자동 번식 없음; 허용 먹이와 카드 재도입|수명 유지; 지역 생존·대체 먹이 별도|
+|goshawk · 참매|18%|natural_lifespan / remains1|자동 번식 없음; 허용 먹이와 카드 재도입|수명 유지; 아시아 자료/성장 후속|
+|mushroom · 구름송편버섯|나이 대신 활력1|colony_renewal / 없음; 쇠퇴도 추가 유기물 없음|wood/환경 맞으면12~18분 내부 갱신; 자원 부족 휴면·카드 재도입|군집 자동 증가 없음, 내부 세대 변화; 자실체/균사체 정밀 분리 후속|
+|litter-mold · 낙엽 분해 곰팡이 군집|나이 대신 활력1|colony_renewal / 없음; 쇠퇴도 추가 유기물 없음|litter/환경 맞으면8~12분 내부 갱신; 휴면·카드 재도입|유지/갱신/휴면 가능; 혼합종 정밀 생애는 범위 밖|
+|soil-bacteria · 고초균|나이 대신 활력1|colony_renewal / 없음; 쇠퇴도 추가 유기물 없음|remains/환경 맞으면5~9분 내부 갱신; 휴면·조건 회복 시 활력 회복|세포 소멸≠군집 소멸; 카드 재도입, 포자 AI 없음|
 
-자연 종료의 유기물량과 군집 갱신 주기는 게임 시험값이다. 유기물 소비와 soilNutrients 증가는 기존 decomposition 한 경로에서만 처리하며 군집 갱신에 보너스 양분을 지급하지 않는다. 포식된 먹이나 돌려보낸 개체에 유기물을 추가하지 않는다. 물질이 다시 이용될 수 있다는 모델이며 에너지의 순환을 표현하지 않는다.
+자연 종료는 기존 lifespan → lifecycle → decomposition 경로를 사용한다. 군집 갱신에 유기물이나 soilNutrients 보너스를 추가하지 않는다. 양분 회복은 실제 유기물 소비에 따른 decomposition 한 경로로 계산한다. 포식된 먹이·유충 단계 종료·돌려보낸 개체에도 유기물을 별도 추가하지 않는다. 유기물의 재이용 모델이며 에너지 순환 설명이 아니다.
 
-35~40분 검증은 결정적인 시계의 개발 fixture이며 실제 학생 수업 밸런스 확정이 아니다. 120분 무개입에서는 소비자가 줄 수 있지만 획득 카드와 생산자/분해자, 재도입 경로는 보존한다. 학생이 모든 23종을 자동으로 영구 유지할 수 있다는 약속은 하지 않는다. 초기 나이·수명·번식·포식·공간·포인트 경제를 15단계에서 함께 조정한다.
+번식은 강아지풀·방아깨비·멧토끼3개, 자연 보충은 방아깨비·솔나방 유충2개다. 삭제한 진딧물 번식과 등줄쥐·거미·무당벌레 유입 상태는 과거 저장에 보존하며 새 종 자동 발생에 쓰지 않는다. 11.6 정밀 성장·성별·짝짓기·알/번데기/포자 AI는 추가하지 않았다.
+
+## 자료 확인의 한계와 밸런스 검증
+
+L01~L13 공개 본문(제외한 ADW는 별도), L15 분류 본문, L16 및 L18~L22 본문을 열어 확인했다. **L15는 수명 자료가 아니다.** L14 보고서와 L23 리뷰는 해당 출처의 검색 자료를 확인했으나 본문 재접속이 실패/차단되었다. 이를 직접 본문 검증이 끝난 정확 수명 연구라고 주장하지 않는다. 계절 생애와 휴면/활성의 질적 설명만 쓰며 실제 수명 숫자는 기입하지 않았다. 멧토끼 사육값·직박구리 표지기간은 이번 재열람 실패로 확정 수치에서 제외했다. 홍단딱정벌레·명주달팽이 정확 수명, 한국 박새·직박구리 연령은 후속 조사 항목이다.
+
+L12 표5(인쇄60쪽)는2002~2014년 도쿄에서 실제 성충 섭식을 확인한 식물로 Celtis sinensis를 명시한다. 사육 수명 표와 현장 먹이 식물 표는 별개다. 팽나무가 위 생존 실험의 사육 먹이였다고 주장하지 않는다. 한국 집단의 동일 생존일/잎 회복량을 확정하는 근거도 아니다. 관계 근거는 [FOREST_FOOD_WEB_AUDIT.md](FOREST_FOOD_WEB_AUDIT.md)에 기록한다.
+
+35~40분은 활성 게임 시간이다. tests/ecology.long.test.mjs의8개 시나리오는 핵심 먹이망, 소나무/솔나방, 팽나무/직박구리, 달팽이/홍단딱정벌레, 변경 소비자, 분해자,23종30개체, 저장 후 재개를 검증한다. 실제 포식·굶주림·자연 종료·번식/보충이 함께 작동하므로 수명표만으로 모든 소비자 유지가 보장되지 않는다. 상세 수치와11.5 동일 조건 비교는 [STAGE11_55_REPORT.md](STAGE11_55_REPORT.md)에 기록한다. 개발 시계 시험은 Galaxy Tab S5e 실기기 수업 밸런스 확정이 아니다.
+
+획득 카드·포인트·학습 완료·클리어를 유지하며 허위 먹이 관계로 생존시키지 않는다. 학생 재도입으로 운영을 회복할 수 있지만 모든23종의 무개입 영구 유지를 보장하지 않는다. 초기 나이·수명·번식·먹이 공급·포식·공간·관리 비용을 후속 밸런스 단계에서 함께 조정한다.

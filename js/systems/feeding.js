@@ -83,7 +83,8 @@ export function createFeedingSystem(initialTime = 0) {
     moveToFood(instance, clock) {
       const target = availableTarget(instance);
       clock.pursuitSeconds += ecologyConfig.tickSeconds;
-      if (!target || clock.pursuitSeconds > ecologyConfig.maxPursuitSeconds) {
+      const config=feedingConfig[instance.speciesId];
+      if (!target || clock.pursuitSeconds > (config.maxPursuitSeconds??ecologyConfig.maxPursuitSeconds) || config.huntMode==='ambush'&&distance(instance,target)>config.searchRadius) {
         returnToWander(instance, clock, true);
       } else if (distance(instance, target) <= ecologyConfig.arrivalDistance) {
         instance.behaviorState = 'eat';
@@ -158,6 +159,7 @@ export function createFeedingSystem(initialTime = 0) {
   }
 
   function move(instance, dt, layout) {
+    if(feedingConfig[instance.speciesId].huntMode==='ambush')return false;
     const target = availableTarget(instance);
     if (!target) return false;
     const separation = distance(instance, target);

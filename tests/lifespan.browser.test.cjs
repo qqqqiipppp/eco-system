@@ -14,7 +14,7 @@ const {dismissWelcome}=require('./fixtures.cjs'),BASE=process.env.BASE_URL||'htt
  },kind);}
  try{
   const base=await setup();assert.equal((await state(base)).inventory.filter(c=>!c.acquired).length,20);await base.locator('#population-open').tap();assert.match(await base.locator('#population-lifespan').textContent(),/여러 해.*실제 생애와 게임 시간은 달라/);
-  await base.locator('#population-species').selectOption('grass');assert.match(await base.locator('#population-role').textContent(),/1포기/);assert.match(await base.locator('#population-lifespan').textContent(),/여러해살이/);
+  await base.locator('#population-species').selectOption('grass');assert.match(await base.locator('#population-role').textContent(),/1포기/);assert.match(await base.locator('#population-lifespan').textContent(),/한해살이 강아지풀/);
   for(const [width,height]of [[1280,800],[1138,712],[960,600],[412,915]]){await base.setViewportSize({width,height});assert.equal(await base.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);assert((await base.locator('#population-close').boundingBox()).height>=44);}
   await base.locator('#population-close').tap();console.log('A/F/L/X: 23-type qualitative life panel, proper units, initial locks and touch sizes');
   const loss=await setup(await seed(base,'end'));const before=(await state(loss)).organisms.map(o=>o.instanceId);await loss.evaluate(()=>{window.nodes=[...document.querySelectorAll('.organism-object')];const o=window.s.organisms.find(o=>o.instanceId==='watcher');o.targetInstanceId='gh0'});await loss.emulateMedia({reducedMotion:'no-preference'});await loss.waitForFunction(()=>window.s.population.totals.natural_lifespan===1);await loss.emulateMedia({reducedMotion:'reduce'});

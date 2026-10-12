@@ -6,9 +6,9 @@ export function evaluateForestGoal(state) {
  const checks=[
   {id:'stability',label:'숲의 안정도가 충분해요',ok:Number.isFinite(state.metrics.stability)&&state.metrics.stability>=forestGoal.minimumStability},
   {id:'environment',label:'햇빛·물·공기·토양이 모두 보통 이상이에요',ok:Object.keys(environmentFactors).every(key=>factorValue(state.environment,key)>=forestGoal.minimumEnvironment)},
-  {id:'observations',label:'풀 → 메뚜기, 메뚜기 → 개구리를 발견 기록에 남겼어요',ok:forestGoal.requiredObservations.every(id=>state.observations.some(item=>item.relationId===id))},
+  {id:'observations',label:'강아지풀 → 방아깨비, 방아깨비 → 참개구리를 발견 기록에 남겼어요',ok:forestGoal.requiredObservations.every(id=>state.observations.some(item=>item.relationId===id))},
   {id:'activities',label:'생산자·분해자·관찰 활동을 완료했어요',ok:forestGoal.requiredActivities.every(id=>state.activities.some(item=>item.activityId===id&&item.completed))},
-  {id:'structure',label:'풀·메뚜기·개구리가 지금 숲에 함께 있어요',ok:forestGoal.requiredSpecies.every(id=>state.organisms.some(item=>item.speciesId===id))},
+  {id:'structure',label:'강아지풀·방아깨비·참개구리가 지금 숲에 함께 있어요',ok:forestGoal.requiredSpecies.every(id=>state.organisms.some(item=>item.speciesId===id))},
  ];
  return {ready:checks.every(item=>item.ok),checks};
 }

@@ -30,7 +30,7 @@ test('A/B/C: exactly 23 distinct definitions, 5/15/3 roles, valid directed/resou
  assert.equal(organisms.length,23);assert.equal(new Set(organisms.map(s=>s.id)).size,23);
  for(const [role,count]of [['producer',5],['consumer',15],['decomposer',3]])assert.equal(organisms.filter(s=>s.role===role).length,count);
  for(const id of ['oak','grass','rabbit','mushroom','grasshopper','frog'])assert(organismById[id]);
- assert.equal(foodRelations.length,27);assert.equal(new Set(foodRelations.map(r=>r.relationId)).size,27);
+ assert.equal(foodRelations.length,22);assert.equal(new Set(foodRelations.map(r=>r.relationId)).size,22);
  for(const r of foodRelations){assert(organismById[r.sourceSpeciesId]);assert.equal(organismById[r.targetSpeciesId].role,'consumer');assert(r.evidenceId);assert(discoveryEvents[r.relationId]);if(r.feedingMode==='resource')assert(foodResourceConfig[r.sourceSpeciesId].parts.includes(r.foodPart));else assert.equal(organismById[r.sourceSpeciesId].role,'consumer');}
  for(const s of organisms){assert(s.habitat);assert(speciesProfiles[s.id]);if(s.role==='consumer'){assert(feedingConfig[s.id]);assert(relationsByConsumer.get(s.id)?.length);}if(s.role==='producer'){assert(producerGrowth[s.id]);assert(foodResourceConfig[s.id]);}if(s.role==='decomposer')assert(!feedingConfig[s.id]);}
 });
@@ -41,14 +41,14 @@ test('C/E: one connected producer-consumer web, alternative food and shared food
  assert([...relationsByConsumer.values()].some(r=>r.length>1));assert(foodRelations.filter(r=>r.sourceSpeciesId==='grass').length>1);
 });
 test('D: nearest usable alternative is selected; depleted food switches to another permitted species',()=>{
- const eater=make('chipmunk','eater'),oak=make('oak','oak',.44),pine=make('pine','pine',.41),hazel=make('hazel','hazel',.48);eater.hunger=1;
- const s=world(eater,oak,pine,hazel),f=createFeedingSystem();run(s,f,1);assert.equal(eater.targetInstanceId,'pine');
- pine.foodStock=0;oak.foodStock=0;const meals=run(s,f,8);assert(meals.some(e=>e.relationId==='hazel_to_chipmunk'));assert(!meals.some(e=>e.foodSpeciesId==='pine'));assert(!s.organisms.some(o=>o.speciesId==='mushroom'));
+ const eater=make('bulbul','eater'),rasp=make('raspberry','rasp',.41),hazel=make('hazel','hazel',.48);eater.hunger=1;
+ const s=world(eater,rasp,hazel),f=createFeedingSystem();run(s,f,1);assert.equal(eater.targetInstanceId,'rasp');
+ rasp.foodStock=0;const meals=run(s,f,8);assert(meals.some(e=>e.relationId==='v2_hazel_to_bulbul'));assert(!meals.some(e=>e.foodSpeciesId==='raspberry'));assert(!s.organisms.some(o=>o.speciesId==='mushroom'));
 });
-test('D/E: omnivore can choose renewable seeds or an animal without deleting the seed supplier',()=>{
- const eater=make('field-mouse','eater'),oak=make('oak','oak',.43),prey=make('caterpillar','prey',.401);eater.hunger=1;prey.hunger=0;
- const s=world(eater,oak,prey),f=createFeedingSystem();let meals=run(s,f,4);assert(meals.some(e=>e.foodSpeciesId==='caterpillar'));assert(!s.organisms.includes(prey));
- eater.hunger=1;meals=run(s,f,6);assert(meals.some(e=>e.foodPart==='acorn'));assert(s.organisms.includes(oak));assert(oak.foodStock<foodResourceConfig.oak.maximum);
+test('D/E: hedgehog eats allowed insects and never inherits mouse acorn feeding',()=>{
+ const eater=make('field-mouse','eater'),oak=make('oak','oak',.43),prey=make('grasshopper','prey',.401);eater.hunger=1;prey.hunger=0;
+ const s=world(eater,oak,prey),f=createFeedingSystem();let meals=run(s,f,4);assert(meals.some(e=>e.foodSpeciesId==='grasshopper'));assert(!s.organisms.includes(prey));
+ eater.hunger=1;meals=run(s,f,6);assert(!meals.some(e=>e.foodPart==='acorn'));assert(s.organisms.includes(oak));assert.equal(oak.foodStock,foodResourceConfig.oak.maximum);
 });
 test('E/F: a shared live prey is removed once, stale targets clear, undefined food never feeds',()=>{
  const prey=make('aphid','prey'),a=make('ladybird','ladybird'),b=make('spider','spider');prey.hunger=0;a.hunger=b.hunger=1;
@@ -62,7 +62,7 @@ test('G: each producer resource is consumed without deleting plant, recovers, an
   plant.foodStock=0;for(const factor of ['sunlight','water','air','soil'])setEnvironmentLevel(s,factor,'bad');recoverFoodStock(plant,5,s.environment);assert(plant.foodStock<good);assert(plant.foodStock>=0);
  }
 });
-test('H/J: every one of the 27 configured relations produces actual feeding and correct resource/predation mutation',()=>{
+test('H/J: every one of the 22 configured relations produces actual feeding and correct resource/predation mutation',()=>{
  for(const r of foodRelations){
   const food=make(r.sourceSpeciesId,'food'),eater=make(r.targetSpeciesId,'eater');if('hunger'in food)food.hunger=0;eater.hunger=1;
   const s=world(food,eater),meals=run(s,createFeedingSystem(),4);assert(meals.some(e=>e.relationId===r.relationId),r.relationId);
@@ -76,25 +76,25 @@ test('I/J: starter locks preserved, planned cards cannot place, developer permis
  assert(placeOrganism(s,'chipmunk',{position:{x:.4,y:.72},isPlayArea:true,isUI:false},layout).ok);
 });
 test('K: new actual feeding gives a pending discovery, explicit once-only record, bounded active events and priority',()=>{
- const food=make('aphid','prey'),eater=make('ladybird','eater');food.hunger=0;eater.hunger=1;
+ const food=make('snail','prey'),eater=make('ladybird','eater');food.hunger=0;eater.hunger=1;
  const s=world(food,eater),signals=run(s,createFeedingSystem(),4),events=createEventSystem(s.simulationTime);events.update(s,1,signals);assert.equal(s.observations.length,0);
- const event=s.events.find(e=>e.payload.relationId==='aphid_to_ladybird');assert(event);assert(events.acknowledge(s,event.eventId).ok);assert.equal(s.observations.length,1);assert.equal(s.metrics.points,12);assert(!events.acknowledge(s,event.eventId).ok);assert.equal(s.metrics.points,12);
- const busy=createGameState(),system=createEventSystem();system.update(busy,1,foodRelations.map(r=>({foodSpeciesId:r.sourceSpeciesId,consumerSpeciesId:r.targetSpeciesId,consumerInstanceId:'gone'})));assert.equal(system.exportMemory().pendingDiscoveries.length,27);assert(busy.events.filter(e=>e.status==='active').length<=eventConfig.maxActive);
- const sorted=busy.events.filter(e=>e.kind==='insight').sort((a,b)=>eventPriority(b)-eventPriority(a));assert(sorted.slice(0,2).every(e=>['grass_to_grasshopper','grasshopper_to_frog'].includes(e.payload.relationId)));
+ const event=s.events.find(e=>e.payload.relationId==='v2_snail_to_ladybird');assert(event);assert(events.acknowledge(s,event.eventId).ok);assert.equal(s.observations.length,1);assert.equal(s.metrics.points,12);assert(!events.acknowledge(s,event.eventId).ok);assert.equal(s.metrics.points,12);
+ const busy=createGameState(),system=createEventSystem();system.update(busy,1,foodRelations.map(r=>({foodSpeciesId:r.sourceSpeciesId,consumerSpeciesId:r.targetSpeciesId,consumerInstanceId:'gone'})));assert.equal(system.exportMemory().pendingDiscoveries.length,22);assert(busy.events.filter(e=>e.status==='active').length<=eventConfig.maxActive);
+ const sorted=busy.events.filter(e=>e.kind==='insight').sort((a,b)=>eventPriority(b)-eventPriority(a));assert(sorted.slice(0,2).every(e=>['v2_grass_to_grasshopper','v2_grasshopper_to_frog'].includes(e.payload.relationId)));
 });
 test('L: genuine six-card schema 7 saves load without reset/damage and append 17 locked cards',()=>{
  const s=createGameState();s.simulationTime=100;s.metrics.points=31;s.metrics.bestStability=86;s.forestProgress={cleared:true,clearedAt:70,stableSeconds:30};
- s.observations=[{relationId:'grass_to_grasshopper',eventId:'old',discoveredAt:40}];completeActivity(s,'producer_quiz','grass');completeActivity(s,'grass_observation');
+ s.observations=[{relationId:'v2_grass_to_grasshopper',eventId:'old',discoveredAt:40}];completeActivity(s,'producer_quiz','grass');completeActivity(s,'grass_observation');
  s.organisms.push(make('rabbit','old-rabbit'));s.inventory.find(c=>c.speciesId==='rabbit').acquired=true;
  const snapshot=createSaveSnapshot(s,{sequence:1,cooldowns:[],questionDone:[],pendingDiscoveries:[]},'2026-10-08T00:00:00Z');const legacy=['oak','grass','rabbit','mushroom','grasshopper','frog'];snapshot.domain.inventory=snapshot.domain.inventory.filter(c=>legacy.includes(c.speciesId));
  for(const o of snapshot.domain.organisms){if(o.speciesId==='oak')delete o.foodStock;if(o.speciesId==='rabbit')for(const key of ['hunger','foodShortageDuration','lastSuccessfulFeedingAt'])delete o[key];}
- snapshot.schemaVersion=snapshot.domain.schemaVersion=7;delete snapshot.domain.population;delete snapshot.domain.decomposition;const loaded=decodeSave(JSON.stringify(snapshot));assert.equal(loaded.status,'loaded');assert.equal(loaded.state.schemaVersion,9);assert.equal(loaded.state.metrics.points,s.metrics.points);assert(loaded.state.forestProgress.cleared);assert.equal(loaded.state.observations.length,1);assert.equal(loaded.state.inventory.filter(c=>!legacy.includes(c.speciesId)&&!c.acquired).length,17);assert(loaded.state.inventory.find(c=>c.speciesId==='frog').acquired);assert(loaded.state.inventory.find(c=>c.speciesId==='rabbit').acquired);
+ snapshot.schemaVersion=snapshot.domain.schemaVersion=7;snapshot.domain.observations.forEach(o=>o.relationId=o.relationId.replace(/^v2_/,''));delete snapshot.domain.population;delete snapshot.domain.decomposition;const loaded=decodeSave(JSON.stringify(snapshot));assert.equal(loaded.status,'loaded');assert.equal(loaded.state.schemaVersion,10);assert.equal(loaded.state.metrics.points,s.metrics.points);assert(loaded.state.forestProgress.cleared);assert.equal(loaded.state.observations.length,0);assert.equal(loaded.state.legacyEcology.observations.length,1);assert.equal(loaded.state.inventory.filter(c=>!legacy.includes(c.speciesId)&&!c.acquired).length,17);assert(loaded.state.inventory.find(c=>c.speciesId==='frog').acquired);assert(loaded.state.inventory.find(c=>c.speciesId==='rabbit').acquired);
 });
-test('M: all new species, 27 observations/rewards and unrecorded discoveries survive save validation',()=>{
+test('M: all new species, 22 observations/rewards and unrecorded discoveries survive save validation',()=>{
  const s=createGameState();grantDevelopmentCards(s);s.organisms=organisms.map((o,i)=>make(o.id,'save-'+i));s.simulationTime=100;
  s.observations=foodRelations.map(r=>({relationId:r.relationId,eventId:'source',discoveredAt:30}));s.rewardHistory=foodRelations.map(r=>({rewardId:'observation:'+r.relationId,sourceId:'source',grantedAt:30,amount:12}));
- let loaded=decodeSave(JSON.stringify(createSaveSnapshot(s,{sequence:1,cooldowns:[],questionDone:[],pendingDiscoveries:[]},'2026-10-08T00:00:00Z')));assert.equal(loaded.state.organisms.length,23);assert.equal(loaded.state.observations.length,27);assert.equal(loaded.state.rewardHistory.length,27);assert.deepEqual(loaded.state.organisms.map(o=>o.speciesId),s.organisms.map(o=>o.speciesId));
- s.observations=[];loaded=decodeSave(JSON.stringify(createSaveSnapshot(s,{sequence:1,cooldowns:[],questionDone:[],pendingDiscoveries:foodRelations.map(r=>[r.relationId,{consumerInstanceId:'gone'}])},'2026-10-08T00:00:00Z')));assert.equal(loaded.eventMemory.pendingDiscoveries.length,27);
+ let loaded=decodeSave(JSON.stringify(createSaveSnapshot(s,{sequence:1,cooldowns:[],questionDone:[],pendingDiscoveries:[]},'2026-10-08T00:00:00Z')));assert.equal(loaded.state.organisms.length,23);assert.equal(loaded.state.observations.length,22);assert.equal(loaded.state.rewardHistory.length,22);assert.deepEqual(loaded.state.organisms.map(o=>o.speciesId),s.organisms.map(o=>o.speciesId));
+ s.observations=[];loaded=decodeSave(JSON.stringify(createSaveSnapshot(s,{sequence:1,cooldowns:[],questionDone:[],pendingDiscoveries:foodRelations.map(r=>[r.relationId,{consumerInstanceId:'gone'}])},'2026-10-08T00:00:00Z')));assert.equal(loaded.eventMemory.pendingDiscoveries.length,22);
 });
 test('N: old core goal is unchanged; absent optional foods do not dilute existing feeding adequacy',()=>{
  assert.deepEqual(forestGoal.requiredSpecies,['grass','grasshopper','frog']);assert.equal(forestGoal.stableSeconds,30);assert.equal(forestGoal.minimumStability,70);

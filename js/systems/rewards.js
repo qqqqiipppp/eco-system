@@ -5,10 +5,17 @@ import { growthSuitability } from './environment.js';
 import { eventConfig } from '../../data/event-config.js';
 
 // Called only after a domain system has verified the achievement.
+export function hasReceivedReward(state, category, semanticId) {
+  const rewardId = `${category}:${semanticId}`;
+  const previousId = category === 'observation' ? `observation:${semanticId.replace(/^v2_/, '')}` : rewardId;
+  return state.rewardHistory.some(item => item.rewardId === rewardId || item.rewardId === previousId);
+}
+
 export function grantReward(state, category, semanticId, sourceId) {
   const amount = category === 'activity' ? (state.activities.some(item => item.activityId===semanticId && item.completed) ? activityById[semanticId]?.pointReward : 0) : (Object.hasOwn(rewardConfig,category) ? rewardConfig[category] : 0);
   const rewardId = `${category}:${semanticId}`;
-  if (!amount || state.rewardHistory.some(item => item.rewardId === rewardId)) return 0;
+  // An archived reward for the same card-slot relation remains a once-only credit.
+  if (!amount || hasReceivedReward(state, category, semanticId)) return 0;
   state.metrics.points += amount;
   state.rewardHistory.push({ rewardId, grantedAt:state.simulationTime, sourceId, amount });
   return amount;

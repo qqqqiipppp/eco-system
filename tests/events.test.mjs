@@ -45,7 +45,7 @@ test('real feeding signal becomes pending insight; only acknowledgment records d
  assert.equal(state.observations.length,0);
  for(let i=0;i<50;i++)system.update(state,1,[signal]);assert.equal(state.events.length,1);
  assert.equal(system.acknowledge(state,insight.eventId).ok,true);
- assert.equal(state.observations[0].relationId,'grass_to_grasshopper');
+ assert.equal(state.observations[0].relationId,'v2_grass_to_grasshopper');
  for(let i=0;i<50;i++)system.update(state,1,[signal]);assert.equal(state.events.length,1);assert.equal(state.observations.length,1);
  assert.equal(system.acknowledge(state,insight.eventId).ok,false);
 });
@@ -60,10 +60,10 @@ test('frog feeding records the second relationship independently',()=>{
  const {state,system}=scenario(['frog']);
  system.update(state,1,[{foodSpeciesId:'grasshopper',consumerSpeciesId:'frog',consumerInstanceId:'test-0'}]);
  const insight=active(state).find(event=>event.kind==='insight');
- assert.equal(insight.payload.relationId,'grasshopper_to_frog');
+ assert.equal(insight.payload.relationId,'v2_grasshopper_to_frog');
  assert.equal(state.observations.length,0);
  assert.equal(system.acknowledge(state,insight.eventId).ok,true);
- assert.equal(state.observations[0].relationId,'grasshopper_to_frog');
+ assert.equal(state.observations[0].relationId,'v2_grasshopper_to_frog');
 });
 test('30 shortages: bounded history, stable active identity and one-second scans',()=>{
  const {state,system}=scenario(Array(30).fill('frog'));

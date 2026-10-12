@@ -10,7 +10,7 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8082/eco-system/';const KEY='
  async function place(p,id,x=.4,y=.72){await p.locator(`.organism-card[data-species-id="${id}"]`).tap();const box=await p.locator('#placement-surface').boundingBox();await p.touchscreen.tap(box.x+x*box.width,box.y+y*box.height);}
  async function seedSnapshot(p,count=12){return p.evaluate(async(count)=>{
   const {createGameState}=await import('./js/state/game-state.js');const {createOrganismInstance}=await import('./js/state/organism-instance.js');const {createSaveSnapshot}=await import('./js/services/save-format.js');const {completeActivity}=await import('./js/systems/activities.js');
-  const s=createGameState();s.inventory.forEach(c=>c.acquired=true);s.observations=['grass_to_grasshopper','grasshopper_to_frog'].map(relationId=>({relationId,eventId:'old',discoveredAt:0}));
+  const s=createGameState();s.inventory.forEach(c=>c.acquired=true);s.observations=['v2_grass_to_grasshopper','v2_grasshopper_to_frog'].map(relationId=>({relationId,eventId:'old',discoveredAt:0}));
   completeActivity(s,'producer_quiz','grass');completeActivity(s,'decomposer_classify','decomposer');completeActivity(s,'grass_observation');
   const species=['oak',...Array(6).fill('grass'),...Array(4).fill('grasshopper'),'frog'];while(species.length<count)species.push('rabbit');
   s.organisms=species.map((id,i)=>createOrganismInstance(id,`test-${i}`,{x:.3+(i%4)*.035,y:.74}));s.metrics.bestStability=80;

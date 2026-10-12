@@ -1,124 +1,139 @@
-# 숲 생물 카드 23종류와 먹이그물 — 11.5단계
+# 숲 생물 카드와 먹이그물 — 11.55단계
 
-검토·구현 기준: 2026-10-12. ‘23종’은 카드 종류 수이며 정확한 분류학적 종 23개라는 뜻이 아니다. 숲 내부, 풀밭, 습한 숲 가장자리를 한 화면으로 단순화했다. 모든 생물이 같은 미소서식지에서 항상 만난다는 뜻도 아니다. 접근하지 못한 초등 과학 지도서는 근거로 사용하지 않았다.
+확인일: 2026-10-12. 실행 데이터는 `data/organisms.js`, 분류 정보는 `data/species-taxonomy.js`, 먹이 관계는 `data/food-relations.js`와 `data/food-evidence.js`가 기준이다. **23종류의 카드 = 생산자 5, 소비자 15, 분해자 3**이다. 낙엽 분해 곰팡이 군집은 여러 균류를 묶은 기능군이므로 정확한 분류학적 종 23개라는 뜻은 아니다.
 
-국내 공공기관 자료와 원 연구, 해외 공공기관 자료를 교차 검토했다. 아래 관계 중 일부는 특정 종 쌍의 직접 기록이고, 일부는 확인된 먹이군을 대표 카드에 적용한 것이다. **먹이군 근거를 한국 특정 지역의 정확한 종 쌍 관찰로 주장하지 않는다.** 속도·배고픔·자원 회복량은 게임 조정값이다.
+사용자가 확정한 국명과 기존 카드 슬롯 ID를 유지했다. `hazel`, `field-mouse`, `aphid`, `ladybird`라는 내부 ID는 각각 현재 팽나무·고슴도치·청동풍뎅이·홍단딱정벌레를 가리킨다. 예전 종과 같은 종이라는 뜻은 아니다. 이전 저장의 관찰은 별도 역사 기록으로 보존한다.
 
-## 생애주기 추가
+## 종명·학명 검토
 
-23종의 실제 근거, 대표군 여부, 불확실성, 게임 수명/군집 갱신, 유지 경로는 [FOREST_LIFESPANS.md](FOREST_LIFESPANS.md)를 기준으로 한다. 아래 27개 먹이 관계와 ID는 변경하지 않았다. 풀은 여러해살이 벼과 풀 포기의 대표 모델이며 모든 풀이 한해살이라는 의미가 아니다. 버섯은 보이는 자실체와 균사체를 포함한 군집이다. 나방 유충의 기간 종료는 나방 전체의 자연사가 아니다. 모든 동식물에는 유한한 생애, 3개 분해자에는 자원/환경에 따른 내부 갱신과 휴면/쇠퇴가 연결되었다.
+국내 국명은 실제 열어 본 국립생물자원관 국가생물종목록과 기관 자료를 대조했다. 국가생물종목록 PDF 1·2·3권은 **2019판**이며 2026 최신 목록을 전부 재검증했다는 뜻은 아니다. 속 이름이 바뀐 종은 현재 MDD·World Spider Catalog·IOC 자료와 대조했다. 학명은 저자명을 생략한 게임 표기다.
 
-기존 풀·메뚜기·토끼·진딧물 번식 조건은 유지한다. 메뚜기의 앞선 번식에서 남은 알 가능량으로 제한 보충하며, 한 번 들인 나방 유충·거미·무당벌레·등줄쥐에는 적합한 먹이/환경에서 제한적인 새 유충 또는 주변 유입이 있다. 이는 성별/계절/정밀 번식 모델이 아니다. 나머지 생물도 카드를 획득했다면 기존 대기/먹이/상한 내에서 재도입할 수 있다. 신규 17종 잠금은 유지한다.
+|번호|speciesId · 최종 국명|역할|게임 학명|검증 결과·이명·국명 차이|실제 확인 자료|
+|---|---|---|---|---|---|
+|1|oak · 상수리나무|생산자|Quercus acutissima|국내 국명·학명 일치|T1 p.79|
+|2|grass · 강아지풀|생산자|Setaria viridis|국내 목록은 기본변종 `S. viridis var. viride`. 게임은 종 수준 표기. 한해살이 벼과 식물|T1 p.192|
+|3|pine · 소나무|생산자|Pinus densiflora|국내 국명·학명 일치. 잣나무·시베리아소나무와 구분|T1 p.64|
+|4|raspberry · 산딸기|생산자|Rubus crataegifolius|국내 국명·학명 일치. 산딸기속 전체를 대표하는 카드 아님|T1 p.110|
+|5|hazel · 팽나무|생산자|Celtis sinensis|국내 국명·학명 일치. 개암나무 견과류·수액 식성 제거|T1 p.76|
+|6|grasshopper · 방아깨비|소비자|Acrida cinerea|국립생물자원관·농촌진흥청 국명·학명 일치|T3, F1|
+|7|frog · 참개구리|소비자|Pelophylax nigromaculatus|국내 목록 일치. 예전 조합 `Rana nigromaculata`도 기록|T2 p.155, F2|
+|8|rabbit · 멧토끼|소비자|Lepus coreanus|국내 목록·포유류 가이드 일치. 굴토끼와 다른 종|T2 p.183, F3|
+|9|chipmunk · 다람쥐|소비자|Eutamias sibiricus|MDD 현행 속 사용. 국내·옛 생태 문헌의 `Tamias sibiricus`는 과거 조합|T4, F4·F5|
+|10|field-mouse · 고슴도치|소비자|Erinaceus amurensis|국내 목록·적색자료집 일치. 한국 개체의 아종 처리는 상세 연구 부족|T2 p.183, T5|
+|11|caterpillar · 솔나방 애벌레(송충이)|소비자|Dendrolimus spectabilis|공식 종명은 솔나방. 카드 이름은 그 종의 **유충 단계**이며 송충이는 부연 호칭|T6, F6|
+|12|aphid · 청동풍뎅이|소비자|Anomala albopilosa|국내 곤충 목록 일치. 카드는 **성충**; 유충의 뿌리 먹이와 분리|T7, F19|
+|13|snail · 명주달팽이|소비자|Acusta despecta|농사로는 명주달팽이·Acusta·despecta. 국내 목록의 `Acusta despecta sieboldiana` 국명은 달팽이. MolluscaBase는 `A. despecta sieboldtiana`를 `Acusta sieboldtiana`로 분리. **국명·분류 대응 미해결**; 확정 국명은 임의 변경하지 않음|F7, T2 p.340, T8|
+|14|spider · 무당거미|소비자|Trichonephila clavata|국내 2019 목록의 `Nephila clavata` 국명 확인. WSC 현행 속 변경 반영|T2 p.416, T9|
+|15|ladybird · 홍단딱정벌레|소비자|Carabus smaragdinus|NCBI 표기 사용; `Coptolabrus smaragdinus`, `Damaster smaragdinus`도 사용. 속 처리 차이가 있어 분류학적 최종 합의라 주장하지 않음. 국내 아종명과 구분|T10·T11, F17 보완자료|
+|16|tit · 박새|소비자|Parus minor|현행 산림기관·국내 조류 조사 일치. 넓은 과거 `Parus major` 분류와 구분|T12·T13|
+|17|bulbul · 직박구리|소비자|Hypsipetes amaurotis|2024–2025 국내 조류 조사 일치. 예전 `Microscelis amaurotis` 조합도 기록|T13, F10·F15|
+|18|snake · 유혈목이|소비자|Rhabdophis tigrinus|국내 국명·학명 일치|T2 p.157|
+|19|weasel · 족제비|소비자|Mustela sibirica|국내 국명·학명 일치|T2 p.185, F12·F13|
+|20|goshawk · 참매|소비자|Astur gentilis|IOC 현행 속. 국내 기관의 `Accipiter gentilis`는 예전 조합. 북미 참매 `Astur atricapillus`와 구분|T14, F14·F15|
+|21|mushroom · 구름송편버섯|분해자|Trametes versicolor|국내 목록 일치. 예전 `Coriolus versicolor` 조합. 자실체·균사체를 포함한 군집|T1 p.351|
+|22|litter-mold · 낙엽 분해 곰팡이 군집|분해자|학명 없음 (`null`)|단일 종 아님. 낙엽 분해 기능군에 가짜 학명 부여하지 않음|T15|
+|23|soil-bacteria · 고초균|분해자|Bacillus subtilis|농사로 국명·학명 일치. 한 세포가 아니라 같은 종의 군집|T16|
 
-## 카드 설계표
+### 분류 출처
 
-먹이/포식자는 이번 게임에 연결한 범위이며 실제 식단 전체가 아니다. ‘없음’은 자연계에 포식자가 없다는 뜻이 아니라 이 데이터에 등록하지 않았다는 뜻이다. 생물 간 전체 연결은 다음 관계표를 따른다.
+- T1: [국립생물자원관 국가생물종목록 Ⅰ, 2019](https://www.nibr.go.kr/aiibook/catImage/20/National%20Species%201.pdf). 식물·균류·조류·원핵생물 목록.
+- T2: [국립생물자원관 국가생물종목록 Ⅱ, 2019](https://www.nibr.go.kr/aiibook/catImage/21/National%20Species%202.pdf). 척추동물·무척추동물·원생동물 목록.
+- T3: [국립생물자원관 메뚜기목 동정 개요](https://species.nibr.go.kr/kiiks/social/grasshopper.do).
+- T4: [American Society of Mammalogists, MDD: Eutamias sibiricus](https://www.mammaldiversity.org/taxon/1001719/).
+- T5: [국가생물적색자료집 포유류: 고슴도치](https://www.nibr.go.kr/aiibook/access/ecatalogt.jsp?Dir=1116&callmode=admin&catimage=&eclang=ko&start=64&um=s). 생태 특성은 이어지는 65페이지 확인.
+- T6: [국가생물종목록 곤충: 솔나방](https://www.nibr.go.kr/aiibook/access/ecatalogt.jsp?Dir=22&callmode=admin&catimage=&eclang=ko&start=506&um=s).
+- T7: [국가생물종목록 곤충: 청동풍뎅이](https://www.nibr.go.kr/aiibook/access/ecatalogt.jsp?Dir=22&callmode=normal&catimage=&eclang=ko&start=272&um=s).
+- T8: [MolluscaBase의 Acusta 목록](https://www.molluscabase.org/aphia.php?p=taxlist&pid=994782&rComp=%3E%3D&tRank=220). 국제 분류 처리만 확인; 한국 국명 확정 근거로 쓰지 않음.
+- T9: [World Spider Catalog: Trichonephila clavata](https://wsc.nmbe.ch/spec-data/29057). 2019 속 변경 및 이후 문헌 확인.
+- T10: [NCBI Taxonomy: Carabus smaragdinus](https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=120930&mode=Info). 이름·이명 대조 자료이며 NCBI 자체도 명명법 최종 권위 자료가 아니라고 밝힘.
+- T11: [국가생물종목록 Ⅲ, 곤충, 2019](https://www.nibr.go.kr/aiibook/catImage/22/National%20Species%203.pdf). Coptolabrus 분류·아종 표기와 비교.
+- T12: [일본 중부산림관리국: Parus minor](https://www.rinya.maff.go.jp/chubu/policy/business/conservation/corridor/sizyuukara.html).
+- T13: [국립생물자원관 2024–2025 겨울철 조류 동시 센서스](https://www.nibr.go.kr/aiibook/access/ecatalogt.jsp?Dir=1403&callmode=admin&catimage=&eclang=ko&start=168&um=s). 이어지는 169페이지 박새·직박구리 확인.
+- T14: [IOC World Bird List 분류 변경](https://www.worldbirdnames.org/updates/taxonomy/). Accipiter gentilis → Astur gentilis.
+- T15: [USDA NRCS, Biological Underground Community](https://www.nrcs.usda.gov/state-offices/illinois/soil-tech-note-11a-biological-underground-community). 여러 분해 균류·세균 기능.
+- T16: [농사로 농업용어사전: 고초균](https://www.nongsaro.go.kr/portal/ps/psq/psqb/farmTermSimpleDicLst.ps?menuId=PS00064&sWordNm=%EA%B3%A0%EC%B4%88%EA%B7%A0&searchTagWord=%EA%B3%A0%EC%B4%88%EA%B7%A0). 호기성·포자 형성·토양 분포 확인.
 
-|번호|speciesId · 이름|역할|양분/먹이|등록된 포식자·이용자|서식 환경|현재 행동|미구현 행동|초기 카드|근거|
-|---|---|---|---|---|---|---|---|---|---|
-|1|oak · 상수리나무|생산자|광합성|다람쥐·등줄쥐·나방 애벌레|낙엽수 숲·산기슭|고정, 성장·도토리/잎 자원 회복·낙엽 유기물|계절 결실·낙엽|획득|R4,R6,R7|
-|2|grass · 풀|생산자|광합성, 벼과 풀 대표|메뚜기·토끼·등줄쥐·달팽이|숲 가장자리 풀밭|고정, 성장·잎/씨앗 회복·낙엽 유기물·씨앗 확산|종별 개화·결실|획득|R1,R3,R6,R9|
-|3|pine · 소나무|생산자|광합성|다람쥐|산지 침엽수 숲|고정, 성장·씨앗 회복·낙엽 유기물|솔방울·계절 결실|추후 해금|R5|
-|4|raspberry · 산딸기|생산자|광합성|직박구리|햇빛 드는 숲 가장자리|고정, 성장·열매 회복·낙엽 유기물|개화·씨앗 확산|추후 해금|R14|
-|5|hazel · 개암나무|생산자|광합성|다람쥐·진딧물|산지 숲 가장자리|고정, 성장·개암/수액 회복·낙엽 유기물|계절 결실|추후 해금|R4,R8|
-|6|grasshopper · 메뚜기|소비자|벼과 풀 잎|개구리·족제비|햇빛 드는 풀밭|짧은 이동·탐색·잎 섭식·생존 상태/감소·제한적 번식|알·성장 단계|획득|R1,R2,R16|
-|7|frog · 개구리|소비자|메뚜기·작은 거미|유혈목이·족제비|습한 숲 가장자리·물가|지상 이동·추적·포식·생존 상태/감소|올챙이·번식|기존 활동 잠금|R2,R12,R15,R18|
-|8|rabbit · 토끼|소비자|풀 잎, 멧토끼 대표|참매|숲 가장자리·풀밭|지상 이동·실제 잎 섭식·생존 상태/감소·제한적 번식|·굴·겨울 먹이|기존 활동 잠금|R3,R19|
-|9|chipmunk · 다람쥐|소비자|도토리·침엽수 씨앗·개암|족제비·참매|낙엽수/침엽수 숲|지상 이동·복수 자원 탐색·생존 상태/감소|나무 타기·저장 행동|추후 해금|R4,R5,R17,R19|
-|10|field-mouse · 등줄쥐|소비자|도토리·풀 씨앗·나방 유충|족제비|숲 가장자리·풀밭|씨앗 섭식·동물 포식·생존 상태/감소|땅굴·번식|추후 해금|R6,R16|
-|11|caterpillar · 나방 애벌레|소비자|참나무 잎을 먹는 작은 유충 유형|등줄쥐·거미·박새|참나무 잎 주변|느린 이동·잎 섭식·생존 상태/감소|잎 속 생활·번데기·변태|추후 해금|R6,R7,R12,R13|
-|12|aphid · 진딧물|소비자|개암나무 기주 유형의 수액|무당벌레·거미|잎·가지 주변|매우 짧은 이동·수액 섭식·생존 상태/감소·제한적 번식|군집|추후 해금|R8,R10,R11|
-|13|snail · 달팽이|소비자|잎을 먹는 육상 유형|등록 없음|습한 풀밭·낙엽층|매우 느린 이동·잎 섭식·생존 상태/감소|휴면·번식|추후 해금|R9|
-|14|spider · 거미|소비자|진딧물·작은 나방 유충|개구리·박새|풀·낮은 식물|짧은 이동·사냥·생존 상태/감소|거미줄·종별 사냥법|추후 해금|R11,R12,R13|
-|15|ladybird · 무당벌레|소비자|진딧물 포식 유형|등록 없음|진딧물이 있는 식물|짧은 이동·포식·생존 상태/감소|비행·변태|추후 해금|R10|
-|16|tit · 박새|소비자|나방 유충·거미|등록 없음|나무 있는 숲·가장자리|활동 영역 이동·포식·생존 상태/감소|입체 비행·번식·계절 식단|추후 해금|R13|
-|17|bulbul · 직박구리|소비자|산딸기 열매|참매|숲·관목 가장자리|활동 영역 이동·열매 섭식·생존 상태/감소|입체 비행·씨앗 확산|추후 해금|R14,R20|
-|18|snake · 유혈목이|소비자|성체 개구리|등록 없음|습한 풀밭·숲 가장자리|느린 지상 이동·포식·생존 상태/감소|동면·탈피|추후 해금|R15|
-|19|weasel · 족제비|소비자|쥐·다람쥐·개구리·메뚜기|등록 없음|숲 가장자리·농경지 주변|빠른 지상 이동·복수 먹이 포식·생존 상태/감소|영역 행동·번식|추후 해금|R16,R17,R18|
-|20|goshawk · 참매|소비자|토끼·다람쥐·직박구리|등록 없음|큰 나무가 있는 산림|영역 이동·복수 먹이 포식·생존 상태/감소|입체 비행·번식|추후 해금|R19,R20|
-|21|mushroom · 버섯|분해자|죽은 나무의 유기물, 부후균 유형|등록 없음|숲의 죽은 나무|고정 배치·역할 학습·기초 유기물 분해|정밀 물질 순환·포자|기존 분류 활동 잠금|D1,D2|
-|22|litter-mold · 낙엽 분해 곰팡이|분해자|죽은 낙엽의 유기물|등록 없음|습한 낙엽층|고정 배치·기초 유기물 분해|정밀 물질 순환·물질 순환|추후 해금|D1|
-|23|soil-bacteria · 토양 분해 세균|분해자|죽은 유기물, 분해 세균군|등록 없음|유기물 있는 토양|고정 표시로 배치·기초 유기물 분해|정밀 물질 순환·토양 환원|추후 해금|D1|
+## 현재 카드의 생태와 구현 범위
 
-식물·분해자는 고정, 소비자는 종별 이동 속도/이동·멈춤 시간이 다르다. 미세 생물과 조류도 동일한 화면 좌표로 단순화하며 크기·고도·실제 서식 위치를 재현하지 않는다. 모든 소비자에 굶주림·쇠약·회복·감소를 적용한다. 풀·메뚜기·토끼·진딧물만 제한적 새 개체 발생을 지원한다. 노화·질병·성별·복잡한 생장 단계는 미구현이다. 분해자에게 살아 있는 먹이를 연결하지 않는다. 모든 버섯·세균이 분해자라는 일반화도 하지 않는다.
+아래 식단은 게임의 등록 범위이며 실제 식단 전체가 아니다. 서식 환경은 설명용이며 새 지형이나 주야간 AI를 구현하지 않았다. 기존 그림·CSS·이모지는 임시 표시로, 새 종의 정확한 사진·종별 그래픽이 아니다.
 
-## 확정한 게임 관계 27개
-
-화살표는 **먹히는 생물 → 먹는 생물**. 식물 자원은 식물을 삭제하지 않고 foodStock을 줄인다. 동물 포식은 해당 개체를 한 번 제거한다. ‘군’은 확인된 먹이군을 카드에 적용한 관계, ‘직접’은 자료에서 해당 명칭/종 또는 기주 쌍을 확인한 관계다. 직접 기록도 지역·계절·크기에 따라 달라지며 모든 개체의 항상 가능한 식단이라는 뜻은 아니다.
-
-|번호|먹히는 생물 → 먹는 생물|자원|근거|적용 범위|
+|speciesId · 이름|현재 먹이·자원·분해 대상|설명용 서식 환경|현재 행동·유지 방식|후속 정비|
 |---|---|---|---|---|
-|1|풀 → 메뚜기|잎|R1|벼과 먹이군|
-|2|메뚜기 → 개구리|동물|R2|성체 개구리 대표군|
-|3|풀 → 토끼|잎|R3|멧토끼의 풀 먹이군|
-|4|상수리나무 → 다람쥐|도토리|R4|참나무류 열매군|
-|5|소나무 → 다람쥐|씨앗|R5|침엽수 씨앗군; 국내 소나무 특정 쌍 직접 조사 아님|
-|6|개암나무 → 다람쥐|개암 열매|R4|개암류 열매군|
-|7|상수리나무 → 등줄쥐|도토리|R6|Quercus 종자군|
-|8|풀 → 등줄쥐|씨앗|R6|벼과 풀 종자군|
-|9|나방 애벌레 → 등줄쥐|동물|R6|나비목 유충군|
-|10|상수리나무 → 나방 애벌레|잎|R7|직접 기주; 참나무 먹는 작은 유충 유형|
-|11|개암나무 → 진딧물|수액|R8|직접 기주; Corylus heterophylla 기주 유형|
-|12|풀 → 달팽이|잎|R9|잎 섭식군; 벼과 특정 종 쌍 조사 아님|
-|13|진딧물 → 무당벌레|동물|R10|진딧물 포식군|
-|14|진딧물 → 거미|동물|R11|사냥 거미·진딧물군|
-|15|나방 애벌레 → 거미|동물|R12|작은 유충·사냥 거미군|
-|16|거미 → 개구리|동물|R12|성체 개구리·거미군|
-|17|나방 애벌레 → 박새|동물|R13|유충군|
-|18|거미 → 박새|동물|R13|거미군|
-|19|산딸기 → 직박구리|열매|R14|직접 종 쌍, 일본 현장 연구|
-|20|개구리 → 유혈목이|동물|R15|개구리군|
-|21|등줄쥐 → 족제비|동물|R16|쥐류 먹이군|
-|22|메뚜기 → 족제비|동물|R16|국내 계절성 먹이 기록|
-|23|다람쥐 → 족제비|동물|R17|다람쥐류 먹이군|
-|24|개구리 → 족제비|동물|R18|DNA로 확인한 개구리군|
-|25|토끼 → 참매|동물|R19|토끼류 먹이군|
-|26|다람쥐 → 참매|동물|R19|다람쥐 먹이 기록|
-|27|직박구리 → 참매|동물|R20|직접 종 쌍, 일본 둥지 먹이 조사|
+|oak · 상수리나무|도토리·잎 자원|낙엽수 숲·산기슭|고정·환경 성장·유한 자원 회복·wood 공급|계절 결실|
+|grass · 강아지풀|잎·씨앗 자원|숲 가장자리 풀밭|한해살이 모델·제한적 씨앗 확산·litter 공급|새싹·개화·씨앗 단계|
+|pine · 소나무|솔잎·씨앗 자원|산지 소나무 숲|고정·유한 자원 회복·wood 공급|계절 결실|
+|raspberry · 산딸기|잎·열매 자원|햇빛 드는 가장자리|고정·유한 열매 회복|개화·결실|
+|hazel · 팽나무|잎·열매; 견과·수액 제거|산지 숲 가장자리|교목 생애·유한 자원 회복·wood 공급|열매 시기|
+|grasshopper · 방아깨비|강아지풀 잎 B|해가 드는 풀밭|이동·섭식·굶주림·제한 번식·잔여 알 가능량 보충|알·약충·성충|
+|frog · 참개구리|방아깨비 B|습한 가장자리·물가 주변|성체 이동·포식·굶주림·재도입|올챙이·물 서식지|
+|rabbit · 멧토끼|강아지풀 잎 B|가장자리·풀밭|이동·섭식·굶주림·제한 번식|성장·새끼|
+|chipmunk · 다람쥐|도토리·소나무 씨앗 B|낙엽수·침엽수 숲|복수 자원 선택·섭식·굶주림|나무 타기·저장|
+|field-mouse · 고슴도치|방아깨비 B|가장자리·풀밭|지상 포식·굶주림; 옛 씨앗 식단·자동 유입 제거|야행성·추가 식성|
+|caterpillar · 솔나방 애벌레(송충이)|소나무 솔잎 A|솔잎 주변|느린 이동·섭식·유충 단계 종료·소나무 조건의 제한 보충|번데기·성충 보류|
+|aphid · 청동풍뎅이|팽나무 잎 A|숲 가장자리 잎 주변|성충 잎 섭식; 진딧물 수액·빠른 번식 제거; 유충 뿌리 먹이 미구현|성충·유충 생애 구분|
+|snail · 명주달팽이|강아지풀 잎 B|습한 풀밭·낙엽층|느린 이동·섭식·굶주림|국명·분류 대응·휴면|
+|spider · 무당거미|청동풍뎅이 B|풀·낮은 식물 사이|고정 지점·가까운 먹이 대기·굶주림; 추격·자동 유입 제거|그물·먹이 크기|
+|ladybird · 홍단딱정벌레|명주달팽이 B|숲 바닥·낙엽층|지상 포식·굶주림; 진딧물 포식·옛 자동 유입 제거|종별 먹이 쌍|
+|tit · 박새|솔나방 유충 A·무당거미 B|나무 있는 숲·가장자리|복수 먹이·이동·포식·굶주림|고도·계절 식단|
+|bulbul · 직박구리|산딸기 A·팽나무 열매 B|숲·관목 가장자리|복수 자원·이동·섭식·굶주림|고도·씨앗 확산|
+|snake · 유혈목이|참개구리 B|습한 가장자리·풀밭|지상 이동·포식·굶주림|동면·탈피|
+|weasel · 족제비|방아깨비·다람쥐·참개구리 B|가장자리·농경지 주변|복수 먹이·이동·포식·굶주림|영역·번식|
+|goshawk · 참매|멧토끼·다람쥐 B·직박구리 A|큰 나무 있는 산림|복수 먹이·이동·포식·굶주림|입체 비행·번식|
+|mushroom · 구름송편버섯|wood|죽은 나무 주변|고정·분해·균류 군집 갱신·휴면/쇠퇴|자실체·포자|
+|litter-mold · 낙엽 분해 곰팡이 군집|litter|습한 낙엽층|고정·분해·군집 갱신·휴면/쇠퇴|균류별 분해 특성|
+|soil-bacteria · 고초균|remains 우선|유기물 있는 토양|고정·분해·군집 갱신·포자 휴식 단순화|균주·기질 범위|
 
-관계 ID는 source/target ID의 하이픈을 밑줄로 바꾼 `source_to_target`이다. 기존 `grass_to_grasshopper`, `grasshopper_to_frog`를 유지한다. 예: `field_mouse_to_weasel`. 코드의 evidenceId는 이 문서 R1~R20에 대응한다.
+foodStock은 **식물 1개체의 공통 유한 재고**다. `parts`는 제공 가능한 부위 목록이며 잎과 열매의 독립 재고·이중 생성 모델이 아니다. 햇빛·물·공기·흙은 기존 성장·회복 계산에 연결된다.
 
-생산자·소비자 20종은 방향을 무시한 연결 검사에서 하나의 연결 성분이다. 풀의 잎/씨앗을 여러 소비자가 공유하고, 다람쥐·등줄쥐·거미·개구리·박새·족제비·참매는 복수 먹이를 가진다. 개암→진딧물→거미→개구리→족제비와 상수리→다람쥐→참매, 산딸기→직박구리→참매가 서로 연결된다. 소비자는 고립되지 않는다. 분해자 3개는 포식선 대신 별도의 유기물 풀과 토양 양분으로 연결된다.
+동물에는 굶주림·쇠약·회복·수명 종료가 있다. 자동 새 개체 발생은 강아지풀·방아깨비·멧토끼의 제한 번식 3개와 방아깨비·솔나방 유충의 제한 보충 2개만 유지한다. 나머지는 카드 획득 권한·대기·먹이·환경·상한 내에서 기존 재도입을 이용한다. 최대 30개체, 실제 개체 1개 = 화면 1개를 유지한다. 생애값·이전 나이 변환은 [FOREST_LIFESPANS.md](FOREST_LIFESPANS.md)를 따른다.
 
-## 과학적 근거와 적용 한계
+## 먹이 근거 수준
 
-- R1 [농촌진흥청 메뚜기 정보](https://genebank.rda.go.kr/PB/jw/insectView.bo?page=3&species_id=ZE1AA0021&use_kind=03): 벼과 식물을 먹는 유형에 한정했다.
-- R2 [서울대공원 참개구리](https://grandpark.seoul.go.kr/animal/animalView.do?idx=1489&lang=ko&menu_id=S001002002003&pageIndex=1)는 곤충·거미 식단을 제시한다. [미국 NPS 개구리 자료](https://www.nps.gov/moru/learn/nature/amphibians.htm)의 메뚜기 먹이 사례는 성체 개구리 대표군의 보조 근거이며 한국 참개구리 특정 쌍의 직접 증거로 취급하지 않는다.
-- R3 [국립생물자원관 생물 정보, 멧토끼 수록면](https://www.nibr.go.kr/aiibook/access/ecatalogt.jsp?Dir=1324&callmode=admin&catimage=&eclang=ko&start=50&um=s): 국내 멧토끼의 풀·나뭇가지 이용. 기존 토끼 카드를 멧토끼 대표로 설명했다.
-- R4 [프랑스 생물다양성청 OFB 다람쥐](https://ofb.gouv.fr/especes/tamia-de-siberie-tamias-sibiricus): 동아시아 분포와 숲 서식, 도토리·개암 등의 식단. 열매군 수준으로 적용했다.
-- R5 [Handbook of the Mammals of the World — Tamias sibiricus](https://zenodo.org/records/6818934): 침엽수 씨앗을 확인했다. 자료의 시베리아소나무 사례를 국내 소나무와 같은 종이라고 하지 않는다. 이 게임의 소나무 씨앗은 침엽수 자원 대표다.
-- R6 [Acta Theriologica, Apodemus agrarius 먹이 연구](https://rcin.org.pl/Content/10897/PDF/BI002_2613_Cz-40-2_Acta-T26-nr17-285-299_o.pdf): 위 내용물에 Quercus 종자, 벼과 종자, 나비목 유충이 포함된다. 해외 조사이며 상수리나무 특정 쌍의 국내 실측이라고 주장하지 않는다.
-- R7 [산림청 한국산 잠엽성 나방 기주식물 목록집](https://www.forest.go.kr/newkfsweb/cmm/fms/BoardFileDown.do?atchFileId=FILE_000000020025051&bbsId=&dwldHistYn=&fileSn=0): Phyllonorycter류의 상수리나무 기주 기록. 모든 나방 유충의 먹이로 일반화하지 않았다.
-- R8 [Aphids on the World's Plants — Corylus 기주 목록](https://aphidsonworldsplants.info/C_HOSTS_Coe_Cou/): Corylus heterophylla와 진딧물 기주 기록. 개암나무를 기주로 삼는 유형만 카드가 대표한다.
-- R9 [농사로 명주달팽이](https://www.nongsaro.go.kr/portal/ps/pss/pssa/hlsctSearchDtl.ps?hlsctCode=H00000535&menuId=PS00202&pageIndex=1&pageSize=10): 잎 등을 먹는 육상 달팽이. 자료는 특정 벼과 식물과의 쌍을 증명하지 않으므로 게임 풀은 잎 자원으로 단순화했다.
-- R10 [농촌진흥청 무당벌레](https://genebank.rda.go.kr/industInsectIlustbView.do?CNTNT_NO=2-2&IlustbNo=20&cKeywd=&c_title=): 진딧물 포식 유형. 초식성 무당벌레까지 같은 식단으로 취급하지 않는다.
-- R11 [Pakistan Journal of Zoology — 사냥 거미와 진딧물 연구](https://zsp.com.pk/pdf46/309-315%20_2_%20PJZ-1392-13%207-2-14%20Role%20of%20Hunting%20Spiders%20in%20Suppression%20of%20Wheat%20Aphid.pdf): 사냥 거미의 진딧물 및 유충 섭식. 국내 정확한 종 조합 대신 검증한 먹이군을 적용했다.
-- R12 [Pardosa의 나방 유충 포식 원 연구](https://researchoutput.csu.edu.au/ws/portalfiles/portal/21810728/10018936_Published_article_OA.pdf)와 위 R2의 개구리 먹이 자료를 함께 사용했다. [국립생태원 초등 저학년 교육 자료](https://www.nie.re.kr/nie/cmmn/file/fileDown.do?atchFileId=777262d1cfb343c0b428273754249b3a&fileSn=2)의 식물–애벌레–거미–개구리 연결도 참고했다. 이 자료를 4학년 교과서/지도서라고 부르지 않는다.
-- R13 [일본 임야청 박새](https://www.rinya.maff.go.jp/chubu/policy/business/conservation/corridor/sizyuukara.html): 숲 서식, 유충·거미 등의 먹이를 확인했다. 실제 식단의 열매·씨앗은 이번 관계에 추가하지 않았다.
-- R14 [Bird Research — 산딸기류 과실과 직박구리](https://www.jstage.jst.go.jp/article/birdresearch/18/0/18_A1/_article/-char/en): Rubus crataegifolius와 Hypsipetes amaurotis의 일본 현장 관찰. 한국 현장 조사와 구분한다.
-- R15 [청주시 유혈목이 생태](https://www.cheongju.go.kr/nongjeong/contents.do?key=17378): 개구리 먹이를 확인해 포괄적 ‘뱀’ 후보를 유혈목이로 구체화했다.
-- R16 [국립생태원 시민과학 생태 조사 자료](https://www.nie.re.kr/nie/cmmn/file/fileDown.do?atchFileId=6399676c89184992aa032d1ecf1ac112&fileSn=1), 족제비 수록면: 쥐류 및 가을철 메뚜기 먹이 기록. 메뚜기가 언제나 주식이라는 뜻은 아니다.
-- R17 [Mammalian Species — Mustela sibirica](https://academic.oup.com/mspecies/article/50/966/109/5102491): 설치류·다람쥐 식단과 서식 환경을 검토했다.
-- R18 [DNA 기반 족제비 먹이 연구](https://pmc.ncbi.nlm.nih.gov/articles/PMC9738120/): 개구리 DNA 기록을 확인했다. 적은 시료의 존재 확인을 선호도나 먹이 비율로 확대하지 않는다.
-- R19 [국립생태원 참매](https://www.nie.re.kr/nie/pgm/edSpecies/view.do?menuNo=200121&speciesSn=71): 산림 서식과 토끼·다람쥐 먹이. 포괄적 ‘매’ 후보를 참매로 구체화했다.
-- R20 [Ornithological Science — 참매 둥지 먹이 조사](https://www.jstage.jst.go.jp/article/osj/17/2/17_229/_pdf/-char/en), 표 1: 직박구리 먹이 기록. 일본 조사이며 국내 현장 조사라고 하지 않는다.
-- D1 [미국 USDA NRCS 토양 생물 군집](https://www.nrcs.usda.gov/state-offices/illinois/soil-tech-note-11a-biological-underground-community): 곰팡이·세균의 분해 역할과 낙엽 섭식 동물의 역할을 구별했다.
-- D2 [미국 산림청 목재 부후균 자료](https://research.fs.usda.gov/treesearch/59550): 버섯 카드는 죽은 나무를 분해하는 유형으로 한정했다.
+화살표는 **먹히는 생물 또는 자원 제공 종 → 먹는 생물**이다. 식물 섭식은 개체를 삭제하지 않고 재고를 줄이며 동물 포식은 해당 개체를 한 번 제거한다. 분해자 3종은 동물 포식자로 넣지 않고 기존 decomposition을 이용한다.
 
-검토 중 메뚜기→박새는 확보한 근거가 일반적인 곤충 식단에 그쳐 제외했다. 박새→참매, 등줄쥐→유혈목이도 추가하지 않았다. 분해자에 살아 있는 식물/동물 포식선을 만들지 않았다. 관계 수를 채우기 위한 미검증 선은 코드에 넣지 않았다. 향후 정확한 지역·종 단위 수업 자료가 확보되면 먹이군 대표 카드와 표현을 더 세분화할 수 있다.
+- **A**: 자료에서 해당 두 종 또는 명확한 같은 종 조합의 섭식 확인. 모든 지역·개체·계절에 항상 가능한 식단이라는 뜻은 아님.
+- **B**: 믿을 만한 해당 소비자의 식성·먹이군 자료는 있지만 이 두 종의 정확한 쌍은 직접 확인하지 못함. 게임에 채택한 **교육적 단순화**이며 학생 설명·관찰 이벤트에도 한계를 표시.
+- **C**: 자료가 현재 종·단계를 뒷받침하지 못하거나 미확인. 실행 관계로 채택하지 않음.
 
-## 구현 수준
+최종 **22개 관계: A 5, B 17, C 0**. 기존 27개 전수 판정과 모든 현재 relationId·부위·방식·실제 출처·한계는 [FOREST_FOOD_WEB_AUDIT.md](FOREST_FOOD_WEB_AUDIT.md)에 기록했다. 관계 개수를 맞추려고 근거를 만들지 않았다.
 
-생산자마다 foodStock 하나를 유지한다. 상수리의 도토리/잎, 개암의 열매/수액 등은 먹이 부위가 다르지만 **현재는 같은 자원 풀을 공유**한다. 부위별 생장·계절별 결실을 시뮬레이션한 것으로 설명하지 않는다. 햇빛·물·공기·토양 적합도가 성장과 회복에 적용된다.
+### 실행 관계 전체
 
-15개 소비자는 허용 관계와 남은 자원, 현재 존재, 거리, 화면 접근 가능 여부를 검사해 가장 가까운 먹이를 고른다. 목표가 사라지거나 고갈되면 재탐색해 다른 허용 먹이를 이용한다. 포식은 동기적으로 상태와 색인에서 제거해 이중 섭식을 막는다. 개체 크기·계절 선호·영양 균형·모든 실제 식단은 미구현이다.
+모두 실제 게임에 구현했다. 출처에서 확인한 범위와 정확쌍 미확인 한계는 감사 문서의 F1–F19 확인 기록을 함께 읽는다. B 행은 두 종의 직접 관찰을 확인한 관계가 아니다. ‘유지’는 의미 유지이며 relationId는 모두 새 `v2_`로 분리했다.
 
-신규 17개 카드는 정식 해금 전이다. 개발 테스트가 명시적으로 설치한 도구에서만 획득 상태를 열어 검사한다. 학생 앱은 개발 모듈을 import하지 않고 URL 옵션도 제공하지 않는다. 학생이 현재 23종 모두를 정식 플레이할 수 있는 상태는 아니다.
+|relationId|먹이 제공 종 → 이용 종|부위|방식|근거·출처|구현|기존 대비|
+|---|---|---|---|---|---|---|
+|v2_grass_to_grasshopper|강아지풀 → 방아깨비|잎|resource|B [F1](https://genebank.rda.go.kr/PB/st/cyberView.bo?ord_gb=0&species_id=ZE1AA0027&viewMenuList=0)|예|수정|
+|v2_grasshopper_to_frog|방아깨비 → 참개구리|동물|predation|B [F2](https://www.jstage.jst.go.jp/article/izu/19/0/19_85/_pdf/-char/en)|예|수정|
+|v2_grass_to_rabbit|강아지풀 → 멧토끼|잎|resource|B [F3](https://www.nibr.go.kr/aiibook/access/ecatalogt.jsp?Dir=1324&callmode=admin&catimage=&eclang=ko&start=50&um=s)|예|수정|
+|v2_oak_to_chipmunk|상수리나무 → 다람쥐|도토리|resource|B [F4](https://ofb.gouv.fr/especes/tamia-de-siberie-tamias-sibiricus)|예|의미 유지|
+|v2_pine_to_chipmunk|소나무 → 다람쥐|씨앗|resource|B [F5](https://zenodo.org/records/6818934)|예|의미 유지|
+|v2_pine_to_caterpillar|소나무 → 솔나방 애벌레(송충이)|솔잎|resource|A [F6](https://www.forest.go.kr/kfsweb/mer/fip/dbhis/selectInsectDetail.do?dbhisIdno=57&dbhisTpcd=20&mn=AR04_02_02_01&viewType=detail)|예|신설|
+|v2_grass_to_snail|강아지풀 → 명주달팽이|잎|resource|B [F7](https://www.nongsaro.go.kr/portal/ps/pss/pssa/hlsctSearchDtl.ps?hlsctCode=H00000535&menuId=PS00202&pageIndex=1&pageSize=10)|예|수정|
+|v2_aphid_to_spider|청동풍뎅이 → 무당거미|성충 동물|predation|B [F8](https://www.frontiersin.org/journals/ecology-and-evolution/articles/10.3389/fevo.2023.1177446/full)|예|수정|
+|v2_caterpillar_to_tit|솔나방 애벌레(송충이) → 박새|유충 동물|predation|A [F6](https://www.forest.go.kr/kfsweb/mer/fip/dbhis/selectInsectDetail.do?dbhisIdno=57&dbhisTpcd=20&mn=AR04_02_02_01&viewType=detail)|예|수정|
+|v2_spider_to_tit|무당거미 → 박새|동물|predation|B [F9](https://www.rinya.maff.go.jp/chubu/policy/business/conservation/corridor/sizyuukara.html)|예|수정|
+|v2_raspberry_to_bulbul|산딸기 → 직박구리|열매|resource|A [F10](https://www.jstage.jst.go.jp/article/birdresearch/18/0/18_A1/_article/-char/en)|예|의미 유지|
+|v2_hazel_to_bulbul|팽나무 → 직박구리|열매|resource|B [F16](https://www.jstage.jst.go.jp/article/jjo/61/1/61_1_100/_pdf)|예|신설|
+|v2_frog_to_snake|참개구리 → 유혈목이|성체 동물|predation|B [F11](https://www.cheongju.go.kr/nongjeong/contents.do?key=17378)|예|수정|
+|v2_grasshopper_to_weasel|방아깨비 → 족제비|동물|predation|B [F12](https://academic.oup.com/mspecies/article/50/966/109/5102491)|예|수정|
+|v2_chipmunk_to_weasel|다람쥐 → 족제비|동물|predation|B [F12](https://academic.oup.com/mspecies/article/50/966/109/5102491)|예|의미 유지|
+|v2_frog_to_weasel|참개구리 → 족제비|성체 동물|predation|B [F13](https://pmc.ncbi.nlm.nih.gov/articles/PMC9738120/)|예|수정|
+|v2_rabbit_to_goshawk|멧토끼 → 참매|동물|predation|B [F14](https://www.nie.re.kr/nie/pgm/edSpecies/view.do?menuNo=200121&speciesSn=71)|예|수정|
+|v2_chipmunk_to_goshawk|다람쥐 → 참매|동물|predation|B [F14](https://www.nie.re.kr/nie/pgm/edSpecies/view.do?menuNo=200121&speciesSn=71)|예|의미 유지|
+|v2_bulbul_to_goshawk|직박구리 → 참매|동물|predation|A [F15](https://www.jstage.jst.go.jp/article/osj/17/2/17_229/_pdf/-char/en)|예|의미 유지|
+|v2_snail_to_ladybird|명주달팽이 → 홍단딱정벌레|동물|predation|B [F17 성충](https://www.cheongju.go.kr/nongjeong/contents.do?key=17364)·[유충 보완](https://www.zin.ru/Animalia/coleoptera/rus/worldc2.htm)|예|신설|
+|v2_grasshopper_to_field_mouse|방아깨비 → 고슴도치|동물|predation|B [F18](https://www.nibr.go.kr/aiibook/access/ecatalogt.jsp?Dir=1116&callmode=admin&catimage=&eclang=ko&start=65&um=s)|예|신설|
+|v2_hazel_to_aphid|팽나무 → 청동풍뎅이|성충의 잎|resource|A [F19](https://www.jstage.jst.go.jp/article/jjeez/26/2/26_55/_pdf)|예|신설; 옛 수액 관계와 별개|
 
-## 11단계의 시험 규칙
+청동풍뎅이 성충의 팽나무 이용은 일본 도쿄에서 수행한 실제 섭식 조사 목록으로 확인했다(F19). 이전 진딧물의 팽나무 슬롯 수액 관계를 되살린 것이 아니다. 국내 숲의 같은 종 쌍을 조사했다고 주장하지 않으며 재고량·회복량은 게임값이다. 현재 소비자 15종 모두 하나 이상의 먹이가 등록되지만 먹이 개체·자원의 배치, 거리, 환경이 적합하지 않으면 여전히 굶주릴 수 있다.
 
-모든 소비자는 높은 hunger가 적응 시간 이후 누적되면 쇠약·굶주림 감소로 이어진다. 실제 섭식은 누적을 초기화한다. 임시 먹이 지원은 시간을 벌지만 번식에 필요한 섭식 기록을 만들지 않는다. 포식 후 포만 시간은 급격한 먹이 소진을 완화하는 게임 시험값이다.
+## 학습·저장과 11.6 연결
 
-번식 모델은 풀 씨앗 확산(1개체 이상), 메뚜기·토끼·진딧물의 제한적 증가(2개체 이상)만 있다. 2개체는 보수적인 게임 구성 조건이며 모든 동물의 실제 번식 방식/성별 조건을 뜻하지 않는다. 진딧물의 다양한 생식 방식도 재현하지 않는다. 최대 수·좋은 상태 지속 시간·대기·최근 섭식·환경·화면 공간을 함께 검사한다.
+핵심 진행은 강아지풀 잎 섭식 → 방아깨비 포식 관찰 → 참개구리 관련 활동·해금에 연결한다. 두 핵심 쌍은 B이므로 게임 관찰과 문헌의 종별 직접 관찰을 구분한다. 가까운 실제 개체의 섭식 성공 뒤에만 현재 관계 발견·보상이 생긴다.
 
-wood는 버섯 유형, litter는 낙엽 곰팡이 유형, remains는 토양 세균 유형이 분해를 돕는다. 이 구분은 교육용 모델이며 자연계에서 한 분해자가 그 물질 하나만 이용한다는 뜻은 아니다. 배경 분해도 존재한다. 굶주림 잔존물은 remains로, 포식된 부분은 먹이로 소비한 것으로 처리해 remains에 다시 더하지 않는다. 정밀 물질 수지나 영양소별 순환은 후속 과제다.
+초기 카드는 상수리나무·강아지풀·방아깨비. 참개구리·멧토끼·구름송편버섯은 기존 학습 진행으로 획득하며 신규 17종 잠금은 유지한다. 23종 전체 배치는 개발 fixture에서만 가능하다.
+
+저장은 key `eco-system:forest-save`, schemaVersion 10, ecologyRevision 2이다. version 7·8·9는 카드 권한·개체 수·학습·포인트·관리·클리어를 보존하면서 과거 이름·관찰·부적합 생존 상태를 `legacyEcology` 역사에 보관한다. 예전 진딧물 관찰이 청동풍뎅이 직접 관찰로 바뀌지 않는다. 현재 관계는 `v2_` ID이며 이전 보상과 중복 지급하지 않는다.
+
+11.6 대상은 강아지풀·방아깨비·참개구리·멧토끼·구름송편버섯이다. 이번에는 먹이·환경·생애·군집·제한 번식 연결 지점만 준비했다. 새싹·알·약충·올챙이·성체 단계, 연못, 자실체 형성 AI는 미구현이다. 명주달팽이 분류 대응, B의 정확한 종 쌍·크기 및 국내 미소서식지 자료는 후속 검증 과제다.

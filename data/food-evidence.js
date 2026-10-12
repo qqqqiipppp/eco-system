@@ -1,0 +1,23 @@
+// Sources actually read for 11.55. No external requests during gameplay.
+export const foodEvidence={
+ F1:{url:'https://genebank.rda.go.kr/PB/st/cyberView.bo?ord_gb=0&species_id=ZE1AA0027&viewMenuList=0',note:'방아깨비의 벼과 잎 먹이. 강아지풀 특정 쌍 직접 기록은 아님.'},
+ F2:{url:'https://www.jstage.jst.go.jp/article/izu/19/0/19_85/_pdf/-char/en',note:'2025 일본 조사 표2: 참개구리 위내용물의 메뚜기목. 방아깨비 특정 쌍은 아님.'},
+ F3:{url:'https://www.nibr.go.kr/aiibook/access/ecatalogt.jsp?Dir=1324&callmode=admin&catimage=&eclang=ko&start=50&um=s',note:'멧토끼의 풀 먹이군. 강아지풀 특정 쌍은 아님.'},
+ F4:{url:'https://ofb.gouv.fr/especes/tamia-de-siberie-tamias-sibiricus',note:'다람쥐의 도토리 먹이군. 상수리나무 특정 쌍은 아님.'},
+ F5:{url:'https://zenodo.org/records/6818934',note:'다람쥐의 침엽수 씨앗 먹이. 자료의 시베리아소나무를 국내 소나무와 동일 종이라 하지 않음.'},
+ F6:{url:'https://www.forest.go.kr/kfsweb/mer/fip/dbhis/selectInsectDetail.do?dbhisIdno=57&dbhisTpcd=20&mn=AR04_02_02_01&viewType=detail',note:'솔나방 유충의 소나무 솔잎 섭식, 유충을 먹는 박새, 연1회·유충 월동. 본문 직접 확인.'},
+ F7:{url:'https://www.nongsaro.go.kr/portal/ps/pss/pssa/hlsctSearchDtl.ps?hlsctCode=H00000535&menuId=PS00202&pageIndex=1&pageSize=10',note:'명주달팽이의 잎·꽃·열매 식해. 강아지풀 특정 기주 기록은 아님.'},
+ F8:{url:'https://www.frontiersin.org/journals/ecology-and-evolution/articles/10.3389/fevo.2023.1177446/full',note:'무당거미 먹이의 DNA 연구.딱정벌레목 먹이군을 성충 카드로 단순화. 청동풍뎅이 특정 포식은 미확인.'},
+ F9:{url:'https://www.rinya.maff.go.jp/chubu/policy/business/conservation/corridor/sizyuukara.html',note:'Parus minor의 거미 먹이군. 무당거미 특정 쌍·개체 크기는 미확인.'},
+ F10:{url:'https://www.jstage.jst.go.jp/article/birdresearch/18/0/18_A1/_article/-char/en',note:'일본 산딸기 Rubus crataegifolius와 직박구리의 현장 과실 이용.'},
+ F11:{url:'https://www.cheongju.go.kr/nongjeong/contents.do?key=17378',note:'유혈목이의 개구리 먹이군. 참개구리 특정 쌍은 아님.'},
+ F12:{url:'https://academic.oup.com/mspecies/article/50/966/109/5102491',note:'족제비의 곤충·다람쥐류 식단. 방아깨비와 한국 다람쥐 특정 쌍은 아님.'},
+ F13:{url:'https://pmc.ncbi.nlm.nih.gov/articles/PMC9738120/',note:'족제비의 개구리 DNA는 Rana dybowskii. 참개구리로 적용하는 것은 먹이군 단순화.'},
+ F14:{url:'https://www.nie.re.kr/nie/pgm/edSpecies/view.do?menuNo=200121&speciesSn=71',note:'참매의 토끼류와 다람쥐 먹이. 멧토끼 특정 쌍은 미확인.'},
+ F15:{url:'https://www.jstage.jst.go.jp/article/osj/17/2/17_229/_pdf/-char/en',note:'일본 참매 둥지 먹이 표1의 직박구리 기록.'},
+ F16:{url:'https://www.jstage.jst.go.jp/article/jjo/61/1/61_1_100/_pdf',note:'해안림 새들의 팽나무 열매 자원 이용. 초록의 먹이군 근거로 B 채택; 특정 쌍 직접 증명으로 확대하지 않음.'},
+ F17:{url:'https://www.cheongju.go.kr/bluecity/contents.do?key=17364',note:'청주시 홍단딱정벌레 성충의 밤 연체동물·작은 곤충 식성. 명주달팽이 특정 쌍은 미확인. ZIN 달팽이 지침은 유충 자료라 성충의 직접 근거로 쓰지 않음.'},
+ F18:{url:'https://www.nibr.go.kr/aiibook/access/ecatalogt.jsp?Dir=1116&callmode=admin&catimage=&eclang=ko&start=65&um=s',note:'고슴도치의 절지동물 먹이군. 방아깨비 특정 쌍은 미확인, 모든 곤충을 먹는다는 주장 아님.'},
+ F19:{url:'https://www.jstage.jst.go.jp/article/jjeez/26/2/26_55/_pdf',note:'Nakano 2015 p56 성충의 실제 섭식 행동·흔적 조사, p60 표5에 팽나무 Celtis sinensis. 일본 도쿄2002~2014 식물 이용 기록이며 국내 현장 검증은 아님. 잎 자원량·회복 속도는 게임 단순화.'},
+};
+export const evidenceText=level=>level==='A'?'이 먹이 관계는 자료에서 확인했어요.':'먹이 종류 자료를 바탕으로 단순화한 관계예요. 이 두 종이 먹고 먹히는 모습을 직접 조사한 기록은 아직 확인하지 못했어요.';

@@ -1,6 +1,6 @@
 export const forestGoal = {
  minimumStability:70, minimumEnvironment:.4, stableSeconds:30,
- requiredObservations:['grass_to_grasshopper','grasshopper_to_frog'],
+ requiredObservations:['v2_grass_to_grasshopper','v2_grasshopper_to_frog'],
  requiredActivities:['producer_quiz','decomposer_classify','grass_observation'],
  requiredSpecies:['grass','grasshopper','frog'],
 };

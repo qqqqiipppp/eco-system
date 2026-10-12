@@ -1,11 +1,13 @@
 import {calculateProgress} from '../systems/forest-progress.js';
 // Pure boundary data, not a grade. No identity or network calls.
 export function createProgressSummary(state,lastUpdated=null) {
- return {schemaVersion:state.schemaVersion,theme:'forest',studentId:null,
+ return {schemaVersion:state.schemaVersion,ecologyRevision:state.ecologyRevision,theme:'forest',studentId:null,
   progress:calculateProgress(state),cleared:state.forestProgress.cleared,
   acquiredSpeciesCount:state.inventory.filter(item=>item.acquired).length,
   completedActivitiesCount:state.activities.filter(item=>item.completed).length,
-  observationsCount:state.observations.length,managementActionCount:state.managementActionCount,
+  observationsCount:state.observations.length,historicalObservationsCount:state.legacyEcology.observations.length,managementActionCount:state.managementActionCount,
   currentStability:state.metrics.stability,bestStability:state.metrics.bestStability,lastUpdated,
-  activeOrganismCount:state.organisms.length,populationChanges:{...state.population.totals}};
+  activeOrganismCount:state.organisms.length,populationChanges:{...state.population.totals},
+  historicalPopulationChanges:{...state.legacyEcology.populationTotals},
+  currentPopulationChanges:Object.fromEntries(Object.entries(state.population.totals).map(([cause,total])=>[cause,Math.max(0,total-(state.legacyEcology.populationTotals[cause]||0))]))};
 }

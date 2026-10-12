@@ -26,12 +26,12 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');const asse
  const preyBefore=(await state()).organisms.filter(o=>o.speciesId==='grasshopper').length;
  await card('frog').tap();await tap(.43,.70);
  assert.equal((await state()).organisms.filter(o=>o.speciesId==='frog').length,1);
- await page.locator('.event-insight[aria-label*="개구리"]').waitFor({timeout:40000});
+ await page.locator('.event-insight[aria-label*="참개구리"]').waitFor({timeout:40000});
  const predation=await state();assert(predation.organisms.filter(o=>o.speciesId==='grasshopper').length<preyBefore);console.log('D: unlocked frog placed and real predation produces next discovery');
  // Record the real predation marker before the population test: tapping an
  // active marker correctly opens its modal instead of placing another animal.
  await page.emulateMedia({reducedMotion:'reduce'});
- await page.locator('.event-insight[aria-label*="개구리"]').tap();await page.getByRole('button',{name:'살펴보기',exact:true}).click();await page.getByRole('button',{name:'발견 기록하기',exact:true}).click();await page.locator('#event-close').click();
+ await page.locator('.event-insight[aria-label*="참개구리"]').tap();await page.getByRole('button',{name:'살펴보기',exact:true}).click();await page.getByRole('button',{name:'발견 기록하기',exact:true}).click();await page.locator('#event-close').click();
  await card('rabbit').tap();
  // Verify the new student introduction limit, then use an explicit saved fixture
  // for the independent 30-DOM activity-panel performance regression.

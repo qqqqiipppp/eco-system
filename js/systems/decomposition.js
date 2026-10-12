@@ -6,7 +6,7 @@ export function decompositionMultiplier(state){return 1+state.decomposition.soil
 export function updateDecomposition(state,seconds){
  const d=state.decomposition,plants=state.organisms.filter(o=>organismById[o.speciesId].role==='producer');
  d.organicMatter.litter=Math.min(config.maximum,d.organicMatter.litter+plants.length*config.litterPerProducer*seconds);
- d.organicMatter.wood=Math.min(config.maximum,d.organicMatter.wood+plants.filter(o=>['oak','pine'].includes(o.speciesId)).length*config.woodPerTree*seconds);
+ d.organicMatter.wood=Math.min(config.maximum,d.organicMatter.wood+plants.filter(o=>['oak','pine','hazel'].includes(o.speciesId)).length*config.woodPerTree*seconds);
  let processed=0;
  for(const part of Object.keys(d.organicMatter)){
   let rate=config.backgroundRate;

@@ -14,7 +14,7 @@ export function activityCondition(state,activityId,answer) {
  const producers=new Set(state.organisms.filter(o=>organismById[o.speciesId]?.role==='producer').map(o=>o.speciesId));
  const checks=[
   {label:'서로 다른 생산자 두 종류',ok:producers.size>=r.producerSpecies},
-  {label:'풀을 숲에 배치하기',ok:state.organisms.some(o=>o.speciesId==='grass')},
+  {label:'강아지풀을 숲에 배치하기',ok:state.organisms.some(o=>o.speciesId==='grass')},
   {label:'햇빛·물·공기·토양 모두 보통 이상',ok:Object.keys(environmentFactors).every(k=>factorValue(state.environment,k)>=r.minEnvironment)},
   {label:'먹이와 생물 역할의 균형 갖추기',ok:Number.isFinite(state.metrics.stability)&&state.metrics.stability>=r.minStability&&evaluateStability(state).score>=r.minStability},
  ];

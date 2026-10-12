@@ -1,3 +1,4 @@
+import {legacyEcology} from '../../data/legacy-ecology.js';
 import {feedingConfig} from '../../data/ecology-config.js';
 import {populationConfig as config,starvationLimits,reproductionRules} from '../../data/population-config.js';
 import {removeOrganism,addOrganism,countSpecies} from './lifecycle.js';
@@ -11,13 +12,14 @@ import {placementConfig} from '../../data/interaction-config.js';
 import {lifespanRules,replenishmentRules} from '../../data/lifespan-config.js';
 
 export function populationMessage(record){
+  if(record.ecologyRevision===1){const name=legacyEcology.names[record.speciesId],unit=legacyEcology.lifespan[record.speciesId].unit;return `이전 구성 기록: ${name} ${record.countBefore}${unit} → ${record.countAfter}${unit} (${({predation:"먹이 이용",starvation:"먹이 부족",natural_lifespan:"수명 종료",life_stage_exit:"유충 시기 종료",colony_decline:"군집 감소",colony_renewal:"군집 갱신",replenishment:"주변 보충",reproduction:"새 세대",release:"돌려보내기"})[record.cause]||"학생 배치"}). 현재 생물의 관찰이 아니에요.`;}
   const name=organismById[record.speciesId].name,unit=lifespanRules[record.speciesId].unit,counts=`현재 ${name}: ${record.countBefore}${unit} → ${record.countAfter}${unit}`;
-  if(record.cause==='natural_lifespan')return `${name} 한 ${unit}가 ${['oak','pine','hazel'].includes(record.speciesId)?'긴 생애를 마치고 수명을 다해':'수명을 다해'} 자연으로 돌아갔어요. ${counts}.${record.speciesId==='grass'?' 새로운 풀이 자랄 수 있는 환경인지 살펴보세요.':' 자연스러운 세대교체가 이어질 수 있어요.'}`;
+  if(record.cause==='natural_lifespan')return `${name} 한 ${unit}가 ${['oak','pine','hazel'].includes(record.speciesId)?'긴 생애를 마치고 수명을 다해':'수명을 다해'} 자연으로 돌아갔어요. ${counts}.${record.speciesId==='grass'?' 새로운 강아지풀이 자랄 수 있는 환경인지 살펴보세요.':' 자연스러운 세대교체가 이어질 수 있어요.'}`;
   if(record.cause==='life_stage_exit')return `${name} 한 마리가 애벌레 시기를 마쳤어요. 번데기와 나방 시기는 이 화면에서 생략해요. ${counts}. 수명을 다한 것이 아니에요.`;
   if(record.cause==='colony_renewal')return `${name} 군집 안에서 새로운 세대가 이어졌어요. ${counts}. 군집 전체가 한꺼번에 바뀐 것은 아니에요.`;
   if(record.cause==='colony_decline')return `${name} 한 군집이 나쁜 서식 환경이 오래 이어져 줄었어요. ${counts}. 환경을 회복하고 획득한 카드로 다시 들일 수 있어요.`;
   if(record.cause==='replenishment'&&record.mode==='egg-hatch')return `${name}의 앞선 번식으로 남은 알에서 한 마리가 새로 나타났어요. ${counts}. 먹이와 서식 조건이 계속 적절해야 해요.`;
-  if(record.cause==='replenishment')return `${name} 한 ${unit}가 ${record.mode==='larval-recruitment'?'참나무 잎 주변에서 새 애벌레로 나타났어요. 화면에 없는 나방의 산란을 간단히 나타냈어요.':'먹이가 있는 숲 주변에서 찾아왔어요.'} ${counts}.`;
+  if(record.cause==='replenishment')return `${name} 한 ${unit}가 ${record.mode==='larval-recruitment'?'소나무 솔잎 주변에서 새 애벌레로 나타났어요. 화면에 없는 나방의 산란을 간단히 나타냈어요.':'먹이가 있는 숲 주변에서 찾아왔어요.'} ${counts}.`;
   if(record.cause==='starvation')return `먹이가 오랫동안 부족해 ${name} 한 마리가 자연으로 돌아갔어요. ${counts}. 먹이가 충분한지 살펴보세요.`;
   if(record.cause==='predation')return `${organismById[record.consumerSpeciesId]?.name||'다른 소비자'}가 ${name}를 먹이로 이용해 ${name} 한 마리가 자연으로 돌아갔어요. ${counts}.`;
   if(record.cause==='reproduction')return `${name}의 수가 늘어났어요! ${record.mode==='seed-spread'?'씨앗 확산을 간단히 나타냈어요.':'먹이와 환경 조건이 번식에 도움이 됐어요.'} ${counts}.`;
@@ -96,7 +98,7 @@ export function updateReproduction(state,seconds,layout){
  return added;
 }
 
-// Separate from the four existing reproduction rules. These represent limited
+// Separate from configured reproduction rules. These represent limited
 // arrivals from surrounding habitat, not spontaneous birth from one parent.
 export function updateReplenishment(state,seconds,layout){
  const added=[];

@@ -68,15 +68,15 @@ const assert=require('node:assert/strict');
    await page.locator('.event-insight').first().tap();
    await page.getByRole('button',{name:'살펴보기',exact:true}).click();
    await page.getByRole('button',{name:'발견 기록하기',exact:true}).click();
-   assert.equal((await snapshot(page)).observations[0].relationId,'grass_to_grasshopper');
+   assert.equal((await snapshot(page)).observations[0].relationId,'v2_grass_to_grasshopper');
    await page.locator('#event-close').click();
    await page.getByRole('button',{name:/발견 기록/}).click();
-   assert.match(await page.locator('#observation-records').textContent(),/메뚜기가 풀/);
+   assert.match(await page.locator('#observation-records').textContent(),/방아깨비의 먹이 발견: 강아지풀의 잎.*단순화/);
    await page.locator('#observations-close').click();
    // Encourage the next real meal without inventing a feeding event.
    await page.evaluate(async()=>{for(const item of (await import('./js/main.js')).gameState.organisms)if(item.speciesId==='grasshopper')item.hunger=1;});
    await page.waitForTimeout(4500);
-   assert.equal((await snapshot(page)).events.filter(e=>e.key==='discovery:grass_to_grasshopper').length,1);
+   assert.equal((await snapshot(page)).events.filter(e=>e.key==='discovery:v2_grass_to_grasshopper').length,1);
    assert.equal((await snapshot(page)).observations.length,1);
    await page.reload({waitUntil:'networkidle'});assert.equal((await snapshot(page)).observations.length,1);
    console.log('discovery: actual meal, explicit recording, no repeats, persisted record');await page.close();
@@ -97,7 +97,11 @@ const assert=require('node:assert/strict');
    }));
    assert(result.markers>0&&result.markers<=4);assert(result.stable);assert.equal(result.reads,0);assert(result.checks-before<=3);
    assert((await snapshot(page)).events.length<=30);
-   const box=await page.locator('.event-marker').first().boundingBox();assert(box.width>=44&&box.height>=44);
+   const marker=page.locator('.event-marker').first(),box=await marker.boundingBox();
+   // Fractional translation can report 43.999992px for a real 44px control.
+   // Keep the layout-size requirement exact and tolerate only rounding in bounds.
+   const touchSize=await marker.evaluate(node=>({width:node.offsetWidth,height:node.offsetHeight}));
+   assert(touchSize.width>=44&&touchSize.height>=44);assert(box.width>=44-.001&&box.height>=44-.001,JSON.stringify(box));
    for(const [width,height] of [[960,600],[412,915]]){
     await page.setViewportSize({width,height});await page.waitForTimeout(150);
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);

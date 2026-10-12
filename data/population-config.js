@@ -15,7 +15,6 @@ export const reproductionRules={
   grass:{mode:'seed-spread',minimum:1,maximum:8,healthySeconds:180,cooldown:240},
   grasshopper:{mode:'animal',minimum:2,maximum:8,healthySeconds:240,cooldown:360},
   rabbit:{mode:'animal',minimum:2,maximum:4,healthySeconds:360,cooldown:480},
-  aphid:{mode:'animal',minimum:2,maximum:6,healthySeconds:240,cooldown:360},
 };
 export const decompositionConfig={maximum:30,litterPerProducer:.004,woodPerTree:.002,backgroundRate:.001,
   rates:{mushroom:{wood:.006},'litter-mold':{litter:.006},'soil-bacteria':{remains:.006}},
