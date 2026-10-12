@@ -9,8 +9,9 @@ import {managementActions,rewardConfig} from '../../data/management-actions.js';
 import {forestGoal} from '../../data/forest-goal.js';
 import {populationConfig,reproductionRules,decompositionConfig,satietySeconds} from '../../data/population-config.js';
 import {relationFor} from '../../data/food-relations.js';
+import {lifespanRules,replenishmentRules} from '../../data/lifespan-config.js';
 
-export const SAVE_VERSION=8;
+export const SAVE_VERSION=9;
 const object=value=>value!==null&&typeof value==='object'&&!Array.isArray(value);
 const validId=value=>typeof value==='string'&&/^[a-zA-Z0-9_-]{1,80}$/.test(value);
 const text=value=>typeof value==='string'?value.slice(0,100):'';
@@ -24,6 +25,8 @@ export function createSaveSnapshot(state,eventMemory,savedAt) {
   organisms:state.organisms.map(item=>{
    const saved={instanceId:item.instanceId,speciesId:item.speciesId,position:{...item.position}};
    for(const key of ['growth','foodStock','hunger','foodShortageDuration','lastSuccessfulFeedingAt','deprivationSeconds','bornAt','satietyUntil'])if(key in item)saved[key]=item[key];
+   const keys=lifespanRules[item.speciesId].model==='colony'?['renewalSeconds','nextRenewalAt','vigor','stressSeconds','generation']:['startedAt','initialAge','duration'];
+   saved.life=Object.fromEntries(keys.map(key=>[key,item.life[key]]));
    return saved;
   }),
   environment:Object.fromEntries(Object.entries(state.environment).map(([key,item])=>[key,{value:item.value}])),
@@ -39,6 +42,7 @@ export function createSaveSnapshot(state,eventMemory,savedAt) {
   population:{sequence:state.population.sequence,totals:{...state.population.totals},
     history:state.population.history.map(({sequence,speciesId,changeType,cause,simulationTime,countBefore,countAfter,consumerSpeciesId,mode,noted})=>({sequence,speciesId,changeType,cause,simulationTime,countBefore,countAfter,consumerSpeciesId,mode,noted})),
     breeding:Object.fromEntries(Object.entries(state.population.breeding).map(([id,v])=>[id,{healthySeconds:v.healthySeconds,nextAt:v.nextAt}])),
+    replenishment:Object.fromEntries(Object.entries(state.population.replenishment).map(([id,v])=>[id,{healthySeconds:v.healthySeconds,nextAt:v.nextAt,...(replenishmentRules[id]?.seedBank?{reserve:v.reserve||0}:{})}])),
     introductions:Object.fromEntries(Object.entries(state.population.introductions).map(([id,v])=>[id,{count:v.count,nextAt:v.nextAt}]))},
   decomposition:{organicMatter:{...state.decomposition.organicMatter},soilNutrients:state.decomposition.soilNutrients,processed:state.decomposition.processed},
  },eventMemory};
@@ -50,7 +54,7 @@ export function decodeSave(raw) {
  let input;
  try {if(typeof raw!=='string'||raw.length>1000000)return fresh('damaged');input=JSON.parse(raw);}catch{return fresh('damaged');}
  if(!object(input)||!Number.isInteger(input.schemaVersion))return fresh('missing-version');
- if(![7,SAVE_VERSION].includes(input.schemaVersion))return fresh(input.schemaVersion>SAVE_VERSION?'future-version':'old-version',true);
+ if(![7,8,SAVE_VERSION].includes(input.schemaVersion))return fresh(input.schemaVersion>SAVE_VERSION?'future-version':'old-version',true);
  const d=input.domain;
  if(!object(d)||d.schemaVersion!==input.schemaVersion||d.ecosystemId!=='forest'||!Array.isArray(d.organisms)||!Array.isArray(d.inventory)||!object(d.environment)||!object(d.metrics))return fresh('damaged');
  let repaired=false;
@@ -70,7 +74,17 @@ export function decodeSave(raw) {
  state.organisms=[];
  for(const item of array(d.organisms,30)){
   if(!object(item)||!own(organismById,item.speciesId)||!validId(item.instanceId)||ids.has(item.instanceId)||!object(item.position)||!Number.isFinite(item.position.x)||!Number.isFinite(item.position.y)){repaired=true;continue;}
-  const organism=createOrganismInstance(item.speciesId,item.instanceId,{x:number(item.position.x,0,1),y:number(item.position.y,0,1)});
+  // v7/v8 get a safe relative adult age starting at RESTORED active time.
+  // bornAt continues to mean introduction/adaptation time, not biological birth.
+  const organism=createOrganismInstance(item.speciesId,item.instanceId,{x:number(item.position.x,0,1),y:number(item.position.y,0,1)},{time:state.simulationTime});
+  if(input.schemaVersion===9){
+   const l=item.life,rule=lifespanRules[item.speciesId],bounded=(v,a,b)=>Number.isFinite(v)&&v>=a&&v<=b;
+   const valid=object(l)&&(rule.model==='individual'?
+    bounded(l.duration,rule.min,rule.max)&&bounded(l.startedAt,0,state.simulationTime)&&bounded(l.initialAge,0,l.duration):
+    bounded(l.renewalSeconds,rule.min,rule.max)&&bounded(l.nextRenewalAt,0,state.simulationTime+rule.max)&&bounded(l.vigor,0,1)&&bounded(l.stressSeconds,0,rule.stressSeconds)&&Number.isInteger(l.generation)&&bounded(l.generation,0,1e9));
+   if(valid){const keys=rule.model==='individual'?['duration','startedAt','initialAge']:['renewalSeconds','nextRenewalAt','vigor','stressSeconds','generation'];organism.life=Object.fromEntries(keys.map(key=>[key,l[key]]));}
+   else repaired=true;
+  }
   if('growth' in organism)organism.growth=number(item.growth,growthConfig.minimumGrowth,1,1);
   // Older oak/rabbit instances predate their resource/feeding fields. Initialize
   // only absent newly supported fields; do not treat definition expansion as damage.
@@ -81,16 +95,20 @@ export function decodeSave(raw) {
  }
  const suffixes=state.organisms.map(item=>Math.min(1e9,Number(item.instanceId.match(/(\d+)$/)?.[1]||0)));
  state.nextInstanceSequence=Math.max(1,...suffixes.map(n=>n+1),Math.floor(number(d.nextInstanceSequence,1,1e9,1)));
- const causes=['placement','reintroduction','reproduction','predation','starvation','release'];
- if(input.schemaVersion===8){
+ const causes=['placement','reintroduction','reproduction','predation','starvation','release','natural_lifespan','life_stage_exit','colony_renewal','colony_decline','replenishment'];
+ if(input.schemaVersion>=8){
   const p=object(d.population)?d.population:{};
   const seen=new Set();
   state.population.history=array(p.history,populationConfig.historyLimit).flatMap(r=>{
-   if(!object(r)||!own(organismById,r.speciesId)||!causes.includes(r.cause)||r.changeType!==r.cause||!Number.isInteger(r.sequence)||r.sequence<1||r.sequence>1e9||seen.has(r.sequence)||!Number.isInteger(r.countBefore)||!Number.isInteger(r.countAfter)||r.countBefore<0||r.countAfter<0||r.countBefore>30||r.countAfter>30||r.countAfter-r.countBefore!==(['predation','starvation','release'].includes(r.cause)?-1:1)){repaired=true;return [];}
+   if(!object(r)||!own(organismById,r.speciesId)||!causes.includes(r.cause)||r.changeType!==r.cause||!Number.isInteger(r.sequence)||r.sequence<1||r.sequence>1e9||seen.has(r.sequence)||!Number.isInteger(r.countBefore)||!Number.isInteger(r.countAfter)||r.countBefore<0||r.countAfter<0||r.countBefore>30||r.countAfter>30||r.countAfter-r.countBefore!==(r.cause==='colony_renewal'?0:['predation','starvation','release','natural_lifespan','life_stage_exit','colony_decline'].includes(r.cause)?-1:1)){repaired=true;return [];}
    if(r.cause==='predation'&&!relationFor(r.speciesId,r.consumerSpeciesId)){repaired=true;return [];}
+   const rule=lifespanRules[r.speciesId];
+   if((r.cause==='natural_lifespan'&&(rule.model!=='individual'||rule.endCause))||(r.cause==='life_stage_exit'&&rule.endCause!=='life_stage_exit')||(['colony_renewal','colony_decline'].includes(r.cause)&&rule.model!=='colony')||(r.cause==='replenishment'&&r.mode!==replenishmentRules[r.speciesId]?.mode)){repaired=true;return [];}
    seen.add(r.sequence);const record={sequence:r.sequence,speciesId:r.speciesId,changeType:r.cause,cause:r.cause,simulationTime:time(r.simulationTime),countBefore:r.countBefore,countAfter:r.countAfter,noted:r.noted===true};
    if(r.cause==='predation')record.consumerSpeciesId=r.consumerSpeciesId;
    if(r.cause==='reproduction')record.mode=r.mode==='seed-spread'?'seed-spread':'animal';
+   if(r.cause==='replenishment')record.mode=r.mode;
+   if(r.cause==='colony_renewal')record.noted=true;
    return [record];
   });
   state.population.sequence=Math.max(...state.population.history.map(r=>r.sequence),0,Math.floor(number(p.sequence,0,1e9)));
@@ -98,6 +116,7 @@ export function decodeSave(raw) {
   state.population.introductions={};
   for(const id of Object.keys(organismById))if(object(p.introductions?.[id]))state.population.introductions[id]={count:Math.floor(number(p.introductions[id].count,0,1e6)),nextAt:number(p.introductions[id].nextAt,0,state.simulationTime+populationConfig.introductionCooldown)};
   for(const [id,rule]of Object.entries(reproductionRules))if(object(p.breeding?.[id]))state.population.breeding[id]={healthySeconds:number(p.breeding[id].healthySeconds,0,rule.healthySeconds),nextAt:number(p.breeding[id].nextAt,0,state.simulationTime+rule.cooldown)};
+  if(input.schemaVersion===9)for(const [id,rule]of Object.entries(replenishmentRules))if(object(p.replenishment?.[id]))state.population.replenishment[id]={healthySeconds:number(p.replenishment[id].healthySeconds,0,rule.healthySeconds),nextAt:number(p.replenishment[id].nextAt,0,state.simulationTime+Math.max(rule.cooldown,rule.healthySeconds)),...(rule.seedBank?{reserve:Math.floor(number(p.replenishment[id].reserve??0,0,rule.reserveMaximum))}:{})};
   const organic=d.decomposition?.organicMatter;
   for(const part of ['wood','litter','remains'])state.decomposition.organicMatter[part]=number(organic?.[part],0,decompositionConfig.maximum);
   state.decomposition.soilNutrients=number(d.decomposition?.soilNutrients,0,1);state.decomposition.processed=number(d.decomposition?.processed,0,1e6);

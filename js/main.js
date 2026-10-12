@@ -118,8 +118,8 @@ try {
       if (result.ticked) { renderDashboard(gameState); activityView.render(); environmentPanel.render();populationView.render(); }
       if (result.eventTicked || result.removedIds.length) eventView.render();
       let notice;
-      if(gameState.population.sequence>lastPopulationSequence)for(const record of gameState.population.history)if(record.sequence>lastPopulationSequence&&['starvation','reproduction'].includes(record.cause))notice=record;
-      if(notice)scene.showFeedback(populationMessage(notice),notice.cause==='reproduction');
+      if(gameState.population.sequence>lastPopulationSequence)for(const record of gameState.population.history)if(record.sequence>lastPopulationSequence&&['starvation','reproduction','natural_lifespan','life_stage_exit','colony_decline','replenishment'].includes(record.cause))notice=record;
+      if(notice)scene.showFeedback(populationMessage(notice),!['starvation','colony_decline'].includes(notice.cause));
       else if (result.feedingEvents.length) scene.showFeedback(feedingFeedback(result.feedingEvents), true);
       lastPopulationSequence=gameState.population.sequence;
     },

@@ -5,7 +5,8 @@ import { isPositionAllowed } from './placement.js';
 import { hasFoodStock, consumeFoodStock, recoverFoodStock } from './food-resources.js';
 import { updateProducerGrowth, animalActivity } from './environment.js';
 import {removeOrganism} from './lifecycle.js';
-import {updateSurvival,recoverSurvival,survivalActivity,updateReproduction} from './population.js';
+import {updateSurvival,recoverSurvival,survivalActivity,updateReproduction,updateReplenishment} from './population.js';
+import {updateLifespans} from './lifespan.js';
 import {updateDecomposition,decompositionMultiplier} from './decomposition.js';
 import {satietySeconds} from '../../data/population-config.js';
 
@@ -145,11 +146,13 @@ export function createFeedingSystem(initialTime = 0) {
     }
     const starved=updateSurvival(state,ecologyConfig.tickSeconds);
     for(const id of starved){byId.delete(id);timing.delete(id);result.removedIds.push(id);}
+    const ended=updateLifespans(state,ecologyConfig.tickSeconds);
+    for(const id of ended){byId.delete(id);timing.delete(id);result.removedIds.push(id);}
     // Other predators may have targeted the same prey. Clear stale IDs now.
     for (const instance of state.organisms) {
       if (instance.targetInstanceId && !byId.has(instance.targetInstanceId)) returnToWander(instance, clockFor(instance), true);
     }
-    result.added=updateReproduction(state,ecologyConfig.tickSeconds,layout);
+    result.added=[...updateReproduction(state,ecologyConfig.tickSeconds,layout),...updateReplenishment(state,ecologyConfig.tickSeconds,layout)];
     result.updated = state.organisms;
     result.ticked = true;
   }

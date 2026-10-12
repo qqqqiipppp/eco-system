@@ -139,7 +139,7 @@ const assert = require('node:assert/strict');
     assert.equal(perf.maxPending, 1);
     for (const organism of (await state()).organisms) {
       const expectedKeys = ['grass','oak'].includes(organism.speciesId) ? ['foodStock', 'growth', 'instanceId', 'position', 'speciesId'] : organism.speciesId==='rabbit' ? ['acclimationUntil','behaviorState','bornAt','deprivationSeconds','direction','foodShortageDuration','hunger','instanceId','lastSuccessfulFeedingAt','position','satietyUntil','speciesId','targetInstanceId'] : ['instanceId', 'position', 'speciesId'];
-      assert.deepEqual(Object.keys(organism).sort(), expectedKeys);
+      assert.deepEqual(Object.keys(organism).sort(), [...expectedKeys,'life'].sort());
       assert(organism.position.x >= 0 && organism.position.x <= 1 && organism.position.y >= 0 && organism.position.y <= 1);
     }
     await page.emulateMedia({ reducedMotion: 'reduce' });

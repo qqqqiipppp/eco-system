@@ -1,6 +1,6 @@
 import {decompositionConfig as config} from '../../data/population-config.js';
 import {organismById} from '../../data/organisms.js';
-import {countSpecies} from './lifecycle.js';
+import {colonyActivity} from './lifespan.js';
 
 export function decompositionMultiplier(state){return 1+state.decomposition.soilNutrients*config.maximumGrowthBonus;}
 export function updateDecomposition(state,seconds){
@@ -10,7 +10,7 @@ export function updateDecomposition(state,seconds){
  let processed=0;
  for(const part of Object.keys(d.organicMatter)){
   let rate=config.backgroundRate;
-  for(const [id,parts]of Object.entries(config.rates))rate+=(parts[part]||0)*Math.min(3,countSpecies(state,id));
+  for(const [id,parts]of Object.entries(config.rates))rate+=(parts[part]||0)*state.organisms.filter(o=>o.speciesId===id).slice(0,3).reduce((sum,o)=>sum+colonyActivity(o,state.environment),0);
   const amount=Math.min(d.organicMatter[part],rate*seconds);d.organicMatter[part]-=amount;processed+=amount;
  }
  d.processed=Math.min(1e6,d.processed+processed);
