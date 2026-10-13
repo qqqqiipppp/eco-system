@@ -10,7 +10,8 @@ import {ECOLOGY_REVISION} from '../../data/species-taxonomy.js';
  */
 export function createGameState() {
   return {
-    schemaVersion: 10,
+    schemaVersion: 11,
+    development: {sequence:0,history:[]},
     ecologyRevision: ECOLOGY_REVISION,
     legacyEcology: {revision:1,migratedFromVersion:null,observations:[],pendingDiscoveries:[],instances:[],breeding:{},replenishment:{},populationTotals:{}},
     population: {sequence:0,history:[],totals:{},breeding:{},replenishment:{},introductions:Object.fromEntries([...new Set(forestDefinition.initialOrganisms.map(o=>o.speciesId))].map(id=>[id,{count:forestDefinition.initialOrganisms.filter(o=>o.speciesId===id).length,nextAt:0}]))},

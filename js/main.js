@@ -26,6 +26,7 @@ import { executeManagement, availableManagement, availableEnvironmentalRecovery 
 import {createPopulationView} from './ui/population-view.js';
 import {removeOrganism} from './systems/lifecycle.js';
 import {populationMessage} from './systems/population.js';
+import {hasDevelopmentWork} from './systems/development.js';
 
 // Module exports support integration checks; there is no global debug API.
 export const gameState = createGameState();
@@ -95,17 +96,17 @@ try {
     },
   });
   const loop = createUpdateLoop({
-    hasWork: () => gameState.organisms.length>0 || Object.values(gameState.decomposition.organicMatter).some(v=>v>0) || Object.values(gameState.population.introductions).some(v=>v.nextAt>gameState.simulationTime) || eventSystem.needsTick(),
+    hasWork: () => gameState.organisms.length>0 || hasDevelopmentWork(gameState) || Object.values(gameState.decomposition.organicMatter).some(v=>v>0) || Object.values(gameState.population.introductions).some(v=>v.nextAt>gameState.simulationTime) || eventSystem.needsTick(),
     update: dt => {
       const result = feedingSystem.update(gameState, dt, scene.getLayout());
       wander.forget(result.removedIds);
       result.moved.push(...wander.update(gameState.organisms, dt, scene.getLayout(), animalActivity(gameState.environment)));
       if (result.ticked) stabilitySystem.update(gameState, ecologyConfig.tickSeconds);
       result.eventTicked = result.ticked && eventSystem.update(gameState, ecologyConfig.tickSeconds, result.feedingEvents);
-      if(result.removedIds.length||result.added.length){eventSystem.refresh(gameState);result.eventTicked=true;}
+      if(result.removedIds.length||result.added.length||result.developmentChanges.length){eventSystem.refresh(gameState);result.eventTicked=true;}
       if(result.ticked) {
         refreshProgress(ecologyConfig.tickSeconds);
-        if(result.feedingEvents.length||result.added.length||result.removedIds.length)saveService.schedule();
+        if(result.feedingEvents.length||result.added.length||result.removedIds.length||result.developmentChanges.length)saveService.schedule();
         if(gameState.simulationTime-lastCheckpoint>=15) { lastCheckpoint=gameState.simulationTime;saveService.schedule(); }
       }
       return result;

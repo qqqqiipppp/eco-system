@@ -9,6 +9,7 @@ import {updateSurvival,recoverSurvival,survivalActivity,updateReproduction,updat
 import {updateLifespans} from './lifespan.js';
 import {updateDecomposition,decompositionMultiplier} from './decomposition.js';
 import {satietySeconds} from '../../data/population-config.js';
+import {updateDevelopment,canFeed,developmentActivity} from './development.js';
 
 const distance = (a, b) => Math.hypot(a.position.x - b.position.x, a.position.y - b.position.y);
 
@@ -140,6 +141,14 @@ export function createFeedingSystem(initialTime = 0) {
     for (const instance of [...byId.values()]) {
       const config = feedingConfig[instance.speciesId];
       if (!config || !byId.has(instance.instanceId)) continue;
+      // The short nursery phase omits nursing. It cannot grant indefinite food.
+      if(!canFeed(instance)){
+        if(simulationTime>=instance.acclimationUntil){
+          instance.hunger=Math.min(1,instance.hunger+config.hungerPerSecond*ecologyConfig.tickSeconds);
+          if(instance.hunger>=config.hungryAt)instance.foodShortageDuration+=ecologyConfig.tickSeconds;
+        }
+        continue;
+      }
       const clock = clockFor(instance);
       if(simulationTime>=instance.satietyUntil)instance.hunger = Math.min(1, instance.hunger + config.hungerPerSecond * ecologyConfig.tickSeconds);
       if (clock.shortage) instance.foodShortageDuration += ecologyConfig.tickSeconds;
@@ -149,6 +158,7 @@ export function createFeedingSystem(initialTime = 0) {
     for(const id of starved){byId.delete(id);timing.delete(id);result.removedIds.push(id);}
     const ended=updateLifespans(state,ecologyConfig.tickSeconds);
     for(const id of ended){byId.delete(id);timing.delete(id);result.removedIds.push(id);}
+    result.developmentChanges=updateDevelopment(state,ecologyConfig.tickSeconds);
     // Other predators may have targeted the same prey. Clear stale IDs now.
     for (const instance of state.organisms) {
       if (instance.targetInstanceId && !byId.has(instance.targetInstanceId)) returnToWander(instance, clockFor(instance), true);
@@ -164,7 +174,7 @@ export function createFeedingSystem(initialTime = 0) {
     if (!target) return false;
     const separation = distance(instance, target);
     if (separation <= ecologyConfig.arrivalDistance * 0.7) return false;
-    const step = Math.min(feedingConfig[instance.speciesId].speed * dt * survivalActivity(instance), separation);
+    const step = Math.min(feedingConfig[instance.speciesId].speed * dt * survivalActivity(instance) * developmentActivity(instance), separation);
     const dx = (target.position.x - instance.position.x) / separation * step;
     const dy = (target.position.y - instance.position.y) / separation * step;
     const position = { x: instance.position.x + dx, y: instance.position.y + dy };
@@ -177,7 +187,7 @@ export function createFeedingSystem(initialTime = 0) {
   return {
     update(state, deltaSeconds, layout) {
       const dt = Math.min(Math.max(deltaSeconds, 0), 0.1);
-      const result = { moved: [], updated: [], added:[], removedIds: [], feedingEvents: [], ticked: false };
+      const result = { moved: [], updated: [], added:[], removedIds: [], feedingEvents: [], developmentChanges:[], ticked: false };
       accumulator += dt;
       if (accumulator + 1e-9 >= ecologyConfig.tickSeconds) {
         accumulator -= ecologyConfig.tickSeconds;

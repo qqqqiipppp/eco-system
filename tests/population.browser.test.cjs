@@ -10,7 +10,7 @@ const {dismissWelcome}=require('./fixtures.cjs'),BASE=process.env.BASE_URL||'htt
   if(kind==='starve'){s.organisms=Array.from({length:3},(_,i)=>make('frog','frog-'+i));for(const o of s.organisms){o.hunger=1;o.deprivationSeconds=419.5;o.foodShortageDuration=30;}s.population.introductions.frog={count:3,nextAt:0};}
   if(kind==='support'){s.organisms=[make('frog')];Object.assign(s.organisms[0],{hunger:1,deprivationSeconds:210,foodShortageDuration:30});}
   if(kind==='recover'){s.organisms=[make('frog'),make('grasshopper')];s.organisms[0].hunger=1;s.organisms[0].deprivationSeconds=220;s.organisms[1].hunger=0;}
-  if(kind==='breed'){s.organisms=[make('grass','p1',.24),make('grass','p2',.32),make('grasshopper','a',.44),make('grasshopper','b',.47)];for(const o of s.organisms.filter(o=>o.hunger!==undefined)){o.hunger=.1;o.lastSuccessfulFeedingAt=1000;}s.population.breeding.grasshopper={healthySeconds:239.5,nextAt:1000};}
+  if(kind==='breed'){s.organisms=[make('grass','p1',.24),make('grass','p2',.32),make('grasshopper','a',.44),make('grasshopper','b',.47)];for(const o of s.organisms.filter(o=>o.hunger!==undefined)){o.hunger=.1;o.lastSuccessfulFeedingAt=1000;}s.population.breeding.grasshopper={healthySeconds:0,nextAt:1360,pending:{remainingSeconds:.5,position:{x:.52,y:.72}}};s.population.replenishment.grasshopper={healthySeconds:0,nextAt:1180,reserve:6};}
   if(kind==='full'){s.organisms=Array.from({length:30},(_,i)=>make('grass','p'+i,.15+(i%6)*.06));}
   return JSON.stringify(createSaveSnapshot(s,{sequence:0,cooldowns:[],questionDone:[],pendingDiscoveries:[]},'2026-10-12T00:00:00Z'));
  },kind);}

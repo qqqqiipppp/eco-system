@@ -6,6 +6,8 @@ import { grantReward, rewardResolvedManagement } from './rewards.js';
 import { producerGrowth, environmentFactors } from '../../data/environment-config.js';
 import {survivalStage,populationMessage} from './population.js';
 import {organismById} from '../../data/organisms.js';
+import {developmentNotice} from './development.js';
+import {developmentConfig} from '../../data/development-config.js';
 
 /** Actual ecology signals only. No DOM, wall-clock timers, random generation or
  * automatic discovery credit. A discovery is recorded by acknowledge().
@@ -61,6 +63,12 @@ export function createEventSystem(initialTime = 0, memory = {}) {
       const key = `discovery:${relationId}`;
       candidates.set(key, { key, kind: 'insight', sourceType: sourceExists ? 'organism' : 'environment', sourceId: sourceExists ? signal.consumerInstanceId : 'forest', title: definition.title, message: definition.message, explanation: definition.explanation, payload: { relationId } });
     }
+    const growthNotices=new Map();
+    for(const record of state.development.history)if(!record.noted)growthNotices.set(`${record.speciesId}:${record.stage}`,record);
+    for(const record of [...growthNotices.values()].slice(-developmentConfig.noticeLimit)){
+      const sourceExists=live.has(record.instanceId),key=`development:${record.sequence}`;
+      candidates.set(key,{key,kind:'insight',sourceType:sourceExists?'organism':'environment',sourceId:sourceExists?record.instanceId:'forest',title:'생물의 성장 모습을 발견했어요',message:developmentNotice(record),explanation:'같은 개체의 생활 모습이 달라졌어요. 성장과 새로운 개체가 태어나는 번식은 구분해요. 버섯은 같은 군집의 활동 상태를 나타내요.',payload:{developmentSequence:record.sequence}});
+    }
     const notices=new Map();
     for(const record of state.population.history)if(!record.noted&&!['placement','reintroduction'].includes(record.cause))notices.set(`${record.cause}:${record.speciesId}`,record);
     for(const record of [...notices.values()].slice(-6)){
@@ -80,7 +88,14 @@ export function createEventSystem(initialTime = 0, memory = {}) {
     }
     const ordered = [...candidates.values()].sort((a,b)=>eventPriority(b)-eventPriority(a));
     for (const candidate of ordered) {
-      if (active.has(candidate.key) || time < (cooldowns.get(candidate.key) || 0) || active.size >= eventConfig.maxActive) continue;
+      if (active.has(candidate.key) || time < (cooldowns.get(candidate.key) || 0)) continue;
+      if(active.size>=eventConfig.maxActive){
+        // Growth records remain pending; a full queue cannot hide a new meal or
+        // urgent survival warning behind an optional growth notice.
+        const optional=[...active.values()].find(event=>event.payload.developmentSequence&&eventPriority(event)<eventPriority(candidate));
+        if(!optional)continue;
+        close(optional,'resolved');active.delete(optional.key);
+      }
       const event = { ...candidate, eventId: `event-${++sequence}`, status: 'active', createdAt: time };
       state.events.push(event); active.set(event.key,event);
     }
@@ -113,15 +128,19 @@ export function createEventSystem(initialTime = 0, memory = {}) {
         if (!choice?.correct) return { ok:false, message:growthInvestigation.retry };
         questionDone.add(event.key);
       }
-      if (event.kind === 'insight' && !state.observations.some(item=>item.relationId===event.payload.relationId)) {
+      if (event.kind === 'insight' && event.payload.relationId && !state.observations.some(item=>item.relationId===event.payload.relationId)) {
         state.observations.push({ relationId: event.payload.relationId, eventId, discoveredAt: time });
         pendingDiscoveries.delete(event.payload.relationId);
+      }
+      if(event.payload.developmentSequence){
+        const record=state.development.history.find(r=>r.sequence===event.payload.developmentSequence);
+        if(record)for(const earlier of state.development.history)if(earlier.speciesId===record.speciesId&&earlier.stage===record.stage&&earlier.sequence<=record.sequence)earlier.noted=true;
       }
       if(event.payload.populationSequence){const record=state.population.history.find(r=>r.sequence===event.payload.populationSequence);if(record)record.noted=true;}
       close(event, event.kind === 'insight' ? 'resolved' : 'dismissed');
       cooldowns.set(event.key,time+eventConfig.cooldownSeconds);
-      const reward = event.kind === 'insight' ? grantReward(state,'observation',event.payload.relationId,eventId) : event.kind === 'question' ? grantReward(state,'question',`producer_${event.payload.factor}_limit`,eventId) : 0;
-      return { ok:true, message:(event.kind==='insight' ? '발견 기록에 남겼어요!' : '확인했어요. 숲의 변화를 계속 살펴봐요.') + (reward ? ` 생태계 포인트 ${reward}를 받았어요.` : '') };
+      const reward = event.kind === 'insight' && event.payload.relationId ? grantReward(state,'observation',event.payload.relationId,eventId) : event.kind === 'question' ? grantReward(state,'question',`producer_${event.payload.factor}_limit`,eventId) : 0;
+      return { ok:true, message:(event.payload.developmentSequence?'성장 기록에 남겼어요!':event.kind==='insight' ? '발견 기록에 남겼어요!' : '확인했어요. 숲의 변화를 계속 살펴봐요.') + (reward ? ` 생태계 포인트 ${reward}를 받았어요.` : '') };
     },
     exportMemory: () => ({sequence,cooldowns:[...cooldowns],questionDone:[...questionDone],pendingDiscoveries:[...pendingDiscoveries]}),
     getDiagnostics: () => ({ checks, time }),

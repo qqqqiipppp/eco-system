@@ -2,6 +2,10 @@ import { organismById } from '../../data/organisms.js';
 import { speciesProfiles, placementConfig } from '../../data/interaction-config.js';
 import { DEBUG_MODE, foodResourceConfig } from '../../data/ecology-config.js';
 import {survivalStage} from '../systems/population.js';
+import {developmentStage,stageLabel} from '../systems/development.js';
+
+// Short teaching labels fit the existing placeholder footprints.
+const youngNames={grass:{sprout:'강아지풀 새싹',grown:'자란 강아지풀'},grasshopper:{nymph:'방아깨비 약충'},rabbit:{baby:'새끼 멧토끼',juvenile:'어린 멧토끼'},mushroom:{mycelium:'버섯 균사체','spore-ready':'버섯 포자 준비'}};
 
 /** DOM adapter: creates each organism once and paints positions using transforms.
  * Geometry reads happen only on resize or input, never in the update loop.
@@ -84,13 +88,19 @@ export function createOrganismLayer(forest, getOrganisms) {
       debug.append(document.createTextNode(''));
       visual.append(debug);
     }
-    nodes.set(instance.instanceId, { anchor, image, debug });
+    nodes.set(instance.instanceId, { anchor, image, name, debug });
     paint(instance);
     showState(instance);
   }
   function showState(instance) {
     const entry = nodes.get(instance.instanceId);
     if (!entry) return;
+    const stage=developmentStage(instance);
+    if(entry.stage!==stage){
+      entry.stage=stage;
+      if(stage){entry.anchor.dataset.developmentStage=stage;entry.name.textContent=youngNames[instance.speciesId]?.[stage]||organismById[instance.speciesId].name;entry.name.title=`${organismById[instance.speciesId].name} · ${stageLabel(instance)} · 임시 모습`;}
+      else{delete entry.anchor.dataset.developmentStage;entry.name.textContent=organismById[instance.speciesId].name;entry.name.removeAttribute('title');}
+    }
     if (instance.growth !== undefined && entry.growth !== instance.growth) {
       entry.image.style.transform = `scale(${0.65 + instance.growth * 0.35})`;
       entry.image.style.transformOrigin = '50% 100%';

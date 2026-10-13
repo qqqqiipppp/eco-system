@@ -45,7 +45,8 @@ export function createEventView(state, scene, onAcknowledge, management = {optio
       } else {
         detail.hidden=false;
         inspected=true;
-        actions.append(button(event.kind==='insight'?'발견 기록하기':'확인했어요',()=>acknowledge(event)));
+        const recordLabel=event.payload.developmentSequence?'성장 기록하기':event.kind==='insight'?'발견 기록하기':'확인했어요';
+        actions.append(button(recordLabel,()=>acknowledge(event)));
         renderManagement(event);
       }
     }));
@@ -102,7 +103,7 @@ export function createEventView(state, scene, onAcknowledge, management = {optio
       if(!entry) {
         const node=button(symbols[event.kind],()=>open(event));
         node.className=`event-marker event-${event.kind}`; node.dataset.eventMarker=event.eventId;
-        node.setAttribute('aria-label',`${event.kind==='insight'?'발견':event.kind==='question'?'조사':'알림'}: ${event.title}`);
+        node.setAttribute('aria-label',`${event.payload.developmentSequence?'성장 관찰':event.kind==='insight'?'발견':event.kind==='question'?'조사':'알림'}: ${event.title}`);
         node.addEventListener('click',e=>e.stopPropagation());
         node.addEventListener('pointerdown',e=>e.stopPropagation());
         entry={node}; markers.set(event.eventId,entry);

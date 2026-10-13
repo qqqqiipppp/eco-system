@@ -58,9 +58,9 @@ test('I/J: the three retained reproduction rules still create young and open spa
  for(const [id,rule]of Object.entries(reproductionRules)){
   const parents=Array.from({length:Math.max(2,rule.minimum)},(_,i)=>make(id,'parent'+i,.25+i*.09)),s=world(...parents,...(sources[id]?[make(sources[id],'food',.4)]:[]));s.simulationTime=100;
   for(const o of parents)if('hunger'in o){o.hunger=.1;o.lastSuccessfulFeedingAt=100;}
-  s.population.breeding[id]={healthySeconds:rule.healthySeconds,nextAt:0};const added=updateReproduction(s,.5,layout);assert(added.some(o=>o.speciesId===id));assert.equal(added.find(o=>o.speciesId===id).life.initialAge,0);
+  s.population.breeding[id]={healthySeconds:rule.healthySeconds,nextAt:0};const added=updateReproduction(s,.5,layout);if(['grass','grasshopper'].includes(id)){assert.equal(added.length,0);added.push(...updateReproduction(s,60,layout));}assert(added.some(o=>o.speciesId===id));assert.equal(added.find(o=>o.speciesId===id).life.initialAge,0);
  }
- const s=world(make('grass','old',.3),make('grass','young',.5));s.simulationTime=naturalEndAt(s.organisms[0]);s.organisms[1].life.startedAt=s.simulationTime;s.population.breeding.grass={healthySeconds:180,nextAt:0};updateLifespans(s,.5);assert.equal(s.organisms.length,1);assert.equal(updateReproduction(s,.5,layout).length,1);assert.equal(s.population.totals.natural_lifespan,1);assert.equal(s.population.totals.reproduction,1);
+ const s=world(make('grass','old',.3),make('grass','young',.5));s.simulationTime=naturalEndAt(s.organisms[0]);s.organisms[1].life.startedAt=s.simulationTime;s.population.breeding.grass={healthySeconds:180,nextAt:0};updateLifespans(s,.5);assert.equal(s.organisms.length,1);assert.equal(updateReproduction(s,.5,layout).length,0);assert.equal(updateReproduction(s,60,layout).length,1);assert.equal(s.population.totals.natural_lifespan,1);assert.equal(s.population.totals.reproduction,1);
 });
 test('J/K/X: limited replenishment needs acquired/previously used card, real food, cooldown, habitat and room',()=>{
  for(const [id,rule]of Object.entries(replenishmentRules)){
@@ -97,9 +97,9 @@ test('F: natural end is a non-urgent notice, coalesced and acknowledged without 
 });
 test('R: at 30 one exact natural loss opens one birth space; density and blocked regions still prevent arrivals',()=>{
  const s=world(...Array.from({length:30},(_,i)=>make(i<2?'grass':'oak','n'+i,.2+(i%7)*.09)));const dying=s.organisms[29];s.simulationTime=naturalEndAt(dying);for(const o of s.organisms)if(o!==dying)o.life.startedAt=s.simulationTime;
- updateLifespans(s,.5);assert.equal(s.organisms.length,29);s.population.breeding.grass={healthySeconds:180,nextAt:0};assert.equal(updateReproduction(s,.5,layout).length,1);assert.equal(s.organisms.length,30);assert.equal(updateReproduction(s,180,layout).length,0);
+ updateLifespans(s,.5);assert.equal(s.organisms.length,29);s.population.breeding.grass={healthySeconds:180,nextAt:0};assert.equal(updateReproduction(s,.5,layout).length,0);assert.equal(updateReproduction(s,60,layout).length,1);assert.equal(s.organisms.length,30);assert.equal(updateReproduction(s,180,layout).length,0);
 });
-test('S/U: v10 repeated save/reload preserves exact end, ages, colonies, histories and replenishment',()=>{
+test('S/U: v11 repeated save/reload preserves exact end, ages, colonies, histories and replenishment',()=>{
  const s=world(make('grasshopper'),make('mushroom'));s.simulationTime=300;s.population.replenishment.caterpillar={healthySeconds:123,nextAt:800};s.organisms[1].life.vigor=.5;s.organisms[1].life.generation=3;
  let loaded=s;for(let i=0;i<10;i++){const result=decodeSave(encode(loaded));assert.equal(result.status,'loaded');loaded=result.state;assert.deepEqual(loaded.organisms.map(o=>o.life),s.organisms.map(o=>o.life));}
  assert.equal(naturalEndAt(loaded.organisms[0]),naturalEndAt(s.organisms[0]));assert.equal(effectiveAge(loaded.organisms[0],300),effectiveAge(s.organisms[0],300));assert.deepEqual(loaded.population.replenishment,s.population.replenishment);
@@ -109,13 +109,13 @@ test('T/V: genuine v8 and v7 migration protects old populations at large clocks 
  for(const version of [8,7]){
   const snapshot=JSON.parse(encode(s));snapshot.schemaVersion=snapshot.domain.schemaVersion=version;for(const o of snapshot.domain.organisms)delete o.life;delete snapshot.domain.population.replenishment;
   if(version===7){delete snapshot.domain.population;delete snapshot.domain.decomposition;}
-  const result=decodeSave(JSON.stringify(snapshot));assert.equal(result.status,'loaded');const loaded=result.state;assert.equal(loaded.schemaVersion,10);assert.equal(loaded.metrics.points,22);assert.equal(loaded.metrics.bestStability,88);assert(loaded.inventory.find(c=>c.speciesId==='frog').acquired);
+  const result=decodeSave(JSON.stringify(snapshot));assert.equal(result.status,'loaded');const loaded=result.state;assert.equal(loaded.schemaVersion,11);assert.equal(loaded.metrics.points,22);assert.equal(loaded.metrics.bestStability,88);assert(loaded.inventory.find(c=>c.speciesId==='frog').acquired);
   for(const o of loaded.organisms)assert(naturalEndAt(o)>loaded.simulationTime+600);updateLifespans(loaded,.5);assert.equal(loaded.organisms.length,4);
   if(version===8){assert.equal(loaded.population.breeding.grass.healthySeconds,120);assert.equal(loaded.population.introductions.frog.nextAt,1e6+30);assert.equal(loaded.decomposition.soilNutrients,.7);}
  }
 });
 test('damaged life values recover only the invalid instance; future versions remain protected',()=>{
- const s=world(make('grass'),make('frog'),make('mushroom')),raw=JSON.parse(encode(s));raw.domain.organisms[0].life.duration=-1;raw.domain.organisms[2].life.vigor='evil';const r=decodeSave(JSON.stringify(raw));assert.equal(r.status,'recovered');assert.deepEqual(r.state.organisms[1].life,s.organisms[1].life);assert(r.state.organisms[0].life.duration>0);raw.schemaVersion=raw.domain.schemaVersion=11;assert(decodeSave(JSON.stringify(raw)).blocked);
+ const s=world(make('grass'),make('frog'),make('mushroom')),raw=JSON.parse(encode(s));raw.domain.organisms[0].life.duration=-1;raw.domain.organisms[2].life.vigor='evil';const r=decodeSave(JSON.stringify(raw));assert.equal(r.status,'recovered');assert.deepEqual(r.state.organisms[1].life,s.organisms[1].life);assert(r.state.organisms[0].life.duration>0);raw.schemaVersion=raw.domain.schemaVersion=12;assert(decodeSave(JSON.stringify(raw)).blocked);
 });
 test('W: wall date and food support cannot change natural end; no per-organism timers or frame ageing',()=>{
  const s=world(make('frog'));const end=naturalEndAt(s.organisms[0]);supportSurvival(s.organisms[0]);assert.equal(naturalEndAt(s.organisms[0]),end);const raw=JSON.parse(encode(s));raw.savedAt='2000-01-01T00:00:00Z';const loaded=decodeSave(JSON.stringify(raw)).state;assert.equal(naturalEndAt(loaded.organisms[0]),end);assert.equal(loaded.simulationTime,0);

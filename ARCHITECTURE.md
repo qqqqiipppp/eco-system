@@ -1,4 +1,4 @@
-# 현재 설계 — 1~11.55단계
+# 현재 설계 — 1~11.6단계
 
 ## 11.55단계: 종의 의미와 과거 기록
 
@@ -21,7 +21,19 @@ version9의 변경7슬롯 life는 기존 누적 나이/기존duration으로 상�
 
 progress-summary는 현재/과거 관찰 수와 누적/과거/현재 개체 변화 합계를 분리한다. 전송이나 관리자 UI는 없다. 과거 population history는 이전 이름/단위로 표시하며 새 현재 알림으로 재발송하지 않는다.
 
-11.6의 대표5종 상세 성장/번식은 아직 구현하지 않았다. 현재 데이터 정의·life/군집·foodStock·공유 lifecycle·population 조건·placement 제약을 연결 지점으로 사용한다. 정확한 종 자료와 교육용 게임 시험값은 FOREST_SPECIES/FOREST_LIFESPANS/감사 문서에서 구분한다.
+11.6은 대표5종의 성장과 학습을 기존 life/군집·foodStock·공유 lifecycle·population·placement에 연결한다. 세부 설정과 실제 자료의 불확실성은 FOREST_GROWTH_STAGES에 있다.
+
+## 11.6단계: 같은 개체의 성장과 다음 세대
+
+data/development-config.js는 단계·유효 발달초·단계별 먹이 한도/활동 배율·발아/부화 대기를 정의한다. state/development-state.js는 기존 배치/이전 저장의 성숙 상태와 자연 발생 개체의 어린 상태를 만든다. systems/development.js는 환경·실제 섭식·목재/군집 활력을 읽어 공통 생태 tick에서만 진행한다. per-frame 경로는 계산된 stage의 이동 배율만 읽는다.
+
+성장 상태는 {origin,progressSeconds,stage}이며 stage는 runtime 캐시다. life.{startedAt,initialAge,duration}와 bornAt/acclimationUntil은 기존 의미를 유지한다. 새 개체를 생성하지 않는 단계 전환은 life·population·points·soilNutrients를 변경하지 않는다. 초기 배치/수동 재도입은 성숙, 실제 씨앗/알/출생은 새싹/약충/새끼다. 참개구리는 생애주기 학습만 제공한다. 구름송편버섯은 하나의 군집 상태로 실제 포자·새 군집을 만들지 않는다.
+
+grass/grasshopper의 breeding.pending={remainingSeconds,position}는 종당 한 개의 미래 대기다. 실패 시 실제 count/instance sequence/알 예산은 소비하지 않는다. 부화에 성공하면 같은 replenishment.reserve에서1개를 사용하고 보충 건강 시간을0으로, nextAt을 기존 보충 대기 이후로 옮겨 동일 tick의 중복 부화를 막는다. 기존3번식·2보충·30상한·공간 제한은 유지한다. 성체 자격은 성장 단계와 현재 수명이 남은 개체를 함께 확인한다.
+
+새싹은 기존 foodStock 한도를40%로 시작한다. 성숙 시 한도만 증가하며 먹이량은 기존 회복 규칙으로 차오른다. 약충은 기존22관계 안에서 먹고 이동 배율.65, 어린 멧토끼는.7이다. 새끼 멧토끼는 짧은 초기 영양 생활을 생략한90유효초 동안 식물 AI를 쓰지 않고.35로 이동한다. 나쁜 환경에서 이 단계가 길어져도 기존120초 적응 이후 배고픔·굶주림 감소가 재개돼 무한 보호하지 않는다.
+
+development.history는 실제 단계 전환 최대60개다. events는 종/단계별 최근 기록을 최대6묶음으로 💡 후보에 연결하며 학생이 확인하면 noted=true가 된다. 성장 기록은 observations/rewardHistory/학습 조건과 분리한다. 긴급 생존과 먹이 발견이 먼저 보인다. 기존 maxVisible4/maxActive36을 유지하며 로드 후 이벤트는 저장한 원장에서 재구성한다. scene DOM은 기존 개체의 이름/단계 속성만 저빈도로 변경한다.
 
 ## 핵심 책임
 
@@ -57,12 +69,12 @@ metrics.bestStability는 최고값만 유지합니다. 진행률은 관찰20/핵
 
 `game state → save service → localStorage adapter`
 
-- services/save-format.js: 버전10 스냅샷의 whitelist 및 버전7·8·9 이전 검증/정리. ecology-migration.js는 과거 생태 기록 보관과 종별 수명 변환을 담당합니다. 도메인 전체를 그대로 stringify하지 않습니다.
+- services/save-format.js: 버전11 스냅샷의 whitelist 및 버전7·8·9·10 이전 검증/정리. ecology-migration.js는 과거 생태 기록 보관과 종별 수명 변환을 담당합니다. 도메인 전체를 그대로 stringify하지 않습니다.
 - services/save-service.js: 로드, 저장 요청 병합, flush, reset, 오류 상태. adapter를 주입받습니다.
 - adapters/local-storage.js: 게임 저장의 localStorage 접근 지점. key는 eco-system:forest-save. 안내 선호는 별도 guide-preference adapter가 담당합니다.
 - ui/forest-view.js: 목표/저장 문구/초기화 확인. 저장 데이터를 직접 쓰지 않습니다.
 
-저장 외피는 schemaVersion=10, savedAt(ISO 실제 저장 시각), domain, eventMemory입니다. domain.schemaVersion=10, ecologyRevision=2입니다. 7·8·9버전은 기존 진행을 보존하고 종의 의미 변화도 명시적으로 이전합니다. savedAt은 게임 계산에 사용하지 않습니다.
+저장 외피는 schemaVersion=11, savedAt(ISO 실제 저장 시각), domain, eventMemory입니다. domain.schemaVersion=11, ecologyRevision=2입니다. 7·8·9버전은 기존 진행을 보존하고 종의 의미 변화도 명시적으로 이전합니다. savedAt은 게임 계산에 사용하지 않습니다.
 
 지속 데이터: ecosystemId/simulationTime/nextInstanceSequence, inventory, organisms의 ID/종/정규화 위치/성장/foodStock/hunger/부족 누적/최근 섭식 활성 시각, environment, points/bestStability, observations, activities, rewardHistory, 관리 이력/누적 횟수/cooldown/effect, forestProgress.
 
@@ -110,7 +122,7 @@ nextAction은 현재 카드/개체, 실제 발견 후보·관찰, 완료 활동,
 
 ui/forest-view.js는 여섯 행의 DOM을 한 번 만들고 바뀐 문구와 체크만 갱신합니다. 기본 화면에는 한 줄 목표 수와 상세 버튼을 두고 기존 사이드 영역에 다음 행동을 표시합니다. 별도 갱신 loop를 추가하지 않고 기존 dashboard refresh 경로를 사용합니다.
 
-ui/help-view.js는 새 게임 목적/조작 안내와 재열기를 담당합니다. main.js가 restored.status==='new'일 때만 최초 자동 표시를 요청합니다. 닫기·Escape·건너뛰기도 확인으로 처리합니다. adapters/guide-preference.js는 선택적인 UI key eco-system:forest-guide-seen만 읽고 쓰며 오류가 게임 실행을 중단시키지 않습니다. schemaVersion10 도메인 저장과 독립적입니다.
+ui/help-view.js는 새 게임 목적/조작 안내와 재열기를 담당합니다. main.js가 restored.status==='new'일 때만 최초 자동 표시를 요청합니다. 닫기·Escape·건너뛰기도 확인으로 처리합니다. adapters/guide-preference.js는 선택적인 UI key eco-system:forest-guide-seen만 읽고 쓰며 오류가 게임 실행을 중단시키지 않습니다. schemaVersion11 도메인 저장과 독립적입니다.
 
 ## 9단계 환경 관찰과 유료 회복
 
@@ -143,7 +155,7 @@ js/dev/environment-tools.js는 기존 네 환경 비교 선택창을 environment
 - feeding은 낮은 빈도로 살아 있는 개체를 종별로 색인한다. 허용 관계 안에서 존재·남은 자원·거리·접근 가능성을 검사한다. 타깃 고갈/삭제 시 기존 재탐색 상태로 돌아가 다른 먹이를 찾는다. 식물 자원 소비와 동물 삭제를 feedingMode로 구분한다. 동기 삭제 후 stale target을 정리한다.
 - wander는 종별 motion 설정을 사용하며 식물/분해자를 이동시키지 않는다. 새 RAF·setInterval·무거운 효과는 없다.
 - 실제 섭식 신호의 relationId/foodPart를 feedback과 events가 사용한다. 발견 후보는 자동 수집하지만 observations와 최초 보상은 학생 확인 후 기록한다. 기존 두 핵심 관계를 우선하고 화면 4개 제한, 중복/재보상 방지를 유지한다.
-- save-format은 관계 정의에서 허용 관찰·보상·후보를 검증한다. 현재 관찰/후보 상한은22개 정의를 사용한다. 과거 관찰27개는 역사 기록에만 남는다. 누락된 신규 inventory는 잠금으로 추가한다. 이전 상수리/토끼의 새 runtime 필드 누락은 정상 기본값으로 보충한다. key는 유지하고 현재 relationId에는 v2_ 접두사를 쓴다. 현재 저장은 schemaVersion=10, 이전7·8·9를 안전하게 읽는다.
+- save-format은 관계 정의에서 허용 관찰·보상·후보를 검증한다. 현재 관찰/후보 상한은22개 정의를 사용한다. 과거 관찰27개는 역사 기록에만 남는다. 누락된 신규 inventory는 잠금으로 추가한다. 이전 상수리/토끼의 새 runtime 필드 누락은 정상 기본값으로 보충한다. key는 유지하고 현재 relationId에는 v2_ 접두사를 쓴다. 현재 저장은 schemaVersion=11, 이전7·8·9·10을 안전하게 읽는다.
 
 ## 카드와 개발 경계
 
@@ -181,6 +193,9 @@ cards.css의 한 줄 가로 스크롤로 23개를 담고 이름 줄바꿈과 터
 - population.replenishment: 실제 번식 이후 방아깨비 알 보충 가능량 최대6, 소나무의 솔나방 유충 발생2개 규칙의 healthySeconds/nextAt. 기존 무당벌레·일반 거미·등줄쥐의 자동 유입은 현재 홍단딱정벌레·무당거미·고슴도치에 적용하지 않는다. 신규 해금 없음. 획득+과거 실제 도입 count>0+먹이+환경+영역/밀도+대기+30 상한을 검사한다. 저장 복원으로 생성된 count=0 도입 항목은 유입 권한이 아니다. 알 가능량은 게임 보충 예산이고 현재 살아 있는 숨은 개체 수가 아니다. 실제 생물 1 instance=1 DOM 정책은 유지한다.
 - population history: 기존 80건/누적 통계 정책, natural_lifespan(-1), life_stage_exit(-1), colony_decline(-1), colony_renewal(0), replenishment(+1). 상태 창은 단위와 상대 생애, 실제 최근 변화만 보여준다. 남은 초 카운트다운은 없다. main은 변화 후 DOM/안정도/목표/이벤트/저장을 연결한다. 안정도 가중치와 최근 실제 감소 지표를 변경하지 않았고 원인마다 추가 벌점도 없다.
 
-현재 저장 계약은 schemaVersion10과 기존 eco-system:forest-save key다. 8·7은 누락된 life를 복원 활성 시각 기준으로 안전하게 할당한다. 9는 기존 정의로 life를 검증하고 변경7슬롯의 상대 나이/종료 분포를 새 정의로 변환한다. 10은 검증·whitelist 복사해 재추첨하지 않는다. 8의 생존·번식/재도입·분해/진행과7의 적응 정책을 유지한다. 알려진 cause/mode 및 종별 범위, 군집 상태, 보충/알 상한을 검증한다. 과거 nextAt가 남아 있는 휴면도 유효하다. 부적절한 life만 안전하게 보정하고 미래 형식 덮어쓰기는 막는다.
+현재 저장 계약은 schemaVersion11과 기존 eco-system:forest-save key다. 8·7은 누락된 life를 복원 활성 시각 기준으로 안전하게 할당한다. 9는 기존 정의로 life를 검증하고 변경7슬롯의 상대 나이/종료 분포를 새 정의로 변환한다. 10·11은 life를 검증·whitelist 복사해 재추첨하지 않는다. 8의 생존·번식/재도입·분해/진행과7의 적응 정책을 유지한다. 알려진 cause/mode 및 종별 범위, 군집 상태, 보충/알 상한을 검증한다. 과거 nextAt가 남아 있는 휴면도 유효하다. 부적절한 life만 안전하게 보정하고 미래 형식 덮어쓰기는 막는다.
 
 12단계는 기존 environment의 값만 변경하는 사건을 연결할 지점이다. 현재 수명 기간은 관리/환경으로 무한 연장되지 않는다. 환경 영향은 식물/먹이/번식/군집 활동을 통한다. 날씨·오염 사건은 추가하지 않았다. 15단계에는 초기 상대 나이·수명 하한·알 보충/번식 조건·30 상한·최종 수업 시간·경제를 함께 조정한다.
+
+
+11버전은 development-migration.js에서 성장 origin/progressSeconds, 원장과 씨앗/알 대기를 whitelist로 복원한다. stage 캐시는 저장하지 않고 재계산한다. version10은 현재 생태 기록을 archive로 보내지 않으며 version7~9의 종 변경 이전만 기존 ecology-migration에 맡긴다. 미래11 초과 스키마 또는 ecologyRevision2 초과는 덮어쓰기를 차단한다. 저장된 활성 시계 외 시간은 성장에 적용하지 않는다.

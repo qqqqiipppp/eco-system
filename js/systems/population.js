@@ -10,6 +10,8 @@ import {hasFoodStock} from './food-resources.js';
 import {hasSpace,isPositionAllowed} from './placement-rules.js';
 import {placementConfig} from '../../data/interaction-config.js';
 import {lifespanRules,replenishmentRules} from '../../data/lifespan-config.js';
+import {developmentRules,developmentConfig} from '../../data/development-config.js';
+import {canReproduce} from './development.js';
 
 export function populationMessage(record){
   if(record.ecologyRevision===1){const name=legacyEcology.names[record.speciesId],unit=legacyEcology.lifespan[record.speciesId].unit;return `이전 구성 기록: ${name} ${record.countBefore}${unit} → ${record.countAfter}${unit} (${({predation:"먹이 이용",starvation:"먹이 부족",natural_lifespan:"수명 종료",life_stage_exit:"유충 시기 종료",colony_decline:"군집 감소",colony_renewal:"군집 갱신",replenishment:"주변 보충",reproduction:"새 세대",release:"돌려보내기"})[record.cause]||"학생 배치"}). 현재 생물의 관찰이 아니에요.`;}
@@ -76,7 +78,28 @@ export function updateReproduction(state,seconds,layout){
   const parents=state.organisms.filter(o=>o.speciesId===id);
   const memory=state.population.breeding[id]||{healthySeconds:0,nextAt:state.simulationTime+rule.healthySeconds};
   state.population.breeding[id]=memory;
+  if(memory.pending){
+   const suitable=['sunlight','water','air','soil'].every(f=>factorValue(state.environment,f)>=developmentConfig.minimumEnvironment);
+   if(suitable)memory.pending.remainingSeconds=Math.max(0,memory.pending.remainingSeconds-seconds);
+   if(memory.pending.remainingSeconds>0||!suitable)continue;
+   const reserve=state.population.replenishment.grasshopper;
+   if(id==='grasshopper'&&!(reserve?.reserve>0))continue;
+   if(parents.length>=rule.maximum||id==='grasshopper'&&!usableFood(state,{speciesId:id,position:memory.pending.position},layout).length)continue;
+   const position=memory.pending.position;
+   if(!hasSpace(state,id,position,layout)||state.organisms.filter(o=>Math.hypot(o.position.x-position.x,o.position.y-position.y)<config.localRadius).length>=config.localLimit)continue;
+   const child=addOrganism(state,id,position,'reproduction',{mode:rule.mode});
+   if(child){
+    added.push(child);
+    if(id==='grasshopper'){
+     reserve.reserve--;reserve.healthySeconds=0;
+     reserve.nextAt=Math.max(reserve.nextAt,state.simulationTime+replenishmentRules.grasshopper.cooldown);
+    }
+    delete memory.pending;
+   }
+   continue;
+  }
   const ready=parents.filter(o=>{
+   if(!canReproduce(o,state.simulationTime))return false;
    if('hunger'in o)return o.hunger<=config.maxHealthyHunger&&o.lastSuccessfulFeedingAt!==null&&state.simulationTime-o.lastSuccessfulFeedingAt<=config.recentMealSeconds&&survivalStage(o)!=='weak'&&usableFood(state,o,layout).length>0;
    return o.growth>=.85&&o.foodStock>=foodResourceConfig[id].maximum*.6;
   });
@@ -87,9 +110,13 @@ export function updateReproduction(state,seconds,layout){
   for(const [dx,dy]of [[.05,0],[-.05,0],[.08,.03],[-.08,-.03],[.12,0],[-.12,0]]){
    const position={x:parent.position.x+dx,y:parent.position.y+dy};
    if(!hasSpace(state,id,position,layout)||state.organisms.filter(o=>Math.hypot(o.position.x-position.x,o.position.y-position.y)<config.localRadius).length>=config.localLimit)continue;
-   const child=addOrganism(state,id,position,'reproduction',{mode:rule.mode});
-   if(child)added.push(child);
-   if(child&&id==='grasshopper'){
+   if(developmentRules[id].pendingSeconds){
+    memory.pending={remainingSeconds:developmentRules[id].pendingSeconds,position:{...position}};
+   }else{
+    const child=addOrganism(state,id,position,'reproduction',{mode:rule.mode});
+    if(!child)continue;added.push(child);
+   }
+   if(id==='grasshopper'){
     const rule=replenishmentRules.grasshopper,m=state.population.replenishment.grasshopper||{healthySeconds:0,nextAt:state.simulationTime+rule.healthySeconds};m.reserve=rule.reserveMaximum;state.population.replenishment.grasshopper=m;
    }
    memory.healthySeconds=0;memory.nextAt=state.simulationTime+rule.cooldown;break;
@@ -105,6 +132,8 @@ export function updateReplenishment(state,seconds,layout){
  for(const [id,rule]of Object.entries(replenishmentRules)){
   const count=countSpecies(state,id),memory=state.population.replenishment[id]||{healthySeconds:0,nextAt:state.simulationTime+rule.healthySeconds,...(rule.seedBank?{reserve:0}:{})};
   state.population.replenishment[id]=memory;
+  // A primary egg owns one reserve token; never hatch it again via replenishment.
+  if(state.population.breeding[id]?.pending)continue;
   const permitted=state.inventory.find(c=>c.speciesId===id)?.acquired&&state.population.introductions[id]?.count>0&&(!rule.seedBank||memory.reserve>0);
   const food=permitted?usableFood(state,{speciesId:id},layout):[];
   const healthy=permitted&&food.length>0&&(rule.seedBank||count<rule.target)&&state.organisms.length<placementConfig.maxOrganisms&&environmentQuality(state.environment)>=config.minimumEnvironment&&['water','air','soil'].every(f=>factorValue(state.environment,f)>=.4);

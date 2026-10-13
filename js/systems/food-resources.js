@@ -1,5 +1,8 @@
 import { foodResourceConfig } from '../../data/ecology-config.js';
 import { growthSuitability } from './environment.js';
+import {developmentalCapacity} from './development.js';
+
+export const foodStockCapacity=instance=>(foodResourceConfig[instance.speciesId]?.maximum??0)*(instance.growth??1)*developmentalCapacity(instance);
 
 /** Abiotic suitability controls recovery; current growth controls capacity.
  * Plants persist even when stock falls below one edible portion.
@@ -8,8 +11,8 @@ export function recoverFoodStock(instance, seconds, environment, recoveryMultipl
   const rule = foodResourceConfig[instance.speciesId];
   if (!rule) return;
   const growth = instance.growth ?? 1;
-  const capacity = rule.maximum * growth;
-  instance.foodStock = Math.min(capacity, instance.foodStock + rule.recoveryPerSecond * growth * growthSuitability(instance.speciesId, environment) * seconds * recoveryMultiplier);
+  const capacity = foodStockCapacity(instance);
+  instance.foodStock = Math.min(capacity, instance.foodStock + rule.recoveryPerSecond * growth * developmentalCapacity(instance) * growthSuitability(instance.speciesId, environment) * seconds * recoveryMultiplier);
 }
 
 export function hasFoodStock(instance,relation) {
