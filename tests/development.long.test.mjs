@@ -34,7 +34,7 @@ function summary(s,f,initial,minutes,peak,meals,growth,eventMemory=emptyMemory){
 // the state clock directly. Visual random wandering is omitted in BOTH before
 // and after measurements, matching the existing 11.55 long-time fixtures.
 function simulate(s,minutes,{learning=false,memory,isolatedNutrition=false,check,checkpoint}={}){
- const f=createFeedingSystem(s.simulationTime),events=createEventSystem(s.simulationTime,memory),initial=counts(s),meals={},seen=new Set();
+ const f=createFeedingSystem(s.simulationTime,{environmentEventsEnabled:false}),events=createEventSystem(s.simulationTime,memory),initial=counts(s),meals={},seen=new Set();
  const growth={completed:0,transitions:0,bySpecies:{}},stages=new Set(),pendingSeen=new Set();let peak=s.organisms.length,checkpointReport;
  function scan(){for(const r of s.development.history){if(seen.has(r.sequence))continue;seen.add(r.sequence);growth.transitions++;if(completedStages.has(r.stage)){growth.completed++;growth.bySpecies[r.speciesId]=(growth.bySpecies[r.speciesId]||0)+1;}}for(const o of s.organisms)if(o.development)stages.add(o.speciesId+':'+developmentStage(o));for(const[id,m]of Object.entries(s.population.breeding))if(m.pending)pendingSeen.add(id);}
  scan();

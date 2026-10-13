@@ -26,7 +26,7 @@ for(const speciesId of Object.keys(feedingConfig)){
   shortageEvents[speciesId]={title:`${species.name}가 먹이를 찾기 어려워해요`,message:'한동안 이용할 수 있는 먹이를 찾지 못했어요.',explanation:`${foods.length?'먹이 후보는 '+foods.join('·')+'예요.':'이번 23종 안에서 먹이 관계를 더 확인하고 있어요. 정식 해금 전에는 개발 검사에서만 사용해요.'} 실제 존재, 남은 자원과 거리도 살펴봐요. 다른 먹이가 있어도 먹이 관계와 접근 조건을 갖춰야 해요.`};
 }
 // Core learning discoveries stay ahead of optional web discoveries, within the same cap.
-export const eventPriority=event=>event.payload?.urgent?4:event.payload?.developmentSequence?1:eventConfig.priority[event.kind]+(event.kind==='insight'&&foodRelationById[event.payload.relationId]?.core ? 0.25 : 0);
+export const eventPriority=event=>event.payload?.urgent?4:event.payload?.environmentEventId?0.75:event.payload?.developmentSequence?1:eventConfig.priority[event.kind]+(event.kind==='insight'&&foodRelationById[event.payload.relationId]?.core ? 0.25 : 0);
 export const growthInvestigation = {
   title: '왜 식물이 천천히 자랄까요?',
   message: '환경과 식물의 회복 사이에는 어떤 관계가 있을까요?',

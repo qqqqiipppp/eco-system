@@ -28,7 +28,7 @@ export function developmentNotice(record){
   const label=developmentRules[record.speciesId].stages.find(s=>s.id===record.stage)?.label;
   return `${name}의 ${label} 단계를 실제로 관찰했어요. 성장 단계가 달라져도 같은 개체·군집이에요.`;
 }
-function developmentRate(state,instance){
+export function developmentRate(state,instance){
   const rule=developmentRules[instance.speciesId];
   if(!rule||rule.model==='learning')return 0;
   if(rule.model==='colony')return ['stressed','resting'].includes(fungalCondition(state,instance).id)?0:instance.life.vigor;

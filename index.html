@@ -61,8 +61,26 @@
   </main>
   <dialog id="environment-dialog" aria-labelledby="environment-title">
     <div class="environment-heading"><h2 id="environment-title">환경 살펴보기</h2><button id="environment-close" type="button">닫기</button></div>
-    <p>현재 상태를 관찰해요. 환경 문제는 !에서 원인을 보고 생태계 포인트로 관리해요.</p>
-    <div id="environment-fields"></div><div id="environment-recovery"></div><p id="environment-result" role="status"></p>
+    <p>원인과 생물의 변화를 살펴봐요. 필요한 관리에는 생태계 포인트를 사용해요.</p>
+    <div id="environment-fields"></div>
+    <section id="environment-event-current" aria-labelledby="environment-event-title" hidden>
+      <h3 id="environment-event-title"></h3>
+      <p id="environment-event-phase"></p>
+      <p id="environment-event-cause"></p>
+      <p id="environment-event-direction"></p>
+      <h4>일어날 수 있는 변화</h4><p id="environment-event-expected"></p>
+      <h4>게임에서 확인한 변화</h4><ul id="environment-event-actual"></ul>
+      <h4>내가 선택한 관리와 결과</h4><ul id="environment-event-responses"></ul>
+      <div id="environment-event-choices"><button type="button" data-environment-event-choice="observe">관찰 기록하기</button><button type="button" data-environment-event-choice="wait">기다리며 살펴보기</button></div>
+      <p id="environment-event-choice"></p>
+      <small>관찰과 기다리기 선택은 포인트를 쓰거나 얻지 않아요. 실제 관리 행동은 !에서 선택해요.</small>
+    </section>
+    <p id="environment-event-empty">지금 진행 중인 환경 사건은 없어요. 생물과 환경의 상태를 계속 살펴봐요.</p>
+    <section id="environment-event-history-area" aria-labelledby="environment-event-history-title" hidden>
+      <h3 id="environment-event-history-title">최근 환경 사건</h3><ul id="environment-event-history"></ul>
+      <small>먹이 발견과 성장 기록에 섞이지 않는 환경 기록이에요.</small>
+    </section>
+    <div id="environment-recovery"></div><p id="environment-result" role="status"></p>
     <p>햇빛·물·공기·토양은 식물의 성장과 먹이 회복에 영향을 줘요. 공기가 나쁘면 동물도 천천히 움직여요.</p>
     <p>물·햇빛 부족과 나쁜 토양은 식물의 회복에 불리해요. 관리 결과는 기존 생태 규칙에 따라 서서히 나타나요.</p>
     <p id="stability-hint" role="status"></p>

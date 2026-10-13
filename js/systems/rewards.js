@@ -25,10 +25,13 @@ export function rewardResolvedManagement(state) {
   for (const record of state.managementHistory) {
     if (record.result !== 'applied' || !['water','soil'].includes(record.factor)) continue;
     const event = state.events.find(item => item.eventId === record.sourceEventId);
-    if (event?.status !== 'resolved') continue;
     // A later free environment comparison must not be credited as this action.
     const producers = state.organisms.filter(item => producerGrowth[item.speciesId]);
     const recovered = producers.length > 0 && producers.every(item => growthSuitability(item.speciesId,state.environment) >= eventConfig.growthThreshold);
+    // An episode notice stays available for observation after an actual recovery.
+    // Its acknowledgement earns nothing; paid care keeps the same once-only
+    // resolution check as the older shortage alert, independent of that notice.
+    if (event?.payload.environmentEventId ? !recovered : event?.status !== 'resolved') continue;
     record.result = state.environment[record.factor].value === record.valueAfter && recovered ? 'resolved' : 'changed-elsewhere';
     if (record.result === 'resolved') grantReward(state,'management',`${record.factor}_shortage_resolved`,record.sourceEventId);
   }

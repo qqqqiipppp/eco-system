@@ -8,6 +8,7 @@ import {survivalStage,populationMessage} from './population.js';
 import {organismById} from '../../data/organisms.js';
 import {developmentNotice} from './development.js';
 import {developmentConfig} from '../../data/development-config.js';
+import {currentEnvironmentEvent,environmentEventPresentation,chooseEnvironmentObservation} from './environment-events.js';
 
 /** Actual ecology signals only. No DOM, wall-clock timers, random generation or
  * automatic discovery credit. A discovery is recorded by acknowledge().
@@ -64,6 +65,13 @@ export function createEventSystem(initialTime = 0, memory = {}) {
       candidates.set(key, { key, kind: 'insight', sourceType: sourceExists ? 'organism' : 'environment', sourceId: sourceExists ? signal.consumerInstanceId : 'forest', title: definition.title, message: definition.message, explanation: definition.explanation, payload: { relationId } });
     }
     const growthNotices=new Map();
+    const environmentRecord=currentEnvironmentEvent(state)||state.environmentEvents.history.at(-1);
+    if(environmentRecord&&!environmentRecord.observed){
+      const summary=environmentEventPresentation(state).current,key=`environment-event:${environmentRecord.eventId}`;
+      candidates.set(key,{key,kind:'alert',sourceType:'environment',sourceId:environmentRecord.factor,
+        title:`숲 환경 변화: ${summary.name}`,message:summary.cause,explanation:`${summary.expected} ${summary.actual.join(' ')} 자세한 결과는 환경 상태에서 살펴봐요.`,
+        payload:{factor:environmentRecord.factor,environmentEventId:environmentRecord.eventId}});
+    }
     for(const record of state.development.history)if(!record.noted)growthNotices.set(`${record.speciesId}:${record.stage}`,record);
     for(const record of [...growthNotices.values()].slice(-developmentConfig.noticeLimit)){
       const sourceExists=live.has(record.instanceId),key=`development:${record.sequence}`;
@@ -92,7 +100,7 @@ export function createEventSystem(initialTime = 0, memory = {}) {
       if(active.size>=eventConfig.maxActive){
         // Growth records remain pending; a full queue cannot hide a new meal or
         // urgent survival warning behind an optional growth notice.
-        const optional=[...active.values()].find(event=>event.payload.developmentSequence&&eventPriority(event)<eventPriority(candidate));
+        const optional=[...active.values()].filter(event=>(event.payload.developmentSequence||event.payload.environmentEventId)&&eventPriority(event)<eventPriority(candidate)).sort((a,b)=>eventPriority(a)-eventPriority(b))[0];
         if(!optional)continue;
         close(optional,'resolved');active.delete(optional.key);
       }
@@ -136,11 +144,12 @@ export function createEventSystem(initialTime = 0, memory = {}) {
         const record=state.development.history.find(r=>r.sequence===event.payload.developmentSequence);
         if(record)for(const earlier of state.development.history)if(earlier.speciesId===record.speciesId&&earlier.stage===record.stage&&earlier.sequence<=record.sequence)earlier.noted=true;
       }
+      if(event.payload.environmentEventId)chooseEnvironmentObservation(state,event.payload.environmentEventId);
       if(event.payload.populationSequence){const record=state.population.history.find(r=>r.sequence===event.payload.populationSequence);if(record)record.noted=true;}
       close(event, event.kind === 'insight' ? 'resolved' : 'dismissed');
       cooldowns.set(event.key,time+eventConfig.cooldownSeconds);
       const reward = event.kind === 'insight' && event.payload.relationId ? grantReward(state,'observation',event.payload.relationId,eventId) : event.kind === 'question' ? grantReward(state,'question',`producer_${event.payload.factor}_limit`,eventId) : 0;
-      return { ok:true, message:(event.payload.developmentSequence?'성장 기록에 남겼어요!':event.kind==='insight' ? '발견 기록에 남겼어요!' : '확인했어요. 숲의 변화를 계속 살펴봐요.') + (reward ? ` 생태계 포인트 ${reward}를 받았어요.` : '') };
+      return { ok:true, message:(event.payload.environmentEventId?'환경 변화 기록에 남겼어요!':event.payload.developmentSequence?'성장 기록에 남겼어요!':event.kind==='insight' ? '발견 기록에 남겼어요!' : '확인했어요. 숲의 변화를 계속 살펴봐요.') + (reward ? ` 생태계 포인트 ${reward}를 받았어요.` : '') };
     },
     exportMemory: () => ({sequence,cooldowns:[...cooldowns],questionDone:[...questionDone],pendingDiscoveries:[...pendingDiscoveries]}),
     getDiagnostics: () => ({ checks, time }),

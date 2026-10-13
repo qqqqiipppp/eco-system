@@ -4,6 +4,7 @@ import { feedingConfig } from '../../data/ecology-config.js';
 import { producerGrowth } from '../../data/environment-config.js';
 import { factorValue, growthSuitability, setEnvironmentLevel } from './environment.js';
 import { eventConfig } from '../../data/event-config.js';
+import {recordEnvironmentResponse} from './environment-events.js';
 
 const findAction = id => managementActions.find(item => item.actionId === id);
 function relevant(action, event) {
@@ -48,6 +49,7 @@ export function executeManagement(state,actionId,eventId) {
   const check = validateManagement(state,actionId,eventId);
   if (!check.ok) return check;
   const {action,event,target,key,recoveryFactor} = check;
+  const before={environment:Object.fromEntries(Object.keys(state.environment).map(f=>[f,factorValue(state.environment,f)])),hunger:target?.hunger};
   const record = {actionId,sourceEventId:event.eventId,sourceId:event.sourceId,executedAt:state.simulationTime,cost:action.cost,result:'applied'};
   // All validation precedes this transaction. Never writes event.status.
   if (action.effectType === 'environment-step') {
@@ -69,6 +71,7 @@ export function executeManagement(state,actionId,eventId) {
   state.managementCooldowns[key] = state.simulationTime+action.cooldown;
   state.managementHistory.push(record);
   state.managementActionCount += 1;
+  recordEnvironmentResponse(state,record,before);
   // Bounded session log; cooldowns and reward history are independent.
   if (state.managementHistory.length > 100) state.managementHistory.shift();
   const message = recoveryFactor ? '서식지 회복으로 나쁜 환경을 한 단계 개선했어요. 식물의 회복도 한동안 도와요.' : actionId === 'food-support' ? '임시 먹이 지원을 했어요. 원래 먹이가 부족하면 다시 배고파져요.' : actionId === 'habitat-care' ? '서식지 회복을 시작했어요. 식물의 변화를 천천히 살펴봐요.' : actionId === 'water-care' ? '물 환경을 한 단계 개선했습니다.' : '토양을 한 단계 돌보았습니다.';

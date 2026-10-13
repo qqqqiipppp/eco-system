@@ -10,13 +10,16 @@ import {updateLifespans} from './lifespan.js';
 import {updateDecomposition,decompositionMultiplier} from './decomposition.js';
 import {satietySeconds} from '../../data/population-config.js';
 import {updateDevelopment,canFeed,developmentActivity} from './development.js';
+import {updateEnvironmentEvents,captureEnvironmentImpact,observeEnvironmentImpact,currentEnvironmentEvent} from './environment-events.js';
 
 const distance = (a, b) => Math.hypot(a.position.x - b.position.x, a.position.y - b.position.y);
 
 /** Low-frequency decisions plus lightweight pursuit movement. No DOM or timers.
  * All time is active simulation time; hidden tabs cannot accumulate hunger.
  */
-export function createFeedingSystem(initialTime = 0) {
+// The optional switch is a test isolation boundary. The student main always
+// uses the default; no URL option, saved flag or student toggle installs it.
+export function createFeedingSystem(initialTime = 0,{environmentEventsEnabled=true}={}) {
   let accumulator = 0;
   let simulationTime = initialTime;
   let byId = new Map();
@@ -130,6 +133,8 @@ export function createFeedingSystem(initialTime = 0) {
     diagnostics.ticks += 1;
     simulationTime += ecologyConfig.tickSeconds;
     advanceManagement(state, ecologyConfig.tickSeconds);
+    const environmentSample=environmentEventsEnabled&&(currentEnvironmentEvent(state)||state.simulationTime>=state.environmentEvents.nextAt)?captureEnvironmentImpact(state):null;
+    if(environmentEventsEnabled)updateEnvironmentEvents(state);
     updateDecomposition(state,ecologyConfig.tickSeconds);
     const recoveryMultiplier = producerRecoveryMultiplier(state)*decompositionMultiplier(state);
     rebuildIndex(state);
@@ -159,6 +164,7 @@ export function createFeedingSystem(initialTime = 0) {
     const ended=updateLifespans(state,ecologyConfig.tickSeconds);
     for(const id of ended){byId.delete(id);timing.delete(id);result.removedIds.push(id);}
     result.developmentChanges=updateDevelopment(state,ecologyConfig.tickSeconds);
+    if(environmentSample)observeEnvironmentImpact(state,environmentSample,ecologyConfig.tickSeconds);
     // Other predators may have targeted the same prey. Clear stale IDs now.
     for (const instance of state.organisms) {
       if (instance.targetInstanceId && !byId.has(instance.targetInstanceId)) returnToWander(instance, clockFor(instance), true);

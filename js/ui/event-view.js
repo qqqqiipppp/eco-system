@@ -45,7 +45,7 @@ export function createEventView(state, scene, onAcknowledge, management = {optio
       } else {
         detail.hidden=false;
         inspected=true;
-        const recordLabel=event.payload.developmentSequence?'성장 기록하기':event.kind==='insight'?'발견 기록하기':'확인했어요';
+        const recordLabel=event.payload.environmentEventId?'환경 변화 기록하기':event.payload.developmentSequence?'성장 기록하기':event.kind==='insight'?'발견 기록하기':'확인했어요';
         actions.append(button(recordLabel,()=>acknowledge(event)));
         renderManagement(event);
       }

@@ -14,8 +14,9 @@ import {legacyEcology,legacyRelationIds} from '../../data/legacy-ecology.js';
 import {restoreEcologyHistory,migrateLife} from './ecology-migration.js';
 import {restoreInstanceDevelopment,restoreDevelopmentHistory,restoreBreedingPending} from './development-migration.js';
 import {foodStockCapacity} from '../systems/food-resources.js';
+import {snapshotEnvironmentEvents,restoreEnvironmentEvents} from './environment-event-migration.js';
 
-export const SAVE_VERSION=11;
+export const SAVE_VERSION=12;
 const object=value=>value!==null&&typeof value==='object'&&!Array.isArray(value);
 const validId=value=>typeof value==='string'&&/^[a-zA-Z0-9_-]{1,80}$/.test(value);
 const text=value=>typeof value==='string'?value.slice(0,100):'';
@@ -51,6 +52,7 @@ export function createSaveSnapshot(state,eventMemory,savedAt) {
     introductions:Object.fromEntries(Object.entries(state.population.introductions).map(([id,v])=>[id,{count:v.count,nextAt:v.nextAt}]))},
   decomposition:{organicMatter:{...state.decomposition.organicMatter},soilNutrients:state.decomposition.soilNutrients,processed:state.decomposition.processed},
   development:{sequence:state.development?.sequence||0,history:(state.development?.history||[]).map(({sequence,instanceId,speciesId,stage,simulationTime,noted})=>({sequence,instanceId,speciesId,stage,simulationTime,noted}))},
+  environmentEvents:snapshotEnvironmentEvents(state.environmentEvents,state.simulationTime),
  },eventMemory};
 }
 
@@ -60,7 +62,7 @@ export function decodeSave(raw) {
  let input;
  try {if(typeof raw!=='string'||raw.length>1000000)return fresh('damaged');input=JSON.parse(raw);}catch{return fresh('damaged');}
  if(!object(input)||!Number.isInteger(input.schemaVersion))return fresh('missing-version');
- if(![7,8,9,10,SAVE_VERSION].includes(input.schemaVersion))return fresh(input.schemaVersion>SAVE_VERSION?'future-version':'old-version',true);
+ if(![7,8,9,10,11,SAVE_VERSION].includes(input.schemaVersion))return fresh(input.schemaVersion>SAVE_VERSION?'future-version':'old-version',true);
  const d=input.domain;
  if(!object(d)||d.schemaVersion!==input.schemaVersion||d.ecosystemId!=='forest'||!Array.isArray(d.organisms)||!Array.isArray(d.inventory)||!object(d.environment)||!object(d.metrics))return fresh('damaged');
  if(input.schemaVersion>=10&&d.ecologyRevision!==ECOLOGY_REVISION)return fresh('unknown-ecology',true);
@@ -139,6 +141,7 @@ export function decodeSave(raw) {
   state.decomposition.soilNutrients=number(d.decomposition?.soilNutrients,0,1);state.decomposition.processed=number(d.decomposition?.processed,0,1e6);
  }
  state.development=restoreDevelopmentHistory(d.development,input.schemaVersion,state,{array,number,time,repair:()=>{repaired=true;}});
+ state.environmentEvents=restoreEnvironmentEvents(d.environmentEvents,input.schemaVersion,state,{number,array,time,repair:()=>{repaired=true;}});
  for(const card of state.inventory)if(!state.population.introductions[card.speciesId]&&(card.acquired||state.organisms.some(o=>o.speciesId===card.speciesId)))state.population.introductions[card.speciesId]={count:state.organisms.filter(o=>o.speciesId===card.speciesId).length,nextAt:0};
  const seenObservations=new Set();
  state.observations=(previous?[]:array(d.observations,Object.keys(discoveryEvents).length)).flatMap(item=>{
@@ -198,7 +201,12 @@ export function decodeSave(raw) {
  const memory=object(input.eventMemory)?input.eventMemory:{};
  const eventMemory={sequence:Math.floor(number(memory.sequence,0,1e9)),cooldowns:[],questionDone:[],pendingDiscoveries:[]};
  const validKey=key=>typeof key==='string'&&((key.startsWith('shortage:')&&ids.has(key.slice(9)))||(key.startsWith('competition:')&&own(organismById,key.slice(12)))||Object.keys(environmentFactors).some(f=>key===`growth:${f}`||key===`investigate:${f}`));
- for(const entry of array(memory.cooldowns,40))if(Array.isArray(entry)&&validKey(entry[0])){const until=deadline(entry[1],eventConfig.cooldownSeconds);if(until>state.simulationTime)eventMemory.cooldowns.push([entry[0],until]);}
+ for(const entry of array(memory.cooldowns,40))if(Array.isArray(entry)&&validKey(entry[0])){
+  // The event system may retain an elapsed cooldown while its candidate still
+  // exists. That is normal session memory, not damaged save data.
+  if(Number.isFinite(entry[1])&&entry[1]>=0&&entry[1]<=state.simulationTime)continue;
+  const until=deadline(entry[1],eventConfig.cooldownSeconds);if(until>state.simulationTime)eventMemory.cooldowns.push([entry[0],until]);
+ }
  eventMemory.questionDone=array(memory.questionDone,4).filter(key=>Object.keys(environmentFactors).some(f=>key===`investigate:${f}`));
  const pendingSeen=new Set();
  for(const entry of (previous?[]:array(memory.pendingDiscoveries,Object.keys(discoveryEvents).length)))if(Array.isArray(entry)&&own(discoveryEvents,entry[0])&&!seenObservations.has(entry[0])&&!pendingSeen.has(entry[0])){pendingSeen.add(entry[0]);eventMemory.pendingDiscoveries.push([entry[0],{consumerInstanceId:validId(entry[1]?.consumerInstanceId)?entry[1].consumerInstanceId:null}]);}

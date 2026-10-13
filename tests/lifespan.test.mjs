@@ -109,13 +109,13 @@ test('T/V: genuine v8 and v7 migration protects old populations at large clocks 
  for(const version of [8,7]){
   const snapshot=JSON.parse(encode(s));snapshot.schemaVersion=snapshot.domain.schemaVersion=version;for(const o of snapshot.domain.organisms)delete o.life;delete snapshot.domain.population.replenishment;
   if(version===7){delete snapshot.domain.population;delete snapshot.domain.decomposition;}
-  const result=decodeSave(JSON.stringify(snapshot));assert.equal(result.status,'loaded');const loaded=result.state;assert.equal(loaded.schemaVersion,11);assert.equal(loaded.metrics.points,22);assert.equal(loaded.metrics.bestStability,88);assert(loaded.inventory.find(c=>c.speciesId==='frog').acquired);
+  const result=decodeSave(JSON.stringify(snapshot));assert.equal(result.status,'loaded');const loaded=result.state;assert.equal(loaded.schemaVersion,12);assert.equal(loaded.metrics.points,22);assert.equal(loaded.metrics.bestStability,88);assert(loaded.inventory.find(c=>c.speciesId==='frog').acquired);
   for(const o of loaded.organisms)assert(naturalEndAt(o)>loaded.simulationTime+600);updateLifespans(loaded,.5);assert.equal(loaded.organisms.length,4);
   if(version===8){assert.equal(loaded.population.breeding.grass.healthySeconds,120);assert.equal(loaded.population.introductions.frog.nextAt,1e6+30);assert.equal(loaded.decomposition.soilNutrients,.7);}
  }
 });
 test('damaged life values recover only the invalid instance; future versions remain protected',()=>{
- const s=world(make('grass'),make('frog'),make('mushroom')),raw=JSON.parse(encode(s));raw.domain.organisms[0].life.duration=-1;raw.domain.organisms[2].life.vigor='evil';const r=decodeSave(JSON.stringify(raw));assert.equal(r.status,'recovered');assert.deepEqual(r.state.organisms[1].life,s.organisms[1].life);assert(r.state.organisms[0].life.duration>0);raw.schemaVersion=raw.domain.schemaVersion=12;assert(decodeSave(JSON.stringify(raw)).blocked);
+ const s=world(make('grass'),make('frog'),make('mushroom')),raw=JSON.parse(encode(s));raw.domain.organisms[0].life.duration=-1;raw.domain.organisms[2].life.vigor='evil';const r=decodeSave(JSON.stringify(raw));assert.equal(r.status,'recovered');assert.deepEqual(r.state.organisms[1].life,s.organisms[1].life);assert(r.state.organisms[0].life.duration>0);raw.schemaVersion=raw.domain.schemaVersion=13;assert(decodeSave(JSON.stringify(raw)).blocked);
 });
 test('W: wall date and food support cannot change natural end; no per-organism timers or frame ageing',()=>{
  const s=world(make('frog'));const end=naturalEndAt(s.organisms[0]);supportSurvival(s.organisms[0]);assert.equal(naturalEndAt(s.organisms[0]),end);const raw=JSON.parse(encode(s));raw.savedAt='2000-01-01T00:00:00Z';const loaded=decodeSave(JSON.stringify(raw)).state;assert.equal(naturalEndAt(loaded.organisms[0]),end);assert.equal(loaded.simulationTime,0);
