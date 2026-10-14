@@ -1,10 +1,12 @@
 import {environmentFactors} from '../../data/environment-config.js';
 import {factorValue,qualityLabel} from '../systems/environment.js';
 import {environmentEventPresentation} from '../systems/environment-events.js';
+import {bindPointEconomyView} from './point-economy-view.js';
 
 // Student panel is read-only. Paid actions are verified by management callbacks.
 export function bindEnvironmentPanel(state,recovery={options:()=>[],execute:()=>({ok:false})}) {
  const dialog=document.querySelector('#environment-dialog');
+ const economy=bindPointEconomyView(state,recovery);
  const fields=document.querySelector('#environment-fields');
  const nodes=new Map();
  for(const [key,factor]of Object.entries(environmentFactors)){
@@ -54,6 +56,7 @@ export function bindEnvironmentPanel(state,recovery={options:()=>[],execute:()=>
  function render(){
   for(const [key,node]of nodes){const text=qualityLabel(factorValue(state.environment,key));if(node.textContent!==text)node.textContent=text;}
   if(!dialog.open)return;
+  economy.render();
   renderEvents();
   const options=recovery.options();const next=JSON.stringify([options,state.metrics.points]);if(next===signature)return;signature=next;area.replaceChildren();
   for(const option of options){const button=document.createElement('button');button.type='button';button.dataset.environmentRecovery=option.factor;button.textContent=`${option.name} · ${option.cost}포인트 (${environmentFactors[option.factor].name})`;button.setAttribute('aria-disabled',String(!option.available));

@@ -50,7 +50,7 @@ test('recovery validates funds, bad state, target and shared cooldown before mut
 });
 test('schema 7 save keeps legacy bad environments and learned progress; guide preference never edits game save',()=>{
  const s=createGameState();setEnvironmentLevel(s,'sunlight','bad');setEnvironmentLevel(s,'air','bad');completeActivity(s,'producer_quiz','grass');s.metrics.bestStability=85;
- const snapshot=createSaveSnapshot(s,{},'2026-10-08T00:00:00Z');snapshot.schemaVersion=snapshot.domain.schemaVersion=7;delete snapshot.domain.population;delete snapshot.domain.decomposition;const raw=JSON.stringify(snapshot),loaded=decodeSave(raw).state;assert.equal(loaded.schemaVersion,12);assert.equal(loaded.environment.sunlight.value,.15);assert.equal(loaded.environment.air.value,.15);assert.equal(loaded.metrics.bestStability,85);assert.equal(loaded.activities[0].completed,true);
+ const snapshot=createSaveSnapshot(s,{},'2026-10-08T00:00:00Z');snapshot.schemaVersion=snapshot.domain.schemaVersion=7;delete snapshot.domain.population;delete snapshot.domain.decomposition;const raw=JSON.stringify(snapshot),loaded=decodeSave(raw).state;assert.equal(loaded.schemaVersion,13);assert.equal(loaded.environment.sunlight.value,.15);assert.equal(loaded.environment.air.value,.15);assert.equal(loaded.metrics.bestStability,85);assert.equal(loaded.activities[0].completed,true);
  const storage=new Map([['eco-system:forest-save',raw]]);const adapter=createGuideAdapter(()=>({getItem:k=>storage.get(k),setItem:(k,v)=>storage.set(k,v)}));assert(!adapter.read());adapter.markSeen();assert(adapter.read());assert.equal(storage.get('eco-system:forest-save'),raw);
 });
 test('points exhausted remains a documented progression limit rather than silent environmental repair',()=>{
@@ -65,9 +65,11 @@ test('migrated observations never promise a first reward already received for an
  assert.equal(grantReward(s,'observation','v2_grass_to_grasshopper','new'),0);
  assert.doesNotMatch(nextAction(s),/첫 발견으로/);
  for(const factor of ['sunlight','water','air','soil'])s.rewardHistory.push({rewardId:`question:producer_${factor}_limit`});
- assert.match(nextAction(s),/핵심 학습에서 받을 첫 보상도 남지/);
- assert.match(nextAction(s),/선생님에게 도움/);
- // The second core relationship can still earn a genuine unused reward.
+ // The expanded legacy inventory has genuinely unearned current relationships;
+ // do not mistake exhausted core rewards for every reachable reward being gone.
+ assert.doesNotMatch(nextAction(s),/강아지풀 → 방아깨비.*첫 발견|방아깨비 → 참개구리.*첫 발견/);
+ assert.match(nextAction(s),/실제로 먹은 뒤/);
+ // Losing a reward row does not erase its protected consumed key.
  s.rewardHistory=s.rewardHistory.filter(r=>r.rewardId!=='observation:grasshopper_to_frog');
- assert.match(nextAction(s),/방아깨비 → 참개구리.*첫 발견으로/);
+ assert.doesNotMatch(nextAction(s),/방아깨비 → 참개구리.*첫 발견/);
 });

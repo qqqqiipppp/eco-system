@@ -3,6 +3,7 @@ import {relationFor,foodPartLabels} from '../../data/food-relations.js';
 import { organismById, roleLabels } from '../../data/organisms.js';
 import { qualityLabel, environmentQuality, factorValue } from '../systems/environment.js';
 import { getSpeciesCount } from '../state/game-state.js';
+import {pointGuidance} from '../systems/point-economy.js';
 
 export function renderDashboard(state) {
   const summary = state.metrics.stabilitySummary;
@@ -12,7 +13,7 @@ export function renderDashboard(state) {
   if (meter.value !== state.metrics.stability) meter.value = state.metrics.stability || 0;
   if (summary) { setText('#stability-hint', summary.hint); meter.setAttribute('aria-label', `생태계 안정도: ${summary.label}`); }
   setText('#points-value', state.metrics.points);
-  setText('#management-status', state.managementEffects.length ? '서식지 회복 중이에요. 한동안 식물의 성장과 먹이 회복을 도와요.' : '💡 발견 기록과 ? 조사로 생태계 포인트를 얻고, !에서 숲을 돌볼 수 있어요.');
+  setText('#management-status', state.managementEffects.length ? '서식지 회복 중이에요. 한동안 식물의 성장과 먹이 회복을 도와요.' : pointGuidance(state));
   setText('#diversity-value', getSpeciesCount(state));
   setText('#environment-value', qualityLabel(environmentQuality(state.environment)));
   const labels = ['sunlight', 'water', 'air', 'soil'];

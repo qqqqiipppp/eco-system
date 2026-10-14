@@ -17,7 +17,7 @@ export function world(groups,prefix='fixture'){
 export function legacySave(version=9){
  const state=world(organisms.map((o,i)=>[o.id,1,.22+(i%5)*.035]));state.simulationTime=1000;
  const save=createSaveSnapshot(state,emptyMemory,'2020-01-01T00:00:00Z'),d=save.domain;
- save.schemaVersion=d.schemaVersion=version;delete d.ecologyRevision;delete d.legacyEcology;delete d.development;delete d.environmentEvents;
+ save.schemaVersion=d.schemaVersion=version;delete d.ecologyRevision;delete d.legacyEcology;delete d.development;delete d.environmentEvents;delete d.pointEconomy;
  d.metrics={points:77,bestStability:93};d.forestProgress={cleared:true,clearedAt:800,stableSeconds:30};
  d.observations=legacyEcology.relations.map(r=>({relationId:r.relationId,eventId:'old-event',discoveredAt:500}));
  d.rewardHistory=d.observations.map(r=>({rewardId:`observation:${r.relationId}`,sourceId:'old-event',grantedAt:500,amount:12}));

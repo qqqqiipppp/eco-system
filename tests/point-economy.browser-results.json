@@ -1,0 +1,83 @@
+{
+  "scenario15": {
+    "studentInitialPoints": 0,
+    "earnedByActualFoodAndActivities": 35,
+    "pointsBeforeCare": 35,
+    "actualCareCost": 6,
+    "pointsAfterCare": 32,
+    "studyAward": 4,
+    "finalPoints": 36,
+    "reloadNoDoublePayment": true,
+    "fixturePointInjection": 0,
+    "acceleratedActualEcology": true
+  },
+  "careCooldownRefreshed": true,
+  "viewports": [
+    {
+      "width": 1280,
+      "height": 800,
+      "pageHorizontalOverflow": false,
+      "pageVerticalOverflow": false,
+      "dialogHorizontalOverflow": false,
+      "dialogInside": true,
+      "minControlHeight": 44,
+      "closeVisible": true
+    },
+    {
+      "width": 1138,
+      "height": 712,
+      "pageHorizontalOverflow": false,
+      "pageVerticalOverflow": false,
+      "dialogHorizontalOverflow": false,
+      "dialogInside": true,
+      "minControlHeight": 44,
+      "closeVisible": true
+    },
+    {
+      "width": 960,
+      "height": 600,
+      "pageHorizontalOverflow": false,
+      "pageVerticalOverflow": false,
+      "dialogHorizontalOverflow": false,
+      "dialogInside": true,
+      "minControlHeight": 44,
+      "closeVisible": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "pageHorizontalOverflow": false,
+      "pageVerticalOverflow": false,
+      "dialogHorizontalOverflow": false,
+      "dialogInside": true,
+      "minControlHeight": 44,
+      "closeVisible": true
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "pageHorizontalOverflow": false,
+      "pageVerticalOverflow": "portrait scrolling allowed",
+      "dialogHorizontalOverflow": false,
+      "dialogInside": true,
+      "minControlHeight": 44,
+      "closeVisible": true
+    }
+  ],
+  "performance": {
+    "callbacks": 108,
+    "reads": 0,
+    "intervals": 0,
+    "maxPending": 1,
+    "sameNodes": true,
+    "domCount": 30,
+    "visibleEvents": 1
+  },
+  "hidden": {
+    "before": 2402,
+    "after": 2402,
+    "resumed": 2403,
+    "pointReceiptsUnchanged": true
+  },
+  "errors": []
+}

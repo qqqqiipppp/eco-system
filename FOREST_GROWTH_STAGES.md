@@ -1,4 +1,6 @@
-# 대표 5종의 성장·생애주기 — 12단계 환경 연결
+# 대표 5종의 성장·생애주기 — 13단계 보존
+
+13단계 확인일: 2026-10-14. 아래 성장/생애 계수와 교육적 단순화는 변경하지 않았다. 새 경제는 완료 환경 사건의 실제 결과를 학습하고, 성장 기록만으로 포인트를 지급하지 않는다. [포인트 경제](FOREST_POINT_ECONOMY.md)는 별도 계약이다.
 
 확인일: 2026-10-13. 실제 성장 계약은 `data/development-config.js`, `js/state/development-state.js`, `js/systems/development.js`, 기존 population·feeding·food-resources·lifespan·decomposition, `js/services/development-migration.js`를 기준으로 한다. 12단계는 이 조건을 유지한 채 환경 사건의 실제 환경값을 연결한다. **23종류 카드·22개 먹이 관계(A5/B17/C0)·ecologyRevision 2는 그대로 유지한다.** 신규 17종의 학생 잠금도 유지한다.
 
@@ -100,7 +102,7 @@ grass/GH의 대기는 각각 종당 breeding memory 안의 pending1개로 제한
 
 `state.development.history`는 실제 단계 전환 기록만 최대60개 보존한다. 개체별 단계가 처음 넘어간 때 sequence·instanceId·speciesId·stage·활성 시각·알림 확인 여부를 기록한다. 새싹/약충/새끼로 처음 발생하거나 성숙 개체를 직접 도입한 사실을 이미 완료된 성장으로 꾸미지 않는다. 음식 관찰·학습 완료·포인트/보상 기록과 별개이며 성장 이력에 새 포인트를 지급하지 않는다. 성장 알림은 최대6기록을 묶어 기존 이벤트에 연결하며 화면 동시4개·내부 최대36개 제한을 유지한다. 같은 기록을 다시 보상하거나 음식 관계 관찰로 바꾸지 않는다.
 
-저장은 key `eco-system:forest-save`, **schemaVersion12**, ecologyRevision2다. version7·8·9·10은 기존 생태 이전 경로와 함께 성숙 개체/군집 정책을 적용한다. 이전 관찰은 `legacyEcology`로 보존하고 현재22관계 관찰로 바꾸지 않는다. 수명·굶주림·식사 시각·번식 cooldown·예산·대기·유기물·양분·군집 활력·학습·획득 카드·관리·클리어·포인트를 유지한다. version11·12는 누적 발달·남은 대기·실제 성장 이력을 검증 후 복원한다. version7~11의 새 환경 원장은 비어 시작하고 복원 활성 시각부터8분 관찰 유예를 제공한다. version12의 환경값·사건 진행/회복/관찰은 별도로 보존하며 로드 때문에 성장값·수명을 재추첨하거나 사건 효과를 중복 적용하지 않는다. 알 수 없는 미래 버전/생태 revision의 저장 덮어쓰기 차단을 유지한다.
+저장은 key `eco-system:forest-save`, **schemaVersion13**, ecologyRevision2다. version7·8·9·10은 기존 생태 이전 경로와 함께 성숙 개체/군집 정책을 적용한다. 이전 관찰은 `legacyEcology`로 보존하고 현재22관계 관찰로 바꾸지 않는다. 수명·굶주림·식사 시각·번식 cooldown·예산·대기·유기물·양분·군집 활력·학습·획득 카드·관리·클리어·포인트를 유지한다. version11·12·13은 누적 발달·남은 대기·실제 성장 이력을 검증 후 복원한다. version7~11의 새 환경 원장은 비어 시작하고 복원 활성 시각부터8분 관찰 유예를 제공한다. version12·13의 환경값·사건 진행/회복/관찰은 별도로 보존하며 로드 때문에 성장값·수명을 재추첨하거나 사건 효과를 중복 적용하지 않는다. 알 수 없는 미래 버전/생태 revision의 저장 덮어쓰기 차단을 유지한다.
 
 성장에는 개체별 타이머/새 RAF를 만들지 않는다. 기존 약0.5초 ecology tick, 공통 RAF1개·최대30fps, transform 이동과 DOM 재사용,30개체 상한을 유지한다. 기존 placeholder/CSS/텍스트/이모지만 사용하며 단계별 종 정확성 그림을 새 제작하지 않았다. 실제 Galaxy Tab S5e의 발열·FPS·터치 지연 검증 여부는 보고서에 구분한다.
 

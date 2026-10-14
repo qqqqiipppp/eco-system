@@ -8,7 +8,7 @@ import {managementActions} from '../../data/management-actions.js';
 import {discoveryEvents,eventConfig} from '../../data/event-config.js';
 import {survivalStage,validateIntroduction} from './population.js';
 import {placementConfig} from '../../data/interaction-config.js';
-import {hasReceivedReward} from './rewards.js';
+import {pointGuidance} from './point-economy.js';
 
 const relationNames={v2_grass_to_grasshopper:'강아지풀 → 방아깨비',v2_grasshopper_to_frog:'방아깨비 → 참개구리'};
 export function goalPresentation(state) {
@@ -47,19 +47,11 @@ export function nextAction(state) {
  if(state.forestProgress.cleared&&!poor.length)return '숲 목표를 달성했어요! 계속 관찰하고 생물과 환경을 돌봐요.';
  if(!has('grass'))return '강아지풀 카드를 고르고 숲에 놓아 주세요. 풀은 방아깨비의 먹이가 돼요.';
  if(!has('grasshopper'))return '방아깨비 카드를 고르고 강아지풀 가까이에 놓아 주세요.';
- const pending=state.events.find(item=>item.kind==='insight'&&item.status==='active'&&!observed(item.payload.relationId));
+ const pending=state.events.find(item=>item.kind==='insight'&&item.status==='active'&&item.payload.relationId&&!observed(item.payload.relationId));
  if(pending)return '💡를 눌러 실제로 본 먹이 관계를 발견 기록에 남겨 주세요.';
  if(poor.length){
   const cost=Math.min(...poor.map(key=>managementActions.find(action=>action.applicableTo===key)?.cost||managementActions.find(action=>action.actionId==='habitat-care').cost));
-  const question=state.events.some(item=>item.kind==='question'&&item.status==='active'&&!state.rewardHistory.some(reward=>reward.rewardId===`question:producer_${item.payload.factor}_limit`));
-  if(state.metrics.points<cost&&question)return '?에서 원인을 생각해 보세요. 처음 정답을 확인하면 돌봄에 쓸 포인트를 얻어요.';
-  if(state.metrics.points<cost){
-   const activity=forestGoal.requiredActivities.find(id=>!completed(id)&&activityById[id].choices);
-   if(activity)return `배움에서 ${activityById[activity].title} 활동을 해 보세요. 최초 완료로 포인트를 얻어요.`;
-   const rewardingRelation=forestGoal.requiredObservations.find(id=>!observed(id)&&!hasReceivedReward(state,'observation',id));
-   if(rewardingRelation)return `${relationNames[rewardingRelation]} 먹이 관계를 기록해요. 첫 발견으로 돌봄에 쓸 포인트를 얻어요.`;
-   if(forestGoal.requiredObservations.every(id=>hasReceivedReward(state,'observation',id))&&state.activities.every(item=>item.completed)&&Object.keys(environmentFactors).every(factor=>hasReceivedReward(state,'question',`producer_${factor}_limit`)))return '포인트가 부족하고 핵심 학습에서 받을 첫 보상도 남지 않았어요. 현재 숲을 저장해 두고 선생님에게 도움을 요청해요.';
-  }
+  if(state.metrics.points<cost)return pointGuidance(state);
   if(poor.some(key=>key==='sunlight'||key==='air'))return `${poor.map(key=>environmentFactors[key].name).join('·')} 상태를 환경 패널에서 살펴봐요. 서식지 회복은 포인트가 필요한 관리 행동이에요.`;
   return `${poor.map(key=>environmentFactors[key].name).join('·')} 상태가 나빠요. !에서 원인을 보고 포인트로 환경을 돌봐요.`;
  }

@@ -60,17 +60,17 @@ function protectedData(s){
   legacyEcology:s.legacyEcology,rewardHistory:s.rewardHistory,decomposition:s.decomposition,activities:s.activities,cleared:s.forestProgress.cleared};
 }
 
-test('environment save: schema12 snapshots whitelist episode fields and detach nested records from runtime data',()=>{
+test('environment save: schema13 snapshots whitelist episode fields and detach nested records from runtime data',()=>{
  const s=episode(),record=s.environmentEvents.history[0];record.runtimeNode={html:'not save data'};s.environmentEvents.debugOverride=true;
  record.evidence.push({instanceId:'gone-grass',speciesId:'grass',type:'growth-delay',at:s.simulationTime});
- const raw=snapshot(s);assert.equal(SAVE_VERSION,12);assert.equal(raw.schemaVersion,12);assert.equal(raw.domain.schemaVersion,12);assert.equal(s.schemaVersion,12);
+ const raw=snapshot(s);assert.equal(SAVE_VERSION,13);assert.equal(raw.schemaVersion,13);assert.equal(raw.domain.schemaVersion,13);assert.equal(s.schemaVersion,13);
  assert(!('debugOverride'in raw.domain.environmentEvents));assert(!('runtimeNode'in raw.domain.environmentEvents.history[0]));
  raw.domain.environmentEvents.history[0].evidence[0].type='producer-decline';assert.equal(record.evidence[0].type,'growth-delay');
  assert.equal(raw.domain.ecologyRevision,2);assert.equal(raw.domain.inventory.length,23);
 });
 
 test('environment save: genuine v11 keeps growth/life/pending/current+historic observations and schedules after restored active time',()=>{
- const raw=priorSave(11),r=decodeSave(JSON.stringify(raw));assert.equal(r.status,'loaded');assert.equal(r.state.schemaVersion,12);
+ const raw=priorSave(11),r=decodeSave(JSON.stringify(raw));assert.equal(r.status,'loaded');assert.equal(r.state.schemaVersion,13);
  assert.deepEqual(r.state.environmentEvents,createEnvironmentEventState(raw.domain.simulationTime));
  assert.deepEqual(r.state.environment,raw.domain.environment);assert.deepEqual(r.state.organisms.map(o=>o.life),raw.domain.organisms.map(o=>o.life));
  assert.deepEqual(r.state.organisms.map(o=>({origin:o.development.origin,progressSeconds:o.development.progressSeconds})),raw.domain.organisms.map(o=>o.development));
@@ -209,9 +209,9 @@ test('environment save: observation choices and paid-response factor variants pe
  assert(chooseEnvironmentObservation(r.state,record.eventId,'wait').ok);assert.equal(r.state.metrics.points,points);assert.deepEqual(r.state.observations,s.observations);
 });
 
-test('environment save: future13 and unknown ecology revisions remain blocked and cannot overwrite the original local save',()=>{
+test('environment save: future14 and unknown ecology revisions remain blocked and cannot overwrite the original local save',()=>{
  for(const version of [10,11,12]){const raw=version<12?priorSave(version):snapshot(createGameState());raw.domain.ecologyRevision=999;const r=decodeSave(JSON.stringify(raw));assert.equal(r.status,'unknown-ecology');assert(r.blocked);}
- const raw=snapshot(createGameState());raw.schemaVersion=raw.domain.schemaVersion=13;const source=JSON.stringify(raw);let writes=0;
+ const raw=snapshot(createGameState());raw.schemaVersion=raw.domain.schemaVersion=14;const source=JSON.stringify(raw);let writes=0;
  const service=createSaveService({adapter:{read:()=>source,write:()=>writes++,remove(){}},getState:createGameState,getEventMemory:()=>emptyMemory});
  const r=service.load();assert.equal(r.status,'future-version');assert(r.blocked);service.schedule();assert.equal(service.flush(true),false);assert.equal(writes,0);service.dispose();
 });

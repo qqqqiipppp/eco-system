@@ -15,8 +15,9 @@ import {restoreEcologyHistory,migrateLife} from './ecology-migration.js';
 import {restoreInstanceDevelopment,restoreDevelopmentHistory,restoreBreedingPending} from './development-migration.js';
 import {foodStockCapacity} from '../systems/food-resources.js';
 import {snapshotEnvironmentEvents,restoreEnvironmentEvents} from './environment-event-migration.js';
+import {snapshotPointEconomy,restorePointEconomy} from './point-economy-migration.js';
 
-export const SAVE_VERSION=12;
+export const SAVE_VERSION=13;
 const object=value=>value!==null&&typeof value==='object'&&!Array.isArray(value);
 const validId=value=>typeof value==='string'&&/^[a-zA-Z0-9_-]{1,80}$/.test(value);
 const text=value=>typeof value==='string'?value.slice(0,100):'';
@@ -37,10 +38,12 @@ export function createSaveSnapshot(state,eventMemory,savedAt) {
   }),
   environment:Object.fromEntries(Object.entries(state.environment).map(([key,item])=>[key,{value:item.value}])),
   metrics:{points:state.metrics.points,bestStability:state.metrics.bestStability},
+  pointEconomy:snapshotPointEconomy(state),
+  recoverySupportUsed:state.recoverySupportUsed,
   observations:state.observations.map(({relationId,eventId,discoveredAt})=>({relationId,eventId,discoveredAt})),
   activities:state.activities.map(({activityId,completed,attempts,completedAt,lastAnswer,ecologyRevision})=>({activityId,completed,attempts,completedAt,lastAnswer,...(ecologyRevision===1?{ecologyRevision:1}:{})})),
   rewardHistory:state.rewardHistory.map(({rewardId,grantedAt,sourceId,amount})=>({rewardId,grantedAt,sourceId,amount})),
-  managementHistory:state.managementHistory.map(({actionId,sourceEventId,sourceId,executedAt,cost,result,factor,valueAfter})=>({actionId,sourceEventId,sourceId,executedAt,cost,result,factor,valueAfter})),
+  managementHistory:state.managementHistory.map(({actionId,sourceEventId,sourceId,executedAt,cost,result,factor,valueAfter,targetFactor,beforeValue,afterValue,supportUsed,directEnvironment})=>({actionId,sourceEventId,sourceId,executedAt,cost,result,factor,valueAfter,targetFactor,beforeValue,afterValue,supportUsed,directEnvironment})),
   managementActionCount:state.managementActionCount,
   managementCooldowns:{...state.managementCooldowns},
   managementEffects:state.managementEffects.map(({actionId,startedAt,expiresAt,multiplier})=>({actionId,startedAt,expiresAt,multiplier})),
@@ -62,7 +65,7 @@ export function decodeSave(raw) {
  let input;
  try {if(typeof raw!=='string'||raw.length>1000000)return fresh('damaged');input=JSON.parse(raw);}catch{return fresh('damaged');}
  if(!object(input)||!Number.isInteger(input.schemaVersion))return fresh('missing-version');
- if(![7,8,9,10,11,SAVE_VERSION].includes(input.schemaVersion))return fresh(input.schemaVersion>SAVE_VERSION?'future-version':'old-version',true);
+ if(![7,8,9,10,11,12,SAVE_VERSION].includes(input.schemaVersion))return fresh(input.schemaVersion>SAVE_VERSION?'future-version':'old-version',true);
  const d=input.domain;
  if(!object(d)||d.schemaVersion!==input.schemaVersion||d.ecosystemId!=='forest'||!Array.isArray(d.organisms)||!Array.isArray(d.inventory)||!object(d.environment)||!object(d.metrics))return fresh('damaged');
  if(input.schemaVersion>=10&&d.ecologyRevision!==ECOLOGY_REVISION)return fresh('unknown-ecology',true);
@@ -182,6 +185,13 @@ export function decodeSave(raw) {
   const rule=managementActions.find(rule=>rule.actionId===item?.actionId);if(!rule){repaired=true;return [];}
   const record={actionId:rule.actionId,sourceEventId:text(item.sourceEventId),sourceId:text(item.sourceId),executedAt:time(item.executedAt),cost:rule.cost,result:['resolved','changed-elsewhere','interrupted'].includes(item.result)?item.result:item.result==='applied'&&!Object.hasOwn(environmentFactors,item.factor)?'applied':'interrupted'};
   if(Object.hasOwn(environmentFactors,item.factor)){record.factor=item.factor;record.valueAfter=number(item.valueAfter,0,1);}
+  if(input.schemaVersion>=13){
+   if(item.targetFactor===null||Object.hasOwn(environmentFactors,item.targetFactor))record.targetFactor=item.targetFactor;
+   if(Number.isFinite(item.beforeValue)&&item.beforeValue>=0&&item.beforeValue<=1)record.beforeValue=item.beforeValue;
+   if(Number.isFinite(item.afterValue)&&item.afterValue>=0&&item.afterValue<=1)record.afterValue=item.afterValue;
+   if(Number.isFinite(item.supportUsed))record.supportUsed=number(item.supportUsed,0,rule.cost);
+   if(item.directEnvironment===true)record.directEnvironment=true;
+  }
   return [record];
  });
  state.managementActionCount=Math.max(state.managementHistory.length,Math.floor(number(d.managementActionCount,0,1e9,state.managementHistory.length)));
@@ -210,5 +220,8 @@ export function decodeSave(raw) {
  eventMemory.questionDone=array(memory.questionDone,4).filter(key=>Object.keys(environmentFactors).some(f=>key===`investigate:${f}`));
  const pendingSeen=new Set();
  for(const entry of (previous?[]:array(memory.pendingDiscoveries,Object.keys(discoveryEvents).length)))if(Array.isArray(entry)&&own(discoveryEvents,entry[0])&&!seenObservations.has(entry[0])&&!pendingSeen.has(entry[0])){pendingSeen.add(entry[0]);eventMemory.pendingDiscoveries.push([entry[0],{consumerInstanceId:validId(entry[1]?.consumerInstanceId)?entry[1].consumerInstanceId:null}]);}
+ state.recoverySupportUsed=input.schemaVersion<13?false:typeof d.recoverySupportUsed==='boolean'?d.recoverySupportUsed:typeof d.pointEconomy?.support?.used==='boolean'?d.pointEconomy.support.used:true;
+ state.pointEconomy=restorePointEconomy(d.pointEconomy,input.schemaVersion,state,{number,repair:()=>{repaired=true;}});
+ state.recoverySupportUsed=state.recoverySupportUsed||state.pointEconomy.support.used||state.pointEconomy.totals.support>0;
  return {state,eventMemory,savedAt:typeof input.savedAt==='string'&&Number.isFinite(Date.parse(input.savedAt))?input.savedAt:null,status:repaired?'recovered':'loaded',blocked:false};
 }

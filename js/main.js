@@ -22,12 +22,13 @@ import { createEventSystem } from './systems/events.js';
 import { createEventView } from './ui/event-view.js';
 import { completeActivity } from './systems/activities.js';
 import { createActivityView } from './ui/activity-view.js';
-import { executeManagement, availableManagement, availableEnvironmentalRecovery } from './systems/management.js';
+import { executeManagement, validateManagement, availableManagement, availableEnvironmentalRecovery } from './systems/management.js';
 import {createPopulationView} from './ui/population-view.js';
 import {removeOrganism} from './systems/lifecycle.js';
 import {populationMessage} from './systems/population.js';
 import {hasDevelopmentWork} from './systems/development.js';
 import {hasEnvironmentEventWork,chooseEnvironmentObservation} from './systems/environment-events.js';
+import {claimEnvironmentStudy,claimRecoverySupport} from './systems/point-economy.js';
 
 // Module exports support integration checks; there is no global debug API.
 export const gameState = createGameState();
@@ -155,6 +156,22 @@ try {
   });
   stabilitySystem.update(gameState);
   const environmentPanel = bindEnvironmentPanel(gameState, {
+    onStudy:(id,answer)=>{
+      const response=claimEnvironmentStudy(gameState,id,answer);
+      if(response.ok){eventSystem.refresh(gameState);renderDashboard(gameState);eventView.render();refreshProgress();saveService.schedule();loop.refresh();}
+      return response;
+    },
+    onSupport:()=>{
+      const response=claimRecoverySupport(gameState);
+      if(response.ok){renderDashboard(gameState);eventView.render();refreshProgress();saveService.schedule();loop.refresh();}
+      return response;
+    },
+    supportCareOption:factor=>validateManagement(gameState,['water','soil'].includes(factor)?factor==='water'?'water-care':'soil-care':'habitat-care',{sourceType:'environment',sourceId:factor}),
+    onSupportCare:factor=>{
+      const response=executeManagement(gameState,['water','soil'].includes(factor)?factor==='water'?'water-care':'soil-care':'habitat-care',{sourceType:'environment',sourceId:factor});
+      if(response.ok){eventSystem.refresh(gameState);stabilitySystem.update(gameState);refreshProgress();renderDashboard(gameState);eventView.render();saveService.schedule();loop.refresh();}
+      return response;
+    },
     onEventChoice:(id,choice)=>{
       const response=chooseEnvironmentObservation(gameState,id,choice);
       if(response.ok){eventSystem.refresh(gameState);eventView.render();saveService.schedule();loop.refresh();}

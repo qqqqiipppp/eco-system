@@ -4,6 +4,7 @@ import { forestDefinition } from '../../data/forest.js';
 import { createOrganismInstance } from './organism-instance.js';
 import {ECOLOGY_REVISION} from '../../data/species-taxonomy.js';
 import {createEnvironmentEventState} from './environment-event-state.js';
+import {createPointEconomyState} from './point-economy-state.js';
 
 /** Serializable domain state. UI selection stays separate and is not save data.
  * stability: null means not calculated; do not present a fabricated score.
@@ -11,7 +12,9 @@ import {createEnvironmentEventState} from './environment-event-state.js';
  */
 export function createGameState() {
   return {
-    schemaVersion: 12,
+    schemaVersion: 13,
+    pointEconomy:createPointEconomyState(),
+    recoverySupportUsed:false,
     environmentEvents: createEnvironmentEventState(),
     development: {sequence:0,history:[]},
     ecologyRevision: ECOLOGY_REVISION,
