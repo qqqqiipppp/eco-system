@@ -45,7 +45,7 @@ export function createEventView(state, scene, onAcknowledge, management = {optio
       } else {
         detail.hidden=false;
         inspected=true;
-        const recordLabel=event.payload.environmentEventId?'환경 변화 기록하기':event.payload.developmentSequence?'성장 기록하기':event.kind==='insight'?'발견 기록하기':'확인했어요';
+        const recordLabel=event.payload.organicOriginSequence?'유기물 발생 확인':event.payload.environmentEventId?'환경 변화 기록하기':event.payload.developmentSequence?'성장 기록하기':event.kind==='insight'?'발견 기록하기':'확인했어요';
         actions.append(button(recordLabel,()=>acknowledge(event)));
         renderManagement(event);
       }
@@ -102,13 +102,15 @@ export function createEventView(state, scene, onAcknowledge, management = {optio
       let entry=markers.get(event.eventId);
       if(!entry) {
         const node=button(symbols[event.kind],()=>open(event));
-        node.className=`event-marker event-${event.kind}`; node.dataset.eventMarker=event.eventId;
+        node.className=`event-marker event-${event.kind}${event.payload.organicOriginSequence?' organic-marker':''}`; node.dataset.eventMarker=event.eventId;
         node.setAttribute('aria-label',`${event.payload.developmentSequence?'성장 관찰':event.kind==='insight'?'발견':event.kind==='question'?'조사':'알림'}: ${event.title}`);
         node.addEventListener('click',e=>e.stopPropagation());
         node.addEventListener('pointerdown',e=>e.stopPropagation());
         entry={node}; markers.set(event.eventId,entry);
       }
       if(entry.node.parentElement!==anchor)anchor.append(entry.node);
+      const markerLabel=`${event.payload.organicOriginSequence?'유기물 발생':event.payload.developmentSequence?'성장 관찰':event.kind==='insight'?'발견':event.kind==='question'?'조사':'알림'}: ${event.title}`;
+      if(entry.node.getAttribute('aria-label')!==markerLabel)entry.node.setAttribute('aria-label',markerLabel);
     }
     if(openId) {
       const event=state.events.find(item=>item.eventId===openId);

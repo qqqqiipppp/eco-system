@@ -2,6 +2,7 @@ import {createOrganismInstance} from '../state/organism-instance.js';
 import {populationConfig,decompositionConfig} from '../../data/population-config.js';
 import {placementConfig} from '../../data/interaction-config.js';
 import {lifespanRules} from '../../data/lifespan-config.js';
+import {recordOrganicOrigin} from './organic-notices.js';
 
 export const countSpecies=(state,id)=>state.organisms.filter(o=>o.speciesId===id).length;
 export const populationCounts=state=>Object.fromEntries([...new Set(state.organisms.map(o=>o.speciesId))].map(id=>[id,countSpecies(state,id)]));
@@ -27,12 +28,12 @@ export function removeOrganism(state,instanceId,cause,details={}){
   const instance=state.organisms[index],before=countSpecies(state,instance.speciesId);
   state.organisms.splice(index,1);
   for(const o of state.organisms)if(o.targetInstanceId===instanceId){o.targetInstanceId=null;o.behaviorState='wander';}
-  if(cause==='starvation')state.decomposition.organicMatter.remains=Math.min(decompositionConfig.maximum,state.decomposition.organicMatter.remains+decompositionConfig.starvationMatter);
-  if(cause==='natural_lifespan'){
-    const rule=lifespanRules[instance.speciesId],part=rule.matter||'remains';
-    state.decomposition.organicMatter[part]=Math.min(decompositionConfig.maximum,state.decomposition.organicMatter[part]+(rule.matterAmount||1));
-  }
+  const rule=lifespanRules[instance.speciesId],part=cause==='starvation'?'remains':cause==='natural_lifespan'?rule.matter||'remains':null;
+  let added=0;
+  if(part){const prior=state.decomposition.organicMatter[part];state.decomposition.organicMatter[part]=Math.min(decompositionConfig.maximum,prior+(cause==='starvation'?decompositionConfig.starvationMatter:rule.matterAmount||1));added=state.decomposition.organicMatter[part]-prior;}
   const intro=state.population.introductions[instance.speciesId]||{count:before,nextAt:0};
   intro.nextAt=Math.max(intro.nextAt,state.simulationTime+populationConfig.introductionCooldown);state.population.introductions[instance.speciesId]=intro;
-  return recordPopulationChange(state,instance.speciesId,cause,before,before-1,details);
+  const record=recordPopulationChange(state,instance.speciesId,cause,before,before-1,details);
+  if(added>0)recordOrganicOrigin(state,instance,part,added,record);
+  return record;
 }

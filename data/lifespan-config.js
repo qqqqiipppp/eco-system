@@ -3,6 +3,7 @@
 const individual=(min,max,initialAge,label,unit,extra={})=>({model:'individual',min:min*60,max:max*60,initialAge,label,unit,...extra});
 const colony=(min,max,resource,stressMinutes,label)=>({model:'colony',min:min*60,max:max*60,resource,stressSeconds:stressMinutes*60,label,unit:'군집'});
 export const lifespanRules={
+ earthworm:individual(45,65,.1,'낙엽을 이용하는 토양동물이에요. 게임 생애는 실제 참지렁이 수명 측정값이 아니에요','마리'),
  oak:individual(180,240,.12,'여러 해 동안 자라는 나무','그루',{matter:'wood',matterAmount:3}),
  grass:individual(24,32,.05,'한해살이 강아지풀이에요. 씨앗으로 다음 세대를 이어가요','포기',{matter:'litter',matterAmount:1}),
  grasshopper:individual(14,20,.08,'비교적 짧은 생애를 가지며 세대가 바뀌어요','마리'),

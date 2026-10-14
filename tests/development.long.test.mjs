@@ -17,7 +17,7 @@ import {createSaveSnapshot,decodeSave} from '../js/services/save-format.js';
 import {world,make,layout,emptyMemory} from './ecology-fixtures.mjs';
 
 const core=()=>world([['oak',2,.65],['grass',5,.2],['grasshopper',6,.4],['frog',1,.45],['mushroom',1,.7]],'long');
-function mixed(){const s=world(organisms.map((o,i)=>[o.id,1,.22+(i%5)*.035]),'long');s.organisms.push(...Array.from({length:3},(_,i)=>make('grass','extra-grass'+i,.45+i*.03)),...Array.from({length:3},(_,i)=>make('grasshopper','extra-gh'+i,.48+i*.03)),make('aphid','extra-aphid',.35));return s;}
+function mixed(){const s=world(organisms.filter(o=>o.id!=='earthworm').map((o,i)=>[o.id,1,.22+(i%5)*.035]),'long');s.organisms.push(...Array.from({length:3},(_,i)=>make('grass','extra-grass'+i,.45+i*.03)),...Array.from({length:3},(_,i)=>make('grasshopper','extra-gh'+i,.48+i*.03)),make('aphid','extra-aphid',.35));return s;}
 const counts=s=>populationCounts(s);
 const completedStages=new Set(['seeding','adult','spore-ready']);
 function summary(s,f,initial,minutes,peak,meals,growth,eventMemory=emptyMemory){
@@ -78,7 +78,7 @@ const layout={footprints:Object.fromEntries(api.organisms.map(o=>[o.id,{halfWidt
 const make=(id,n,x=.4)=>api.createOrganismInstance(id,n,{x,y:.72});
 function world(groups){const s=api.createGameState();s.organisms=groups.flatMap(([id,count,x],g)=>Array.from({length:count},(_,i)=>make(id,'long-'+g+'-'+i,x+i*.035)));s.inventory.forEach(c=>c.acquired=true);s.population.introductions=Object.fromEntries([...new Set(s.organisms.map(o=>o.speciesId))].map(id=>[id,{count:s.organisms.filter(o=>o.speciesId===id).length,nextAt:0}]));return s;}
 function run(s){const f=api.createFeedingSystem(s.simulationTime),meals={};let peak=s.organisms.length;for(let i=0;i<24000;i++){const r=f.update(s,.1,layout);peak=Math.max(peak,s.organisms.length);for(const e of r.feedingEvents)meals[e.relationId]=(meals[e.relationId]||0)+1;}const final=api.populationCounts(s),snapshot=api.createSaveSnapshot(s,{sequence:0,cooldowns:[],questionDone:[],pendingDiscoveries:[]},'2000-01-01T00:00:00Z');return {minutes:40,total:s.organisms.length,speciesCount:Object.keys(final).length,final,grasshopperAdults:s.organisms.filter(o=>o.speciesId==='grasshopper').length,changes:s.population.totals,growthCompleted:0,stability:api.evaluateStability(s).score,coreMeals:{grassToGrasshopper:meals.v2_grass_to_grasshopper||0,grasshopperToFrog:meals.v2_grasshopper_to_frog||0},organicMatter:s.decomposition.organicMatter,soilNutrients:s.decomposition.soilNutrients,processed:s.decomposition.processed,peak,diagnostics:f.getDiagnostics(),saveBytes:Buffer.byteLength(JSON.stringify(snapshot)),visualWander:false,errors:0};}
-const c=world([['oak',2,.65],['grass',5,.2],['grasshopper',6,.4],['frog',1,.45],['mushroom',1,.7]]),m=world(api.organisms.map((o,i)=>[o.id,1,.22+(i%5)*.035]));m.organisms.push(...Array.from({length:3},(_,i)=>make('grass','extra-grass'+i,.45+i*.03)),...Array.from({length:3},(_,i)=>make('grasshopper','extra-gh'+i,.48+i*.03)),make('aphid','extra-aphid',.35));
+const c=world([['oak',2,.65],['grass',5,.2],['grasshopper',6,.4],['frog',1,.45],['mushroom',1,.7]]),m=world(api.organisms.filter(o=>o.id!=='earthworm').map((o,i)=>[o.id,1,.22+(i%5)*.035]));m.organisms.push(...Array.from({length:3},(_,i)=>make('grass','extra-grass'+i,.45+i*.03)),...Array.from({length:3},(_,i)=>make('grasshopper','extra-gh'+i,.48+i*.03)),make('aphid','extra-aphid',.35));
 console.log(JSON.stringify({baselineSha:sha,core:run(c),mixed:run(m)}));`;
  const result=spawnSync(process.execPath,['--experimental-vm-modules','--input-type=module','-e',worker],{cwd:new URL('..',import.meta.url),encoding:'utf8',maxBuffer:1024*1024});
  assert.equal(result.status,0,result.stderr);beforeCache=JSON.parse(result.stdout.trim());return beforeCache;
@@ -130,7 +130,7 @@ test('11.6 long 7: continuous40 and saved20+resumed20 preserve population, growt
  console.log('DEVELOPMENT_LONG_7',JSON.stringify({minutes:40,continuous:continuous.report,resumed:resumed.report,immediateReloadExact:true,finalGrowthLifePendingExact:true,cleared:a.forestProgress.cleared,errors:0}));
 });
 test('11.6 long 8: ordinary starter placement and two real meals still unlock the adult frog through explicit observations',()=>{
- const s=createGameState(),f=createFeedingSystem(),events=createEventSystem();assert.equal(s.inventory.filter(c=>c.acquired).length,3);
+ const s=createGameState(),f=createFeedingSystem(),events=createEventSystem();assert.equal(s.inventory.filter(c=>c.acquired).length,5);
  assert(placeOrganism(s,'grasshopper',{position:{x:.44,y:.7},isPlayArea:true,isUI:false},layout).ok);let first=null,second=null;
  for(let step=0;step<1200&&!second;step++){
   const r=f.update(s,.1,layout);events.update(s,.1,r.feedingEvents);

@@ -48,7 +48,7 @@ export function createPopulationView(state,onRelease){
   const lifeRule=lifespanRules[id];
   document.querySelector('#population-role').textContent=`역할: ${roleLabels[species.role]} · 현재 숲 개체 수: ${members.length}${lifeRule.unit}`;
   const stages=members.map(survivalStage),worst=['weak','severe','hungry','normal','static'].find(v=>stages.includes(v));
-  document.querySelector('#population-state').textContent=members.length?labels[worst]:'지금 숲에는 없어요. 획득한 카드는 계속 사용할 수 있어요.';
+  document.querySelector('#population-state').textContent=members.length?id==='earthworm'?(members.some(o=>o.lastLitterFeedingAt!==null&&state.simulationTime-o.lastLitterFeedingAt<=45)?'최근 공유 식물 잔해를 먹었어요. 균류·세균의 분해와 구분해요.':'공유 식물 잔해와 습한 환경을 살펴봐요.'):labels[worst]:'지금 숲에는 없어요. 획득한 카드는 계속 사용할 수 있어요.';
   const age=members.some(o=>lifeRule.model==='individual'&&effectiveAge(o,state.simulationTime)/o.life.duration>.8)?' 생애의 후반을 보내는 개체가 있어요. 자연스러운 세대교체를 살펴봐요.':'';
   const colony=lifeRule.model==='colony'&&members.length?` 군집 활동: ${members.some(o=>o.life.stressSeconds>0)?'서식 환경이 좋지 않아요':members.some(o=>o.life.vigor<.5)?'자원이 적어 쉬고 있어요':'새로운 세대가 이어질 수 있어요'}.`:'';
   document.querySelector('#population-lifespan').textContent=`생애주기: ${lifeRule.label}.${age}${colony} 실제 생애와 게임 시간은 달라요.`;

@@ -32,7 +32,7 @@ function stateWith(items){
 // physiology, learning and population state, but no development/pending fields.
 // Build its whitelist explicitly, rather than relabeling a new young v11 save.
 function version10Save(){
- const s=stateWith(organisms.map((o,i)=>instance(o.id,'prior-'+i)));
+ const s=stateWith(organisms.filter(o=>o.id!=='earthworm').map((o,i)=>instance(o.id,'prior-'+i)));
  s.observations=[{relationId:'v2_grass_to_grasshopper',eventId:'event-old',discoveredAt:900}];
  s.legacyEcology={revision:1,migratedFromVersion:9,observations:[{relationId:'grass_to_grasshopper',eventId:'historic',discoveredAt:300}],pendingDiscoveries:[['hazel_to_aphid',{consumerInstanceId:'gone-aphid'}]],instances:[],breeding:{aphid:{healthySeconds:100,nextAt:1200}},replenishment:{},populationTotals:{predation:4}};
  s.metrics.points=43;s.metrics.bestStability=95;s.forestProgress={cleared:true,clearedAt:800,stableSeconds:30};
@@ -40,7 +40,7 @@ function version10Save(){
  s.rewardHistory=[{rewardId:'observation:v2_grass_to_grasshopper',grantedAt:900,sourceId:'event-old',amount:12},{rewardId:'observation:grasshopper_to_frog',grantedAt:300,sourceId:'historic',amount:12},{rewardId:'activity:producer_quiz',grantedAt:700,sourceId:'producer_quiz',amount:3}];
  s.population.breeding={grass:{healthySeconds:100,nextAt:1100},grasshopper:{healthySeconds:120,nextAt:1200},rabbit:{healthySeconds:100,nextAt:1300}};
  s.population.replenishment={grasshopper:{healthySeconds:200,nextAt:1100,reserve:6},caterpillar:{healthySeconds:100,nextAt:1300}};
- s.decomposition={organicMatter:{wood:5,litter:6,remains:7},soilNutrients:.6,processed:8};
+ s.decomposition={...s.decomposition,organicMatter:{wood:5,litter:6,remains:7},soilNutrients:.6,processed:8};
  const d={schemaVersion:10,ecologyRevision:2,legacyEcology:structuredClone(s.legacyEcology),ecosystemId:'forest',simulationTime:s.simulationTime,nextInstanceSequence:100,
   inventory:structuredClone(s.inventory),organisms:s.organisms.map(o=>{const r={instanceId:o.instanceId,speciesId:o.speciesId,position:{...o.position},life:{...o.life}};for(const key of ['growth','foodStock','hunger','foodShortageDuration','lastSuccessfulFeedingAt','deprivationSeconds','bornAt','satietyUntil'])if(key in o)r[key]=o[key];return r;}),
   environment:Object.fromEntries(Object.entries(s.environment).map(([id,v])=>[id,{value:v.value}])),metrics:{points:s.metrics.points,bestStability:s.metrics.bestStability},
@@ -50,12 +50,12 @@ function version10Save(){
 
 test('development save: genuine v10 preserves current ecology, life, earned permissions and all prior operational state',()=>{
  const raw=version10Save(),r=decodeSave(JSON.stringify(raw)),s=r.state;
- assert.equal(r.status,'loaded');assert.equal(SAVE_VERSION,13);assert.equal(s.schemaVersion,13);
+ assert.equal(r.status,'loaded');assert.equal(SAVE_VERSION,14);assert.equal(s.schemaVersion,14);
  assert.deepEqual(s.observations,raw.domain.observations);assert.deepEqual(s.legacyEcology,raw.domain.legacyEcology);
  assert.deepEqual(s.inventory,raw.domain.inventory);assert.deepEqual(s.activities,raw.domain.activities);
  assert.equal(s.metrics.points,43);assert.equal(s.metrics.bestStability,95);assert(s.forestProgress.cleared);
  assert.deepEqual(s.decomposition,raw.domain.decomposition);assert.deepEqual(s.population.breeding,raw.domain.population.breeding);
- assert.deepEqual(s.population.replenishment,raw.domain.population.replenishment);assert.deepEqual(s.population.introductions,raw.domain.population.introductions);
+ assert.deepEqual(s.population.replenishment,raw.domain.population.replenishment);assert.deepEqual(Object.fromEntries(Object.entries(s.population.introductions).filter(([id])=>id!=='earthworm')),raw.domain.population.introductions);assert.deepEqual(s.population.introductions.earthworm,{count:0,nextAt:0});
  assert.deepEqual(r.eventMemory.pendingDiscoveries,raw.eventMemory.pendingDiscoveries);
  for(const o of s.organisms){assert.deepEqual(o.life,raw.domain.organisms.find(p=>p.instanceId===o.instanceId).life);if(o.development){assert.equal(o.development.origin,'legacy');assert.equal(o.development.progressSeconds,o.speciesId==='mushroom'?0:developmentRules[o.speciesId].maxSeconds);}}
  assert.deepEqual(s.development,{sequence:0,history:[]});assert.equal(grantReward(s,'observation','v2_grass_to_grasshopper','new'),0);assert.equal(grantReward(s,'observation','v2_grasshopper_to_frog','new'),0);
@@ -173,5 +173,5 @@ test('development save: inherited dictionary names are rejected as stage-history
 
 test('development save: unknown current ecology and future schemas remain blocked, including pre-growth v10',()=>{
  for(const raw of [version10Save(),JSON.parse(encode(createGameState()))]){raw.domain.ecologyRevision=999;const r=decodeSave(JSON.stringify(raw));assert(r.blocked);assert.equal(r.status,'unknown-ecology');}
- const raw=JSON.parse(encode(createGameState()));raw.schemaVersion=raw.domain.schemaVersion=14;assert.equal(decodeSave(JSON.stringify(raw)).status,'future-version');assert(decodeSave(JSON.stringify(raw)).blocked);
+ const raw=JSON.parse(encode(createGameState()));raw.schemaVersion=raw.domain.schemaVersion=15;assert.equal(decodeSave(JSON.stringify(raw)).status,'future-version');assert(decodeSave(JSON.stringify(raw)).blocked);
 });

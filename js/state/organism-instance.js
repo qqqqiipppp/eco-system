@@ -12,6 +12,7 @@ import {developmentalCapacity} from '../systems/development.js';
 export function createOrganismInstance(speciesId, instanceId, position, {time=0,newborn=false,origin}={}) {
   if (!organismById[speciesId]) throw new Error(`Unknown species: ${speciesId}`);
   const instance = { instanceId, speciesId, position: { ...position },life:createLifeState(speciesId,instanceId,time,newborn) };
+  if(speciesId==='earthworm')Object.assign(instance,{direction:1,litterConsumed:0,lastLitterFeedingAt:null});
   const naturalOrigin={grass:'seed-spread',grasshopper:'egg-hatch',rabbit:'birth'};
   const development=createDevelopmentState(speciesId,origin||(newborn?naturalOrigin[speciesId]:'introduced'));
   if(development)instance.development=development;

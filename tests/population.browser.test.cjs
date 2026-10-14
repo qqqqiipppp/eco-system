@@ -16,7 +16,7 @@ const {dismissWelcome}=require('./fixtures.cjs'),BASE=process.env.BASE_URL||'htt
  },kind);}
  async function place(p,id){await p.locator(`.organism-card[data-species-id="${id}"]`).tap();const b=await p.locator('#placement-surface').boundingBox();await p.touchscreen.tap(b.x+b.width*.44,b.y+b.height*.72);}
  try{
-  const p=await setup();await p.locator('#population-open').tap();assert.equal(await p.locator('#population-species option').count(),23);assert.equal(await p.locator('#environment-dialog select').count(),0);
+  const p=await setup();await p.locator('#population-open').tap();assert.equal(await p.locator('#population-species option').count(),24);assert.equal(await p.locator('#environment-dialog select').count(),0);
   for(const [width,height]of [[1280,800],[1138,712],[960,600],[412,915]]){await p.setViewportSize({width,height});assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);assert((await p.locator('#population-close').boundingBox()).height>=44);assert((await p.locator('#population-species').boundingBox()).height>=44);}
   await p.setViewportSize({width:1280,height:800});await p.locator('#population-close').tap();console.log('W: touch status/count panel, 23 types and responsive controls');
   const loss=await setup(await seed(p,'starve'),false); // accelerated initial condition, not accelerated student time

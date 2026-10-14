@@ -9,6 +9,7 @@ import {organismById} from '../../data/organisms.js';
 import {developmentNotice} from './development.js';
 import {developmentConfig} from '../../data/development-config.js';
 import {currentEnvironmentEvent,environmentEventPresentation,chooseEnvironmentObservation} from './environment-events.js';
+import {organicNoticeCandidates,organicNoticeText,acknowledgeOrganicOrigin} from './organic-notices.js';
 
 /** Actual ecology signals only. No DOM, wall-clock timers, random generation or
  * automatic discovery credit. A discovery is recorded by acknowledge().
@@ -22,7 +23,7 @@ export function createEventSystem(initialTime = 0, memory = {}) {
   let hasConditions = false;
 
   function close(event, status) { event.status = status; event.closedAt = time; }
-  function evaluate(state) {
+  function evaluate(state,settleRewards=true) {
     checks++;
     const live = new Map(state.organisms.map(instance => [instance.instanceId, instance]));
     const candidates = new Map();
@@ -65,6 +66,13 @@ export function createEventSystem(initialTime = 0, memory = {}) {
       candidates.set(key, { key, kind: 'insight', sourceType: sourceExists ? 'organism' : 'environment', sourceId: sourceExists ? signal.consumerInstanceId : 'forest', title: definition.title, message: definition.message, explanation: definition.explanation, payload: { relationId } });
     }
     const growthNotices=new Map();
+    const organicCandidates=organicNoticeCandidates(state),organicPopulation=new Set(organicCandidates.flatMap(c=>c.populationSequences));
+    for(const {record,worker,urgent} of organicCandidates){
+      const key=`organic:${record.sequence}`;
+      const text=organicNoticeText(record,worker);
+      if(urgent)text.explanation+=' 같은 최근 발생 기록에는 먹이 부족으로 줄어든 생물도 있어요. 원래 먹이 공급을 함께 살펴봐요.';
+      candidates.set(key,{key,kind:'alert',sourceType:'organism',sourceId:worker.instanceId,...text,payload:{organicOriginSequence:record.sequence,urgent}});
+    }
     const environmentRecord=currentEnvironmentEvent(state)||state.environmentEvents.history.at(-1);
     if(environmentRecord&&!environmentRecord.observed){
       const summary=environmentEventPresentation(state).current,key=`environment-event:${environmentRecord.eventId}`;
@@ -78,7 +86,7 @@ export function createEventSystem(initialTime = 0, memory = {}) {
       candidates.set(key,{key,kind:'insight',sourceType:sourceExists?'organism':'environment',sourceId:sourceExists?record.instanceId:'forest',title:'생물의 성장 모습을 발견했어요',message:developmentNotice(record),explanation:'같은 개체의 생활 모습이 달라졌어요. 성장과 새로운 개체가 태어나는 번식은 구분해요. 버섯은 같은 군집의 활동 상태를 나타내요.',payload:{developmentSequence:record.sequence}});
     }
     const notices=new Map();
-    for(const record of state.population.history)if(!record.noted&&!['placement','reintroduction'].includes(record.cause))notices.set(`${record.cause}:${record.speciesId}`,record);
+    for(const record of state.population.history)if(!record.noted&&!organicPopulation.has(record.sequence)&&!['placement','reintroduction'].includes(record.cause))notices.set(`${record.cause}:${record.speciesId}`,record);
     for(const record of [...notices.values()].slice(-6)){
       const key=`population:${record.sequence}`;
       const natural=record.cause==='natural_lifespan'||record.cause==='life_stage_exit';
@@ -100,7 +108,7 @@ export function createEventSystem(initialTime = 0, memory = {}) {
       if(active.size>=eventConfig.maxActive){
         // Growth records remain pending; a full queue cannot hide a new meal or
         // urgent survival warning behind an optional growth notice.
-        const optional=[...active.values()].filter(event=>(event.payload.developmentSequence||event.payload.environmentEventId)&&eventPriority(event)<eventPriority(candidate)).sort((a,b)=>eventPriority(a)-eventPriority(b))[0];
+        const optional=[...active.values()].filter(event=>(event.payload.developmentSequence||event.payload.environmentEventId||event.payload.organicOriginSequence)&&eventPriority(event)<eventPriority(candidate)).sort((a,b)=>eventPriority(a)-eventPriority(b))[0];
         if(!optional)continue;
         close(optional,'resolved');active.delete(optional.key);
       }
@@ -113,7 +121,7 @@ export function createEventSystem(initialTime = 0, memory = {}) {
       state.events.splice(index,1);
     }
     for (const [key, deadline] of cooldowns) if (deadline <= time && !candidates.has(key)) cooldowns.delete(key);
-    rewardResolvedManagement(state);
+    if(settleRewards)rewardResolvedManagement(state);
   }
   return {
     update(state, seconds, feedingEvents = []) {
@@ -128,7 +136,8 @@ export function createEventSystem(initialTime = 0, memory = {}) {
     refresh: evaluate,
     needsTick: () => hasConditions || pendingDiscoveries.size > 0,
     acknowledge(state, eventId, answerId) {
-      evaluate(state);
+      const passiveOrganic=state.events.some(e=>e.eventId===eventId&&e.payload?.organicOriginSequence);
+      evaluate(state,!passiveOrganic);
       const event = state.events.find(item => item.eventId === eventId && item.status === 'active');
       if (!event) return { ok:false, message:'상황이 달라졌어요. 다시 숲을 살펴봐요.' };
       if (event.kind === 'question') {
@@ -146,6 +155,7 @@ export function createEventSystem(initialTime = 0, memory = {}) {
       }
       if(event.payload.environmentEventId)chooseEnvironmentObservation(state,event.payload.environmentEventId);
       if(event.payload.populationSequence){const record=state.population.history.find(r=>r.sequence===event.payload.populationSequence);if(record)record.noted=true;}
+      if(event.payload.organicOriginSequence)acknowledgeOrganicOrigin(state,event.payload.organicOriginSequence);
       close(event, event.kind === 'insight' ? 'resolved' : 'dismissed');
       cooldowns.set(event.key,time+eventConfig.cooldownSeconds);
       const reward = event.kind === 'insight' && event.payload.relationId ? grantReward(state,'observation',event.payload.relationId,eventId) : event.kind === 'question' ? grantReward(state,'question',`producer_${event.payload.factor}_limit`,eventId) : 0;

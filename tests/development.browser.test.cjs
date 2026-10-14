@@ -55,7 +55,7 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/',KEY='eco-sy
    // Development-only installation. The 17 future cards remain locked in the
    // actual student game; this fixture deliberately covers all 23 definitions.
    s.inventory.forEach(c=>c.acquired=true);
-   s.organisms=organisms.map((definition,i)=>make(definition.id,'mixed-'+i,.13+(i%6)*.10,.69+Math.floor(i/6)*.012));
+   s.organisms=organisms.filter(o=>o.id!=='earthworm').map((definition,i)=>make(definition.id,'mixed-'+i,.13+(i%6)*.10,.69+Math.floor(i/6)*.012));
    s.organisms.push(...Array.from({length:7},(_,i)=>progress(make('grass','young-'+i,.16+i*.055,.76,'seed-spread'),179.5)));
    progress(s.organisms.find(o=>o.speciesId==='mushroom'),179.5);
    s.population.breeding.grass={healthySeconds:0,nextAt:1000,pending:{remainingSeconds:.5,position:{x:.4,y:.76}}};
@@ -69,10 +69,10 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/',KEY='eco-sy
  async function resumeUntil(page,predicate){await page.emulateMedia({reducedMotion:'no-preference'});await page.waitForFunction(predicate,null,{polling:100});await page.emulateMedia({reducedMotion:'reduce'});}
  try{
   const base=await setup();const initial=await state(base);
-  assert.equal(initial.inventory.filter(c=>c.acquired).length,3);
+  assert.equal(initial.inventory.filter(c=>c.acquired).length,5);
   assert.equal(initial.inventory.filter(c=>!c.acquired&&c.speciesId==='pine').length,1);
-  assert.equal(initial.inventory.filter(c=>!c.acquired).length,20);
-  assert.equal(await base.locator('.organism-card').count(),23);
+  assert.equal(initial.inventory.filter(c=>!c.acquired).length,19);
+  assert.equal(await base.locator('.organism-card').count(),24);
   assert.equal(initial.organisms.find(o=>o.speciesId==='grass').development.stage,'seeding');
   await base.locator('.organism-card[data-species-id="grasshopper"]').tap();
   const surface=await base.locator('#placement-surface').boundingBox();await base.touchscreen.tap(surface.x+surface.width*.4,surface.y+surface.height*.62);

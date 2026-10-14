@@ -18,8 +18,8 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8082/eco-system/';const KEY='
  },count)}
  try{
   // F/G/K/L/M/O: real progression and management, actual subpath HTTP serving.
-  const p=await setup();assert.equal((await snapshot(p)).inventory.filter(c=>c.acquired).length,3);
-  await p.locator('.organism-card[data-species-id="mushroom"]').tap();await p.locator('[data-answer="decomposer"]').click();await p.locator('#activity-close').click();await place(p,'mushroom',.36,.76);
+  const p=await setup();assert.equal((await snapshot(p)).inventory.filter(c=>c.acquired).length,5);
+  await p.locator('#activities-open').tap();await p.locator('[data-activity-id="decomposer_classify"]').tap();await p.locator('[data-answer="decomposer"]').click();await p.locator('#activity-close').click();await place(p,'mushroom',.36,.76);
   await place(p,'grasshopper',.43,.70);await p.emulateMedia({reducedMotion:'no-preference'});await p.locator('.event-insight').first().waitFor({timeout:40000});
   await p.locator('.event-insight').first().tap();await p.getByRole('button',{name:'살펴보기',exact:true}).click();await p.getByRole('button',{name:'발견 기록하기',exact:true}).click();await p.locator('#event-close').click();
   await p.locator('.organism-card[data-species-id="frog"]').tap();await p.locator('[data-answer="confirm"]').click();await p.locator('#activity-close').click();
@@ -34,7 +34,7 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8082/eco-system/';const KEY='
   assert.equal(after.simulationTime,before.simulationTime);assert.equal(await p.locator('dialog[open]').count(),0);assert.equal(await p.locator('.organism-card[aria-pressed="true"]').count(),0);
   const writes=await p.evaluate(()=>window.writes);await p.waitForTimeout(1700);assert.equal(await p.evaluate(()=>window.writes),writes);
   await p.locator('#goal-open').click();await p.locator('#restart-open').click();await p.locator('#restart-cancel').click();assert.deepEqual(await snapshot(p),after);
-  await p.locator('#goal-open').click();await p.locator('#restart-open').click();await p.locator('#restart-confirm').click();const fresh=await snapshot(p);assert.equal(fresh.organisms.length,3);assert.equal(fresh.metrics.points,0);assert.equal(fresh.simulationTime,0);assert.equal(fresh.managementHistory.length,0);assert.equal(fresh.inventory.filter(c=>c.acquired).length,3);assert.equal(await p.evaluate(key=>localStorage.getItem(key),KEY),null);
+  await p.locator('#goal-open').click();await p.locator('#restart-open').click();await p.locator('#restart-confirm').click();const fresh=await snapshot(p);assert.equal(fresh.organisms.length,3);assert.equal(fresh.metrics.points,0);assert.equal(fresh.simulationTime,0);assert.equal(fresh.managementHistory.length,0);assert.equal(fresh.inventory.filter(c=>c.acquired).length,5);assert.equal(await p.evaluate(key=>localStorage.getItem(key),KEY),null);
   assert.equal(await p.locator('.organism-object').count(),3);await place(p,'grass',.4,.74);assert.equal((await snapshot(p)).organisms.length,4);console.log('F/G/K/L/M/O: real progression restored at /eco-system/, safe feeding restart, save coalescing and in-place confirmed reset');
   const goalRaw=await seedSnapshot(p);
   // A/B/C/D/E: actual 30 seconds of ecology, no fast-forwarded clear clock.

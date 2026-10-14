@@ -10,6 +10,7 @@ import {recordPointChange} from '../state/point-economy-state.js';
 
 const findAction = id => managementActions.find(item => item.actionId === id);
 function relevant(action, event) {
+  if(event?.payload.organicOriginSequence)return false;
   if (event?.kind !== 'alert') return false;
   if (action.applicableTo === 'consumer-shortage') return event.sourceType === 'organism' && Boolean(feedingConfig[event.payload.speciesId]);
   if (action.applicableTo === 'producer-environment') return event.sourceType === 'environment' && Boolean(event.payload.factor);

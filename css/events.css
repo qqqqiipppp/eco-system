@@ -11,3 +11,4 @@
 #event-detail{background:#edf3df;border-radius:8px;padding:12px}
 #event-actions{display:flex;flex-wrap:wrap;gap:10px}#event-dialog button,#observations-dialog button{min-height:44px;padding:10px 16px;border:1px solid #b8c6aa;border-radius:8px;background:#edf3df;font-size:14px}
 #event-close,#observations-close{margin-top:8px}#event-result{color:#356a44;min-height:24px}
+.organic-marker{border-style:dotted;}

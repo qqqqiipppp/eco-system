@@ -36,7 +36,8 @@ const definitions = [
   { id:'weasel',name:'족제비',role:'consumer',behaviorType:'forager',caption:'여러 동물을 먹어요',description:'다람쥐류, 개구리류와 곤충을 먹어요. 게임은 다람쥐·참개구리·방아깨비로 단순화해요.',habitat:'숲 가장자리와 농경지 주변',placeholder:'🐾',unlockStage:14 },
   { id:'goshawk',name:'참매',role:'consumer',behaviorType:'forager',caption:'숲의 상위 소비자',description:'멧토끼, 다람쥐, 직박구리 같은 동물을 사냥해요. 이 게임은 가까운 먹이를 향한 이동으로 단순화했어요.',habitat:'큰 나무가 있는 산림',placeholder:'🦅',unlockStage:14 },
   { id:'litter-mold',name: '낙엽 분해 곰팡이 군집',role:'decomposer',behaviorType:'static',caption: '낙엽을 분해하는 여러 균류',description: '낙엽을 분해하는 여러 곰팡이를 묶은 군집이에요. 한 종의 이름이 아니며 낙엽의 유기물을 다시 이용하도록 도와요.',habitat:'습한 낙엽층',placeholder:'〰',unlockStage:14 },
-  { id:'soil-bacteria',name: '고초균',role:'decomposer',behaviorType:'static',caption: '유기물을 이용하는 세균',description: '여러 유기물을 이용하는 토양 세균이에요. 게임은 동물 잔존물 분해를 우선 나타내요. 동물 잔존물만 먹는다는 뜻은 아니에요. 영양이 적으면 포자로 쉬는 생활을 군집 휴식으로 단순화해요.',habitat:'유기물이 있는 토양',placeholder:'⋯',unlockStage:14 },
+  { id:'soil-bacteria',name: '고초균',role:'decomposer',behaviorType:'static',caption: '유기물을 이용하는 세균',description: '여러 유기물을 이용하는 토양 세균이에요. 게임은 동물 잔존물 분해를 우선 나타내요. 동물 잔존물만 먹는다는 뜻은 아니에요. 영양이 적으면 포자로 쉬는 생활을 군집 휴식으로 단순화해요.',habitat:'유기물이 있는 토양',placeholder:'⋯' },
+  { id:'earthworm',name:'참지렁이',role:'consumer',behaviorType:'wander',caption:'분해를 돕는 토양동물',description:'낙엽 같은 식물 잔해를 먹는 토양동물이에요. 균류·세균과 역할이 다르며 유기물 분해와 토양을 돕는 소비자로 나타내요. 이 게임의 먹이량과 토양 기여는 단순화한 값이에요.',habitat:'습한 흙과 낙엽층',placeholder:'∿',unlockStage:14 },
 ];
 export const organisms = definitions.map(definition=>({...definition,...speciesTaxonomy[definition.id]}));
 export const roleLabels = { producer: '생산자', consumer: '소비자', decomposer: '분해자' };

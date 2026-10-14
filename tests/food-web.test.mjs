@@ -27,17 +27,17 @@ function world(...instances){const s=createGameState();s.organisms=instances;ret
 function run(s,system,seconds){const signals=[];for(let i=0;i<seconds*30;i++)signals.push(...system.update(s,1/30,layout).feedingEvents);return signals;}
 
 test('A/B/C: exactly 23 distinct definitions, 5/15/3 roles, valid directed/resource relations and unchanged legacy IDs',()=>{
- assert.equal(organisms.length,23);assert.equal(new Set(organisms.map(s=>s.id)).size,23);
- for(const [role,count]of [['producer',5],['consumer',15],['decomposer',3]])assert.equal(organisms.filter(s=>s.role===role).length,count);
+ assert.equal(organisms.length,24);assert.equal(new Set(organisms.map(s=>s.id)).size,24);
+ for(const [role,count]of [['producer',5],['consumer',16],['decomposer',3]])assert.equal(organisms.filter(s=>s.role===role).length,count);
  for(const id of ['oak','grass','rabbit','mushroom','grasshopper','frog'])assert(organismById[id]);
  assert.equal(foodRelations.length,22);assert.equal(new Set(foodRelations.map(r=>r.relationId)).size,22);
  for(const r of foodRelations){assert(organismById[r.sourceSpeciesId]);assert.equal(organismById[r.targetSpeciesId].role,'consumer');assert(r.evidenceId);assert(discoveryEvents[r.relationId]);if(r.feedingMode==='resource')assert(foodResourceConfig[r.sourceSpeciesId].parts.includes(r.foodPart));else assert.equal(organismById[r.sourceSpeciesId].role,'consumer');}
- for(const s of organisms){assert(s.habitat);assert(speciesProfiles[s.id]);if(s.role==='consumer'){assert(feedingConfig[s.id]);assert(relationsByConsumer.get(s.id)?.length);}if(s.role==='producer'){assert(producerGrowth[s.id]);assert(foodResourceConfig[s.id]);}if(s.role==='decomposer')assert(!feedingConfig[s.id]);}
+ for(const s of organisms){assert(s.habitat);assert(speciesProfiles[s.id]);if(s.role==='consumer'&&s.id!=='earthworm'){assert(feedingConfig[s.id]);assert(relationsByConsumer.get(s.id)?.length);}if(s.role==='producer'){assert(producerGrowth[s.id]);assert(foodResourceConfig[s.id]);}if(s.role==='decomposer')assert(!feedingConfig[s.id]);}
 });
 test('C/E: one connected producer-consumer web, alternative food and shared food, only decomposers isolated',()=>{
  const links=new Map(organisms.map(s=>[s.id,new Set()]));for(const r of foodRelations){links.get(r.sourceSpeciesId).add(r.targetSpeciesId);links.get(r.targetSpeciesId).add(r.sourceSpeciesId);}
  const visited=new Set(),queue=['grass'];while(queue.length){const id=queue.pop();if(visited.has(id))continue;visited.add(id);queue.push(...links.get(id));}
- assert.equal(visited.size,20);for(const s of organisms)assert.equal(visited.has(s.id),s.role!=='decomposer');
+ assert.equal(visited.size,20);for(const s of organisms)assert.equal(visited.has(s.id),s.role!=='decomposer'&&s.id!=='earthworm');
  assert([...relationsByConsumer.values()].some(r=>r.length>1));assert(foodRelations.filter(r=>r.sourceSpeciesId==='grass').length>1);
 });
 test('D: nearest usable alternative is selected; depleted food switches to another permitted species',()=>{
@@ -70,9 +70,9 @@ test('H/J: every one of the 22 configured relations produces actual feeding and 
  }
 });
 test('I/J: starter locks preserved, planned cards cannot place, developer permission does not grant rewards',()=>{
- const s=createGameState(),before=structuredClone(s);assert.equal(s.inventory.filter(c=>c.acquired).length,3);assert.equal(organisms.filter(o=>o.unlockStage===14).length,17);
+ const s=createGameState(),before=structuredClone(s);assert.equal(s.inventory.filter(c=>c.acquired).length,5);assert.equal(organisms.filter(o=>o.unlockStage===14).length,17);
  assert.equal(placeOrganism(s,'chipmunk',{position:{x:.4,y:.72},isPlayArea:true,isUI:false},layout).reason,'inventory');assert.deepEqual(s,before);
- grantDevelopmentCards(s);assert.equal(s.inventory.filter(c=>c.acquired).length,23);assert.equal(s.metrics.points,0);assert.equal(s.activities.filter(a=>a.completed).length,0);
+ grantDevelopmentCards(s);assert.equal(s.inventory.filter(c=>c.acquired).length,24);assert.equal(s.metrics.points,0);assert.equal(s.activities.filter(a=>a.completed).length,0);
  assert(placeOrganism(s,'chipmunk',{position:{x:.4,y:.72},isPlayArea:true,isUI:false},layout).ok);
 });
 test('K: new actual feeding gives a pending discovery, explicit once-only record, bounded active events and priority',()=>{
@@ -88,10 +88,10 @@ test('L: genuine six-card schema 7 saves load without reset/damage and append 17
  s.organisms.push(make('rabbit','old-rabbit'));s.inventory.find(c=>c.speciesId==='rabbit').acquired=true;
  const snapshot=createSaveSnapshot(s,{sequence:1,cooldowns:[],questionDone:[],pendingDiscoveries:[]},'2026-10-08T00:00:00Z');const legacy=['oak','grass','rabbit','mushroom','grasshopper','frog'];snapshot.domain.inventory=snapshot.domain.inventory.filter(c=>legacy.includes(c.speciesId));
  for(const o of snapshot.domain.organisms){if(o.speciesId==='oak')delete o.foodStock;if(o.speciesId==='rabbit')for(const key of ['hunger','foodShortageDuration','lastSuccessfulFeedingAt'])delete o[key];}
- snapshot.schemaVersion=snapshot.domain.schemaVersion=7;snapshot.domain.observations.forEach(o=>o.relationId=o.relationId.replace(/^v2_/,''));delete snapshot.domain.population;delete snapshot.domain.decomposition;const loaded=decodeSave(JSON.stringify(snapshot));assert.equal(loaded.status,'loaded');assert.equal(loaded.state.schemaVersion,13);assert.equal(loaded.state.metrics.points,s.metrics.points);assert(loaded.state.forestProgress.cleared);assert.equal(loaded.state.observations.length,0);assert.equal(loaded.state.legacyEcology.observations.length,1);assert.equal(loaded.state.inventory.filter(c=>!legacy.includes(c.speciesId)&&!c.acquired).length,17);assert(loaded.state.inventory.find(c=>c.speciesId==='frog').acquired);assert(loaded.state.inventory.find(c=>c.speciesId==='rabbit').acquired);
+ snapshot.schemaVersion=snapshot.domain.schemaVersion=7;snapshot.domain.observations.forEach(o=>o.relationId=o.relationId.replace(/^v2_/,''));delete snapshot.domain.population;delete snapshot.domain.decomposition;const loaded=decodeSave(JSON.stringify(snapshot));assert.equal(loaded.status,'loaded');assert.equal(loaded.state.schemaVersion,14);assert.equal(loaded.state.metrics.points,s.metrics.points);assert(loaded.state.forestProgress.cleared);assert.equal(loaded.state.observations.length,0);assert.equal(loaded.state.legacyEcology.observations.length,1);assert.equal(loaded.state.inventory.filter(c=>!legacy.includes(c.speciesId)&&!c.acquired).length,17);assert(loaded.state.inventory.find(c=>c.speciesId==='frog').acquired);assert(loaded.state.inventory.find(c=>c.speciesId==='rabbit').acquired);
 });
 test('M: all new species, 22 observations/rewards and unrecorded discoveries survive save validation',()=>{
- const s=createGameState();grantDevelopmentCards(s);s.organisms=organisms.map((o,i)=>make(o.id,'save-'+i));s.simulationTime=100;
+ const s=createGameState();grantDevelopmentCards(s);s.organisms=organisms.filter(o=>o.id!=='earthworm').map((o,i)=>make(o.id,'save-'+i));s.simulationTime=100;
  s.observations=foodRelations.map(r=>({relationId:r.relationId,eventId:'source',discoveredAt:30}));s.rewardHistory=foodRelations.map(r=>({rewardId:'observation:'+r.relationId,sourceId:'source',grantedAt:30,amount:12}));
  let loaded=decodeSave(JSON.stringify(createSaveSnapshot(s,{sequence:1,cooldowns:[],questionDone:[],pendingDiscoveries:[]},'2026-10-08T00:00:00Z')));assert.equal(loaded.state.organisms.length,23);assert.equal(loaded.state.observations.length,22);assert.equal(loaded.state.rewardHistory.length,22);assert.deepEqual(loaded.state.organisms.map(o=>o.speciesId),s.organisms.map(o=>o.speciesId));
  s.observations=[];loaded=decodeSave(JSON.stringify(createSaveSnapshot(s,{sequence:1,cooldowns:[],questionDone:[],pendingDiscoveries:foodRelations.map(r=>[r.relationId,{consumerInstanceId:'gone'}])},'2026-10-08T00:00:00Z')));assert.equal(loaded.eventMemory.pendingDiscoveries.length,22);
@@ -101,7 +101,7 @@ test('N: old core goal is unchanged; absent optional foods do not dilute existin
  const s=world(make('grass','grass'),make('grasshopper','grasshopper'),make('frog','frog'));s.organisms[1].hunger=s.organisms[2].hunger=0;assert.equal(evaluateStability(s).breakdown.food,1);assert.equal(goalPresentation(s).total,6);
 });
 test('O: 23 types / 30 mixed individuals keep species-indexed search bounded, no natural increase',()=>{
- const s=createGameState();s.organisms=organisms.map((o,i)=>make(o.id,'mixed-'+i,.15+(i%7)*.07));for(let i=0;i<7;i++)s.organisms.push(make('grass','extra-'+i,.2+i*.06));
+ const s=createGameState();s.organisms=organisms.filter(o=>o.id!=='earthworm').map((o,i)=>make(o.id,'mixed-'+i,.15+(i%7)*.07));for(let i=0;i<7;i++)s.organisms.push(make('grass','extra-'+i,.2+i*.06));
  const f=createFeedingSystem();run(s,f,45);const d=f.getDiagnostics();assert.equal(d.ticks,90);assert(d.plantMeals>0&&d.predations>0);assert(d.candidateChecks<=d.searches*30);assert(s.organisms.length<=placementConfig.maxOrganisms);assert(s.organisms.every(o=>!o.targetInstanceId||s.organisms.some(t=>t.instanceId===o.targetInstanceId)));console.log('web 30 diagnostics:',d,'remaining',s.organisms.length);
 });
 test('movement profiles vary, remain in allowed area; producers and decomposers stay fixed',()=>{

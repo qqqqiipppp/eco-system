@@ -16,8 +16,8 @@ const layout={footprints:Object.fromEntries(Object.keys(speciesProfiles).map(id=
 const input={position:{x:.4,y:.74},isPlayArea:true,isUI:false};
 const acquired=(s,id)=>s.inventory.find(c=>c.speciesId===id).acquired;
 test('A/J: real starter inventory and locked placement fail without mutation',()=>{
- const s=createGameState();assert.deepEqual(s.inventory.filter(c=>c.acquired).map(c=>c.speciesId),['oak','grass','grasshopper']);
- for(const id of ['frog','rabbit','mushroom']){const before=structuredClone(s);assert.equal(placeOrganism(s,id,input,layout).reason,'inventory');assert.deepEqual(s,before)}
+ const s=createGameState();assert.deepEqual(s.inventory.filter(c=>c.acquired).map(c=>c.speciesId),['oak','grass','grasshopper','mushroom','soil-bacteria']);
+ for(const id of ['frog','rabbit','earthworm']){const before=structuredClone(s);assert.equal(placeOrganism(s,id,input,layout).reason,'inventory');assert.deepEqual(s,before)}
 });
 test('B/C/D: actual feeding -> recorded observation -> frog unlock -> actual predation discovery',()=>{
  const s=createGameState();s.organisms=['grass','grasshopper','grasshopper'].map((id,i)=>createOrganismInstance(id,`test-${i}`,input.position));
@@ -29,8 +29,8 @@ test('B/C/D: actual feeding -> recorded observation -> frog unlock -> actual pre
 });
 test('E/F/I: classify feedback, retry, one reward, no soil effect or auto placement',()=>{
  const s=createGameState(),before=structuredClone(s.environment),count=s.organisms.length;
- assert.equal(completeActivity(s,'decomposer_classify','producer').ok,false);assert.equal(s.metrics.points,0);assert(!acquired(s,'mushroom'));
- assert(completeActivity(s,'decomposer_classify','decomposer').unlocked);assert.equal(s.metrics.points,4);
+ assert.equal(completeActivity(s,'decomposer_classify','producer').ok,false);assert.equal(s.metrics.points,0);assert(acquired(s,'mushroom'));
+ assert.equal(completeActivity(s,'decomposer_classify','decomposer').unlocked,false);assert.equal(s.metrics.points,4);
  const inventory=structuredClone(s.inventory);completeActivity(s,'decomposer_classify','decomposer');unlockSpecies(s,'mushroom','decomposer_classify');
  assert.deepEqual(s.inventory,inventory);assert.equal(s.metrics.points,4);assert.equal(s.organisms.length,count);assert.deepEqual(s.environment,before);
  assert.equal(s.activities.find(a=>a.activityId==='decomposer_classify').attempts,3);

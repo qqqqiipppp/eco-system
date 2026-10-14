@@ -11,6 +11,7 @@ export const placementConfig = {
 // Presentation/movement configuration is separate from species definitions.
 // position denotes the feet/base of the image; name labels extend below it.
 export const speciesProfiles = {
+  earthworm:{zone:'ground',width:38,height:24,labelHeight:20,wanders:true,motion:{speedX:.005,speedY:.001,walkSeconds:[2,4],pauseSeconds:[1,3]}},
   oak: { zone: 'ground', width: 80, height: 76, labelHeight: 20, largePlant: true },
   grass: { zone: 'ground', width: 52, height: 43, labelHeight: 20 },
   rabbit: { zone: 'activity', width: 56, height: 49, labelHeight: 20, wanders: true },

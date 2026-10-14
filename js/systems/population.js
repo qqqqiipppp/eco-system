@@ -64,7 +64,7 @@ export function validateIntroduction(state,id,position,layout){
  if(count>=config.speciesCap[role])return {ok:false,reason:'density',message:'이 생물은 지금 충분히 많아요. 먹이와 공간을 살펴보세요.'};
  if(intro?.nextAt>state.simulationTime)return {ok:false,reason:'cooldown',message:`다시 들이기까지 ${Math.ceil(intro.nextAt-state.simulationTime)}초 기다려요. 먹이와 환경을 먼저 살펴보세요.`};
  const later=(intro?.count||0)>=config.bootstrap[role]||count===0&&Boolean(intro);
- if(later&&role==='consumer'&&!usableFood(state,{speciesId:id,position},layout).length)return {ok:false,reason:'food',message:'이 생물이 먹을 수 있는 먹이를 먼저 숲에 마련해 주세요.'};
+ if(later&&role==='consumer'&&!(id==='earthworm'?state.decomposition.organicMatter.litter>=.02:usableFood(state,{speciesId:id,position},layout).length))return {ok:false,reason:'food',message:id==='earthworm'?'참지렁이가 이용할 식물 잔해를 먼저 숲에 마련해 주세요.':'이 생물이 먹을 수 있는 먹이를 먼저 숲에 마련해 주세요.'};
  return {ok:true,reintroduction:count===0&&Boolean(intro)};
 }
 export function recordIntroduction(state,id){

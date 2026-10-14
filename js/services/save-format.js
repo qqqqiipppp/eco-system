@@ -16,8 +16,9 @@ import {restoreInstanceDevelopment,restoreDevelopmentHistory,restoreBreedingPend
 import {foodStockCapacity} from '../systems/food-resources.js';
 import {snapshotEnvironmentEvents,restoreEnvironmentEvents} from './environment-event-migration.js';
 import {snapshotPointEconomy,restorePointEconomy} from './point-economy-migration.js';
+import {snapshotDecomposition,restoreDecompositionDetails} from './decomposition-migration.js';
 
-export const SAVE_VERSION=13;
+export const SAVE_VERSION=14;
 const object=value=>value!==null&&typeof value==='object'&&!Array.isArray(value);
 const validId=value=>typeof value==='string'&&/^[a-zA-Z0-9_-]{1,80}$/.test(value);
 const text=value=>typeof value==='string'?value.slice(0,100):'';
@@ -34,6 +35,7 @@ export function createSaveSnapshot(state,eventMemory,savedAt) {
    const keys=lifespanRules[item.speciesId].model==='colony'?['renewalSeconds','nextRenewalAt','vigor','stressSeconds','generation']:['startedAt','initialAge','duration'];
    saved.life=Object.fromEntries(keys.map(key=>[key,item.life[key]]));
    if(item.development)saved.development={origin:item.development.origin,progressSeconds:item.development.progressSeconds};
+   if(item.speciesId==='earthworm'){saved.litterConsumed=item.litterConsumed;saved.lastLitterFeedingAt=item.lastLitterFeedingAt;}
    return saved;
   }),
   environment:Object.fromEntries(Object.entries(state.environment).map(([key,item])=>[key,{value:item.value}])),
@@ -53,7 +55,7 @@ export function createSaveSnapshot(state,eventMemory,savedAt) {
     breeding:Object.fromEntries(Object.entries(state.population.breeding).map(([id,v])=>[id,{healthySeconds:v.healthySeconds,nextAt:v.nextAt,...(v.pending?{pending:{remainingSeconds:v.pending.remainingSeconds,position:{x:v.pending.position.x,y:v.pending.position.y}}}:{})}])),
     replenishment:Object.fromEntries(Object.entries(state.population.replenishment).map(([id,v])=>[id,{healthySeconds:v.healthySeconds,nextAt:v.nextAt,...(replenishmentRules[id]?.seedBank?{reserve:v.reserve||0}:{})}])),
     introductions:Object.fromEntries(Object.entries(state.population.introductions).map(([id,v])=>[id,{count:v.count,nextAt:v.nextAt}]))},
-  decomposition:{organicMatter:{...state.decomposition.organicMatter},soilNutrients:state.decomposition.soilNutrients,processed:state.decomposition.processed},
+  decomposition:snapshotDecomposition(state.decomposition),
   development:{sequence:state.development?.sequence||0,history:(state.development?.history||[]).map(({sequence,instanceId,speciesId,stage,simulationTime,noted})=>({sequence,instanceId,speciesId,stage,simulationTime,noted}))},
   environmentEvents:snapshotEnvironmentEvents(state.environmentEvents,state.simulationTime),
  },eventMemory};
@@ -65,7 +67,7 @@ export function decodeSave(raw) {
  let input;
  try {if(typeof raw!=='string'||raw.length>1000000)return fresh('damaged');input=JSON.parse(raw);}catch{return fresh('damaged');}
  if(!object(input)||!Number.isInteger(input.schemaVersion))return fresh('missing-version');
- if(![7,8,9,10,11,12,SAVE_VERSION].includes(input.schemaVersion))return fresh(input.schemaVersion>SAVE_VERSION?'future-version':'old-version',true);
+ if(![7,8,9,10,11,12,13,SAVE_VERSION].includes(input.schemaVersion))return fresh(input.schemaVersion>SAVE_VERSION?'future-version':'old-version',true);
  const d=input.domain;
  if(!object(d)||d.schemaVersion!==input.schemaVersion||d.ecosystemId!=='forest'||!Array.isArray(d.organisms)||!Array.isArray(d.inventory)||!object(d.environment)||!object(d.metrics))return fresh('damaged');
  if(input.schemaVersion>=10&&d.ecologyRevision!==ECOLOGY_REVISION)return fresh('unknown-ecology',true);
@@ -87,7 +89,7 @@ export function decodeSave(raw) {
  const ids=new Set();
  state.organisms=[];
  for(const item of array(d.organisms,30)){
-  if(!object(item)||!own(organismById,item.speciesId)||!validId(item.instanceId)||ids.has(item.instanceId)||!object(item.position)||!Number.isFinite(item.position.x)||!Number.isFinite(item.position.y)){repaired=true;continue;}
+  if(!object(item)||!own(organismById,item.speciesId)||input.schemaVersion<14&&item.speciesId==='earthworm'||!validId(item.instanceId)||ids.has(item.instanceId)||!object(item.position)||!Number.isFinite(item.position.x)||!Number.isFinite(item.position.y)){repaired=true;continue;}
   // v7/v8 get a safe relative adult age starting at RESTORED active time.
   // bornAt continues to mean introduction/adaptation time, not biological birth.
   const organism=createOrganismInstance(item.speciesId,item.instanceId,{x:number(item.position.x,0,1),y:number(item.position.y,0,1)},{time:state.simulationTime});
@@ -108,6 +110,7 @@ export function decodeSave(raw) {
   if('hunger' in organism){organism.hunger=item.hunger===undefined?organism.hunger:number(item.hunger,0,1,organism.hunger);organism.foodShortageDuration=item.foodShortageDuration===undefined?0:number(item.foodShortageDuration,0,1e6);organism.lastSuccessfulFeedingAt=item.lastSuccessfulFeedingAt==null?null:time(item.lastSuccessfulFeedingAt);}
   if('hunger'in organism){organism.bornAt=input.schemaVersion===7?state.simulationTime:time(item.bornAt);organism.deprivationSeconds=input.schemaVersion===7?0:number(item.deprivationSeconds,0,1000);organism.satietyUntil=input.schemaVersion===7?0:number(item.satietyUntil,0,state.simulationTime+(satietySeconds[item.speciesId]||0));organism.acclimationUntil=state.simulationTime+(input.schemaVersion===7?populationConfig.graceSeconds:populationConfig.restoreGraceSeconds);}
   if(previous&&changedDietIds.has(item.speciesId)){organism.lastSuccessfulFeedingAt=null;organism.deprivationSeconds=0;organism.foodShortageDuration=0;organism.satietyUntil=0;organism.acclimationUntil=state.simulationTime+populationConfig.graceSeconds;}
+  if(item.speciesId==='earthworm'){organism.litterConsumed=number(item.litterConsumed,0,1e6);organism.lastLitterFeedingAt=item.lastLitterFeedingAt===null?null:time(item.lastLitterFeedingAt);}
   ids.add(item.instanceId);state.organisms.push(organism);
  }
  const suffixes=state.organisms.map(item=>Math.min(1e9,Number(item.instanceId.match(/(\d+)$/)?.[1]||0)));
@@ -117,7 +120,7 @@ export function decodeSave(raw) {
   const p=object(d.population)?d.population:{};
   const seen=new Set();
   state.population.history=array(p.history,populationConfig.historyLimit).flatMap(r=>{
-   if(!object(r)||!own(organismById,r.speciesId)||!causes.includes(r.cause)||r.changeType!==r.cause||!Number.isInteger(r.sequence)||r.sequence<1||r.sequence>1e9||seen.has(r.sequence)||!Number.isInteger(r.countBefore)||!Number.isInteger(r.countAfter)||r.countBefore<0||r.countAfter<0||r.countBefore>30||r.countAfter>30||r.countAfter-r.countBefore!==(r.cause==='colony_renewal'?0:['predation','starvation','release','natural_lifespan','life_stage_exit','colony_decline'].includes(r.cause)?-1:1)){repaired=true;return [];}
+   if(!object(r)||!own(organismById,r.speciesId)||input.schemaVersion<14&&r.speciesId==='earthworm'||!causes.includes(r.cause)||r.changeType!==r.cause||!Number.isInteger(r.sequence)||r.sequence<1||r.sequence>1e9||seen.has(r.sequence)||!Number.isInteger(r.countBefore)||!Number.isInteger(r.countAfter)||r.countBefore<0||r.countAfter<0||r.countBefore>30||r.countAfter>30||r.countAfter-r.countBefore!==(r.cause==='colony_renewal'?0:['predation','starvation','release','natural_lifespan','life_stage_exit','colony_decline'].includes(r.cause)?-1:1)){repaired=true;return [];}
    const historic=previous||r.ecologyRevision===1;
    if(r.cause==='predation'&&!(historic?legacyEcology.relations.some(e=>e.sourceSpeciesId===r.speciesId&&e.targetSpeciesId===r.consumerSpeciesId):relationFor(r.speciesId,r.consumerSpeciesId))){repaired=true;return [];}
    const rule=(historic?legacyEcology.lifespan:lifespanRules)[r.speciesId];
@@ -142,6 +145,7 @@ export function decodeSave(raw) {
   const organic=d.decomposition?.organicMatter;
   for(const part of ['wood','litter','remains'])state.decomposition.organicMatter[part]=number(organic?.[part],0,decompositionConfig.maximum);
   state.decomposition.soilNutrients=number(d.decomposition?.soilNutrients,0,1);state.decomposition.processed=number(d.decomposition?.processed,0,1e6);
+  restoreDecompositionDetails(d.decomposition,input.schemaVersion,state,{number,repair:()=>{repaired=true;}});
  }
  state.development=restoreDevelopmentHistory(d.development,input.schemaVersion,state,{array,number,time,repair:()=>{repaired=true;}});
  state.environmentEvents=restoreEnvironmentEvents(d.environmentEvents,input.schemaVersion,state,{number,array,time,repair:()=>{repaired=true;}});

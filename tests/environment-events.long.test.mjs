@@ -22,7 +22,7 @@ import {world,make,layout,emptyMemory} from './ecology-fixtures.mjs';
 
 const core=()=>world([['oak',2,.65],['grass',5,.2],['grasshopper',6,.4],['frog',1,.45],['mushroom',1,.7]],'long');
 const representative=()=>world([['oak',2,.65],['grass',5,.2],['grasshopper',6,.4],['frog',1,.45],['mushroom',1,.7],['rabbit',2,.32]],'representative');
-function mixed(){const s=world(organisms.map((o,i)=>[o.id,1,.22+(i%5)*.035]),'long');s.organisms.push(...Array.from({length:3},(_,i)=>make('grass','extra-grass'+i,.45+i*.03)),...Array.from({length:3},(_,i)=>make('grasshopper','extra-gh'+i,.48+i*.03)),make('aphid','extra-aphid',.35));return s;}
+function mixed(){const s=world(organisms.filter(o=>o.id!=='earthworm').map((o,i)=>[o.id,1,.22+(i%5)*.035]),'long');s.organisms.push(...Array.from({length:3},(_,i)=>make('grass','extra-grass'+i,.45+i*.03)),...Array.from({length:3},(_,i)=>make('grasshopper','extra-gh'+i,.48+i*.03)),make('aphid','extra-aphid',.35));return s;}
 // Established-forest comparison fixture: existing core discoveries and completed
 // activities carry their once-only keys. The requested initial remaining budget
 // is explicitly 30, not a claim that this setup was a fresh student session.
@@ -207,7 +207,7 @@ test('12 long 11: zero finite budget cannot execute paid care, uses limited epis
  emit(11,r.report);
 });
 test('12 long 12: fresh student ordinary introduction, real first meal, explicit discovery/activity/frog unlock and second meal happen before any incident',()=>{
- const s=createGameState(),f=createFeedingSystem(),events=createEventSystem();assert.equal(s.metrics.points,0);assert.equal(s.inventory.filter(c=>c.acquired).length,3);
+ const s=createGameState(),f=createFeedingSystem(),events=createEventSystem();assert.equal(s.metrics.points,0);assert.equal(s.inventory.filter(c=>c.acquired).length,5);
  assert(placeOrganism(s,'grasshopper',{position:{x:.44,y:.7},isPlayArea:true,isUI:false},layout).ok);let first=null,second=null;
  for(let step=0;step<1200&&!second;step++){
   const r=f.update(s,.1,layout);if(r.ticked)events.update(s,.5,r.feedingEvents);

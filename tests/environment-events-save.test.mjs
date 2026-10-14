@@ -35,7 +35,7 @@ function operationalState(){
  s.population.replenishment.grasshopper={healthySeconds:100,nextAt:1180,reserve:2};
  s.population.introductions=Object.fromEntries(s.organisms.map(o=>[o.speciesId,{count:3,nextAt:1040}]));
  s.development={sequence:2,history:[{sequence:1,instanceId:'gone-hare',speciesId:'rabbit',stage:'juvenile',simulationTime:800,noted:true},{sequence:2,instanceId:'gone-hare',speciesId:'rabbit',stage:'adult',simulationTime:850,noted:false}]};
- s.decomposition={organicMatter:{wood:5,litter:6,remains:7},soilNutrients:.6,processed:8};
+ s.decomposition={...s.decomposition,organicMatter:{wood:5,litter:6,remains:7},soilNutrients:.6,processed:8};
  s.environment={sunlight:{value:.9},water:{value:.73},air:{value:.8},soil:{value:.67}};
  s.forestProgress={cleared:true,clearedAt:950,stableSeconds:forestGoal.stableSeconds};
  s.managementHistory=[{actionId:'water-care',sourceEventId:'event-prior',sourceId:'water',executedAt:998,cost:6,result:'applied',factor:'water',valueAfter:.73}];
@@ -63,14 +63,14 @@ function protectedData(s){
 test('environment save: schema13 snapshots whitelist episode fields and detach nested records from runtime data',()=>{
  const s=episode(),record=s.environmentEvents.history[0];record.runtimeNode={html:'not save data'};s.environmentEvents.debugOverride=true;
  record.evidence.push({instanceId:'gone-grass',speciesId:'grass',type:'growth-delay',at:s.simulationTime});
- const raw=snapshot(s);assert.equal(SAVE_VERSION,13);assert.equal(raw.schemaVersion,13);assert.equal(raw.domain.schemaVersion,13);assert.equal(s.schemaVersion,13);
+ const raw=snapshot(s);assert.equal(SAVE_VERSION,14);assert.equal(raw.schemaVersion,14);assert.equal(raw.domain.schemaVersion,14);assert.equal(s.schemaVersion,14);
  assert(!('debugOverride'in raw.domain.environmentEvents));assert(!('runtimeNode'in raw.domain.environmentEvents.history[0]));
  raw.domain.environmentEvents.history[0].evidence[0].type='producer-decline';assert.equal(record.evidence[0].type,'growth-delay');
- assert.equal(raw.domain.ecologyRevision,2);assert.equal(raw.domain.inventory.length,23);
+ assert.equal(raw.domain.ecologyRevision,2);assert.equal(raw.domain.inventory.length,24);
 });
 
 test('environment save: genuine v11 keeps growth/life/pending/current+historic observations and schedules after restored active time',()=>{
- const raw=priorSave(11),r=decodeSave(JSON.stringify(raw));assert.equal(r.status,'loaded');assert.equal(r.state.schemaVersion,13);
+ const raw=priorSave(11),r=decodeSave(JSON.stringify(raw));assert.equal(r.status,'loaded');assert.equal(r.state.schemaVersion,14);
  assert.deepEqual(r.state.environmentEvents,createEnvironmentEventState(raw.domain.simulationTime));
  assert.deepEqual(r.state.environment,raw.domain.environment);assert.deepEqual(r.state.organisms.map(o=>o.life),raw.domain.organisms.map(o=>o.life));
  assert.deepEqual(r.state.organisms.map(o=>({origin:o.development.origin,progressSeconds:o.development.progressSeconds})),raw.domain.organisms.map(o=>o.development));
@@ -211,7 +211,7 @@ test('environment save: observation choices and paid-response factor variants pe
 
 test('environment save: future14 and unknown ecology revisions remain blocked and cannot overwrite the original local save',()=>{
  for(const version of [10,11,12]){const raw=version<12?priorSave(version):snapshot(createGameState());raw.domain.ecologyRevision=999;const r=decodeSave(JSON.stringify(raw));assert.equal(r.status,'unknown-ecology');assert(r.blocked);}
- const raw=snapshot(createGameState());raw.schemaVersion=raw.domain.schemaVersion=14;const source=JSON.stringify(raw);let writes=0;
+ const raw=snapshot(createGameState());raw.schemaVersion=raw.domain.schemaVersion=15;const source=JSON.stringify(raw);let writes=0;
  const service=createSaveService({adapter:{read:()=>source,write:()=>writes++,remove(){}},getState:createGameState,getEventMemory:()=>emptyMemory});
  const r=service.load();assert.equal(r.status,'future-version');assert(r.blocked);service.schedule();assert.equal(service.flush(true),false);assert.equal(writes,0);service.dispose();
 });

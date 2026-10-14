@@ -36,7 +36,7 @@ export function freshStudent({earlySpending=false}={}){
 // The same IDs and coordinates as the stage12 comparison, never a student unlock.
 export function comparisonForest(kind='representative'){
  const groups=[['oak',2,.65],['grass',5,.2],['grasshopper',6,.4],['frog',1,.45],['mushroom',1,.7]];
- const s=kind==='mixed'?world(organisms.map((o,i)=>[o.id,1,.22+(i%5)*.035]),'long'):world(kind==='core'?groups:[...groups,['rabbit',2,.32]],kind==='core'?'long':'representative');
+ const s=kind==='mixed'?world(organisms.filter(o=>o.id!=='earthworm').map((o,i)=>[o.id,1,.22+(i%5)*.035]),'long'):world(kind==='core'?groups:[...groups,['rabbit',2,.32]],kind==='core'?'long':'representative');
  if(kind==='mixed')s.organisms.push(...Array.from({length:3},(_,i)=>make('grass','extra-grass'+i,.45+i*.03)),...Array.from({length:3},(_,i)=>make('grasshopper','extra-gh'+i,.48+i*.03)),make('aphid','extra-aphid',.35));
  s.observations=['v2_grass_to_grasshopper','v2_grasshopper_to_frog'].map(relationId=>({relationId,eventId:'fixture-prior',discoveredAt:0}));
  s.rewardHistory=s.observations.map(o=>({rewardId:'observation:'+o.relationId,grantedAt:0,sourceId:'fixture-prior',amount:12}));

@@ -4,6 +4,7 @@ const plantList='https://www.nibr.go.kr/aiibook/catImage/20/National%20Species%2
 const animalList='https://www.nibr.go.kr/aiibook/catImage/21/National%20Species%202.pdf';
 const taxon=(scientificName,source,taxonomyNote='',aliases=[])=>({scientificName,taxonKind:'species',taxonomySource:source,taxonomyNote,aliases});
 export const speciesTaxonomy={
+ earthworm:taxon('Amynthas koreanus',animalList,'참지렁이의 국명·학명은 국립생물자원관 목록에 따르며 먹이·토양 기여는 지렁이류 일반 역할을 단순화한 게임 설정이에요.'),
  oak:taxon('Quercus acutissima',plantList),
  grass:taxon('Setaria viridis',plantList,'한해살이 벼과 식물. 목록의 기본변종 표기와 종 수준 표기를 구분해요.'),
  pine:taxon('Pinus densiflora',plantList),

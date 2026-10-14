@@ -37,7 +37,7 @@ const assert = require('node:assert/strict');
     };
     assert.equal(await count(), 3);
     assert.equal(await page.locator('.organism-object').count(), 3);
-    assert.equal(await page.locator('.organism-card').count(), 23);
+    assert.equal(await page.locator('.organism-card').count(), 24);
     assert.match(await page.locator('.organism-card[data-species-id="oak"]').textContent(), /상수리나무/);
     assert.equal(await page.evaluate(() => window.loopStats.maxPending), 1); // decomposition shares the existing ecology scheduler even with plants only
 
@@ -47,7 +47,7 @@ const assert = require('node:assert/strict');
       gameState.inventory.find(item => item.speciesId === 'rabbit').acquired = false;
       (await import('./js/ui/render.js')).renderCards(gameState, () => {});
     });
-    assert.equal(await page.locator('.organism-card').count(), 23);
+    assert.equal(await page.locator('.organism-card').count(), 24);
     assert.equal(await page.locator('.organism-card[data-species-id="rabbit"]').getAttribute('data-locked'), 'true');
     await page.locator('#goal-open').click();
     await page.locator('#restart-open').click();
@@ -72,7 +72,7 @@ const assert = require('node:assert/strict');
     await tap(0.4, 0.72);
     assert.equal(await count(), 4);
     assert.equal((await state()).organisms.at(-1).speciesId, 'oak');
-    assert.equal((await state()).inventory.length, 23);
+    assert.equal((await state()).inventory.length, 24);
     await tap(0.081, 0.73);
     assert.equal(await count(), 5);
     assert.equal(await page.locator('.organism-card[data-species-id="oak"]').getAttribute('aria-pressed'), 'true');

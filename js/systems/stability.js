@@ -3,6 +3,7 @@ import { organismById } from '../../data/organisms.js';
 import { relationsByConsumer } from '../../data/food-relations.js';
 import { foodResourceConfig } from '../../data/ecology-config.js';
 import { environmentQuality } from './environment.js';
+import {earthwormConfig} from '../../data/detritus-config.js';
 
 const clamp = value => Math.max(0, Math.min(1, value));
 export function speciesCounts(state) {
@@ -25,8 +26,14 @@ export function evaluateStability(state, previousCounts = {}) {
   // Alternative foods serve a consumer together; an absent alternative is not
   // another compulsory condition. Keep the original weights and scoring factors.
   const applicable = [...relationsByConsumer].filter(([speciesId]) => counts[speciesId]);
+  if(counts.earthworm)applicable.push(['earthworm',null]);
   const food = applicable.length ? applicable.reduce((sum, [speciesId,relations]) => {
     const consumers = state.organisms.filter(item => item.speciesId === speciesId);
+    if(speciesId==='earthworm'){
+      const adequacy=clamp(state.decomposition.organicMatter.litter/(consumers.length*earthwormConfig.rate*45));
+      const nutrition=consumers.filter(o=>o.lastLitterFeedingAt!==null&&state.simulationTime-o.lastLitterFeedingAt<=45).length/consumers.length;
+      return sum+adequacy*(.5+.5*nutrition);
+    }
     const sources=new Set(relations.map(edge=>edge.sourceSpeciesId));
     const suppliers = state.organisms.filter(item => sources.has(item.speciesId));
     const supply = suppliers.reduce((amount, item) => amount + (foodResourceConfig[item.speciesId] ? item.foodStock / foodResourceConfig[item.speciesId].maximum : 1), 0);

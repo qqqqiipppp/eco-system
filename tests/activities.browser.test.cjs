@@ -8,12 +8,12 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');const asse
  const card=id=>page.locator(`.organism-card[data-species-id="${id}"]`);
  const tap=async(x,y)=>{const b=await page.locator('#placement-surface').boundingBox();await page.touchscreen.tap(b.x+x*b.width,b.y+y*b.height)};
  const close=()=>page.locator('#activity-close').click();
- assert.deepEqual((await state()).inventory.filter(c=>c.acquired).map(c=>c.speciesId),['oak','grass','grasshopper']);
+ assert.deepEqual((await state()).inventory.filter(c=>c.acquired).map(c=>c.speciesId),['oak','grass','grasshopper','mushroom','soil-bacteria']);
  await card('grass').tap();await card('frog').tap();assert.equal(await page.locator('.organism-card[aria-pressed="true"]').count(),0);
  await page.locator('[data-answer="confirm"]').click();assert.equal((await state()).inventory.find(c=>c.speciesId==='frog').acquired,false);assert.match(await page.locator('#activity-result').textContent(),/발견 기록/);await close();await tap(.4,.74);assert.equal((await state()).organisms.length,3);
  await card('rabbit').tap();await page.locator('[data-answer="confirm"]').click();assert.equal((await state()).inventory.find(c=>c.speciesId==='rabbit').acquired,false);await close();
  console.log('A/G/J: starter and locked-card hint, no placement selection, habitat incomplete');
- await card('mushroom').tap();await page.locator('[data-answer="producer"]').click();assert.equal((await state()).metrics.points,0);assert.equal(await card('mushroom').getAttribute('data-locked'),'true');
+ await page.locator('#activities-open').tap();await page.locator('[data-activity-id="decomposer_classify"]').tap();await page.locator('[data-answer="producer"]').click();assert.equal((await state()).metrics.points,0);assert.equal(await card('mushroom').getAttribute('data-locked'),'false');
  await page.locator('[data-answer="decomposer"]').click();assert.equal((await state()).metrics.points,4);assert.equal(await card('mushroom').getAttribute('data-locked'),'false');await page.locator('[data-answer="decomposer"]').click();assert.equal((await state()).metrics.points,4);await close();
  await page.locator('#activities-open').tap();await page.locator('[data-answer="frog"]').click();assert.equal((await state()).metrics.points,4);await page.locator('[data-answer="grass"]').click();assert.equal((await state()).metrics.points,7);await close();
  console.log('E/F/I: classify retry, unlock and reward once; quiz retry and reward');

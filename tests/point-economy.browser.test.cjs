@@ -21,9 +21,9 @@ const {dismissWelcome}=require('./fixtures.cjs'),BASE=process.env.BASE_URL||'htt
  async function recordFood(p,name){await p.locator(`.event-insight[aria-label*="${name}"]`).first().waitFor({timeout:30000});await p.emulateMedia({reducedMotion:'reduce'});await p.locator(`.event-insight[aria-label*="${name}"]`).first().tap();await p.getByRole('button',{name:'살펴보기',exact:true}).tap();await p.getByRole('button',{name:'발견 기록하기',exact:true}).tap();await p.locator('#event-close').tap();}
  try{
   // Scenario15 begins with actual student0 points and actual UI actions.
-  const fresh=await setup();assert.equal((await state(fresh)).metrics.points,0);assert.equal((await state(fresh)).inventory.filter(c=>c.acquired).length,3);
+  const fresh=await setup();assert.equal((await state(fresh)).metrics.points,0);assert.equal((await state(fresh)).inventory.filter(c=>c.acquired).length,5);
   await fresh.locator('#activities-open').tap();await fresh.locator('[data-answer="grass"]').tap();await fresh.locator('#activity-close').tap();
-  await card(fresh,'mushroom').tap();await fresh.locator('[data-answer="decomposer"]').tap();await fresh.locator('#activity-close').tap();await place(fresh,'mushroom',.64);
+  await fresh.locator('#activities-open').tap();await fresh.locator('[data-activity-id="decomposer_classify"]').tap();await fresh.locator('[data-answer="decomposer"]').tap();await fresh.locator('#activity-close').tap();await place(fresh,'mushroom',.64);
   await place(fresh,'grasshopper',.43,.70);await place(fresh,'grasshopper',.48,.70);await fresh.emulateMedia({reducedMotion:'no-preference'});await recordFood(fresh,'강아지풀');
   await card(fresh,'frog').tap();await fresh.locator('[data-answer="confirm"]').tap();await fresh.locator('#activity-close').tap();await place(fresh,'frog',.43,.70);await fresh.emulateMedia({reducedMotion:'no-preference'});await recordFood(fresh,'참개구리');
   const earned=await state(fresh);assert.equal(earned.metrics.points,35);assert.equal(earned.observations.length,2);assert.equal(earned.pointEconomy.totals.legacy,35);assert.equal(earned.pointEconomy.totals.study,0);

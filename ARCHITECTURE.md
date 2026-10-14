@@ -1,4 +1,14 @@
-# 현재 설계 — 1~13단계
+# 현재 설계 — 1~13.5단계
+
+## 13.5단계: 공유 유기물과 토양동물의 역할
+
+기존23종/22관계에 earthworm 소비자1개를 더해24종류다. 첫 권한은5(구름송편버섯·고초균 포함), 기존 개구리/토끼 학습 뒤7,14단계 예정17은 잠금이다. 권한 변경이 포인트·학습 완료·실제 개체 생성은 아니다.
+
+data/detritus-config.js는 참지렁이/관심 반응의 제한값을 모은다. lifecycle은 실제 유기물 양을 더한 뒤 organic-notices.js에 발생을 기록한다. decomposition.js는 기존 전체 rate와 지렁이 litter rate를 합쳐 공유 풀을 한 번만 차감하고 실제 몫을 배분한다. nutrient yield는 기존 전체 처리량에서 한 번 계산하며 지렁이 토양 기여는 실제 섭식·상한을 검증한다. 참지렁이 없는 기존 계산은 그대로다. stability의 지렁이 먹이 항목은 공유 litter와 최근 실제 섭식만 읽고 기존23종/가중치는 유지한다.
+
+organic-notices는 실제 출처 위치로 가까운 적합한 개체 한 곳을 지정하며 실제 처리량을 개체/시체별로 귀속하지 않는다.20발생/120활성초/6그룹/기존4표시·36활성 상한과 우선순위를 유지한다. 사건을 확인하면 원장의 확인 표시만 바꾸고 유료 관리·보상을 호출하지 않는다. 기존 event-view와 organism anchor, CSS 점선/44px을 재사용하며 프레임별 위치 읽기/새 timer는 없다. 좁은 가로 화면의 긴 선택 설명은112px 안에서 스크롤하며 선택 해제44px을 상단에 유지한다.
+
+decomposition-migration.js는 새 발생/섭식/기여를 whitelist로 저장·복원한다. 현재 외피/domain14, 지원7~13, ecologyRevision2, 미래15 차단이다. 이전 기록에 유기물 반응을 소급하지 않는다.13의 pointEconomy/recoverySupportUsed와 도입 시점13 경계는 그대로 보존하며 경제를 다시 초기화하지 않는다. 아래13단계 이하의 도입 설명은 당시 책임을 설명한다. 자세한 계약은 [FOREST_DETRITUS.md](FOREST_DETRITUS.md)를 따른다.
 
 ## 13단계: 실제 학습 보상과 제한적인 복구 예산
 
@@ -10,7 +20,7 @@
 
 실제 지급/지출 뒤 rewards와 management가 recordPointChange를 호출한다. 누적 합계와 최근100행을 구분하며 `이월 + 기존 획득 + 새 학습 + 지원 − 지출 = 실제 잔액`을 유지한다. 이전/손상 저장의 실제 잔액을 짧은 이력으로 다시 계산해 바꾸지 않는다. root의 recoverySupportUsed는 새 경제 객체가 통째로 없어져도 지원 사용 여부를 보존한다. 알 수 없는 과거 지급을 확인하지 못할 때 과거 학습/조사 재지급을 보수적으로 막고, 남은 기존 잔액으로 복구 예산만 재구성한다. 실제 환경·생물·성장·먹이·legacyEcology는 별도 계약이다.
 
-현재 저장13은7~12를 읽고 미래14와 미지 ecologyRevision을 차단한다. 포인트는 저장 날짜/경과 시간/클릭 수로 생기지 않는다. 새 timer·RAF·섭식/번식/수명/안정도 계수·원격 API·이미지는 없다. 상세 수치와 교육적 한계는 [FOREST_POINT_ECONOMY.md](FOREST_POINT_ECONOMY.md)를 따른다. 아래 이전 단계 설명은 당시 도입한 기능의 책임을 설명한다.
+현재 저장14는7~13을 읽고 미래15와 미지 ecologyRevision을 차단한다. 포인트는 저장 날짜/경과 시간/클릭 수로 생기지 않는다. 새 timer·RAF·섭식/번식/수명/안정도 계수·원격 API·이미지는 없다. 상세 수치와 교육적 한계는 [FOREST_POINT_ECONOMY.md](FOREST_POINT_ECONOMY.md)를 따른다. 아래 이전 단계 설명은 당시 도입한 기능의 책임을 설명한다.
 
 ## 12단계: 같은 환경 모델을 바꾸는 사건
 
@@ -20,7 +30,7 @@ feeding의 기존0.5초 처리에서 활성 시계를 진행한 뒤 사건→기
 
 고정 순서는 가뭄→비→흐린 날씨→공기 오염→숲 바닥 훼손이다. 시작8분/간격12분, 불안정·낮은 시작 환경·최근 같은 사건은120초 뒤 같은 cursor를 재검사한다. 나쁜 숲에 유리한 비만 선택하는 분기는 없다. active와 recovering 모두 중첩을 막는다. 시작할 때 포인트6미만은 강도.6/하한.45, 그 외 강도1/하한.35다. 자연 회복은 이전 환경과.8 중 작은 목표까지 점진적으로 진행하며 유료 관리로 높아진 값을 덮어쓰지 않는다.
 
-history는 최대20사건이며 각 사건은 실제 적용초·변화량·회복초·관찰 evidence최대5·실행 responses최대20을 가진다. 효과는 절대 활성 시각과 이미 적용한 초의 차이만큼 적용한다. 저장 서비스는 이 원장을 whitelist로 복원하며 실제 환경 값은 별도로 보존한다. 이전7~11에는 복원 시각부터8분 유예를 제공한다. 이 사건 계약은 현재13에서도 유지하며 미래14·ecologyRevision2 방어를 적용한다.
+history는 최대20사건이며 각 사건은 실제 적용초·변화량·회복초·관찰 evidence최대5·실행 responses최대20을 가진다. 효과는 절대 활성 시각과 이미 적용한 초의 차이만큼 적용한다. 저장 서비스는 이 원장을 whitelist로 복원하며 실제 환경 값은 별도로 보존한다. 이전7~11에는 복원 시각부터8분 유예를 제공한다. 이 사건 계약은 현재14에서도 유지하며 미래15·ecologyRevision2 방어를 적용한다.
 
 expected는 설정의 가능한 영향이고 evidence는 실제 변화가 확인된 경우만 추가한다. 발달은 같은 tick의 먹이·배고픔·자원을 고정한 채 기존 developmentRate를 이전 환경/현재 환경으로 비교한다. 군집은 기존 lifespan의 환경 문턱·자원 조건을 공유해, 목재 부족만으로 쇠퇴한 버섯을 흐린 날씨 반응이라고 기록하지 않는다. 씨앗/알·life·개체ID·수명·단계 전환은 기존 규칙이 처리한다.
 
@@ -102,7 +112,7 @@ metrics.bestStability는 최고값만 유지합니다. 진행률은 관찰20/핵
 - adapters/local-storage.js: 게임 저장의 localStorage 접근 지점. key는 eco-system:forest-save. 안내 선호는 별도 guide-preference adapter가 담당합니다.
 - ui/forest-view.js: 목표/저장 문구/초기화 확인. 저장 데이터를 직접 쓰지 않습니다.
 
-저장 외피는 schemaVersion=13, savedAt(ISO 실제 저장 시각), domain, eventMemory입니다. domain.schemaVersion=13, ecologyRevision=2입니다. 7~12버전은 기존 진행을 보존하며 7·8·9의 종 의미 변화도 명시적으로 이전합니다. savedAt은 게임 계산에 사용하지 않습니다. domain.pointEconomy와 recoverySupportUsed는 포인트 전용 기록이며 기존 observations/development/environmentEvents/legacyEcology를 대신하지 않습니다.
+저장 외피는 schemaVersion=14, savedAt(ISO 실제 저장 시각), domain, eventMemory입니다. domain.schemaVersion=14, ecologyRevision=2입니다. 7~12버전은 기존 진행을 보존하며 7·8·9의 종 의미 변화도 명시적으로 이전합니다. savedAt은 게임 계산에 사용하지 않습니다. domain.pointEconomy와 recoverySupportUsed는 포인트 전용 기록이며 기존 observations/development/environmentEvents/legacyEcology를 대신하지 않습니다.
 
 지속 데이터: ecosystemId/simulationTime/nextInstanceSequence, inventory, organisms의 ID/종/정규화 위치/성장/foodStock/hunger/부족 누적/최근 섭식 활성 시각, environment, points/bestStability, observations, activities, rewardHistory, 관리 이력/누적 횟수/cooldown/effect, forestProgress.
 
@@ -150,7 +160,7 @@ nextAction은 현재 카드/개체, 실제 발견 후보·관찰, 완료 활동,
 
 ui/forest-view.js는 여섯 행의 DOM을 한 번 만들고 바뀐 문구와 체크만 갱신합니다. 기본 화면에는 한 줄 목표 수와 상세 버튼을 두고 기존 사이드 영역에 다음 행동을 표시합니다. 별도 갱신 loop를 추가하지 않고 기존 dashboard refresh 경로를 사용합니다.
 
-ui/help-view.js는 새 게임 목적/조작 안내와 재열기를 담당합니다. main.js가 restored.status==='new'일 때만 최초 자동 표시를 요청합니다. 닫기·Escape·건너뛰기도 확인으로 처리합니다. adapters/guide-preference.js는 선택적인 UI key eco-system:forest-guide-seen만 읽고 쓰며 오류가 게임 실행을 중단시키지 않습니다. schemaVersion13 도메인 저장과 독립적입니다.
+ui/help-view.js는 새 게임 목적/조작 안내와 재열기를 담당합니다. main.js가 restored.status==='new'일 때만 최초 자동 표시를 요청합니다. 닫기·Escape·건너뛰기도 확인으로 처리합니다. adapters/guide-preference.js는 선택적인 UI key eco-system:forest-guide-seen만 읽고 쓰며 오류가 게임 실행을 중단시키지 않습니다. schemaVersion14 도메인 저장과 독립적입니다.
 
 ## 9단계 환경 관찰과 유료 회복
 
@@ -183,11 +193,11 @@ js/dev/environment-tools.js는 기존 네 환경 비교 선택창을 environment
 - feeding은 낮은 빈도로 살아 있는 개체를 종별로 색인한다. 허용 관계 안에서 존재·남은 자원·거리·접근 가능성을 검사한다. 타깃 고갈/삭제 시 기존 재탐색 상태로 돌아가 다른 먹이를 찾는다. 식물 자원 소비와 동물 삭제를 feedingMode로 구분한다. 동기 삭제 후 stale target을 정리한다.
 - wander는 종별 motion 설정을 사용하며 식물/분해자를 이동시키지 않는다. 새 RAF·setInterval·무거운 효과는 없다.
 - 실제 섭식 신호의 relationId/foodPart를 feedback과 events가 사용한다. 발견 후보는 자동 수집하지만 observations와 최초 보상은 학생 확인 후 기록한다. 기존 두 핵심 관계를 우선하고 화면 4개 제한, 중복/재보상 방지를 유지한다.
-- save-format은 관계 정의에서 허용 관찰·보상·후보를 검증한다. 현재 관찰/후보 상한은22개 정의를 사용한다. 과거 관찰27개는 역사 기록에만 남는다. 누락된 신규 inventory는 잠금으로 추가한다. 이전 상수리/토끼의 새 runtime 필드 누락은 정상 기본값으로 보충한다. key는 유지하고 현재 relationId에는 v2_ 접두사를 쓴다. 현재 저장은 schemaVersion=13, 이전7·8·9·10·11·12를 안전하게 읽는다.
+- save-format은 관계 정의에서 허용 관찰·보상·후보를 검증한다. 현재 관찰/후보 상한은22개 정의를 사용한다. 과거 관찰27개는 역사 기록에만 남는다. 누락된 신규 inventory는 잠금으로 추가한다. 이전 상수리/토끼의 새 runtime 필드 누락은 정상 기본값으로 보충한다. key는 유지하고 현재 relationId에는 v2_ 접두사를 쓴다. 현재 저장은 schemaVersion=14, 이전7·8·9·10·11·12를 안전하게 읽는다.
 
 ## 카드와 개발 경계
 
-cards.css의 한 줄 가로 스크롤로 23개를 담고 이름 줄바꿈과 터치 크기를 유지한다. 기존 6종은 기존 활동/해금 조건을 사용한다. 신규 17종은 ‘추후 해금 예정’이며 클릭해도 가짜 학습 활동을 열거나 무단 배치하지 않는다.
+cards.css의 한 줄 가로 스크롤로24개를 담고 이름 줄바꿈과 터치 크기를 유지한다. 초기5종과 기존 학습으로 얻는2종을 사용한다. 신규 17종은 ‘추후 해금 예정’이며 클릭해도 가짜 학습 활동을 열거나 무단 배치하지 않는다.
 
 학생 main.js는 dev 모듈을 가져오지 않는다. useDeveloperSpecies 테스트 fixture만 main 응답의 명시적 경계에 installSpeciesTools를 연결한다. 카드 권한을 열어도 포인트·학습 기록은 지급하지 않는다. URL 플래그는 없다. 이 경계는 개발 검증 편의 기능이며 개발자 도구로 저장을 직접 변조하는 행위까지 막는 인증 시스템은 아니다.
 
@@ -221,9 +231,9 @@ cards.css의 한 줄 가로 스크롤로 23개를 담고 이름 줄바꿈과 터
 - population.replenishment: 실제 번식 이후 방아깨비 알 보충 가능량 최대6, 소나무의 솔나방 유충 발생2개 규칙의 healthySeconds/nextAt. 기존 무당벌레·일반 거미·등줄쥐의 자동 유입은 현재 홍단딱정벌레·무당거미·고슴도치에 적용하지 않는다. 신규 해금 없음. 획득+과거 실제 도입 count>0+먹이+환경+영역/밀도+대기+30 상한을 검사한다. 저장 복원으로 생성된 count=0 도입 항목은 유입 권한이 아니다. 알 가능량은 게임 보충 예산이고 현재 살아 있는 숨은 개체 수가 아니다. 실제 생물 1 instance=1 DOM 정책은 유지한다.
 - population history: 기존 80건/누적 통계 정책, natural_lifespan(-1), life_stage_exit(-1), colony_decline(-1), colony_renewal(0), replenishment(+1). 상태 창은 단위와 상대 생애, 실제 최근 변화만 보여준다. 남은 초 카운트다운은 없다. main은 변화 후 DOM/안정도/목표/이벤트/저장을 연결한다. 안정도 가중치와 최근 실제 감소 지표를 변경하지 않았고 원인마다 추가 벌점도 없다.
 
-현재 저장 계약은 schemaVersion13과 기존 eco-system:forest-save key다. 8·7은 누락된 life를 복원 활성 시각 기준으로 안전하게 할당한다. 9는 기존 정의로 life를 검증하고 변경7슬롯의 상대 나이/종료 분포를 새 정의로 변환한다. 10·11·12·13은 life를 검증·whitelist 복사해 재추첨하지 않는다. 8의 생존·번식/재도입·분해/진행과7의 적응 정책을 유지한다. 알려진 cause/mode 및 종별 범위, 군집 상태, 보충/알 상한을 검증한다. 과거 nextAt가 남아 있는 휴면도 유효하다. 부적절한 life만 안전하게 보정하고 미래 형식 덮어쓰기는 막는다.
+현재 저장 계약은 schemaVersion14과 기존 eco-system:forest-save key다. 8·7은 누락된 life를 복원 활성 시각 기준으로 안전하게 할당한다. 9는 기존 정의로 life를 검증하고 변경7슬롯의 상대 나이/종료 분포를 새 정의로 변환한다. 10·11·12·13은 life를 검증·whitelist 복사해 재추첨하지 않는다. 8의 생존·번식/재도입·분해/진행과7의 적응 정책을 유지한다. 알려진 cause/mode 및 종별 범위, 군집 상태, 보충/알 상한을 검증한다. 과거 nextAt가 남아 있는 휴면도 유효하다. 부적절한 life만 안전하게 보정하고 미래 형식 덮어쓰기는 막는다.
 
 12단계 사건은 기존 environment 값만 변경한다. 현재 수명 기간은 관리/환경으로 무한 연장되지 않는다. 환경 영향은 식물/먹이/번식/군집 활동을 통한다. 13단계 경제는 수명 계수를 변경하지 않는다. 15단계에는 초기 상대 나이·수명 하한·알 보충/번식 조건·30 상한·최종 수업 시간·경제를 함께 조정한다.
 
 
-11~13버전은 development-migration.js에서 성장 origin/progressSeconds, 원장과 씨앗/알 대기를 whitelist로 복원한다. stage 캐시는 저장하지 않고 재계산한다. version10은 현재 생태 기록을 archive로 보내지 않으며 version7~9의 종 변경 이전만 기존 ecology-migration에 맡긴다. 미래13 초과 스키마 또는 미지 ecologyRevision은 덮어쓰기를 차단한다. 저장된 활성 시계 외 시간은 성장에 적용하지 않는다.
+11~14버전은 development-migration.js에서 성장 origin/progressSeconds, 원장과 씨앗/알 대기를 whitelist로 복원한다. stage 캐시는 저장하지 않고 재계산한다. version10은 현재 생태 기록을 archive로 보내지 않으며 version7~9의 종 변경 이전만 기존 ecology-migration에 맡긴다. 미래14 초과 스키마 또는 미지 ecologyRevision은 덮어쓰기를 차단한다. 저장된 활성 시계 외 시간은 성장에 적용하지 않는다.
