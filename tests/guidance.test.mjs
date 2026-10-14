@@ -50,7 +50,7 @@ test('recovery validates funds, bad state, target and shared cooldown before mut
 });
 test('schema 7 save keeps legacy bad environments and learned progress; guide preference never edits game save',()=>{
  const s=createGameState();setEnvironmentLevel(s,'sunlight','bad');setEnvironmentLevel(s,'air','bad');completeActivity(s,'producer_quiz','grass');s.metrics.bestStability=85;
- const snapshot=createSaveSnapshot(s,{},'2026-10-08T00:00:00Z');snapshot.schemaVersion=snapshot.domain.schemaVersion=7;delete snapshot.domain.population;delete snapshot.domain.decomposition;const raw=JSON.stringify(snapshot),loaded=decodeSave(raw).state;assert.equal(loaded.schemaVersion,14);assert.equal(loaded.environment.sunlight.value,.15);assert.equal(loaded.environment.air.value,.15);assert.equal(loaded.metrics.bestStability,85);assert.equal(loaded.activities[0].completed,true);
+ const snapshot=createSaveSnapshot(s,{},'2026-10-08T00:00:00Z');snapshot.schemaVersion=snapshot.domain.schemaVersion=7;delete snapshot.domain.population;delete snapshot.domain.decomposition;const raw=JSON.stringify(snapshot),loaded=decodeSave(raw).state;assert.equal(loaded.schemaVersion,15);assert.equal(loaded.environment.sunlight.value,.15);assert.equal(loaded.environment.air.value,.15);assert.equal(loaded.metrics.bestStability,85);assert.equal(loaded.activities[0].completed,true);
  const storage=new Map([['eco-system:forest-save',raw]]);const adapter=createGuideAdapter(()=>({getItem:k=>storage.get(k),setItem:(k,v)=>storage.set(k,v)}));assert(!adapter.read());adapter.markSeen();assert(adapter.read());assert.equal(storage.get('eco-system:forest-save'),raw);
 });
 test('points exhausted remains a documented progression limit rather than silent environmental repair',()=>{

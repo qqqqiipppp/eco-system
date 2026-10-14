@@ -1,3 +1,9 @@
+## 13.6단계 현재 기준
+
+실제 발생/가장 가까운 적합한 한 개체/관심과 실제 처리 구분/0점 확인/동일 풀 한 번 처리·yield·숲당 토양 예산을 유지합니다. 실제 분해와 지렁이 섭식율은2배,지렁이 생애22.5~32.5분,관심120실제활성초·토양상한/예산은 그대로입니다. 아래13.5 수치는 옛 기준이며 시간 이전은 FOREST_PACING.md에 기록합니다.
+
+[시간 정책](FOREST_PACING.md) · [완료 보고](STAGE13_6_REPORT.md) · [14단계 인수 설계](STAGE14_REPLAY_HANDOFF.md)
+
 # 숲의 유기물·참지렁이·분해자 관심 반응 — 13.5단계
 
 2026-10-14. 실제 데이터는 data/detritus-config.js·기존 population-config.js, 계산은 decomposition.js/lifecycle.js/organic-notices.js, 저장은 decomposition-migration.js와 save-format.js다. 기존1~13의 생태·22관계·5성장·5환경 사건·포인트 계약을 보존한다.

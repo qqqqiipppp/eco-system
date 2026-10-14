@@ -1,3 +1,4 @@
+import {ecologySeconds,ecologyRate,scaleFields} from './pacing-config.js';
 // Costs, effects and cooldowns use active simulation seconds, never wall time.
 export const managementActions = [
   { actionId:'water-care', name:'물 환경 개선', description:'물을 한 단계 개선해요. 식물의 회복은 시간이 지나 나타나요.', cost:6, applicableTo:'water', effectType:'environment-step', effect:{factor:'water'}, duration:0, cooldown:8 },
@@ -6,3 +7,6 @@ export const managementActions = [
   { actionId:'habitat-care', name:'서식지 회복', description:'한동안 식물의 성장·먹이 회복을 조금 도와요. 동물의 배고픔을 바로 해결하지는 않아요.', cost:8, applicableTo:'producer-environment', effectType:'producer-recovery', effect:{multiplier:1.35,recoveryFactors:['sunlight','air'],minimumRecoveryValue:.4}, duration:60, cooldown:75 },
 ];
 export const rewardConfig = { observation:12, question:10, management:3 };
+
+// Costs and anti-repeat cooldowns remain 6/6/5/8 and 8/8/45/75.
+for(const rule of managementActions)scaleFields(rule,['duration']);

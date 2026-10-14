@@ -42,9 +42,9 @@ test('C/V: rain at alreadygood water has no actualchange and cannot pay; cloud n
  const s=createGameState(),r=ended(s,'rain');assert.equal(r.appliedDelta,0);assert(!claimEnvironmentStudy(s,r.eventId,answer(r)).ok);assert.equal(s.metrics.points,0);assert.equal(s.pointEconomy.studyCount,0);
 });
 test('N/O/W: real rain and real paid water jointly improve the factor; the learned cause is mixed, not a fabricated natural-only result',()=>{
- const s=exhaustedForest({points:30,factors:['water']}),r=startEnvironmentEvent(s,'rain');s.simulationTime=60;updateEnvironmentEvents(s);
- const es=createEventSystem(60);es.refresh(s);const e=s.events.find(e=>e.payload.environmentEventId===r.eventId);assert(e);assert(executeManagement(s,'water-care',e.eventId).ok);
- s.simulationTime=120;updateEnvironmentEvents(s);assert.equal(studyRecovery(r),'mixed');assert(!claimEnvironmentStudy(s,r.eventId,{factor:'water',recovery:'rain'}).ok);assert(claimEnvironmentStudy(s,r.eventId,{factor:'water',recovery:'mixed'}).ok);assert.equal(s.metrics.points,28);
+ const s=exhaustedForest({points:30,factors:['water']}),r=startEnvironmentEvent(s,'rain');s.simulationTime=r.duration/2;updateEnvironmentEvents(s);
+ const es=createEventSystem(s.simulationTime);es.refresh(s);const e=s.events.find(e=>e.payload.environmentEventId===r.eventId);assert(e);assert(executeManagement(s,'water-care',e.eventId).ok);
+ s.simulationTime=r.duration;updateEnvironmentEvents(s);assert.equal(studyRecovery(r),'mixed');assert(!claimEnvironmentStudy(s,r.eventId,{factor:'water',recovery:'rain'}).ok);assert(claimEnvironmentStudy(s,r.eventId,{factor:'water',recovery:'mixed'}).ok);assert.equal(s.metrics.points,28);
 });
 test('G/Y: different incidents are capped at5/20 over arbitrarily long play and bounded history pruning cannot renew payment',()=>{
  const s=createGameState();let granted=0;

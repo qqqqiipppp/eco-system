@@ -22,12 +22,14 @@ const distance = (a, b) => Math.hypot(a.position.x - b.position.x, a.position.y 
 export function createFeedingSystem(initialTime = 0,{environmentEventsEnabled=true}={}) {
   let accumulator = 0;
   let simulationTime = initialTime;
+  let indexed = false;
   let byId = new Map();
   let bySpecies = new Map();
   const timing = new Map();
   const diagnostics = { ticks: 0, searches: 0, candidateChecks: 0, plantMeals: 0, predations: 0 };
 
   function rebuildIndex(state) {
+    indexed=true;
     byId = new Map();
     bySpecies = new Map();
     for (const instance of state.organisms) {
@@ -38,8 +40,9 @@ export function createFeedingSystem(initialTime = 0,{environmentEventsEnabled=tr
     for (const id of timing.keys()) if (!byId.has(id)) timing.delete(id);
   }
   function clockFor(instance) {
-    if (!timing.has(instance.instanceId)) timing.set(instance.instanceId, { retryAt: 0, eatRemaining: 0, pursuitSeconds: 0, shortage: false });
-    return timing.get(instance.instanceId);
+    if (!timing.has(instance.instanceId)) timing.set(instance.instanceId, instance.feedingClock || { retryAt: 0, eatRemaining: 0, pursuitSeconds: 0, shortage: false });
+    instance.feedingClock=timing.get(instance.instanceId);
+    return instance.feedingClock;
   }
   function availableTarget(instance) {
     const target = byId.get(instance.targetInstanceId);
@@ -199,6 +202,7 @@ export function createFeedingSystem(initialTime = 0,{environmentEventsEnabled=tr
         accumulator -= ecologyConfig.tickSeconds;
         tick(state, layout, result);
       }
+      if(!indexed)rebuildIndex(state);
       const activity = animalActivity(state.environment);
       for (const instance of state.organisms) {
         if (instance.behaviorState === 'moveToFood' && move(instance, dt * activity, layout)) result.moved.push({ instance, direction: instance.direction });

@@ -30,13 +30,15 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/',KEY='eco-sy
   const {startEnvironmentEvent,updateEnvironmentEvents}=await import('./js/systems/environment-events.js');
   const {organisms}=await import('./data/organisms.js'),{environmentEventDefinitions:defs}=await import('./data/environment-events.js');
   const {stageAt}=await import('./js/state/development-state.js');
+  const {developmentRules}=await import('./data/development-config.js');
+  const {ecologySeconds}=await import('./data/pacing-config.js');
   const {speciesProfiles}=await import('./data/interaction-config.js');
   const s=createGameState();s.simulationTime=1000;s.metrics.points=30;
   const make=(id,name,x=.3,y=.73,origin)=>{const o=createOrganismInstance(id,name,{x,y},{time:s.simulationTime,newborn:Boolean(origin),origin});if('hunger'in o){o.hunger=.1;o.lastSuccessfulFeedingAt=s.simulationTime;}return o;};
   const young=()=>{const o=make('grass','sprout',.54,.75,'seed-spread');o.development.progressSeconds=10;o.development.stage=stageAt('grass',10);return o;};
   s.organisms=[make('oak','tree',.13,.71),make('grass','food',.23,.73),young()];
   s.decomposition.organicMatter={wood:5,litter:5,remains:5};
-  s.population.breeding.grass={healthySeconds:0,nextAt:1600,pending:{remainingSeconds:60,position:{x:.65,y:.76}}};
+  s.population.breeding.grass={healthySeconds:0,nextAt:1600,pending:{remainingSeconds:developmentRules.grass.pendingSeconds,position:{x:.65,y:.76}}};
   let memory={sequence:0,cooldowns:[],questionDone:[],pendingDiscoveries:[]};
   if(mode==='history'){
    for(const previous of ['drought','rain','cloudy','air-pollution']){const r=startEnvironmentEvent(s,previous),d=defs[previous];s.simulationTime+=d.duration+d.recoverySeconds;updateEnvironmentEvents(s);r.observed=true;}
@@ -53,13 +55,13 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/',KEY='eco-sy
   if(mode==='priority'){
    const gh=make('grasshopper','feeding-gh',.23,.63);gh.hunger=.9;
    const frog=make('frog','urgent-frog',.66,.65);s.organisms.push(gh,frog);s.inventory.find(c=>c.speciesId==='frog').acquired=true;
-   const sprout=s.organisms.find(o=>o.instanceId==='sprout');sprout.development.progressSeconds=179.5;sprout.development.stage='sprout';
+   const sprout=s.organisms.find(o=>o.instanceId==='sprout');sprout.development.progressSeconds=developmentRules.grass.maturitySeconds-.5;sprout.development.stage='sprout';
   }
   const record=startEnvironmentEvent(s,kind);
   if(!record)throw new Error('fixture episode did not start');
   if(mode==='full') {s.simulationTime+=20;updateEnvironmentEvents(s);}
   else {
-   const duration=mode==='paid'?170:mode==='air-recovery'?116:mode==='no-change'?1:10;
+   const duration=mode==='paid'?ecologySeconds(170):mode==='air-recovery'?ecologySeconds(116):mode==='no-change'?1:10;
    const f=createFeedingSystem(s.simulationTime),signals=new Map(),layout={width:1120,height:324,sizes:Object.fromEntries(Object.entries(speciesProfiles).map(([id,p])=>[id,{width:p.width,height:p.height}])),footprints:Object.fromEntries(Object.entries(speciesProfiles).map(([id,p])=>[id,{halfWidth:p.width/2240,above:p.height/324,below:p.labelHeight/324}])),blockedRects:[]};
    for(let i=0;i<duration*10;i++){const result=f.update(s,.1,layout);for(const signal of result.feedingEvents)signals.set(signal.relationId,signal);}
    memory.pendingDiscoveries=[...signals];
@@ -75,7 +77,7 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/',KEY='eco-sy
  async function closeEnvironment(page){await page.locator('#environment-close').tap();}
  async function resumeUntil(page,predicate){await page.emulateMedia({reducedMotion:'no-preference'});await page.waitForFunction(predicate,null,{polling:100});await page.emulateMedia({reducedMotion:'reduce'});}
  try{
-  const base=await setup();assert.equal((await state(base)).schemaVersion,14);assert.equal(await base.locator('.organism-card').count(),24);assert.equal((await state(base)).inventory.filter(c=>c.acquired).length,5);
+  const base=await setup();assert.equal((await state(base)).schemaVersion,15);assert.equal(await base.locator('.organism-card').count(),24);assert.equal((await state(base)).inventory.filter(c=>c.acquired).length,5);
   await openEnvironment(base);assert.equal(await base.locator('#environment-event-current').isVisible(),false);assert.equal(await base.locator('#environment-dialog select, #environment-dialog input').count(),0);assert.equal(await base.locator('[data-force-environment-event]').count(),0);await closeEnvironment(base);
   const names={'drought':'가뭄',rain:'비 내림',cloudy:'흐린 날씨','air-pollution':'공기 오염','soil-damage':'숲 바닥 훼손'};
   for(const [kind,name]of Object.entries(names)){

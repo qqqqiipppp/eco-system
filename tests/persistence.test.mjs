@@ -1,3 +1,4 @@
+import {ecologySeconds} from '../data/pacing-config.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createGameState} from '../js/state/game-state.js';
@@ -37,12 +38,12 @@ test('D/E: live ecology sustains 30 seconds and clears once; decline preserves c
 });
 test('F/G/N: explicit 30-organism snapshot restores domain and safe fresh behavior; no target/UI fields',()=>{
  const {s}=ready();while(s.organisms.length<30)s.organisms.push(createOrganismInstance('frog',`test-${s.organisms.length}`,{x:.4,y:.7}));
- s.simulationTime=80;s.managementCooldowns={'food-support:test-29':110};s.managementEffects=[{actionId:'habitat-care',startedAt:60,expiresAt:120,multiplier:1.35}];
+ s.simulationTime=80;s.managementCooldowns={'food-support:test-29':110};s.managementEffects=[{actionId:'habitat-care',startedAt:60,expiresAt:80+ecologySeconds(40),multiplier:1.35}];
  s.organisms[29].behaviorState='moveToFood';s.organisms[29].targetInstanceId='missing';s.organisms[29].hunger=.8;s.selectedSpeciesId='frog';s.metrics.bestStability=88;
  const raw=serialize(s);assert(!raw.includes('targetInstanceId'));assert(!raw.includes('behaviorState'));assert(!raw.includes('selectedSpeciesId'));
  const loaded=decodeSave(raw);assert.equal(loaded.state.organisms.length,30);assert.deepEqual(loaded.state.organisms[29].position,s.organisms[29].position);
  assert.equal(loaded.state.organisms[29].behaviorState,'wander');assert.equal(loaded.state.organisms[29].targetInstanceId,null);assert.equal(loaded.state.organisms[29].hunger,.8);
- assert.equal(loaded.state.simulationTime,80);assert.equal(loaded.state.managementEffects[0].expiresAt,120);assert.equal(loaded.state.managementCooldowns['food-support:test-29'],110);assert.equal(loaded.state.metrics.bestStability,88);
+ assert.equal(loaded.state.simulationTime,80);assert.equal(loaded.state.managementEffects[0].expiresAt,80+ecologySeconds(40));assert.equal(loaded.state.managementCooldowns['food-support:test-29'],110);assert.equal(loaded.state.metrics.bestStability,88);
  assert.equal(loaded.state.rewardHistory.length,s.rewardHistory.length);assert.equal(loaded.state.activities.filter(a=>a.completed).length,3);
 });
 test('H: problem events rebuild from live state; pending discovery and dismissal cooldown survive',()=>{
@@ -64,9 +65,9 @@ test('I/J: malformed JSON, versions, essential fields and partial corruption fai
  const result=decodeSave(JSON.stringify(snapshot));assert.equal(result.status,'recovered');assert.equal(result.state.metrics.points,0);assert(result.state.inventory.find(c=>c.speciesId==='frog').acquired);assert.equal(result.state.environment.water.value,1);
  assert.equal(new Set(result.state.organisms.map(o=>o.instanceId)).size,result.state.organisms.length);assert(result.state.organisms.every(o=>Number.isFinite(o.position.x)&&o.position.x>=0&&o.position.x<=1));assert(!result.state.rewardHistory.some(r=>r.rewardId==='forged'));
 });
-test('clear record persists, unfinished hold restarts and summary is a pure identity-free boundary',()=>{
+test('clear record persists, unfinished active hold persists without offline advance and summary is a pure identity-free boundary',()=>{
  const {s}=ready();updateForestGoal(s,20);const before=structuredClone(s);const summary=createProgressSummary(s,'2026-10-08T00:00:00.000Z');assert.deepEqual(s,before);assert.equal(summary.studentId,null);assert(summary.progress>0&&summary.progress<100);
- const loaded=decodeSave(serialize(s)).state;assert.equal(loaded.forestProgress.stableSeconds,0);
+ const loaded=decodeSave(serialize(s)).state;assert.equal(loaded.forestProgress.stableSeconds,20);
  s.simulationTime=30;updateForestGoal(s,10);const cleared=decodeSave(serialize(s)).state;assert(cleared.forestProgress.cleared);assert.equal(cleared.forestProgress.clearedAt,30);
  const points=createGameState();points.metrics.points=99999;points.inventory.forEach(c=>c.acquired=true);assert(calculateProgress(points)<calculateProgress(s));
 });

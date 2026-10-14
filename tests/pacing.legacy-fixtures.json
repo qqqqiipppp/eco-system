@@ -1,0 +1,1191 @@
+{
+  "worm14": {
+    "schemaVersion": 14,
+    "savedAt": "2020-01-01T00:00:00Z",
+    "domain": {
+      "schemaVersion": 14,
+      "ecologyRevision": 2,
+      "legacyEcology": {
+        "revision": 1,
+        "migratedFromVersion": null,
+        "observations": [],
+        "pendingDiscoveries": [],
+        "instances": [],
+        "breeding": {},
+        "replenishment": {},
+        "populationTotals": {}
+      },
+      "ecosystemId": "forest",
+      "simulationTime": 100,
+      "nextInstanceSequence": 4,
+      "inventory": [
+        {
+          "speciesId": "oak",
+          "acquired": true
+        },
+        {
+          "speciesId": "grass",
+          "acquired": true
+        },
+        {
+          "speciesId": "grasshopper",
+          "acquired": true
+        },
+        {
+          "speciesId": "frog",
+          "acquired": true
+        },
+        {
+          "speciesId": "rabbit",
+          "acquired": true
+        },
+        {
+          "speciesId": "mushroom",
+          "acquired": true
+        },
+        {
+          "speciesId": "pine",
+          "acquired": true
+        },
+        {
+          "speciesId": "raspberry",
+          "acquired": true
+        },
+        {
+          "speciesId": "hazel",
+          "acquired": true
+        },
+        {
+          "speciesId": "chipmunk",
+          "acquired": true
+        },
+        {
+          "speciesId": "field-mouse",
+          "acquired": true
+        },
+        {
+          "speciesId": "caterpillar",
+          "acquired": true
+        },
+        {
+          "speciesId": "aphid",
+          "acquired": true
+        },
+        {
+          "speciesId": "snail",
+          "acquired": true
+        },
+        {
+          "speciesId": "spider",
+          "acquired": true
+        },
+        {
+          "speciesId": "ladybird",
+          "acquired": true
+        },
+        {
+          "speciesId": "tit",
+          "acquired": true
+        },
+        {
+          "speciesId": "bulbul",
+          "acquired": true
+        },
+        {
+          "speciesId": "snake",
+          "acquired": true
+        },
+        {
+          "speciesId": "weasel",
+          "acquired": true
+        },
+        {
+          "speciesId": "goshawk",
+          "acquired": true
+        },
+        {
+          "speciesId": "litter-mold",
+          "acquired": true
+        },
+        {
+          "speciesId": "soil-bacteria",
+          "acquired": true
+        },
+        {
+          "speciesId": "earthworm",
+          "acquired": true
+        }
+      ],
+      "organisms": [
+        {
+          "instanceId": "fixture-0-1",
+          "speciesId": "grass",
+          "position": {
+            "x": 0.43500000000000005,
+            "y": 0.72
+          },
+          "growth": 1,
+          "foodStock": 3,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 77.77029491588473,
+            "duration": 1555.4058983176947
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 300
+          }
+        },
+        {
+          "instanceId": "fixture-1-0",
+          "speciesId": "earthworm",
+          "position": {
+            "x": 0.42,
+            "y": 0.72
+          },
+          "life": {
+            "startedAt": 0,
+            "initialAge": 304.3075398914516,
+            "duration": 3043.075398914516
+          },
+          "litterConsumed": 1,
+          "lastLitterFeedingAt": null
+        },
+        {
+          "instanceId": "fixture-2-0",
+          "speciesId": "mushroom",
+          "position": {
+            "x": 0.6,
+            "y": 0.72
+          },
+          "life": {
+            "renewalSeconds": 813.4387290850282,
+            "nextRenewalAt": 813.4387290850282,
+            "vigor": 1,
+            "stressSeconds": 0,
+            "generation": 0
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 0
+          }
+        },
+        {
+          "instanceId": "fixture-3-0",
+          "speciesId": "soil-bacteria",
+          "position": {
+            "x": 0.7,
+            "y": 0.72
+          },
+          "life": {
+            "renewalSeconds": 397.30833319947124,
+            "nextRenewalAt": 397.30833319947124,
+            "vigor": 1,
+            "stressSeconds": 0,
+            "generation": 0
+          }
+        }
+      ],
+      "environment": {
+        "sunlight": {
+          "value": 1
+        },
+        "water": {
+          "value": 1
+        },
+        "air": {
+          "value": 1
+        },
+        "soil": {
+          "value": 1
+        }
+      },
+      "metrics": {
+        "points": 0,
+        "bestStability": 0
+      },
+      "pointEconomy": {
+        "openingBalance": 0,
+        "openingAt": 0,
+        "studyStartSequence": 0,
+        "legacyClaimed": [],
+        "studyClaims": [],
+        "studyClaimedIds": [],
+        "studyUnidentifiedCount": 0,
+        "studyCount": 0,
+        "support": {
+          "used": false,
+          "grantedAt": null,
+          "amount": 0,
+          "budget": 0,
+          "remaining": 0,
+          "factors": []
+        },
+        "sequence": 0,
+        "totals": {
+          "legacy": 0,
+          "study": 0,
+          "support": 0,
+          "spent": 0
+        },
+        "ledger": []
+      },
+      "recoverySupportUsed": false,
+      "observations": [],
+      "activities": [
+        {
+          "activityId": "producer_quiz",
+          "completed": false,
+          "attempts": 0,
+          "completedAt": null
+        },
+        {
+          "activityId": "decomposer_classify",
+          "completed": false,
+          "attempts": 0,
+          "completedAt": null
+        },
+        {
+          "activityId": "grass_observation",
+          "completed": false,
+          "attempts": 0,
+          "completedAt": null
+        },
+        {
+          "activityId": "rabbit_habitat",
+          "completed": false,
+          "attempts": 0,
+          "completedAt": null
+        }
+      ],
+      "rewardHistory": [],
+      "managementHistory": [],
+      "managementActionCount": 0,
+      "managementCooldowns": {},
+      "managementEffects": [],
+      "forestProgress": {
+        "cleared": false,
+        "clearedAt": null,
+        "stableSeconds": 0
+      },
+      "population": {
+        "sequence": 1,
+        "totals": {
+          "natural_lifespan": 1
+        },
+        "history": [
+          {
+            "sequence": 1,
+            "speciesId": "grass",
+            "changeType": "natural_lifespan",
+            "cause": "natural_lifespan",
+            "simulationTime": 100,
+            "countBefore": 2,
+            "countAfter": 1,
+            "noted": false
+          }
+        ],
+        "breeding": {},
+        "replenishment": {},
+        "introductions": {
+          "grass": {
+            "count": 2,
+            "nextAt": 160
+          },
+          "earthworm": {
+            "count": 1,
+            "nextAt": 0
+          },
+          "mushroom": {
+            "count": 1,
+            "nextAt": 0
+          },
+          "soil-bacteria": {
+            "count": 1,
+            "nextAt": 0
+          }
+        }
+      },
+      "decomposition": {
+        "organicMatter": {
+          "wood": 0.3,
+          "litter": 1.5,
+          "remains": 0
+        },
+        "soilNutrients": 0,
+        "processed": 0,
+        "earthwormProcessed": 1,
+        "soilContribution": 0.06,
+        "notices": {
+          "sequence": 1,
+          "history": [
+            {
+              "sequence": 1,
+              "populationSequence": 1,
+              "sourceInstanceId": "fixture-0-0",
+              "sourceSpeciesId": "grass",
+              "cause": "natural_lifespan",
+              "part": "litter",
+              "amount": 1,
+              "position": {
+                "x": 0.4,
+                "y": 0.72
+              },
+              "at": 100,
+              "targetInstanceId": "fixture-1-0",
+              "noted": false
+            }
+          ]
+        }
+      },
+      "development": {
+        "sequence": 0,
+        "history": []
+      },
+      "environmentEvents": {
+        "sequence": 0,
+        "cursor": 0,
+        "nextAt": 480,
+        "activeId": null,
+        "history": []
+      }
+    },
+    "eventMemory": {
+      "sequence": 0,
+      "cooldowns": [],
+      "questionDone": [],
+      "pendingDiscoveries": []
+    }
+  },
+  "support13": {
+    "schemaVersion": 13,
+    "savedAt": "2020-01-01T00:00:00Z",
+    "domain": {
+      "schemaVersion": 13,
+      "ecologyRevision": 2,
+      "legacyEcology": {
+        "revision": 1,
+        "migratedFromVersion": null,
+        "observations": [],
+        "pendingDiscoveries": [],
+        "instances": [],
+        "breeding": {},
+        "replenishment": {},
+        "populationTotals": {}
+      },
+      "ecosystemId": "forest",
+      "simulationTime": 0,
+      "nextInstanceSequence": 4,
+      "inventory": [
+        {
+          "speciesId": "oak",
+          "acquired": true
+        },
+        {
+          "speciesId": "grass",
+          "acquired": true
+        },
+        {
+          "speciesId": "grasshopper",
+          "acquired": true
+        },
+        {
+          "speciesId": "frog",
+          "acquired": true
+        },
+        {
+          "speciesId": "rabbit",
+          "acquired": true
+        },
+        {
+          "speciesId": "mushroom",
+          "acquired": true
+        },
+        {
+          "speciesId": "pine",
+          "acquired": false
+        },
+        {
+          "speciesId": "raspberry",
+          "acquired": false
+        },
+        {
+          "speciesId": "hazel",
+          "acquired": false
+        },
+        {
+          "speciesId": "chipmunk",
+          "acquired": false
+        },
+        {
+          "speciesId": "field-mouse",
+          "acquired": false
+        },
+        {
+          "speciesId": "caterpillar",
+          "acquired": false
+        },
+        {
+          "speciesId": "aphid",
+          "acquired": false
+        },
+        {
+          "speciesId": "snail",
+          "acquired": false
+        },
+        {
+          "speciesId": "spider",
+          "acquired": false
+        },
+        {
+          "speciesId": "ladybird",
+          "acquired": false
+        },
+        {
+          "speciesId": "tit",
+          "acquired": false
+        },
+        {
+          "speciesId": "bulbul",
+          "acquired": false
+        },
+        {
+          "speciesId": "snake",
+          "acquired": false
+        },
+        {
+          "speciesId": "weasel",
+          "acquired": false
+        },
+        {
+          "speciesId": "goshawk",
+          "acquired": false
+        },
+        {
+          "speciesId": "litter-mold",
+          "acquired": false
+        },
+        {
+          "speciesId": "soil-bacteria",
+          "acquired": false
+        },
+        {
+          "speciesId": "earthworm",
+          "acquired": false
+        }
+      ],
+      "organisms": [
+        {
+          "instanceId": "long-0-0",
+          "speciesId": "oak",
+          "position": {
+            "x": 0.65,
+            "y": 0.72
+          },
+          "growth": 1,
+          "foodStock": 5,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 1658.4499692767859,
+            "duration": 13820.416410639882
+          }
+        },
+        {
+          "instanceId": "long-0-1",
+          "speciesId": "oak",
+          "position": {
+            "x": 0.685,
+            "y": 0.72
+          },
+          "growth": 1,
+          "foodStock": 5,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 1660.4968007616699,
+            "duration": 13837.473339680582
+          }
+        },
+        {
+          "instanceId": "long-1-0",
+          "speciesId": "grass",
+          "position": {
+            "x": 0.2,
+            "y": 0.72
+          },
+          "growth": 1,
+          "foodStock": 3,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 95.31068242527544,
+            "duration": 1906.213648505509
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 300
+          }
+        },
+        {
+          "instanceId": "long-1-1",
+          "speciesId": "grass",
+          "position": {
+            "x": 0.23500000000000001,
+            "y": 0.72
+          },
+          "growth": 1,
+          "foodStock": 3,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 79.63906707800925,
+            "duration": 1592.781341560185
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 300
+          }
+        },
+        {
+          "instanceId": "long-1-2",
+          "speciesId": "grass",
+          "position": {
+            "x": 0.27,
+            "y": 0.72
+          },
+          "growth": 1,
+          "foodStock": 3,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 89.66704238019884,
+            "duration": 1793.3408476039767
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 300
+          }
+        },
+        {
+          "instanceId": "long-1-3",
+          "speciesId": "grass",
+          "position": {
+            "x": 0.30500000000000005,
+            "y": 0.72
+          },
+          "growth": 1,
+          "foodStock": 3,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 92.483917074278,
+            "duration": 1849.67834148556
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 300
+          }
+        },
+        {
+          "instanceId": "long-1-4",
+          "speciesId": "grass",
+          "position": {
+            "x": 0.34,
+            "y": 0.72
+          },
+          "growth": 1,
+          "foodStock": 3,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 94.54822508431971,
+            "duration": 1890.9645016863942
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 300
+          }
+        },
+        {
+          "instanceId": "long-2-0",
+          "speciesId": "grasshopper",
+          "position": {
+            "x": 0.4,
+            "y": 0.72
+          },
+          "hunger": 0.45,
+          "foodShortageDuration": 0,
+          "lastSuccessfulFeedingAt": null,
+          "deprivationSeconds": 0,
+          "bornAt": 0,
+          "satietyUntil": 0,
+          "acclimationUntil": 120,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 95.30169132873417,
+            "duration": 1191.271141609177
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 180
+          }
+        },
+        {
+          "instanceId": "long-2-1",
+          "speciesId": "grasshopper",
+          "position": {
+            "x": 0.43500000000000005,
+            "y": 0.72
+          },
+          "hunger": 0.45,
+          "foodShortageDuration": 0,
+          "lastSuccessfulFeedingAt": null,
+          "deprivationSeconds": 0,
+          "bornAt": 0,
+          "satietyUntil": 0,
+          "acclimationUntil": 120,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 74.12545621320605,
+            "duration": 926.5682026650757
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 180
+          }
+        },
+        {
+          "instanceId": "long-2-2",
+          "speciesId": "grasshopper",
+          "position": {
+            "x": 0.47000000000000003,
+            "y": 0.72
+          },
+          "hunger": 0.45,
+          "foodShortageDuration": 0,
+          "lastSuccessfulFeedingAt": null,
+          "deprivationSeconds": 0,
+          "bornAt": 0,
+          "satietyUntil": 0,
+          "acclimationUntil": 120,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 67.72640602961182,
+            "duration": 846.5800753701478
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 180
+          }
+        },
+        {
+          "instanceId": "long-2-3",
+          "speciesId": "grasshopper",
+          "position": {
+            "x": 0.505,
+            "y": 0.72
+          },
+          "hunger": 0.45,
+          "foodShortageDuration": 0,
+          "lastSuccessfulFeedingAt": null,
+          "deprivationSeconds": 0,
+          "bornAt": 0,
+          "satietyUntil": 0,
+          "acclimationUntil": 120,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 86.98095948100091,
+            "duration": 1087.2619935125113
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 180
+          }
+        },
+        {
+          "instanceId": "long-2-4",
+          "speciesId": "grasshopper",
+          "position": {
+            "x": 0.54,
+            "y": 0.72
+          },
+          "hunger": 0.45,
+          "foodShortageDuration": 0,
+          "lastSuccessfulFeedingAt": null,
+          "deprivationSeconds": 0,
+          "bornAt": 0,
+          "satietyUntil": 0,
+          "acclimationUntil": 120,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 81.95190645307302,
+            "duration": 1024.3988306634128
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 180
+          }
+        },
+        {
+          "instanceId": "long-2-5",
+          "speciesId": "grasshopper",
+          "position": {
+            "x": 0.5750000000000001,
+            "y": 0.72
+          },
+          "hunger": 0.45,
+          "foodShortageDuration": 0,
+          "lastSuccessfulFeedingAt": null,
+          "deprivationSeconds": 0,
+          "bornAt": 0,
+          "satietyUntil": 0,
+          "acclimationUntil": 120,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 67.72259159311652,
+            "duration": 846.5323949139565
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 180
+          }
+        },
+        {
+          "instanceId": "long-3-0",
+          "speciesId": "frog",
+          "position": {
+            "x": 0.45,
+            "y": 0.72
+          },
+          "hunger": 0.45,
+          "foodShortageDuration": 0,
+          "lastSuccessfulFeedingAt": null,
+          "deprivationSeconds": 0,
+          "bornAt": 0,
+          "satietyUntil": 0,
+          "acclimationUntil": 120,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 402.8933330588043,
+            "duration": 3357.4444421567023
+          }
+        },
+        {
+          "instanceId": "long-4-0",
+          "speciesId": "mushroom",
+          "position": {
+            "x": 0.7,
+            "y": 0.72
+          },
+          "life": {
+            "renewalSeconds": 835.5160298757255,
+            "nextRenewalAt": 835.5160298757255,
+            "vigor": 1,
+            "stressSeconds": 0,
+            "generation": 0
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 0
+          }
+        }
+      ],
+      "environment": {
+        "sunlight": {
+          "value": 0.15
+        },
+        "water": {
+          "value": 0.15
+        },
+        "air": {
+          "value": 0.15
+        },
+        "soil": {
+          "value": 0.15
+        }
+      },
+      "metrics": {
+        "points": 28,
+        "bestStability": 0
+      },
+      "pointEconomy": {
+        "openingBalance": 0,
+        "openingAt": 0,
+        "studyStartSequence": 0,
+        "legacyClaimed": [
+          "observation:v2_grass_to_grasshopper",
+          "observation:v2_grasshopper_to_frog",
+          "observation:v2_grass_to_rabbit",
+          "observation:v2_oak_to_chipmunk",
+          "observation:v2_pine_to_chipmunk",
+          "observation:v2_pine_to_caterpillar",
+          "observation:v2_grass_to_snail",
+          "observation:v2_aphid_to_spider",
+          "observation:v2_caterpillar_to_tit",
+          "observation:v2_spider_to_tit",
+          "observation:v2_raspberry_to_bulbul",
+          "observation:v2_hazel_to_bulbul",
+          "observation:v2_hazel_to_aphid",
+          "observation:v2_frog_to_snake",
+          "observation:v2_grasshopper_to_weasel",
+          "observation:v2_chipmunk_to_weasel",
+          "observation:v2_frog_to_weasel",
+          "observation:v2_rabbit_to_goshawk",
+          "observation:v2_chipmunk_to_goshawk",
+          "observation:v2_bulbul_to_goshawk",
+          "observation:v2_snail_to_ladybird",
+          "observation:v2_grasshopper_to_field_mouse",
+          "question:producer_sunlight_limit",
+          "question:producer_water_limit",
+          "question:producer_air_limit",
+          "question:producer_soil_limit",
+          "management:water_shortage_resolved",
+          "management:soil_shortage_resolved",
+          "activity:producer_quiz",
+          "activity:decomposer_classify",
+          "activity:grass_observation",
+          "activity:rabbit_habitat"
+        ],
+        "studyClaims": [],
+        "studyClaimedIds": [],
+        "studyUnidentifiedCount": 0,
+        "studyCount": 0,
+        "support": {
+          "used": true,
+          "grantedAt": 0,
+          "amount": 28,
+          "budget": 28,
+          "remaining": 28,
+          "factors": [
+            "sunlight",
+            "water",
+            "air",
+            "soil"
+          ]
+        },
+        "sequence": 1,
+        "totals": {
+          "legacy": 0,
+          "study": 0,
+          "support": 28,
+          "spent": 0
+        },
+        "ledger": [
+          {
+            "sequence": 1,
+            "id": "support:environment-recovery",
+            "type": "support",
+            "amount": 28,
+            "at": 0,
+            "balance": 28,
+            "sourceId": "blocked-environment"
+          }
+        ]
+      },
+      "recoverySupportUsed": true,
+      "observations": [
+        {
+          "relationId": "v2_grass_to_grasshopper",
+          "eventId": "fixture-prior",
+          "discoveredAt": 0
+        },
+        {
+          "relationId": "v2_grasshopper_to_frog",
+          "eventId": "fixture-prior",
+          "discoveredAt": 0
+        },
+        {
+          "relationId": "v2_grass_to_rabbit",
+          "eventId": "fixture-prior",
+          "discoveredAt": 0
+        }
+      ],
+      "activities": [
+        {
+          "activityId": "producer_quiz",
+          "completed": true,
+          "attempts": 1,
+          "completedAt": 0,
+          "lastAnswer": "grass"
+        },
+        {
+          "activityId": "decomposer_classify",
+          "completed": true,
+          "attempts": 1,
+          "completedAt": 0,
+          "lastAnswer": "decomposer"
+        },
+        {
+          "activityId": "grass_observation",
+          "completed": true,
+          "attempts": 1,
+          "completedAt": 0
+        },
+        {
+          "activityId": "rabbit_habitat",
+          "completed": true,
+          "attempts": 1,
+          "completedAt": 0
+        }
+      ],
+      "rewardHistory": [
+        {
+          "rewardId": "observation:v2_grass_to_grasshopper",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 12
+        },
+        {
+          "rewardId": "observation:v2_grasshopper_to_frog",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 12
+        },
+        {
+          "rewardId": "observation:v2_grass_to_rabbit",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 12
+        },
+        {
+          "rewardId": "observation:v2_oak_to_chipmunk",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 12
+        },
+        {
+          "rewardId": "observation:v2_pine_to_chipmunk",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 12
+        },
+        {
+          "rewardId": "observation:v2_pine_to_caterpillar",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 12
+        },
+        {
+          "rewardId": "observation:v2_grass_to_snail",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 12
+        },
+        {
+          "rewardId": "observation:v2_aphid_to_spider",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 12
+        },
+        {
+          "rewardId": "observation:v2_caterpillar_to_tit",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 12
+        },
+        {
+          "rewardId": "observation:v2_spider_to_tit",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 12
+        },
+        {
+          "rewardId": "observation:v2_raspberry_to_bulbul",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 12
+        },
+        {
+          "rewardId": "observation:v2_hazel_to_bulbul",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 12
+        },
+        {
+          "rewardId": "observation:v2_hazel_to_aphid",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 12
+        },
+        {
+          "rewardId": "observation:v2_frog_to_snake",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 12
+        },
+        {
+          "rewardId": "observation:v2_grasshopper_to_weasel",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 12
+        },
+        {
+          "rewardId": "observation:v2_chipmunk_to_weasel",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 12
+        },
+        {
+          "rewardId": "observation:v2_frog_to_weasel",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 12
+        },
+        {
+          "rewardId": "observation:v2_rabbit_to_goshawk",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 12
+        },
+        {
+          "rewardId": "observation:v2_chipmunk_to_goshawk",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 12
+        },
+        {
+          "rewardId": "observation:v2_bulbul_to_goshawk",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 12
+        },
+        {
+          "rewardId": "observation:v2_snail_to_ladybird",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 12
+        },
+        {
+          "rewardId": "observation:v2_grasshopper_to_field_mouse",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 12
+        },
+        {
+          "rewardId": "question:producer_sunlight_limit",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 10
+        },
+        {
+          "rewardId": "question:producer_water_limit",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 10
+        },
+        {
+          "rewardId": "question:producer_air_limit",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 10
+        },
+        {
+          "rewardId": "question:producer_soil_limit",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 10
+        },
+        {
+          "rewardId": "management:water_shortage_resolved",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 3
+        },
+        {
+          "rewardId": "management:soil_shortage_resolved",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 3
+        },
+        {
+          "rewardId": "activity:producer_quiz",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 3
+        },
+        {
+          "rewardId": "activity:decomposer_classify",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 4
+        },
+        {
+          "rewardId": "activity:grass_observation",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 4
+        },
+        {
+          "rewardId": "activity:rabbit_habitat",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 4
+        }
+      ],
+      "managementHistory": [],
+      "managementActionCount": 0,
+      "managementCooldowns": {},
+      "managementEffects": [],
+      "forestProgress": {
+        "cleared": false,
+        "clearedAt": null,
+        "stableSeconds": 0
+      },
+      "population": {
+        "sequence": 0,
+        "totals": {},
+        "history": [],
+        "breeding": {},
+        "replenishment": {},
+        "introductions": {
+          "oak": {
+            "count": 2,
+            "nextAt": 0
+          },
+          "grass": {
+            "count": 5,
+            "nextAt": 0
+          },
+          "grasshopper": {
+            "count": 6,
+            "nextAt": 0
+          },
+          "frog": {
+            "count": 1,
+            "nextAt": 0
+          },
+          "mushroom": {
+            "count": 1,
+            "nextAt": 0
+          }
+        }
+      },
+      "decomposition": {
+        "organicMatter": {
+          "wood": 0.3,
+          "litter": 0.5,
+          "remains": 0
+        },
+        "soilNutrients": 0,
+        "processed": 0,
+        "earthwormProcessed": 0,
+        "soilContribution": 0,
+        "notices": {
+          "sequence": 0,
+          "history": []
+        }
+      },
+      "development": {
+        "sequence": 0,
+        "history": []
+      },
+      "environmentEvents": {
+        "sequence": 0,
+        "cursor": 0,
+        "nextAt": 480,
+        "activeId": null,
+        "history": []
+      }
+    },
+    "eventMemory": {
+      "sequence": 0,
+      "cooldowns": [],
+      "questionDone": [],
+      "pendingDiscoveries": []
+    }
+  }
+}

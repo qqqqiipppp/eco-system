@@ -19,7 +19,7 @@ const advance=(s,time)=>{s.simulationTime=time;updateEnvironmentEvents(s);};
 test('A/B: four original factors and exactly five configured causes preserve all23/22 definitions',()=>{
  const s=createGameState();assert.deepEqual(Object.keys(s.environment),['sunlight','water','air','soil']);assert.equal(Object.keys(definitions).length,5);
  assert.equal(foodRelations.length,22);assert.equal(foodRelations.filter(r=>r.evidenceLevel==='A').length,5);assert.equal(foodRelations.filter(r=>r.evidenceLevel==='B').length,17);
- assert.equal(s.schemaVersion,14);assert.equal(s.ecologyRevision,2);
+ assert.equal(s.schemaVersion,15);assert.equal(s.ecologyRevision,2);
 });
 for(const [kind,d] of Object.entries(definitions))test(`${kind}: C/D/E/F/G/S/T gradual actual factor, once-only delta, independent other factors and non-resetting recovery`,()=>{
  const s=createGameState();s.metrics.points=30;if(kind==='rain')s.environment.water.value=.2;

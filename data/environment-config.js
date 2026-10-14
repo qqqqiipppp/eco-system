@@ -1,3 +1,4 @@
+import {ecologySeconds,ecologyRate,scaleFields} from './pacing-config.js';
 export const environmentFactors = {
   sunlight: { name: '햇빛' }, water: { name: '물' },
   air: { name: '공기' }, soil: { name: '토양' },
@@ -15,3 +16,5 @@ export const producerGrowth = {
 };
 export const growthConfig = { recoveryPerSecond: 0.015, declinePerSecond: 0.025, minimumGrowth: 0.15 };
 export const activityConfig = { minimum: 0.4, airWeight: 0.6 };
+
+scaleFields(growthConfig,['recoveryPerSecond','declinePerSecond'],ecologyRate);

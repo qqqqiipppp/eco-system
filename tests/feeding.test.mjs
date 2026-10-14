@@ -1,3 +1,4 @@
+import {ecologySeconds} from '../data/pacing-config.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createGameState } from '../js/state/game-state.js';
@@ -80,9 +81,9 @@ test('depleted plant cannot be consumed, then recovers and is usable again', () 
   for (let i = 0; i < 3; i++) assert(consumeFoodStock(grass));
   assert.equal(consumeFoodStock(grass), false);
   assert.equal(grass.foodStock, 0);
-  recoverFoodStock(grass, 10);
+  recoverFoodStock(grass, ecologySeconds(10));
   assert.equal(consumeFoodStock(grass), false);
-  recoverFoodStock(grass, 10);
+  recoverFoodStock(grass, ecologySeconds(10));
   assert(consumeFoodStock(grass));
   recoverFoodStock(grass, 10000);
   assert.equal(grass.foodStock, 3);

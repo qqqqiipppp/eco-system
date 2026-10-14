@@ -1,3 +1,4 @@
+import {populationConfig} from '../../data/population-config.js';
 import { stabilityConfig as config } from '../../data/stability-config.js';
 import { organismById } from '../../data/organisms.js';
 import { relationsByConsumer } from '../../data/food-relations.js';
@@ -30,8 +31,8 @@ export function evaluateStability(state, previousCounts = {}) {
   const food = applicable.length ? applicable.reduce((sum, [speciesId,relations]) => {
     const consumers = state.organisms.filter(item => item.speciesId === speciesId);
     if(speciesId==='earthworm'){
-      const adequacy=clamp(state.decomposition.organicMatter.litter/(consumers.length*earthwormConfig.rate*45));
-      const nutrition=consumers.filter(o=>o.lastLitterFeedingAt!==null&&state.simulationTime-o.lastLitterFeedingAt<=45).length/consumers.length;
+      const adequacy=clamp(state.decomposition.organicMatter.litter/(consumers.length*earthwormConfig.rate*populationConfig.recentMealSeconds));
+      const nutrition=consumers.filter(o=>o.lastLitterFeedingAt!==null&&state.simulationTime-o.lastLitterFeedingAt<=populationConfig.recentMealSeconds).length/consumers.length;
       return sum+adequacy*(.5+.5*nutrition);
     }
     const sources=new Set(relations.map(edge=>edge.sourceSpeciesId));

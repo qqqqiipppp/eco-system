@@ -1,3 +1,4 @@
+import {ecologySeconds,ecologyRate,scaleFields} from './pacing-config.js';
 // Teaching-game values, not measurements or a realistic population model.
 export const DEBUG_MODE = false;
 export const ecologyConfig = {
@@ -31,3 +32,7 @@ export const feedingConfig = {
   weasel:{initialHunger:.35,hungerPerSecond:.018,hungryAt:.6,mealRelief:.75,searchRadius:.44,speed:.072},
   goshawk:{initialHunger:.35,hungerPerSecond:.014,hungryAt:.6,mealRelief:.8,searchRadius:.48,speed:.09},
 };
+
+// Search, bite, pursuit and screen movement retain their actual control cadence.
+for(const rule of Object.values(foodResourceConfig))scaleFields(rule,['recoveryPerSecond'],ecologyRate);
+for(const rule of Object.values(feedingConfig))scaleFields(rule,['hungerPerSecond'],ecologyRate);

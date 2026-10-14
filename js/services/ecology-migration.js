@@ -1,3 +1,4 @@
+import {compressLife} from './pacing-migration.js';
 import {legacyEcology as definitions,legacyRelationIds} from '../../data/legacy-ecology.js';
 import {organismById} from '../../data/organisms.js';
 import {changedSpeciesIds,convertedLifeIds} from '../../data/species-taxonomy.js';
@@ -33,7 +34,7 @@ export function restoreEcologyHistory(domain,version,read,eventMemory){
  return result;
 }
 export function migrateLife(instance,oldLife,simulationTime){
- if(!convertedLifeIds.has(instance.speciesId))return {...oldLife};
+ if(!convertedLifeIds.has(instance.speciesId))return compressLife(oldLife,simulationTime);
  const oldRule=definitions.lifespan[instance.speciesId],newRule=lifespanRules[instance.speciesId];
  // Preserve relative age and deterministic lifespan percentile; reserve >=10%.
  const age=Math.min(.9,Math.max(0,(oldLife.initialAge+simulationTime-oldLife.startedAt)/oldLife.duration));

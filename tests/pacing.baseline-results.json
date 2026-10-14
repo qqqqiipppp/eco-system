@@ -1,0 +1,3028 @@
+{
+  "stage": "13.5 baseline",
+  "head": "695c0a9be00a1fefa37a92260c8fd4b578e6cf39",
+  "settings": {
+    "lifespanRules": {
+      "earthworm": {
+        "model": "individual",
+        "min": 2700,
+        "max": 3900,
+        "initialAge": 0.1,
+        "label": "낙엽을 이용하는 토양동물이에요. 게임 생애는 실제 참지렁이 수명 측정값이 아니에요",
+        "unit": "마리"
+      },
+      "oak": {
+        "model": "individual",
+        "min": 10800,
+        "max": 14400,
+        "initialAge": 0.12,
+        "label": "여러 해 동안 자라는 나무",
+        "unit": "그루",
+        "matter": "wood",
+        "matterAmount": 3
+      },
+      "grass": {
+        "model": "individual",
+        "min": 1440,
+        "max": 1920,
+        "initialAge": 0.05,
+        "label": "한해살이 강아지풀이에요. 씨앗으로 다음 세대를 이어가요",
+        "unit": "포기",
+        "matter": "litter",
+        "matterAmount": 1
+      },
+      "grasshopper": {
+        "model": "individual",
+        "min": 840,
+        "max": 1200,
+        "initialAge": 0.08,
+        "label": "비교적 짧은 생애를 가지며 세대가 바뀌어요",
+        "unit": "마리"
+      },
+      "frog": {
+        "model": "individual",
+        "min": 3300,
+        "max": 4500,
+        "initialAge": 0.12,
+        "label": "여러 해 살아가는 성체 개구리를 대표해요",
+        "unit": "마리"
+      },
+      "rabbit": {
+        "model": "individual",
+        "min": 3300,
+        "max": 4800,
+        "initialAge": 0.15,
+        "label": "여러 해 살아가며 새끼를 낳아요",
+        "unit": "마리"
+      },
+      "mushroom": {
+        "model": "colony",
+        "min": 720,
+        "max": 1080,
+        "resource": "wood",
+        "stressSeconds": 1800,
+        "label": "보이는 버섯과 균사체를 포함한 균류 군집이에요",
+        "unit": "군집"
+      },
+      "pine": {
+        "model": "individual",
+        "min": 9000,
+        "max": 12600,
+        "initialAge": 0.15,
+        "label": "여러 해 동안 자라는 나무",
+        "unit": "그루",
+        "matter": "wood",
+        "matterAmount": 3
+      },
+      "raspberry": {
+        "model": "individual",
+        "min": 4200,
+        "max": 6000,
+        "initialAge": 0.1,
+        "label": "뿌리는 여러 해 유지돼요. 가지의 생애와 달라요",
+        "unit": "포기",
+        "matter": "litter",
+        "matterAmount": 2
+      },
+      "hazel": {
+        "model": "individual",
+        "min": 10800,
+        "max": 14400,
+        "initialAge": 0.12,
+        "label": "여러 해 자라는 큰 팽나무예요",
+        "unit": "그루",
+        "matter": "wood",
+        "matterAmount": 2
+      },
+      "chipmunk": {
+        "model": "individual",
+        "min": 3000,
+        "max": 4200,
+        "initialAge": 0.15,
+        "label": "여러 해 살아가는 작은 포유류예요",
+        "unit": "마리"
+      },
+      "field-mouse": {
+        "model": "individual",
+        "min": 3300,
+        "max": 4800,
+        "initialAge": 0.12,
+        "label": "여러 해 살아가는 고슴도치예요",
+        "unit": "마리"
+      },
+      "caterpillar": {
+        "model": "individual",
+        "min": 1080,
+        "max": 1560,
+        "initialAge": 0.1,
+        "label": "겨울을 유충으로 보내는 솔나방의 애벌레 시기예요. 나방 전체의 수명이 아니에요",
+        "unit": "마리",
+        "endCause": "life_stage_exit"
+      },
+      "aphid": {
+        "model": "individual",
+        "min": 1320,
+        "max": 1920,
+        "initialAge": 0.08,
+        "label": "청동풍뎅이의 성충 시기예요. 뿌리를 먹는 유충과 달라요",
+        "unit": "마리"
+      },
+      "snail": {
+        "model": "individual",
+        "min": 2700,
+        "max": 3900,
+        "initialAge": 0.15,
+        "label": "명주달팽이의 생애를 나타내요. 정확한 야생 수명은 더 확인하고 있어요",
+        "unit": "마리"
+      },
+      "spider": {
+        "model": "individual",
+        "min": 1440,
+        "max": 2160,
+        "initialAge": 0.1,
+        "label": "한 계절에 활동하고 알로 다음 세대를 이어가는 무당거미예요",
+        "unit": "마리"
+      },
+      "ladybird": {
+        "model": "individual",
+        "min": 2100,
+        "max": 3000,
+        "initialAge": 0.1,
+        "label": "홍단딱정벌레 성충의 생애예요. 땅에서 먹이를 찾아요",
+        "unit": "마리"
+      },
+      "tit": {
+        "model": "individual",
+        "min": 3900,
+        "max": 5400,
+        "initialAge": 0.12,
+        "label": "여러 해 살아가는 숲의 새예요",
+        "unit": "마리"
+      },
+      "bulbul": {
+        "model": "individual",
+        "min": 3900,
+        "max": 5700,
+        "initialAge": 0.12,
+        "label": "여러 해 살아가는 숲의 새예요",
+        "unit": "마리"
+      },
+      "snake": {
+        "model": "individual",
+        "min": 4500,
+        "max": 6000,
+        "initialAge": 0.15,
+        "label": "여러 해 살아가는 뱀이에요",
+        "unit": "마리"
+      },
+      "weasel": {
+        "model": "individual",
+        "min": 3000,
+        "max": 4500,
+        "initialAge": 0.12,
+        "label": "여러 해 살아가는 작은 포식자예요",
+        "unit": "마리"
+      },
+      "goshawk": {
+        "model": "individual",
+        "min": 5400,
+        "max": 7200,
+        "initialAge": 0.18,
+        "label": "비교적 긴 생애의 숲 맹금류예요",
+        "unit": "마리"
+      },
+      "litter-mold": {
+        "model": "colony",
+        "min": 480,
+        "max": 720,
+        "resource": "litter",
+        "stressSeconds": 1200,
+        "label": "낙엽을 이용하며 새 균사가 자라는 군집이에요",
+        "unit": "군집"
+      },
+      "soil-bacteria": {
+        "model": "colony",
+        "min": 300,
+        "max": 540,
+        "resource": "remains",
+        "stressSeconds": 1500,
+        "label": "세균이 세대를 바꾸어도 군집은 이어질 수 있어요",
+        "unit": "군집"
+      }
+    },
+    "replenishmentRules": {
+      "grasshopper": {
+        "mode": "egg-hatch",
+        "target": 2,
+        "healthySeconds": 300,
+        "cooldown": 180,
+        "seedBank": true,
+        "reserveMaximum": 6
+      },
+      "caterpillar": {
+        "mode": "larval-recruitment",
+        "target": 2,
+        "healthySeconds": 420,
+        "cooldown": 600
+      }
+    },
+    "colonyConfig": {
+      "minimumEnvironment": 0.4,
+      "resourceThreshold": 0.02,
+      "dormantVigor": 0.2,
+      "recoverySeconds": 240
+    },
+    "developmentRules": {
+      "grass": {
+        "model": "individual",
+        "cycle": "씨앗 → 새싹 → 자란 강아지풀 → 씨앗 형성",
+        "description": "새싹은 햇빛·물·공기·흙을 이용해 자라요. 한해살이풀이 새로운 씨앗 세대를 남겨요.",
+        "maxSeconds": 300,
+        "maturitySeconds": 180,
+        "breedingSeconds": 300,
+        "pendingSeconds": 60,
+        "stages": [
+          {
+            "id": "sprout",
+            "label": "새싹",
+            "at": 0,
+            "capacity": 0.4
+          },
+          {
+            "id": "grown",
+            "label": "자란 강아지풀",
+            "at": 180,
+            "capacity": 1
+          },
+          {
+            "id": "seeding",
+            "label": "씨앗 형성",
+            "at": 300,
+            "capacity": 1
+          }
+        ]
+      },
+      "grasshopper": {
+        "model": "individual",
+        "cycle": "알 → 약충 → 성체",
+        "description": "번데기 없이 약충에서 성체로 자라요. 약충은 잎을 먹고 자라지만 아직 번식하지 않아요.",
+        "maxSeconds": 180,
+        "maturitySeconds": 180,
+        "breedingSeconds": 180,
+        "pendingSeconds": 60,
+        "stages": [
+          {
+            "id": "nymph",
+            "label": "약충",
+            "at": 0,
+            "activity": 0.65
+          },
+          {
+            "id": "adult",
+            "label": "성체",
+            "at": 180,
+            "activity": 1
+          }
+        ]
+      },
+      "rabbit": {
+        "model": "individual",
+        "cycle": "새끼 → 어린 멧토끼 → 성체",
+        "description": "산토끼류의 새끼는 털과 열린 눈을 가진 채 태어나요. 초기 젖먹는 생활은 짧은 적응 기간으로 생략하고, 어린 개체는 풀을 먹으며 자라요.",
+        "maxSeconds": 360,
+        "maturitySeconds": 360,
+        "breedingSeconds": 360,
+        "stages": [
+          {
+            "id": "baby",
+            "label": "새끼",
+            "at": 0,
+            "activity": 0.35
+          },
+          {
+            "id": "juvenile",
+            "label": "어린 멧토끼",
+            "at": 90,
+            "activity": 0.7
+          },
+          {
+            "id": "adult",
+            "label": "성체",
+            "at": 360,
+            "activity": 1
+          }
+        ]
+      },
+      "frog": {
+        "model": "learning",
+        "cycle": "알 → 올챙이 → 어린 개구리 → 성체",
+        "description": "알과 올챙이는 물속 서식지가 필요해요. 숲의 물 상태는 연못이 아니에요. 현재 게임에서는 성체의 생활을 실제로 관찰해요.",
+        "stages": [
+          {
+            "id": "adult",
+            "label": "성체",
+            "at": 0
+          }
+        ]
+      },
+      "mushroom": {
+        "model": "colony",
+        "cycle": "포자 발아 → 균사체 성장 → 자실체 형성 → 포자 생성·방출",
+        "description": "균사체가 죽은 나무를 분해하고 자실체는 포자를 만드는 구조예요. 한 군집의 변화이며 새로운 군집이 자동으로 늘어나지 않아요.",
+        "maxSeconds": 300,
+        "stages": [
+          {
+            "id": "mycelium",
+            "label": "균사체 활동",
+            "at": 0
+          },
+          {
+            "id": "fruiting",
+            "label": "자실체 형성",
+            "at": 180
+          },
+          {
+            "id": "spore-ready",
+            "label": "포자 형성 상태",
+            "at": 300
+          }
+        ]
+      }
+    },
+    "ecologyConfig": {
+      "tickSeconds": 0.5,
+      "searchRetrySeconds": 2,
+      "eatSeconds": 1,
+      "arrivalDistance": 0.025,
+      "maxPursuitSeconds": 18
+    },
+    "foodResourceConfig": {
+      "grass": {
+        "maximum": 3,
+        "portion": 1,
+        "recoveryPerSecond": 0.06,
+        "parts": [
+          "leaves",
+          "seeds"
+        ]
+      },
+      "oak": {
+        "maximum": 5,
+        "portion": 0.5,
+        "recoveryPerSecond": 0.045,
+        "parts": [
+          "acorn",
+          "leaves"
+        ]
+      },
+      "pine": {
+        "maximum": 4,
+        "portion": 0.5,
+        "recoveryPerSecond": 0.035,
+        "parts": [
+          "needles",
+          "seeds"
+        ]
+      },
+      "raspberry": {
+        "maximum": 3,
+        "portion": 0.5,
+        "recoveryPerSecond": 0.05,
+        "parts": [
+          "leaves",
+          "fruit"
+        ]
+      },
+      "hazel": {
+        "maximum": 4,
+        "portion": 0.5,
+        "recoveryPerSecond": 0.04,
+        "parts": [
+          "leaves",
+          "fruit"
+        ]
+      }
+    },
+    "feedingConfig": {
+      "grasshopper": {
+        "initialHunger": 0.45,
+        "hungerPerSecond": 0.035,
+        "hungryAt": 0.6,
+        "mealRelief": 0.65,
+        "searchRadius": 0.34,
+        "speed": 0.037
+      },
+      "frog": {
+        "initialHunger": 0.45,
+        "hungerPerSecond": 0.025,
+        "hungryAt": 0.6,
+        "mealRelief": 0.7,
+        "searchRadius": 0.38,
+        "speed": 0.056
+      },
+      "rabbit": {
+        "initialHunger": 0.2,
+        "hungerPerSecond": 0.012,
+        "hungryAt": 0.6,
+        "mealRelief": 0.7,
+        "searchRadius": 0.34,
+        "speed": 0.045
+      },
+      "chipmunk": {
+        "initialHunger": 0.35,
+        "hungerPerSecond": 0.022,
+        "hungryAt": 0.6,
+        "mealRelief": 0.65,
+        "searchRadius": 0.4,
+        "speed": 0.065
+      },
+      "field-mouse": {
+        "initialHunger": 0.35,
+        "hungerPerSecond": 0.025,
+        "hungryAt": 0.6,
+        "mealRelief": 0.65,
+        "searchRadius": 0.35,
+        "speed": 0.035
+      },
+      "caterpillar": {
+        "initialHunger": 0.35,
+        "hungerPerSecond": 0.02,
+        "hungryAt": 0.6,
+        "mealRelief": 0.65,
+        "searchRadius": 0.32,
+        "speed": 0.018
+      },
+      "aphid": {
+        "initialHunger": 0.35,
+        "hungerPerSecond": 0.012,
+        "hungryAt": 0.6,
+        "mealRelief": 0.65,
+        "searchRadius": 0.32,
+        "speed": 0.026
+      },
+      "snail": {
+        "initialHunger": 0.35,
+        "hungerPerSecond": 0.012,
+        "hungryAt": 0.6,
+        "mealRelief": 0.65,
+        "searchRadius": 0.3,
+        "speed": 0.014
+      },
+      "spider": {
+        "initialHunger": 0.35,
+        "hungerPerSecond": 0.02,
+        "hungryAt": 0.6,
+        "mealRelief": 0.7,
+        "searchRadius": 0.025,
+        "speed": 0,
+        "huntMode": "ambush",
+        "maxPursuitSeconds": 2
+      },
+      "ladybird": {
+        "initialHunger": 0.35,
+        "hungerPerSecond": 0.022,
+        "hungryAt": 0.6,
+        "mealRelief": 0.7,
+        "searchRadius": 0.34,
+        "speed": 0.038
+      },
+      "tit": {
+        "initialHunger": 0.35,
+        "hungerPerSecond": 0.024,
+        "hungryAt": 0.6,
+        "mealRelief": 0.7,
+        "searchRadius": 0.44,
+        "speed": 0.085
+      },
+      "bulbul": {
+        "initialHunger": 0.35,
+        "hungerPerSecond": 0.02,
+        "hungryAt": 0.6,
+        "mealRelief": 0.7,
+        "searchRadius": 0.44,
+        "speed": 0.075
+      },
+      "snake": {
+        "initialHunger": 0.35,
+        "hungerPerSecond": 0.014,
+        "hungryAt": 0.6,
+        "mealRelief": 0.75,
+        "searchRadius": 0.4,
+        "speed": 0.048
+      },
+      "weasel": {
+        "initialHunger": 0.35,
+        "hungerPerSecond": 0.018,
+        "hungryAt": 0.6,
+        "mealRelief": 0.75,
+        "searchRadius": 0.44,
+        "speed": 0.072
+      },
+      "goshawk": {
+        "initialHunger": 0.35,
+        "hungerPerSecond": 0.014,
+        "hungryAt": 0.6,
+        "mealRelief": 0.8,
+        "searchRadius": 0.48,
+        "speed": 0.09
+      }
+    },
+    "populationConfig": {
+      "graceSeconds": 120,
+      "restoreGraceSeconds": 30,
+      "severeHunger": 0.85,
+      "severeAfter": 60,
+      "weakAfter": 180,
+      "deathAfter": 360,
+      "weakActivity": 0.65,
+      "supportReliefSeconds": 60,
+      "historyLimit": 80,
+      "noticeLimit": 6,
+      "introductionCooldown": 60,
+      "bootstrap": {
+        "producer": 6,
+        "consumer": 3,
+        "decomposer": 3
+      },
+      "speciesCap": {
+        "producer": 8,
+        "consumer": 8,
+        "decomposer": 3
+      },
+      "recentMealSeconds": 45,
+      "minimumEnvironment": 0.6,
+      "maxHealthyHunger": 0.8,
+      "localRadius": 0.08,
+      "localLimit": 4
+    },
+    "reproductionRules": {
+      "grass": {
+        "mode": "seed-spread",
+        "minimum": 1,
+        "maximum": 8,
+        "healthySeconds": 180,
+        "cooldown": 240
+      },
+      "grasshopper": {
+        "mode": "animal",
+        "minimum": 2,
+        "maximum": 8,
+        "healthySeconds": 240,
+        "cooldown": 360
+      },
+      "rabbit": {
+        "mode": "animal",
+        "minimum": 2,
+        "maximum": 4,
+        "healthySeconds": 360,
+        "cooldown": 480
+      }
+    },
+    "decompositionConfig": {
+      "maximum": 30,
+      "litterPerProducer": 0.004,
+      "woodPerTree": 0.002,
+      "backgroundRate": 0.001,
+      "rates": {
+        "mushroom": {
+          "wood": 0.006
+        },
+        "litter-mold": {
+          "litter": 0.006
+        },
+        "soil-bacteria": {
+          "remains": 0.006
+        }
+      },
+      "nutrientYield": 0.03,
+      "nutrientUsePerProducer": 0.00005,
+      "maximumGrowthBonus": 0.12,
+      "starvationMatter": 1
+    },
+    "satietySeconds": {
+      "frog": 300,
+      "field-mouse": 90,
+      "spider": 90,
+      "ladybird": 90,
+      "tit": 120,
+      "snake": 360,
+      "weasel": 300,
+      "goshawk": 420
+    },
+    "starvationLimits": {
+      "frog": 420,
+      "rabbit": 540,
+      "chipmunk": 480,
+      "field-mouse": 480,
+      "snail": 480,
+      "tit": 480,
+      "bulbul": 480,
+      "snake": 600,
+      "weasel": 600,
+      "goshawk": 600
+    },
+    "growthConfig": {
+      "recoveryPerSecond": 0.015,
+      "declinePerSecond": 0.025,
+      "minimumGrowth": 0.15
+    },
+    "environmentEventConfig": {
+      "initialDelay": 480,
+      "interval": 720,
+      "postpone": 120,
+      "repeatCooldown": 1800,
+      "minimumStability": 45,
+      "minimumStartValue": 0.6,
+      "minimumPoints": 6,
+      "limitedIntensity": 0.6,
+      "minimumFloor": 0.35,
+      "limitedFloor": 0.45,
+      "recoveryCeiling": 0.8,
+      "historyLimit": 20,
+      "evidenceLimit": 5,
+      "responseLimit": 20,
+      "epsilon": 1e-7
+    },
+    "environmentEventDefinitions": {
+      "drought": {
+        "name": "가뭄",
+        "factor": "water",
+        "duration": 180,
+        "recoverySeconds": 240,
+        "magnitude": -0.65,
+        "cause": "한동안 비가 적게 내려 숲이 건조해지고 있어요.",
+        "expected": "물이 줄면 식물 성장과 먹이 회복이 느려질 수 있어요. 필요할 때 기존 물 환경 개선을 선택하거나 회복을 지켜봐요."
+      },
+      "rain": {
+        "name": "비 내림",
+        "factor": "water",
+        "duration": 120,
+        "recoverySeconds": 0,
+        "magnitude": 0.45,
+        "cause": "비가 내려 숲에 물이 공급되고 있어요.",
+        "expected": "물 상태가 나아지면 식물 회복에 도움이 될 수 있어요. 이미 비가 오고 있다면 우선 기다려도 좋아요. 이번 비는 홍수가 아니에요."
+      },
+      "cloudy": {
+        "name": "흐린 날씨",
+        "factor": "sunlight",
+        "duration": 120,
+        "recoverySeconds": 240,
+        "magnitude": -0.65,
+        "cause": "구름이 많아 숲에 햇빛이 적게 들어오고 있어요.",
+        "expected": "식물 성장과 먹이 회복이 느려질 수 있어요. 구름이 걷히는지 지켜봐요. 흐린 날씨는 공기 오염과 달라요."
+      },
+      "air-pollution": {
+        "name": "공기 오염",
+        "factor": "air",
+        "duration": 120,
+        "recoverySeconds": 240,
+        "magnitude": -0.65,
+        "cause": "밖에서 오염된 공기가 들어와 공기 상태가 나빠지고 있어요.",
+        "expected": "성장과 동물의 움직임에 영향이 있을 수 있어요. 유입이 끝난 뒤 회복을 지켜봐요. 공기가 나쁘면 기존 서식지 회복도 살펴봐요."
+      },
+      "soil-damage": {
+        "name": "숲 바닥 훼손",
+        "factor": "soil",
+        "duration": 180,
+        "recoverySeconds": 240,
+        "magnitude": -0.65,
+        "cause": "사람들이 길을 벗어나 숲 바닥을 자주 밟아 흙이 영향을 받고 있어요.",
+        "expected": "식물과 분해자 활동에 영향이 있을 수 있어요. 기존 토양 돌보기를 살펴봐요. 서식지 회복은 흙 수치를 직접 올리지는 않아요."
+      }
+    },
+    "earthwormConfig": {
+      "rate": 0.003,
+      "activeLimit": 3,
+      "soilPerUnit": 0.02,
+      "soilMaximum": 0.12,
+      "soilCeiling": 0.6,
+      "helpMinimum": 0.4
+    },
+    "organicNoticeConfig": {
+      "historyLimit": 20,
+      "noticeLimit": 6,
+      "lifetimeSeconds": 120
+    },
+    "managementActions": [
+      {
+        "actionId": "water-care",
+        "name": "물 환경 개선",
+        "description": "물을 한 단계 개선해요. 식물의 회복은 시간이 지나 나타나요.",
+        "cost": 6,
+        "applicableTo": "water",
+        "effectType": "environment-step",
+        "effect": {
+          "factor": "water"
+        },
+        "duration": 0,
+        "cooldown": 8
+      },
+      {
+        "actionId": "soil-care",
+        "name": "토양 돌보기",
+        "description": "토양을 한 단계 개선해요. 뿌리와 식물의 회복을 지켜봐요.",
+        "cost": 6,
+        "applicableTo": "soil",
+        "effectType": "environment-step",
+        "effect": {
+          "factor": "soil"
+        },
+        "duration": 0,
+        "cooldown": 8
+      },
+      {
+        "actionId": "food-support",
+        "name": "임시 먹이 지원",
+        "description": "이 생물의 배고픔을 잠시 덜어줘요. 원래 먹이가 없으면 다시 배고파져요.",
+        "cost": 5,
+        "applicableTo": "consumer-shortage",
+        "effectType": "hunger-relief",
+        "effect": {
+          "relief": 0.65
+        },
+        "duration": 0,
+        "cooldown": 45
+      },
+      {
+        "actionId": "habitat-care",
+        "name": "서식지 회복",
+        "description": "한동안 식물의 성장·먹이 회복을 조금 도와요. 동물의 배고픔을 바로 해결하지는 않아요.",
+        "cost": 8,
+        "applicableTo": "producer-environment",
+        "effectType": "producer-recovery",
+        "effect": {
+          "multiplier": 1.35,
+          "recoveryFactors": [
+            "sunlight",
+            "air"
+          ],
+          "minimumRecoveryValue": 0.4
+        },
+        "duration": 60,
+        "cooldown": 75
+      }
+    ],
+    "forestGoal": {
+      "minimumStability": 70,
+      "minimumEnvironment": 0.4,
+      "stableSeconds": 30,
+      "requiredObservations": [
+        "v2_grass_to_grasshopper",
+        "v2_grasshopper_to_frog"
+      ],
+      "requiredActivities": [
+        "producer_quiz",
+        "decomposer_classify",
+        "grass_observation"
+      ],
+      "requiredSpecies": [
+        "grass",
+        "grasshopper",
+        "frog"
+      ]
+    }
+  },
+  "scenarios": {
+    "representative": {
+      "minutes": 40,
+      "total": 7,
+      "types": 5,
+      "meals": {
+        "v2_grass_to_grasshopper": 297,
+        "v2_grasshopper_to_frog": 8,
+        "v2_grass_to_rabbit": 90
+      },
+      "predation": 8,
+      "naturalEnd": 10,
+      "starvation": 0,
+      "reproduction": 4,
+      "replenishment": 4,
+      "developmentChanges": 8,
+      "processed": 13.899479374999874,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 0,
+      "organicOrigins": 10,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 480,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 1200,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 1920,
+          "phase": "ended"
+        }
+      ],
+      "earned": 15,
+      "spent": 14,
+      "points": 31,
+      "stability": 76,
+      "cleared": true,
+      "clearedAt": 30,
+      "currentlyGoalReady": false,
+      "final": {
+        "oak": 2,
+        "frog": 1,
+        "mushroom": 1,
+        "rabbit": 2,
+        "grass": 1
+      },
+      "peak": 17,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 17,
+          "stability": 95,
+          "points": 30
+        },
+        {
+          "at": 60.5,
+          "total": 16,
+          "stability": 96,
+          "points": 30
+        },
+        {
+          "at": 120.5,
+          "total": 16,
+          "stability": 95,
+          "points": 30
+        },
+        {
+          "at": 180.5,
+          "total": 16,
+          "stability": 94,
+          "points": 30
+        },
+        {
+          "at": 240.5,
+          "total": 16,
+          "stability": 94,
+          "points": 30
+        },
+        {
+          "at": 300.5,
+          "total": 16,
+          "stability": 95,
+          "points": 30
+        },
+        {
+          "at": 360.5,
+          "total": 15,
+          "stability": 95,
+          "points": 30
+        },
+        {
+          "at": 420.5,
+          "total": 15,
+          "stability": 98,
+          "points": 30
+        },
+        {
+          "at": 480.5,
+          "total": 15,
+          "stability": 98,
+          "points": 30
+        },
+        {
+          "at": 540.5,
+          "total": 15,
+          "stability": 96,
+          "points": 30
+        },
+        {
+          "at": 600.5,
+          "total": 15,
+          "stability": 93,
+          "points": 30
+        },
+        {
+          "at": 660.5,
+          "total": 16,
+          "stability": 94,
+          "points": 31
+        },
+        {
+          "at": 720.5,
+          "total": 15,
+          "stability": 97,
+          "points": 31
+        },
+        {
+          "at": 780.5,
+          "total": 15,
+          "stability": 97,
+          "points": 31
+        },
+        {
+          "at": 840.5,
+          "total": 14,
+          "stability": 97,
+          "points": 31
+        },
+        {
+          "at": 900.5,
+          "total": 15,
+          "stability": 97,
+          "points": 31
+        },
+        {
+          "at": 960.5,
+          "total": 15,
+          "stability": 96,
+          "points": 31
+        },
+        {
+          "at": 1020.5,
+          "total": 15,
+          "stability": 97,
+          "points": 31
+        },
+        {
+          "at": 1080.5,
+          "total": 15,
+          "stability": 96,
+          "points": 31
+        },
+        {
+          "at": 1140.5,
+          "total": 15,
+          "stability": 94,
+          "points": 31
+        },
+        {
+          "at": 1200.5,
+          "total": 15,
+          "stability": 99,
+          "points": 31
+        },
+        {
+          "at": 1260.5,
+          "total": 15,
+          "stability": 98,
+          "points": 31
+        },
+        {
+          "at": 1320.5,
+          "total": 15,
+          "stability": 98,
+          "points": 35
+        },
+        {
+          "at": 1380.5,
+          "total": 14,
+          "stability": 97,
+          "points": 35
+        },
+        {
+          "at": 1440.5,
+          "total": 13,
+          "stability": 96,
+          "points": 35
+        },
+        {
+          "at": 1500.5,
+          "total": 13,
+          "stability": 97,
+          "points": 35
+        },
+        {
+          "at": 1560.5,
+          "total": 12,
+          "stability": 99,
+          "points": 35
+        },
+        {
+          "at": 1620.5,
+          "total": 12,
+          "stability": 98,
+          "points": 35
+        },
+        {
+          "at": 1680.5,
+          "total": 11,
+          "stability": 97,
+          "points": 35
+        },
+        {
+          "at": 1740.5,
+          "total": 10,
+          "stability": 99,
+          "points": 35
+        },
+        {
+          "at": 1800.5,
+          "total": 10,
+          "stability": 97,
+          "points": 35
+        },
+        {
+          "at": 1860.5,
+          "total": 10,
+          "stability": 96,
+          "points": 35
+        },
+        {
+          "at": 1920.5,
+          "total": 11,
+          "stability": 96,
+          "points": 35
+        },
+        {
+          "at": 1980.5,
+          "total": 10,
+          "stability": 95,
+          "points": 35
+        },
+        {
+          "at": 2040.5,
+          "total": 10,
+          "stability": 96,
+          "points": 27
+        },
+        {
+          "at": 2100.5,
+          "total": 10,
+          "stability": 95,
+          "points": 27
+        },
+        {
+          "at": 2160.5,
+          "total": 10,
+          "stability": 95,
+          "points": 27
+        },
+        {
+          "at": 2220.5,
+          "total": 10,
+          "stability": 93,
+          "points": 27
+        },
+        {
+          "at": 2280.5,
+          "total": 10,
+          "stability": 87,
+          "points": 31
+        },
+        {
+          "at": 2340.5,
+          "total": 8,
+          "stability": 86,
+          "points": 31
+        }
+      ]
+    },
+    "mixed": {
+      "minutes": 40,
+      "total": 10,
+      "types": 9,
+      "meals": {
+        "v2_grass_to_grasshopper": 22,
+        "v2_grasshopper_to_frog": 1,
+        "v2_caterpillar_to_tit": 5,
+        "v2_pine_to_chipmunk": 1,
+        "v2_aphid_to_spider": 1,
+        "v2_raspberry_to_bulbul": 15,
+        "v2_snail_to_ladybird": 1,
+        "v2_frog_to_weasel": 1,
+        "v2_grasshopper_to_field_mouse": 3,
+        "v2_chipmunk_to_goshawk": 1,
+        "v2_hazel_to_aphid": 28,
+        "v2_grass_to_rabbit": 18,
+        "v2_spider_to_tit": 1,
+        "v2_bulbul_to_goshawk": 1,
+        "v2_rabbit_to_goshawk": 1
+      },
+      "predation": 16,
+      "naturalEnd": 6,
+      "starvation": 5,
+      "reproduction": 3,
+      "replenishment": 4,
+      "developmentChanges": 8,
+      "processed": 36.67327062499929,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 11,
+      "organicOrigins": 11,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 480,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 1200,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 1920,
+          "phase": "ended"
+        }
+      ],
+      "earned": 15,
+      "spent": 14,
+      "points": 31,
+      "stability": 69,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "oak": 1,
+        "mushroom": 1,
+        "pine": 1,
+        "raspberry": 1,
+        "hazel": 1,
+        "tit": 1,
+        "litter-mold": 1,
+        "soil-bacteria": 1,
+        "grass": 2
+      },
+      "peak": 30,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 30,
+          "stability": 95,
+          "points": 30
+        },
+        {
+          "at": 60.5,
+          "total": 23,
+          "stability": 93,
+          "points": 30
+        },
+        {
+          "at": 120.5,
+          "total": 23,
+          "stability": 93,
+          "points": 30
+        },
+        {
+          "at": 180.5,
+          "total": 21,
+          "stability": 91,
+          "points": 30
+        },
+        {
+          "at": 240.5,
+          "total": 21,
+          "stability": 90,
+          "points": 30
+        },
+        {
+          "at": 300.5,
+          "total": 21,
+          "stability": 85,
+          "points": 30
+        },
+        {
+          "at": 360.5,
+          "total": 21,
+          "stability": 85,
+          "points": 30
+        },
+        {
+          "at": 420.5,
+          "total": 21,
+          "stability": 85,
+          "points": 30
+        },
+        {
+          "at": 480.5,
+          "total": 21,
+          "stability": 84,
+          "points": 30
+        },
+        {
+          "at": 540.5,
+          "total": 19,
+          "stability": 83,
+          "points": 30
+        },
+        {
+          "at": 600.5,
+          "total": 19,
+          "stability": 82,
+          "points": 30
+        },
+        {
+          "at": 660.5,
+          "total": 19,
+          "stability": 85,
+          "points": 31
+        },
+        {
+          "at": 720.5,
+          "total": 18,
+          "stability": 86,
+          "points": 31
+        },
+        {
+          "at": 780.5,
+          "total": 18,
+          "stability": 85,
+          "points": 31
+        },
+        {
+          "at": 840.5,
+          "total": 18,
+          "stability": 85,
+          "points": 31
+        },
+        {
+          "at": 900.5,
+          "total": 17,
+          "stability": 87,
+          "points": 31
+        },
+        {
+          "at": 960.5,
+          "total": 16,
+          "stability": 80,
+          "points": 31
+        },
+        {
+          "at": 1020.5,
+          "total": 15,
+          "stability": 82,
+          "points": 31
+        },
+        {
+          "at": 1080.5,
+          "total": 15,
+          "stability": 82,
+          "points": 31
+        },
+        {
+          "at": 1140.5,
+          "total": 15,
+          "stability": 81,
+          "points": 31
+        },
+        {
+          "at": 1200.5,
+          "total": 15,
+          "stability": 81,
+          "points": 31
+        },
+        {
+          "at": 1260.5,
+          "total": 15,
+          "stability": 81,
+          "points": 31
+        },
+        {
+          "at": 1320.5,
+          "total": 15,
+          "stability": 81,
+          "points": 35
+        },
+        {
+          "at": 1380.5,
+          "total": 15,
+          "stability": 83,
+          "points": 35
+        },
+        {
+          "at": 1440.5,
+          "total": 14,
+          "stability": 72,
+          "points": 35
+        },
+        {
+          "at": 1500.5,
+          "total": 14,
+          "stability": 72,
+          "points": 35
+        },
+        {
+          "at": 1560.5,
+          "total": 14,
+          "stability": 72,
+          "points": 35
+        },
+        {
+          "at": 1620.5,
+          "total": 14,
+          "stability": 72,
+          "points": 35
+        },
+        {
+          "at": 1680.5,
+          "total": 14,
+          "stability": 72,
+          "points": 35
+        },
+        {
+          "at": 1740.5,
+          "total": 13,
+          "stability": 73,
+          "points": 35
+        },
+        {
+          "at": 1800.5,
+          "total": 12,
+          "stability": 73,
+          "points": 35
+        },
+        {
+          "at": 1860.5,
+          "total": 10,
+          "stability": 75,
+          "points": 35
+        },
+        {
+          "at": 1920.5,
+          "total": 11,
+          "stability": 74,
+          "points": 35
+        },
+        {
+          "at": 1980.5,
+          "total": 11,
+          "stability": 72,
+          "points": 35
+        },
+        {
+          "at": 2040.5,
+          "total": 10,
+          "stability": 67,
+          "points": 27
+        },
+        {
+          "at": 2100.5,
+          "total": 10,
+          "stability": 67,
+          "points": 27
+        },
+        {
+          "at": 2160.5,
+          "total": 10,
+          "stability": 68,
+          "points": 27
+        },
+        {
+          "at": 2220.5,
+          "total": 10,
+          "stability": 68,
+          "points": 27
+        },
+        {
+          "at": 2280.5,
+          "total": 10,
+          "stability": 69,
+          "points": 31
+        },
+        {
+          "at": 2340.5,
+          "total": 10,
+          "stability": 69,
+          "points": 31
+        }
+      ]
+    },
+    "mixed24": {
+      "minutes": 40,
+      "total": 10,
+      "types": 10,
+      "meals": {
+        "v2_grass_to_grasshopper": 1,
+        "v2_grasshopper_to_frog": 1,
+        "v2_caterpillar_to_tit": 5,
+        "v2_pine_to_chipmunk": 1,
+        "v2_chipmunk_to_weasel": 1,
+        "v2_snail_to_ladybird": 1,
+        "v2_hazel_to_bulbul": 1,
+        "v2_bulbul_to_goshawk": 1,
+        "v2_frog_to_snake": 1,
+        "v2_hazel_to_aphid": 1,
+        "v2_aphid_to_spider": 1,
+        "v2_grass_to_rabbit": 9,
+        "v2_spider_to_tit": 1,
+        "v2_rabbit_to_goshawk": 1
+      },
+      "predation": 13,
+      "naturalEnd": 8,
+      "starvation": 5,
+      "reproduction": 2,
+      "replenishment": 4,
+      "developmentChanges": 6,
+      "processed": 42.10430706250141,
+      "wormProcessed": 6.675633187500056,
+      "soilContribution": 0,
+      "noticesShown": 12,
+      "organicOrigins": 12,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 480,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 1200,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 1920,
+          "phase": "ended"
+        }
+      ],
+      "earned": 12,
+      "spent": 0,
+      "points": 12,
+      "stability": 87,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "oak": 1,
+        "mushroom": 1,
+        "pine": 1,
+        "raspberry": 1,
+        "hazel": 1,
+        "tit": 1,
+        "litter-mold": 1,
+        "soil-bacteria": 1,
+        "earthworm": 1,
+        "grass": 1
+      },
+      "peak": 30,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 30,
+          "stability": 96,
+          "points": 0
+        },
+        {
+          "at": 60.5,
+          "total": 23,
+          "stability": 86,
+          "points": 0
+        },
+        {
+          "at": 120.5,
+          "total": 23,
+          "stability": 86,
+          "points": 0
+        },
+        {
+          "at": 180.5,
+          "total": 22,
+          "stability": 84,
+          "points": 0
+        },
+        {
+          "at": 240.5,
+          "total": 22,
+          "stability": 83,
+          "points": 0
+        },
+        {
+          "at": 300.5,
+          "total": 23,
+          "stability": 84,
+          "points": 0
+        },
+        {
+          "at": 360.5,
+          "total": 23,
+          "stability": 84,
+          "points": 0
+        },
+        {
+          "at": 420.5,
+          "total": 23,
+          "stability": 84,
+          "points": 0
+        },
+        {
+          "at": 480.5,
+          "total": 23,
+          "stability": 83,
+          "points": 0
+        },
+        {
+          "at": 540.5,
+          "total": 21,
+          "stability": 79,
+          "points": 0
+        },
+        {
+          "at": 600.5,
+          "total": 20,
+          "stability": 79,
+          "points": 0
+        },
+        {
+          "at": 660.5,
+          "total": 20,
+          "stability": 78,
+          "points": 0
+        },
+        {
+          "at": 720.5,
+          "total": 20,
+          "stability": 78,
+          "points": 0
+        },
+        {
+          "at": 780.5,
+          "total": 20,
+          "stability": 79,
+          "points": 0
+        },
+        {
+          "at": 840.5,
+          "total": 20,
+          "stability": 79,
+          "points": 0
+        },
+        {
+          "at": 900.5,
+          "total": 20,
+          "stability": 79,
+          "points": 4
+        },
+        {
+          "at": 960.5,
+          "total": 20,
+          "stability": 79,
+          "points": 4
+        },
+        {
+          "at": 1020.5,
+          "total": 19,
+          "stability": 80,
+          "points": 4
+        },
+        {
+          "at": 1080.5,
+          "total": 18,
+          "stability": 81,
+          "points": 4
+        },
+        {
+          "at": 1140.5,
+          "total": 18,
+          "stability": 81,
+          "points": 4
+        },
+        {
+          "at": 1200.5,
+          "total": 18,
+          "stability": 81,
+          "points": 4
+        },
+        {
+          "at": 1260.5,
+          "total": 18,
+          "stability": 81,
+          "points": 4
+        },
+        {
+          "at": 1320.5,
+          "total": 18,
+          "stability": 82,
+          "points": 8
+        },
+        {
+          "at": 1380.5,
+          "total": 18,
+          "stability": 82,
+          "points": 8
+        },
+        {
+          "at": 1440.5,
+          "total": 18,
+          "stability": 82,
+          "points": 8
+        },
+        {
+          "at": 1500.5,
+          "total": 16,
+          "stability": 83,
+          "points": 8
+        },
+        {
+          "at": 1560.5,
+          "total": 14,
+          "stability": 83,
+          "points": 8
+        },
+        {
+          "at": 1620.5,
+          "total": 13,
+          "stability": 85,
+          "points": 8
+        },
+        {
+          "at": 1680.5,
+          "total": 12,
+          "stability": 86,
+          "points": 8
+        },
+        {
+          "at": 1740.5,
+          "total": 12,
+          "stability": 86,
+          "points": 8
+        },
+        {
+          "at": 1800.5,
+          "total": 12,
+          "stability": 86,
+          "points": 8
+        },
+        {
+          "at": 1860.5,
+          "total": 10,
+          "stability": 88,
+          "points": 8
+        },
+        {
+          "at": 1920.5,
+          "total": 10,
+          "stability": 87,
+          "points": 8
+        },
+        {
+          "at": 1980.5,
+          "total": 10,
+          "stability": 86,
+          "points": 8
+        },
+        {
+          "at": 2040.5,
+          "total": 10,
+          "stability": 84,
+          "points": 8
+        },
+        {
+          "at": 2100.5,
+          "total": 10,
+          "stability": 85,
+          "points": 8
+        },
+        {
+          "at": 2160.5,
+          "total": 10,
+          "stability": 85,
+          "points": 8
+        },
+        {
+          "at": 2220.5,
+          "total": 10,
+          "stability": 86,
+          "points": 8
+        },
+        {
+          "at": 2280.5,
+          "total": 10,
+          "stability": 87,
+          "points": 12
+        },
+        {
+          "at": 2340.5,
+          "total": 10,
+          "stability": 87,
+          "points": 12
+        }
+      ]
+    },
+    "student": {
+      "minutes": 40,
+      "total": 9,
+      "types": 6,
+      "meals": {
+        "v2_grass_to_grasshopper": 102,
+        "v2_grasshopper_to_frog": 8,
+        "v2_grass_to_rabbit": 46
+      },
+      "predation": 8,
+      "naturalEnd": 8,
+      "starvation": 0,
+      "reproduction": 5,
+      "replenishment": 0,
+      "developmentChanges": 10,
+      "processed": 12.297216875000151,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 0,
+      "organicOrigins": 8,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 480,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 1200,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 1920,
+          "phase": "ended"
+        }
+      ],
+      "earned": 86,
+      "spent": 14,
+      "points": 72,
+      "stability": 95,
+      "cleared": true,
+      "clearedAt": 105,
+      "currentlyGoalReady": true,
+      "final": {
+        "oak": 2,
+        "mushroom": 1,
+        "rabbit": 1,
+        "frog": 1,
+        "grass": 3,
+        "grasshopper": 1
+      },
+      "peak": 14,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 10,
+          "stability": 80,
+          "points": 11
+        },
+        {
+          "at": 60.5,
+          "total": 10,
+          "stability": 86,
+          "points": 51
+        },
+        {
+          "at": 120.5,
+          "total": 11,
+          "stability": 98,
+          "points": 51
+        },
+        {
+          "at": 180.5,
+          "total": 11,
+          "stability": 97,
+          "points": 51
+        },
+        {
+          "at": 240.5,
+          "total": 12,
+          "stability": 96,
+          "points": 51
+        },
+        {
+          "at": 300.5,
+          "total": 12,
+          "stability": 98,
+          "points": 51
+        },
+        {
+          "at": 360.5,
+          "total": 11,
+          "stability": 86,
+          "points": 51
+        },
+        {
+          "at": 420.5,
+          "total": 12,
+          "stability": 97,
+          "points": 51
+        },
+        {
+          "at": 480.5,
+          "total": 13,
+          "stability": 96,
+          "points": 51
+        },
+        {
+          "at": 540.5,
+          "total": 13,
+          "stability": 97,
+          "points": 51
+        },
+        {
+          "at": 600.5,
+          "total": 13,
+          "stability": 94,
+          "points": 51
+        },
+        {
+          "at": 660.5,
+          "total": 13,
+          "stability": 95,
+          "points": 62
+        },
+        {
+          "at": 720.5,
+          "total": 12,
+          "stability": 84,
+          "points": 62
+        },
+        {
+          "at": 780.5,
+          "total": 13,
+          "stability": 97,
+          "points": 62
+        },
+        {
+          "at": 840.5,
+          "total": 13,
+          "stability": 96,
+          "points": 62
+        },
+        {
+          "at": 900.5,
+          "total": 14,
+          "stability": 95,
+          "points": 62
+        },
+        {
+          "at": 960.5,
+          "total": 14,
+          "stability": 96,
+          "points": 62
+        },
+        {
+          "at": 1020.5,
+          "total": 13,
+          "stability": 81,
+          "points": 62
+        },
+        {
+          "at": 1080.5,
+          "total": 14,
+          "stability": 99,
+          "points": 62
+        },
+        {
+          "at": 1140.5,
+          "total": 14,
+          "stability": 98,
+          "points": 62
+        },
+        {
+          "at": 1200.5,
+          "total": 14,
+          "stability": 97,
+          "points": 62
+        },
+        {
+          "at": 1260.5,
+          "total": 14,
+          "stability": 96,
+          "points": 62
+        },
+        {
+          "at": 1320.5,
+          "total": 13,
+          "stability": 82,
+          "points": 66
+        },
+        {
+          "at": 1380.5,
+          "total": 13,
+          "stability": 96,
+          "points": 66
+        },
+        {
+          "at": 1440.5,
+          "total": 13,
+          "stability": 97,
+          "points": 66
+        },
+        {
+          "at": 1500.5,
+          "total": 13,
+          "stability": 99,
+          "points": 66
+        },
+        {
+          "at": 1560.5,
+          "total": 12,
+          "stability": 98,
+          "points": 66
+        },
+        {
+          "at": 1620.5,
+          "total": 12,
+          "stability": 97,
+          "points": 66
+        },
+        {
+          "at": 1680.5,
+          "total": 10,
+          "stability": 85,
+          "points": 66
+        },
+        {
+          "at": 1740.5,
+          "total": 11,
+          "stability": 97,
+          "points": 66
+        },
+        {
+          "at": 1800.5,
+          "total": 10,
+          "stability": 96,
+          "points": 66
+        },
+        {
+          "at": 1860.5,
+          "total": 11,
+          "stability": 97,
+          "points": 66
+        },
+        {
+          "at": 1920.5,
+          "total": 11,
+          "stability": 99,
+          "points": 66
+        },
+        {
+          "at": 1980.5,
+          "total": 9,
+          "stability": 84,
+          "points": 66
+        },
+        {
+          "at": 2040.5,
+          "total": 10,
+          "stability": 95,
+          "points": 68
+        },
+        {
+          "at": 2100.5,
+          "total": 10,
+          "stability": 95,
+          "points": 68
+        },
+        {
+          "at": 2160.5,
+          "total": 9,
+          "stability": 94,
+          "points": 68
+        },
+        {
+          "at": 2220.5,
+          "total": 9,
+          "stability": 94,
+          "points": 68
+        },
+        {
+          "at": 2280.5,
+          "total": 9,
+          "stability": 98,
+          "points": 72
+        },
+        {
+          "at": 2340.5,
+          "total": 7,
+          "stability": 86,
+          "points": 72
+        }
+      ]
+    },
+    "worm": {
+      "minutes": 40,
+      "total": 6,
+      "types": 3,
+      "meals": {},
+      "predation": 0,
+      "naturalEnd": 6,
+      "starvation": 0,
+      "reproduction": 6,
+      "replenishment": 0,
+      "developmentChanges": 12,
+      "processed": 22.72689956249896,
+      "wormProcessed": 6.675633187500056,
+      "soilContribution": 0,
+      "noticesShown": 6,
+      "organicOrigins": 6,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 480,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 1200,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 1920,
+          "phase": "ended"
+        }
+      ],
+      "earned": 12,
+      "spent": 0,
+      "points": 12,
+      "stability": 92,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "earthworm": 1,
+        "litter-mold": 1,
+        "grass": 4
+      },
+      "peak": 10,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 6,
+          "stability": 93,
+          "points": 0
+        },
+        {
+          "at": 60.5,
+          "total": 6,
+          "stability": 93,
+          "points": 0
+        },
+        {
+          "at": 120.5,
+          "total": 6,
+          "stability": 93,
+          "points": 0
+        },
+        {
+          "at": 180.5,
+          "total": 6,
+          "stability": 93,
+          "points": 0
+        },
+        {
+          "at": 240.5,
+          "total": 7,
+          "stability": 89,
+          "points": 0
+        },
+        {
+          "at": 300.5,
+          "total": 7,
+          "stability": 89,
+          "points": 0
+        },
+        {
+          "at": 360.5,
+          "total": 7,
+          "stability": 89,
+          "points": 0
+        },
+        {
+          "at": 420.5,
+          "total": 7,
+          "stability": 89,
+          "points": 0
+        },
+        {
+          "at": 480.5,
+          "total": 8,
+          "stability": 87,
+          "points": 0
+        },
+        {
+          "at": 540.5,
+          "total": 8,
+          "stability": 86,
+          "points": 0
+        },
+        {
+          "at": 600.5,
+          "total": 8,
+          "stability": 86,
+          "points": 0
+        },
+        {
+          "at": 660.5,
+          "total": 8,
+          "stability": 85,
+          "points": 0
+        },
+        {
+          "at": 720.5,
+          "total": 8,
+          "stability": 85,
+          "points": 0
+        },
+        {
+          "at": 780.5,
+          "total": 8,
+          "stability": 85,
+          "points": 0
+        },
+        {
+          "at": 840.5,
+          "total": 8,
+          "stability": 86,
+          "points": 0
+        },
+        {
+          "at": 900.5,
+          "total": 8,
+          "stability": 86,
+          "points": 4
+        },
+        {
+          "at": 960.5,
+          "total": 9,
+          "stability": 84,
+          "points": 4
+        },
+        {
+          "at": 1020.5,
+          "total": 9,
+          "stability": 84,
+          "points": 4
+        },
+        {
+          "at": 1080.5,
+          "total": 9,
+          "stability": 84,
+          "points": 4
+        },
+        {
+          "at": 1140.5,
+          "total": 9,
+          "stability": 84,
+          "points": 4
+        },
+        {
+          "at": 1200.5,
+          "total": 10,
+          "stability": 83,
+          "points": 4
+        },
+        {
+          "at": 1260.5,
+          "total": 10,
+          "stability": 83,
+          "points": 4
+        },
+        {
+          "at": 1320.5,
+          "total": 10,
+          "stability": 84,
+          "points": 8
+        },
+        {
+          "at": 1380.5,
+          "total": 10,
+          "stability": 84,
+          "points": 8
+        },
+        {
+          "at": 1440.5,
+          "total": 9,
+          "stability": 85,
+          "points": 8
+        },
+        {
+          "at": 1500.5,
+          "total": 8,
+          "stability": 87,
+          "points": 8
+        },
+        {
+          "at": 1560.5,
+          "total": 7,
+          "stability": 89,
+          "points": 8
+        },
+        {
+          "at": 1620.5,
+          "total": 7,
+          "stability": 89,
+          "points": 8
+        },
+        {
+          "at": 1680.5,
+          "total": 7,
+          "stability": 89,
+          "points": 8
+        },
+        {
+          "at": 1740.5,
+          "total": 7,
+          "stability": 89,
+          "points": 8
+        },
+        {
+          "at": 1800.5,
+          "total": 7,
+          "stability": 89,
+          "points": 8
+        },
+        {
+          "at": 1860.5,
+          "total": 6,
+          "stability": 93,
+          "points": 8
+        },
+        {
+          "at": 1920.5,
+          "total": 7,
+          "stability": 89,
+          "points": 8
+        },
+        {
+          "at": 1980.5,
+          "total": 6,
+          "stability": 91,
+          "points": 8
+        },
+        {
+          "at": 2040.5,
+          "total": 6,
+          "stability": 89,
+          "points": 8
+        },
+        {
+          "at": 2100.5,
+          "total": 6,
+          "stability": 90,
+          "points": 8
+        },
+        {
+          "at": 2160.5,
+          "total": 6,
+          "stability": 90,
+          "points": 8
+        },
+        {
+          "at": 2220.5,
+          "total": 6,
+          "stability": 91,
+          "points": 8
+        },
+        {
+          "at": 2280.5,
+          "total": 6,
+          "stability": 92,
+          "points": 12
+        },
+        {
+          "at": 2340.5,
+          "total": 6,
+          "stability": 92,
+          "points": 12
+        }
+      ]
+    }
+  },
+  "saved14": {
+    "schemaVersion": 14,
+    "savedAt": "2000-01-01T00:00:00Z",
+    "domain": {
+      "schemaVersion": 14,
+      "ecologyRevision": 2,
+      "legacyEcology": {
+        "revision": 1,
+        "migratedFromVersion": null,
+        "observations": [],
+        "pendingDiscoveries": [],
+        "instances": [],
+        "breeding": {},
+        "replenishment": {},
+        "populationTotals": {}
+      },
+      "ecosystemId": "forest",
+      "simulationTime": 600,
+      "nextInstanceSequence": 4,
+      "inventory": [
+        {
+          "speciesId": "oak",
+          "acquired": true
+        },
+        {
+          "speciesId": "grass",
+          "acquired": true
+        },
+        {
+          "speciesId": "grasshopper",
+          "acquired": true
+        },
+        {
+          "speciesId": "frog",
+          "acquired": true
+        },
+        {
+          "speciesId": "rabbit",
+          "acquired": true
+        },
+        {
+          "speciesId": "mushroom",
+          "acquired": true
+        },
+        {
+          "speciesId": "pine",
+          "acquired": true
+        },
+        {
+          "speciesId": "raspberry",
+          "acquired": true
+        },
+        {
+          "speciesId": "hazel",
+          "acquired": true
+        },
+        {
+          "speciesId": "chipmunk",
+          "acquired": true
+        },
+        {
+          "speciesId": "field-mouse",
+          "acquired": true
+        },
+        {
+          "speciesId": "caterpillar",
+          "acquired": true
+        },
+        {
+          "speciesId": "aphid",
+          "acquired": true
+        },
+        {
+          "speciesId": "snail",
+          "acquired": true
+        },
+        {
+          "speciesId": "spider",
+          "acquired": true
+        },
+        {
+          "speciesId": "ladybird",
+          "acquired": true
+        },
+        {
+          "speciesId": "tit",
+          "acquired": true
+        },
+        {
+          "speciesId": "bulbul",
+          "acquired": true
+        },
+        {
+          "speciesId": "snake",
+          "acquired": true
+        },
+        {
+          "speciesId": "weasel",
+          "acquired": true
+        },
+        {
+          "speciesId": "goshawk",
+          "acquired": true
+        },
+        {
+          "speciesId": "litter-mold",
+          "acquired": true
+        },
+        {
+          "speciesId": "soil-bacteria",
+          "acquired": true
+        },
+        {
+          "speciesId": "earthworm",
+          "acquired": true
+        }
+      ],
+      "organisms": [
+        {
+          "instanceId": "representative-0-0",
+          "speciesId": "oak",
+          "position": {
+            "x": 0.65,
+            "y": 0.72
+          },
+          "growth": 0.8926177801137216,
+          "foodStock": 4.463088900568608,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 1501.9482758045197,
+            "duration": 12516.23563170433
+          }
+        },
+        {
+          "instanceId": "representative-0-1",
+          "speciesId": "oak",
+          "position": {
+            "x": 0.685,
+            "y": 0.72
+          },
+          "growth": 0.8926177801137216,
+          "foodStock": 4.463088900568608,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 1388.8718370348215,
+            "duration": 11573.93197529018
+          }
+        },
+        {
+          "instanceId": "representative-1-0",
+          "speciesId": "grass",
+          "position": {
+            "x": 0.2,
+            "y": 0.72
+          },
+          "growth": 0.8197183993247343,
+          "foodStock": 0.6973299658688061,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 72.3960833530873,
+            "duration": 1447.9216670617461
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 300
+          }
+        },
+        {
+          "instanceId": "representative-1-1",
+          "speciesId": "grass",
+          "position": {
+            "x": 0.23500000000000001,
+            "y": 0.72
+          },
+          "growth": 0.8197183993247343,
+          "foodStock": 0.6973299658687933,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 74.40518662892282,
+            "duration": 1488.1037325784564
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 300
+          }
+        },
+        {
+          "instanceId": "representative-1-2",
+          "speciesId": "grass",
+          "position": {
+            "x": 0.27,
+            "y": 0.72
+          },
+          "growth": 0.8197183993247343,
+          "foodStock": 0.6873299658688143,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 83.69932544231415,
+            "duration": 1673.986508846283
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 300
+          }
+        },
+        {
+          "instanceId": "representative-1-3",
+          "speciesId": "grass",
+          "position": {
+            "x": 0.30500000000000005,
+            "y": 0.72
+          },
+          "growth": 0.8197183993247343,
+          "foodStock": 1.0373299658688067,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 80.29453040845692,
+            "duration": 1605.8906081691384
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 300
+          }
+        },
+        {
+          "instanceId": "representative-1-4",
+          "speciesId": "grass",
+          "position": {
+            "x": 0.34,
+            "y": 0.72
+          },
+          "growth": 0.8197183993247343,
+          "foodStock": 2.4591551979742032,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 89.45408874750137,
+            "duration": 1789.0817749500275
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 300
+          }
+        },
+        {
+          "instanceId": "representative-2-0",
+          "speciesId": "grasshopper",
+          "position": {
+            "x": 0.3223000000000004,
+            "y": 0.72
+          },
+          "hunger": 0.6499999999999946,
+          "foodShortageDuration": 0,
+          "lastSuccessfulFeedingAt": 582.5,
+          "deprivationSeconds": 0,
+          "bornAt": 0,
+          "satietyUntil": 0,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 69.36357836723327,
+            "duration": 867.044729590416
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 180
+          }
+        },
+        {
+          "instanceId": "representative-2-2",
+          "speciesId": "grasshopper",
+          "position": {
+            "x": 0.21470000000000106,
+            "y": 0.72
+          },
+          "hunger": 0.36249999999999466,
+          "foodShortageDuration": 0,
+          "lastSuccessfulFeedingAt": 595.5,
+          "deprivationSeconds": 0,
+          "bornAt": 0,
+          "satietyUntil": 0,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 95.67694678008557,
+            "duration": 1195.9618347510695
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 180
+          }
+        },
+        {
+          "instanceId": "representative-2-3",
+          "speciesId": "grasshopper",
+          "position": {
+            "x": 0.29040000000000105,
+            "y": 0.72
+          },
+          "hunger": 0.649999999999993,
+          "foodShortageDuration": 0,
+          "lastSuccessfulFeedingAt": 586.5,
+          "deprivationSeconds": 0,
+          "bornAt": 0,
+          "satietyUntil": 0,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 92.58604905456305,
+            "duration": 1157.325613182038
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 180
+          }
+        },
+        {
+          "instanceId": "representative-2-5",
+          "speciesId": "grasshopper",
+          "position": {
+            "x": 0.2531000000000006,
+            "y": 0.72
+          },
+          "hunger": 0.6274999999999952,
+          "foodShortageDuration": 0,
+          "lastSuccessfulFeedingAt": 590.5,
+          "deprivationSeconds": 0,
+          "bornAt": 0,
+          "satietyUntil": 0,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 85.57919864058495,
+            "duration": 1069.7399830073118
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 180
+          }
+        },
+        {
+          "instanceId": "representative-3-0",
+          "speciesId": "frog",
+          "position": {
+            "x": 0.33800000000000013,
+            "y": 0.72
+          },
+          "hunger": 0,
+          "foodShortageDuration": 0,
+          "lastSuccessfulFeedingAt": 337,
+          "deprivationSeconds": 0,
+          "bornAt": 0,
+          "satietyUntil": 637,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 514.442963808775,
+            "duration": 4287.024698406458
+          }
+        },
+        {
+          "instanceId": "representative-4-0",
+          "speciesId": "mushroom",
+          "position": {
+            "x": 0.7,
+            "y": 0.72
+          },
+          "life": {
+            "renewalSeconds": 890.0797111541033,
+            "nextRenewalAt": 890.0797111541033,
+            "vigor": 0.7183333333332893,
+            "stressSeconds": 0,
+            "generation": 0
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 83
+          }
+        },
+        {
+          "instanceId": "representative-5-0",
+          "speciesId": "rabbit",
+          "position": {
+            "x": 0.21649999999999991,
+            "y": 0.72
+          },
+          "hunger": 0.5160000000000003,
+          "foodShortageDuration": 0,
+          "lastSuccessfulFeedingAt": 557,
+          "deprivationSeconds": 0,
+          "bornAt": 0,
+          "satietyUntil": 0,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 576.316101027187,
+            "duration": 3842.1073401812464
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 360
+          }
+        },
+        {
+          "instanceId": "representative-5-1",
+          "speciesId": "rabbit",
+          "position": {
+            "x": 0.32349999999999995,
+            "y": 0.72
+          },
+          "hunger": 0.3540000000000002,
+          "foodShortageDuration": 0,
+          "lastSuccessfulFeedingAt": 570.5,
+          "deprivationSeconds": 0,
+          "bornAt": 0,
+          "satietyUntil": 0,
+          "life": {
+            "startedAt": 0,
+            "initialAge": 578.8919596688356,
+            "duration": 3859.279731125571
+          },
+          "development": {
+            "origin": "introduced",
+            "progressSeconds": 360
+          }
+        }
+      ],
+      "environment": {
+        "sunlight": {
+          "value": 1
+        },
+        "water": {
+          "value": 0.5666666666666789
+        },
+        "air": {
+          "value": 1
+        },
+        "soil": {
+          "value": 1
+        }
+      },
+      "metrics": {
+        "points": 30,
+        "bestStability": 99
+      },
+      "pointEconomy": {
+        "openingBalance": 30,
+        "openingAt": 0,
+        "studyStartSequence": 0,
+        "legacyClaimed": [
+          "observation:v2_grass_to_grasshopper",
+          "observation:v2_grasshopper_to_frog",
+          "activity:producer_quiz",
+          "activity:decomposer_classify",
+          "activity:grass_observation",
+          "activity:rabbit_habitat"
+        ],
+        "studyClaims": [],
+        "studyClaimedIds": [],
+        "studyUnidentifiedCount": 0,
+        "studyCount": 0,
+        "support": {
+          "used": false,
+          "grantedAt": null,
+          "amount": 0,
+          "budget": 0,
+          "remaining": 0,
+          "factors": []
+        },
+        "sequence": 0,
+        "totals": {
+          "legacy": 0,
+          "study": 0,
+          "support": 0,
+          "spent": 0
+        },
+        "ledger": []
+      },
+      "recoverySupportUsed": false,
+      "observations": [
+        {
+          "relationId": "v2_grass_to_grasshopper",
+          "eventId": "fixture-prior",
+          "discoveredAt": 0
+        },
+        {
+          "relationId": "v2_grasshopper_to_frog",
+          "eventId": "fixture-prior",
+          "discoveredAt": 0
+        }
+      ],
+      "activities": [
+        {
+          "activityId": "producer_quiz",
+          "completed": true,
+          "attempts": 1,
+          "completedAt": 0,
+          "lastAnswer": "grass"
+        },
+        {
+          "activityId": "decomposer_classify",
+          "completed": true,
+          "attempts": 1,
+          "completedAt": 0,
+          "lastAnswer": "decomposer"
+        },
+        {
+          "activityId": "grass_observation",
+          "completed": true,
+          "attempts": 1,
+          "completedAt": 0
+        },
+        {
+          "activityId": "rabbit_habitat",
+          "completed": true,
+          "attempts": 1,
+          "completedAt": 0
+        }
+      ],
+      "rewardHistory": [
+        {
+          "rewardId": "observation:v2_grass_to_grasshopper",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 12
+        },
+        {
+          "rewardId": "observation:v2_grasshopper_to_frog",
+          "grantedAt": 0,
+          "sourceId": "fixture-prior",
+          "amount": 12
+        },
+        {
+          "rewardId": "activity:producer_quiz",
+          "grantedAt": 0,
+          "sourceId": "producer_quiz",
+          "amount": 3
+        },
+        {
+          "rewardId": "activity:decomposer_classify",
+          "grantedAt": 0,
+          "sourceId": "decomposer_classify",
+          "amount": 4
+        },
+        {
+          "rewardId": "activity:grass_observation",
+          "grantedAt": 0,
+          "sourceId": "grass_observation",
+          "amount": 4
+        },
+        {
+          "rewardId": "activity:rabbit_habitat",
+          "grantedAt": 0,
+          "sourceId": "rabbit_habitat",
+          "amount": 4
+        }
+      ],
+      "managementHistory": [],
+      "managementActionCount": 0,
+      "managementCooldowns": {},
+      "managementEffects": [],
+      "forestProgress": {
+        "cleared": true,
+        "clearedAt": 30,
+        "stableSeconds": 30
+      },
+      "population": {
+        "sequence": 2,
+        "totals": {
+          "predation": 2
+        },
+        "history": [
+          {
+            "sequence": 1,
+            "speciesId": "grasshopper",
+            "changeType": "predation",
+            "cause": "predation",
+            "simulationTime": 10.5,
+            "countBefore": 6,
+            "countAfter": 5,
+            "consumerSpeciesId": "frog",
+            "noted": false
+          },
+          {
+            "sequence": 2,
+            "speciesId": "grasshopper",
+            "changeType": "predation",
+            "cause": "predation",
+            "simulationTime": 337,
+            "countBefore": 5,
+            "countAfter": 4,
+            "consumerSpeciesId": "frog",
+            "noted": false
+          }
+        ],
+        "breeding": {
+          "grass": {
+            "healthySeconds": 0,
+            "nextAt": 792,
+            "pending": {
+              "remainingSeconds": 12,
+              "position": {
+                "x": 0.42000000000000004,
+                "y": 0.75
+              }
+            }
+          },
+          "grasshopper": {
+            "healthySeconds": 0,
+            "nextAt": 923.5,
+            "pending": {
+              "remainingSeconds": 23.5,
+              "position": {
+                "x": 0.40230000000000044,
+                "y": 0.75
+              }
+            }
+          },
+          "rabbit": {
+            "healthySeconds": 30,
+            "nextAt": 360.5
+          }
+        },
+        "replenishment": {
+          "grasshopper": {
+            "healthySeconds": 0,
+            "nextAt": 300.5,
+            "reserve": 6
+          },
+          "caterpillar": {
+            "healthySeconds": 0,
+            "nextAt": 420.5
+          }
+        },
+        "introductions": {
+          "oak": {
+            "count": 2,
+            "nextAt": 0
+          },
+          "grass": {
+            "count": 5,
+            "nextAt": 0
+          },
+          "grasshopper": {
+            "count": 6,
+            "nextAt": 397
+          },
+          "frog": {
+            "count": 1,
+            "nextAt": 0
+          },
+          "mushroom": {
+            "count": 1,
+            "nextAt": 0
+          },
+          "rabbit": {
+            "count": 2,
+            "nextAt": 0
+          }
+        }
+      },
+      "decomposition": {
+        "organicMatter": {
+          "wood": 0.0027880598958344256,
+          "litter": 16.69999999999938,
+          "remains": 0
+        },
+        "soilNutrients": 0,
+        "processed": 3.297211940104114,
+        "earthwormProcessed": 0,
+        "soilContribution": 0,
+        "notices": {
+          "sequence": 0,
+          "history": []
+        }
+      },
+      "development": {
+        "sequence": 0,
+        "history": []
+      },
+      "environmentEvents": {
+        "sequence": 1,
+        "cursor": 1,
+        "nextAt": 1200,
+        "activeId": "environment-1",
+        "history": [
+          {
+            "eventId": "environment-1",
+            "kind": "drought",
+            "factor": "water",
+            "phase": "active",
+            "startedAt": 480,
+            "duration": 180,
+            "recoverySeconds": 240,
+            "intensity": 1,
+            "floor": 0.35,
+            "beforeValue": 1,
+            "valueAfter": 0.5666666666666789,
+            "appliedDelta": -0.43333333333332114,
+            "effectSeconds": 120,
+            "recoveryElapsed": 0,
+            "recoveredDelta": 0,
+            "recoveryTarget": 0.8,
+            "valueAtEffectEnd": null,
+            "effectEndedAt": null,
+            "endedAt": null,
+            "observed": false,
+            "choice": null,
+            "evidence": [
+              {
+                "instanceId": "representative-0-0",
+                "speciesId": "oak",
+                "type": "producer-decline",
+                "at": 480.5
+              },
+              {
+                "instanceId": "representative-1-0",
+                "speciesId": "grass",
+                "type": "producer-decline",
+                "at": 480.5
+              }
+            ],
+            "responses": []
+          }
+        ]
+      }
+    },
+    "eventMemory": {
+      "sequence": 6,
+      "cooldowns": [],
+      "questionDone": [],
+      "pendingDiscoveries": [
+        [
+          "v2_grass_to_rabbit",
+          {
+            "relationId": "v2_grass_to_rabbit",
+            "foodPart": "leaves",
+            "consumerSpeciesId": "rabbit",
+            "foodSpeciesId": "grass",
+            "consumerInstanceId": "representative-5-0",
+            "foodInstanceId": "representative-1-2"
+          }
+        ]
+      ]
+    }
+  }
+}

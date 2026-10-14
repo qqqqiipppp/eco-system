@@ -1,3 +1,4 @@
+import {ecologySeconds,ecologyRate,scaleFields} from './pacing-config.js';
 // Active GAME seconds, not biological measurements. Evidence and compression
 // choices for the representative groups are in FOREST_LIFESPANS.md.
 const individual=(min,max,initialAge,label,unit,extra={})=>({model:'individual',min:min*60,max:max*60,initialAge,label,unit,...extra});
@@ -34,3 +35,8 @@ export const replenishmentRules={
  caterpillar:{mode:'larval-recruitment',target:2,healthySeconds:420,cooldown:600},
 };
 export const colonyConfig={minimumEnvironment:.4,resourceThreshold:.02,dormantVigor:.2,recoverySeconds:240};
+
+export const originalLifespanRules=structuredClone(lifespanRules);
+for(const rule of Object.values(lifespanRules))scaleFields(rule,['min','max','stressSeconds']);
+for(const rule of Object.values(replenishmentRules))scaleFields(rule,['healthySeconds','cooldown']);
+scaleFields(colonyConfig,['recoverySeconds']);

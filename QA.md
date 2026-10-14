@@ -1,3 +1,9 @@
+## 13.6단계 현재 기준
+
+현재 검증은 node tests/run-tests.mjs로 실행합니다. 고정된 옛 시간 fixture314와 실제 압축 정책172(신규50+장시간18 포함)를 분리하며 역사 loader는 브라우저/생산 코드에 설치하지 않습니다. 아래13.5/13의40분 자료는 보존된 과거 결과입니다. 새 결과는 pacing.long-results.json와 STAGE13_6_REPORT.md를 봅니다.
+
+[시간 정책](FOREST_PACING.md) · [완료 보고](STAGE13_6_REPORT.md) · [14단계 인수 설계](STAGE14_REPLAY_HANDOFF.md)
+
 # 13.5단계 검증 결과
 
 2026-10-14. 실제 저장소 `C:\Users\User\Documents\GitHub\eco-system`, 기준 HEAD `8b7f817264f0065ed9c66dd957d7d2417805e66d`. 현재14/ecologyRevision2,24카드/기존22관계/5성장/5환경 사건/30실제 개체. Node24와 Windows Edge/Playwright의 정적 `/eco-system/` 경로로 확인했다. 실제 S5e·배포 Pages·실제 학생 수업 측정은 아니다.

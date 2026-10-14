@@ -1,3 +1,4 @@
+import {ecologySeconds,ecologyRate,scaleFields} from './pacing-config.js';
 // Active GAME seconds. Biological evidence and omissions: FOREST_GROWTH_STAGES.md.
 export const developmentConfig = { historyLimit:60, noticeLimit:6, minimumEnvironment:.4, woodThreshold:.05 };
 export const developmentRules = {
@@ -11,3 +12,5 @@ export const developmentRules = {
   mushroom: {model:'colony',cycle:'포자 발아 → 균사체 성장 → 자실체 형성 → 포자 생성·방출',description:'균사체가 죽은 나무를 분해하고 자실체는 포자를 만드는 구조예요. 한 군집의 변화이며 새로운 군집이 자동으로 늘어나지 않아요.',maxSeconds:300,
     stages:[{id:'mycelium',label:'균사체 활동',at:0},{id:'fruiting',label:'자실체 형성',at:180},{id:'spore-ready',label:'포자 형성 상태',at:300}]},
 };
+
+for(const rule of Object.values(developmentRules)){scaleFields(rule,['maxSeconds','maturitySeconds','breedingSeconds','pendingSeconds']);for(const stage of rule.stages)scaleFields(stage,['at']);}

@@ -50,7 +50,7 @@ function version10Save(){
 
 test('development save: genuine v10 preserves current ecology, life, earned permissions and all prior operational state',()=>{
  const raw=version10Save(),r=decodeSave(JSON.stringify(raw)),s=r.state;
- assert.equal(r.status,'loaded');assert.equal(SAVE_VERSION,14);assert.equal(s.schemaVersion,14);
+ assert.equal(r.status,'loaded');assert.equal(SAVE_VERSION,15);assert.equal(s.schemaVersion,15);
  assert.deepEqual(s.observations,raw.domain.observations);assert.deepEqual(s.legacyEcology,raw.domain.legacyEcology);
  assert.deepEqual(s.inventory,raw.domain.inventory);assert.deepEqual(s.activities,raw.domain.activities);
  assert.equal(s.metrics.points,43);assert.equal(s.metrics.bestStability,95);assert(s.forestProgress.cleared);
@@ -173,5 +173,5 @@ test('development save: inherited dictionary names are rejected as stage-history
 
 test('development save: unknown current ecology and future schemas remain blocked, including pre-growth v10',()=>{
  for(const raw of [version10Save(),JSON.parse(encode(createGameState()))]){raw.domain.ecologyRevision=999;const r=decodeSave(JSON.stringify(raw));assert(r.blocked);assert.equal(r.status,'unknown-ecology');}
- const raw=JSON.parse(encode(createGameState()));raw.schemaVersion=raw.domain.schemaVersion=15;assert.equal(decodeSave(JSON.stringify(raw)).status,'future-version');assert(decodeSave(JSON.stringify(raw)).blocked);
+ const raw=JSON.parse(encode(createGameState()));raw.schemaVersion=raw.domain.schemaVersion=16;assert.equal(decodeSave(JSON.stringify(raw)).status,'future-version');assert(decodeSave(JSON.stringify(raw)).blocked);
 });

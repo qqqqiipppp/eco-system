@@ -33,6 +33,7 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/',KEY='eco-sy
   const {createSaveSnapshot}=await import('./js/services/save-format.js');
   const {organisms}=await import('./data/organisms.js');
   const {stageAt}=await import('./js/state/development-state.js');
+  const {developmentRules}=await import('./data/development-config.js');
   const s=createGameState();s.simulationTime=1000;
   const make=(id,name,x=.4,y=.72,origin)=>{
    const o=createOrganismInstance(id,name,{x,y},{time:1000,newborn:Boolean(origin),origin});
@@ -43,12 +44,12 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/',KEY='eco-sy
   if(kind==='growth'){
    s.inventory.find(c=>c.speciesId==='frog').acquired=true;
    s.organisms=[make('oak','tree',.12,.71),make('grass','food',.35,.73),
-    progress(make('grass','sprout',.26,.72,'seed-spread'),179.5),
-    progress(make('grasshopper','nymph',.46,.62,'egg-hatch'),179.5),
-    progress(make('rabbit','baby',.58,.75,'birth'),89.5),
-    progress(make('mushroom','colony',.12,.76),179.5),make('frog','adult-frog',.65,.65)];
-   s.population.breeding.grass={healthySeconds:0,nextAt:1600,pending:{remainingSeconds:60,position:{x:.31,y:.76}}};
-   s.population.breeding.grasshopper={healthySeconds:0,nextAt:1600,pending:{remainingSeconds:60,position:{x:.51,y:.69}}};
+    progress(make('grass','sprout',.26,.72,'seed-spread'),developmentRules.grass.maturitySeconds-.5),
+    progress(make('grasshopper','nymph',.46,.62,'egg-hatch'),developmentRules.grass.maturitySeconds-.5),
+    progress(make('rabbit','baby',.58,.75,'birth'),developmentRules.rabbit.stages[1].at-.5),
+    progress(make('mushroom','colony',.12,.76),developmentRules.grass.maturitySeconds-.5),make('frog','adult-frog',.65,.65)];
+   s.population.breeding.grass={healthySeconds:0,nextAt:1600,pending:{remainingSeconds:developmentRules.grass.pendingSeconds,position:{x:.31,y:.76}}};
+   s.population.breeding.grasshopper={healthySeconds:0,nextAt:1600,pending:{remainingSeconds:developmentRules.grass.pendingSeconds,position:{x:.51,y:.69}}};
    s.population.replenishment.grasshopper={healthySeconds:0,nextAt:1600,reserve:6};
   }
   if(kind==='full'){
@@ -56,8 +57,8 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/',KEY='eco-sy
    // actual student game; this fixture deliberately covers all 23 definitions.
    s.inventory.forEach(c=>c.acquired=true);
    s.organisms=organisms.filter(o=>o.id!=='earthworm').map((definition,i)=>make(definition.id,'mixed-'+i,.13+(i%6)*.10,.69+Math.floor(i/6)*.012));
-   s.organisms.push(...Array.from({length:7},(_,i)=>progress(make('grass','young-'+i,.16+i*.055,.76,'seed-spread'),179.5)));
-   progress(s.organisms.find(o=>o.speciesId==='mushroom'),179.5);
+   s.organisms.push(...Array.from({length:7},(_,i)=>progress(make('grass','young-'+i,.16+i*.055,.76,'seed-spread'),developmentRules.grass.maturitySeconds-.5)));
+   progress(s.organisms.find(o=>o.speciesId==='mushroom'),developmentRules.grass.maturitySeconds-.5);
    s.population.breeding.grass={healthySeconds:0,nextAt:1000,pending:{remainingSeconds:.5,position:{x:.4,y:.76}}};
   }
   s.decomposition.organicMatter={wood:5,litter:5,remains:5};

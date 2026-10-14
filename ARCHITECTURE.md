@@ -1,3 +1,9 @@
+## 13.6단계 현재 기준
+
+data/pacing-config.js가 생태 설정의 변환만 담당합니다. 실제 simulationTime/RAF/0.5 tick은 유지합니다. pacing-migration.js는 기존 시간 진행률·생태 deadline을 검증 전 한 번 변환합니다. save-format schema15는 validated feeding decision·acclimationUntil·hold 진행을 저장합니다. 돈·DOM·좌표 엔진의 책임은 그대로이며 반복 플레이는 인수 문서만 제공합니다.
+
+[시간 정책](FOREST_PACING.md) · [완료 보고](STAGE13_6_REPORT.md) · [14단계 인수 설계](STAGE14_REPLAY_HANDOFF.md)
+
 # 현재 설계 — 1~13.5단계
 
 ## 13.5단계: 공유 유기물과 토양동물의 역할

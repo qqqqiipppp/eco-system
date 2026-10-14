@@ -1,3 +1,4 @@
+import {ecologySeconds,ecologyRate,scaleFields} from './pacing-config.js';
 // Active game seconds and qualitative teaching trials, not weather forecasts
 // or species-specific pollution thresholds. No mortality coefficients here.
 export const environmentEventConfig={
@@ -24,3 +25,6 @@ export const environmentEventDefinitions={
   expected:'식물과 분해자 활동에 영향이 있을 수 있어요. 기존 토양 돌보기를 살펴봐요. 서식지 회복은 흙 수치를 직접 올리지는 않아요.'},
 };
 export const environmentEventSequence=['drought','rain','cloudy','air-pollution','soil-damage'];
+
+scaleFields(environmentEventConfig,['initialDelay','interval','postpone','repeatCooldown']);
+for(const rule of Object.values(environmentEventDefinitions))scaleFields(rule,['duration','recoverySeconds']);
