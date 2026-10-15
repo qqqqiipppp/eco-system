@@ -31,4 +31,4 @@ export const speciesHabitats={
  'soil-bacteria':rule('organic_matter',['ground'],'stationary',[],true),
 };
 export const movementLabels={'stationary':'자리를 지켜요',ground:'지상에서 이동해요','short-hop':'낮게 이동하고 짧게 뛰어요','tree-affinity':'나무 주변과 지상을 이용해요','plant-surface':'식물 주변에서 천천히 움직여요',perching:'가지에 머무르며 제한적으로 이동해요','slow-litter':'낮은 곳에서 느리게 움직여요'};
-export const habitatPresentationConfig={maxOffsetPixels:72,maxOffsetNormalized:.16,minTouch:48,groundTop:.62,groundBottom:.82,markerHeadroom:14};
+export const habitatPresentationConfig={maxOffsetPixels:72,maxOffsetNormalized:.16,attachmentOffsetPixels:1200,attachmentOffsetNormalized:.95,minTouch:48,groundTop:.62,groundBottom:.88,markerHeadroom:14};

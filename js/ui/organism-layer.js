@@ -18,10 +18,11 @@ export function createOrganismLayer(forest, getOrganisms) {
   const guide = forest.querySelector('#placement-guide');
   const cursor = forest.querySelector('#placement-cursor');
   const feedback = forest.querySelector('#placement-feedback');
+  const namesToggle=forest.querySelector('#names-toggle');
   const nodes = new Map();
   let layout;
   const habitat=createHabitatPresentation();
-  let membership='',inspectHandler=()=>{},focusedId=null;
+  let membership='',inspectHandler=()=>{},focusedId=null,placingSpeciesId=null;
   function refreshHabitats(force=false){
     const items=getOrganisms(),signature=items.map(o=>o.instanceId).sort().join('|');
     if(force||signature!==membership){membership=signature;habitat.rebuild(items,layout);for(const o of items)paint(o);}
@@ -58,7 +59,10 @@ export function createOrganismLayer(forest, getOrganisms) {
       const box = element.getBoundingClientRect();
       return { left: (box.left - rect.left) / rect.width, right: (box.right - rect.left) / rect.width, top: (box.top - rect.top) / rect.height, bottom: (box.bottom - rect.top) / rect.height };
     });
-    layout = { width: rect.width, height: rect.height, sizes, footprints, blockedRects };
+    // Keep ecological geometry unchanged. The new view-only control is only
+    // an obstacle for drawing, never a new physical placement/feeding rule.
+    const visualBlockedRects=[...blockedRects,...[...forest.querySelectorAll('[data-presentation-ui]')].map(element=>{const box=element.getBoundingClientRect();return {left:(box.left-rect.left)/rect.width,right:(box.right-rect.left)/rect.width,top:(box.top-rect.top)/rect.height,bottom:(box.bottom-rect.top)/rect.height};})];
+    layout = { width: rect.width, height: rect.height, sizes, footprints, blockedRects,visualBlockedRects };
     refreshHabitats(true);
     for (const instance of getOrganisms()) {
       const entry = nodes.get(instance.instanceId);
@@ -94,6 +98,7 @@ export function createOrganismLayer(forest, getOrganisms) {
     }
     const name = document.createElement('span');
     name.className = 'organism-name';
+    name.setAttribute('aria-hidden','true');
     name.textContent = definition.name;
     visual.append(image, name);
     const hit=document.createElement('button');hit.type='button';hit.className='organism-hit';hit.dataset.inspectInstance=instance.instanceId;
@@ -141,6 +146,7 @@ export function createOrganismLayer(forest, getOrganisms) {
     if(layout)refreshHabitats();
   }
   function showSelection(speciesId) {
+    placingSpeciesId=speciesId;
     const profile = speciesProfiles[speciesId];
     if(profile)setFocused(null);
     guide.hidden = !profile;
@@ -166,8 +172,10 @@ export function createOrganismLayer(forest, getOrganisms) {
   }
   function readInput(event) {
     const rect = surface.getBoundingClientRect();
-    const position = event.detail === 0 ? { ...keyboardPosition } : { x: (event.clientX - rect.left) / rect.width, y: (event.clientY - rect.top) / rect.height };
-    return { position, isPlayArea: forest.contains(event.target), isUI: Boolean(event.target.closest('[data-scene-ui]')) };
+    const raw = event.detail === 0 ? { ...keyboardPosition } : { x: (event.clientX - rect.left) / rect.width, y: (event.clientY - rect.top) / rect.height };
+    const isUI=Boolean(event.target.closest('[data-scene-ui],[data-presentation-ui]'));
+    const position=placingSpeciesId&&!isUI?habitat.placementPosition(placingSpeciesId,raw):raw;
+    return { position, isPlayArea: forest.contains(event.target), isUI };
   }
   function moveCursor(event) {
     const steps = { ArrowLeft: [-0.025, 0], ArrowRight: [0.025, 0], ArrowUp: [0, -0.025], ArrowDown: [0, 0.025] };
@@ -183,8 +191,10 @@ export function createOrganismLayer(forest, getOrganisms) {
     focusedId=nodes.has(id)?id:null;
     for(const [key,entry]of nodes){entry.anchor.classList.toggle('is-inspected',key===focusedId);entry.hit.setAttribute('aria-pressed',String(key===focusedId));}
   }
+  function toggleNames(event){event.stopPropagation();const visible=namesToggle.getAttribute('aria-pressed')!=='true';namesToggle.setAttribute('aria-pressed',String(visible));layer.classList.toggle('show-names',visible);}
+  namesToggle.addEventListener('click',toggleNames);
   function inspectInput(event){
-    if(forest.classList.contains('is-placing')||event.target.closest('[data-event-marker],[data-scene-ui]'))return false;
+    if(forest.classList.contains('is-placing')||event.target.closest('[data-event-marker],[data-scene-ui],[data-presentation-ui]'))return false;
     const exact=event.target.closest('[data-inspect-instance]');
     let ids;
     if(event.detail===0&&exact)ids=[exact.dataset.inspectInstance];
@@ -192,7 +202,7 @@ export function createOrganismLayer(forest, getOrganisms) {
       const rect=surface.getBoundingClientRect(),x=event.clientX-rect.left,y=event.clientY-rect.top;
       ids=[...nodes.entries()].filter(([,e])=>{if(!e.point)return false;const size=layout.sizes[e.anchor.dataset.speciesId],w=Math.max(48,size.width),h=Math.max(48,size.height+20);return x>=e.point.x-w/2&&x<=e.point.x+w/2&&y>=e.point.y-size.height&&y<=e.point.y-size.height+h;}).sort(([a,ea],[b,eb])=>Math.hypot(ea.point.x-x,ea.point.y-y)-Math.hypot(eb.point.x-x,eb.point.y-y)||a.localeCompare(b,'en')).map(([id])=>id);
     }
-    if(!ids.length)return false;
+    if(!ids.length){setFocused(null);return false;}
     event.preventDefault();event.stopImmediatePropagation();inspectHandler(ids);return true;
   }
   forest.addEventListener('click',inspectInput);
@@ -206,11 +216,11 @@ export function createOrganismLayer(forest, getOrganisms) {
     add, remove, showSelection, showFeedback, readInput,
     setInspectHandler:handler=>{inspectHandler=handler;},setFocused,
     getPresentation:instance=>habitat.position(instance),getHabitatDiagnostics:()=>habitat.diagnostics(),
-    reset() { focusedId=null;membership='';remove([...nodes.keys()]); clearTimeout(feedbackTimer); feedback.hidden=true; keyboardPosition={x:0.4,y:0.72}; showSelection(null); },
+    reset() { focusedId=null;membership='';remove([...nodes.keys()]); clearTimeout(feedbackTimer); feedback.hidden=true; keyboardPosition={x:0.4,y:0.72}; namesToggle.setAttribute('aria-pressed','false');layer.classList.remove('show-names');showSelection(null); },
     showStates: instances => { for (const instance of instances) showState(instance); },
     getLayout: () => layout,
     getEventAnchor: instanceId => nodes.get(instanceId)?.anchor,
     paintChanges: changed => { for (const { instance, direction } of changed) paint(instance, direction); },
-    dispose() { forest.removeEventListener('click',inspectInput);observer.disconnect(); window.removeEventListener('resize', measure); clearTimeout(feedbackTimer); },
+    dispose() { forest.removeEventListener('click',inspectInput);namesToggle.removeEventListener('click',toggleNames);observer.disconnect(); window.removeEventListener('resize', measure); clearTimeout(feedbackTimer); },
   };
 }

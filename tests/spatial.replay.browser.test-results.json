@@ -1,0 +1,158 @@
+{
+  "stage": 14,
+  "schemaVersion": 16,
+  "actualS5eHardware": false,
+  "scenarios": [
+    "ordinary new pine unlock requires real inspection and answer; repeat pays0; acquisition differs from observation",
+    "web22 direction,locked endpoints,zero false discoveries,filter",
+    "clear shows actual6 locked cards and7/24; cancel preserves entire state",
+    "failed atomic save preserves disk and live forest/profile",
+    "double click creates exactly one forest; cards,guide,ledger preserved; biology resets; reload round2",
+    "all24 completion message and actual new-combination placement with existing habitat",
+    "30 instances,5views,guide24 scroll,web22,44px,touch-safe dialogs,RAF1,read0,no guide churn"
+  ],
+  "views": [
+    {
+      "width": 1280,
+      "height": 800,
+      "panel": "guide",
+      "dialogInside": true,
+      "horizontalOverflow": false,
+      "pageOverflow": false,
+      "minTouch": 44,
+      "scrollable": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "panel": "web",
+      "dialogInside": true,
+      "horizontalOverflow": false,
+      "pageOverflow": false,
+      "minTouch": 44,
+      "scrollable": true
+    },
+    {
+      "width": 1138,
+      "height": 712,
+      "panel": "guide",
+      "dialogInside": true,
+      "horizontalOverflow": false,
+      "pageOverflow": false,
+      "minTouch": 44,
+      "scrollable": true
+    },
+    {
+      "width": 1138,
+      "height": 712,
+      "panel": "web",
+      "dialogInside": true,
+      "horizontalOverflow": false,
+      "pageOverflow": false,
+      "minTouch": 44,
+      "scrollable": true
+    },
+    {
+      "width": 960,
+      "height": 600,
+      "panel": "guide",
+      "dialogInside": true,
+      "horizontalOverflow": false,
+      "pageOverflow": false,
+      "minTouch": 44,
+      "scrollable": true
+    },
+    {
+      "width": 960,
+      "height": 600,
+      "panel": "web",
+      "dialogInside": true,
+      "horizontalOverflow": false,
+      "pageOverflow": false,
+      "minTouch": 44,
+      "scrollable": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "panel": "guide",
+      "dialogInside": true,
+      "horizontalOverflow": false,
+      "pageOverflow": false,
+      "minTouch": 44,
+      "scrollable": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "panel": "web",
+      "dialogInside": true,
+      "horizontalOverflow": false,
+      "pageOverflow": false,
+      "minTouch": 44,
+      "scrollable": true
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "panel": "guide",
+      "dialogInside": true,
+      "horizontalOverflow": false,
+      "pageOverflow": false,
+      "minTouch": 44,
+      "scrollable": true
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "panel": "web",
+      "dialogInside": true,
+      "horizontalOverflow": false,
+      "pageOverflow": false,
+      "minTouch": 44,
+      "scrollable": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "panel": "clear/replay",
+      "touch": true,
+      "inside": true
+    },
+    {
+      "width": 1138,
+      "height": 712,
+      "panel": "clear/replay",
+      "touch": true,
+      "inside": true
+    },
+    {
+      "width": 960,
+      "height": 600,
+      "panel": "clear/replay",
+      "touch": true,
+      "inside": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "panel": "clear/replay",
+      "touch": true,
+      "inside": true
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "panel": "clear/replay",
+      "touch": true,
+      "inside": true
+    }
+  ],
+  "performance": {
+    "mutations": 0,
+    "maxPending": 1,
+    "intervals": 0,
+    "reads": 0
+  },
+  "errors": []
+}

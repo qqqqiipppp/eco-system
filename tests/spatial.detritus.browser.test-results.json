@@ -1,0 +1,143 @@
+{
+  "stage": "13.6",
+  "schemaVersion": 15,
+  "pacingRevision": 1,
+  "initialCards": {
+    "total": 24,
+    "initialAcquired": 5,
+    "stage14Locks": 17,
+    "initialPoints": 0,
+    "freeDecomposerPlacements": 2,
+    "classificationOnceOnly": 4,
+    "earthwormLocked": true
+  },
+  "reactionViewports": [
+    {
+      "width": 1280,
+      "height": 800,
+      "dialogInside": true,
+      "horizontalOverflow": false,
+      "closeVisible": true,
+      "minControlHeight": 44
+    },
+    {
+      "width": 1138,
+      "height": 712,
+      "dialogInside": true,
+      "horizontalOverflow": false,
+      "closeVisible": true,
+      "minControlHeight": 44
+    },
+    {
+      "width": 960,
+      "height": 600,
+      "dialogInside": true,
+      "horizontalOverflow": false,
+      "closeVisible": true,
+      "minControlHeight": 44
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "dialogInside": true,
+      "horizontalOverflow": false,
+      "closeVisible": true,
+      "minControlHeight": 44
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "dialogInside": true,
+      "horizontalOverflow": false,
+      "closeVisible": true,
+      "minControlHeight": 44
+    }
+  ],
+  "interaction": {
+    "realLifespanEndings": 3,
+    "targets": [
+      {
+        "part": "wood",
+        "targetSpecies": "mushroom",
+        "oneActualAnchor": true
+      },
+      {
+        "part": "litter",
+        "targetSpecies": "earthworm",
+        "oneActualAnchor": true
+      },
+      {
+        "part": "remains",
+        "targetSpecies": "soil-bacteria",
+        "oneActualAnchor": true
+      }
+    ],
+    "repeatAfterReload": 0,
+    "confirmationPointChange": 0,
+    "paidControls": 0,
+    "sharedResourceExplanation": true
+  },
+  "viewports": [
+    {
+      "width": 1280,
+      "height": 800,
+      "horizontalOverflow": false,
+      "verticalOverflow": false,
+      "dialogHorizontalOverflow": false,
+      "dialogInside": true,
+      "minControlHeight": 44
+    },
+    {
+      "width": 1138,
+      "height": 712,
+      "horizontalOverflow": false,
+      "verticalOverflow": false,
+      "dialogHorizontalOverflow": false,
+      "dialogInside": true,
+      "minControlHeight": 44
+    },
+    {
+      "width": 960,
+      "height": 600,
+      "horizontalOverflow": false,
+      "verticalOverflow": false,
+      "dialogHorizontalOverflow": false,
+      "dialogInside": true,
+      "minControlHeight": 44
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "horizontalOverflow": false,
+      "verticalOverflow": false,
+      "dialogHorizontalOverflow": false,
+      "dialogInside": true,
+      "minControlHeight": 44
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "horizontalOverflow": false,
+      "verticalOverflow": "portrait scrolling allowed",
+      "dialogHorizontalOverflow": false,
+      "dialogInside": true,
+      "minControlHeight": 44
+    }
+  ],
+  "performance": {
+    "callbacks": 110,
+    "maxPending": 1,
+    "reads": 0,
+    "intervals": 0,
+    "domCount": 30,
+    "sameNodes": true,
+    "visibleEvents": 1
+  },
+  "hidden": {
+    "before": 2,
+    "after": 2,
+    "resumed": 2.5
+  },
+  "errors": [],
+  "actualS5eHardware": false
+}

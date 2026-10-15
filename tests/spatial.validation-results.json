@@ -1,0 +1,399 @@
+{
+  "stage": "15.5",
+  "date": "2026-10-15",
+  "repo": "C:/Users/User/Documents/GitHub/eco-system",
+  "beforeHead": "5b83c370def66e6d8e45b4c52899ae6e3a08660b",
+  "afterHead": "5b83c370def66e6d8e45b4c52899ae6e3a08660b",
+  "startedClean": true,
+  "endingUncommitted": true,
+  "schemaVersion": 16,
+  "ecologyRevision": 2,
+  "pacingRevision": 1,
+  "actualS5e": false,
+  "actualStudents": false,
+  "tests": {
+    "historical": 314,
+    "current": 355,
+    "total": 669,
+    "failed": 0,
+    "skipped": 0,
+    "newSpatialUnit": 20,
+    "newLong": 10,
+    "unchangedFullSnapshotProfiles": 3,
+    "actualClearedRounds": 5
+  },
+  "browser": {
+    "runs": [
+      {
+        "file": "activities.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15_5-activities.browser.test.log"
+      },
+      {
+        "file": "balance.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15_5-balance.browser.test.log"
+      },
+      {
+        "file": "browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15_5-browser.test.log"
+      },
+      {
+        "file": "detritus.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15_5-detritus.browser.test.log"
+      },
+      {
+        "file": "development.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15_5-development.browser.test.log"
+      },
+      {
+        "file": "environment-events.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15_5-environment-events.browser.test.log"
+      },
+      {
+        "file": "environment.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15_5-environment.browser.test.log"
+      },
+      {
+        "file": "events.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15_5-events.browser.test.log"
+      },
+      {
+        "file": "feeding.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15_5-feeding.browser.test.log"
+      },
+      {
+        "file": "food-web.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15_5-food-web.browser.test.log"
+      },
+      {
+        "file": "guidance.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15_5-guidance.browser.test.log"
+      },
+      {
+        "file": "habitat.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15_5-habitat.browser.test.log"
+      },
+      {
+        "file": "lifespan.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15_5-lifespan.browser.test.log"
+      },
+      {
+        "file": "management.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15_5-management.browser.test.log"
+      },
+      {
+        "file": "pacing.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15_5-pacing.browser.test.log"
+      },
+      {
+        "file": "persistence.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15_5-persistence.browser.test.log"
+      },
+      {
+        "file": "point-economy.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15_5-point-economy.browser.test.log"
+      },
+      {
+        "file": "population.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15_5-population.browser.test.log"
+      },
+      {
+        "file": "replay.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15_5-replay.browser.test.log"
+      },
+      {
+        "file": "spatial.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15_5-after-browser.log"
+      }
+    ],
+    "viewports": [
+      [
+        1280,
+        800
+      ],
+      [
+        1138,
+        712
+      ],
+      [
+        960,
+        600
+      ],
+      [
+        1366,
+        768
+      ],
+      [
+        412,
+        915
+      ]
+    ],
+    "beforeExactTouches": 150,
+    "afterExactTouches": 150,
+    "wrong": 0,
+    "unselectable": 0,
+    "performance": {
+      "maxPending": 1,
+      "reads": 0,
+      "intervals": 0,
+      "sameNodes": true,
+      "dom": 30
+    }
+  },
+  "syntax": {
+    "files": 154,
+    "failures": []
+  },
+  "documents": {
+    "files": 7,
+    "links": 127,
+    "missing": [],
+    "reportSections": 32,
+    "layoutSections": 16
+  },
+  "git": {
+    "diffCheckPassed": true,
+    "stagingCommitPush": false,
+    "oldResultJSON": [
+      "tests/balance.baseline-results.json",
+      "tests/balance.browser-results.json",
+      "tests/balance.detritus.browser.test-after-results.json",
+      "tests/balance.detritus.browser.test-before-results.json",
+      "tests/balance.habitat.browser.test-after-results.json",
+      "tests/balance.habitat.browser.test-before-results.json",
+      "tests/balance.long-results.json",
+      "tests/balance.pacing.browser.test-after-results.json",
+      "tests/balance.pacing.browser.test-before-results.json",
+      "tests/balance.point-economy.browser.test-after-results.json",
+      "tests/balance.point-economy.browser.test-before-results.json",
+      "tests/balance.replay.browser.test-after-results.json",
+      "tests/balance.replay.browser.test-before-results.json",
+      "tests/balance.validation-results.json",
+      "tests/detritus.browser-results.json",
+      "tests/detritus.long-results.json",
+      "tests/environment-events.long-results.json",
+      "tests/habitat.baseline-results.json",
+      "tests/habitat.browser-results.json",
+      "tests/habitat.detritus-browser-results.json",
+      "tests/habitat.long-results.json",
+      "tests/habitat.pacing-browser-results.json",
+      "tests/habitat.point-economy-browser-results.json",
+      "tests/habitat.visibility-results.json",
+      "tests/pacing.baseline-results.json",
+      "tests/pacing.browser-results.json",
+      "tests/pacing.detritus-browser-results.json",
+      "tests/pacing.economy-browser-results.json",
+      "tests/pacing.long-results.json",
+      "tests/point-economy-baseline-results.json",
+      "tests/point-economy.browser-results.json",
+      "tests/point-economy.long-results.json",
+      "tests/replay.browser-results.json",
+      "tests/replay.detritus-browser-results.json",
+      "tests/replay.habitat-browser-results.json",
+      "tests/replay.long-results.json",
+      "tests/replay.pacing-browser-results.json",
+      "tests/replay.point-economy-browser-results.json",
+      "tests/replay.validation-results.json"
+    ],
+    "oldResultChanges": [],
+    "preservedPaths": [
+      "assets",
+      "js/state",
+      "js/services",
+      "data/organisms.js",
+      "data/species-taxonomy.js",
+      "data/food-relations.js",
+      "data/activities.js",
+      "data/card-unlocks.js",
+      "data/ecology-config.js",
+      "data/interaction-config.js",
+      "data/environment-config.js",
+      "data/pacing-config.js",
+      "data/population-config.js",
+      "data/lifespan-config.js",
+      "data/development-config.js",
+      "data/environment-events.js",
+      "data/point-economy.js",
+      "data/detritus-config.js",
+      "data/management-actions.js",
+      "data/forest-goal.js",
+      "js/main.js",
+      "js/systems/placement.js",
+      "js/systems/placement-rules.js",
+      "js/systems/feeding.js",
+      "js/systems/wander.js",
+      "js/systems/lifecycle.js",
+      "js/systems/population.js",
+      "js/systems/lifespan.js",
+      "js/systems/decomposition.js",
+      "js/systems/environment-events.js",
+      "js/systems/events.js",
+      "js/systems/update-loop.js",
+      "js/systems/replay.js",
+      "js/systems/round-care.js",
+      "js/systems/point-economy.js",
+      "js/systems/management.js",
+      "js/ui/collection-view.js",
+      "css/game.css"
+    ]
+  },
+  "hashes": {
+    "beforeSpatial": "f30c607145868737ab64e778b9d96702307d415b7ff761f2cca6ee5bacf1524d",
+    "beforeEcology": "7114d6e96a043b728af9e80f21d6494c1fefa928641c405d4559f01a9b49cf0d",
+    "afterBrowser": "91cb51a9304551788fbfd5e0fa0a91860f24f8345415ec6168d7f86f147a1d88",
+    "afterLong": "992c2693826feb8ee6baa14b1ff7c074d53df10a6dad3cab9887004bab17d2a7"
+  },
+  "changedFiles": [
+    {
+      "status": "M",
+      "file": "ARCHITECTURE.md"
+    },
+    {
+      "status": "M",
+      "file": "FOREST_HABITAT_SYSTEM.md"
+    },
+    {
+      "status": "M",
+      "file": "FOREST_PACING.md"
+    },
+    {
+      "status": "M",
+      "file": "QA.md"
+    },
+    {
+      "status": "M",
+      "file": "README.md"
+    },
+    {
+      "status": "M",
+      "file": "css/habitats.css"
+    },
+    {
+      "status": "M",
+      "file": "data/habitats.js"
+    },
+    {
+      "status": "M",
+      "file": "index.html"
+    },
+    {
+      "status": "M",
+      "file": "js/systems/habitat-anchors.js"
+    },
+    {
+      "status": "M",
+      "file": "js/systems/habitat-presentation.js"
+    },
+    {
+      "status": "M",
+      "file": "js/ui/organism-layer.js"
+    },
+    {
+      "status": "M",
+      "file": "js/ui/population-view.js"
+    },
+    {
+      "status": "M",
+      "file": "tests/habitat.test.mjs"
+    },
+    {
+      "status": "M",
+      "file": "tests/run-tests.mjs"
+    },
+    {
+      "status": "??",
+      "file": "FOREST_SPATIAL_LAYOUT.md"
+    },
+    {
+      "status": "??",
+      "file": "STAGE15_5_REPORT.md"
+    },
+    {
+      "status": "??",
+      "file": "data/forest-spaces.js"
+    },
+    {
+      "status": "??",
+      "file": "tests/spatial-fixtures.mjs"
+    },
+    {
+      "status": "??",
+      "file": "tests/spatial.balance.browser.test-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/spatial.baseline-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/spatial.browser-fixtures.cjs"
+    },
+    {
+      "status": "??",
+      "file": "tests/spatial.browser-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/spatial.browser.test.cjs"
+    },
+    {
+      "status": "??",
+      "file": "tests/spatial.detritus.browser.test-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/spatial.ecology-baseline-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/spatial.habitat.browser.test-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/spatial.long-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/spatial.long.test.mjs"
+    },
+    {
+      "status": "??",
+      "file": "tests/spatial.pacing.browser.test-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/spatial.point-economy.browser.test-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/spatial.replay.browser.test-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/spatial.test.mjs"
+    },
+    {
+      "status": "??",
+      "file": "tests/spatial.validation-results.json"
+    }
+  ]
+}

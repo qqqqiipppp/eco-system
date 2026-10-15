@@ -1,5 +1,10 @@
 /* View-only offsets live on existing anchors; ecological positions are intact. */
 .organism-name{overflow:hidden;text-overflow:ellipsis;max-width:var(--sprite-width)}
+.organism-layer .organism-name{display:none}
+.organism-layer.show-names .organism-name,.organism-object.is-inspected .organism-name{display:block}
+#names-toggle{position:absolute;left:190px;top:18px;z-index:4;min-width:44px;min-height:44px;padding:8px 11px;border:1px solid #b8c6aa;border-radius:9px;background:#fffef0;color:#244c38;font-size:11px}
+#names-toggle[aria-pressed=true]{background:#d8e8c4;border-color:#52764b}
+@media(max-width:800px){#names-toggle{left:auto;right:14px;top:14px}}
 .organism-hit{position:absolute;left:calc(max(48px,var(--sprite-width)) / -2);top:calc(0px - var(--sprite-height));width:max(48px,var(--sprite-width));height:max(48px,calc(var(--sprite-height) + 20px));min-width:48px;min-height:48px;padding:0;border:0;border-radius:9px;background:transparent;pointer-events:auto;touch-action:manipulation}
 .organism-hit:focus-visible{outline:2px solid #244c38;outline-offset:2px}
 .is-placing .organism-hit{pointer-events:none}

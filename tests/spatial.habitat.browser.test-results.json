@@ -1,0 +1,4573 @@
+{
+  "stage": "13.7",
+  "schemaVersion": 15,
+  "scenarios": {
+    "1": {
+      "actualStarterCards": 5,
+      "freePlacements": 2,
+      "studyOnce": 4,
+      "instanceSelection": true
+    },
+    "2": {
+      "developerFixture": true,
+      "accurateIds": 6,
+      "descriptors": [
+        {
+          "id": "fixture-0-0",
+          "habitat": "canopy",
+          "movement": "stationary",
+          "anchor": "background:ground-band",
+          "fallback": "false"
+        },
+        {
+          "id": "fixture-1-0",
+          "habitat": "canopy",
+          "movement": "stationary",
+          "anchor": "background:ground-band",
+          "fallback": "false"
+        },
+        {
+          "id": "fixture-2-0",
+          "habitat": "trunk",
+          "movement": "tree-affinity",
+          "anchor": "background:left-trunk",
+          "fallback": "false"
+        },
+        {
+          "id": "fixture-3-0",
+          "habitat": "branch",
+          "movement": "perching",
+          "anchor": "background:middle-crown",
+          "fallback": "false"
+        },
+        {
+          "id": "fixture-4-0",
+          "habitat": "branch",
+          "movement": "perching",
+          "anchor": "background:middle-crown",
+          "fallback": "false"
+        },
+        {
+          "id": "fixture-5-0",
+          "habitat": "canopy",
+          "movement": "perching",
+          "anchor": "background:left-crown",
+          "fallback": "false"
+        }
+      ],
+      "domainUnchanged": true
+    },
+    "3": {
+      "developerFixture": true,
+      "accurateIds": 6,
+      "descriptors": [
+        {
+          "id": "fixture-0-0",
+          "habitat": "canopy",
+          "movement": "stationary",
+          "anchor": "background:ground-band",
+          "fallback": "false"
+        },
+        {
+          "id": "fixture-1-0",
+          "habitat": "canopy",
+          "movement": "stationary",
+          "anchor": "background:ground-band",
+          "fallback": "false"
+        },
+        {
+          "id": "fixture-2-0",
+          "habitat": "understory",
+          "movement": "stationary",
+          "anchor": "background:ground-band",
+          "fallback": "false"
+        },
+        {
+          "id": "fixture-3-0",
+          "habitat": "branch",
+          "movement": "plant-surface",
+          "anchor": "producer:fixture-0-0:surface",
+          "fallback": "false"
+        },
+        {
+          "id": "fixture-4-0",
+          "habitat": "understory",
+          "movement": "plant-surface",
+          "anchor": "producer:fixture-1-0:surface",
+          "fallback": "false"
+        },
+        {
+          "id": "fixture-5-0",
+          "habitat": "understory",
+          "movement": "short-hop",
+          "anchor": "producer:fixture-2-0:surface",
+          "fallback": "false"
+        }
+      ],
+      "domainUnchanged": true
+    },
+    "4": {
+      "developerFixture": true,
+      "accurateIds": 6,
+      "descriptors": [
+        {
+          "id": "fixture-0-0",
+          "habitat": "understory",
+          "movement": "stationary",
+          "anchor": "background:ground-band",
+          "fallback": "false"
+        },
+        {
+          "id": "fixture-1-0",
+          "habitat": "ground",
+          "movement": "ground",
+          "anchor": "background:grass-band",
+          "fallback": "true"
+        },
+        {
+          "id": "fixture-2-0",
+          "habitat": "ground",
+          "movement": "ground",
+          "anchor": "background:surface-litter",
+          "fallback": "true"
+        },
+        {
+          "id": "fixture-3-0",
+          "habitat": "ground",
+          "movement": "ground",
+          "anchor": "background:ground-band",
+          "fallback": "true"
+        },
+        {
+          "id": "fixture-4-0",
+          "habitat": "ground",
+          "movement": "ground",
+          "anchor": "background:grass-band",
+          "fallback": "true"
+        },
+        {
+          "id": "fixture-5-0",
+          "habitat": "leaf_litter",
+          "movement": "ground",
+          "anchor": "background:surface-litter",
+          "fallback": "true"
+        }
+      ],
+      "domainUnchanged": true
+    },
+    "5": {
+      "developerFixture": true,
+      "accurateIds": 6,
+      "descriptors": [
+        {
+          "id": "fixture-0-0",
+          "habitat": "understory",
+          "movement": "stationary",
+          "anchor": "background:ground-band",
+          "fallback": "false"
+        },
+        {
+          "id": "fixture-1-0",
+          "habitat": "leaf_litter",
+          "movement": "slow-litter",
+          "anchor": "background:low-ground",
+          "fallback": "true"
+        },
+        {
+          "id": "fixture-2-0",
+          "habitat": "moist_ground",
+          "movement": "slow-litter",
+          "anchor": "background:surface-litter",
+          "fallback": "true"
+        },
+        {
+          "id": "fixture-3-0",
+          "habitat": "dead_wood",
+          "movement": "stationary",
+          "anchor": "background:ground-band",
+          "fallback": "true"
+        },
+        {
+          "id": "fixture-4-0",
+          "habitat": "leaf_litter",
+          "movement": "stationary",
+          "anchor": "background:surface-litter",
+          "fallback": "true"
+        },
+        {
+          "id": "fixture-5-0",
+          "habitat": "organic_matter",
+          "movement": "stationary",
+          "anchor": "background:ground-band",
+          "fallback": "true"
+        }
+      ],
+      "domainUnchanged": true
+    },
+    "6": {
+      "developerAllCardFixture": true,
+      "total": 30,
+      "correctSelections": 150,
+      "wrongSelections": 0,
+      "unselectable": 0,
+      "viewports": [
+        {
+          "width": 1280,
+          "height": 800,
+          "entries": [
+            {
+              "id": "fixture-0-0",
+              "species": "oak",
+              "image": {
+                "left": 135.63999938964844,
+                "top": 352.13623046875,
+                "right": 215.63999938964844,
+                "bottom": 428.13623046875,
+                "width": 80,
+                "height": 76
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 135.63999938964844,
+                "top": 352.13623046875,
+                "right": 215.63999938964844,
+                "bottom": 448.13623046875,
+                "width": 80,
+                "height": 96
+              }
+            },
+            {
+              "id": "fixture-1-0",
+              "species": "grass",
+              "image": {
+                "left": 271.8399963378906,
+                "top": 380.13446044921875,
+                "right": 323.8399963378906,
+                "bottom": 423.13446044921875,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 271.8399963378906,
+                "top": 380.13446044921875,
+                "right": 323.8399963378906,
+                "bottom": 443.13446044921875,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "fixture-2-0",
+              "species": "grasshopper",
+              "image": {
+                "left": 345.6000061035156,
+                "top": 343.06170654296875,
+                "right": 397.6000061035156,
+                "bottom": 383.06170654296875,
+                "width": 52,
+                "height": 40
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 345.6000061035156,
+                "top": 343.06170654296875,
+                "right": 397.6000061035156,
+                "bottom": 403.06170654296875,
+                "width": 52,
+                "height": 60
+              }
+            },
+            {
+              "id": "fixture-3-0",
+              "species": "frog",
+              "image": {
+                "left": 584.239990234375,
+                "top": 390.82879638671875,
+                "right": 636.239990234375,
+                "bottom": 430.82879638671875,
+                "width": 52,
+                "height": 40
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 584.239990234375,
+                "top": 390.82879638671875,
+                "right": 636.239990234375,
+                "bottom": 450.82879638671875,
+                "width": 52,
+                "height": 60
+              }
+            },
+            {
+              "id": "fixture-4-0",
+              "species": "rabbit",
+              "image": {
+                "left": 704.4400024414062,
+                "top": 358.3526611328125,
+                "right": 760.4400024414062,
+                "bottom": 407.3526611328125,
+                "width": 56,
+                "height": 49
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 704.4400024414062,
+                "top": 358.3526611328125,
+                "right": 760.4400024414062,
+                "bottom": 427.3526611328125,
+                "width": 56,
+                "height": 69
+              }
+            },
+            {
+              "id": "fixture-5-0",
+              "species": "mushroom",
+              "image": {
+                "left": 808.6400146484375,
+                "top": 377.3835144042969,
+                "right": 860.6400146484375,
+                "bottom": 420.3835144042969,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 808.6400146484375,
+                "top": 377.3835144042969,
+                "right": 860.6400146484375,
+                "bottom": 440.3835144042969,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "fixture-6-0",
+              "species": "pine",
+              "image": {
+                "left": 74.63999938964844,
+                "top": 360.91949462890625,
+                "right": 140.63999938964844,
+                "bottom": 430.91949462890625,
+                "width": 66,
+                "height": 70
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 74.63999938964844,
+                "top": 360.91949462890625,
+                "right": 140.63999938964844,
+                "bottom": 450.91949462890625,
+                "width": 66,
+                "height": 90
+              }
+            },
+            {
+              "id": "fixture-7-0",
+              "species": "raspberry",
+              "image": {
+                "left": 339.8399963378906,
+                "top": 377.356201171875,
+                "right": 391.8399963378906,
+                "bottom": 420.356201171875,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 339.8399963378906,
+                "top": 377.356201171875,
+                "right": 391.8399963378906,
+                "bottom": 440.356201171875,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "fixture-8-0",
+              "species": "hazel",
+              "image": {
+                "left": 414.0400085449219,
+                "top": 357.65228271484375,
+                "right": 474.0400085449219,
+                "bottom": 417.65228271484375,
+                "width": 60,
+                "height": 60
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 414.0400085449219,
+                "top": 357.65228271484375,
+                "right": 474.0400085449219,
+                "bottom": 437.65228271484375,
+                "width": 60,
+                "height": 80
+              }
+            },
+            {
+              "id": "fixture-9-0",
+              "species": "chipmunk",
+              "image": {
+                "left": 667.3383178710938,
+                "top": 329.2542724609375,
+                "right": 713.3383178710938,
+                "bottom": 367.2542724609375,
+                "width": 46,
+                "height": 38
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 666.3383178710938,
+                "top": 329.2542724609375,
+                "right": 714.3383178710938,
+                "bottom": 387.2542724609375,
+                "width": 48,
+                "height": 58
+              }
+            },
+            {
+              "id": "fixture-10-0",
+              "species": "field-mouse",
+              "image": {
+                "left": 711.4400024414062,
+                "top": 398.97998046875,
+                "right": 753.4400024414062,
+                "bottom": 432.97998046875,
+                "width": 42,
+                "height": 34
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 708.4400024414062,
+                "top": 398.97998046875,
+                "right": 756.4400024414062,
+                "bottom": 452.97998046875,
+                "width": 48,
+                "height": 54
+              }
+            },
+            {
+              "id": "fixture-11-0",
+              "species": "caterpillar",
+              "image": {
+                "left": 65.63999938964844,
+                "top": 373.91949462890625,
+                "right": 101.63999938964844,
+                "bottom": 401.91949462890625,
+                "width": 36,
+                "height": 28
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 59.63999938964844,
+                "top": 373.91949462890625,
+                "right": 107.63999938964844,
+                "bottom": 421.91949462890625,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-12-0",
+              "species": "aphid",
+              "image": {
+                "left": 452.0400085449219,
+                "top": 368.65228271484375,
+                "right": 484.0400085449219,
+                "bottom": 393.65228271484375,
+                "width": 32,
+                "height": 25
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 444.0400085449219,
+                "top": 368.65228271484375,
+                "right": 492.0400085449219,
+                "bottom": 416.65228271484375,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-13-0",
+              "species": "snail",
+              "image": {
+                "left": 229.83999633789062,
+                "top": 415.8930969238281,
+                "right": 269.8399963378906,
+                "bottom": 447.8930969238281,
+                "width": 40,
+                "height": 32
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 225.83999633789062,
+                "top": 415.8930969238281,
+                "right": 273.8399963378906,
+                "bottom": 467.8930969238281,
+                "width": 48,
+                "height": 52
+              }
+            },
+            {
+              "id": "fixture-14-0",
+              "species": "spider",
+              "image": {
+                "left": 306.35333251953125,
+                "top": 338.1499938964844,
+                "right": 346.35333251953125,
+                "bottom": 370.1499938964844,
+                "width": 40,
+                "height": 32
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 302.35333251953125,
+                "top": 338.1499938964844,
+                "right": 350.35333251953125,
+                "bottom": 390.1499938964844,
+                "width": 48,
+                "height": 52
+              }
+            },
+            {
+              "id": "fixture-15-0",
+              "species": "ladybird",
+              "image": {
+                "left": 476.239990234375,
+                "top": 419.8930969238281,
+                "right": 512.239990234375,
+                "bottom": 447.8930969238281,
+                "width": 36,
+                "height": 28
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 470.239990234375,
+                "top": 419.8930969238281,
+                "right": 518.239990234375,
+                "bottom": 467.8930969238281,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-16-0",
+              "species": "tit",
+              "image": {
+                "left": 692.3383178710938,
+                "top": 307.6462707519531,
+                "right": 736.3383178710938,
+                "bottom": 343.6462707519531,
+                "width": 44,
+                "height": 36
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 690.3383178710938,
+                "top": 307.6462707519531,
+                "right": 738.3383178710938,
+                "bottom": 363.6462707519531,
+                "width": 48,
+                "height": 56
+              }
+            },
+            {
+              "id": "fixture-17-0",
+              "species": "bulbul",
+              "image": {
+                "left": 738.3383178710938,
+                "top": 303.6462707519531,
+                "right": 786.3383178710938,
+                "bottom": 343.6462707519531,
+                "width": 48,
+                "height": 40
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 738.3383178710938,
+                "top": 303.6462707519531,
+                "right": 786.3383178710938,
+                "bottom": 363.6462707519531,
+                "width": 48,
+                "height": 60
+              }
+            },
+            {
+              "id": "fixture-18-0",
+              "species": "snake",
+              "image": {
+                "left": 219.63999938964844,
+                "top": 373.3526611328125,
+                "right": 267.6400146484375,
+                "bottom": 407.3526611328125,
+                "width": 48.00001525878906,
+                "height": 34
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 219.63999938964844,
+                "top": 373.3526611328125,
+                "right": 267.6400146484375,
+                "bottom": 427.3526611328125,
+                "width": 48.00001525878906,
+                "height": 54
+              }
+            },
+            {
+              "id": "fixture-19-0",
+              "species": "weasel",
+              "image": {
+                "left": 321.8399963378906,
+                "top": 415.6845703125,
+                "right": 369.8399963378906,
+                "bottom": 453.6845703125,
+                "width": 48,
+                "height": 38
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 321.8399963378906,
+                "top": 415.6845703125,
+                "right": 369.8399963378906,
+                "bottom": 473.6845703125,
+                "width": 48,
+                "height": 58
+              }
+            },
+            {
+              "id": "fixture-20-0",
+              "species": "goshawk",
+              "image": {
+                "left": 299.35333251953125,
+                "top": 260.5478820800781,
+                "right": 353.35333251953125,
+                "bottom": 303.5478820800781,
+                "width": 54,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 299.35333251953125,
+                "top": 260.5478820800781,
+                "right": 353.35333251953125,
+                "bottom": 323.5478820800781,
+                "width": 54,
+                "height": 63
+              }
+            },
+            {
+              "id": "fixture-21-0",
+              "species": "litter-mold",
+              "image": {
+                "left": 542.239990234375,
+                "top": 415.8930969238281,
+                "right": 590.239990234375,
+                "bottom": 447.8930969238281,
+                "width": 48,
+                "height": 32
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 542.239990234375,
+                "top": 415.8930969238281,
+                "right": 590.239990234375,
+                "bottom": 467.8930969238281,
+                "width": 48,
+                "height": 52
+              }
+            },
+            {
+              "id": "fixture-22-0",
+              "species": "soil-bacteria",
+              "image": {
+                "left": 664.4400024414062,
+                "top": 421.6845703125,
+                "right": 712.4400024414062,
+                "bottom": 453.6845703125,
+                "width": 48,
+                "height": 32
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 664.4400024414062,
+                "top": 421.6845703125,
+                "right": 712.4400024414062,
+                "bottom": 473.6845703125,
+                "width": 48,
+                "height": 52
+              }
+            },
+            {
+              "id": "fixture-23-0",
+              "species": "earthworm",
+              "image": {
+                "left": 767.6400146484375,
+                "top": 429.6845703125,
+                "right": 805.6400146484375,
+                "bottom": 453.6845703125,
+                "width": 38,
+                "height": 24
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 762.6400146484375,
+                "top": 429.6845703125,
+                "right": 810.6400146484375,
+                "bottom": 477.6845703125,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "pacing-extra-0",
+              "species": "grass",
+              "image": {
+                "left": 369.6000061035156,
+                "top": 376.3271789550781,
+                "right": 421.6000061035156,
+                "bottom": 419.3271789550781,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 369.6000061035156,
+                "top": 376.3271789550781,
+                "right": 421.6000061035156,
+                "bottom": 439.3271789550781,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "pacing-extra-1",
+              "species": "grass",
+              "image": {
+                "left": 480.3699951171875,
+                "top": 372.4970703125,
+                "right": 532.3699951171875,
+                "bottom": 415.4970703125,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 480.3699951171875,
+                "top": 372.4970703125,
+                "right": 532.3699951171875,
+                "bottom": 435.4970703125,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "pacing-extra-2",
+              "species": "grass",
+              "image": {
+                "left": 523.1400146484375,
+                "top": 371.01824951171875,
+                "right": 575.1400146484375,
+                "bottom": 414.01824951171875,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 523.1400146484375,
+                "top": 371.01824951171875,
+                "right": 575.1400146484375,
+                "bottom": 434.01824951171875,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "pacing-extra-3",
+              "species": "grass",
+              "image": {
+                "left": 565.9099731445312,
+                "top": 369.53936767578125,
+                "right": 617.9099731445312,
+                "bottom": 412.53936767578125,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 565.9099731445312,
+                "top": 369.53936767578125,
+                "right": 617.9099731445312,
+                "bottom": 432.53936767578125,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "pacing-extra-4",
+              "species": "grass",
+              "image": {
+                "left": 608.6799926757812,
+                "top": 368.0605163574219,
+                "right": 660.6799926757812,
+                "bottom": 411.0605163574219,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 608.6799926757812,
+                "top": 368.0605163574219,
+                "right": 660.6799926757812,
+                "bottom": 431.0605163574219,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "pacing-extra-5",
+              "species": "grass",
+              "image": {
+                "left": 651.4500122070312,
+                "top": 366.5816650390625,
+                "right": 703.4500122070312,
+                "bottom": 409.5816650390625,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 651.4500122070312,
+                "top": 366.5816650390625,
+                "right": 703.4500122070312,
+                "bottom": 429.5816650390625,
+                "width": 52,
+                "height": 63
+              }
+            }
+          ],
+          "domCount": 30,
+          "imagePairs": 24,
+          "severePairs": 2,
+          "severeInstances": 4,
+          "coveredByBoundingBox": 0,
+          "labelPairs": 0,
+          "hitPairs": 37,
+          "outside": 0,
+          "bottomConcentration": 13,
+          "verticalSpread": 150.13668823242188,
+          "directTargets": 30,
+          "forest": {
+            "left": 29,
+            "top": 188,
+            "width": 1222,
+            "height": 340.25
+          },
+          "visibleMarkers": 1,
+          "horizontalOverflow": false,
+          "selected": 30,
+          "wrongIds": 0
+        },
+        {
+          "width": 1138,
+          "height": 712,
+          "entries": [
+            {
+              "id": "fixture-0-0",
+              "species": "oak",
+              "image": {
+                "left": 118.60000610351562,
+                "top": 287.43646240234375,
+                "right": 198.60000610351562,
+                "bottom": 363.43646240234375,
+                "width": 80,
+                "height": 76
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 118.60000610351562,
+                "top": 287.43646240234375,
+                "right": 198.60000610351562,
+                "bottom": 383.43646240234375,
+                "width": 80,
+                "height": 96
+              }
+            },
+            {
+              "id": "fixture-1-0",
+              "species": "grass",
+              "image": {
+                "left": 240.60000610351562,
+                "top": 316.19915771484375,
+                "right": 292.6000061035156,
+                "bottom": 359.19915771484375,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 240.60000610351562,
+                "top": 316.19915771484375,
+                "right": 292.6000061035156,
+                "bottom": 379.19915771484375,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "fixture-2-0",
+              "species": "grasshopper",
+              "image": {
+                "left": 419,
+                "top": 277.4544372558594,
+                "right": 471,
+                "bottom": 317.4544372558594,
+                "width": 52,
+                "height": 40
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 419,
+                "top": 277.4544372558594,
+                "right": 471,
+                "bottom": 337.4544372558594,
+                "width": 52,
+                "height": 60
+              }
+            },
+            {
+              "id": "fixture-3-0",
+              "species": "frog",
+              "image": {
+                "left": 408.6000061035156,
+                "top": 325.3223876953125,
+                "right": 460.6000061035156,
+                "bottom": 365.3223876953125,
+                "width": 52,
+                "height": 40
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 408.6000061035156,
+                "top": 325.3223876953125,
+                "right": 460.6000061035156,
+                "bottom": 385.3223876953125,
+                "width": 52,
+                "height": 60
+              }
+            },
+            {
+              "id": "fixture-4-0",
+              "species": "rabbit",
+              "image": {
+                "left": 630.5999755859375,
+                "top": 296.8292541503906,
+                "right": 686.5999755859375,
+                "bottom": 345.8292541503906,
+                "width": 56,
+                "height": 49
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 630.5999755859375,
+                "top": 296.8292541503906,
+                "right": 686.5999755859375,
+                "bottom": 365.8292541503906,
+                "width": 56,
+                "height": 69
+              }
+            },
+            {
+              "id": "fixture-5-0",
+              "species": "mushroom",
+              "image": {
+                "left": 740.5999755859375,
+                "top": 313.8686218261719,
+                "right": 792.5999755859375,
+                "bottom": 356.8686218261719,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 740.5999755859375,
+                "top": 313.8686218261719,
+                "right": 792.5999755859375,
+                "bottom": 376.8686218261719,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "fixture-6-0",
+              "species": "pine",
+              "image": {
+                "left": 57.599998474121094,
+                "top": 296.10443115234375,
+                "right": 123.5999984741211,
+                "bottom": 366.10443115234375,
+                "width": 66,
+                "height": 70
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 57.599998474121094,
+                "top": 296.10443115234375,
+                "right": 123.5999984741211,
+                "bottom": 386.10443115234375,
+                "width": 66,
+                "height": 90
+              }
+            },
+            {
+              "id": "fixture-7-0",
+              "species": "raspberry",
+              "image": {
+                "left": 308.6000061035156,
+                "top": 313.58355712890625,
+                "right": 360.6000061035156,
+                "bottom": 356.58355712890625,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 308.6000061035156,
+                "top": 313.58355712890625,
+                "right": 360.6000061035156,
+                "bottom": 376.58355712890625,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "fixture-8-0",
+              "species": "hazel",
+              "image": {
+                "left": 368.6000061035156,
+                "top": 294.46234130859375,
+                "right": 428.6000061035156,
+                "bottom": 354.46234130859375,
+                "width": 60,
+                "height": 60
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 368.6000061035156,
+                "top": 294.46234130859375,
+                "right": 428.6000061035156,
+                "bottom": 374.46234130859375,
+                "width": 60,
+                "height": 80
+              }
+            },
+            {
+              "id": "fixture-9-0",
+              "species": "chipmunk",
+              "image": {
+                "left": 587.7000122070312,
+                "top": 270.496826171875,
+                "right": 633.7000122070312,
+                "bottom": 308.496826171875,
+                "width": 46,
+                "height": 38
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 586.7000122070312,
+                "top": 270.496826171875,
+                "right": 634.7000122070312,
+                "bottom": 328.496826171875,
+                "width": 48,
+                "height": 58
+              }
+            },
+            {
+              "id": "fixture-10-0",
+              "species": "field-mouse",
+              "image": {
+                "left": 637.5999755859375,
+                "top": 346.1739501953125,
+                "right": 679.5999755859375,
+                "bottom": 380.1739501953125,
+                "width": 42,
+                "height": 34
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 634.5999755859375,
+                "top": 346.1739501953125,
+                "right": 682.5999755859375,
+                "bottom": 400.1739501953125,
+                "width": 48,
+                "height": 54
+              }
+            },
+            {
+              "id": "fixture-11-0",
+              "species": "caterpillar",
+              "image": {
+                "left": 48.599998474121094,
+                "top": 309.10443115234375,
+                "right": 84.5999984741211,
+                "bottom": 337.10443115234375,
+                "width": 36,
+                "height": 28
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 42.599998474121094,
+                "top": 309.10443115234375,
+                "right": 90.5999984741211,
+                "bottom": 357.10443115234375,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-12-0",
+              "species": "aphid",
+              "image": {
+                "left": 358.6000061035156,
+                "top": 305.46234130859375,
+                "right": 390.6000061035156,
+                "bottom": 330.46234130859375,
+                "width": 32,
+                "height": 25
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 350.6000061035156,
+                "top": 305.46234130859375,
+                "right": 398.6000061035156,
+                "bottom": 353.46234130859375,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-13-0",
+              "species": "snail",
+              "image": {
+                "left": 198.60000610351562,
+                "top": 348.1739501953125,
+                "right": 238.60000610351562,
+                "bottom": 380.1739501953125,
+                "width": 40,
+                "height": 32
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 194.60000610351562,
+                "top": 348.1739501953125,
+                "right": 242.60000610351562,
+                "bottom": 400.1739501953125,
+                "width": 48,
+                "height": 52
+              }
+            },
+            {
+              "id": "fixture-14-0",
+              "species": "spider",
+              "image": {
+                "left": 271.79998779296875,
+                "top": 278.95001220703125,
+                "right": 311.79998779296875,
+                "bottom": 310.95001220703125,
+                "width": 40,
+                "height": 32
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 267.79998779296875,
+                "top": 278.95001220703125,
+                "right": 315.79998779296875,
+                "bottom": 330.95001220703125,
+                "width": 48,
+                "height": 52
+              }
+            },
+            {
+              "id": "fixture-15-0",
+              "species": "ladybird",
+              "image": {
+                "left": 532.5999755859375,
+                "top": 352.1739501953125,
+                "right": 568.5999755859375,
+                "bottom": 380.1739501953125,
+                "width": 36,
+                "height": 28
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 526.5999755859375,
+                "top": 352.1739501953125,
+                "right": 574.5999755859375,
+                "bottom": 400.1739501953125,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-16-0",
+              "species": "tit",
+              "image": {
+                "left": 612.7000122070312,
+                "top": 233.85903930664062,
+                "right": 656.7000122070312,
+                "bottom": 269.8590393066406,
+                "width": 44,
+                "height": 36
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 610.7000122070312,
+                "top": 233.85903930664062,
+                "right": 658.7000122070312,
+                "bottom": 289.8590393066406,
+                "width": 48,
+                "height": 56
+              }
+            },
+            {
+              "id": "fixture-17-0",
+              "species": "bulbul",
+              "image": {
+                "left": 658.7000122070312,
+                "top": 251.85903930664062,
+                "right": 706.7000122070312,
+                "bottom": 291.8590393066406,
+                "width": 48,
+                "height": 40
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 658.7000122070312,
+                "top": 251.85903930664062,
+                "right": 706.7000122070312,
+                "bottom": 311.8590393066406,
+                "width": 48,
+                "height": 60
+              }
+            },
+            {
+              "id": "fixture-18-0",
+              "species": "snake",
+              "image": {
+                "left": 202.60000610351562,
+                "top": 311.8292541503906,
+                "right": 250.60000610351562,
+                "bottom": 345.8292541503906,
+                "width": 48,
+                "height": 34
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 202.60000610351562,
+                "top": 311.8292541503906,
+                "right": 250.60000610351562,
+                "bottom": 365.8292541503906,
+                "width": 48,
+                "height": 54
+              }
+            },
+            {
+              "id": "fixture-19-0",
+              "species": "weasel",
+              "image": {
+                "left": 290.6000061035156,
+                "top": 347.080322265625,
+                "right": 338.6000061035156,
+                "bottom": 385.080322265625,
+                "width": 48,
+                "height": 38
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 290.6000061035156,
+                "top": 347.080322265625,
+                "right": 338.6000061035156,
+                "bottom": 405.080322265625,
+                "width": 48,
+                "height": 58
+              }
+            },
+            {
+              "id": "fixture-20-0",
+              "species": "goshawk",
+              "image": {
+                "left": 216.8000030517578,
+                "top": 223,
+                "right": 270.79998779296875,
+                "bottom": 266,
+                "width": 53.99998474121094,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 216.8000030517578,
+                "top": 223,
+                "right": 270.79998779296875,
+                "bottom": 286,
+                "width": 53.99998474121094,
+                "height": 63
+              }
+            },
+            {
+              "id": "fixture-21-0",
+              "species": "litter-mold",
+              "image": {
+                "left": 458.6000061035156,
+                "top": 348.1739501953125,
+                "right": 506.6000061035156,
+                "bottom": 380.1739501953125,
+                "width": 48,
+                "height": 32
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 458.6000061035156,
+                "top": 348.1739501953125,
+                "right": 506.6000061035156,
+                "bottom": 400.1739501953125,
+                "width": 48,
+                "height": 52
+              }
+            },
+            {
+              "id": "fixture-22-0",
+              "species": "soil-bacteria",
+              "image": {
+                "left": 590.5999755859375,
+                "top": 353.080322265625,
+                "right": 638.5999755859375,
+                "bottom": 385.080322265625,
+                "width": 48,
+                "height": 32
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 590.5999755859375,
+                "top": 353.080322265625,
+                "right": 638.5999755859375,
+                "bottom": 405.080322265625,
+                "width": 48,
+                "height": 52
+              }
+            },
+            {
+              "id": "fixture-23-0",
+              "species": "earthworm",
+              "image": {
+                "left": 703.5999755859375,
+                "top": 361.080322265625,
+                "right": 741.5999755859375,
+                "bottom": 385.080322265625,
+                "width": 38,
+                "height": 24
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 698.5999755859375,
+                "top": 361.080322265625,
+                "right": 746.5999755859375,
+                "bottom": 409.080322265625,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "pacing-extra-0",
+              "species": "grass",
+              "image": {
+                "left": 395,
+                "top": 310.71990966796875,
+                "right": 447,
+                "bottom": 353.71990966796875,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 395,
+                "top": 310.71990966796875,
+                "right": 447,
+                "bottom": 373.71990966796875,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "pacing-extra-1",
+              "species": "grass",
+              "image": {
+                "left": 432.79998779296875,
+                "top": 309.46710205078125,
+                "right": 484.79998779296875,
+                "bottom": 352.46710205078125,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 432.79998779296875,
+                "top": 309.46710205078125,
+                "right": 484.79998779296875,
+                "bottom": 372.46710205078125,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "pacing-extra-2",
+              "species": "grass",
+              "image": {
+                "left": 470.6000061035156,
+                "top": 308.2142333984375,
+                "right": 522.5999755859375,
+                "bottom": 351.2142333984375,
+                "width": 51.999969482421875,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 470.6000061035156,
+                "top": 308.2142333984375,
+                "right": 522.5999755859375,
+                "bottom": 371.2142333984375,
+                "width": 51.999969482421875,
+                "height": 63
+              }
+            },
+            {
+              "id": "pacing-extra-3",
+              "species": "grass",
+              "image": {
+                "left": 508.3999938964844,
+                "top": 306.9613952636719,
+                "right": 560.4000244140625,
+                "bottom": 349.9613952636719,
+                "width": 52.000030517578125,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 508.3999938964844,
+                "top": 306.9613952636719,
+                "right": 560.4000244140625,
+                "bottom": 369.9613952636719,
+                "width": 52.000030517578125,
+                "height": 63
+              }
+            },
+            {
+              "id": "pacing-extra-4",
+              "species": "grass",
+              "image": {
+                "left": 546.2000122070312,
+                "top": 305.70855712890625,
+                "right": 598.2000122070312,
+                "bottom": 348.70855712890625,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 546.2000122070312,
+                "top": 305.70855712890625,
+                "right": 598.2000122070312,
+                "bottom": 368.70855712890625,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "pacing-extra-5",
+              "species": "grass",
+              "image": {
+                "left": 584,
+                "top": 304.840576171875,
+                "right": 636,
+                "bottom": 347.840576171875,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 584,
+                "top": 304.840576171875,
+                "right": 636,
+                "bottom": 367.840576171875,
+                "width": 52,
+                "height": 63
+              }
+            }
+          ],
+          "domCount": 30,
+          "imagePairs": 28,
+          "severePairs": 2,
+          "severeInstances": 4,
+          "coveredByBoundingBox": 0,
+          "labelPairs": 0,
+          "hitPairs": 46,
+          "outside": 0,
+          "bottomConcentration": 13,
+          "verticalSpread": 119.080322265625,
+          "directTargets": 30,
+          "forest": {
+            "left": 29,
+            "top": 160,
+            "width": 1080,
+            "height": 288.25
+          },
+          "visibleMarkers": 1,
+          "horizontalOverflow": false,
+          "selected": 30,
+          "wrongIds": 0
+        },
+        {
+          "width": 960,
+          "height": 600,
+          "entries": [
+            {
+              "id": "fixture-0-0",
+              "species": "oak",
+              "image": {
+                "left": 89.63999938964844,
+                "top": 232.37684631347656,
+                "right": 169.63999938964844,
+                "bottom": 308.3768310546875,
+                "width": 80,
+                "height": 75.99998474121094
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 89.63999938964844,
+                "top": 232.37684631347656,
+                "right": 169.63999938964844,
+                "bottom": 328.3768310546875,
+                "width": 80,
+                "height": 95.99998474121094
+              }
+            },
+            {
+              "id": "fixture-1-0",
+              "species": "grass",
+              "image": {
+                "left": 195.83999633789062,
+                "top": 261.95306396484375,
+                "right": 247.83999633789062,
+                "bottom": 304.95306396484375,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 195.83999633789062,
+                "top": 261.95306396484375,
+                "right": 247.83999633789062,
+                "bottom": 324.95306396484375,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "fixture-2-0",
+              "species": "grasshopper",
+              "image": {
+                "left": 269.6000061035156,
+                "top": 225.32858276367188,
+                "right": 321.6000061035156,
+                "bottom": 265.3285827636719,
+                "width": 52,
+                "height": 40
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 269.6000061035156,
+                "top": 225.32858276367188,
+                "right": 321.6000061035156,
+                "bottom": 285.3285827636719,
+                "width": 52,
+                "height": 60
+              }
+            },
+            {
+              "id": "fixture-3-0",
+              "species": "frog",
+              "image": {
+                "left": 332.239990234375,
+                "top": 269.40423583984375,
+                "right": 384.239990234375,
+                "bottom": 309.40423583984375,
+                "width": 52,
+                "height": 40
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 332.239990234375,
+                "top": 269.40423583984375,
+                "right": 384.239990234375,
+                "bottom": 329.40423583984375,
+                "width": 52,
+                "height": 60
+              }
+            },
+            {
+              "id": "fixture-4-0",
+              "species": "rabbit",
+              "image": {
+                "left": 538.4400024414062,
+                "top": 245.1501922607422,
+                "right": 594.4400024414062,
+                "bottom": 294.15020751953125,
+                "width": 56,
+                "height": 49.00001525878906
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 538.4400024414062,
+                "top": 245.1501922607422,
+                "right": 594.4400024414062,
+                "bottom": 314.15020751953125,
+                "width": 56,
+                "height": 69.00001525878906
+              }
+            },
+            {
+              "id": "fixture-5-0",
+              "species": "mushroom",
+              "image": {
+                "left": 632.6400146484375,
+                "top": 260.07000732421875,
+                "right": 684.6400146484375,
+                "bottom": 303.07000732421875,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 632.6400146484375,
+                "top": 260.07000732421875,
+                "right": 684.6400146484375,
+                "bottom": 323.07000732421875,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "fixture-6-0",
+              "species": "pine",
+              "image": {
+                "left": 28.639999389648438,
+                "top": 240.9019775390625,
+                "right": 94.63999938964844,
+                "bottom": 310.9019775390625,
+                "width": 66,
+                "height": 70
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 28.639999389648438,
+                "top": 240.9019775390625,
+                "right": 94.63999938964844,
+                "bottom": 330.9019775390625,
+                "width": 66,
+                "height": 90
+              }
+            },
+            {
+              "id": "fixture-7-0",
+              "species": "raspberry",
+              "image": {
+                "left": 263.8399963378906,
+                "top": 259.52764892578125,
+                "right": 315.8399963378906,
+                "bottom": 302.52764892578125,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 263.8399963378906,
+                "top": 259.52764892578125,
+                "right": 315.8399963378906,
+                "bottom": 322.52764892578125,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "fixture-8-0",
+              "species": "hazel",
+              "image": {
+                "left": 332.0400085449219,
+                "top": 240.2627410888672,
+                "right": 392.0400085449219,
+                "bottom": 300.26275634765625,
+                "width": 60,
+                "height": 60.00001525878906
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 332.0400085449219,
+                "top": 240.2627410888672,
+                "right": 392.0400085449219,
+                "bottom": 320.26275634765625,
+                "width": 60,
+                "height": 80.00001525878906
+              }
+            },
+            {
+              "id": "fixture-9-0",
+              "species": "chipmunk",
+              "image": {
+                "left": 489.0883483886719,
+                "top": 221.76156616210938,
+                "right": 535.08837890625,
+                "bottom": 259.7615661621094,
+                "width": 46.000030517578125,
+                "height": 38
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 488.0883483886719,
+                "top": 221.76156616210938,
+                "right": 536.08837890625,
+                "bottom": 279.7615661621094,
+                "width": 48.000030517578125,
+                "height": 58
+              }
+            },
+            {
+              "id": "fixture-10-0",
+              "species": "field-mouse",
+              "image": {
+                "left": 545.4400024414062,
+                "top": 287.9007263183594,
+                "right": 587.4400024414062,
+                "bottom": 321.9007263183594,
+                "width": 42,
+                "height": 34
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 542.4400024414062,
+                "top": 287.9007263183594,
+                "right": 590.4400024414062,
+                "bottom": 341.9007263183594,
+                "width": 48,
+                "height": 54
+              }
+            },
+            {
+              "id": "fixture-11-0",
+              "species": "caterpillar",
+              "image": {
+                "left": 27,
+                "top": 253.9019775390625,
+                "right": 63,
+                "bottom": 281.9019775390625,
+                "width": 36,
+                "height": 28
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 21,
+                "top": 253.9019775390625,
+                "right": 69,
+                "bottom": 301.9019775390625,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-12-0",
+              "species": "aphid",
+              "image": {
+                "left": 322.0400085449219,
+                "top": 251.2627410888672,
+                "right": 354.0400085449219,
+                "bottom": 276.26275634765625,
+                "width": 32,
+                "height": 25.000015258789062
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 314.0400085449219,
+                "top": 251.2627410888672,
+                "right": 362.0400085449219,
+                "bottom": 299.26275634765625,
+                "width": 48,
+                "height": 48.00001525878906
+              }
+            },
+            {
+              "id": "fixture-13-0",
+              "species": "snail",
+              "image": {
+                "left": 153.83999633789062,
+                "top": 285.90625,
+                "right": 193.83999633789062,
+                "bottom": 317.90625,
+                "width": 40,
+                "height": 32
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 149.83999633789062,
+                "top": 285.90625,
+                "right": 197.83999633789062,
+                "bottom": 337.90625,
+                "width": 48,
+                "height": 52
+              }
+            },
+            {
+              "id": "fixture-14-0",
+              "species": "spider",
+              "image": {
+                "left": 223.35333251953125,
+                "top": 229.74374389648438,
+                "right": 263.35333251953125,
+                "bottom": 261.7437438964844,
+                "width": 40,
+                "height": 32
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 219.35333251953125,
+                "top": 229.74374389648438,
+                "right": 267.35333251953125,
+                "bottom": 281.7437438964844,
+                "width": 48,
+                "height": 52
+              }
+            },
+            {
+              "id": "fixture-15-0",
+              "species": "ladybird",
+              "image": {
+                "left": 456.239990234375,
+                "top": 293.9007263183594,
+                "right": 492.239990234375,
+                "bottom": 321.9007263183594,
+                "width": 36,
+                "height": 28
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 450.239990234375,
+                "top": 293.9007263183594,
+                "right": 498.239990234375,
+                "bottom": 341.9007263183594,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-16-0",
+              "species": "tit",
+              "image": {
+                "left": 510.53125,
+                "top": 192.54222106933594,
+                "right": 554.53125,
+                "bottom": 228.54222106933594,
+                "width": 44,
+                "height": 36
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 508.53125,
+                "top": 192.54222106933594,
+                "right": 556.53125,
+                "bottom": 248.54222106933594,
+                "width": 48,
+                "height": 56
+              }
+            },
+            {
+              "id": "fixture-17-0",
+              "species": "bulbul",
+              "image": {
+                "left": 560.0883178710938,
+                "top": 210.54222106933594,
+                "right": 608.0883178710938,
+                "bottom": 250.54222106933594,
+                "width": 48,
+                "height": 40
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 560.0883178710938,
+                "top": 210.54222106933594,
+                "right": 608.0883178710938,
+                "bottom": 270.542236328125,
+                "width": 48,
+                "height": 60.00001525878906
+              }
+            },
+            {
+              "id": "fixture-18-0",
+              "species": "snake",
+              "image": {
+                "left": 173.63999938964844,
+                "top": 260.15020751953125,
+                "right": 221.63999938964844,
+                "bottom": 294.15020751953125,
+                "width": 48,
+                "height": 34
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 173.63999938964844,
+                "top": 260.15020751953125,
+                "right": 221.63999938964844,
+                "bottom": 314.15020751953125,
+                "width": 48,
+                "height": 54
+              }
+            },
+            {
+              "id": "fixture-19-0",
+              "species": "weasel",
+              "image": {
+                "left": 221.83999633789062,
+                "top": 287.8651123046875,
+                "right": 269.8399963378906,
+                "bottom": 325.8651123046875,
+                "width": 48,
+                "height": 38
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 221.83999633789062,
+                "top": 287.8651123046875,
+                "right": 269.8399963378906,
+                "bottom": 345.8651123046875,
+                "width": 48,
+                "height": 58
+              }
+            },
+            {
+              "id": "fixture-20-0",
+              "species": "goshawk",
+              "image": {
+                "left": 168.35333251953125,
+                "top": 207,
+                "right": 222.35333251953125,
+                "bottom": 250,
+                "width": 54,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 168.35333251953125,
+                "top": 207,
+                "right": 222.35333251953125,
+                "bottom": 270,
+                "width": 54,
+                "height": 63
+              }
+            },
+            {
+              "id": "fixture-21-0",
+              "species": "litter-mold",
+              "image": {
+                "left": 382.239990234375,
+                "top": 289.9007263183594,
+                "right": 430.239990234375,
+                "bottom": 321.9007263183594,
+                "width": 48,
+                "height": 32
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 382.239990234375,
+                "top": 289.9007263183594,
+                "right": 430.239990234375,
+                "bottom": 341.9007263183594,
+                "width": 48,
+                "height": 52
+              }
+            },
+            {
+              "id": "fixture-22-0",
+              "species": "soil-bacteria",
+              "image": {
+                "left": 498.44000244140625,
+                "top": 293.8651123046875,
+                "right": 546.4400024414062,
+                "bottom": 325.8651123046875,
+                "width": 48,
+                "height": 32
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 498.44000244140625,
+                "top": 293.8651123046875,
+                "right": 546.4400024414062,
+                "bottom": 345.8651123046875,
+                "width": 48,
+                "height": 52
+              }
+            },
+            {
+              "id": "fixture-23-0",
+              "species": "earthworm",
+              "image": {
+                "left": 595.6400146484375,
+                "top": 301.8651123046875,
+                "right": 633.6400146484375,
+                "bottom": 325.8651123046875,
+                "width": 38,
+                "height": 24
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 590.6400146484375,
+                "top": 301.8651123046875,
+                "right": 638.6400146484375,
+                "bottom": 349.8651123046875,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "pacing-extra-0",
+              "species": "grass",
+              "image": {
+                "left": 293.6000061035156,
+                "top": 258.59405517578125,
+                "right": 345.6000061035156,
+                "bottom": 301.59405517578125,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 293.6000061035156,
+                "top": 258.59405517578125,
+                "right": 345.6000061035156,
+                "bottom": 321.59405517578125,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "pacing-extra-1",
+              "species": "grass",
+              "image": {
+                "left": 369.8699951171875,
+                "top": 256.2015075683594,
+                "right": 421.8699951171875,
+                "bottom": 299.2015075683594,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 369.8699951171875,
+                "top": 256.2015075683594,
+                "right": 421.8699951171875,
+                "bottom": 319.2015075683594,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "pacing-extra-2",
+              "species": "grass",
+              "image": {
+                "left": 402.1400146484375,
+                "top": 255.18919372558594,
+                "right": 454.1400146484375,
+                "bottom": 298.189208984375,
+                "width": 52,
+                "height": 43.00001525878906
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 402.1400146484375,
+                "top": 255.18919372558594,
+                "right": 454.1400146484375,
+                "bottom": 318.189208984375,
+                "width": 52,
+                "height": 63.00001525878906
+              }
+            },
+            {
+              "id": "pacing-extra-3",
+              "species": "grass",
+              "image": {
+                "left": 434.4100036621094,
+                "top": 254.17689514160156,
+                "right": 486.4100036621094,
+                "bottom": 297.1768798828125,
+                "width": 52,
+                "height": 42.99998474121094
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 434.4100036621094,
+                "top": 254.17689514160156,
+                "right": 486.4100036621094,
+                "bottom": 317.1768798828125,
+                "width": 52,
+                "height": 62.99998474121094
+              }
+            },
+            {
+              "id": "pacing-extra-4",
+              "species": "grass",
+              "image": {
+                "left": 466.67999267578125,
+                "top": 253.1645965576172,
+                "right": 518.6799926757812,
+                "bottom": 296.16461181640625,
+                "width": 52,
+                "height": 43.00001525878906
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 466.67999267578125,
+                "top": 253.1645965576172,
+                "right": 518.6799926757812,
+                "bottom": 316.16461181640625,
+                "width": 52,
+                "height": 63.00001525878906
+              }
+            },
+            {
+              "id": "pacing-extra-5",
+              "species": "grass",
+              "image": {
+                "left": 498.95001220703125,
+                "top": 253.02598571777344,
+                "right": 550.9500122070312,
+                "bottom": 296.0260009765625,
+                "width": 52,
+                "height": 43.00001525878906
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 498.95001220703125,
+                "top": 253.02598571777344,
+                "right": 550.9500122070312,
+                "bottom": 316.0260009765625,
+                "width": 52,
+                "height": 63.00001525878906
+              }
+            }
+          ],
+          "domCount": 30,
+          "imagePairs": 41,
+          "severePairs": 3,
+          "severeInstances": 5,
+          "coveredByBoundingBox": 0,
+          "labelPairs": 0,
+          "hitPairs": 53,
+          "outside": 0,
+          "bottomConcentration": 13,
+          "verticalSpread": 97.32289123535156,
+          "directTargets": 30,
+          "forest": {
+            "left": 19,
+            "top": 144,
+            "width": 922,
+            "height": 232.90625
+          },
+          "visibleMarkers": 1,
+          "horizontalOverflow": false,
+          "selected": 30,
+          "wrongIds": 0
+        },
+        {
+          "width": 1366,
+          "height": 768,
+          "entries": [
+            {
+              "id": "fixture-0-0",
+              "species": "oak",
+              "image": {
+                "left": 145.9600067138672,
+                "top": 329.5517578125,
+                "right": 225.9600067138672,
+                "bottom": 405.5517578125,
+                "width": 80,
+                "height": 76
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 145.9600067138672,
+                "top": 329.5517578125,
+                "right": 225.9600067138672,
+                "bottom": 425.5517578125,
+                "width": 80,
+                "height": 96
+              }
+            },
+            {
+              "id": "fixture-1-0",
+              "species": "grass",
+              "image": {
+                "left": 290.760009765625,
+                "top": 358.02044677734375,
+                "right": 342.760009765625,
+                "bottom": 401.02044677734375,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 290.760009765625,
+                "top": 358.02044677734375,
+                "right": 342.760009765625,
+                "bottom": 421.02044677734375,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "fixture-2-0",
+              "species": "grasshopper",
+              "image": {
+                "left": 487.3999938964844,
+                "top": 319.315673828125,
+                "right": 539.4000244140625,
+                "bottom": 359.315673828125,
+                "width": 52.000030517578125,
+                "height": 40
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 487.3999938964844,
+                "top": 319.315673828125,
+                "right": 539.4000244140625,
+                "bottom": 379.315673828125,
+                "width": 52.000030517578125,
+                "height": 60
+              }
+            },
+            {
+              "id": "fixture-3-0",
+              "species": "frog",
+              "image": {
+                "left": 620.3599853515625,
+                "top": 367.7479248046875,
+                "right": 672.3599853515625,
+                "bottom": 407.7479248046875,
+                "width": 52,
+                "height": 40
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 620.3599853515625,
+                "top": 367.7479248046875,
+                "right": 672.3599853515625,
+                "bottom": 427.7479248046875,
+                "width": 52,
+                "height": 60
+              }
+            },
+            {
+              "id": "fixture-4-0",
+              "species": "rabbit",
+              "image": {
+                "left": 749.1599731445312,
+                "top": 337.7228698730469,
+                "right": 805.1599731445312,
+                "bottom": 386.7228698730469,
+                "width": 56,
+                "height": 49
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 749.1599731445312,
+                "top": 337.7228698730469,
+                "right": 805.1599731445312,
+                "bottom": 406.7228698730469,
+                "width": 56,
+                "height": 69
+              }
+            },
+            {
+              "id": "fixture-5-0",
+              "species": "mushroom",
+              "image": {
+                "left": 861.9600219726562,
+                "top": 355.5281982421875,
+                "right": 913.9600219726562,
+                "bottom": 398.5281982421875,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 861.9600219726562,
+                "top": 355.5281982421875,
+                "right": 913.9600219726562,
+                "bottom": 418.5281982421875,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "fixture-6-0",
+              "species": "pine",
+              "image": {
+                "left": 84.95999908447266,
+                "top": 337.9075012207031,
+                "right": 150.95999145507812,
+                "bottom": 407.9075012207031,
+                "width": 65.99999237060547,
+                "height": 70
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 84.95999908447266,
+                "top": 337.9075012207031,
+                "right": 150.95999145507812,
+                "bottom": 427.9075012207031,
+                "width": 65.99999237060547,
+                "height": 90
+              }
+            },
+            {
+              "id": "fixture-7-0",
+              "species": "raspberry",
+              "image": {
+                "left": 358.760009765625,
+                "top": 355.6646728515625,
+                "right": 410.760009765625,
+                "bottom": 398.6646728515625,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 358.760009765625,
+                "top": 355.6646728515625,
+                "right": 410.760009765625,
+                "bottom": 418.6646728515625,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "fixture-8-0",
+              "species": "hazel",
+              "image": {
+                "left": 417.55999755859375,
+                "top": 336.80560302734375,
+                "right": 477.55999755859375,
+                "bottom": 396.80560302734375,
+                "width": 60,
+                "height": 60
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 417.55999755859375,
+                "top": 336.80560302734375,
+                "right": 477.55999755859375,
+                "bottom": 416.80560302734375,
+                "width": 60,
+                "height": 80
+              }
+            },
+            {
+              "id": "fixture-9-0",
+              "species": "chipmunk",
+              "image": {
+                "left": 715.5700073242188,
+                "top": 310.32659912109375,
+                "right": 761.5700073242188,
+                "bottom": 348.32659912109375,
+                "width": 46,
+                "height": 38
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 714.5700073242188,
+                "top": 310.32659912109375,
+                "right": 762.5700073242188,
+                "bottom": 368.32659912109375,
+                "width": 48,
+                "height": 58
+              }
+            },
+            {
+              "id": "fixture-10-0",
+              "species": "field-mouse",
+              "image": {
+                "left": 756.1599731445312,
+                "top": 375.94000244140625,
+                "right": 798.1599731445312,
+                "bottom": 409.94000244140625,
+                "width": 42,
+                "height": 34
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 753.1599731445312,
+                "top": 375.94000244140625,
+                "right": 801.1599731445312,
+                "bottom": 429.94000244140625,
+                "width": 48,
+                "height": 54
+              }
+            },
+            {
+              "id": "fixture-11-0",
+              "species": "caterpillar",
+              "image": {
+                "left": 75.95999908447266,
+                "top": 350.9075012207031,
+                "right": 111.95999908447266,
+                "bottom": 378.9075012207031,
+                "width": 36,
+                "height": 28
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 69.95999908447266,
+                "top": 350.9075012207031,
+                "right": 117.95999908447266,
+                "bottom": 398.9075012207031,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-12-0",
+              "species": "aphid",
+              "image": {
+                "left": 407.55999755859375,
+                "top": 347.80560302734375,
+                "right": 439.55999755859375,
+                "bottom": 372.80560302734375,
+                "width": 32,
+                "height": 25
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 399.55999755859375,
+                "top": 347.80560302734375,
+                "right": 447.55999755859375,
+                "bottom": 395.80560302734375,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-13-0",
+              "species": "snail",
+              "image": {
+                "left": 248.75999450683594,
+                "top": 389.94000244140625,
+                "right": 288.760009765625,
+                "bottom": 421.94000244140625,
+                "width": 40.00001525878906,
+                "height": 32
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 244.75999450683594,
+                "top": 389.94000244140625,
+                "right": 292.760009765625,
+                "bottom": 441.94000244140625,
+                "width": 48.00001525878906,
+                "height": 52
+              }
+            },
+            {
+              "id": "fixture-14-0",
+              "species": "spider",
+              "image": {
+                "left": 327.2799987792969,
+                "top": 318.95001220703125,
+                "right": 367.2799987792969,
+                "bottom": 350.95001220703125,
+                "width": 40,
+                "height": 32
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 323.2799987792969,
+                "top": 318.95001220703125,
+                "right": 371.2799987792969,
+                "bottom": 370.95001220703125,
+                "width": 48,
+                "height": 52
+              }
+            },
+            {
+              "id": "fixture-15-0",
+              "species": "ladybird",
+              "image": {
+                "left": 584.3599853515625,
+                "top": 395.4505310058594,
+                "right": 620.3599853515625,
+                "bottom": 423.4505310058594,
+                "width": 36,
+                "height": 28
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 578.3599853515625,
+                "top": 395.4505310058594,
+                "right": 626.3599853515625,
+                "bottom": 443.4505310058594,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-16-0",
+              "species": "tit",
+              "image": {
+                "left": 740.5700073242188,
+                "top": 293.00799560546875,
+                "right": 784.5700073242188,
+                "bottom": 329.00799560546875,
+                "width": 44,
+                "height": 36
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 738.5700073242188,
+                "top": 293.00799560546875,
+                "right": 786.5700073242188,
+                "bottom": 349.00799560546875,
+                "width": 48,
+                "height": 56
+              }
+            },
+            {
+              "id": "fixture-17-0",
+              "species": "bulbul",
+              "image": {
+                "left": 786.5700073242188,
+                "top": 289.00799560546875,
+                "right": 834.5700073242188,
+                "bottom": 329.00799560546875,
+                "width": 48,
+                "height": 40
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 786.5700073242188,
+                "top": 289.00799560546875,
+                "right": 834.5700073242188,
+                "bottom": 349.00799560546875,
+                "width": 48,
+                "height": 60
+              }
+            },
+            {
+              "id": "fixture-18-0",
+              "species": "snake",
+              "image": {
+                "left": 229.9600067138672,
+                "top": 352.7228698730469,
+                "right": 277.96002197265625,
+                "bottom": 386.7228698730469,
+                "width": 48.00001525878906,
+                "height": 34
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 229.9600067138672,
+                "top": 352.7228698730469,
+                "right": 277.96002197265625,
+                "bottom": 406.7228698730469,
+                "width": 48.00001525878906,
+                "height": 54
+              }
+            },
+            {
+              "id": "fixture-19-0",
+              "species": "weasel",
+              "image": {
+                "left": 316.760009765625,
+                "top": 390.69732666015625,
+                "right": 364.760009765625,
+                "bottom": 428.69732666015625,
+                "width": 48,
+                "height": 38
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 316.760009765625,
+                "top": 390.69732666015625,
+                "right": 364.760009765625,
+                "bottom": 448.69732666015625,
+                "width": 48,
+                "height": 58
+              }
+            },
+            {
+              "id": "fixture-20-0",
+              "species": "goshawk",
+              "image": {
+                "left": 320.2799987792969,
+                "top": 247.6116943359375,
+                "right": 374.2799987792969,
+                "bottom": 290.6116943359375,
+                "width": 54,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 320.2799987792969,
+                "top": 247.6116943359375,
+                "right": 374.2799987792969,
+                "bottom": 310.6116943359375,
+                "width": 54,
+                "height": 63
+              }
+            },
+            {
+              "id": "fixture-21-0",
+              "species": "litter-mold",
+              "image": {
+                "left": 530.3599853515625,
+                "top": 391.4505310058594,
+                "right": 578.3599853515625,
+                "bottom": 423.4505310058594,
+                "width": 48,
+                "height": 32
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 530.3599853515625,
+                "top": 391.4505310058594,
+                "right": 578.3599853515625,
+                "bottom": 443.4505310058594,
+                "width": 48,
+                "height": 52
+              }
+            },
+            {
+              "id": "fixture-22-0",
+              "species": "soil-bacteria",
+              "image": {
+                "left": 709.1599731445312,
+                "top": 396.69732666015625,
+                "right": 757.1599731445312,
+                "bottom": 428.69732666015625,
+                "width": 48,
+                "height": 32
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 709.1599731445312,
+                "top": 396.69732666015625,
+                "right": 757.1599731445312,
+                "bottom": 448.69732666015625,
+                "width": 48,
+                "height": 52
+              }
+            },
+            {
+              "id": "fixture-23-0",
+              "species": "earthworm",
+              "image": {
+                "left": 820.9600219726562,
+                "top": 404.69732666015625,
+                "right": 858.9600219726562,
+                "bottom": 428.69732666015625,
+                "width": 38,
+                "height": 24
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 815.9600219726562,
+                "top": 404.69732666015625,
+                "right": 863.9600219726562,
+                "bottom": 452.69732666015625,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "pacing-extra-0",
+              "species": "grass",
+              "image": {
+                "left": 463.3999938964844,
+                "top": 352.5811767578125,
+                "right": 515.4000244140625,
+                "bottom": 395.5811767578125,
+                "width": 52.000030517578125,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 463.3999938964844,
+                "top": 352.5811767578125,
+                "right": 515.4000244140625,
+                "bottom": 415.5811767578125,
+                "width": 52.000030517578125,
+                "height": 63
+              }
+            },
+            {
+              "id": "pacing-extra-1",
+              "species": "grass",
+              "image": {
+                "left": 509.17999267578125,
+                "top": 351.24139404296875,
+                "right": 561.1799926757812,
+                "bottom": 394.24139404296875,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 509.17999267578125,
+                "top": 351.24139404296875,
+                "right": 561.1799926757812,
+                "bottom": 414.24139404296875,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "pacing-extra-2",
+              "species": "grass",
+              "image": {
+                "left": 554.9600219726562,
+                "top": 349.901611328125,
+                "right": 606.9600219726562,
+                "bottom": 392.901611328125,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 554.9600219726562,
+                "top": 349.901611328125,
+                "right": 606.9600219726562,
+                "bottom": 412.901611328125,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "pacing-extra-3",
+              "species": "grass",
+              "image": {
+                "left": 600.739990234375,
+                "top": 348.56182861328125,
+                "right": 652.739990234375,
+                "bottom": 391.56182861328125,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 600.739990234375,
+                "top": 348.56182861328125,
+                "right": 652.739990234375,
+                "bottom": 411.56182861328125,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "pacing-extra-4",
+              "species": "grass",
+              "image": {
+                "left": 646.52001953125,
+                "top": 347.2220458984375,
+                "right": 698.52001953125,
+                "bottom": 390.2220458984375,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 646.52001953125,
+                "top": 347.2220458984375,
+                "right": 698.52001953125,
+                "bottom": 410.2220458984375,
+                "width": 52,
+                "height": 63
+              }
+            },
+            {
+              "id": "pacing-extra-5",
+              "species": "grass",
+              "image": {
+                "left": 692.2999877929688,
+                "top": 345.8822937011719,
+                "right": 744.2999877929688,
+                "bottom": 388.8822937011719,
+                "width": 52,
+                "height": 43
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 692.2999877929688,
+                "top": 345.8822937011719,
+                "right": 744.2999877929688,
+                "bottom": 408.8822937011719,
+                "width": 52,
+                "height": 63
+              }
+            }
+          ],
+          "domCount": 30,
+          "imagePairs": 23,
+          "severePairs": 2,
+          "severeInstances": 4,
+          "coveredByBoundingBox": 0,
+          "labelPairs": 0,
+          "hitPairs": 36,
+          "outside": 0,
+          "bottomConcentration": 13,
+          "verticalSpread": 138.08563232421875,
+          "directTargets": 30,
+          "forest": {
+            "left": 29,
+            "top": 188,
+            "width": 1308,
+            "height": 308.25
+          },
+          "visibleMarkers": 1,
+          "horizontalOverflow": false,
+          "selected": 30,
+          "wrongIds": 0
+        },
+        {
+          "width": 412,
+          "height": 915,
+          "entries": [
+            {
+              "id": "fixture-0-0",
+              "species": "oak",
+              "image": {
+                "left": 33.55875015258789,
+                "top": 624.1812744140625,
+                "right": 88.12124633789062,
+                "bottom": 676.0093994140625,
+                "width": 54.562496185302734,
+                "height": 51.828125
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 33.55875015258789,
+                "top": 624.1812744140625,
+                "right": 88.12124633789062,
+                "bottom": 696.0093994140625,
+                "width": 54.562496185302734,
+                "height": 71.828125
+              }
+            },
+            {
+              "id": "fixture-1-0",
+              "species": "grass",
+              "image": {
+                "left": 105.30562591552734,
+                "top": 636.7506713867188,
+                "right": 140.77438354492188,
+                "bottom": 666.0787963867188,
+                "width": 35.46875762939453,
+                "height": 29.328125
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 99.04000091552734,
+                "top": 636.7506713867188,
+                "right": 147.04000854492188,
+                "bottom": 686.0787963867188,
+                "width": 48.00000762939453,
+                "height": 49.328125
+              }
+            },
+            {
+              "id": "fixture-2-0",
+              "species": "grasshopper",
+              "image": {
+                "left": 81.30562591552734,
+                "top": 628.6324462890625,
+                "right": 116.77437591552734,
+                "bottom": 655.9136962890625,
+                "width": 35.46875,
+                "height": 27.28125
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 75.04000091552734,
+                "top": 628.6324462890625,
+                "right": 123.04000091552734,
+                "bottom": 676.6324462890625,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-3-0",
+              "species": "frog",
+              "image": {
+                "left": 157.70562744140625,
+                "top": 652.6267700195312,
+                "right": 193.17437744140625,
+                "bottom": 679.9080200195312,
+                "width": 35.46875,
+                "height": 27.28125
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 151.44000244140625,
+                "top": 652.6267700195312,
+                "right": 199.44000244140625,
+                "bottom": 700.6267700195312,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-4-0",
+              "species": "rabbit",
+              "image": {
+                "left": 255.666259765625,
+                "top": 617.0546875,
+                "right": 293.853759765625,
+                "bottom": 650.4765625,
+                "width": 38.1875,
+                "height": 33.421875
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 250.760009765625,
+                "top": 617.0546875,
+                "right": 298.760009765625,
+                "bottom": 670.4765625,
+                "width": 48,
+                "height": 53.421875
+              }
+            },
+            {
+              "id": "fixture-5-0",
+              "species": "mushroom",
+              "image": {
+                "left": 295.2256164550781,
+                "top": 664.6318359375,
+                "right": 330.6943664550781,
+                "bottom": 693.9599609375,
+                "width": 35.46875,
+                "height": 29.328125
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 288.9599914550781,
+                "top": 664.6318359375,
+                "right": 336.9599914550781,
+                "bottom": 713.9599609375,
+                "width": 48,
+                "height": 49.328125
+              }
+            },
+            {
+              "id": "fixture-6-0",
+              "species": "pine",
+              "image": {
+                "left": 18.5,
+                "top": 635.6329345703125,
+                "right": 63.515625,
+                "bottom": 683.3829345703125,
+                "width": 45.015625,
+                "height": 47.75
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 17,
+                "top": 635.6329345703125,
+                "right": 65,
+                "bottom": 703.3829345703125,
+                "width": 48,
+                "height": 67.75
+              }
+            },
+            {
+              "id": "fixture-7-0",
+              "species": "raspberry",
+              "image": {
+                "left": 142.42562866210938,
+                "top": 630.771728515625,
+                "right": 177.89437866210938,
+                "bottom": 660.099853515625,
+                "width": 35.46875,
+                "height": 29.328125
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 136.16000366210938,
+                "top": 630.771728515625,
+                "right": 184.16000366210938,
+                "bottom": 680.099853515625,
+                "width": 48,
+                "height": 49.328125
+              }
+            },
+            {
+              "id": "fixture-8-0",
+              "species": "hazel",
+              "image": {
+                "left": 177.90687561035156,
+                "top": 613.9871826171875,
+                "right": 218.82875061035156,
+                "bottom": 654.9090576171875,
+                "width": 40.921875,
+                "height": 40.921875
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 174.36000061035156,
+                "top": 613.9871826171875,
+                "right": 222.36000061035156,
+                "bottom": 674.9090576171875,
+                "width": 48,
+                "height": 60.921875
+              }
+            },
+            {
+              "id": "fixture-9-0",
+              "species": "chipmunk",
+              "image": {
+                "left": 213.5508270263672,
+                "top": 580.3363037109375,
+                "right": 244.9258270263672,
+                "bottom": 606.2425537109375,
+                "width": 31.375,
+                "height": 25.90625
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 205.2383270263672,
+                "top": 580.3363037109375,
+                "right": 253.2383270263672,
+                "bottom": 628.3363037109375,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-10-0",
+              "species": "field-mouse",
+              "image": {
+                "left": 199.32749938964844,
+                "top": 677.0933837890625,
+                "right": 227.96812438964844,
+                "bottom": 700.2808837890625,
+                "width": 28.640625,
+                "height": 23.1875
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 189.63999938964844,
+                "top": 677.0933837890625,
+                "right": 237.63999938964844,
+                "bottom": 725.0933837890625,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-11-0",
+              "species": "caterpillar",
+              "image": {
+                "left": 52.734375,
+                "top": 646.4141845703125,
+                "right": 77.28125,
+                "bottom": 665.5079345703125,
+                "width": 24.546875,
+                "height": 19.09375
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 41,
+                "top": 646.4141845703125,
+                "right": 89,
+                "bottom": 694.4141845703125,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-12-0",
+              "species": "aphid",
+              "image": {
+                "left": 163.45375061035156,
+                "top": 623.3978271484375,
+                "right": 185.28187561035156,
+                "bottom": 640.4447021484375,
+                "width": 21.828125,
+                "height": 17.046875
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 150.36000061035156,
+                "top": 623.3978271484375,
+                "right": 198.36000061035156,
+                "bottom": 671.3978271484375,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-13-0",
+              "species": "snail",
+              "image": {
+                "left": 146.51937866210938,
+                "top": 678.4527587890625,
+                "right": 173.80062866210938,
+                "bottom": 700.2808837890625,
+                "width": 27.28125,
+                "height": 21.828125
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 136.16000366210938,
+                "top": 678.4527587890625,
+                "right": 184.16000366210938,
+                "bottom": 726.4527587890625,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-14-0",
+              "species": "spider",
+              "image": {
+                "left": 94.31270599365234,
+                "top": 587.9718627929688,
+                "right": 121.59395599365234,
+                "bottom": 609.7999877929688,
+                "width": 27.28125,
+                "height": 21.828125
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 83.95333099365234,
+                "top": 587.9718627929688,
+                "right": 131.95333862304688,
+                "bottom": 635.9718627929688,
+                "width": 48.00000762939453,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-15-0",
+              "species": "ladybird",
+              "image": {
+                "left": 102.05437469482422,
+                "top": 681.1871337890625,
+                "right": 126.60124969482422,
+                "bottom": 700.2808837890625,
+                "width": 24.546875,
+                "height": 19.09375
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 90.31999969482422,
+                "top": 681.1871337890625,
+                "right": 138.32000732421875,
+                "bottom": 729.1871337890625,
+                "width": 48.00000762939453,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-16-0",
+              "species": "tit",
+              "image": {
+                "left": 214.2383270263672,
+                "top": 547.6658935546875,
+                "right": 244.2383270263672,
+                "bottom": 572.2127685546875,
+                "width": 30,
+                "height": 24.546875
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 205.2383270263672,
+                "top": 547.6658935546875,
+                "right": 253.2383270263672,
+                "bottom": 595.6658935546875,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-17-0",
+              "species": "bulbul",
+              "image": {
+                "left": 236.8789520263672,
+                "top": 522.9315185546875,
+                "right": 269.61334228515625,
+                "bottom": 550.2127685546875,
+                "width": 32.73439025878906,
+                "height": 27.28125
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 229.2383270263672,
+                "top": 522.9315185546875,
+                "right": 277.23834228515625,
+                "bottom": 570.9315185546875,
+                "width": 48.00001525878906,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-18-0",
+              "species": "snake",
+              "image": {
+                "left": 92.48062133789062,
+                "top": 659.30615234375,
+                "right": 125.21499633789062,
+                "bottom": 682.49365234375,
+                "width": 32.734375,
+                "height": 23.1875
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 84.83999633789062,
+                "top": 659.30615234375,
+                "right": 132.83999633789062,
+                "bottom": 707.30615234375,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-19-0",
+              "species": "weasel",
+              "image": {
+                "left": 24.640625,
+                "top": 681.489501953125,
+                "right": 57.375,
+                "bottom": 707.395751953125,
+                "width": 32.734375,
+                "height": 25.90625
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 17,
+                "top": 681.489501953125,
+                "right": 65,
+                "bottom": 729.489501953125,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-20-0",
+              "species": "goshawk",
+              "image": {
+                "left": 89.54708099365234,
+                "top": 520.650634765625,
+                "right": 126.37520599365234,
+                "bottom": 549.978759765625,
+                "width": 36.828125,
+                "height": 29.328125
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 83.95333099365234,
+                "top": 520.650634765625,
+                "right": 131.95333862304688,
+                "bottom": 569.978759765625,
+                "width": 48.00000762939453,
+                "height": 49.328125
+              }
+            },
+            {
+              "id": "fixture-21-0",
+              "species": "litter-mold",
+              "image": {
+                "left": 220.20062255859375,
+                "top": 678.4527587890625,
+                "right": 252.93499755859375,
+                "bottom": 700.2808837890625,
+                "width": 32.734375,
+                "height": 21.828125
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 212.55999755859375,
+                "top": 678.4527587890625,
+                "right": 260.55999755859375,
+                "bottom": 726.4527587890625,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-22-0",
+              "species": "soil-bacteria",
+              "image": {
+                "left": 258.400634765625,
+                "top": 685.567626953125,
+                "right": 291.135009765625,
+                "bottom": 707.395751953125,
+                "width": 32.734375,
+                "height": 21.828125
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 250.760009765625,
+                "top": 685.567626953125,
+                "right": 298.760009765625,
+                "bottom": 733.567626953125,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "fixture-23-0",
+              "species": "earthworm",
+              "image": {
+                "left": 175.171875,
+                "top": 726.61083984375,
+                "right": 201.078125,
+                "bottom": 742.97021484375,
+                "width": 25.90625,
+                "height": 16.359375
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 164.125,
+                "top": 726.61083984375,
+                "right": 212.125,
+                "bottom": 774.61083984375,
+                "width": 48,
+                "height": 48
+              }
+            },
+            {
+              "id": "pacing-extra-0",
+              "species": "grass",
+              "image": {
+                "left": 87.8656234741211,
+                "top": 639.4813232421875,
+                "right": 123.3343734741211,
+                "bottom": 668.8094482421875,
+                "width": 35.46875,
+                "height": 29.328125
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 81.5999984741211,
+                "top": 639.4813232421875,
+                "right": 129.60000610351562,
+                "bottom": 688.8094482421875,
+                "width": 48.00000762939453,
+                "height": 49.328125
+              }
+            },
+            {
+              "id": "pacing-extra-1",
+              "species": "grass",
+              "image": {
+                "left": 186.35562133789062,
+                "top": 624.80224609375,
+                "right": 221.82437133789062,
+                "bottom": 654.13037109375,
+                "width": 35.46875,
+                "height": 29.328125
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 180.08999633789062,
+                "top": 624.80224609375,
+                "right": 228.08999633789062,
+                "bottom": 674.13037109375,
+                "width": 48,
+                "height": 49.328125
+              }
+            },
+            {
+              "id": "pacing-extra-2",
+              "species": "grass",
+              "image": {
+                "left": 138.60562133789062,
+                "top": 632.2257080078125,
+                "right": 174.07437133789062,
+                "bottom": 661.5538330078125,
+                "width": 35.46875,
+                "height": 29.328125
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 132.33999633789062,
+                "top": 632.2257080078125,
+                "right": 180.33999633789062,
+                "bottom": 681.5538330078125,
+                "width": 48,
+                "height": 49.328125
+              }
+            },
+            {
+              "id": "pacing-extra-3",
+              "species": "grass",
+              "image": {
+                "left": 213.0956268310547,
+                "top": 625.943115234375,
+                "right": 248.5643768310547,
+                "bottom": 655.271240234375,
+                "width": 35.46875,
+                "height": 29.328125
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 206.8300018310547,
+                "top": 625.943115234375,
+                "right": 254.8300018310547,
+                "bottom": 675.271240234375,
+                "width": 48,
+                "height": 49.328125
+              }
+            },
+            {
+              "id": "pacing-extra-4",
+              "species": "grass",
+              "image": {
+                "left": 226.4656219482422,
+                "top": 627.4022216796875,
+                "right": 261.93438720703125,
+                "bottom": 656.7303466796875,
+                "width": 35.46876525878906,
+                "height": 29.328125
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 220.1999969482422,
+                "top": 627.4022216796875,
+                "right": 268.20001220703125,
+                "bottom": 676.7303466796875,
+                "width": 48.00001525878906,
+                "height": 49.328125
+              }
+            },
+            {
+              "id": "pacing-extra-5",
+              "species": "grass",
+              "image": {
+                "left": 239.83563232421875,
+                "top": 628.861328125,
+                "right": 275.30438232421875,
+                "bottom": 658.189453125,
+                "width": 35.46875,
+                "height": 29.328125
+              },
+              "label": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              },
+              "hit": {
+                "left": 233.57000732421875,
+                "top": 628.861328125,
+                "right": 281.57000732421875,
+                "bottom": 678.189453125,
+                "width": 48,
+                "height": 49.328125
+              }
+            }
+          ],
+          "domCount": 30,
+          "imagePairs": 32,
+          "severePairs": 3,
+          "severeInstances": 6,
+          "coveredByBoundingBox": 0,
+          "labelPairs": 0,
+          "hitPairs": 70,
+          "outside": 0,
+          "bottomConcentration": 15,
+          "verticalSpread": 192.991455078125,
+          "directTargets": 30,
+          "forest": {
+            "left": 15,
+            "top": 381,
+            "width": 382,
+            "height": 418
+          },
+          "visibleMarkers": 1,
+          "horizontalOverflow": false,
+          "selected": 30,
+          "wrongIds": 0
+        }
+      ]
+    }
+  },
+  "reload": {
+    "ecologyAndVisualStable": true,
+    "schemaVersion": 15,
+    "noStoredPixelFields": true
+  },
+  "release": {
+    "correctExactInstance": true,
+    "noFalseOrganicMatter": true
+  },
+  "movingTouch": {
+    "correctId": "fixture-1-0"
+  },
+  "performance": {
+    "maxPending": 1,
+    "reads": 0,
+    "intervals": 0,
+    "domCount": 30,
+    "sameNodes": true
+  },
+  "errors": [],
+  "actualS5eHardware": false
+}

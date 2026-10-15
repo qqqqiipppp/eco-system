@@ -82,7 +82,9 @@ export function createPopulationView(state,onRelease,onFocus=()=>{}){
   release.disabled=candidateIds.length?!selectedInstanceId||!state.organisms.some(o=>o.instanceId===selectedInstanceId):!members.length;release.textContent=confirmation?'다시 눌러 한 개체 돌려보내기':'한 개체를 돌려보내 공간 마련';
  }
  document.querySelector('#population-open').addEventListener('click',()=>{confirmation=null;selectedInstanceId=null;candidateIds=[];onFocus(null);dialog.showModal();render();});
- document.querySelector('#population-close').addEventListener('click',()=>dialog.close());
+ const clearInspection=()=>{confirmation=null;selectedInstanceId=null;candidateIds=[];onFocus(null);};
+ document.querySelector('#population-close').addEventListener('click',()=>{clearInspection();dialog.close();});
+ dialog.addEventListener('close',clearInspection);
  select.addEventListener('change',()=>{confirmation=null;selectedInstanceId=null;candidateIds=[];onFocus(null);render();});
  release.addEventListener('click',()=>{
   const instance=selectedInstanceId?state.organisms.find(o=>o.instanceId===selectedInstanceId):candidateIds.length?null:state.organisms.find(o=>o.speciesId===select.value);if(!instance)return;

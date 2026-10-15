@@ -1,3 +1,17 @@
+# 15.5단계: 생태 상태와 화면 공간의 분리
+
+기존 habitat provider→presentation→organism-layer를 확장했습니다. data/forest-spaces.js는 변경하지 않은 forest.svg의 두 나무 수관/줄기,지표/흙 단면과 지면 굴곡을 명시합니다. habitat-anchors는 이 배경 객체와 살아 있는 생산자만 시각 anchor로 제공합니다. 생산자는 가까운 지면 위치에 먼저 분산하고 그 표시 좌표를 provider의 세 번째 인수로 전달해 식물 이용 생물을 연결합니다. 원본 model.position과 실제 먹이·포식·가장 가까운 분해자 계산을 변경하지 않습니다.
+
+presentation은 생성/제거/레이아웃 변경 때 배정·충돌 회피를 계산하고 기존 인스턴스 DOM에 transform만 반영합니다. 휴식 중인 새와 식물 이용 생물은 캐시한 지지 공간 안에서 제한적으로 움직이고,실제 추적/먹기 때 기존 목표 개체의 표시 위치로 접근합니다. 프레임마다 anchor를 탐색하거나 DOM 크기를 읽지 않습니다. 나무 그림이 새 먹이 자원이나 살아 있는 생물이 되지는 않습니다.
+
+새 이름 토글은 UI 클래스와 aria-pressed만 바꾸고 개체 DOM을 재생성하거나 저장하지 않습니다. 표시용 새 버튼의 회피 범위는 visualBlockedRects에만 추가하며 기존 physical blockedRects/footprints는 유지합니다. 수관 터치 정렬도 기존 placement 검증·먹이/권한/개체 상한을 우회하지 않습니다. population-view는 닫기/Escape 때 선택 이름을 해제합니다. schema16/공통RAF1/30fps/.5tick을 유지합니다.
+
+[공간 구조와16단계 인수](FOREST_SPATIAL_LAYOUT.md) · [검증 보고](STAGE15_5_REPORT.md)
+
+---
+
+아래는15단계 이전의 설계·검증 이력입니다. 화면 공간·이름표 정책은 위15.5단계 안내를 우선합니다.
+
 # 15단계 책임과 현재 계약
 
 data/card-unlocks.js의17개 고정 활동에3개 선택지·오답별 이유·집필자 예상 난도와 실제 관찰 근거를 둡니다. 신규 systems/learning-guidance.js는 순수 읽기 함수로 개체 부재/미획득/미관찰/대기 💡/실제 litter 섭식·반복 주제의 다음 행동을 파생합니다. activity-rules와 UI가 같은 근거를 읽으며 새 저장 필드를 만들지 않습니다. activity-rules는 조건, activities는 최초 완료/해금/기존 보상 경계를 유지합니다. 이미 완료한 신규 활동은 강화 조건을 재요구하지 않고 기존 권한/완료 시각을 보호합니다.
