@@ -1,0 +1,17 @@
+#guide-dialog,#web-dialog,#replay-dialog{width:min(820px,calc(100% - 24px));max-height:88svh;overflow:auto;border:1px solid #b8c6aa;border-radius:16px;padding:20px;background:var(--white);color:var(--ink)}
+#guide-dialog::backdrop,#web-dialog::backdrop,#replay-dialog::backdrop{background:#16372388}
+#guide-dialog p,#web-dialog p,#replay-dialog p{line-height:1.75;font-size:14px;margin:10px 0}
+#guide-dialog button,#web-dialog button,#replay-dialog button,#guide-open,#web-open{min-height:44px;min-width:44px;border:1px solid #b8c6aa;border-radius:8px;background:#edf3df;padding:8px 12px}
+.collection-actions{display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:-20px;background:var(--white);padding:8px 0;z-index:1}
+#guide-list,#clear-locked{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:12px 0}
+#guide-list button,#clear-locked button{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:6px;overflow-wrap:anywhere;line-height:1.65}
+#guide-list img,#clear-locked img{height:48px;width:48px;object-fit:contain}.guide-placeholder{font-size:32px;height:48px}
+#guide-list small,#clear-locked small{font-size:12px;line-height:1.7}.is-locked{background:#eeeee6!important;border-style:dashed!important}
+#guide-detail{padding:14px;background:#edf3df;scroll-margin-top:65px}#web-list{padding:0;list-style:none}#web-list li{padding:12px 0;border-bottom:1px solid var(--line)}#web-filter,#replay-topic{min-height:44px;max-width:100%;font:inherit;padding:8px}
+#clear-collection{border-top:1px solid var(--line);margin-top:14px;padding-top:12px}#clear-locked{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}#goal-dialog:has(#clear-collection:not([hidden])){width:min(760px,calc(100% - 24px))}
+#care-budget{font-size:12px;line-height:1.5}.header-actions{flex-wrap:wrap;justify-content:flex-end}.header-actions button{min-height:44px}
+@media(max-width:500px){.app-header{flex-wrap:wrap}.header-actions{justify-content:flex-start;width:100%}#guide-list{grid-template-columns:repeat(2,minmax(0,1fr))}#guide-dialog,#web-dialog,#replay-dialog{padding:14px}.collection-actions{top:-14px}#clear-locked{grid-template-columns:1fr}}
+
+.header-actions button{font-size:12px;padding:6px 8px}.organism-card.locked-card .card-caption{font-size:10px}
+
+.clear-actions{display:flex;flex-wrap:wrap;gap:8px;position:sticky;bottom:-20px;background:var(--white);padding:8px 0;z-index:2}.clear-actions button{flex:1 0 150px}

@@ -1,3 +1,4 @@
+import {careAvailable} from '../systems/round-care.js';
 import { eventConfig, discoveryEvents, eventPriority } from '../../data/event-config.js';
 import {legacyEcology} from '../../data/legacy-ecology.js';
 const symbols = { alert:'!', question:'?', insight:'💡' };
@@ -54,17 +55,17 @@ export function createEventView(state, scene, onAcknowledge, management = {optio
   }
   function renderManagement(event) {
     const options = inspected && event?.status==='active' && event.kind==='alert' ? management.options(event.eventId) : [];
-    const signature = JSON.stringify([options,state.metrics.points]);
+    const signature = JSON.stringify([options,state.metrics.points,careAvailable(state)]);
     if (signature===managementSignature) return;
     managementSignature=signature; managementArea.replaceChildren();
     if (options.length) {
       const balance=document.createElement('p');
-      balance.textContent=`사용할 수 있는 생태계 포인트: ${state.metrics.points}`;
+      balance.textContent=`사용할 수 있는 생태계 포인트: ${state.metrics.points}`+(state.round.number>1?' · 이번 숲 관리 지원: '+careAvailable(state)+'점 (지원부터 사용)':'');
       managementArea.append(balance);
     }
     for (const action of options) {
       const row=document.createElement('div');
-      const control=button(`${action.name} · ${action.cost} 생태계 포인트`,()=>{
+      const control=button(`${action.name} · ${action.cost} ${state.round.number>1?'점 (지원부터)':'생태계 포인트'}`,()=>{
         const response=management.execute(action.actionId,event.eventId);
         render();
         setText(result,response.message);

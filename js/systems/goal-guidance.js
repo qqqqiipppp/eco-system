@@ -13,6 +13,7 @@ import {pointGuidance} from './point-economy.js';
 const relationNames={v2_grass_to_grasshopper:'강아지풀 → 방아깨비',v2_grasshopper_to_frog:'방아깨비 → 참개구리'};
 export function goalPresentation(state) {
  const evaluation=evaluateForestGoal(state);
+ if(state.round?.number>1){const groups=evaluation.checks.map(c=>({id:c.id,ok:c.ok,title:c.label,detail:c.ok?'이 숲에서 확인했어요.':'지금 숲을 관찰하고 환경과 생물 구성을 살펴봐요.'}));groups.push({id:'hold',ok:state.forestProgress.cleared,title:'안정 상태 30초 유지',detail:Math.floor(state.forestProgress.stableSeconds)+'/30초'});return {ready:evaluation.ready,groups,achieved:groups.filter(g=>g.ok).length,total:groups.length};}
  const check=id=>evaluation.checks.find(item=>item.id===id).ok;
  const missingRelations=forestGoal.requiredObservations.filter(id=>!state.observations.some(item=>item.relationId===id));
  const missingActivities=forestGoal.requiredActivities.filter(id=>!state.activities.some(item=>item.activityId===id&&item.completed));
@@ -32,6 +33,7 @@ export function goalPresentation(state) {
 }
 
 export function nextAction(state) {
+ if(state.round?.number>1)return state.forestProgress.cleared?'숲 생태계 완성! 도감을 살펴보거나 새로운 숲을 만들어 보세요.':evaluateForestGoal(state).checks.find(c=>!c.ok)?.label||'조건을 갖췄어요. 안정 상태 30초를 유지해요.';
  const has=id=>state.organisms.some(item=>item.speciesId===id);
  const observed=id=>state.observations.some(item=>item.relationId===id);
  const acquired=id=>state.inventory.some(item=>item.speciesId===id&&item.acquired);

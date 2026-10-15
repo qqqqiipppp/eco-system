@@ -1,3 +1,4 @@
+import {collectionSnapshot,restoreCollection} from './collection-migration.js';
 import {ecologyConfig,feedingConfig} from '../../data/ecology-config.js';
 import {PACING_REVISION} from '../../data/pacing-config.js';
 import {migratePacingInput,compressLife} from './pacing-migration.js';
@@ -21,7 +22,7 @@ import {snapshotEnvironmentEvents,restoreEnvironmentEvents} from './environment-
 import {snapshotPointEconomy,restorePointEconomy} from './point-economy-migration.js';
 import {snapshotDecomposition,restoreDecompositionDetails} from './decomposition-migration.js';
 
-export const SAVE_VERSION=15;
+export const SAVE_VERSION=16;
 const object=value=>value!==null&&typeof value==='object'&&!Array.isArray(value);
 const validId=value=>typeof value==='string'&&/^[a-zA-Z0-9_-]{1,80}$/.test(value);
 const text=value=>typeof value==='string'?value.slice(0,100):'';
@@ -31,7 +32,7 @@ const own=(value,key)=>Object.hasOwn(value,key);
 // event objects, DOM, layout and UI selection never enter the save.
 export function createSaveSnapshot(state,eventMemory,savedAt) {
  return {schemaVersion:SAVE_VERSION,savedAt,domain:{
-  schemaVersion:SAVE_VERSION,pacingRevision:PACING_REVISION,ecologyRevision:ECOLOGY_REVISION,legacyEcology:structuredClone(state.legacyEcology),ecosystemId:'forest',simulationTime:state.simulationTime,nextInstanceSequence:state.nextInstanceSequence,
+  ...collectionSnapshot(state),schemaVersion:SAVE_VERSION,pacingRevision:PACING_REVISION,ecologyRevision:ECOLOGY_REVISION,legacyEcology:structuredClone(state.legacyEcology),ecosystemId:'forest',simulationTime:state.simulationTime,nextInstanceSequence:state.nextInstanceSequence,
   inventory:state.inventory.map(({speciesId,acquired})=>({speciesId,acquired})),
   organisms:state.organisms.map(item=>{
    const saved={instanceId:item.instanceId,speciesId:item.speciesId,position:{...item.position}};
@@ -50,7 +51,7 @@ export function createSaveSnapshot(state,eventMemory,savedAt) {
   observations:state.observations.map(({relationId,eventId,discoveredAt})=>({relationId,eventId,discoveredAt})),
   activities:state.activities.map(({activityId,completed,attempts,completedAt,lastAnswer,ecologyRevision})=>({activityId,completed,attempts,completedAt,lastAnswer,...(ecologyRevision===1?{ecologyRevision:1}:{})})),
   rewardHistory:state.rewardHistory.map(({rewardId,grantedAt,sourceId,amount})=>({rewardId,grantedAt,sourceId,amount})),
-  managementHistory:state.managementHistory.map(({actionId,sourceEventId,sourceId,executedAt,cost,result,factor,valueAfter,targetFactor,beforeValue,afterValue,supportUsed,directEnvironment})=>({actionId,sourceEventId,sourceId,executedAt,cost,result,factor,valueAfter,targetFactor,beforeValue,afterValue,supportUsed,directEnvironment})),
+  managementHistory:state.managementHistory.map(({actionId,sourceEventId,sourceId,executedAt,cost,result,factor,valueAfter,targetFactor,beforeValue,afterValue,supportUsed,roundSupportUsed,directEnvironment})=>({actionId,sourceEventId,sourceId,executedAt,cost,result,factor,valueAfter,targetFactor,beforeValue,afterValue,supportUsed,roundSupportUsed,directEnvironment})),
   managementActionCount:state.managementActionCount,
   managementCooldowns:{...state.managementCooldowns},
   managementEffects:state.managementEffects.map(({actionId,startedAt,expiresAt,multiplier})=>({actionId,startedAt,expiresAt,multiplier})),
@@ -72,19 +73,22 @@ export function decodeSave(raw) {
  let input;
  try {if(typeof raw!=='string'||raw.length>1000000)return fresh('damaged');input=JSON.parse(raw);}catch{return fresh('damaged');}
  if(!object(input)||!Number.isInteger(input.schemaVersion))return fresh('missing-version');
- if(![7,8,9,10,11,12,13,14,SAVE_VERSION].includes(input.schemaVersion))return fresh(input.schemaVersion>SAVE_VERSION?'future-version':'old-version',true);
+ if(![7,8,9,10,11,12,13,14,15,SAVE_VERSION].includes(input.schemaVersion))return fresh(input.schemaVersion>SAVE_VERSION?'future-version':'old-version',true);
  const d=input.domain;
+ let roundRepaired=false;
+ if(input.schemaVersion>=16&&object(d)){const initial=createGameState();for(const [k,test]of [['organisms',Array.isArray],['environment',object]])if(!test(d[k])){d[k]=initial[k];roundRepaired=true;}}
  if(!object(d)||d.schemaVersion!==input.schemaVersion||d.ecosystemId!=='forest'||!Array.isArray(d.organisms)||!Array.isArray(d.inventory)||!object(d.environment)||!object(d.metrics))return fresh('damaged');
  if(input.schemaVersion>=10&&d.ecologyRevision!==ECOLOGY_REVISION)return fresh('unknown-ecology',true);
  if(input.schemaVersion>=15&&d.pacingRevision!==PACING_REVISION)return fresh('unknown-pacing',true);
  migratePacingInput(input);
  const previous=input.schemaVersion<10;
- let repaired=false;
+ let repaired=roundRepaired;
  const number=(value,min,max,fallback=0)=>{if(!Number.isFinite(value)){repaired=true;return fallback;}const v=Math.max(min,Math.min(max,value));if(v!==value)repaired=true;return v;};
  const array=(value,max)=>{if(!Array.isArray(value)){repaired=true;return [];}if(value.length>max)repaired=true;return value.slice(0,max);};
  const state=createGameState();
  state.simulationTime=number(d.simulationTime,0,1e9);
  const time=value=>number(value,0,state.simulationTime);
+ const permanentTime=value=>number(value,0,Math.min(1e9,state.simulationTime+(Number.isFinite(d.profile?.elapsedBeforeRound)?Math.max(0,d.profile.elapsedBeforeRound):0)));
  state.legacyEcology=restoreEcologyHistory(d,input.schemaVersion,{array,number,time},input.eventMemory);
  state.metrics.points=Math.floor(number(d.metrics.points,0,1e6));
  state.metrics.bestStability=number(d.metrics.bestStability,0,100);
@@ -181,7 +185,7 @@ export function decodeSave(raw) {
   const historic=previous||saved.ecologyRevision===1;
   const evidence=definition.choices?saved.lastAnswer===definition.correctAnswer:definition.type==='observation'?(historic?state.legacyEcology.observations.some(o=>o.relationId===definition.requirements.relationId.replace(/^v2_/,'')):seenObservations.has(definition.requirements.relationId)):true;
   progress.completed=saved.completed===true&&evidence;
-  progress.completedAt=progress.completed?time(saved.completedAt):null;
+  progress.completedAt=progress.completed?permanentTime(saved.completedAt):null;
   if(progress.completed&&historic)progress.ecologyRevision=1;
   if(progress.completed&&definition.choices)progress.lastAnswer=definition.correctAnswer;
  });
@@ -201,7 +205,7 @@ export function decodeSave(raw) {
  const seenRewards=new Set();
  state.rewardHistory=array(d.rewardHistory,100).flatMap(item=>{
   if(!item||!rewards.has(item.rewardId)||seenRewards.has(item.rewardId)){repaired=true;return [];}
-  seenRewards.add(item.rewardId);return [{rewardId:item.rewardId,grantedAt:time(item.grantedAt),sourceId:text(item.sourceId),amount:rewards.get(item.rewardId)}];
+  seenRewards.add(item.rewardId);return [{rewardId:item.rewardId,grantedAt:permanentTime(item.grantedAt),sourceId:text(item.sourceId),amount:rewards.get(item.rewardId)}];
  });
  state.managementHistory=array(d.managementHistory,100).flatMap(item=>{
   const rule=managementActions.find(rule=>rule.actionId===item?.actionId);if(!rule){repaired=true;return [];}
@@ -212,6 +216,7 @@ export function decodeSave(raw) {
    if(Number.isFinite(item.beforeValue)&&item.beforeValue>=0&&item.beforeValue<=1)record.beforeValue=item.beforeValue;
    if(Number.isFinite(item.afterValue)&&item.afterValue>=0&&item.afterValue<=1)record.afterValue=item.afterValue;
    if(Number.isFinite(item.supportUsed))record.supportUsed=number(item.supportUsed,0,rule.cost);
+   if(input.schemaVersion>=16&&Number.isInteger(item.roundSupportUsed))record.roundSupportUsed=number(item.roundSupportUsed,0,rule.cost);
    if(item.directEnvironment===true)record.directEnvironment=true;
   }
   return [record];
@@ -242,6 +247,7 @@ export function decodeSave(raw) {
  eventMemory.questionDone=array(memory.questionDone,4).filter(key=>Object.keys(environmentFactors).some(f=>key===`investigate:${f}`));
  const pendingSeen=new Set();
  for(const entry of (previous?[]:array(memory.pendingDiscoveries,Object.keys(discoveryEvents).length)))if(Array.isArray(entry)&&own(discoveryEvents,entry[0])&&!seenObservations.has(entry[0])&&!pendingSeen.has(entry[0])){pendingSeen.add(entry[0]);eventMemory.pendingDiscoveries.push([entry[0],{consumerInstanceId:validId(entry[1]?.consumerInstanceId)?entry[1].consumerInstanceId:null}]);}
+ restoreCollection(d,input.schemaVersion,state,()=>{repaired=true;});
  state.recoverySupportUsed=input.schemaVersion<13?false:typeof d.recoverySupportUsed==='boolean'?d.recoverySupportUsed:typeof d.pointEconomy?.support?.used==='boolean'?d.pointEconomy.support.used:true;
  state.pointEconomy=restorePointEconomy(d.pointEconomy,input.schemaVersion,state,{number,repair:()=>{repaired=true;}});
  state.recoverySupportUsed=state.recoverySupportUsed||state.pointEconomy.support.used||state.pointEconomy.totals.support>0;

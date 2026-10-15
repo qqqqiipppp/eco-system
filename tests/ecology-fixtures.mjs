@@ -21,6 +21,7 @@ export function legacySave(version=9){
  d.metrics={points:77,bestStability:93};d.forestProgress={cleared:true,clearedAt:800,stableSeconds:30};
  d.observations=legacyEcology.relations.map(r=>({relationId:r.relationId,eventId:'old-event',discoveredAt:500}));
  d.rewardHistory=d.observations.map(r=>({rewardId:`observation:${r.relationId}`,sourceId:'old-event',grantedAt:500,amount:12}));
+ d.activities=d.activities.filter(a=>!a.activityId.startsWith('explore_'));
  for(const activity of d.activities){activity.completed=true;activity.completedAt=600;activity.attempts=1;if(activity.activityId==='producer_quiz')activity.lastAnswer='grass';if(activity.activityId==='decomposer_classify')activity.lastAnswer='decomposer';d.rewardHistory.push({rewardId:`activity:${activity.activityId}`,sourceId:activity.activityId,grantedAt:600,amount:activity.activityId==='producer_quiz'?3:4});}
  for(const o of d.organisms){delete o.development;const rule=legacyEcology.lifespan[o.speciesId],duration=(rule.min+rule.max)/2;
   if(rule.model==='individual')o.life={duration,startedAt:0,initialAge:duration*.12};else o.life={renewalSeconds:duration,nextRenewalAt:1400,vigor:.7,stressSeconds:0,generation:2};

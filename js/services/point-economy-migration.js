@@ -1,3 +1,4 @@
+import {activityById} from '../../data/activities.js';
 import {pointEconomyConfig as config,legacyRewardAmounts,recoveryChoices} from '../../data/point-economy.js';
 import {environmentEventDefinitions} from '../../data/environment-events.js';
 import {environmentFactors} from '../../data/environment-config.js';
@@ -17,7 +18,7 @@ export function restorePointEconomy(saved,version,state,{number,repair}){
  const known=state.rewardHistory.map(r=>r.rewardId);
  // Already recorded discoveries/completions remain consumed even if one old
  // reward row was damaged. They are not new rewards and do not change balance.
- known.push(...state.observations.map(o=>'observation:'+o.relationId),...state.activities.filter(a=>a.completed).map(a=>'activity:'+a.activityId));
+ known.push(...[...state.observations,...(state.profile?.relations||[])].map(o=>'observation:'+o.relationId),...state.activities.filter(a=>a.completed&&activityById[a.activityId]?.pointReward>0).map(a=>'activity:'+a.activityId));
  const fresh=createPointEconomyState(state.metrics.points,state.simulationTime,state.environmentEvents.sequence,known);
  if(version<13)return fresh;
  if(!object(saved)){
@@ -27,13 +28,14 @@ export function restorePointEconomy(saved,version,state,{number,repair}){
  }
  const bounded=(v,limit)=>{if(!Array.isArray(v)){repair();return [];}if(v.length>limit)repair();return v.slice(-limit);};
  const integer=(v,max,fallback=0)=>{const n=number(v,0,max,fallback);if(!Number.isInteger(n))repair();return Math.floor(n);};
- const time=v=>number(v,0,state.simulationTime);
+ const horizon=Math.min(1e9,state.simulationTime+(state.profile?.elapsedBeforeRound||0));
+ const time=v=>number(v,0,horizon);
  const p=createPointEconomyState(state.metrics.points,time(saved.openingAt),integer(saved.studyStartSequence,state.environmentEvents.sequence));
  p.legacyClaimed=[...new Set([...known,...(Array.isArray(saved.legacyClaimed)?bounded(saved.legacyClaimed,100).filter(id=>{if(!legacyRewardAmounts.has(id)){repair();return false;}return true;}):guardedLegacy())])];if(!Array.isArray(saved.legacyClaimed))repair();
  const seen=new Set();
  for(const c of bounded(saved.studyClaims,config.studyLimit)){
   const n=eventNumber(c?.eventId),d=c&&Object.hasOwn(environmentEventDefinitions,c.kind)?environmentEventDefinitions[c.kind]:null;
-  if(!object(c)||!d||n<1||n>state.environmentEvents.sequence||c.rewardId!==`environment-study:${c.eventId}`||c.factor!==d.factor||c.amount!==config.studyReward||!recoveryChoices.some(r=>r.id===c.recovery)||!Number.isFinite(c.grantedAt)||c.grantedAt<0||c.grantedAt>state.simulationTime||seen.has(c.eventId)){repair();continue;}
+  if(!object(c)||!d||n<1||n>state.environmentEvents.sequence||c.rewardId!==`environment-study:${c.eventId}`||c.factor!==d.factor||c.amount!==config.studyReward||!recoveryChoices.some(r=>r.id===c.recovery)||!Number.isFinite(c.grantedAt)||c.grantedAt<0||c.grantedAt>horizon||seen.has(c.eventId)){repair();continue;}
   seen.add(c.eventId);p.studyClaims.push({rewardId:c.rewardId,eventId:c.eventId,kind:c.kind,factor:c.factor,recovery:c.recovery,amount:config.studyReward,grantedAt:c.grantedAt});
  }
  p.studyCount=Math.max(p.studyClaims.length,integer(saved.studyCount,config.studyLimit));
@@ -55,9 +57,9 @@ export function restorePointEconomy(saved,version,state,{number,repair}){
   const validAmount=row?.type==='legacy'?legacyRewardAmounts.has(row.id)&&legacyRewardAmounts.get(row.id)===row.amount:
    row?.type==='study'?/^environment-study:environment-[1-9]\d*$/.test(row.id)&&eventNumber(row.id.slice('environment-study:'.length))<=state.environmentEvents.sequence&&row.amount===config.studyReward:
    row?.type==='support'?row.id==='support:environment-recovery'&&Number.isInteger(row.amount)&&row.amount>0&&row.amount<=config.supportMaximum:
-   row?.type==='management'?/^management:[1-9]\d*$/.test(row.id)&&managementActions.some(a=>a.actionId===row.sourceId&&row.amount===-a.cost):false;
-  if(!object(row)||!validAmount||!Number.isInteger(row.sequence)||row.sequence<1||row.sequence>1e9||rowIds.has(row.id)||sequences.has(row.sequence)||!Number.isFinite(row.at)||row.at<0||row.at>state.simulationTime||!Number.isFinite(row.balance)||row.balance<0||row.balance>1e6){repair();continue;}
-  rowIds.add(row.id);sequences.add(row.sequence);p.ledger.push({sequence:row.sequence,id:row.id,type:row.type,amount:row.amount,at:row.at,balance:row.balance,sourceId:text(row.sourceId)});
+   row?.type==='management'?/^management:[1-9]\d*$/.test(row.id)&&managementActions.some(a=>a.actionId===row.sourceId&&(row.amount===-a.cost||version>=16&&Number.isInteger(row.careUsed)&&row.careUsed>0&&row.careUsed<a.cost&&row.cost===a.cost&&row.amount===-(a.cost-row.careUsed))):false;
+  if(!object(row)||!validAmount||!Number.isInteger(row.sequence)||row.sequence<1||row.sequence>1e9||rowIds.has(row.id)||sequences.has(row.sequence)||!Number.isFinite(row.at)||row.at<0||row.at>horizon||!Number.isFinite(row.balance)||row.balance<0||row.balance>1e6){repair();continue;}
+  rowIds.add(row.id);sequences.add(row.sequence);p.ledger.push({sequence:row.sequence,id:row.id,type:row.type,amount:row.amount,at:row.at,balance:row.balance,sourceId:text(row.sourceId),...(row.careUsed?{careUsed:row.careUsed,cost:row.cost}:{})});
  }
  p.ledger.sort((a,b)=>a.sequence-b.sequence);p.sequence=Math.max(p.sequence,0,...p.ledger.map(r=>r.sequence));
  for(const row of p.ledger){if(row.type==='legacy'&&!p.legacyClaimed.includes(row.id))p.legacyClaimed.push(row.id);}

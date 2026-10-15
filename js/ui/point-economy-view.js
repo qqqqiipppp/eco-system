@@ -1,3 +1,4 @@
+import {careAvailable} from '../systems/round-care.js';
 import {environmentFactors} from '../../data/environment-config.js';
 import {managementActions} from '../../data/management-actions.js';
 import {pointEconomyConfig,recoveryChoices} from '../../data/point-economy.js';
@@ -26,8 +27,8 @@ export function bindPointEconomyView(state,callbacks){
   if(!candidates.some(r=>r.eventId===chosen)){chosen=candidates[0]?.eventId||null;answers={};for(const b of [...factorArea.children,...recoveryArea.children])b.setAttribute('aria-pressed','false');}
   const current=candidates.find(r=>r.eventId===chosen),summary=studyPresentation(state,current);
   const next=JSON.stringify([state.metrics.points,state.pointEconomy.sequence,candidates.map(r=>r.eventId),chosen,quote,reserved,guide,careChecks]);if(next===signature)return;signature=next;
-  set(balance,`현재 생태계 포인트: ${state.metrics.points}`);set(guidance,guide);study.hidden=!summary;
-  set(studyHint,state.pointEconomy.studyCount>=pointEconomyConfig.studyLimit?'이 숲의 환경 학습 운영 보상은 모두 받았어요. 관찰과 자연 회복은 계속할 수 있어요.':summary?'완료된 실제 변화의 원인과 회복 결과를 확인하면 4포인트를 한 번 받아요. 그냥 열기·관찰·기다림에는 지급하지 않아요.':'실제로 변한 환경 사건이 끝나면 원인과 결과를 확인할 수 있어요. 이전 사건은 새 보상으로 바꾸지 않아요.');
+  set(balance,`현재 생태계 포인트: ${state.metrics.points}`+(state.round.number>1?' · 이번 숲 관리 지원: '+careAvailable(state)+' / 28점 (지원부터 사용)':''));set(guidance,guide);study.hidden=!summary;
+  set(studyHint,state.pointEconomy.studyCount>=pointEconomyConfig.studyLimit?'누적 환경 학습 운영 보상 5회는 모두 받았어요. 관찰과 자연 회복은 계속할 수 있어요.':summary?'완료된 실제 변화의 원인과 회복 결과를 확인하면 4포인트를 한 번 받아요. 그냥 열기·관찰·기다림에는 지급하지 않아요.':'실제로 변한 환경 사건이 끝나면 원인과 결과를 확인할 수 있어요. 이전 사건은 새 보상으로 바꾸지 않아요.');
   if(summary){set(question,`${summary.name}: 어떤 환경 요소가 변했나요?`);set(description,summary.description);episodes.replaceChildren();
    for(const r of candidates.slice(0,5)){const b=document.createElement('button');b.type='button';b.textContent=studyPresentation(state,r).name;b.dataset.studyEpisode=r.eventId;b.setAttribute('aria-pressed',String(r.eventId===chosen));b.addEventListener('click',()=>{chosen=r.eventId;answers={};signature='';for(const n of [...factorArea.children,...recoveryArea.children])n.setAttribute('aria-pressed','false');render();});episodes.append(b);}
   }

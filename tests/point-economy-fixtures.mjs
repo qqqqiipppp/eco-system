@@ -41,7 +41,7 @@ export function comparisonForest(kind='representative'){
  s.observations=['v2_grass_to_grasshopper','v2_grasshopper_to_frog'].map(relationId=>({relationId,eventId:'fixture-prior',discoveredAt:0}));
  s.rewardHistory=s.observations.map(o=>({rewardId:'observation:'+o.relationId,grantedAt:0,sourceId:'fixture-prior',amount:12}));
  s.metrics.stability=evaluateStability(s).score;
- for(const d of activities)assert(completeActivity(s,d.activityId,d.correctAnswer).ok);
+ for(const d of activities.filter(a=>!a.collection))assert(completeActivity(s,d.activityId,d.correctAnswer).ok);
  s.metrics.points=30;s.pointEconomy=createPointEconomyState(30,0,0,s.rewardHistory.map(r=>r.rewardId));return s;
 }
 export function exhaustedForest({points=0,factors=Object.keys(environmentFactors),empty=false}={}){
@@ -69,7 +69,7 @@ export function learn(s,events,{maintain=true,earlySpending=false,includeRabbit=
   const answer=e.payload.choices?.find(c=>c.correct)?.id;
   assert(events.acknowledge(s,e.eventId,answer).ok);
  }
- for(const d of activities){
+ for(const d of activities.filter(a=>!a.collection)){
   if(!includeRabbit&&d.activityId==='rabbit_habitat')continue;
   if(s.activities.find(p=>p.activityId===d.activityId).completed)continue;
   if(activityCondition(s,d.activityId,d.correctAnswer).ok)assert(completeActivity(s,d.activityId,d.correctAnswer).ok);

@@ -1,10 +1,20 @@
-## 13.7단계 현재 기준
+# 14단계 현재 계약
+
+새 모듈: data/card-unlocks.js는 17개 활동/힌트, state/collection-state.js는 영구 도감과 회차 정보, systems/replay.js는 보유 카드에 맞는 주제·새 숲 후보 생성, systems/round-care.js는 비이월 관리 지원 차감, services/collection-migration.js는 저장16 확장, ui/collection-view.js는 도감·먹이그물·클리어·확인창입니다. main.js는 기존 상태 객체의 정체성을 유지하며 저장 성공 후 시스템 캐시와 DOM을 교체합니다. inventory/activities/기존 원장은 호환성을 위해 원래 필드를 유지하고 명시적 영구 필드 목록으로 이월합니다. 생태 계산과 habitat 엔진을 복제하지 않습니다.
+
+[카드 해금](FOREST_CARD_UNLOCKS.md) · [도감·먹이그물](FOREST_FIELD_GUIDE.md) · [반복 숲·경제·저장](FOREST_REPLAY_SYSTEM.md) · [완료 보고](STAGE14_REPORT.md)
+
+---
+
+아래는 이전 단계의 설계·검증 이력입니다. 현재 기능은 위 14단계 계약을 우선합니다.
+
+## 13.7단계 기록
 
 data/habitats.js→habitat-anchors 공급→habitat-presentation의 메모리 전용 투영→organism-layer transform을 연결합니다. model.position/feeding/wander/저장은 변경하지 않습니다. actual instanceID 선택은 기존population dialog로 전달하고 선택 ID는UI에만 보관합니다. 분해자 marker는 기존 DOM을 따라갑니다. 새 영구 필드/타이머 없음.
 
 [서식지 구조](FOREST_HABITAT_SYSTEM.md) · [완료 보고](STAGE13_7_REPORT.md)
 
-## 13.6단계 현재 기준
+## 13.6단계 기록
 
 data/pacing-config.js가 생태 설정의 변환만 담당합니다. 실제 simulationTime/RAF/0.5 tick은 유지합니다. pacing-migration.js는 기존 시간 진행률·생태 deadline을 검증 전 한 번 변환합니다. save-format schema15는 validated feeding decision·acclimationUntil·hold 진행을 저장합니다. 돈·DOM·좌표 엔진의 책임은 그대로이며 반복 플레이는 인수 문서만 제공합니다.
 

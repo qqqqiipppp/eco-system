@@ -22,6 +22,7 @@ export function createForestView(state,onRestart){
   document.querySelector('#hold-progress').value=Math.min(1,progress.stableSeconds/forestGoal.stableSeconds);
   setText('goal-status',progress.cleared?'목표 달성 기록은 유지돼요. 현재 부족한 조건도 계속 돌봐요.':presentation.ready?'안정 상태를 조금 더 유지해 보세요.':'조건이 깨지면 안정 상태 유지가 처음부터 시작돼요.');
   const list=document.querySelector('#goal-checks');
+  for(const [id,row]of rows)if(!presentation.groups.some(g=>g.id===id)){row.node.remove();rows.delete(id);}
   for(const group of presentation.groups){
     let row=rows.get(group.id);
     if(!row){const node=document.createElement('li'),title=document.createElement('strong'),detail=document.createElement('p');node.dataset.goalGroup=group.id;node.append(title,detail);list.append(node);row={node,title,detail};rows.set(group.id,row);}

@@ -1,3 +1,4 @@
+import {syncCollection} from '../state/collection-state.js';
 import { eventConfig, shortageEvents, discoveryEvents, growthInvestigation, eventPriority } from '../../data/event-config.js';
 import {relationFor,foodRelations} from '../../data/food-relations.js';
 import {foodResourceConfig,feedingConfig} from '../../data/ecology-config.js';
@@ -158,6 +159,7 @@ export function createEventSystem(initialTime = 0, memory = {}) {
       if(event.payload.organicOriginSequence)acknowledgeOrganicOrigin(state,event.payload.organicOriginSequence);
       close(event, event.kind === 'insight' ? 'resolved' : 'dismissed');
       cooldowns.set(event.key,time+eventConfig.cooldownSeconds);
+      syncCollection(state);
       const reward = event.kind === 'insight' && event.payload.relationId ? grantReward(state,'observation',event.payload.relationId,eventId) : event.kind === 'question' ? grantReward(state,'question',`producer_${event.payload.factor}_limit`,eventId) : 0;
       return { ok:true, message:(event.payload.environmentEventId?'환경 변화 기록에 남겼어요!':event.payload.developmentSequence?'성장 기록에 남겼어요!':event.kind==='insight' ? '발견 기록에 남겼어요!' : '확인했어요. 숲의 변화를 계속 살펴봐요.') + (reward ? ` 생태계 포인트 ${reward}를 받았어요.` : '') };
     },

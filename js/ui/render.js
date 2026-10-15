@@ -13,6 +13,8 @@ export function renderDashboard(state) {
   if (meter.value !== state.metrics.stability) meter.value = state.metrics.stability || 0;
   if (summary) { setText('#stability-hint', summary.hint); meter.setAttribute('aria-label', `생태계 안정도: ${summary.label}`); }
   setText('#points-value', state.metrics.points);
+  const care=document.querySelector('#care-budget');if(care){care.hidden=state.round.number===1;care.textContent='이번 숲 관리 지원 '+state.round.care.remaining+' / '+state.round.care.limit+'점';}
+  const round=document.querySelector('#forest-title span');if(round)round.textContent=String(state.round.number).padStart(2,'0');
   setText('#management-status', state.managementEffects.length ? '서식지 회복 중이에요. 한동안 식물의 성장과 먹이 회복을 도와요.' : pointGuidance(state));
   setText('#diversity-value', getSpeciesCount(state));
   setText('#environment-value', qualityLabel(environmentQuality(state.environment)));

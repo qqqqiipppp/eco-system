@@ -17,6 +17,14 @@ export function createSaveService({adapter,getState,getEventMemory,onStatus=()=>
   // Trailing debounce with a bounded delay: repeated input cannot starve a save.
   if(timer===null)timer=setTimeout(()=>flush(),delayMs);
  }
+ function replace(state,eventMemory={sequence:0,cooldowns:[],questionDone:[],pendingDiscoveries:[]}){
+  if(blocked)return false;
+  try{
+   const date=new Date(now()).toISOString(),raw=JSON.stringify(createSaveSnapshot(state,eventMemory,date));
+   const checked=decodeSave(raw);if(checked.blocked||checked.status!=='loaded')return false;
+   adapter.write(raw);cancel();dirty=false;savedAt=date;onStatus('saved');return true;
+  }catch{onStatus('failed');return false;}
+ }
  function reset(){cancel();try{adapter.remove();blocked=false;savedAt=null;dirty=false;onStatus('new');return true;}catch{onStatus('failed');return false;}}
- return {load,schedule,flush,reset,getSavedAt:()=>savedAt,dispose:cancel};
+ return {load,schedule,flush,replace,reset,getSavedAt:()=>savedAt,dispose:cancel};
 }

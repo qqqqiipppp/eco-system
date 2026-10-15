@@ -1,0 +1,123 @@
+{
+  "stage": 14,
+  "date": "2026-10-15",
+  "root": "C:\\Users\\User\\Documents\\GitHub\\eco-system",
+  "head": "bd222e21a2387878dcd2f487989ddfb3fd9e7197",
+  "schemaVersion": 16,
+  "ecologyRevision": 2,
+  "pacingRevision": 1,
+  "logic": {
+    "historical": {
+      "tests": 314,
+      "pass": 314,
+      "fail": 0
+    },
+    "current": {
+      "tests": 275,
+      "pass": 275,
+      "fail": 0
+    },
+    "newFunctional": 25,
+    "newLong": 25,
+    "profilesShareSomeTests": true
+  },
+  "browsers": [
+    {
+      "file": "activities.browser.test.cjs",
+      "passed": true,
+      "log": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage14-activities.browser.test.log"
+    },
+    {
+      "file": "browser.test.cjs",
+      "passed": true,
+      "log": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage14-browser.test.log"
+    },
+    {
+      "file": "detritus.browser.test.cjs",
+      "passed": true,
+      "log": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage14-detritus.browser.test.log"
+    },
+    {
+      "file": "development.browser.test.cjs",
+      "passed": true,
+      "log": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage14-development.browser.test.log"
+    },
+    {
+      "file": "environment-events.browser.test.cjs",
+      "passed": true,
+      "log": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage14-environment-events.browser.test.log"
+    },
+    {
+      "file": "environment.browser.test.cjs",
+      "passed": true,
+      "log": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage14-environment.browser.test.log"
+    },
+    {
+      "file": "events.browser.test.cjs",
+      "passed": true,
+      "log": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage14-events.browser.test.log"
+    },
+    {
+      "file": "feeding.browser.test.cjs",
+      "passed": true,
+      "log": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage14-feeding.browser.test.log"
+    },
+    {
+      "file": "food-web.browser.test.cjs",
+      "passed": true,
+      "log": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage14-food-web.browser.test.log"
+    },
+    {
+      "file": "guidance.browser.test.cjs",
+      "passed": true,
+      "log": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage14-guidance.browser.test.log"
+    },
+    {
+      "file": "habitat.browser.test.cjs",
+      "passed": true,
+      "log": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage14-habitat.browser.test.log"
+    },
+    {
+      "file": "lifespan.browser.test.cjs",
+      "passed": true,
+      "log": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage14-lifespan.browser.test.log"
+    },
+    {
+      "file": "management.browser.test.cjs",
+      "passed": true,
+      "log": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage14-management.browser.test.log"
+    },
+    {
+      "file": "pacing.browser.test.cjs",
+      "passed": true,
+      "log": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage14-pacing.browser.test.log"
+    },
+    {
+      "file": "persistence.browser.test.cjs",
+      "passed": true,
+      "log": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage14-persistence.browser.test.log"
+    },
+    {
+      "file": "point-economy.browser.test.cjs",
+      "passed": true,
+      "log": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage14-point-economy.browser.test.log"
+    },
+    {
+      "file": "population.browser.test.cjs",
+      "passed": true,
+      "log": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage14-population.browser.test.log"
+    },
+    {
+      "file": "replay.browser.test.cjs",
+      "passed": true,
+      "log": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage14-replay.browser.test.log"
+    }
+  ],
+  "actualS5eHardware": false,
+  "staticChecks": {
+    "syntaxFiles": 143,
+    "syntaxFailures": [],
+    "brokenLocalLinks": []
+  },
+  "oldBaselineJSONChanged": []
+}

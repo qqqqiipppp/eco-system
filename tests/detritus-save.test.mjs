@@ -16,10 +16,10 @@ function prior13(s){const raw=snap(s);raw.schemaVersion=raw.domain.schemaVersion
 for(const version of [7,8,9,10,11,12,13])test(`13.5 W/X: genuine prior${version} retains earned progress and does not invent corpse arrivals`,()=>{
  let raw;
  if(version<10)raw=legacySave(version);else{const s=createGameState();s.metrics.points=37;s.inventory.find(c=>c.speciesId==='frog').acquired=true;raw=prior13(s);raw.schemaVersion=raw.domain.schemaVersion=version;if(version<13){delete raw.domain.pointEconomy;delete raw.domain.recoverySupportUsed;}if(version<12)delete raw.domain.environmentEvents;if(version<11){delete raw.domain.development;for(const o of raw.domain.organisms)delete o.development;}}
- const result=decodeSave(JSON.stringify(raw));assert.equal(result.status,'loaded');const s=result.state;assert.equal(SAVE_VERSION,15);assert.equal(s.schemaVersion,15);assert.equal(s.ecologyRevision,2);assert.equal(s.metrics.points,raw.domain.metrics.points);assert.equal(s.organisms.length,raw.domain.organisms.length);assert(s.inventory.find(c=>c.speciesId==='frog').acquired);assert(s.inventory.find(c=>c.speciesId==='mushroom').acquired);assert(s.inventory.find(c=>c.speciesId==='soil-bacteria').acquired);assert(!s.inventory.find(c=>c.speciesId==='earthworm').acquired);assert.equal(s.decomposition.notices.history.length,0);
+ const result=decodeSave(JSON.stringify(raw));assert.equal(result.status,'loaded');const s=result.state;assert.equal(SAVE_VERSION,16);assert.equal(s.schemaVersion,16);assert.equal(s.ecologyRevision,2);assert.equal(s.metrics.points,raw.domain.metrics.points);assert.equal(s.organisms.length,raw.domain.organisms.length);assert(s.inventory.find(c=>c.speciesId==='frog').acquired);assert(s.inventory.find(c=>c.speciesId==='mushroom').acquired);assert(s.inventory.find(c=>c.speciesId==='soil-bacteria').acquired);assert(!s.inventory.find(c=>c.speciesId==='earthworm').acquired);assert.equal(s.decomposition.notices.history.length,0);
  for(const c of raw.domain.inventory.filter(c=>c.acquired))assert(s.inventory.find(r=>r.speciesId===c.speciesId).acquired);
  if(version>7){assert.equal(s.decomposition.processed,raw.domain.decomposition.processed);assert.deepEqual(s.decomposition.organicMatter,raw.domain.decomposition.organicMatter);}
- assert.deepEqual(s.activities.map(a=>a.completed),raw.domain.activities.map(a=>a.completed));
+ assert.deepEqual(s.activities.filter(a=>!a.activityId.startsWith('explore_')).map(a=>a.completed),raw.domain.activities.filter(a=>!a.activityId.startsWith('explore_')).map(a=>a.completed));
 });
 test('13.5 Y: paid schema13 environmental study remains paid across migration and100 reloads',()=>{
  const s=createGameState();s.simulationTime=1000;s.environmentEvents=createEnvironmentEventState(1000);const r=startEnvironmentEvent(s,'drought');advanceManagement(s,420);updateEnvironmentEvents(s);assert.equal(r.phase,'ended');assert(claimEnvironmentStudy(s,r.eventId,{factor:r.factor,recovery:studyRecovery(r)}).ok);
@@ -41,5 +41,5 @@ test('13.5 X/Z: partial organic metadata repairs only metadata, protects actual 
 });
 test('13.5 Z: future15/unknown ecology are blocked; offline dates cause no worm activity, cash or replay',()=>{
  const s=world([['earthworm',1,.4]]),raw=snap(s),other=structuredClone(raw);other.savedAt='2099-01-01T00:00:00Z';raw.savedAt='1900-01-01T00:00:00Z';assert.deepEqual(decodeSave(JSON.stringify(raw)).state,decodeSave(JSON.stringify(other)).state);
- raw.schemaVersion=raw.domain.schemaVersion=16;assert(decodeSave(JSON.stringify(raw)).blocked);other.domain.ecologyRevision=999;assert(decodeSave(JSON.stringify(other)).blocked);
+ raw.schemaVersion=raw.domain.schemaVersion=17;assert(decodeSave(JSON.stringify(raw)).blocked);other.domain.ecologyRevision=999;assert(decodeSave(JSON.stringify(other)).blocked);
 });

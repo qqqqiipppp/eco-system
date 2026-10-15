@@ -1,3 +1,6 @@
+import {createCollectionView} from './ui/collection-view.js';
+import {recordSpeciesObservation,syncCollection} from './state/collection-state.js';
+import {createNextForest} from './systems/replay.js';
 import { createHelpView } from './ui/help-view.js';
 import { createGuideAdapter } from './adapters/guide-preference.js';
 import { updateForestGoal } from './systems/forest-progress.js';
@@ -51,13 +54,15 @@ try {
     const record=removeOrganism(gameState,id,'release');if(!record)return;
     feedingSystem.forget([id]);wander.forget([id]);scene.remove([id]);scene.showFeedback(populationMessage(record),true);
     eventSystem.refresh(gameState);eventView.render();stabilitySystem.update(gameState);refreshProgress();renderDashboard(gameState);saveService.schedule();loop.refresh();
-  },id=>scene.setFocused(id));
+  },id=>{scene.setFocused(id);if(id&&recordSpeciesObservation(gameState,id))saveService.schedule();});
   scene.setInspectHandler(ids=>populationView.inspect(ids));
   const forestView = createForestView(gameState,restartGame);
   const helpView = createHelpView(createGuideAdapter());
+  const collectionView=createCollectionView(gameState,{onActivity:openLockedActivity,onReplay:startNextForest});
   function refreshProgress(seconds=0) {
     const cleared=updateForestGoal(gameState,seconds);
-    forestView.render();
+    forestView.render();collectionView.renderClear();
+    if(cleared&&!document.querySelector('dialog[open]'))document.querySelector('#goal-dialog').showModal();
     if(cleared)saveService.schedule();
   }
   const activityView = createActivityView(gameState,(activityId,answer) => {
@@ -195,17 +200,25 @@ try {
   eventView.render();
   window.addEventListener('pagehide',()=>saveService.flush(true));
   document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')saveService.flush(true)});
+  function startNextForest(topic){
+    const next=createNextForest(gameState,topic);if(!next.ok)return next;
+    if(!saveService.replace(next.state))return {ok:false,message:'저장하지 못했어요. 지금 숲과 획득 기록은 그대로 유지했어요. 저장 공간을 확인한 뒤 다시 시도해 주세요.'};
+    installForest(next.state);return {ok:true};
+  }
   function restartGame() {
     if(!saveService.reset())return false;
+    installForest(createGameState());return true;
+  }
+  function installForest(nextState) {
     loop.stop();
     for(const key of Object.keys(gameState))delete gameState[key];
-    Object.assign(gameState,createGameState());
+    Object.assign(gameState,nextState);
     feedingSystem=createFeedingSystem();eventSystem=createEventSystem();stabilitySystem=createStabilitySystem();wander=createWanderSystem();
     lastCheckpoint=0;lastPopulationSequence=0;uiState.selectedSpeciesId=null;populationView.reset();
     document.querySelectorAll('dialog[open]').forEach(dialog=>dialog.close());
-    scene.reset();activityView.reset();eventView.reset();
+    scene.reset();activityView.reset();eventView.reset();collectionView.reset();
     stabilitySystem.update(gameState);refreshProgress();
-    renderCards(gameState,selectSpecies,openLockedActivity);renderSelection(uiState,clearSelection);renderDashboard(gameState);
+    syncCollection(gameState);renderCards(gameState,selectSpecies,openLockedActivity);renderSelection(uiState,clearSelection);renderDashboard(gameState);
     gameState.organisms.forEach(instance=>scene.add(instance));eventSystem.refresh(gameState);eventView.render();loop.refresh();
     return true;
   }

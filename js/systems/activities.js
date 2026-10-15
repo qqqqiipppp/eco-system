@@ -1,3 +1,4 @@
+import {syncCollection} from '../state/collection-state.js';
 import {activityById} from '../../data/activities.js';
 import {organismById} from '../../data/organisms.js';
 import {activityCondition} from './activity-rules.js';
@@ -19,6 +20,7 @@ export function completeActivity(state,activityId,answer) {
  progress.completed=true;progress.completedAt=state.simulationTime;
  if(definition.choices)progress.lastAnswer=answer;
  const result=card?unlockSpecies(state,definition.unlockSpeciesId,activityId):{ok:true,unlocked:false};
+ syncCollection(state);
  const reward=grantReward(state,'activity',activityId,activityId);
- return {ok:true,unlocked:result.unlocked,message:`${definition.learningOutcome} ${result.unlocked?organismById[definition.unlockSpeciesId].name+' 카드를 사용할 수 있어요. ':''}생태계 포인트 ${reward}를 받았어요.`};
+ return {ok:true,unlocked:result.unlocked,message:`${definition.learningOutcome} ${result.unlocked?organismById[definition.unlockSpeciesId].name+' 카드를 사용할 수 있어요. ':''}${definition.collection?'도감에 획득 기록을 남겼어요.':'생태계 포인트 '+reward+'를 받았어요.'}`};
 }

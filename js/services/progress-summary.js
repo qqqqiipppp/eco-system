@@ -2,6 +2,7 @@ import {calculateProgress} from '../systems/forest-progress.js';
 // Pure boundary data, not a grade. No identity or network calls.
 export function createProgressSummary(state,lastUpdated=null) {
  return {schemaVersion:state.schemaVersion,ecologyRevision:state.ecologyRevision,theme:'forest',studentId:null,
+  roundNumber:state.round.number,observedSpeciesCount:Object.keys(state.profile.speciesObservations).length,cumulativeObservationsCount:state.profile.relations.length,clearedRounds:state.profile.clears.length,firstClear:state.profile.clears[0]?{...state.profile.clears[0]}:null,
   progress:calculateProgress(state),cleared:state.forestProgress.cleared,
   acquiredSpeciesCount:state.inventory.filter(item=>item.acquired).length,
   completedActivitiesCount:state.activities.filter(item=>item.completed).length,

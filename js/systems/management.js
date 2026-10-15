@@ -1,3 +1,4 @@
+import {careAvailable,payManagement} from './round-care.js';
 import { managementActions } from '../../data/management-actions.js';
 import {supportSurvival} from './population.js';
 import { feedingConfig } from '../../data/ecology-config.js';
@@ -25,7 +26,7 @@ export function validateManagement(state, actionId, eventId) {
   const event = recovery ? {eventId:null,kind:'alert',sourceType:'environment',sourceId:factor,payload:{factor}} : state.events.find(item => item.eventId === eventId);
   const fail = message => ({ok:false,message});
   if (!action) return fail('알 수 없는 관리 행동이에요.');
-  const supportRecovery=recovery&&action.effectType==='environment-step'&&reservedSupportUse(state,action,factor)>0;
+  const supportRecovery=recovery&&action.effectType==='environment-step'&&(reservedSupportUse(state,action,factor)>0||state.round?.number>1&&factorValue(state.environment,factor)<.4);
   if(recovery&&!(supportRecovery||actionId==='habitat-care'&&action.effect.recoveryFactors.includes(factor)&&factorValue(state.environment,factor)<action.effect.minimumRecoveryValue))return fail('지금은 이 행동이 필요하지 않습니다.');
   if(supportRecovery&&!state.organisms.some(o=>producerGrowth[o.speciesId]))return fail('획득한 강아지풀을 먼저 숲에 놓아 주세요. 그 뒤 나쁜 환경을 돌봐요.');
   if (!event || (!recovery && event.status !== 'active') || !relevant(action,event)) return fail('지금은 이 행동이 필요하지 않습니다.');
@@ -37,7 +38,7 @@ export function validateManagement(state, actionId, eventId) {
   if (action.effectType === 'hunger-relief' && (target.speciesId !== event.payload.speciesId || target.hunger < .6 || target.foodShortageDuration < eventConfig.shortageSeconds)) return fail('지금은 이 행동이 필요하지 않습니다.');
   if (!recovery && event.sourceType === 'environment' && !state.organisms.some(item => producerGrowth[item.speciesId] && growthSuitability(item.speciesId,state.environment) < eventConfig.growthThreshold)) return fail('지금은 이 행동이 필요하지 않습니다.');
   if (action.effectType === 'environment-step' && factorValue(state.environment,action.effect.factor) >= .8) return fail('이미 좋은 상태예요. 지금은 이 행동이 필요하지 않습니다.');
-  if (state.metrics.points < action.cost) return fail(`생태계 포인트가 부족해요. ${pointGuidance(state)}`);
+  if (state.metrics.points+careAvailable(state) < action.cost) return fail(`생태계 포인트가 부족해요. ${pointGuidance(state)}`);
   if(!managementBudgetAllowed(state,action,event.payload.factor))return fail('이 포인트는 지정된 나쁜 환경의 복구 예산이에요. 그 환경을 보통으로 돌보는 데 먼저 써요.');
   const recoveryFactor = action.effectType === 'producer-recovery' && action.effect.recoveryFactors.includes(event.payload.factor) && factorValue(state.environment,event.payload.factor) < action.effect.minimumRecoveryValue ? event.payload.factor : null;
   return {ok:true,action,event,target,key,recoveryFactor};
@@ -76,7 +77,7 @@ export function executeManagement(state,actionId,eventId) {
     setEnvironmentLevel(state,recoveryFactor,'normal');
     record.factor=recoveryFactor;record.valueAfter=state.environment[recoveryFactor].value;
   }
-  state.metrics.points -= action.cost;
+  const roundSupportUsed=payManagement(state,action.cost);record.roundSupportUsed=roundSupportUsed;
   state.managementCooldowns[key] = state.simulationTime+action.cooldown;
   state.managementHistory.push(record);
   state.managementActionCount += 1;
@@ -84,13 +85,13 @@ export function executeManagement(state,actionId,eventId) {
   if(event.eventId===null)record.directEnvironment=true;
   record.beforeValue=record.factor?before.environment[record.factor]:target?.hunger!==undefined?before.hunger:null;
   record.afterValue=record.factor?factorValue(state.environment,record.factor):target?.hunger??null;
-  record.supportUsed=supportUsed;state.pointEconomy.support.remaining=Math.max(0,state.pointEconomy.support.remaining-supportUsed);
-  recordPointChange(state,'management',-action.cost,`management:${state.managementActionCount}`,action.actionId);
+  record.supportUsed=Math.min(supportUsed,action.cost-roundSupportUsed);state.pointEconomy.support.remaining=Math.max(0,state.pointEconomy.support.remaining-record.supportUsed);
+  if(action.cost>roundSupportUsed)recordPointChange(state,'management',-(action.cost-roundSupportUsed),`management:${state.round?.number>1?state.pointEconomy.sequence+1:state.managementActionCount}`,action.actionId,roundSupportUsed?{careUsed:roundSupportUsed,cost:action.cost}:{});
   recordEnvironmentResponse(state,record,before);
   // Bounded session log; cooldowns and reward history are independent.
   if (state.managementHistory.length > 100) state.managementHistory.shift();
   const message=managementResultMessage(action,record);
-  return {ok:true,message,record};
+  return {ok:true,message:roundSupportUsed?'이번 숲 관리 지원 '+roundSupportUsed+'점, 생태계 포인트 '+(action.cost-roundSupportUsed)+'점을 사용했어요. '+message.replace(/에 생태계 포인트 \d+점을 사용했어요\./,'을 적용했어요.'):message,record};
 }
 
 export function availableEnvironmentalRecovery(state) {

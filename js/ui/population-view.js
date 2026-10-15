@@ -1,3 +1,4 @@
+import {activityForSpecies} from '../../data/activities.js';
 import {speciesHabitats,habitatZones,movementLabels} from '../../data/habitats.js';
 import {organisms,organismById,roleLabels} from '../../data/organisms.js';
 import {survivalStage,populationMessage,validateIntroduction} from '../systems/population.js';
@@ -70,7 +71,7 @@ export function createPopulationView(state,onRelease,onFocus=()=>{}){
   const colony=lifeRule.model==='colony'&&members.length?` 군집 활동: ${members.some(o=>o.life.stressSeconds>0)?'서식 환경이 좋지 않아요':members.some(o=>o.life.vigor<.5)?'자원이 적어 쉬고 있어요':'새로운 세대가 이어질 수 있어요'}.`:'';
   document.querySelector('#population-lifespan').textContent=`생애주기: ${lifeRule.label}.${age}${colony} 실제 생애와 게임 시간은 달라요.`;
   const check=validateIntroduction(state,id),locked=!state.inventory.find(c=>c.speciesId===id)?.acquired;
-  document.querySelector('#population-introduction').textContent=locked?(species.unlockStage===14?'추후 해금 예정인 카드예요. 지금은 획득한 생물로 숲을 돌봐요.':'카드를 해금한 뒤 들일 수 있어요.'):check.ok?'카드 선택 후 숲을 터치해요. 나쁜 환경에서는 먹이와 회복을 더 살펴보세요.':check.message;
+  document.querySelector('#population-introduction').textContent=locked?(activityForSpecies[id]?.hint||'카드를 해금한 뒤 들일 수 있어요.'):check.ok?'카드 선택 후 숲을 터치해요. 나쁜 환경에서는 먹이와 회복을 더 살펴보세요.':check.message;
   const rule=reproductionRules[id];
   document.querySelector('#population-breeding').textContent=rule?id==='grass'?'씨앗을 만드는 강아지풀과 알맞은 환경·공간이 필요해요. 씨앗이 기다린 뒤 새싹이 나와요.':`${id==='grasshopper'?'성충 방아깨비':'성체 멧토끼'} ${rule.minimum}마리 이상과 먹이·환경·공간이 필요해요. 어린 개체는 아직 부모가 되지 못해요. 잠시 좋아졌다고 바로 늘어나지는 않아요.`:lifeRule.model==='colony'?'자원과 환경이 적절하면 군집 안에서 새 세대가 이어져요. 자원이 적으면 활동을 줄이고 쉬어요.':replenishmentRules[id]?'한 번 들인 생물은 먹이·환경·공간이 계속 적절하면 주변 서식지에서 제한적으로 보충돼요. 획득한 카드로 다시 들일 수도 있어요.':'긴 생애가 끝나도 획득한 카드로 다시 들일 수 있어요. 먹이와 공간을 먼저 살펴봐요.';
   renderDevelopment(id,members);

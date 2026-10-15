@@ -7,11 +7,11 @@ export function createPointEconomyState(balance=0,time=0,sequence=0,legacyClaime
 export const ledgerBalance=p=>p.openingBalance+p.totals.legacy+p.totals.study+p.totals.support-p.totals.spent;
 // Imported balances are authoritative. Carry is not a reward or new points;
 // it also lets an explicitly funded test fixture start a new accounting period.
-export function recordPointChange(state,type,amount,id,sourceId=''){
+export function recordPointChange(state,type,amount,id,sourceId='',details={}){
  const p=state.pointEconomy,before=state.metrics.points-amount;
  p.openingBalance+=before-ledgerBalance(p);
  if(type==='management')p.totals.spent-=amount;else p.totals[type]+=amount;
  if(type==='legacy'&&!p.legacyClaimed.includes(id))p.legacyClaimed.push(id);
- const row={sequence:++p.sequence,id,type,amount,at:state.simulationTime,balance:state.metrics.points,sourceId};
+ const row={sequence:++p.sequence,id,type,amount,at:state.simulationTime,balance:state.metrics.points,sourceId,...details};
  p.ledger.push(row);if(p.ledger.length>config.ledgerLimit)p.ledger.shift();return row;
 }

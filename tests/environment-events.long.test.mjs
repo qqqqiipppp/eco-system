@@ -30,7 +30,7 @@ function prepared(s,budget=30){
  s.observations=['v2_grass_to_grasshopper','v2_grasshopper_to_frog'].map(relationId=>({relationId,eventId:'fixture-prior',discoveredAt:0}));
  s.rewardHistory=s.observations.map(o=>({rewardId:'observation:'+o.relationId,grantedAt:0,sourceId:'fixture-prior',amount:12}));
  s.metrics.stability=evaluateStability(s).score;
- for(const p of s.activities){const d=activityById[p.activityId],r=completeActivity(s,p.activityId,d.correctAnswer);assert(r.ok,p.activityId);}
+ for(const p of s.activities.filter(a=>!a.activityId.startsWith('explore_'))){const d=activityById[p.activityId],r=completeActivity(s,p.activityId,d.correctAnswer);assert(r.ok,p.activityId);}
  s.metrics.points=budget;return s;
 }
 function youngForest(){

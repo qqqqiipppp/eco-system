@@ -17,7 +17,7 @@ export function createActivityView(state,onComplete) {
   if(!dialog.open||!current)return;
   const definition=activityById[current],progress=state.activities.find(item=>item.activityId===current);
   const condition=activityCondition(state,current);
-  const text=progress.completed?(progress.ecologyRevision===1?'이전 구성에서 완료한 활동이에요. 학습과 카드 권한은 유지돼요. 현재 생물은 새로 관찰하고 기록해요.':'완료한 활동이에요. 다시 살펴볼 수 있지만 최초 보상은 한 번이에요.'):definition.choices?definition.hint:condition.checks?condition.checks.map(c=>`${c.ok?'✓':'○'} ${c.label}`).join('\n'):condition.ok?'✓ 강아지풀과 방아깨비의 관찰 기록이 있어요. 완료하면 참개구리를 배치할 수 있어요.':definition.hint;
+  const text=progress.completed?(progress.ecologyRevision===1?'이전 구성에서 완료한 활동이에요. 학습과 카드 권한은 유지돼요. 현재 생물은 새로 관찰하고 기록해요.':definition.collection?'획득한 카드예요. 다시 살펴봐도 추가 카드나 포인트는 지급되지 않아요.':'완료한 활동이에요. 다시 살펴볼 수 있지만 최초 보상은 한 번이에요.'):definition.collection?condition.checks.map(c=>`${c.ok?'✓':'○'} ${c.label}`).join('\n')+'\n'+definition.hint:definition.choices?definition.hint:condition.checks?condition.checks.map(c=>`${c.ok?'✓':'○'} ${c.label}`).join('\n'):condition.ok?'✓ 강아지풀과 방아깨비의 관찰 기록이 있어요. 완료하면 참개구리를 배치할 수 있어요.':definition.hint;
   if(signature!==text){signature=text;conditions.textContent=text}
   document.querySelectorAll('#activity-nav button').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.activityId===current)));
  }

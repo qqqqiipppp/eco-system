@@ -62,7 +62,7 @@ test('13 long11:23 types30 instances retain capacity and same ecology with new e
  const r=account(runEconomy(comparisonForest('mixed'),40,{mode:'normal',study}));assert.equal(r.report.peak,30);assert.equal(r.report.types,9);assert.equal(r.report.total,10);assert.equal(r.report.stability,69);emit(11,r.report);
 });
 test('13 long12: fresh core-required learning/real relations succeed without buying points or forcing optional rabbit play',()=>{
- const r=account(runEconomy(freshStudent(),40,{student:true,includeRabbit:false,mode:'normal',study}));assert.equal(r.report.pointsStart,0);assert(r.report.meals.v2_grass_to_grasshopper>0);assert(r.report.meals.v2_grasshopper_to_frog>0);assert(r.state.activities.filter(a=>a.activityId!=='rabbit_habitat').every(a=>a.completed));assert(!r.state.activities.find(a=>a.activityId==='rabbit_habitat').completed);assert(r.report.currentlyGoalReady);emit(12,r.report);
+ const r=account(runEconomy(freshStudent(),40,{student:true,includeRabbit:false,mode:'normal',study}));assert.equal(r.report.pointsStart,0);assert(r.report.meals.v2_grass_to_grasshopper>0);assert(r.report.meals.v2_grasshopper_to_frog>0);assert(r.state.activities.filter(a=>a.activityId!=='rabbit_habitat'&&!a.activityId.startsWith('explore_')).every(a=>a.completed));assert(!r.state.activities.find(a=>a.activityId==='rabbit_habitat').completed);assert(r.report.currentlyGoalReady);emit(12,r.report);
 });
 test('13 long13: continuous40 vs20-save20 has identical receipts, reserved budget, environment/growth/life and points',()=>{
  const full=account(runEconomy(comparisonForest('core'),40,{mode:'normal',study})),first=account(runEconomy(comparisonForest('core'),20,{mode:'normal',study}));

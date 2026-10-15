@@ -1,3 +1,4 @@
+import {careAvailable} from './round-care.js';
 import {pointEconomyConfig as config,recoveryChoices} from '../../data/point-economy.js';
 import {activities} from '../../data/activities.js';
 import {environmentFactors,producerGrowth} from '../../data/environment-config.js';
@@ -37,7 +38,7 @@ export function claimEnvironmentStudy(state,eventId,answer){
 export function availableLearning(state){
  const options=[];
  for(const a of activities){const p=state.activities.find(p=>p.activityId===a.activityId);
-  if(!p.completed&&!hasReceivedReward(state,'activity',a.activityId)&&activityCondition(state,a.activityId,a.correctAnswer).ok)options.push({type:'activity',id:a.activityId,amount:a.pointReward,message:`배움에서 아직 완료하지 않은 ‘${a.title}’ 활동을 확인해 보세요.`});
+  if(a.pointReward>0&&!p.completed&&!hasReceivedReward(state,'activity',a.activityId)&&activityCondition(state,a.activityId,a.correctAnswer).ok)options.push({type:'activity',id:a.activityId,amount:a.pointReward,message:`배움에서 아직 완료하지 않은 ‘${a.title}’ 활동을 확인해 보세요.`});
  }
  for(const e of state.events.filter(e=>e.status==='active')){
   if(e.kind==='question'&&!hasReceivedReward(state,'question',`producer_${e.payload.factor}_limit`))options.push({type:'question',id:e.payload.factor,amount:10,message:'지금 보이는 ?에서 식물 회복이 느린 원인을 생각해 보세요.'});
@@ -72,12 +73,12 @@ export function willRecoverNaturally(state,factor){
 }
 export function supportQuote(state){
  const factors=Object.keys(environmentFactors).filter(f=>factorValue(state.environment,f)<config.minimumEnvironment&&!willRecoverNaturally(state,f));
- const need=factors.reduce((sum,f)=>sum+costFor(f),0),amount=Math.max(0,need-state.metrics.points);
+ const need=factors.reduce((sum,f)=>sum+costFor(f),0),amount=Math.max(0,need-state.metrics.points-careAvailable(state));
  if(!factors.length)return {available:false,reason:'환경은 보통 이상이거나 자연 회복을 기다릴 수 있어요.',factors,amount:0};
  if(!amount)return {available:false,reason:'지금 가진 포인트로 나쁜 환경을 보통으로 돌볼 수 있어요.',factors,amount:0};
  const learning=availableLearning(state);if(learning.length)return {available:false,reason:learning[0].message,factors,amount:0};
- if(state.recoverySupportUsed||state.pointEconomy.support.used||state.pointEconomy.totals.support>0||state.pointEconomy.ledger.some(r=>r.type==='support'))return {available:false,reason:'이 숲의 한 번 지원은 이미 사용했어요. 남은 복구 지원은 지정된 나쁜 환경을 돌보는 데 먼저 써요.',factors,amount:0};
- return {available:amount<=config.supportMaximum,factors,amount,budget:need,reason:'환경 때문에 진행이 막혔고 지금 가능한 학습이나 자연 회복도 없어요. 이 숲에서 한 번만 복구에 필요한 부족액을 지원해요.'};
+ if(state.recoverySupportUsed||state.pointEconomy.support.used||state.pointEconomy.totals.support>0||state.pointEconomy.ledger.some(r=>r.type==='support'))return {available:false,reason:'한 번 복구 지원은 이미 사용했어요. 남은 복구 지원은 지정된 나쁜 환경을 돌보는 데 먼저 써요.',factors,amount:0};
+ return {available:amount<=config.supportMaximum,factors,amount,budget:need,reason:'환경 때문에 진행이 막혔고 지금 가능한 학습이나 자연 회복도 없어요. 학생 기록에서 한 번만 복구에 필요한 부족액을 지원해요.'};
 }
 export function claimRecoverySupport(state){
  const quote=supportQuote(state);if(!quote.available)return {ok:false,message:quote.reason};
@@ -95,9 +96,10 @@ export function reservedSupportUse(state,action,factor){
 export const supportReserved=state=>Math.min(state.pointEconomy.support.remaining,state.pointEconomy.support.factors.filter(f=>factorValue(state.environment,f)<config.minimumEnvironment).reduce((sum,f)=>sum+costFor(f),0));
 export function managementBudgetAllowed(state,action,factor){
  const reserved=supportReserved(state),use=reservedSupportUse(state,action,factor);
- return state.metrics.points-reserved+use>=action.cost;
+ return state.metrics.points-reserved+use+careAvailable(state)>=action.cost;
 }
 export function pointGuidance(state){
+ if(careAvailable(state)>0)return '이번 숲 관리 지원 '+careAvailable(state)+'점과 생태계 포인트 '+state.metrics.points+'점이 있어요. 지원부터 사용하며 다음 숲으로 이월되지 않아요.';
  const bad=Object.keys(environmentFactors).filter(f=>factorValue(state.environment,f)<config.minimumEnvironment),current=currentEnvironmentEvent(state);
  const recovery=bad.length?bad.every(f=>willRecoverNaturally(state,f)):current&&(current.phase==='recovering'||current.kind==='rain'&&current.appliedDelta>config.epsilon)&&willRecoverNaturally(state,current.factor);
  if(recovery)return '지금은 환경이 자연적으로 회복되는지 지켜볼 수 있어요. 포인트를 아껴도 괜찮아요.';

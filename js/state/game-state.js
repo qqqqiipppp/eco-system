@@ -1,4 +1,5 @@
 import {PACING_REVISION} from '../../data/pacing-config.js';
+import {createRoundState,createProfileState} from './collection-state.js';
 import { activities } from '../../data/activities.js';
 import { organisms } from '../../data/organisms.js';
 import { forestDefinition } from '../../data/forest.js';
@@ -13,7 +14,8 @@ import {createPointEconomyState} from './point-economy-state.js';
  */
 export function createGameState() {
   return {
-    schemaVersion: 15,
+    schemaVersion: 16,
+    profile:createProfileState(),round:createRoundState(),
     pacingRevision:PACING_REVISION,
     pointEconomy:createPointEconomyState(),
     recoverySupportUsed:false,
