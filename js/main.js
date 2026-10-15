@@ -58,7 +58,7 @@ try {
   scene.setInspectHandler(ids=>populationView.inspect(ids));
   const forestView = createForestView(gameState,restartGame);
   const helpView = createHelpView(createGuideAdapter());
-  const collectionView=createCollectionView(gameState,{onActivity:openLockedActivity,onReplay:startNextForest});
+  const collectionView=createCollectionView(gameState,{onActivity:openLockedActivity,onReplay:startNextForest,onPlace:selectSpecies});
   function refreshProgress(seconds=0) {
     const cleared=updateForestGoal(gameState,seconds);
     forestView.render();collectionView.renderClear();
@@ -76,7 +76,7 @@ try {
     }
     renderDashboard(gameState);
     return response;
-  });
+  },{onPlace:selectSpecies});
   function openLockedActivity(activityId) {
     clearSelection();
     if(!activityId){scene.showFeedback('이 카드는 추후 해금 예정이에요. 지금은 획득한 생물로 숲 목표를 진행해요.',false);return;}

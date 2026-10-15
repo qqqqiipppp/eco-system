@@ -1,3 +1,4 @@
+import {replayNextAction,nextCardExploration} from './learning-guidance.js';
 import {forestGoal} from '../../data/forest-goal.js';
 import {evaluateForestGoal} from './forest-progress.js';
 import {environmentFactors} from '../../data/environment-config.js';
@@ -33,7 +34,7 @@ export function goalPresentation(state) {
 }
 
 export function nextAction(state) {
- if(state.round?.number>1)return state.forestProgress.cleared?'숲 생태계 완성! 도감을 살펴보거나 새로운 숲을 만들어 보세요.':evaluateForestGoal(state).checks.find(c=>!c.ok)?.label||'조건을 갖췄어요. 안정 상태 30초를 유지해요.';
+ if(state.round?.number>1)return replayNextAction(state);
  const has=id=>state.organisms.some(item=>item.speciesId===id);
  const observed=id=>state.observations.some(item=>item.relationId===id);
  const acquired=id=>state.inventory.some(item=>item.speciesId===id&&item.acquired);
@@ -41,16 +42,16 @@ export function nextAction(state) {
  const poor=Object.keys(environmentFactors).filter(key=>factorValue(state.environment,key)<forestGoal.minimumEnvironment);
  const weak=state.organisms.find(o=>survivalStage(o)==='weak');
  if(weak)return `${organismById[weak.speciesId].name}가 쇠약해졌어요. !에서 먹이와 회복 방법을 살펴보세요.`;
+ const pending=state.events.find(item=>item.kind==='insight'&&item.status==='active'&&item.payload.relationId&&!observed(item.payload.relationId));
+ if(pending)return '💡를 눌러 실제로 본 먹이 관계를 발견 기록에 남겨 주세요.';
  const missingCore=forestGoal.requiredSpecies.find(id=>!has(id)&&acquired(id));
  if(missingCore){
   if(state.organisms.length>=placementConfig.maxOrganisms)return '생물 상태에서 서식 공간을 마련한 뒤 필요한 생물을 다시 들여요.';
   const introduction=validateIntroduction(state,missingCore);if(!introduction.ok)return introduction.message;
  }
- if(state.forestProgress.cleared&&!poor.length)return '숲 목표를 달성했어요! 계속 관찰하고 생물과 환경을 돌봐요.';
+ if(state.forestProgress.cleared&&!poor.length)return '숲 목표를 달성했어요! '+(state.environmentEvents.history.length?'도감과 먹이그물에서 다음 탐구를 골라 봐요.':'아직 환경 변화를 만나지 않았다면 지금 숲을 계속 살펴봐도 좋아요.');
  if(!has('grass'))return '강아지풀 카드를 고르고 숲에 놓아 주세요. 풀은 방아깨비의 먹이가 돼요.';
  if(!has('grasshopper'))return '방아깨비 카드를 고르고 강아지풀 가까이에 놓아 주세요.';
- const pending=state.events.find(item=>item.kind==='insight'&&item.status==='active'&&item.payload.relationId&&!observed(item.payload.relationId));
- if(pending)return '💡를 눌러 실제로 본 먹이 관계를 발견 기록에 남겨 주세요.';
  if(poor.length){
   const cost=Math.min(...poor.map(key=>managementActions.find(action=>action.applicableTo===key)?.cost||managementActions.find(action=>action.actionId==='habitat-care').cost));
   if(state.metrics.points<cost)return pointGuidance(state);
@@ -65,6 +66,6 @@ export function nextAction(state) {
  if(activity)return `배움에서 ${activityById[activity].title} 활동을 완료해 주세요.`;
  const hungry=state.organisms.find(item=>item.hunger>=.6&&item.foodShortageDuration>=eventConfig.shortageSeconds);
  if(hungry)return `${organismById[hungry.speciesId].name}가 먹이를 찾기 어려워해요. !를 눌러 먹이량과 거리를 살펴봐요.`;
- if(evaluateForestGoal(state).ready)return `필수 조건을 갖췄어요! ${forestGoal.stableSeconds}초 동안 안정 상태를 유지해 봐요.`;
+ if(evaluateForestGoal(state).ready)return `필수 조건을 갖췄어요! ${forestGoal.stableSeconds}초 동안 안정 상태를 유지해 봐요.`+(nextCardExploration(state)?' '+nextCardExploration(state).text:'');
  return state.metrics.stabilitySummary?.hint||'목표 자세히 보기에서 지금 부족한 조건을 살펴봐요.';
 }

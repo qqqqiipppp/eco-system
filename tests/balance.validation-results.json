@@ -1,0 +1,411 @@
+{
+  "stage": 15,
+  "date": "2026-10-15",
+  "repo": "C:/Users/User/Documents/GitHub/eco-system",
+  "head": "14ed0f866f2db921dec4c1e5595c2dab358ee0d0",
+  "startingClean": true,
+  "endingUncommitted": true,
+  "schemaVersion": 16,
+  "ecologyRevision": 2,
+  "pacingRevision": 1,
+  "actualStudents": false,
+  "actualS5e": false,
+  "tests": {
+    "historical": 314,
+    "current": 325,
+    "failed": 0,
+    "skipped": 0,
+    "newUnit": 20,
+    "newLongScenarios": 30,
+    "extraEcologyRiskFixtures": 11,
+    "clearedRounds": 6
+  },
+  "browser": {
+    "before": 18,
+    "after": [
+      {
+        "file": "activities.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15-after-activities.browser.test.log"
+      },
+      {
+        "file": "balance.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15-new-browser.log"
+      },
+      {
+        "file": "browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15-after-browser.test.log"
+      },
+      {
+        "file": "detritus.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15-after-detritus.browser.test.log"
+      },
+      {
+        "file": "development.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15-after-development.browser.test.log"
+      },
+      {
+        "file": "environment-events.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15-after-environment-events.browser.test.log"
+      },
+      {
+        "file": "environment.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15-after-environment.browser.test.log"
+      },
+      {
+        "file": "events.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15-after-events.browser.test.log"
+      },
+      {
+        "file": "feeding.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15-after-feeding.browser.test.log"
+      },
+      {
+        "file": "food-web.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15-after-food-web.browser.test.log"
+      },
+      {
+        "file": "guidance.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15-after-guidance.browser.test.log"
+      },
+      {
+        "file": "habitat.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15-after-habitat.browser.test.log"
+      },
+      {
+        "file": "lifespan.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15-after-lifespan.browser.test.log"
+      },
+      {
+        "file": "management.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15-after-management.browser.test.log"
+      },
+      {
+        "file": "pacing.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15-after-pacing.browser.test.log"
+      },
+      {
+        "file": "persistence.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15-after-persistence.browser.test.log"
+      },
+      {
+        "file": "point-economy.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15-after-point-economy.browser.test.log"
+      },
+      {
+        "file": "population.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15-after-population.browser.test.log"
+      },
+      {
+        "file": "replay.browser.test.cjs",
+        "passed": true,
+        "logfile": "C:/Users/User/Documents/Codex/2026-10-06/4-github-pages-samsung-galaxy-tab/work/stage15-after-replay.browser.test.log"
+      }
+    ],
+    "views": [
+      [
+        1280,
+        800
+      ],
+      [
+        1138,
+        712
+      ],
+      [
+        960,
+        600
+      ],
+      [
+        1366,
+        768
+      ],
+      [
+        412,
+        915
+      ]
+    ],
+    "newPerformance": {
+      "maxPending": 1,
+      "intervals": 0,
+      "reads": 0,
+      "guideChanges": 0
+    }
+  },
+  "syntax": {
+    "checked": 148,
+    "failed": []
+  },
+  "documents": {
+    "checked": 13,
+    "localLinks": 180,
+    "missing": [],
+    "reportSections": 45
+  },
+  "git": {
+    "diffCheckPassed": true,
+    "protectedPriorResultJSON": [
+      "tests/detritus.browser-results.json",
+      "tests/detritus.long-results.json",
+      "tests/environment-events.long-results.json",
+      "tests/habitat.baseline-results.json",
+      "tests/habitat.browser-results.json",
+      "tests/habitat.detritus-browser-results.json",
+      "tests/habitat.long-results.json",
+      "tests/habitat.pacing-browser-results.json",
+      "tests/habitat.point-economy-browser-results.json",
+      "tests/habitat.visibility-results.json",
+      "tests/pacing.baseline-results.json",
+      "tests/pacing.browser-results.json",
+      "tests/pacing.detritus-browser-results.json",
+      "tests/pacing.economy-browser-results.json",
+      "tests/pacing.long-results.json",
+      "tests/point-economy-baseline-results.json",
+      "tests/point-economy.browser-results.json",
+      "tests/point-economy.long-results.json",
+      "tests/replay.browser-results.json",
+      "tests/replay.detritus-browser-results.json",
+      "tests/replay.habitat-browser-results.json",
+      "tests/replay.long-results.json",
+      "tests/replay.pacing-browser-results.json",
+      "tests/replay.point-economy-browser-results.json",
+      "tests/replay.validation-results.json"
+    ],
+    "changedProtectedResultJSON": [],
+    "unchangedPaths": [
+      "assets",
+      "data/organisms.js",
+      "data/food-relations.js",
+      "data/ecology-config.js",
+      "data/environment-config.js",
+      "data/pacing-config.js",
+      "data/population-config.js",
+      "data/lifespan-config.js",
+      "data/development-config.js",
+      "data/environment-events.js",
+      "data/point-economy.js",
+      "data/detritus-config.js",
+      "data/habitats.js",
+      "data/management-actions.js",
+      "data/forest-goal.js",
+      "js/services",
+      "js/state",
+      "js/systems/feeding.js",
+      "js/systems/decomposition.js",
+      "js/systems/environment-events.js",
+      "js/systems/update-loop.js",
+      "js/systems/replay.js",
+      "js/systems/round-care.js",
+      "js/systems/point-economy.js",
+      "js/systems/management.js"
+    ],
+    "stagingCommitPush": false
+  },
+  "hashes": {
+    "frozenStage14Baseline": "bcd39f04b94c8f6671122c069f9a6076d11cfb0f4c8ad7be1e46cf4e8b59d957",
+    "stage15Long": "8f8986d17b3dd264c91092b4eb347334ef72c3142922a2e43ad9ef2f5d3bd48a",
+    "stage15Browser": "95ecacba5cf191c8425882fff0922c2322635d06eefac74f60f4d67660236353"
+  },
+  "changedFiles": [
+    {
+      "status": "M",
+      "file": "ARCHITECTURE.md"
+    },
+    {
+      "status": "M",
+      "file": "FOREST_CARD_UNLOCKS.md"
+    },
+    {
+      "status": "M",
+      "file": "FOREST_FIELD_GUIDE.md"
+    },
+    {
+      "status": "M",
+      "file": "FOREST_HABITAT_SYSTEM.md"
+    },
+    {
+      "status": "M",
+      "file": "FOREST_PACING.md"
+    },
+    {
+      "status": "M",
+      "file": "FOREST_POINT_ECONOMY.md"
+    },
+    {
+      "status": "M",
+      "file": "FOREST_REPLAY_SYSTEM.md"
+    },
+    {
+      "status": "M",
+      "file": "QA.md"
+    },
+    {
+      "status": "M",
+      "file": "README.md"
+    },
+    {
+      "status": "M",
+      "file": "css/activities.css"
+    },
+    {
+      "status": "M",
+      "file": "css/collection.css"
+    },
+    {
+      "status": "M",
+      "file": "data/activities.js"
+    },
+    {
+      "status": "M",
+      "file": "data/card-unlocks.js"
+    },
+    {
+      "status": "M",
+      "file": "index.html"
+    },
+    {
+      "status": "M",
+      "file": "js/main.js"
+    },
+    {
+      "status": "M",
+      "file": "js/systems/activities.js"
+    },
+    {
+      "status": "M",
+      "file": "js/systems/activity-rules.js"
+    },
+    {
+      "status": "M",
+      "file": "js/systems/goal-guidance.js"
+    },
+    {
+      "status": "M",
+      "file": "js/ui/activity-view.js"
+    },
+    {
+      "status": "M",
+      "file": "js/ui/collection-view.js"
+    },
+    {
+      "status": "M",
+      "file": "tests/replay-fixtures.mjs"
+    },
+    {
+      "status": "M",
+      "file": "tests/replay.test.mjs"
+    },
+    {
+      "status": "M",
+      "file": "tests/run-tests.mjs"
+    },
+    {
+      "status": "??",
+      "file": "CLASSROOM_OBSERVATION_SHEET.md"
+    },
+    {
+      "status": "??",
+      "file": "CLASSROOM_PLAYTEST_PLAN.md"
+    },
+    {
+      "status": "??",
+      "file": "FOREST_BALANCE_AUDIT.md"
+    },
+    {
+      "status": "??",
+      "file": "STAGE15_REPORT.md"
+    },
+    {
+      "status": "??",
+      "file": "js/systems/learning-guidance.js"
+    },
+    {
+      "status": "??",
+      "file": "tests/balance-fixtures.mjs"
+    },
+    {
+      "status": "??",
+      "file": "tests/balance.baseline-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/balance.browser-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/balance.browser.test.cjs"
+    },
+    {
+      "status": "??",
+      "file": "tests/balance.detritus.browser.test-after-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/balance.detritus.browser.test-before-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/balance.habitat.browser.test-after-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/balance.habitat.browser.test-before-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/balance.long-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/balance.long.test.mjs"
+    },
+    {
+      "status": "??",
+      "file": "tests/balance.pacing.browser.test-after-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/balance.pacing.browser.test-before-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/balance.point-economy.browser.test-after-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/balance.point-economy.browser.test-before-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/balance.replay.browser.test-after-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/balance.replay.browser.test-before-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/balance.test.mjs"
+    },
+    {
+      "status": "??",
+      "file": "tests/balance.validation-results.json"
+    }
+  ]
+}

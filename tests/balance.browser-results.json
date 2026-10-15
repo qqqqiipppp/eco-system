@@ -1,0 +1,156 @@
+{
+  "stage": 15,
+  "schemaVersion": 16,
+  "actualS5e": false,
+  "actualStudents": false,
+  "scenarios": [
+    "real inspection prerequisite,three deterministic answers,two distinct wrong explanations,no new cash,place CTA selects without creating an instance",
+    "guide filter keeps total24;owned-unobserved differs from placed;guide placement CTA is real selection",
+    "genuine Stage14 v16 rights/completions survive changed prerequisites;repeat reward0",
+    "early clear offers optional stay;all-owned no empty teaser;food/producers/soil explain actual needed evidence"
+  ],
+  "views": [
+    {
+      "width": 1280,
+      "height": 800,
+      "panel": "learning",
+      "inside": true,
+      "overflow": false,
+      "pageOverflow": false,
+      "minTouch": 44,
+      "choices": 3,
+      "scrollable": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "panel": "guide",
+      "inside": true,
+      "overflow": false,
+      "filterHeight": 44
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "panel": "replay",
+      "inside": true,
+      "overflow": false,
+      "minTouch": 44
+    },
+    {
+      "width": 1138,
+      "height": 712,
+      "panel": "learning",
+      "inside": true,
+      "overflow": false,
+      "pageOverflow": false,
+      "minTouch": 44,
+      "choices": 3,
+      "scrollable": true
+    },
+    {
+      "width": 1138,
+      "height": 712,
+      "panel": "guide",
+      "inside": true,
+      "overflow": false,
+      "filterHeight": 44
+    },
+    {
+      "width": 1138,
+      "height": 712,
+      "panel": "replay",
+      "inside": true,
+      "overflow": false,
+      "minTouch": 44
+    },
+    {
+      "width": 960,
+      "height": 600,
+      "panel": "learning",
+      "inside": true,
+      "overflow": false,
+      "pageOverflow": false,
+      "minTouch": 44,
+      "choices": 3,
+      "scrollable": true
+    },
+    {
+      "width": 960,
+      "height": 600,
+      "panel": "guide",
+      "inside": true,
+      "overflow": false,
+      "filterHeight": 44
+    },
+    {
+      "width": 960,
+      "height": 600,
+      "panel": "replay",
+      "inside": true,
+      "overflow": false,
+      "minTouch": 44
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "panel": "learning",
+      "inside": true,
+      "overflow": false,
+      "pageOverflow": false,
+      "minTouch": 44,
+      "choices": 3,
+      "scrollable": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "panel": "guide",
+      "inside": true,
+      "overflow": false,
+      "filterHeight": 44
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "panel": "replay",
+      "inside": true,
+      "overflow": false,
+      "minTouch": 44
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "panel": "learning",
+      "inside": true,
+      "overflow": false,
+      "pageOverflow": false,
+      "minTouch": 44,
+      "choices": 3,
+      "scrollable": true
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "panel": "guide",
+      "inside": true,
+      "overflow": false,
+      "filterHeight": 44
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "panel": "replay",
+      "inside": true,
+      "overflow": false,
+      "minTouch": 44
+    }
+  ],
+  "performance": {
+    "maxPending": 1,
+    "intervals": 0,
+    "reads": 0,
+    "guideChanges": 0
+  },
+  "errors": []
+}

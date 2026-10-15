@@ -13,6 +13,7 @@ export function completeActivity(state,activityId,answer) {
  const card=definition.unlockSpeciesId&&state.inventory.find(item=>item.speciesId===definition.unlockSpeciesId);
  if(definition.unlockSpeciesId&&(!card||!Object.hasOwn(organismById,definition.unlockSpeciesId)))return {ok:false,message:'카드 정보를 확인할 수 없어요.'};
  if(progress.completed&&progress.ecologyRevision===1&&!definition.choices)return {ok:true,message:'이전 구성에서 완료한 학습과 카드 권한을 유지했어요. 현재 생물의 발견은 새로 관찰하고 기록해요.',unlocked:false};
+ if(progress.completed&&definition.collection){progress.attempts++;return answer===definition.correctAnswer?{ok:true,unlocked:false,message:definition.learningOutcome+' 이전에 얻은 카드와 학습 기록을 유지해요. 추가 포인트는 없어요.'}:{ok:false,message:definition.choices.find(c=>c.id===answer)?.feedback||definition.hint};}
  const condition=activityCondition(state,activityId,answer);
  progress.attempts++;
  if(!condition.ok)return {ok:false,message:condition.message};
@@ -22,5 +23,5 @@ export function completeActivity(state,activityId,answer) {
  const result=card?unlockSpecies(state,definition.unlockSpeciesId,activityId):{ok:true,unlocked:false};
  syncCollection(state);
  const reward=grantReward(state,'activity',activityId,activityId);
- return {ok:true,unlocked:result.unlocked,message:`${definition.learningOutcome} ${result.unlocked?organismById[definition.unlockSpeciesId].name+' 카드를 사용할 수 있어요. ':''}${definition.collection?'도감에 획득 기록을 남겼어요.':'생태계 포인트 '+reward+'를 받았어요.'}`};
+ return {ok:true,unlocked:result.unlocked,message:`${definition.learningOutcome} ${result.unlocked?organismById[definition.unlockSpeciesId].name+' 카드를 사용할 수 있어요. 카드를 고른 뒤 숲의 빈자리에 놓아 보세요. ':''}${definition.collection?'도감에 획득 기록을 남겼어요.':'생태계 포인트 '+reward+'를 받았어요.'}`};
 }

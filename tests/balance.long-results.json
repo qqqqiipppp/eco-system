@@ -1,0 +1,7384 @@
+{
+  "stage": 15,
+  "beforeHead": "14ed0f866f2db921dec4c1e5595c2dab358ee0d0",
+  "schemaVersion": 16,
+  "ecologyRevision": 2,
+  "pacingRevision": 1,
+  "actualStudents": false,
+  "actualS5e": false,
+  "assumptions": {
+    "fast": {
+      "cadence": 15,
+      "times": {
+        "producer_quiz": 60,
+        "grass_observation": 180,
+        "rabbit_habitat": 240,
+        "decomposer_classify": 720
+      },
+      "interests": [
+        "pine",
+        "caterpillar",
+        "tit",
+        "raspberry"
+      ]
+    },
+    "normal": {
+      "cadence": 30,
+      "times": {
+        "producer_quiz": 90,
+        "grass_observation": 300,
+        "rabbit_habitat": 420,
+        "decomposer_classify": 900
+      },
+      "interests": [
+        "pine",
+        "raspberry"
+      ]
+    },
+    "slow": {
+      "cadence": 45,
+      "times": {
+        "producer_quiz": 120,
+        "grass_observation": 420,
+        "rabbit_habitat": 600,
+        "decomposer_classify": 1260
+      },
+      "interests": [
+        "pine"
+      ]
+    }
+  },
+  "scenarios": {
+    "1": {
+      "minutes": 20,
+      "round": 1,
+      "clearAt": 99.5,
+      "cleared": true,
+      "population": 7,
+      "peak": 14,
+      "acquired": 7,
+      "observed": 4,
+      "food": 3,
+      "points": 72,
+      "earned": 86,
+      "spent": 14,
+      "careSpent": 0,
+      "careRemaining": 0,
+      "studyCount": 3,
+      "studyTotal": 12,
+      "wormProcessed": 0,
+      "instantAnswers": true
+    },
+    "2": {
+      "minutes": 20,
+      "round": 1,
+      "clearAt": 780,
+      "cleared": true,
+      "population": 12,
+      "peak": 18,
+      "acquired": 11,
+      "observed": 9,
+      "food": 4,
+      "points": 95,
+      "earned": 95,
+      "spent": 0,
+      "careSpent": 0,
+      "careRemaining": 0,
+      "studyCount": 3,
+      "studyTotal": 12,
+      "wormProcessed": 0,
+      "metrics": {
+        "times": {
+          "firstFood": 15.5,
+          "firstNew": 60.5,
+          "requiredLearning": 720.5,
+          "firstGrowth": 211,
+          "firstEnvironment": 240,
+          "firstDecomposer": 0.5
+        },
+        "newCards": [
+          {
+            "speciesId": "pine",
+            "at": 60.5
+          },
+          {
+            "speciesId": "raspberry",
+            "at": 60.5
+          },
+          {
+            "speciesId": "caterpillar",
+            "at": 75.5
+          },
+          {
+            "speciesId": "tit",
+            "at": 90.5
+          },
+          {
+            "speciesId": "frog",
+            "at": 180.5
+          },
+          {
+            "speciesId": "rabbit",
+            "at": 240.5
+          }
+        ],
+        "novel17": 4,
+        "clearAt": 780,
+        "cleared": true,
+        "points": 95,
+        "careSpent": 0,
+        "acquired": 11,
+        "observed": 9,
+        "food": 4,
+        "roundFood": 4,
+        "environmentBeforeClear": true,
+        "meaningfulActions": 38,
+        "availableChoiceIndicator": {
+          "average": 6.569166666666667,
+          "max": 8,
+          "zeroChoiceSeconds": 0,
+          "definition": "unfinished eligible learning + uninspected living instances + pending insight/question + missing owned core placement; optional UI browsing excluded"
+        },
+        "noticesUnique": 35,
+        "noticesByKind": {
+          "insight": 4,
+          "alert": 29,
+          "question": 2
+        },
+        "peakActive": 7,
+        "clearEvidence": {
+          "at": 780,
+          "foodRelations": [
+            "v2_grass_to_grasshopper",
+            "v2_pine_to_caterpillar",
+            "v2_grasshopper_to_frog",
+            "v2_grass_to_rabbit"
+          ],
+          "activities": [
+            "producer_quiz",
+            "decomposer_classify",
+            "grass_observation",
+            "rabbit_habitat",
+            "explore_pine",
+            "explore_raspberry",
+            "explore_caterpillar",
+            "explore_tit"
+          ],
+          "environmentEpisodes": 2,
+          "growthOpportunity": true,
+          "decomposerInspected": [
+            "mushroom",
+            "soil-bacteria"
+          ],
+          "processed": 10.644176184722001,
+          "managementActions": 0
+        },
+        "samples": [
+          {
+            "at": 0.5,
+            "options": 5,
+            "acquired": 5,
+            "points": 0,
+            "stability": 80
+          },
+          {
+            "at": 60.5,
+            "options": 7,
+            "acquired": 7,
+            "points": 15,
+            "stability": 93
+          },
+          {
+            "at": 120.5,
+            "options": 7,
+            "acquired": 9,
+            "points": 27,
+            "stability": 94
+          },
+          {
+            "at": 180.5,
+            "options": 6,
+            "acquired": 10,
+            "points": 31,
+            "stability": 89
+          },
+          {
+            "at": 240.5,
+            "options": 7,
+            "acquired": 11,
+            "points": 47,
+            "stability": 82
+          },
+          {
+            "at": 300.5,
+            "options": 6,
+            "acquired": 11,
+            "points": 59,
+            "stability": 93
+          },
+          {
+            "at": 360.5,
+            "options": 7,
+            "acquired": 11,
+            "points": 69,
+            "stability": 83
+          },
+          {
+            "at": 420.5,
+            "options": 6,
+            "acquired": 11,
+            "points": 69,
+            "stability": 83
+          },
+          {
+            "at": 480.5,
+            "options": 6,
+            "acquired": 11,
+            "points": 73,
+            "stability": 95
+          },
+          {
+            "at": 540.5,
+            "options": 7,
+            "acquired": 11,
+            "points": 73,
+            "stability": 85
+          },
+          {
+            "at": 600.5,
+            "options": 6,
+            "acquired": 11,
+            "points": 73,
+            "stability": 95
+          },
+          {
+            "at": 660.5,
+            "options": 6,
+            "acquired": 11,
+            "points": 77,
+            "stability": 95
+          },
+          {
+            "at": 720.5,
+            "options": 7,
+            "acquired": 11,
+            "points": 81,
+            "stability": 91
+          },
+          {
+            "at": 780.5,
+            "options": 6,
+            "acquired": 11,
+            "points": 81,
+            "stability": 96
+          },
+          {
+            "at": 840.5,
+            "options": 7,
+            "acquired": 11,
+            "points": 81,
+            "stability": 88
+          },
+          {
+            "at": 900.5,
+            "options": 6,
+            "acquired": 11,
+            "points": 81,
+            "stability": 89
+          },
+          {
+            "at": 960.5,
+            "options": 6,
+            "acquired": 11,
+            "points": 81,
+            "stability": 97
+          },
+          {
+            "at": 1020.5,
+            "options": 7,
+            "acquired": 11,
+            "points": 91,
+            "stability": 86
+          },
+          {
+            "at": 1080.5,
+            "options": 6,
+            "acquired": 11,
+            "points": 91,
+            "stability": 96
+          },
+          {
+            "at": 1140.5,
+            "options": 6,
+            "acquired": 11,
+            "points": 95,
+            "stability": 94
+          }
+        ],
+        "hints": [
+          {
+            "at": 0.5,
+            "text": "방아깨비가 강아지풀을 먹는 모습을 관찰해요. 💡가 나타나면 발견 기록하기를 눌러요."
+          },
+          {
+            "at": 240,
+            "text": "다시 들이기까지 6초 기다려요. 먹이와 환경을 먼저 살펴보세요."
+          },
+          {
+            "at": 600,
+            "text": "배움에서 구름송편버섯의 역할 활동을 완료해 주세요."
+          },
+          {
+            "at": 960,
+            "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+          }
+        ],
+        "population": {
+          "oak": 2,
+          "mushroom": 1,
+          "soil-bacteria": 1,
+          "pine": 1,
+          "frog": 1,
+          "rabbit": 1,
+          "grass": 3,
+          "caterpillar": 2
+        },
+        "meals": {
+          "v2_grass_to_grasshopper": 82,
+          "v2_pine_to_caterpillar": 99,
+          "v2_grasshopper_to_frog": 7,
+          "v2_grass_to_rabbit": 35
+        },
+        "processed": 16.840447499999417,
+        "wormProcessed": 0,
+        "soilContribution": 0,
+        "episodes": [
+          {
+            "kind": "drought",
+            "at": 240,
+            "phase": "ended"
+          },
+          {
+            "kind": "rain",
+            "at": 600,
+            "phase": "ended"
+          },
+          {
+            "kind": "cloudy",
+            "at": 960,
+            "phase": "ended"
+          }
+        ],
+        "earned": 95,
+        "spent": 0,
+        "peak": 18,
+        "model": {
+          "mode": "fast",
+          "cadence": 15,
+          "times": {
+            "producer_quiz": 60,
+            "grass_observation": 180,
+            "rabbit_habitat": 240,
+            "decomposer_classify": 720
+          },
+          "interests": [
+            "pine",
+            "caterpillar",
+            "tit",
+            "raspberry"
+          ],
+          "wrongFirstAttempts": 0,
+          "multipleActionsPerDecision": true,
+          "actualStudent": false
+        },
+        "wrongAnswers": 0
+      }
+    },
+    "3": {
+      "minutes": 20,
+      "round": 1,
+      "clearAt": 930,
+      "cleared": true,
+      "population": 9,
+      "peak": 15,
+      "acquired": 9,
+      "observed": 7,
+      "food": 3,
+      "points": 83,
+      "earned": 83,
+      "spent": 0,
+      "careSpent": 0,
+      "careRemaining": 0,
+      "studyCount": 3,
+      "studyTotal": 12,
+      "wormProcessed": 0,
+      "metrics": {
+        "times": {
+          "firstFood": 30.5,
+          "firstNew": 90.5,
+          "requiredLearning": 900.5,
+          "firstGrowth": 211,
+          "firstEnvironment": 240,
+          "firstDecomposer": 0.5
+        },
+        "newCards": [
+          {
+            "speciesId": "pine",
+            "at": 90.5
+          },
+          {
+            "speciesId": "raspberry",
+            "at": 90.5
+          },
+          {
+            "speciesId": "frog",
+            "at": 300.5
+          },
+          {
+            "speciesId": "rabbit",
+            "at": 420.5
+          }
+        ],
+        "novel17": 2,
+        "clearAt": 930,
+        "cleared": true,
+        "points": 83,
+        "careSpent": 0,
+        "acquired": 9,
+        "observed": 7,
+        "food": 3,
+        "roundFood": 3,
+        "environmentBeforeClear": true,
+        "meaningfulActions": 30,
+        "availableChoiceIndicator": {
+          "average": 5.791666666666667,
+          "max": 8,
+          "zeroChoiceSeconds": 0,
+          "definition": "unfinished eligible learning + uninspected living instances + pending insight/question + missing owned core placement; optional UI browsing excluded"
+        },
+        "noticesUnique": 29,
+        "noticesByKind": {
+          "insight": 3,
+          "alert": 24,
+          "question": 2
+        },
+        "peakActive": 5,
+        "clearEvidence": {
+          "at": 930,
+          "foodRelations": [
+            "v2_grass_to_grasshopper",
+            "v2_grasshopper_to_frog",
+            "v2_grass_to_rabbit"
+          ],
+          "activities": [
+            "producer_quiz",
+            "decomposer_classify",
+            "grass_observation",
+            "rabbit_habitat",
+            "explore_pine",
+            "explore_raspberry"
+          ],
+          "environmentEpisodes": 2,
+          "growthOpportunity": true,
+          "decomposerInspected": [
+            "mushroom",
+            "soil-bacteria"
+          ],
+          "processed": 9.605000000000137,
+          "managementActions": 0
+        },
+        "samples": [
+          {
+            "at": 0.5,
+            "options": 5,
+            "acquired": 5,
+            "points": 0,
+            "stability": 80
+          },
+          {
+            "at": 60.5,
+            "options": 7,
+            "acquired": 5,
+            "points": 12,
+            "stability": 93
+          },
+          {
+            "at": 120.5,
+            "options": 6,
+            "acquired": 7,
+            "points": 15,
+            "stability": 89
+          },
+          {
+            "at": 180.5,
+            "options": 6,
+            "acquired": 7,
+            "points": 15,
+            "stability": 85
+          },
+          {
+            "at": 240.5,
+            "options": 6,
+            "acquired": 7,
+            "points": 15,
+            "stability": 89
+          },
+          {
+            "at": 300.5,
+            "options": 5,
+            "acquired": 8,
+            "points": 19,
+            "stability": 83
+          },
+          {
+            "at": 360.5,
+            "options": 7,
+            "acquired": 8,
+            "points": 41,
+            "stability": 66
+          },
+          {
+            "at": 420.5,
+            "options": 5,
+            "acquired": 9,
+            "points": 45,
+            "stability": 92
+          },
+          {
+            "at": 480.5,
+            "options": 6,
+            "acquired": 9,
+            "points": 61,
+            "stability": 82
+          },
+          {
+            "at": 540.5,
+            "options": 5,
+            "acquired": 9,
+            "points": 61,
+            "stability": 81
+          },
+          {
+            "at": 600.5,
+            "options": 5,
+            "acquired": 9,
+            "points": 61,
+            "stability": 96
+          },
+          {
+            "at": 660.5,
+            "options": 6,
+            "acquired": 9,
+            "points": 65,
+            "stability": 84
+          },
+          {
+            "at": 720.5,
+            "options": 5,
+            "acquired": 9,
+            "points": 65,
+            "stability": 84
+          },
+          {
+            "at": 780.5,
+            "options": 5,
+            "acquired": 9,
+            "points": 65,
+            "stability": 98
+          },
+          {
+            "at": 840.5,
+            "options": 6,
+            "acquired": 9,
+            "points": 65,
+            "stability": 84
+          },
+          {
+            "at": 900.5,
+            "options": 5,
+            "acquired": 9,
+            "points": 69,
+            "stability": 95
+          },
+          {
+            "at": 960.5,
+            "options": 6,
+            "acquired": 9,
+            "points": 69,
+            "stability": 87
+          },
+          {
+            "at": 1020.5,
+            "options": 5,
+            "acquired": 9,
+            "points": 79,
+            "stability": 83
+          },
+          {
+            "at": 1080.5,
+            "options": 5,
+            "acquired": 9,
+            "points": 79,
+            "stability": 96
+          },
+          {
+            "at": 1140.5,
+            "options": 6,
+            "acquired": 9,
+            "points": 83,
+            "stability": 84
+          }
+        ],
+        "hints": [
+          {
+            "at": 0.5,
+            "text": "방아깨비가 강아지풀을 먹는 모습을 관찰해요. 💡가 나타나면 발견 기록하기를 눌러요."
+          },
+          {
+            "at": 240,
+            "text": "잠긴 참개구리 카드를 눌러 관찰 활동을 완료해요. 참개구리를 배치할 수 있게 돼요."
+          },
+          {
+            "at": 600,
+            "text": "배움에서 구름송편버섯의 역할 활동을 완료해 주세요."
+          },
+          {
+            "at": 960,
+            "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+          }
+        ],
+        "population": {
+          "oak": 2,
+          "mushroom": 1,
+          "soil-bacteria": 1,
+          "frog": 1,
+          "rabbit": 1,
+          "grass": 3
+        },
+        "meals": {
+          "v2_grass_to_grasshopper": 80,
+          "v2_grasshopper_to_frog": 6,
+          "v2_grass_to_rabbit": 28
+        },
+        "processed": 12.29504250000035,
+        "wormProcessed": 0,
+        "soilContribution": 0,
+        "episodes": [
+          {
+            "kind": "drought",
+            "at": 240,
+            "phase": "ended"
+          },
+          {
+            "kind": "rain",
+            "at": 600,
+            "phase": "ended"
+          },
+          {
+            "kind": "cloudy",
+            "at": 960,
+            "phase": "ended"
+          }
+        ],
+        "earned": 83,
+        "spent": 0,
+        "peak": 15,
+        "model": {
+          "mode": "normal",
+          "cadence": 30,
+          "times": {
+            "producer_quiz": 90,
+            "grass_observation": 300,
+            "rabbit_habitat": 420,
+            "decomposer_classify": 900
+          },
+          "interests": [
+            "pine",
+            "raspberry"
+          ],
+          "wrongFirstAttempts": 0,
+          "multipleActionsPerDecision": true,
+          "actualStudent": false
+        },
+        "wrongAnswers": 0
+      }
+    },
+    "4": {
+      "minutes": 30,
+      "round": 1,
+      "clearAt": 1423,
+      "cleared": true,
+      "population": 10,
+      "peak": 14,
+      "acquired": 8,
+      "observed": 7,
+      "food": 3,
+      "points": 97,
+      "earned": 97,
+      "spent": 0,
+      "careSpent": 0,
+      "careRemaining": 0,
+      "studyCount": 4,
+      "studyTotal": 16,
+      "wormProcessed": 0,
+      "metrics": {
+        "times": {
+          "firstFood": 45.5,
+          "firstNew": 135.5,
+          "requiredLearning": 1260.5,
+          "firstGrowth": 211,
+          "firstEnvironment": 240,
+          "firstDecomposer": 0.5
+        },
+        "newCards": [
+          {
+            "speciesId": "pine",
+            "at": 135.5
+          },
+          {
+            "speciesId": "frog",
+            "at": 450.5
+          },
+          {
+            "speciesId": "rabbit",
+            "at": 630.5
+          }
+        ],
+        "novel17": 1,
+        "clearAt": 1423,
+        "cleared": true,
+        "points": 97,
+        "careSpent": 0,
+        "acquired": 8,
+        "observed": 7,
+        "food": 3,
+        "roundFood": 3,
+        "environmentBeforeClear": true,
+        "meaningfulActions": 32,
+        "availableChoiceIndicator": {
+          "average": 6.761666666666667,
+          "max": 8,
+          "zeroChoiceSeconds": 0,
+          "definition": "unfinished eligible learning + uninspected living instances + pending insight/question + missing owned core placement; optional UI browsing excluded"
+        },
+        "noticesUnique": 42,
+        "noticesByKind": {
+          "insight": 3,
+          "alert": 36,
+          "question": 3
+        },
+        "peakActive": 5,
+        "clearEvidence": {
+          "at": 1423,
+          "foodRelations": [
+            "v2_grass_to_grasshopper",
+            "v2_grasshopper_to_frog",
+            "v2_grass_to_rabbit"
+          ],
+          "activities": [
+            "producer_quiz",
+            "decomposer_classify",
+            "grass_observation",
+            "rabbit_habitat",
+            "explore_pine"
+          ],
+          "environmentEpisodes": 4,
+          "growthOpportunity": true,
+          "decomposerInspected": [
+            "mushroom",
+            "soil-bacteria"
+          ],
+          "processed": 14.339785421875337,
+          "managementActions": 0
+        },
+        "samples": [
+          {
+            "at": 0.5,
+            "options": 5,
+            "acquired": 5,
+            "points": 0,
+            "stability": 80
+          },
+          {
+            "at": 60.5,
+            "options": 7,
+            "acquired": 5,
+            "points": 12,
+            "stability": 93
+          },
+          {
+            "at": 120.5,
+            "options": 7,
+            "acquired": 5,
+            "points": 12,
+            "stability": 89
+          },
+          {
+            "at": 180.5,
+            "options": 7,
+            "acquired": 6,
+            "points": 15,
+            "stability": 85
+          },
+          {
+            "at": 240.5,
+            "options": 7,
+            "acquired": 6,
+            "points": 15,
+            "stability": 89
+          },
+          {
+            "at": 300.5,
+            "options": 7,
+            "acquired": 6,
+            "points": 15,
+            "stability": 83
+          },
+          {
+            "at": 360.5,
+            "options": 7,
+            "acquired": 6,
+            "points": 25,
+            "stability": 87
+          },
+          {
+            "at": 420.5,
+            "options": 7,
+            "acquired": 6,
+            "points": 25,
+            "stability": 85
+          },
+          {
+            "at": 480.5,
+            "options": 8,
+            "acquired": 7,
+            "points": 33,
+            "stability": 68
+          },
+          {
+            "at": 540.5,
+            "options": 7,
+            "acquired": 7,
+            "points": 45,
+            "stability": 68
+          },
+          {
+            "at": 600.5,
+            "options": 7,
+            "acquired": 7,
+            "points": 45,
+            "stability": 96
+          },
+          {
+            "at": 660.5,
+            "options": 8,
+            "acquired": 8,
+            "points": 49,
+            "stability": 83
+          },
+          {
+            "at": 720.5,
+            "options": 6,
+            "acquired": 8,
+            "points": 65,
+            "stability": 83
+          },
+          {
+            "at": 780.5,
+            "options": 6,
+            "acquired": 8,
+            "points": 65,
+            "stability": 95
+          },
+          {
+            "at": 840.5,
+            "options": 7,
+            "acquired": 8,
+            "points": 65,
+            "stability": 87
+          },
+          {
+            "at": 900.5,
+            "options": 6,
+            "acquired": 8,
+            "points": 65,
+            "stability": 98
+          },
+          {
+            "at": 960.5,
+            "options": 7,
+            "acquired": 8,
+            "points": 65,
+            "stability": 86
+          },
+          {
+            "at": 1020.5,
+            "options": 8,
+            "acquired": 8,
+            "points": 65,
+            "stability": 81
+          },
+          {
+            "at": 1080.5,
+            "options": 6,
+            "acquired": 8,
+            "points": 75,
+            "stability": 94
+          },
+          {
+            "at": 1140.5,
+            "options": 7,
+            "acquired": 8,
+            "points": 75,
+            "stability": 86
+          },
+          {
+            "at": 1200.5,
+            "options": 7,
+            "acquired": 8,
+            "points": 79,
+            "stability": 85
+          },
+          {
+            "at": 1260.5,
+            "options": 6,
+            "acquired": 8,
+            "points": 83,
+            "stability": 96
+          },
+          {
+            "at": 1320.5,
+            "options": 7,
+            "acquired": 8,
+            "points": 83,
+            "stability": 84
+          },
+          {
+            "at": 1380.5,
+            "options": 6,
+            "acquired": 8,
+            "points": 83,
+            "stability": 91
+          },
+          {
+            "at": 1440.5,
+            "options": 7,
+            "acquired": 8,
+            "points": 83,
+            "stability": 84
+          },
+          {
+            "at": 1500.5,
+            "options": 7,
+            "acquired": 8,
+            "points": 83,
+            "stability": 84
+          },
+          {
+            "at": 1560.5,
+            "options": 6,
+            "acquired": 8,
+            "points": 87,
+            "stability": 94
+          },
+          {
+            "at": 1620.5,
+            "options": 7,
+            "acquired": 8,
+            "points": 87,
+            "stability": 81
+          },
+          {
+            "at": 1680.5,
+            "options": 6,
+            "acquired": 8,
+            "points": 87,
+            "stability": 96
+          },
+          {
+            "at": 1740.5,
+            "options": 7,
+            "acquired": 8,
+            "points": 87,
+            "stability": 93
+          }
+        ],
+        "hints": [
+          {
+            "at": 0.5,
+            "text": "방아깨비가 강아지풀을 먹는 모습을 관찰해요. 💡가 나타나면 발견 기록하기를 눌러요."
+          },
+          {
+            "at": 240,
+            "text": "잠긴 참개구리 카드를 눌러 관찰 활동을 완료해요. 참개구리를 배치할 수 있게 돼요."
+          },
+          {
+            "at": 600,
+            "text": "배움에서 구름송편버섯의 역할 활동을 완료해 주세요."
+          },
+          {
+            "at": 960,
+            "text": "다시 들이기까지 47초 기다려요. 먹이와 환경을 먼저 살펴보세요."
+          }
+        ],
+        "population": {
+          "oak": 2,
+          "mushroom": 1,
+          "soil-bacteria": 1,
+          "frog": 1,
+          "rabbit": 1,
+          "grass": 4
+        },
+        "meals": {
+          "v2_grass_to_grasshopper": 116,
+          "v2_grasshopper_to_frog": 9,
+          "v2_grass_to_rabbit": 43
+        },
+        "processed": 18.197361351388956,
+        "wormProcessed": 0,
+        "soilContribution": 0,
+        "episodes": [
+          {
+            "kind": "drought",
+            "at": 240,
+            "phase": "ended"
+          },
+          {
+            "kind": "rain",
+            "at": 600,
+            "phase": "ended"
+          },
+          {
+            "kind": "cloudy",
+            "at": 960,
+            "phase": "ended"
+          },
+          {
+            "kind": "air-pollution",
+            "at": 1320,
+            "phase": "ended"
+          },
+          {
+            "kind": "soil-damage",
+            "at": 1680,
+            "phase": "recovering"
+          }
+        ],
+        "earned": 97,
+        "spent": 0,
+        "peak": 14,
+        "model": {
+          "mode": "slow",
+          "cadence": 45,
+          "times": {
+            "producer_quiz": 120,
+            "grass_observation": 420,
+            "rabbit_habitat": 600,
+            "decomposer_classify": 1260
+          },
+          "interests": [
+            "pine"
+          ],
+          "wrongFirstAttempts": 0,
+          "multipleActionsPerDecision": true,
+          "actualStudent": false
+        },
+        "wrongAnswers": 0
+      },
+      "noForcedTimeout": true
+    },
+    "5": {
+      "minutes": 20,
+      "round": 1,
+      "clearAt": 1063,
+      "cleared": true,
+      "population": 9,
+      "peak": 15,
+      "acquired": 9,
+      "observed": 7,
+      "food": 3,
+      "points": 83,
+      "earned": 83,
+      "spent": 0,
+      "careSpent": 0,
+      "careRemaining": 0,
+      "studyCount": 3,
+      "studyTotal": 12,
+      "wormProcessed": 0,
+      "metrics": {
+        "times": {
+          "firstFood": 30.5,
+          "firstNew": 210.5,
+          "requiredLearning": 960.5,
+          "firstGrowth": 211,
+          "firstEnvironment": 240,
+          "firstDecomposer": 0.5
+        },
+        "newCards": [
+          {
+            "speciesId": "pine",
+            "at": 210.5
+          },
+          {
+            "speciesId": "raspberry",
+            "at": 210.5
+          },
+          {
+            "speciesId": "frog",
+            "at": 300.5
+          },
+          {
+            "speciesId": "rabbit",
+            "at": 420.5
+          }
+        ],
+        "novel17": 2,
+        "clearAt": 1063,
+        "cleared": true,
+        "points": 83,
+        "careSpent": 0,
+        "acquired": 9,
+        "observed": 7,
+        "food": 3,
+        "roundFood": 3,
+        "environmentBeforeClear": true,
+        "meaningfulActions": 30,
+        "availableChoiceIndicator": {
+          "average": 5.941666666666666,
+          "max": 8,
+          "zeroChoiceSeconds": 0,
+          "definition": "unfinished eligible learning + uninspected living instances + pending insight/question + missing owned core placement; optional UI browsing excluded"
+        },
+        "noticesUnique": 29,
+        "noticesByKind": {
+          "insight": 3,
+          "alert": 24,
+          "question": 2
+        },
+        "peakActive": 5,
+        "clearEvidence": {
+          "at": 1063,
+          "foodRelations": [
+            "v2_grass_to_grasshopper",
+            "v2_grasshopper_to_frog",
+            "v2_grass_to_rabbit"
+          ],
+          "activities": [
+            "producer_quiz",
+            "decomposer_classify",
+            "grass_observation",
+            "rabbit_habitat",
+            "explore_pine",
+            "explore_raspberry"
+          ],
+          "environmentEpisodes": 3,
+          "growthOpportunity": true,
+          "decomposerInspected": [
+            "mushroom",
+            "soil-bacteria"
+          ],
+          "processed": 10.930575000000308,
+          "managementActions": 0
+        },
+        "samples": [
+          {
+            "at": 0.5,
+            "options": 5,
+            "acquired": 5,
+            "points": 0,
+            "stability": 80
+          },
+          {
+            "at": 60.5,
+            "options": 7,
+            "acquired": 5,
+            "points": 12,
+            "stability": 93
+          },
+          {
+            "at": 120.5,
+            "options": 7,
+            "acquired": 5,
+            "points": 12,
+            "stability": 89
+          },
+          {
+            "at": 180.5,
+            "options": 8,
+            "acquired": 5,
+            "points": 15,
+            "stability": 85
+          },
+          {
+            "at": 240.5,
+            "options": 6,
+            "acquired": 7,
+            "points": 15,
+            "stability": 89
+          },
+          {
+            "at": 300.5,
+            "options": 5,
+            "acquired": 8,
+            "points": 19,
+            "stability": 83
+          },
+          {
+            "at": 360.5,
+            "options": 7,
+            "acquired": 8,
+            "points": 41,
+            "stability": 66
+          },
+          {
+            "at": 420.5,
+            "options": 5,
+            "acquired": 9,
+            "points": 45,
+            "stability": 92
+          },
+          {
+            "at": 480.5,
+            "options": 6,
+            "acquired": 9,
+            "points": 61,
+            "stability": 82
+          },
+          {
+            "at": 540.5,
+            "options": 5,
+            "acquired": 9,
+            "points": 61,
+            "stability": 81
+          },
+          {
+            "at": 600.5,
+            "options": 5,
+            "acquired": 9,
+            "points": 61,
+            "stability": 96
+          },
+          {
+            "at": 660.5,
+            "options": 6,
+            "acquired": 9,
+            "points": 65,
+            "stability": 84
+          },
+          {
+            "at": 720.5,
+            "options": 5,
+            "acquired": 9,
+            "points": 65,
+            "stability": 84
+          },
+          {
+            "at": 780.5,
+            "options": 5,
+            "acquired": 9,
+            "points": 65,
+            "stability": 98
+          },
+          {
+            "at": 840.5,
+            "options": 6,
+            "acquired": 9,
+            "points": 65,
+            "stability": 84
+          },
+          {
+            "at": 900.5,
+            "options": 5,
+            "acquired": 9,
+            "points": 65,
+            "stability": 95
+          },
+          {
+            "at": 960.5,
+            "options": 6,
+            "acquired": 9,
+            "points": 69,
+            "stability": 87
+          },
+          {
+            "at": 1020.5,
+            "options": 5,
+            "acquired": 9,
+            "points": 79,
+            "stability": 83
+          },
+          {
+            "at": 1080.5,
+            "options": 5,
+            "acquired": 9,
+            "points": 79,
+            "stability": 96
+          },
+          {
+            "at": 1140.5,
+            "options": 6,
+            "acquired": 9,
+            "points": 83,
+            "stability": 84
+          }
+        ],
+        "hints": [
+          {
+            "at": 0.5,
+            "text": "방아깨비가 강아지풀을 먹는 모습을 관찰해요. 💡가 나타나면 발견 기록하기를 눌러요."
+          },
+          {
+            "at": 240,
+            "text": "잠긴 참개구리 카드를 눌러 관찰 활동을 완료해요. 참개구리를 배치할 수 있게 돼요."
+          },
+          {
+            "at": 600,
+            "text": "배움에서 구름송편버섯의 역할 활동을 완료해 주세요."
+          },
+          {
+            "at": 960,
+            "text": "배움에서 구름송편버섯의 역할 활동을 완료해 주세요."
+          }
+        ],
+        "population": {
+          "oak": 2,
+          "mushroom": 1,
+          "soil-bacteria": 1,
+          "frog": 1,
+          "rabbit": 1,
+          "grass": 3
+        },
+        "meals": {
+          "v2_grass_to_grasshopper": 80,
+          "v2_grasshopper_to_frog": 6,
+          "v2_grass_to_rabbit": 28
+        },
+        "processed": 12.29504250000035,
+        "wormProcessed": 0,
+        "soilContribution": 0,
+        "episodes": [
+          {
+            "kind": "drought",
+            "at": 240,
+            "phase": "ended"
+          },
+          {
+            "kind": "rain",
+            "at": 600,
+            "phase": "ended"
+          },
+          {
+            "kind": "cloudy",
+            "at": 960,
+            "phase": "ended"
+          }
+        ],
+        "earned": 83,
+        "spent": 0,
+        "peak": 15,
+        "model": {
+          "mode": "normal",
+          "cadence": 30,
+          "times": {
+            "producer_quiz": 90,
+            "grass_observation": 300,
+            "rabbit_habitat": 420,
+            "decomposer_classify": 900
+          },
+          "interests": [
+            "pine",
+            "raspberry"
+          ],
+          "wrongFirstAttempts": 2,
+          "multipleActionsPerDecision": true,
+          "actualStudent": false
+        },
+        "wrongAnswers": 8
+      }
+    },
+    "6": {
+      "minutes": 20,
+      "round": 1,
+      "clearAt": 99.5,
+      "cleared": true,
+      "population": 18,
+      "peak": 24,
+      "acquired": 24,
+      "observed": 16,
+      "food": 9,
+      "points": 143,
+      "earned": 143,
+      "spent": 0,
+      "careSpent": 0,
+      "careRemaining": 0,
+      "studyCount": 0,
+      "studyTotal": 0,
+      "wormProcessed": 6.519498750000168,
+      "metrics": {
+        "times": {
+          "firstFood": 5,
+          "firstNew": 0.5,
+          "requiredLearning": 5,
+          "firstGrowth": 91,
+          "firstEnvironment": 240,
+          "firstDecomposer": 0.5
+        },
+        "newCards": [
+          {
+            "speciesId": "rabbit",
+            "at": 0.5
+          },
+          {
+            "speciesId": "pine",
+            "at": 0.5
+          },
+          {
+            "speciesId": "raspberry",
+            "at": 0.5
+          },
+          {
+            "speciesId": "chipmunk",
+            "at": 0.5
+          },
+          {
+            "speciesId": "caterpillar",
+            "at": 0.5
+          },
+          {
+            "speciesId": "snail",
+            "at": 0.5
+          },
+          {
+            "speciesId": "earthworm",
+            "at": 0.5
+          },
+          {
+            "speciesId": "litter-mold",
+            "at": 1
+          },
+          {
+            "speciesId": "frog",
+            "at": 5
+          },
+          {
+            "speciesId": "field-mouse",
+            "at": 5
+          },
+          {
+            "speciesId": "hazel",
+            "at": 9
+          },
+          {
+            "speciesId": "aphid",
+            "at": 9
+          },
+          {
+            "speciesId": "tit",
+            "at": 9
+          },
+          {
+            "speciesId": "bulbul",
+            "at": 9
+          },
+          {
+            "speciesId": "snake",
+            "at": 10
+          },
+          {
+            "speciesId": "ladybird",
+            "at": 13
+          },
+          {
+            "speciesId": "spider",
+            "at": 32
+          },
+          {
+            "speciesId": "weasel",
+            "at": 320
+          },
+          {
+            "speciesId": "goshawk",
+            "at": 320
+          }
+        ],
+        "novel17": 17,
+        "clearAt": 99.5,
+        "cleared": true,
+        "points": 143,
+        "careSpent": 0,
+        "acquired": 24,
+        "observed": 16,
+        "food": 9,
+        "roundFood": 9,
+        "environmentBeforeClear": false,
+        "meaningfulActions": 71,
+        "availableChoiceIndicator": {
+          "average": 0.3858333333333333,
+          "max": 1,
+          "zeroChoiceSeconds": 737,
+          "definition": "unfinished eligible learning + uninspected living instances + pending insight/question + missing owned core placement; optional UI browsing excluded"
+        },
+        "noticesUnique": 44,
+        "noticesByKind": {
+          "alert": 44
+        },
+        "peakActive": 10,
+        "clearEvidence": {
+          "at": 99.5,
+          "foodRelations": [
+            "v2_grass_to_grasshopper",
+            "v2_pine_to_chipmunk",
+            "v2_pine_to_caterpillar",
+            "v2_grasshopper_to_frog",
+            "v2_grass_to_snail",
+            "v2_raspberry_to_bulbul",
+            "v2_grass_to_rabbit",
+            "v2_hazel_to_aphid"
+          ],
+          "activities": [
+            "producer_quiz",
+            "decomposer_classify",
+            "grass_observation",
+            "rabbit_habitat",
+            "explore_pine",
+            "explore_raspberry",
+            "explore_hazel",
+            "explore_chipmunk",
+            "explore_field-mouse",
+            "explore_caterpillar",
+            "explore_aphid",
+            "explore_snail",
+            "explore_spider",
+            "explore_ladybird",
+            "explore_tit",
+            "explore_bulbul",
+            "explore_snake",
+            "explore_earthworm",
+            "explore_litter-mold"
+          ],
+          "environmentEpisodes": 0,
+          "growthOpportunity": true,
+          "decomposerInspected": [
+            "mushroom",
+            "soil-bacteria"
+          ],
+          "processed": 2.1909999999999936,
+          "managementActions": 0
+        },
+        "samples": [
+          {
+            "at": 0.5,
+            "options": 0,
+            "acquired": 12,
+            "points": 11,
+            "stability": 80
+          },
+          {
+            "at": 60.5,
+            "options": 1,
+            "acquired": 22,
+            "points": 111,
+            "stability": 94
+          },
+          {
+            "at": 120.5,
+            "options": 0,
+            "acquired": 22,
+            "points": 111,
+            "stability": 95
+          },
+          {
+            "at": 180.5,
+            "options": 1,
+            "acquired": 22,
+            "points": 111,
+            "stability": 93
+          },
+          {
+            "at": 240.5,
+            "options": 0,
+            "acquired": 22,
+            "points": 111,
+            "stability": 97
+          },
+          {
+            "at": 300.5,
+            "options": 0,
+            "acquired": 22,
+            "points": 111,
+            "stability": 92
+          },
+          {
+            "at": 360.5,
+            "options": 1,
+            "acquired": 24,
+            "points": 133,
+            "stability": 88
+          },
+          {
+            "at": 420.5,
+            "options": 0,
+            "acquired": 24,
+            "points": 133,
+            "stability": 93
+          },
+          {
+            "at": 480.5,
+            "options": 0,
+            "acquired": 24,
+            "points": 133,
+            "stability": 94
+          },
+          {
+            "at": 540.5,
+            "options": 1,
+            "acquired": 24,
+            "points": 133,
+            "stability": 93
+          },
+          {
+            "at": 600.5,
+            "options": 0,
+            "acquired": 24,
+            "points": 133,
+            "stability": 95
+          },
+          {
+            "at": 660.5,
+            "options": 0,
+            "acquired": 24,
+            "points": 133,
+            "stability": 95
+          },
+          {
+            "at": 720.5,
+            "options": 1,
+            "acquired": 24,
+            "points": 133,
+            "stability": 94
+          },
+          {
+            "at": 780.5,
+            "options": 0,
+            "acquired": 24,
+            "points": 133,
+            "stability": 97
+          },
+          {
+            "at": 840.5,
+            "options": 1,
+            "acquired": 24,
+            "points": 133,
+            "stability": 94
+          },
+          {
+            "at": 900.5,
+            "options": 0,
+            "acquired": 24,
+            "points": 133,
+            "stability": 95
+          },
+          {
+            "at": 960.5,
+            "options": 0,
+            "acquired": 24,
+            "points": 133,
+            "stability": 97
+          },
+          {
+            "at": 1020.5,
+            "options": 1,
+            "acquired": 24,
+            "points": 143,
+            "stability": 90
+          },
+          {
+            "at": 1080.5,
+            "options": 0,
+            "acquired": 24,
+            "points": 143,
+            "stability": 94
+          },
+          {
+            "at": 1140.5,
+            "options": 0,
+            "acquired": 24,
+            "points": 143,
+            "stability": 95
+          }
+        ],
+        "hints": [
+          {
+            "at": 0.5,
+            "text": "방아깨비가 강아지풀을 먹는 모습을 관찰해요. 💡가 나타나면 발견 기록하기를 눌러요."
+          },
+          {
+            "at": 240,
+            "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+          },
+          {
+            "at": 600,
+            "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+          },
+          {
+            "at": 960,
+            "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+          }
+        ],
+        "population": {
+          "oak": 2,
+          "mushroom": 1,
+          "rabbit": 1,
+          "pine": 1,
+          "snail": 1,
+          "raspberry": 1,
+          "chipmunk": 1,
+          "soil-bacteria": 1,
+          "earthworm": 1,
+          "frog": 1,
+          "hazel": 1,
+          "bulbul": 1,
+          "grass": 3,
+          "caterpillar": 2
+        },
+        "meals": {
+          "v2_grass_to_grasshopper": 78,
+          "v2_pine_to_chipmunk": 21,
+          "v2_pine_to_caterpillar": 108,
+          "v2_grasshopper_to_frog": 8,
+          "v2_grass_to_snail": 44,
+          "v2_raspberry_to_bulbul": 70,
+          "v2_grass_to_rabbit": 44,
+          "v2_hazel_to_aphid": 23,
+          "v2_oak_to_chipmunk": 60
+        },
+        "processed": 25.357631429513145,
+        "wormProcessed": 6.519498750000168,
+        "soilContribution": 0,
+        "episodes": [
+          {
+            "kind": "drought",
+            "at": 240,
+            "phase": "ended"
+          },
+          {
+            "kind": "rain",
+            "at": 600,
+            "phase": "ended"
+          },
+          {
+            "kind": "cloudy",
+            "at": 960,
+            "phase": "ended"
+          }
+        ],
+        "earned": 143,
+        "spent": 0,
+        "peak": 24,
+        "model": {
+          "instantCorrectAnswers": true,
+          "actualStudent": false
+        },
+        "wrongAnswers": 0
+      }
+    },
+    "7": {
+      "minutes": 20,
+      "round": 1,
+      "clearAt": 99.5,
+      "cleared": true,
+      "population": 7,
+      "peak": 14,
+      "acquired": 7,
+      "observed": 4,
+      "food": 3,
+      "points": 72,
+      "earned": 86,
+      "spent": 14,
+      "careSpent": 0,
+      "careRemaining": 0,
+      "studyCount": 3,
+      "studyTotal": 12,
+      "wormProcessed": 0,
+      "metrics": {
+        "times": {
+          "firstFood": 5,
+          "firstNew": null,
+          "requiredLearning": 5,
+          "firstGrowth": 211,
+          "firstEnvironment": 240,
+          "firstDecomposer": null
+        },
+        "newCards": [
+          {
+            "speciesId": "rabbit",
+            "at": 0.5
+          },
+          {
+            "speciesId": "frog",
+            "at": 5
+          }
+        ],
+        "novel17": 0,
+        "clearAt": 99.5,
+        "cleared": true,
+        "points": 72,
+        "careSpent": 0,
+        "acquired": 7,
+        "observed": 4,
+        "food": 3,
+        "roundFood": 3,
+        "environmentBeforeClear": false,
+        "meaningfulActions": 28,
+        "availableChoiceIndicator": {
+          "average": 7.411666666666667,
+          "max": 10,
+          "zeroChoiceSeconds": 0,
+          "definition": "unfinished eligible learning + uninspected living instances + pending insight/question + missing owned core placement; optional UI browsing excluded"
+        },
+        "noticesUnique": 25,
+        "noticesByKind": {
+          "alert": 25
+        },
+        "peakActive": 4,
+        "clearEvidence": {
+          "at": 99.5,
+          "foodRelations": [
+            "v2_grass_to_grasshopper",
+            "v2_grasshopper_to_frog",
+            "v2_grass_to_rabbit"
+          ],
+          "activities": [
+            "producer_quiz",
+            "decomposer_classify",
+            "grass_observation",
+            "rabbit_habitat"
+          ],
+          "environmentEpisodes": 0,
+          "growthOpportunity": false,
+          "decomposerInspected": [],
+          "processed": 1.299999999999994,
+          "managementActions": 0
+        },
+        "samples": [
+          {
+            "at": 0.5,
+            "options": 10,
+            "acquired": 6,
+            "points": 11,
+            "stability": 80
+          },
+          {
+            "at": 60.5,
+            "options": 8,
+            "acquired": 7,
+            "points": 51,
+            "stability": 85
+          },
+          {
+            "at": 120.5,
+            "options": 7,
+            "acquired": 7,
+            "points": 51,
+            "stability": 95
+          },
+          {
+            "at": 180.5,
+            "options": 8,
+            "acquired": 7,
+            "points": 51,
+            "stability": 83
+          },
+          {
+            "at": 240.5,
+            "options": 7,
+            "acquired": 7,
+            "points": 51,
+            "stability": 98
+          },
+          {
+            "at": 300.5,
+            "options": 7,
+            "acquired": 7,
+            "points": 51,
+            "stability": 94
+          },
+          {
+            "at": 360.5,
+            "options": 8,
+            "acquired": 7,
+            "points": 62,
+            "stability": 83
+          },
+          {
+            "at": 420.5,
+            "options": 7,
+            "acquired": 7,
+            "points": 62,
+            "stability": 96
+          },
+          {
+            "at": 480.5,
+            "options": 7,
+            "acquired": 7,
+            "points": 62,
+            "stability": 97
+          },
+          {
+            "at": 540.5,
+            "options": 8,
+            "acquired": 7,
+            "points": 62,
+            "stability": 83
+          },
+          {
+            "at": 600.5,
+            "options": 7,
+            "acquired": 7,
+            "points": 62,
+            "stability": 95
+          },
+          {
+            "at": 660.5,
+            "options": 7,
+            "acquired": 7,
+            "points": 66,
+            "stability": 95
+          },
+          {
+            "at": 720.5,
+            "options": 8,
+            "acquired": 7,
+            "points": 66,
+            "stability": 82
+          },
+          {
+            "at": 780.5,
+            "options": 7,
+            "acquired": 7,
+            "points": 66,
+            "stability": 97
+          },
+          {
+            "at": 840.5,
+            "options": 8,
+            "acquired": 7,
+            "points": 66,
+            "stability": 86
+          },
+          {
+            "at": 900.5,
+            "options": 7,
+            "acquired": 7,
+            "points": 66,
+            "stability": 96
+          },
+          {
+            "at": 960.5,
+            "options": 7,
+            "acquired": 7,
+            "points": 66,
+            "stability": 97
+          },
+          {
+            "at": 1020.5,
+            "options": 8,
+            "acquired": 7,
+            "points": 68,
+            "stability": 81
+          },
+          {
+            "at": 1080.5,
+            "options": 7,
+            "acquired": 7,
+            "points": 68,
+            "stability": 95
+          },
+          {
+            "at": 1140.5,
+            "options": 7,
+            "acquired": 7,
+            "points": 72,
+            "stability": 97
+          }
+        ],
+        "hints": [
+          {
+            "at": 0.5,
+            "text": "방아깨비가 강아지풀을 먹는 모습을 관찰해요. 💡가 나타나면 발견 기록하기를 눌러요."
+          },
+          {
+            "at": 240,
+            "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+          },
+          {
+            "at": 600,
+            "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+          },
+          {
+            "at": 960,
+            "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+          }
+        ],
+        "population": {
+          "oak": 2,
+          "mushroom": 1,
+          "rabbit": 1,
+          "frog": 1,
+          "grass": 2
+        },
+        "meals": {
+          "v2_grass_to_grasshopper": 78,
+          "v2_grasshopper_to_frog": 8,
+          "v2_grass_to_rabbit": 44
+        },
+        "processed": 12.279027875000123,
+        "wormProcessed": 0,
+        "soilContribution": 0,
+        "episodes": [
+          {
+            "kind": "drought",
+            "at": 240,
+            "phase": "ended"
+          },
+          {
+            "kind": "rain",
+            "at": 600,
+            "phase": "ended"
+          },
+          {
+            "kind": "cloudy",
+            "at": 960,
+            "phase": "ended"
+          }
+        ],
+        "earned": 86,
+        "spent": 14,
+        "peak": 14,
+        "model": {
+          "instantCorrectAnswers": true,
+          "actualStudent": false
+        },
+        "wrongAnswers": 0
+      }
+    },
+    "8": {
+      "instant": 0.5,
+      "normal": 90.5,
+      "firstNew": "pine",
+      "notTimedUnlock": true
+    },
+    "9": {
+      "instant": 5,
+      "normal": 30.5,
+      "actualFeedingAndAcknowledgment": true
+    },
+    "10": {
+      "minutes": 20,
+      "round": 1,
+      "clearAt": 99.5,
+      "cleared": true,
+      "population": 8,
+      "peak": 14,
+      "acquired": 9,
+      "observed": 6,
+      "food": 3,
+      "points": 71,
+      "earned": 71,
+      "spent": 0,
+      "careSpent": 0,
+      "careRemaining": 0,
+      "studyCount": 0,
+      "studyTotal": 0,
+      "wormProcessed": 0,
+      "starter5PlusOld2PlusNew2": true
+    },
+    "11": {
+      "minutes": 20,
+      "round": 1,
+      "clearAt": 99.5,
+      "cleared": true,
+      "population": 18,
+      "peak": 24,
+      "acquired": 24,
+      "observed": 16,
+      "food": 9,
+      "points": 143,
+      "earned": 143,
+      "spent": 0,
+      "careSpent": 0,
+      "careRemaining": 0,
+      "studyCount": 0,
+      "studyTotal": 0,
+      "wormProcessed": 6.519498750000168,
+      "routes": [
+        {
+          "species": "pine",
+          "condition": "상수리나무 개체를 눌러 살펴봐요. 배움에서 양분을 만드는 생물을 완료해요. 그 뒤 질문에 답해요.",
+          "difficulty": "쉬움",
+          "completedAt": 0.5
+        },
+        {
+          "species": "raspberry",
+          "condition": "강아지풀 개체를 눌러 살펴봐요. 배움에서 양분을 만드는 생물을 완료해요. 그 뒤 질문에 답해요.",
+          "difficulty": "쉬움",
+          "completedAt": 0.5
+        },
+        {
+          "species": "hazel",
+          "condition": "소나무 개체를 눌러 살펴봐요. 소나무 → 솔나방 애벌레(송충이)를 실제로 관찰하고 💡에 기록해요. 그 뒤 질문에 답해요.",
+          "difficulty": "보통",
+          "completedAt": 9
+        },
+        {
+          "species": "chipmunk",
+          "condition": "상수리나무 개체를 눌러 살펴봐요. 그 뒤 질문에 답해요.",
+          "difficulty": "쉬움",
+          "completedAt": 0.5
+        },
+        {
+          "species": "field-mouse",
+          "condition": "방아깨비 개체를 눌러 살펴봐요. 강아지풀 → 방아깨비를 실제로 관찰하고 💡에 기록해요. 그 뒤 질문에 답해요.",
+          "difficulty": "보통",
+          "completedAt": 5
+        },
+        {
+          "species": "caterpillar",
+          "condition": "소나무 개체를 눌러 살펴봐요. 그 뒤 질문에 답해요.",
+          "difficulty": "쉬움",
+          "completedAt": 0.5
+        },
+        {
+          "species": "aphid",
+          "condition": "팽나무 개체를 눌러 살펴봐요. 강아지풀 → 방아깨비를 실제로 관찰하고 💡에 기록해요. 그 뒤 질문에 답해요.",
+          "difficulty": "보통",
+          "completedAt": 9
+        },
+        {
+          "species": "snail",
+          "condition": "강아지풀 개체를 눌러 살펴봐요. 그 뒤 질문에 답해요.",
+          "difficulty": "쉬움",
+          "completedAt": 0.5
+        },
+        {
+          "species": "spider",
+          "condition": "청동풍뎅이 개체를 눌러 살펴봐요. 팽나무 → 청동풍뎅이를 실제로 관찰하고 💡에 기록해요. 그 뒤 질문에 답해요.",
+          "difficulty": "보통",
+          "completedAt": 32
+        },
+        {
+          "species": "ladybird",
+          "condition": "명주달팽이 개체를 눌러 살펴봐요. 강아지풀 → 명주달팽이를 실제로 관찰하고 💡에 기록해요. 그 뒤 질문에 답해요.",
+          "difficulty": "보통",
+          "completedAt": 13
+        },
+        {
+          "species": "tit",
+          "condition": "솔나방 애벌레(송충이) 개체를 눌러 살펴봐요. 소나무 → 솔나방 애벌레(송충이)를 실제로 관찰하고 💡에 기록해요. 그 뒤 질문에 답해요.",
+          "difficulty": "보통",
+          "completedAt": 9
+        },
+        {
+          "species": "bulbul",
+          "condition": "산딸기·팽나무 개체를 눌러 살펴봐요. 그 뒤 질문에 답해요.",
+          "difficulty": "보통",
+          "completedAt": 9
+        },
+        {
+          "species": "snake",
+          "condition": "참개구리 개체를 눌러 살펴봐요. 방아깨비 → 참개구리를 실제로 관찰하고 💡에 기록해요. 그 뒤 질문에 답해요.",
+          "difficulty": "보통",
+          "completedAt": 10
+        },
+        {
+          "species": "weasel",
+          "condition": "다람쥐 개체를 눌러 살펴봐요. 상수리나무 → 다람쥐, 방아깨비 → 참개구리를 실제로 관찰하고 💡에 기록해요. 그 뒤 질문에 답해요.",
+          "difficulty": "도전",
+          "completedAt": 320
+        },
+        {
+          "species": "goshawk",
+          "condition": "다람쥐 개체를 눌러 살펴봐요. 상수리나무 → 다람쥐, 산딸기 → 직박구리를 실제로 관찰하고 💡에 기록해요. 그 뒤 질문에 답해요.",
+          "difficulty": "도전",
+          "completedAt": 320
+        },
+        {
+          "species": "earthworm",
+          "condition": "구름송편버섯·고초균 개체를 눌러 살펴봐요. 배움에서 구름송편버섯의 역할을 완료해요. 그 뒤 질문에 답해요.",
+          "difficulty": "보통",
+          "completedAt": 0.5
+        },
+        {
+          "species": "litter-mold",
+          "condition": "참지렁이 개체를 눌러 살펴봐요. 이번 숲에서 참지렁이가 실제 낙엽 잔해를 먹는지 확인해요. 그 뒤 질문에 답해요.",
+          "difficulty": "도전",
+          "completedAt": 1
+        }
+      ]
+    },
+    "12": {
+      "minutes": 20,
+      "round": 1,
+      "clearAt": 99.5,
+      "cleared": true,
+      "population": 18,
+      "peak": 24,
+      "acquired": 24,
+      "observed": 16,
+      "food": 9,
+      "points": 143,
+      "earned": 143,
+      "spent": 0,
+      "careSpent": 0,
+      "careRemaining": 0,
+      "studyCount": 0,
+      "studyTotal": 0,
+      "wormProcessed": 6.519498750000168,
+      "noRoundGateOrCardCap": true
+    },
+    "13": {
+      "beforeFirstWave": 13,
+      "afterFirstWave": 6,
+      "beforeLast": 320,
+      "afterLast": 320,
+      "beforeFood": 8,
+      "afterFood": 9,
+      "beforePoints": 131,
+      "afterPoints": 143,
+      "addedCardReward": 0,
+      "addedFirstFoodRewards": 12
+    },
+    "14": {
+      "minutes": 20,
+      "round": 1,
+      "clearAt": 99.5,
+      "cleared": true,
+      "population": 7,
+      "peak": 14,
+      "acquired": 7,
+      "observed": 4,
+      "food": 3,
+      "points": 72,
+      "earned": 86,
+      "spent": 14,
+      "careSpent": 0,
+      "careRemaining": 0,
+      "studyCount": 3,
+      "studyTotal": 12,
+      "wormProcessed": 0,
+      "optionalStay": true,
+      "forcedMinimumMinutes": false
+    },
+    "15": {
+      "minutes": 20,
+      "round": 1,
+      "clearAt": 930,
+      "cleared": true,
+      "population": 9,
+      "peak": 15,
+      "acquired": 9,
+      "observed": 7,
+      "food": 3,
+      "points": 83,
+      "earned": 83,
+      "spent": 0,
+      "careSpent": 0,
+      "careRemaining": 0,
+      "studyCount": 3,
+      "studyTotal": 12,
+      "wormProcessed": 0
+    },
+    "16": {
+      "minutes": 20,
+      "round": 1,
+      "clearAt": 99.5,
+      "cleared": true,
+      "population": 7,
+      "peak": 14,
+      "acquired": 7,
+      "observed": 4,
+      "food": 3,
+      "points": 72,
+      "earned": 86,
+      "spent": 14,
+      "careSpent": 0,
+      "careRemaining": 0,
+      "studyCount": 3,
+      "studyTotal": 12,
+      "wormProcessed": 0,
+      "actualCosts": [
+        {
+          "at": 309,
+          "cost": 6,
+          "action": "water-care"
+        },
+        {
+          "at": 1007,
+          "cost": 8,
+          "action": "habitat-care"
+        }
+      ]
+    },
+    "17": {
+      "minutes": 20,
+      "round": 1,
+      "clearAt": 99.5,
+      "cleared": true,
+      "population": 18,
+      "peak": 24,
+      "acquired": 24,
+      "observed": 16,
+      "food": 9,
+      "points": 143,
+      "earned": 143,
+      "spent": 0,
+      "careSpent": 0,
+      "careRemaining": 0,
+      "studyCount": 0,
+      "studyTotal": 0,
+      "wormProcessed": 6.519498750000168,
+      "actualLitterForMold": true,
+      "inspectionIsNotProcessing": true
+    },
+    "18": {
+      "minutes": 20,
+      "round": 1,
+      "clearAt": 99.5,
+      "cleared": true,
+      "population": 7,
+      "peak": 14,
+      "acquired": 7,
+      "observed": 4,
+      "food": 3,
+      "points": 72,
+      "earned": 86,
+      "spent": 14,
+      "careSpent": 0,
+      "careRemaining": 0,
+      "studyCount": 3,
+      "studyTotal": 12,
+      "wormProcessed": 0,
+      "coreGoalUnchanged": true
+    },
+    "19": {
+      "preview": [
+        "raspberry",
+        "field-mouse",
+        "snail",
+        "snake",
+        "pine",
+        "aphid"
+      ],
+      "guideAvailable": true
+    },
+    "20": {
+      "minutes": 20,
+      "round": 2,
+      "clearAt": 34.5,
+      "cleared": true,
+      "population": 9,
+      "peak": 11,
+      "acquired": 7,
+      "observed": 6,
+      "food": 1,
+      "points": 80,
+      "earned": 8,
+      "spent": 0,
+      "careSpent": 14,
+      "careRemaining": 14,
+      "studyCount": 5,
+      "studyTotal": 20,
+      "wormProcessed": 0
+    },
+    "21": {
+      "minutes": 20,
+      "round": 2,
+      "clearAt": 38.5,
+      "cleared": true,
+      "population": 9,
+      "peak": 12,
+      "acquired": 24,
+      "observed": 16,
+      "food": 1,
+      "points": 158,
+      "earned": 15,
+      "spent": 0,
+      "careSpent": 14,
+      "careRemaining": 14,
+      "studyCount": 3,
+      "studyTotal": 12,
+      "wormProcessed": 0,
+      "differentActualCombination": true
+    },
+    "22": {
+      "minutes": 20,
+      "round": 2,
+      "clearAt": 30.5,
+      "cleared": true,
+      "population": 10,
+      "peak": 12,
+      "acquired": 24,
+      "observed": 16,
+      "food": 0,
+      "points": 158,
+      "earned": 15,
+      "spent": 0,
+      "careSpent": 14,
+      "careRemaining": 14,
+      "studyCount": 3,
+      "studyTotal": 12,
+      "wormProcessed": 6.791155000000158
+    },
+    "23": {
+      "minutes": 20,
+      "round": 2,
+      "clearAt": 34.5,
+      "cleared": true,
+      "population": 9,
+      "peak": 11,
+      "acquired": 24,
+      "observed": 16,
+      "food": 1,
+      "points": 158,
+      "earned": 15,
+      "spent": 0,
+      "careSpent": 14,
+      "careRemaining": 14,
+      "studyCount": 3,
+      "studyTotal": 12,
+      "wormProcessed": 0
+    },
+    "24": {
+      "minutes": 20,
+      "round": 2,
+      "clearAt": 354.5,
+      "cleared": true,
+      "population": 5,
+      "peak": 5,
+      "acquired": 7,
+      "observed": 6,
+      "food": 1,
+      "points": 0,
+      "earned": 0,
+      "spent": 0,
+      "careSpent": 28,
+      "careRemaining": 0,
+      "studyCount": 3,
+      "studyTotal": 12,
+      "wormProcessed": 0,
+      "fixture": "permanent wallet exhausted,actual costs6+6+8+8",
+      "doubleDebit": false
+    },
+    "25": {
+      "minutes": 20,
+      "round": 2,
+      "clearAt": 34.5,
+      "cleared": true,
+      "population": 9,
+      "peak": 11,
+      "acquired": 7,
+      "observed": 6,
+      "food": 1,
+      "points": 8,
+      "earned": 8,
+      "spent": 0,
+      "careSpent": 8,
+      "careRemaining": 20,
+      "studyCount": 5,
+      "studyTotal": 20,
+      "wormProcessed": 0,
+      "fixture": "zero permanent wallet and previous emergency support used",
+      "oldDiscoveryIncome": 0
+    },
+    "26": {
+      "minutes": 20,
+      "round": 3,
+      "clearAt": 49.5,
+      "cleared": true,
+      "population": 9,
+      "peak": 11,
+      "acquired": 7,
+      "observed": 6,
+      "food": 1,
+      "points": 80,
+      "earned": 0,
+      "spent": 0,
+      "careSpent": 14,
+      "careRemaining": 14,
+      "studyCount": 5,
+      "studyTotal": 20,
+      "wormProcessed": 0
+    },
+    "27": {
+      "rounds": 6,
+      "clears": 6,
+      "permanentIncomeEventuallyZero": true,
+      "globalStudyTotal": 20,
+      "economy": [
+        {
+          "round": 2,
+          "topic": "food:v2_pine_to_caterpillar",
+          "startPermanent": 143,
+          "startCare": 28,
+          "earned": 15,
+          "studyEarned": 12,
+          "permanentSpent": 0,
+          "careSpent": 14,
+          "endPermanent": 158,
+          "endCare": 14,
+          "totalCards": 24,
+          "cleared": true
+        },
+        {
+          "round": 3,
+          "topic": "soil",
+          "startPermanent": 158,
+          "startCare": 28,
+          "earned": 8,
+          "studyEarned": 8,
+          "permanentSpent": 0,
+          "careSpent": 14,
+          "endPermanent": 166,
+          "endCare": 14,
+          "totalCards": 24,
+          "cleared": true
+        },
+        {
+          "round": 4,
+          "topic": "producers",
+          "startPermanent": 166,
+          "startCare": 28,
+          "earned": 0,
+          "studyEarned": 0,
+          "permanentSpent": 0,
+          "careSpent": 14,
+          "endPermanent": 166,
+          "endCare": 14,
+          "totalCards": 24,
+          "cleared": true
+        },
+        {
+          "round": 5,
+          "topic": "food:v2_pine_to_caterpillar",
+          "startPermanent": 166,
+          "startCare": 28,
+          "earned": 0,
+          "studyEarned": 0,
+          "permanentSpent": 0,
+          "careSpent": 14,
+          "endPermanent": 166,
+          "endCare": 14,
+          "totalCards": 24,
+          "cleared": true
+        },
+        {
+          "round": 6,
+          "topic": "food:v2_pine_to_caterpillar",
+          "startPermanent": 166,
+          "startCare": 28,
+          "earned": 0,
+          "studyEarned": 0,
+          "permanentSpent": 0,
+          "careSpent": 14,
+          "endPermanent": 166,
+          "endCare": 14,
+          "totalCards": 24,
+          "cleared": true
+        }
+      ]
+    },
+    "28": {
+      "minutes": 20,
+      "round": 2,
+      "clearAt": 30.5,
+      "cleared": true,
+      "population": 10,
+      "peak": 11,
+      "acquired": 24,
+      "observed": 16,
+      "food": 0,
+      "points": 143,
+      "earned": 0,
+      "spent": 0,
+      "careSpent": 0,
+      "careRemaining": 28,
+      "studyCount": 0,
+      "studyTotal": 0,
+      "wormProcessed": 6.519498750000168,
+      "noInvented25thCard": true
+    },
+    "29": {
+      "minutes": 20,
+      "round": 2,
+      "clearAt": 34.5,
+      "cleared": true,
+      "population": 9,
+      "peak": 10,
+      "acquired": 7,
+      "observed": 6,
+      "food": 1,
+      "points": 72,
+      "earned": 0,
+      "spent": 0,
+      "careSpent": 0,
+      "careRemaining": 28,
+      "studyCount": 3,
+      "studyTotal": 12,
+      "wormProcessed": 0,
+      "continuousEquals10Save10": true
+    },
+    "30": {
+      "minutes": 20,
+      "round": 1,
+      "clearAt": null,
+      "cleared": false,
+      "population": 11,
+      "peak": 30,
+      "acquired": 24,
+      "observed": 0,
+      "food": 0,
+      "points": 12,
+      "earned": 12,
+      "spent": 0,
+      "careSpent": 0,
+      "careRemaining": 0,
+      "studyCount": 3,
+      "studyTotal": 12,
+      "wormProcessed": 6.675633000000158,
+      "developerAllCardFixture": true,
+      "threeSameActionFullSnapshotsExact": true,
+      "additionalRiskFixtures": 11
+    }
+  },
+  "profiles": {
+    "instant": {
+      "times": {
+        "firstFood": 5,
+        "firstNew": null,
+        "requiredLearning": 5,
+        "firstGrowth": 211,
+        "firstEnvironment": 240,
+        "firstDecomposer": null
+      },
+      "newCards": [
+        {
+          "speciesId": "rabbit",
+          "at": 0.5
+        },
+        {
+          "speciesId": "frog",
+          "at": 5
+        }
+      ],
+      "novel17": 0,
+      "clearAt": 99.5,
+      "cleared": true,
+      "points": 72,
+      "careSpent": 0,
+      "acquired": 7,
+      "observed": 4,
+      "food": 3,
+      "roundFood": 3,
+      "environmentBeforeClear": false,
+      "meaningfulActions": 28,
+      "availableChoiceIndicator": {
+        "average": 7.411666666666667,
+        "max": 10,
+        "zeroChoiceSeconds": 0,
+        "definition": "unfinished eligible learning + uninspected living instances + pending insight/question + missing owned core placement; optional UI browsing excluded"
+      },
+      "noticesUnique": 25,
+      "noticesByKind": {
+        "alert": 25
+      },
+      "peakActive": 4,
+      "clearEvidence": {
+        "at": 99.5,
+        "foodRelations": [
+          "v2_grass_to_grasshopper",
+          "v2_grasshopper_to_frog",
+          "v2_grass_to_rabbit"
+        ],
+        "activities": [
+          "producer_quiz",
+          "decomposer_classify",
+          "grass_observation",
+          "rabbit_habitat"
+        ],
+        "environmentEpisodes": 0,
+        "growthOpportunity": false,
+        "decomposerInspected": [],
+        "processed": 1.299999999999994,
+        "managementActions": 0
+      },
+      "samples": [
+        {
+          "at": 0.5,
+          "options": 10,
+          "acquired": 6,
+          "points": 11,
+          "stability": 80
+        },
+        {
+          "at": 60.5,
+          "options": 8,
+          "acquired": 7,
+          "points": 51,
+          "stability": 85
+        },
+        {
+          "at": 120.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 51,
+          "stability": 95
+        },
+        {
+          "at": 180.5,
+          "options": 8,
+          "acquired": 7,
+          "points": 51,
+          "stability": 83
+        },
+        {
+          "at": 240.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 51,
+          "stability": 98
+        },
+        {
+          "at": 300.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 51,
+          "stability": 94
+        },
+        {
+          "at": 360.5,
+          "options": 8,
+          "acquired": 7,
+          "points": 62,
+          "stability": 83
+        },
+        {
+          "at": 420.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 62,
+          "stability": 96
+        },
+        {
+          "at": 480.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 62,
+          "stability": 97
+        },
+        {
+          "at": 540.5,
+          "options": 8,
+          "acquired": 7,
+          "points": 62,
+          "stability": 83
+        },
+        {
+          "at": 600.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 62,
+          "stability": 95
+        },
+        {
+          "at": 660.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 66,
+          "stability": 95
+        },
+        {
+          "at": 720.5,
+          "options": 8,
+          "acquired": 7,
+          "points": 66,
+          "stability": 82
+        },
+        {
+          "at": 780.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 66,
+          "stability": 97
+        },
+        {
+          "at": 840.5,
+          "options": 8,
+          "acquired": 7,
+          "points": 66,
+          "stability": 86
+        },
+        {
+          "at": 900.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 66,
+          "stability": 96
+        },
+        {
+          "at": 960.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 66,
+          "stability": 97
+        },
+        {
+          "at": 1020.5,
+          "options": 8,
+          "acquired": 7,
+          "points": 68,
+          "stability": 81
+        },
+        {
+          "at": 1080.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 68,
+          "stability": 95
+        },
+        {
+          "at": 1140.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 72,
+          "stability": 97
+        }
+      ],
+      "hints": [
+        {
+          "at": 0.5,
+          "text": "방아깨비가 강아지풀을 먹는 모습을 관찰해요. 💡가 나타나면 발견 기록하기를 눌러요."
+        },
+        {
+          "at": 240,
+          "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+        },
+        {
+          "at": 600,
+          "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+        },
+        {
+          "at": 960,
+          "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+        }
+      ],
+      "population": {
+        "oak": 2,
+        "mushroom": 1,
+        "rabbit": 1,
+        "frog": 1,
+        "grass": 2
+      },
+      "meals": {
+        "v2_grass_to_grasshopper": 78,
+        "v2_grasshopper_to_frog": 8,
+        "v2_grass_to_rabbit": 44
+      },
+      "processed": 12.279027875000123,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 86,
+      "spent": 14,
+      "peak": 14,
+      "model": {
+        "instantCorrectAnswers": true,
+        "actualStudent": false
+      },
+      "wrongAnswers": 0
+    },
+    "fast": {
+      "times": {
+        "firstFood": 15.5,
+        "firstNew": 60.5,
+        "requiredLearning": 720.5,
+        "firstGrowth": 211,
+        "firstEnvironment": 240,
+        "firstDecomposer": 0.5
+      },
+      "newCards": [
+        {
+          "speciesId": "pine",
+          "at": 60.5
+        },
+        {
+          "speciesId": "raspberry",
+          "at": 60.5
+        },
+        {
+          "speciesId": "caterpillar",
+          "at": 75.5
+        },
+        {
+          "speciesId": "tit",
+          "at": 90.5
+        },
+        {
+          "speciesId": "frog",
+          "at": 180.5
+        },
+        {
+          "speciesId": "rabbit",
+          "at": 240.5
+        }
+      ],
+      "novel17": 4,
+      "clearAt": 780,
+      "cleared": true,
+      "points": 95,
+      "careSpent": 0,
+      "acquired": 11,
+      "observed": 9,
+      "food": 4,
+      "roundFood": 4,
+      "environmentBeforeClear": true,
+      "meaningfulActions": 38,
+      "availableChoiceIndicator": {
+        "average": 6.569166666666667,
+        "max": 8,
+        "zeroChoiceSeconds": 0,
+        "definition": "unfinished eligible learning + uninspected living instances + pending insight/question + missing owned core placement; optional UI browsing excluded"
+      },
+      "noticesUnique": 35,
+      "noticesByKind": {
+        "insight": 4,
+        "alert": 29,
+        "question": 2
+      },
+      "peakActive": 7,
+      "clearEvidence": {
+        "at": 780,
+        "foodRelations": [
+          "v2_grass_to_grasshopper",
+          "v2_pine_to_caterpillar",
+          "v2_grasshopper_to_frog",
+          "v2_grass_to_rabbit"
+        ],
+        "activities": [
+          "producer_quiz",
+          "decomposer_classify",
+          "grass_observation",
+          "rabbit_habitat",
+          "explore_pine",
+          "explore_raspberry",
+          "explore_caterpillar",
+          "explore_tit"
+        ],
+        "environmentEpisodes": 2,
+        "growthOpportunity": true,
+        "decomposerInspected": [
+          "mushroom",
+          "soil-bacteria"
+        ],
+        "processed": 10.644176184722001,
+        "managementActions": 0
+      },
+      "samples": [
+        {
+          "at": 0.5,
+          "options": 5,
+          "acquired": 5,
+          "points": 0,
+          "stability": 80
+        },
+        {
+          "at": 60.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 15,
+          "stability": 93
+        },
+        {
+          "at": 120.5,
+          "options": 7,
+          "acquired": 9,
+          "points": 27,
+          "stability": 94
+        },
+        {
+          "at": 180.5,
+          "options": 6,
+          "acquired": 10,
+          "points": 31,
+          "stability": 89
+        },
+        {
+          "at": 240.5,
+          "options": 7,
+          "acquired": 11,
+          "points": 47,
+          "stability": 82
+        },
+        {
+          "at": 300.5,
+          "options": 6,
+          "acquired": 11,
+          "points": 59,
+          "stability": 93
+        },
+        {
+          "at": 360.5,
+          "options": 7,
+          "acquired": 11,
+          "points": 69,
+          "stability": 83
+        },
+        {
+          "at": 420.5,
+          "options": 6,
+          "acquired": 11,
+          "points": 69,
+          "stability": 83
+        },
+        {
+          "at": 480.5,
+          "options": 6,
+          "acquired": 11,
+          "points": 73,
+          "stability": 95
+        },
+        {
+          "at": 540.5,
+          "options": 7,
+          "acquired": 11,
+          "points": 73,
+          "stability": 85
+        },
+        {
+          "at": 600.5,
+          "options": 6,
+          "acquired": 11,
+          "points": 73,
+          "stability": 95
+        },
+        {
+          "at": 660.5,
+          "options": 6,
+          "acquired": 11,
+          "points": 77,
+          "stability": 95
+        },
+        {
+          "at": 720.5,
+          "options": 7,
+          "acquired": 11,
+          "points": 81,
+          "stability": 91
+        },
+        {
+          "at": 780.5,
+          "options": 6,
+          "acquired": 11,
+          "points": 81,
+          "stability": 96
+        },
+        {
+          "at": 840.5,
+          "options": 7,
+          "acquired": 11,
+          "points": 81,
+          "stability": 88
+        },
+        {
+          "at": 900.5,
+          "options": 6,
+          "acquired": 11,
+          "points": 81,
+          "stability": 89
+        },
+        {
+          "at": 960.5,
+          "options": 6,
+          "acquired": 11,
+          "points": 81,
+          "stability": 97
+        },
+        {
+          "at": 1020.5,
+          "options": 7,
+          "acquired": 11,
+          "points": 91,
+          "stability": 86
+        },
+        {
+          "at": 1080.5,
+          "options": 6,
+          "acquired": 11,
+          "points": 91,
+          "stability": 96
+        },
+        {
+          "at": 1140.5,
+          "options": 6,
+          "acquired": 11,
+          "points": 95,
+          "stability": 94
+        }
+      ],
+      "hints": [
+        {
+          "at": 0.5,
+          "text": "방아깨비가 강아지풀을 먹는 모습을 관찰해요. 💡가 나타나면 발견 기록하기를 눌러요."
+        },
+        {
+          "at": 240,
+          "text": "다시 들이기까지 6초 기다려요. 먹이와 환경을 먼저 살펴보세요."
+        },
+        {
+          "at": 600,
+          "text": "배움에서 구름송편버섯의 역할 활동을 완료해 주세요."
+        },
+        {
+          "at": 960,
+          "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+        }
+      ],
+      "population": {
+        "oak": 2,
+        "mushroom": 1,
+        "soil-bacteria": 1,
+        "pine": 1,
+        "frog": 1,
+        "rabbit": 1,
+        "grass": 3,
+        "caterpillar": 2
+      },
+      "meals": {
+        "v2_grass_to_grasshopper": 82,
+        "v2_pine_to_caterpillar": 99,
+        "v2_grasshopper_to_frog": 7,
+        "v2_grass_to_rabbit": 35
+      },
+      "processed": 16.840447499999417,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 95,
+      "spent": 0,
+      "peak": 18,
+      "model": {
+        "mode": "fast",
+        "cadence": 15,
+        "times": {
+          "producer_quiz": 60,
+          "grass_observation": 180,
+          "rabbit_habitat": 240,
+          "decomposer_classify": 720
+        },
+        "interests": [
+          "pine",
+          "caterpillar",
+          "tit",
+          "raspberry"
+        ],
+        "wrongFirstAttempts": 0,
+        "multipleActionsPerDecision": true,
+        "actualStudent": false
+      },
+      "wrongAnswers": 0
+    },
+    "normal": {
+      "times": {
+        "firstFood": 30.5,
+        "firstNew": 90.5,
+        "requiredLearning": 900.5,
+        "firstGrowth": 211,
+        "firstEnvironment": 240,
+        "firstDecomposer": 0.5
+      },
+      "newCards": [
+        {
+          "speciesId": "pine",
+          "at": 90.5
+        },
+        {
+          "speciesId": "raspberry",
+          "at": 90.5
+        },
+        {
+          "speciesId": "frog",
+          "at": 300.5
+        },
+        {
+          "speciesId": "rabbit",
+          "at": 420.5
+        }
+      ],
+      "novel17": 2,
+      "clearAt": 930,
+      "cleared": true,
+      "points": 83,
+      "careSpent": 0,
+      "acquired": 9,
+      "observed": 7,
+      "food": 3,
+      "roundFood": 3,
+      "environmentBeforeClear": true,
+      "meaningfulActions": 30,
+      "availableChoiceIndicator": {
+        "average": 5.791666666666667,
+        "max": 8,
+        "zeroChoiceSeconds": 0,
+        "definition": "unfinished eligible learning + uninspected living instances + pending insight/question + missing owned core placement; optional UI browsing excluded"
+      },
+      "noticesUnique": 29,
+      "noticesByKind": {
+        "insight": 3,
+        "alert": 24,
+        "question": 2
+      },
+      "peakActive": 5,
+      "clearEvidence": {
+        "at": 930,
+        "foodRelations": [
+          "v2_grass_to_grasshopper",
+          "v2_grasshopper_to_frog",
+          "v2_grass_to_rabbit"
+        ],
+        "activities": [
+          "producer_quiz",
+          "decomposer_classify",
+          "grass_observation",
+          "rabbit_habitat",
+          "explore_pine",
+          "explore_raspberry"
+        ],
+        "environmentEpisodes": 2,
+        "growthOpportunity": true,
+        "decomposerInspected": [
+          "mushroom",
+          "soil-bacteria"
+        ],
+        "processed": 9.605000000000137,
+        "managementActions": 0
+      },
+      "samples": [
+        {
+          "at": 0.5,
+          "options": 5,
+          "acquired": 5,
+          "points": 0,
+          "stability": 80
+        },
+        {
+          "at": 60.5,
+          "options": 7,
+          "acquired": 5,
+          "points": 12,
+          "stability": 93
+        },
+        {
+          "at": 120.5,
+          "options": 6,
+          "acquired": 7,
+          "points": 15,
+          "stability": 89
+        },
+        {
+          "at": 180.5,
+          "options": 6,
+          "acquired": 7,
+          "points": 15,
+          "stability": 85
+        },
+        {
+          "at": 240.5,
+          "options": 6,
+          "acquired": 7,
+          "points": 15,
+          "stability": 89
+        },
+        {
+          "at": 300.5,
+          "options": 5,
+          "acquired": 8,
+          "points": 19,
+          "stability": 83
+        },
+        {
+          "at": 360.5,
+          "options": 7,
+          "acquired": 8,
+          "points": 41,
+          "stability": 66
+        },
+        {
+          "at": 420.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 45,
+          "stability": 92
+        },
+        {
+          "at": 480.5,
+          "options": 6,
+          "acquired": 9,
+          "points": 61,
+          "stability": 82
+        },
+        {
+          "at": 540.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 61,
+          "stability": 81
+        },
+        {
+          "at": 600.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 61,
+          "stability": 96
+        },
+        {
+          "at": 660.5,
+          "options": 6,
+          "acquired": 9,
+          "points": 65,
+          "stability": 84
+        },
+        {
+          "at": 720.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 65,
+          "stability": 84
+        },
+        {
+          "at": 780.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 65,
+          "stability": 98
+        },
+        {
+          "at": 840.5,
+          "options": 6,
+          "acquired": 9,
+          "points": 65,
+          "stability": 84
+        },
+        {
+          "at": 900.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 69,
+          "stability": 95
+        },
+        {
+          "at": 960.5,
+          "options": 6,
+          "acquired": 9,
+          "points": 69,
+          "stability": 87
+        },
+        {
+          "at": 1020.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 79,
+          "stability": 83
+        },
+        {
+          "at": 1080.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 79,
+          "stability": 96
+        },
+        {
+          "at": 1140.5,
+          "options": 6,
+          "acquired": 9,
+          "points": 83,
+          "stability": 84
+        }
+      ],
+      "hints": [
+        {
+          "at": 0.5,
+          "text": "방아깨비가 강아지풀을 먹는 모습을 관찰해요. 💡가 나타나면 발견 기록하기를 눌러요."
+        },
+        {
+          "at": 240,
+          "text": "잠긴 참개구리 카드를 눌러 관찰 활동을 완료해요. 참개구리를 배치할 수 있게 돼요."
+        },
+        {
+          "at": 600,
+          "text": "배움에서 구름송편버섯의 역할 활동을 완료해 주세요."
+        },
+        {
+          "at": 960,
+          "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+        }
+      ],
+      "population": {
+        "oak": 2,
+        "mushroom": 1,
+        "soil-bacteria": 1,
+        "frog": 1,
+        "rabbit": 1,
+        "grass": 3
+      },
+      "meals": {
+        "v2_grass_to_grasshopper": 80,
+        "v2_grasshopper_to_frog": 6,
+        "v2_grass_to_rabbit": 28
+      },
+      "processed": 12.29504250000035,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 83,
+      "spent": 0,
+      "peak": 15,
+      "model": {
+        "mode": "normal",
+        "cadence": 30,
+        "times": {
+          "producer_quiz": 90,
+          "grass_observation": 300,
+          "rabbit_habitat": 420,
+          "decomposer_classify": 900
+        },
+        "interests": [
+          "pine",
+          "raspberry"
+        ],
+        "wrongFirstAttempts": 0,
+        "multipleActionsPerDecision": true,
+        "actualStudent": false
+      },
+      "wrongAnswers": 0
+    },
+    "slow": {
+      "times": {
+        "firstFood": 45.5,
+        "firstNew": 135.5,
+        "requiredLearning": 1260.5,
+        "firstGrowth": 211,
+        "firstEnvironment": 240,
+        "firstDecomposer": 0.5
+      },
+      "newCards": [
+        {
+          "speciesId": "pine",
+          "at": 135.5
+        },
+        {
+          "speciesId": "frog",
+          "at": 450.5
+        },
+        {
+          "speciesId": "rabbit",
+          "at": 630.5
+        }
+      ],
+      "novel17": 1,
+      "clearAt": 1423,
+      "cleared": true,
+      "points": 97,
+      "careSpent": 0,
+      "acquired": 8,
+      "observed": 7,
+      "food": 3,
+      "roundFood": 3,
+      "environmentBeforeClear": true,
+      "meaningfulActions": 32,
+      "availableChoiceIndicator": {
+        "average": 6.761666666666667,
+        "max": 8,
+        "zeroChoiceSeconds": 0,
+        "definition": "unfinished eligible learning + uninspected living instances + pending insight/question + missing owned core placement; optional UI browsing excluded"
+      },
+      "noticesUnique": 42,
+      "noticesByKind": {
+        "insight": 3,
+        "alert": 36,
+        "question": 3
+      },
+      "peakActive": 5,
+      "clearEvidence": {
+        "at": 1423,
+        "foodRelations": [
+          "v2_grass_to_grasshopper",
+          "v2_grasshopper_to_frog",
+          "v2_grass_to_rabbit"
+        ],
+        "activities": [
+          "producer_quiz",
+          "decomposer_classify",
+          "grass_observation",
+          "rabbit_habitat",
+          "explore_pine"
+        ],
+        "environmentEpisodes": 4,
+        "growthOpportunity": true,
+        "decomposerInspected": [
+          "mushroom",
+          "soil-bacteria"
+        ],
+        "processed": 14.339785421875337,
+        "managementActions": 0
+      },
+      "samples": [
+        {
+          "at": 0.5,
+          "options": 5,
+          "acquired": 5,
+          "points": 0,
+          "stability": 80
+        },
+        {
+          "at": 60.5,
+          "options": 7,
+          "acquired": 5,
+          "points": 12,
+          "stability": 93
+        },
+        {
+          "at": 120.5,
+          "options": 7,
+          "acquired": 5,
+          "points": 12,
+          "stability": 89
+        },
+        {
+          "at": 180.5,
+          "options": 7,
+          "acquired": 6,
+          "points": 15,
+          "stability": 85
+        },
+        {
+          "at": 240.5,
+          "options": 7,
+          "acquired": 6,
+          "points": 15,
+          "stability": 89
+        },
+        {
+          "at": 300.5,
+          "options": 7,
+          "acquired": 6,
+          "points": 15,
+          "stability": 83
+        },
+        {
+          "at": 360.5,
+          "options": 7,
+          "acquired": 6,
+          "points": 25,
+          "stability": 87
+        },
+        {
+          "at": 420.5,
+          "options": 7,
+          "acquired": 6,
+          "points": 25,
+          "stability": 85
+        },
+        {
+          "at": 480.5,
+          "options": 8,
+          "acquired": 7,
+          "points": 33,
+          "stability": 68
+        },
+        {
+          "at": 540.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 45,
+          "stability": 68
+        },
+        {
+          "at": 600.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 45,
+          "stability": 96
+        },
+        {
+          "at": 660.5,
+          "options": 8,
+          "acquired": 8,
+          "points": 49,
+          "stability": 83
+        },
+        {
+          "at": 720.5,
+          "options": 6,
+          "acquired": 8,
+          "points": 65,
+          "stability": 83
+        },
+        {
+          "at": 780.5,
+          "options": 6,
+          "acquired": 8,
+          "points": 65,
+          "stability": 95
+        },
+        {
+          "at": 840.5,
+          "options": 7,
+          "acquired": 8,
+          "points": 65,
+          "stability": 87
+        },
+        {
+          "at": 900.5,
+          "options": 6,
+          "acquired": 8,
+          "points": 65,
+          "stability": 98
+        },
+        {
+          "at": 960.5,
+          "options": 7,
+          "acquired": 8,
+          "points": 65,
+          "stability": 86
+        },
+        {
+          "at": 1020.5,
+          "options": 8,
+          "acquired": 8,
+          "points": 65,
+          "stability": 81
+        },
+        {
+          "at": 1080.5,
+          "options": 6,
+          "acquired": 8,
+          "points": 75,
+          "stability": 94
+        },
+        {
+          "at": 1140.5,
+          "options": 7,
+          "acquired": 8,
+          "points": 75,
+          "stability": 86
+        },
+        {
+          "at": 1200.5,
+          "options": 7,
+          "acquired": 8,
+          "points": 79,
+          "stability": 85
+        },
+        {
+          "at": 1260.5,
+          "options": 6,
+          "acquired": 8,
+          "points": 83,
+          "stability": 96
+        },
+        {
+          "at": 1320.5,
+          "options": 7,
+          "acquired": 8,
+          "points": 83,
+          "stability": 84
+        },
+        {
+          "at": 1380.5,
+          "options": 6,
+          "acquired": 8,
+          "points": 83,
+          "stability": 91
+        },
+        {
+          "at": 1440.5,
+          "options": 7,
+          "acquired": 8,
+          "points": 83,
+          "stability": 84
+        },
+        {
+          "at": 1500.5,
+          "options": 7,
+          "acquired": 8,
+          "points": 83,
+          "stability": 84
+        },
+        {
+          "at": 1560.5,
+          "options": 6,
+          "acquired": 8,
+          "points": 87,
+          "stability": 94
+        },
+        {
+          "at": 1620.5,
+          "options": 7,
+          "acquired": 8,
+          "points": 87,
+          "stability": 81
+        },
+        {
+          "at": 1680.5,
+          "options": 6,
+          "acquired": 8,
+          "points": 87,
+          "stability": 96
+        },
+        {
+          "at": 1740.5,
+          "options": 7,
+          "acquired": 8,
+          "points": 87,
+          "stability": 93
+        }
+      ],
+      "hints": [
+        {
+          "at": 0.5,
+          "text": "방아깨비가 강아지풀을 먹는 모습을 관찰해요. 💡가 나타나면 발견 기록하기를 눌러요."
+        },
+        {
+          "at": 240,
+          "text": "잠긴 참개구리 카드를 눌러 관찰 활동을 완료해요. 참개구리를 배치할 수 있게 돼요."
+        },
+        {
+          "at": 600,
+          "text": "배움에서 구름송편버섯의 역할 활동을 완료해 주세요."
+        },
+        {
+          "at": 960,
+          "text": "다시 들이기까지 47초 기다려요. 먹이와 환경을 먼저 살펴보세요."
+        }
+      ],
+      "population": {
+        "oak": 2,
+        "mushroom": 1,
+        "soil-bacteria": 1,
+        "frog": 1,
+        "rabbit": 1,
+        "grass": 4
+      },
+      "meals": {
+        "v2_grass_to_grasshopper": 116,
+        "v2_grasshopper_to_frog": 9,
+        "v2_grass_to_rabbit": 43
+      },
+      "processed": 18.197361351388956,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        },
+        {
+          "kind": "air-pollution",
+          "at": 1320,
+          "phase": "ended"
+        },
+        {
+          "kind": "soil-damage",
+          "at": 1680,
+          "phase": "recovering"
+        }
+      ],
+      "earned": 97,
+      "spent": 0,
+      "peak": 14,
+      "model": {
+        "mode": "slow",
+        "cadence": 45,
+        "times": {
+          "producer_quiz": 120,
+          "grass_observation": 420,
+          "rabbit_habitat": 600,
+          "decomposer_classify": 1260
+        },
+        "interests": [
+          "pine"
+        ],
+        "wrongFirstAttempts": 0,
+        "multipleActionsPerDecision": true,
+        "actualStudent": false
+      },
+      "wrongAnswers": 0
+    },
+    "wrong": {
+      "times": {
+        "firstFood": 30.5,
+        "firstNew": 210.5,
+        "requiredLearning": 960.5,
+        "firstGrowth": 211,
+        "firstEnvironment": 240,
+        "firstDecomposer": 0.5
+      },
+      "newCards": [
+        {
+          "speciesId": "pine",
+          "at": 210.5
+        },
+        {
+          "speciesId": "raspberry",
+          "at": 210.5
+        },
+        {
+          "speciesId": "frog",
+          "at": 300.5
+        },
+        {
+          "speciesId": "rabbit",
+          "at": 420.5
+        }
+      ],
+      "novel17": 2,
+      "clearAt": 1063,
+      "cleared": true,
+      "points": 83,
+      "careSpent": 0,
+      "acquired": 9,
+      "observed": 7,
+      "food": 3,
+      "roundFood": 3,
+      "environmentBeforeClear": true,
+      "meaningfulActions": 30,
+      "availableChoiceIndicator": {
+        "average": 5.941666666666666,
+        "max": 8,
+        "zeroChoiceSeconds": 0,
+        "definition": "unfinished eligible learning + uninspected living instances + pending insight/question + missing owned core placement; optional UI browsing excluded"
+      },
+      "noticesUnique": 29,
+      "noticesByKind": {
+        "insight": 3,
+        "alert": 24,
+        "question": 2
+      },
+      "peakActive": 5,
+      "clearEvidence": {
+        "at": 1063,
+        "foodRelations": [
+          "v2_grass_to_grasshopper",
+          "v2_grasshopper_to_frog",
+          "v2_grass_to_rabbit"
+        ],
+        "activities": [
+          "producer_quiz",
+          "decomposer_classify",
+          "grass_observation",
+          "rabbit_habitat",
+          "explore_pine",
+          "explore_raspberry"
+        ],
+        "environmentEpisodes": 3,
+        "growthOpportunity": true,
+        "decomposerInspected": [
+          "mushroom",
+          "soil-bacteria"
+        ],
+        "processed": 10.930575000000308,
+        "managementActions": 0
+      },
+      "samples": [
+        {
+          "at": 0.5,
+          "options": 5,
+          "acquired": 5,
+          "points": 0,
+          "stability": 80
+        },
+        {
+          "at": 60.5,
+          "options": 7,
+          "acquired": 5,
+          "points": 12,
+          "stability": 93
+        },
+        {
+          "at": 120.5,
+          "options": 7,
+          "acquired": 5,
+          "points": 12,
+          "stability": 89
+        },
+        {
+          "at": 180.5,
+          "options": 8,
+          "acquired": 5,
+          "points": 15,
+          "stability": 85
+        },
+        {
+          "at": 240.5,
+          "options": 6,
+          "acquired": 7,
+          "points": 15,
+          "stability": 89
+        },
+        {
+          "at": 300.5,
+          "options": 5,
+          "acquired": 8,
+          "points": 19,
+          "stability": 83
+        },
+        {
+          "at": 360.5,
+          "options": 7,
+          "acquired": 8,
+          "points": 41,
+          "stability": 66
+        },
+        {
+          "at": 420.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 45,
+          "stability": 92
+        },
+        {
+          "at": 480.5,
+          "options": 6,
+          "acquired": 9,
+          "points": 61,
+          "stability": 82
+        },
+        {
+          "at": 540.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 61,
+          "stability": 81
+        },
+        {
+          "at": 600.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 61,
+          "stability": 96
+        },
+        {
+          "at": 660.5,
+          "options": 6,
+          "acquired": 9,
+          "points": 65,
+          "stability": 84
+        },
+        {
+          "at": 720.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 65,
+          "stability": 84
+        },
+        {
+          "at": 780.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 65,
+          "stability": 98
+        },
+        {
+          "at": 840.5,
+          "options": 6,
+          "acquired": 9,
+          "points": 65,
+          "stability": 84
+        },
+        {
+          "at": 900.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 65,
+          "stability": 95
+        },
+        {
+          "at": 960.5,
+          "options": 6,
+          "acquired": 9,
+          "points": 69,
+          "stability": 87
+        },
+        {
+          "at": 1020.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 79,
+          "stability": 83
+        },
+        {
+          "at": 1080.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 79,
+          "stability": 96
+        },
+        {
+          "at": 1140.5,
+          "options": 6,
+          "acquired": 9,
+          "points": 83,
+          "stability": 84
+        }
+      ],
+      "hints": [
+        {
+          "at": 0.5,
+          "text": "방아깨비가 강아지풀을 먹는 모습을 관찰해요. 💡가 나타나면 발견 기록하기를 눌러요."
+        },
+        {
+          "at": 240,
+          "text": "잠긴 참개구리 카드를 눌러 관찰 활동을 완료해요. 참개구리를 배치할 수 있게 돼요."
+        },
+        {
+          "at": 600,
+          "text": "배움에서 구름송편버섯의 역할 활동을 완료해 주세요."
+        },
+        {
+          "at": 960,
+          "text": "배움에서 구름송편버섯의 역할 활동을 완료해 주세요."
+        }
+      ],
+      "population": {
+        "oak": 2,
+        "mushroom": 1,
+        "soil-bacteria": 1,
+        "frog": 1,
+        "rabbit": 1,
+        "grass": 3
+      },
+      "meals": {
+        "v2_grass_to_grasshopper": 80,
+        "v2_grasshopper_to_frog": 6,
+        "v2_grass_to_rabbit": 28
+      },
+      "processed": 12.29504250000035,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 83,
+      "spent": 0,
+      "peak": 15,
+      "model": {
+        "mode": "normal",
+        "cadence": 30,
+        "times": {
+          "producer_quiz": 90,
+          "grass_observation": 300,
+          "rabbit_habitat": 420,
+          "decomposer_classify": 900
+        },
+        "interests": [
+          "pine",
+          "raspberry"
+        ],
+        "wrongFirstAttempts": 2,
+        "multipleActionsPerDecision": true,
+        "actualStudent": false
+      },
+      "wrongAnswers": 8
+    },
+    "collector": {
+      "times": {
+        "firstFood": 5,
+        "firstNew": 0.5,
+        "requiredLearning": 5,
+        "firstGrowth": 91,
+        "firstEnvironment": 240,
+        "firstDecomposer": 0.5
+      },
+      "newCards": [
+        {
+          "speciesId": "rabbit",
+          "at": 0.5
+        },
+        {
+          "speciesId": "pine",
+          "at": 0.5
+        },
+        {
+          "speciesId": "raspberry",
+          "at": 0.5
+        },
+        {
+          "speciesId": "chipmunk",
+          "at": 0.5
+        },
+        {
+          "speciesId": "caterpillar",
+          "at": 0.5
+        },
+        {
+          "speciesId": "snail",
+          "at": 0.5
+        },
+        {
+          "speciesId": "earthworm",
+          "at": 0.5
+        },
+        {
+          "speciesId": "litter-mold",
+          "at": 1
+        },
+        {
+          "speciesId": "frog",
+          "at": 5
+        },
+        {
+          "speciesId": "field-mouse",
+          "at": 5
+        },
+        {
+          "speciesId": "hazel",
+          "at": 9
+        },
+        {
+          "speciesId": "aphid",
+          "at": 9
+        },
+        {
+          "speciesId": "tit",
+          "at": 9
+        },
+        {
+          "speciesId": "bulbul",
+          "at": 9
+        },
+        {
+          "speciesId": "snake",
+          "at": 10
+        },
+        {
+          "speciesId": "ladybird",
+          "at": 13
+        },
+        {
+          "speciesId": "spider",
+          "at": 32
+        },
+        {
+          "speciesId": "weasel",
+          "at": 320
+        },
+        {
+          "speciesId": "goshawk",
+          "at": 320
+        }
+      ],
+      "novel17": 17,
+      "clearAt": 99.5,
+      "cleared": true,
+      "points": 143,
+      "careSpent": 0,
+      "acquired": 24,
+      "observed": 16,
+      "food": 9,
+      "roundFood": 9,
+      "environmentBeforeClear": false,
+      "meaningfulActions": 71,
+      "availableChoiceIndicator": {
+        "average": 0.3858333333333333,
+        "max": 1,
+        "zeroChoiceSeconds": 737,
+        "definition": "unfinished eligible learning + uninspected living instances + pending insight/question + missing owned core placement; optional UI browsing excluded"
+      },
+      "noticesUnique": 44,
+      "noticesByKind": {
+        "alert": 44
+      },
+      "peakActive": 10,
+      "clearEvidence": {
+        "at": 99.5,
+        "foodRelations": [
+          "v2_grass_to_grasshopper",
+          "v2_pine_to_chipmunk",
+          "v2_pine_to_caterpillar",
+          "v2_grasshopper_to_frog",
+          "v2_grass_to_snail",
+          "v2_raspberry_to_bulbul",
+          "v2_grass_to_rabbit",
+          "v2_hazel_to_aphid"
+        ],
+        "activities": [
+          "producer_quiz",
+          "decomposer_classify",
+          "grass_observation",
+          "rabbit_habitat",
+          "explore_pine",
+          "explore_raspberry",
+          "explore_hazel",
+          "explore_chipmunk",
+          "explore_field-mouse",
+          "explore_caterpillar",
+          "explore_aphid",
+          "explore_snail",
+          "explore_spider",
+          "explore_ladybird",
+          "explore_tit",
+          "explore_bulbul",
+          "explore_snake",
+          "explore_earthworm",
+          "explore_litter-mold"
+        ],
+        "environmentEpisodes": 0,
+        "growthOpportunity": true,
+        "decomposerInspected": [
+          "mushroom",
+          "soil-bacteria"
+        ],
+        "processed": 2.1909999999999936,
+        "managementActions": 0
+      },
+      "samples": [
+        {
+          "at": 0.5,
+          "options": 0,
+          "acquired": 12,
+          "points": 11,
+          "stability": 80
+        },
+        {
+          "at": 60.5,
+          "options": 1,
+          "acquired": 22,
+          "points": 111,
+          "stability": 94
+        },
+        {
+          "at": 120.5,
+          "options": 0,
+          "acquired": 22,
+          "points": 111,
+          "stability": 95
+        },
+        {
+          "at": 180.5,
+          "options": 1,
+          "acquired": 22,
+          "points": 111,
+          "stability": 93
+        },
+        {
+          "at": 240.5,
+          "options": 0,
+          "acquired": 22,
+          "points": 111,
+          "stability": 97
+        },
+        {
+          "at": 300.5,
+          "options": 0,
+          "acquired": 22,
+          "points": 111,
+          "stability": 92
+        },
+        {
+          "at": 360.5,
+          "options": 1,
+          "acquired": 24,
+          "points": 133,
+          "stability": 88
+        },
+        {
+          "at": 420.5,
+          "options": 0,
+          "acquired": 24,
+          "points": 133,
+          "stability": 93
+        },
+        {
+          "at": 480.5,
+          "options": 0,
+          "acquired": 24,
+          "points": 133,
+          "stability": 94
+        },
+        {
+          "at": 540.5,
+          "options": 1,
+          "acquired": 24,
+          "points": 133,
+          "stability": 93
+        },
+        {
+          "at": 600.5,
+          "options": 0,
+          "acquired": 24,
+          "points": 133,
+          "stability": 95
+        },
+        {
+          "at": 660.5,
+          "options": 0,
+          "acquired": 24,
+          "points": 133,
+          "stability": 95
+        },
+        {
+          "at": 720.5,
+          "options": 1,
+          "acquired": 24,
+          "points": 133,
+          "stability": 94
+        },
+        {
+          "at": 780.5,
+          "options": 0,
+          "acquired": 24,
+          "points": 133,
+          "stability": 97
+        },
+        {
+          "at": 840.5,
+          "options": 1,
+          "acquired": 24,
+          "points": 133,
+          "stability": 94
+        },
+        {
+          "at": 900.5,
+          "options": 0,
+          "acquired": 24,
+          "points": 133,
+          "stability": 95
+        },
+        {
+          "at": 960.5,
+          "options": 0,
+          "acquired": 24,
+          "points": 133,
+          "stability": 97
+        },
+        {
+          "at": 1020.5,
+          "options": 1,
+          "acquired": 24,
+          "points": 143,
+          "stability": 90
+        },
+        {
+          "at": 1080.5,
+          "options": 0,
+          "acquired": 24,
+          "points": 143,
+          "stability": 94
+        },
+        {
+          "at": 1140.5,
+          "options": 0,
+          "acquired": 24,
+          "points": 143,
+          "stability": 95
+        }
+      ],
+      "hints": [
+        {
+          "at": 0.5,
+          "text": "방아깨비가 강아지풀을 먹는 모습을 관찰해요. 💡가 나타나면 발견 기록하기를 눌러요."
+        },
+        {
+          "at": 240,
+          "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+        },
+        {
+          "at": 600,
+          "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+        },
+        {
+          "at": 960,
+          "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+        }
+      ],
+      "population": {
+        "oak": 2,
+        "mushroom": 1,
+        "rabbit": 1,
+        "pine": 1,
+        "snail": 1,
+        "raspberry": 1,
+        "chipmunk": 1,
+        "soil-bacteria": 1,
+        "earthworm": 1,
+        "frog": 1,
+        "hazel": 1,
+        "bulbul": 1,
+        "grass": 3,
+        "caterpillar": 2
+      },
+      "meals": {
+        "v2_grass_to_grasshopper": 78,
+        "v2_pine_to_chipmunk": 21,
+        "v2_pine_to_caterpillar": 108,
+        "v2_grasshopper_to_frog": 8,
+        "v2_grass_to_snail": 44,
+        "v2_raspberry_to_bulbul": 70,
+        "v2_grass_to_rabbit": 44,
+        "v2_hazel_to_aphid": 23,
+        "v2_oak_to_chipmunk": 60
+      },
+      "processed": 25.357631429513145,
+      "wormProcessed": 6.519498750000168,
+      "soilContribution": 0,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 143,
+      "spent": 0,
+      "peak": 24,
+      "model": {
+        "instantCorrectAnswers": true,
+        "actualStudent": false
+      },
+      "wrongAnswers": 0
+    },
+    "manager": {
+      "times": {
+        "firstFood": 5,
+        "firstNew": null,
+        "requiredLearning": 5,
+        "firstGrowth": 211,
+        "firstEnvironment": 240,
+        "firstDecomposer": null
+      },
+      "newCards": [
+        {
+          "speciesId": "rabbit",
+          "at": 0.5
+        },
+        {
+          "speciesId": "frog",
+          "at": 5
+        }
+      ],
+      "novel17": 0,
+      "clearAt": 99.5,
+      "cleared": true,
+      "points": 72,
+      "careSpent": 0,
+      "acquired": 7,
+      "observed": 4,
+      "food": 3,
+      "roundFood": 3,
+      "environmentBeforeClear": false,
+      "meaningfulActions": 28,
+      "availableChoiceIndicator": {
+        "average": 7.411666666666667,
+        "max": 10,
+        "zeroChoiceSeconds": 0,
+        "definition": "unfinished eligible learning + uninspected living instances + pending insight/question + missing owned core placement; optional UI browsing excluded"
+      },
+      "noticesUnique": 25,
+      "noticesByKind": {
+        "alert": 25
+      },
+      "peakActive": 4,
+      "clearEvidence": {
+        "at": 99.5,
+        "foodRelations": [
+          "v2_grass_to_grasshopper",
+          "v2_grasshopper_to_frog",
+          "v2_grass_to_rabbit"
+        ],
+        "activities": [
+          "producer_quiz",
+          "decomposer_classify",
+          "grass_observation",
+          "rabbit_habitat"
+        ],
+        "environmentEpisodes": 0,
+        "growthOpportunity": false,
+        "decomposerInspected": [],
+        "processed": 1.299999999999994,
+        "managementActions": 0
+      },
+      "samples": [
+        {
+          "at": 0.5,
+          "options": 10,
+          "acquired": 6,
+          "points": 11,
+          "stability": 80
+        },
+        {
+          "at": 60.5,
+          "options": 8,
+          "acquired": 7,
+          "points": 51,
+          "stability": 85
+        },
+        {
+          "at": 120.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 51,
+          "stability": 95
+        },
+        {
+          "at": 180.5,
+          "options": 8,
+          "acquired": 7,
+          "points": 51,
+          "stability": 83
+        },
+        {
+          "at": 240.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 51,
+          "stability": 98
+        },
+        {
+          "at": 300.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 51,
+          "stability": 94
+        },
+        {
+          "at": 360.5,
+          "options": 8,
+          "acquired": 7,
+          "points": 62,
+          "stability": 83
+        },
+        {
+          "at": 420.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 62,
+          "stability": 96
+        },
+        {
+          "at": 480.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 62,
+          "stability": 97
+        },
+        {
+          "at": 540.5,
+          "options": 8,
+          "acquired": 7,
+          "points": 62,
+          "stability": 83
+        },
+        {
+          "at": 600.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 62,
+          "stability": 95
+        },
+        {
+          "at": 660.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 66,
+          "stability": 95
+        },
+        {
+          "at": 720.5,
+          "options": 8,
+          "acquired": 7,
+          "points": 66,
+          "stability": 82
+        },
+        {
+          "at": 780.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 66,
+          "stability": 97
+        },
+        {
+          "at": 840.5,
+          "options": 8,
+          "acquired": 7,
+          "points": 66,
+          "stability": 86
+        },
+        {
+          "at": 900.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 66,
+          "stability": 96
+        },
+        {
+          "at": 960.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 66,
+          "stability": 97
+        },
+        {
+          "at": 1020.5,
+          "options": 8,
+          "acquired": 7,
+          "points": 68,
+          "stability": 81
+        },
+        {
+          "at": 1080.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 68,
+          "stability": 95
+        },
+        {
+          "at": 1140.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 72,
+          "stability": 97
+        }
+      ],
+      "hints": [
+        {
+          "at": 0.5,
+          "text": "방아깨비가 강아지풀을 먹는 모습을 관찰해요. 💡가 나타나면 발견 기록하기를 눌러요."
+        },
+        {
+          "at": 240,
+          "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+        },
+        {
+          "at": 600,
+          "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+        },
+        {
+          "at": 960,
+          "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+        }
+      ],
+      "population": {
+        "oak": 2,
+        "mushroom": 1,
+        "rabbit": 1,
+        "frog": 1,
+        "grass": 2
+      },
+      "meals": {
+        "v2_grass_to_grasshopper": 78,
+        "v2_grasshopper_to_frog": 8,
+        "v2_grass_to_rabbit": 44
+      },
+      "processed": 12.279027875000123,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 86,
+      "spent": 14,
+      "peak": 14,
+      "model": {
+        "instantCorrectAnswers": true,
+        "actualStudent": false
+      },
+      "wrongAnswers": 0
+    }
+  },
+  "ecology": {
+    "student": {
+      "minutes": 20,
+      "total": 7,
+      "types": 5,
+      "meals": {
+        "v2_grass_to_grasshopper": 78,
+        "v2_grasshopper_to_frog": 8,
+        "v2_grass_to_rabbit": 44
+      },
+      "predation": 8,
+      "naturalEnd": 8,
+      "starvation": 0,
+      "reproduction": 5,
+      "replenishment": 0,
+      "developmentChanges": 10,
+      "processed": 12.279027875000123,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 0,
+      "organicOrigins": 8,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 86,
+      "spent": 14,
+      "points": 72,
+      "stability": 84,
+      "cleared": true,
+      "clearedAt": 99.5,
+      "currentlyGoalReady": false,
+      "final": {
+        "oak": 2,
+        "mushroom": 1,
+        "rabbit": 1,
+        "frog": 1,
+        "grass": 2
+      },
+      "peak": 14,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 10,
+          "stability": 80,
+          "points": 11
+        },
+        {
+          "at": 60.5,
+          "total": 10,
+          "stability": 85,
+          "points": 51
+        },
+        {
+          "at": 120.5,
+          "total": 12,
+          "stability": 95,
+          "points": 51
+        },
+        {
+          "at": 180.5,
+          "total": 11,
+          "stability": 83,
+          "points": 51
+        },
+        {
+          "at": 240.5,
+          "total": 13,
+          "stability": 98,
+          "points": 51
+        },
+        {
+          "at": 300.5,
+          "total": 13,
+          "stability": 94,
+          "points": 51
+        },
+        {
+          "at": 360.5,
+          "total": 12,
+          "stability": 83,
+          "points": 62
+        },
+        {
+          "at": 420.5,
+          "total": 13,
+          "stability": 96,
+          "points": 62
+        },
+        {
+          "at": 480.5,
+          "total": 14,
+          "stability": 97,
+          "points": 62
+        },
+        {
+          "at": 540.5,
+          "total": 13,
+          "stability": 83,
+          "points": 62
+        },
+        {
+          "at": 600.5,
+          "total": 14,
+          "stability": 95,
+          "points": 62
+        },
+        {
+          "at": 660.5,
+          "total": 14,
+          "stability": 95,
+          "points": 66
+        },
+        {
+          "at": 720.5,
+          "total": 12,
+          "stability": 82,
+          "points": 66
+        },
+        {
+          "at": 780.5,
+          "total": 12,
+          "stability": 97,
+          "points": 66
+        },
+        {
+          "at": 840.5,
+          "total": 10,
+          "stability": 86,
+          "points": 66
+        },
+        {
+          "at": 900.5,
+          "total": 10,
+          "stability": 96,
+          "points": 66
+        },
+        {
+          "at": 960.5,
+          "total": 11,
+          "stability": 97,
+          "points": 66
+        },
+        {
+          "at": 1020.5,
+          "total": 9,
+          "stability": 81,
+          "points": 68
+        },
+        {
+          "at": 1080.5,
+          "total": 9,
+          "stability": 95,
+          "points": 68
+        },
+        {
+          "at": 1140.5,
+          "total": 9,
+          "stability": 97,
+          "points": 72
+        }
+      ]
+    },
+    "established": {
+      "minutes": 20,
+      "total": 10,
+      "types": 5,
+      "meals": {
+        "v2_grass_to_grasshopper": 306,
+        "v2_grasshopper_to_frog": 8,
+        "v2_grass_to_rabbit": 88
+      },
+      "predation": 8,
+      "naturalEnd": 9,
+      "starvation": 0,
+      "reproduction": 7,
+      "replenishment": 3,
+      "developmentChanges": 15,
+      "processed": 13.832702500000096,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 0,
+      "organicOrigins": 9,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 15,
+      "spent": 14,
+      "points": 31,
+      "stability": 85,
+      "cleared": true,
+      "clearedAt": 30,
+      "currentlyGoalReady": false,
+      "final": {
+        "oak": 2,
+        "frog": 1,
+        "mushroom": 1,
+        "rabbit": 2,
+        "grass": 4
+      },
+      "peak": 17,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 17,
+          "stability": 95,
+          "points": 30
+        },
+        {
+          "at": 60.5,
+          "total": 16,
+          "stability": 93,
+          "points": 30
+        },
+        {
+          "at": 120.5,
+          "total": 16,
+          "stability": 94,
+          "points": 30
+        },
+        {
+          "at": 180.5,
+          "total": 15,
+          "stability": 97,
+          "points": 30
+        },
+        {
+          "at": 240.5,
+          "total": 15,
+          "stability": 97,
+          "points": 30
+        },
+        {
+          "at": 300.5,
+          "total": 17,
+          "stability": 93,
+          "points": 30
+        },
+        {
+          "at": 360.5,
+          "total": 16,
+          "stability": 95,
+          "points": 31
+        },
+        {
+          "at": 420.5,
+          "total": 16,
+          "stability": 97,
+          "points": 31
+        },
+        {
+          "at": 480.5,
+          "total": 15,
+          "stability": 96,
+          "points": 31
+        },
+        {
+          "at": 540.5,
+          "total": 15,
+          "stability": 96,
+          "points": 31
+        },
+        {
+          "at": 600.5,
+          "total": 15,
+          "stability": 97,
+          "points": 31
+        },
+        {
+          "at": 660.5,
+          "total": 15,
+          "stability": 96,
+          "points": 35
+        },
+        {
+          "at": 720.5,
+          "total": 14,
+          "stability": 97,
+          "points": 35
+        },
+        {
+          "at": 780.5,
+          "total": 13,
+          "stability": 96,
+          "points": 35
+        },
+        {
+          "at": 840.5,
+          "total": 11,
+          "stability": 86,
+          "points": 35
+        },
+        {
+          "at": 900.5,
+          "total": 11,
+          "stability": 98,
+          "points": 35
+        },
+        {
+          "at": 960.5,
+          "total": 12,
+          "stability": 96,
+          "points": 35
+        },
+        {
+          "at": 1020.5,
+          "total": 10,
+          "stability": 82,
+          "points": 27
+        },
+        {
+          "at": 1080.5,
+          "total": 11,
+          "stability": 94,
+          "points": 27
+        },
+        {
+          "at": 1140.5,
+          "total": 11,
+          "stability": 95,
+          "points": 31
+        }
+      ]
+    },
+    "mixed24": {
+      "minutes": 20,
+      "total": 11,
+      "types": 10,
+      "meals": {
+        "v2_grass_to_grasshopper": 1,
+        "v2_grasshopper_to_frog": 1,
+        "v2_caterpillar_to_tit": 5,
+        "v2_frog_to_weasel": 1,
+        "v2_pine_to_chipmunk": 1,
+        "v2_hazel_to_bulbul": 15,
+        "v2_grass_to_snail": 1,
+        "v2_snail_to_ladybird": 1,
+        "v2_chipmunk_to_goshawk": 1,
+        "v2_grass_to_rabbit": 18,
+        "v2_hazel_to_aphid": 1,
+        "v2_aphid_to_spider": 1,
+        "v2_spider_to_tit": 1,
+        "v2_bulbul_to_goshawk": 1,
+        "v2_rabbit_to_goshawk": 1
+      },
+      "predation": 13,
+      "naturalEnd": 8,
+      "starvation": 5,
+      "reproduction": 3,
+      "replenishment": 4,
+      "developmentChanges": 8,
+      "processed": 42.10466899999922,
+      "wormProcessed": 6.675633000000158,
+      "soilContribution": 0,
+      "noticesShown": 12,
+      "organicOrigins": 12,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 12,
+      "spent": 0,
+      "points": 12,
+      "stability": 86,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "oak": 1,
+        "mushroom": 1,
+        "pine": 1,
+        "raspberry": 1,
+        "hazel": 1,
+        "tit": 1,
+        "litter-mold": 1,
+        "soil-bacteria": 1,
+        "earthworm": 1,
+        "grass": 2
+      },
+      "peak": 30,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 30,
+          "stability": 96,
+          "points": 0
+        },
+        {
+          "at": 60.5,
+          "total": 24,
+          "stability": 87,
+          "points": 0
+        },
+        {
+          "at": 120.5,
+          "total": 23,
+          "stability": 85,
+          "points": 0
+        },
+        {
+          "at": 180.5,
+          "total": 23,
+          "stability": 85,
+          "points": 0
+        },
+        {
+          "at": 240.5,
+          "total": 23,
+          "stability": 85,
+          "points": 0
+        },
+        {
+          "at": 300.5,
+          "total": 21,
+          "stability": 86,
+          "points": 0
+        },
+        {
+          "at": 360.5,
+          "total": 20,
+          "stability": 87,
+          "points": 0
+        },
+        {
+          "at": 420.5,
+          "total": 20,
+          "stability": 87,
+          "points": 0
+        },
+        {
+          "at": 480.5,
+          "total": 20,
+          "stability": 87,
+          "points": 4
+        },
+        {
+          "at": 540.5,
+          "total": 18,
+          "stability": 81,
+          "points": 4
+        },
+        {
+          "at": 600.5,
+          "total": 18,
+          "stability": 81,
+          "points": 4
+        },
+        {
+          "at": 660.5,
+          "total": 18,
+          "stability": 82,
+          "points": 8
+        },
+        {
+          "at": 720.5,
+          "total": 18,
+          "stability": 82,
+          "points": 8
+        },
+        {
+          "at": 780.5,
+          "total": 14,
+          "stability": 83,
+          "points": 8
+        },
+        {
+          "at": 840.5,
+          "total": 13,
+          "stability": 83,
+          "points": 8
+        },
+        {
+          "at": 900.5,
+          "total": 13,
+          "stability": 83,
+          "points": 8
+        },
+        {
+          "at": 960.5,
+          "total": 12,
+          "stability": 83,
+          "points": 8
+        },
+        {
+          "at": 1020.5,
+          "total": 12,
+          "stability": 80,
+          "points": 8
+        },
+        {
+          "at": 1080.5,
+          "total": 11,
+          "stability": 84,
+          "points": 8
+        },
+        {
+          "at": 1140.5,
+          "total": 11,
+          "stability": 86,
+          "points": 12
+        }
+      ]
+    }
+  },
+  "ecologyRisks": {
+    "noProducer": {
+      "fixture": true,
+      "minutes": 20,
+      "total": 1,
+      "types": 1,
+      "meals": {
+        "v2_grasshopper_to_frog": 2
+      },
+      "predation": 2,
+      "naturalEnd": 0,
+      "starvation": 1,
+      "reproduction": 0,
+      "replenishment": 0,
+      "developmentChanges": 0,
+      "processed": 1.7999999999999112,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 0,
+      "organicOrigins": 1,
+      "episodes": [],
+      "earned": 0,
+      "spent": 0,
+      "points": 0,
+      "stability": 28,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "mushroom": 1
+      },
+      "peak": 4,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 4,
+          "stability": 72,
+          "points": 0
+        },
+        {
+          "at": 60.5,
+          "total": 3,
+          "stability": 76,
+          "points": 0
+        },
+        {
+          "at": 120.5,
+          "total": 3,
+          "stability": 76,
+          "points": 0
+        },
+        {
+          "at": 180.5,
+          "total": 2,
+          "stability": 58,
+          "points": 0
+        },
+        {
+          "at": 240.5,
+          "total": 2,
+          "stability": 58,
+          "points": 0
+        },
+        {
+          "at": 300.5,
+          "total": 2,
+          "stability": 58,
+          "points": 0
+        },
+        {
+          "at": 360.5,
+          "total": 2,
+          "stability": 58,
+          "points": 0
+        },
+        {
+          "at": 420.5,
+          "total": 2,
+          "stability": 58,
+          "points": 0
+        },
+        {
+          "at": 480.5,
+          "total": 2,
+          "stability": 58,
+          "points": 0
+        },
+        {
+          "at": 540.5,
+          "total": 2,
+          "stability": 58,
+          "points": 0
+        },
+        {
+          "at": 600.5,
+          "total": 1,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 660.5,
+          "total": 1,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 720.5,
+          "total": 1,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 780.5,
+          "total": 1,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 840.5,
+          "total": 1,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 900.5,
+          "total": 1,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 960.5,
+          "total": 1,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 1020.5,
+          "total": 1,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 1080.5,
+          "total": 1,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 1140.5,
+          "total": 1,
+          "stability": 28,
+          "points": 0
+        }
+      ],
+      "eggs": {
+        "healthySeconds": 0,
+        "nextAt": 150.5,
+        "reserve": 0
+      },
+      "resources": {
+        "wood": 0,
+        "litter": 0,
+        "remains": 0
+      },
+      "finalEnvironment": {
+        "sunlight": 1,
+        "water": 1,
+        "air": 1,
+        "soil": 1
+      }
+    },
+    "noConsumer": {
+      "fixture": true,
+      "minutes": 20,
+      "total": 8,
+      "types": 3,
+      "meals": {},
+      "predation": 0,
+      "naturalEnd": 6,
+      "starvation": 0,
+      "reproduction": 7,
+      "replenishment": 0,
+      "developmentChanges": 13,
+      "processed": 12.299699999999989,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 0,
+      "organicOrigins": 6,
+      "episodes": [],
+      "earned": 0,
+      "spent": 0,
+      "points": 0,
+      "stability": 57,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "oak": 2,
+        "mushroom": 1,
+        "grass": 5
+      },
+      "peak": 11,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 7,
+          "stability": 57,
+          "points": 0
+        },
+        {
+          "at": 60.5,
+          "total": 7,
+          "stability": 57,
+          "points": 0
+        },
+        {
+          "at": 120.5,
+          "total": 8,
+          "stability": 57,
+          "points": 0
+        },
+        {
+          "at": 180.5,
+          "total": 8,
+          "stability": 57,
+          "points": 0
+        },
+        {
+          "at": 240.5,
+          "total": 9,
+          "stability": 56,
+          "points": 0
+        },
+        {
+          "at": 300.5,
+          "total": 9,
+          "stability": 56,
+          "points": 0
+        },
+        {
+          "at": 360.5,
+          "total": 10,
+          "stability": 55,
+          "points": 0
+        },
+        {
+          "at": 420.5,
+          "total": 10,
+          "stability": 55,
+          "points": 0
+        },
+        {
+          "at": 480.5,
+          "total": 11,
+          "stability": 53,
+          "points": 0
+        },
+        {
+          "at": 540.5,
+          "total": 11,
+          "stability": 53,
+          "points": 0
+        },
+        {
+          "at": 600.5,
+          "total": 11,
+          "stability": 53,
+          "points": 0
+        },
+        {
+          "at": 660.5,
+          "total": 11,
+          "stability": 53,
+          "points": 0
+        },
+        {
+          "at": 720.5,
+          "total": 11,
+          "stability": 53,
+          "points": 0
+        },
+        {
+          "at": 780.5,
+          "total": 8,
+          "stability": 57,
+          "points": 0
+        },
+        {
+          "at": 840.5,
+          "total": 8,
+          "stability": 57,
+          "points": 0
+        },
+        {
+          "at": 900.5,
+          "total": 8,
+          "stability": 57,
+          "points": 0
+        },
+        {
+          "at": 960.5,
+          "total": 7,
+          "stability": 57,
+          "points": 0
+        },
+        {
+          "at": 1020.5,
+          "total": 7,
+          "stability": 57,
+          "points": 0
+        },
+        {
+          "at": 1080.5,
+          "total": 7,
+          "stability": 57,
+          "points": 0
+        },
+        {
+          "at": 1140.5,
+          "total": 8,
+          "stability": 57,
+          "points": 0
+        }
+      ],
+      "eggs": {
+        "healthySeconds": 0,
+        "nextAt": 150.5,
+        "reserve": 0
+      },
+      "resources": {
+        "wood": 0.00029999999988875124,
+        "litter": 29.999,
+        "remains": 0
+      },
+      "finalEnvironment": {
+        "sunlight": 1,
+        "water": 1,
+        "air": 1,
+        "soil": 1
+      }
+    },
+    "wrongFood": {
+      "fixture": true,
+      "minutes": 20,
+      "total": 1,
+      "types": 1,
+      "meals": {},
+      "predation": 0,
+      "naturalEnd": 0,
+      "starvation": 2,
+      "reproduction": 0,
+      "replenishment": 0,
+      "developmentChanges": 0,
+      "processed": 6.541000000000148,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 0,
+      "organicOrigins": 2,
+      "episodes": [],
+      "earned": 0,
+      "spent": 0,
+      "points": 0,
+      "stability": 28,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "pine": 1
+      },
+      "peak": 3,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 3,
+          "stability": 58,
+          "points": 0
+        },
+        {
+          "at": 60.5,
+          "total": 3,
+          "stability": 58,
+          "points": 0
+        },
+        {
+          "at": 120.5,
+          "total": 3,
+          "stability": 58,
+          "points": 0
+        },
+        {
+          "at": 180.5,
+          "total": 3,
+          "stability": 58,
+          "points": 0
+        },
+        {
+          "at": 240.5,
+          "total": 3,
+          "stability": 58,
+          "points": 0
+        },
+        {
+          "at": 300.5,
+          "total": 3,
+          "stability": 58,
+          "points": 0
+        },
+        {
+          "at": 360.5,
+          "total": 1,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 420.5,
+          "total": 1,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 480.5,
+          "total": 1,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 540.5,
+          "total": 1,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 600.5,
+          "total": 1,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 660.5,
+          "total": 1,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 720.5,
+          "total": 1,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 780.5,
+          "total": 1,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 840.5,
+          "total": 1,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 900.5,
+          "total": 1,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 960.5,
+          "total": 1,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 1020.5,
+          "total": 1,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 1080.5,
+          "total": 1,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 1140.5,
+          "total": 1,
+          "stability": 28,
+          "points": 0
+        }
+      ],
+      "eggs": {
+        "healthySeconds": 0,
+        "nextAt": 150.5,
+        "reserve": 0
+      },
+      "resources": {
+        "wood": 2.700000000000035,
+        "litter": 7.699999999999158,
+        "remains": 0.2590000000001095
+      },
+      "finalEnvironment": {
+        "sunlight": 1,
+        "water": 1,
+        "air": 1,
+        "soil": 1
+      }
+    },
+    "manyPredators": {
+      "fixture": true,
+      "minutes": 20,
+      "total": 6,
+      "types": 1,
+      "meals": {
+        "v2_grass_to_grasshopper": 1,
+        "v2_grasshopper_to_frog": 1
+      },
+      "predation": 1,
+      "naturalEnd": 6,
+      "starvation": 5,
+      "reproduction": 8,
+      "replenishment": 0,
+      "developmentChanges": 13,
+      "processed": 4.560999999999719,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 0,
+      "organicOrigins": 11,
+      "episodes": [],
+      "earned": 0,
+      "spent": 0,
+      "points": 0,
+      "stability": 28,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "grass": 6
+      },
+      "peak": 11,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 10,
+          "stability": 77,
+          "points": 0
+        },
+        {
+          "at": 60.5,
+          "total": 9,
+          "stability": 58,
+          "points": 0
+        },
+        {
+          "at": 120.5,
+          "total": 10,
+          "stability": 58,
+          "points": 0
+        },
+        {
+          "at": 180.5,
+          "total": 10,
+          "stability": 58,
+          "points": 0
+        },
+        {
+          "at": 240.5,
+          "total": 11,
+          "stability": 58,
+          "points": 0
+        },
+        {
+          "at": 300.5,
+          "total": 7,
+          "stability": 48,
+          "points": 0
+        },
+        {
+          "at": 360.5,
+          "total": 8,
+          "stability": 46,
+          "points": 0
+        },
+        {
+          "at": 420.5,
+          "total": 7,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 480.5,
+          "total": 8,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 540.5,
+          "total": 8,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 600.5,
+          "total": 8,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 660.5,
+          "total": 8,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 720.5,
+          "total": 7,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 780.5,
+          "total": 7,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 840.5,
+          "total": 7,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 900.5,
+          "total": 6,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 960.5,
+          "total": 5,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 1020.5,
+          "total": 4,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 1080.5,
+          "total": 5,
+          "stability": 28,
+          "points": 0
+        },
+        {
+          "at": 1140.5,
+          "total": 5,
+          "stability": 28,
+          "points": 0
+        }
+      ],
+      "eggs": {
+        "healthySeconds": 0,
+        "nextAt": 150.5,
+        "reserve": 0
+      },
+      "resources": {
+        "wood": 0,
+        "litter": 29.999,
+        "remains": 3.13899999999986
+      },
+      "finalEnvironment": {
+        "sunlight": 1,
+        "water": 1,
+        "air": 1,
+        "soil": 1
+      }
+    },
+    "finiteEggs": {
+      "fixture": true,
+      "minutes": 20,
+      "total": 11,
+      "types": 5,
+      "meals": {
+        "v2_grass_to_grasshopper": 209,
+        "v2_grasshopper_to_frog": 8
+      },
+      "predation": 8,
+      "naturalEnd": 8,
+      "starvation": 0,
+      "reproduction": 11,
+      "replenishment": 3,
+      "developmentChanges": 18,
+      "processed": 14.299700000000021,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 2,
+      "organicOrigins": 8,
+      "episodes": [],
+      "earned": 0,
+      "spent": 0,
+      "points": 0,
+      "stability": 70,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "oak": 2,
+        "frog": 1,
+        "mushroom": 1,
+        "soil-bacteria": 1,
+        "grass": 6
+      },
+      "peak": 15,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 13,
+          "stability": 94,
+          "points": 0
+        },
+        {
+          "at": 60.5,
+          "total": 12,
+          "stability": 98,
+          "points": 0
+        },
+        {
+          "at": 120.5,
+          "total": 13,
+          "stability": 98,
+          "points": 0
+        },
+        {
+          "at": 180.5,
+          "total": 13,
+          "stability": 96,
+          "points": 0
+        },
+        {
+          "at": 240.5,
+          "total": 14,
+          "stability": 98,
+          "points": 0
+        },
+        {
+          "at": 300.5,
+          "total": 14,
+          "stability": 96,
+          "points": 0
+        },
+        {
+          "at": 360.5,
+          "total": 15,
+          "stability": 98,
+          "points": 0
+        },
+        {
+          "at": 420.5,
+          "total": 15,
+          "stability": 96,
+          "points": 0
+        },
+        {
+          "at": 480.5,
+          "total": 15,
+          "stability": 98,
+          "points": 0
+        },
+        {
+          "at": 540.5,
+          "total": 14,
+          "stability": 95,
+          "points": 0
+        },
+        {
+          "at": 600.5,
+          "total": 14,
+          "stability": 93,
+          "points": 0
+        },
+        {
+          "at": 660.5,
+          "total": 13,
+          "stability": 69,
+          "points": 0
+        },
+        {
+          "at": 720.5,
+          "total": 13,
+          "stability": 94,
+          "points": 0
+        },
+        {
+          "at": 780.5,
+          "total": 13,
+          "stability": 96,
+          "points": 0
+        },
+        {
+          "at": 840.5,
+          "total": 11,
+          "stability": 70,
+          "points": 0
+        },
+        {
+          "at": 900.5,
+          "total": 11,
+          "stability": 97,
+          "points": 0
+        },
+        {
+          "at": 960.5,
+          "total": 11,
+          "stability": 95,
+          "points": 0
+        },
+        {
+          "at": 1020.5,
+          "total": 10,
+          "stability": 70,
+          "points": 0
+        },
+        {
+          "at": 1080.5,
+          "total": 12,
+          "stability": 97,
+          "points": 0
+        },
+        {
+          "at": 1140.5,
+          "total": 11,
+          "stability": 95,
+          "points": 0
+        }
+      ],
+      "eggs": {
+        "healthySeconds": 150,
+        "nextAt": 1137.5,
+        "reserve": 2
+      },
+      "resources": {
+        "wood": 0.00029999999988875124,
+        "litter": 29.999,
+        "remains": 0
+      },
+      "finalEnvironment": {
+        "sunlight": 1,
+        "water": 1,
+        "air": 1,
+        "soil": 1
+      }
+    },
+    "exhaustedEggs": {
+      "fixture": true,
+      "minutes": 20,
+      "total": 10,
+      "types": 4,
+      "meals": {},
+      "predation": 0,
+      "naturalEnd": 6,
+      "starvation": 1,
+      "reproduction": 8,
+      "replenishment": 0,
+      "developmentChanges": 13,
+      "processed": 13.299699999999978,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 1,
+      "organicOrigins": 7,
+      "episodes": [],
+      "earned": 0,
+      "spent": 0,
+      "points": 0,
+      "stability": 62,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "oak": 2,
+        "mushroom": 1,
+        "soil-bacteria": 1,
+        "grass": 6
+      },
+      "peak": 12,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 9,
+          "stability": 71,
+          "points": 0
+        },
+        {
+          "at": 60.5,
+          "total": 9,
+          "stability": 71,
+          "points": 0
+        },
+        {
+          "at": 120.5,
+          "total": 10,
+          "stability": 70,
+          "points": 0
+        },
+        {
+          "at": 180.5,
+          "total": 10,
+          "stability": 70,
+          "points": 0
+        },
+        {
+          "at": 240.5,
+          "total": 11,
+          "stability": 70,
+          "points": 0
+        },
+        {
+          "at": 300.5,
+          "total": 10,
+          "stability": 62,
+          "points": 0
+        },
+        {
+          "at": 360.5,
+          "total": 11,
+          "stability": 62,
+          "points": 0
+        },
+        {
+          "at": 420.5,
+          "total": 11,
+          "stability": 62,
+          "points": 0
+        },
+        {
+          "at": 480.5,
+          "total": 12,
+          "stability": 61,
+          "points": 0
+        },
+        {
+          "at": 540.5,
+          "total": 12,
+          "stability": 61,
+          "points": 0
+        },
+        {
+          "at": 600.5,
+          "total": 12,
+          "stability": 61,
+          "points": 0
+        },
+        {
+          "at": 660.5,
+          "total": 12,
+          "stability": 61,
+          "points": 0
+        },
+        {
+          "at": 720.5,
+          "total": 11,
+          "stability": 62,
+          "points": 0
+        },
+        {
+          "at": 780.5,
+          "total": 9,
+          "stability": 62,
+          "points": 0
+        },
+        {
+          "at": 840.5,
+          "total": 9,
+          "stability": 62,
+          "points": 0
+        },
+        {
+          "at": 900.5,
+          "total": 9,
+          "stability": 62,
+          "points": 0
+        },
+        {
+          "at": 960.5,
+          "total": 9,
+          "stability": 62,
+          "points": 0
+        },
+        {
+          "at": 1020.5,
+          "total": 8,
+          "stability": 62,
+          "points": 0
+        },
+        {
+          "at": 1080.5,
+          "total": 9,
+          "stability": 62,
+          "points": 0
+        },
+        {
+          "at": 1140.5,
+          "total": 9,
+          "stability": 62,
+          "points": 0
+        }
+      ],
+      "eggs": {
+        "healthySeconds": 0,
+        "nextAt": 0,
+        "reserve": 0
+      },
+      "resources": {
+        "wood": 0.00029999999988875124,
+        "litter": 29.999,
+        "remains": 0
+      },
+      "finalEnvironment": {
+        "sunlight": 1,
+        "water": 1,
+        "air": 1,
+        "soil": 1
+      }
+    },
+    "naturalLifespan": {
+      "fixture": true,
+      "minutes": 20,
+      "total": 10,
+      "types": 5,
+      "meals": {
+        "v2_grass_to_grasshopper": 195,
+        "v2_grasshopper_to_frog": 8
+      },
+      "predation": 8,
+      "naturalEnd": 8,
+      "starvation": 0,
+      "reproduction": 9,
+      "replenishment": 4,
+      "developmentChanges": 17,
+      "processed": 14.299700000000088,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 2,
+      "organicOrigins": 8,
+      "episodes": [],
+      "earned": 0,
+      "spent": 0,
+      "points": 0,
+      "stability": 70,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "oak": 2,
+        "frog": 1,
+        "mushroom": 1,
+        "soil-bacteria": 1,
+        "grass": 5
+      },
+      "peak": 15,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 13,
+          "stability": 94,
+          "points": 0
+        },
+        {
+          "at": 60.5,
+          "total": 12,
+          "stability": 98,
+          "points": 0
+        },
+        {
+          "at": 120.5,
+          "total": 13,
+          "stability": 98,
+          "points": 0
+        },
+        {
+          "at": 180.5,
+          "total": 13,
+          "stability": 96,
+          "points": 0
+        },
+        {
+          "at": 240.5,
+          "total": 14,
+          "stability": 98,
+          "points": 0
+        },
+        {
+          "at": 300.5,
+          "total": 14,
+          "stability": 96,
+          "points": 0
+        },
+        {
+          "at": 360.5,
+          "total": 15,
+          "stability": 98,
+          "points": 0
+        },
+        {
+          "at": 420.5,
+          "total": 14,
+          "stability": 96,
+          "points": 0
+        },
+        {
+          "at": 480.5,
+          "total": 14,
+          "stability": 95,
+          "points": 0
+        },
+        {
+          "at": 540.5,
+          "total": 13,
+          "stability": 69,
+          "points": 0
+        },
+        {
+          "at": 600.5,
+          "total": 14,
+          "stability": 95,
+          "points": 0
+        },
+        {
+          "at": 660.5,
+          "total": 13,
+          "stability": 69,
+          "points": 0
+        },
+        {
+          "at": 720.5,
+          "total": 14,
+          "stability": 94,
+          "points": 0
+        },
+        {
+          "at": 780.5,
+          "total": 12,
+          "stability": 97,
+          "points": 0
+        },
+        {
+          "at": 840.5,
+          "total": 10,
+          "stability": 70,
+          "points": 0
+        },
+        {
+          "at": 900.5,
+          "total": 11,
+          "stability": 97,
+          "points": 0
+        },
+        {
+          "at": 960.5,
+          "total": 10,
+          "stability": 96,
+          "points": 0
+        },
+        {
+          "at": 1020.5,
+          "total": 10,
+          "stability": 70,
+          "points": 0
+        },
+        {
+          "at": 1080.5,
+          "total": 11,
+          "stability": 98,
+          "points": 0
+        },
+        {
+          "at": 1140.5,
+          "total": 11,
+          "stability": 95,
+          "points": 0
+        }
+      ],
+      "eggs": {
+        "healthySeconds": 150,
+        "nextAt": 1138,
+        "reserve": 1
+      },
+      "resources": {
+        "wood": 0.00029999999988875124,
+        "litter": 29.999,
+        "remains": 0
+      },
+      "finalEnvironment": {
+        "sunlight": 1,
+        "water": 1,
+        "air": 1,
+        "soil": 1
+      }
+    },
+    "waterBad": {
+      "fixture": true,
+      "minutes": 20,
+      "total": 2,
+      "types": 1,
+      "meals": {
+        "v2_grass_to_grasshopper": 56,
+        "v2_grasshopper_to_frog": 3
+      },
+      "predation": 3,
+      "naturalEnd": 5,
+      "starvation": 1,
+      "reproduction": 0,
+      "replenishment": 0,
+      "developmentChanges": 0,
+      "processed": 7.578559950000084,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 2,
+      "organicOrigins": 6,
+      "episodes": [],
+      "earned": 0,
+      "spent": 0,
+      "points": 0,
+      "stability": 24,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "oak": 2
+      },
+      "peak": 13,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 13,
+          "stability": 90,
+          "points": 0
+        },
+        {
+          "at": 60.5,
+          "total": 12,
+          "stability": 88,
+          "points": 0
+        },
+        {
+          "at": 120.5,
+          "total": 12,
+          "stability": 88,
+          "points": 0
+        },
+        {
+          "at": 180.5,
+          "total": 11,
+          "stability": 89,
+          "points": 0
+        },
+        {
+          "at": 240.5,
+          "total": 11,
+          "stability": 89,
+          "points": 0
+        },
+        {
+          "at": 300.5,
+          "total": 11,
+          "stability": 89,
+          "points": 0
+        },
+        {
+          "at": 360.5,
+          "total": 10,
+          "stability": 93,
+          "points": 0
+        },
+        {
+          "at": 420.5,
+          "total": 10,
+          "stability": 95,
+          "points": 0
+        },
+        {
+          "at": 480.5,
+          "total": 9,
+          "stability": 66,
+          "points": 0
+        },
+        {
+          "at": 540.5,
+          "total": 9,
+          "stability": 66,
+          "points": 0
+        },
+        {
+          "at": 600.5,
+          "total": 9,
+          "stability": 66,
+          "points": 0
+        },
+        {
+          "at": 660.5,
+          "total": 9,
+          "stability": 66,
+          "points": 0
+        },
+        {
+          "at": 720.5,
+          "total": 6,
+          "stability": 57,
+          "points": 0
+        },
+        {
+          "at": 780.5,
+          "total": 4,
+          "stability": 52,
+          "points": 0
+        },
+        {
+          "at": 840.5,
+          "total": 4,
+          "stability": 52,
+          "points": 0
+        },
+        {
+          "at": 900.5,
+          "total": 2,
+          "stability": 24,
+          "points": 0
+        },
+        {
+          "at": 960.5,
+          "total": 2,
+          "stability": 24,
+          "points": 0
+        },
+        {
+          "at": 1020.5,
+          "total": 2,
+          "stability": 24,
+          "points": 0
+        },
+        {
+          "at": 1080.5,
+          "total": 2,
+          "stability": 24,
+          "points": 0
+        },
+        {
+          "at": 1140.5,
+          "total": 2,
+          "stability": 24,
+          "points": 0
+        }
+      ],
+      "eggs": {
+        "healthySeconds": 0,
+        "nextAt": 150.5,
+        "reserve": 0
+      },
+      "resources": {
+        "wood": 6.487162499999404,
+        "litter": 29.999,
+        "remains": 0.23427755000002448
+      },
+      "finalEnvironment": {
+        "sunlight": 1,
+        "water": 0.15,
+        "air": 1,
+        "soil": 1
+      }
+    },
+    "soilBad": {
+      "fixture": true,
+      "minutes": 20,
+      "total": 2,
+      "types": 1,
+      "meals": {
+        "v2_grass_to_grasshopper": 82,
+        "v2_grasshopper_to_frog": 3
+      },
+      "predation": 3,
+      "naturalEnd": 5,
+      "starvation": 1,
+      "reproduction": 0,
+      "replenishment": 0,
+      "developmentChanges": 0,
+      "processed": 7.711639500000084,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 2,
+      "organicOrigins": 6,
+      "episodes": [],
+      "earned": 0,
+      "spent": 0,
+      "points": 0,
+      "stability": 24,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "oak": 2
+      },
+      "peak": 13,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 13,
+          "stability": 90,
+          "points": 0
+        },
+        {
+          "at": 60.5,
+          "total": 12,
+          "stability": 88,
+          "points": 0
+        },
+        {
+          "at": 120.5,
+          "total": 12,
+          "stability": 88,
+          "points": 0
+        },
+        {
+          "at": 180.5,
+          "total": 11,
+          "stability": 92,
+          "points": 0
+        },
+        {
+          "at": 240.5,
+          "total": 11,
+          "stability": 92,
+          "points": 0
+        },
+        {
+          "at": 300.5,
+          "total": 11,
+          "stability": 94,
+          "points": 0
+        },
+        {
+          "at": 360.5,
+          "total": 10,
+          "stability": 92,
+          "points": 0
+        },
+        {
+          "at": 420.5,
+          "total": 9,
+          "stability": 66,
+          "points": 0
+        },
+        {
+          "at": 480.5,
+          "total": 9,
+          "stability": 66,
+          "points": 0
+        },
+        {
+          "at": 540.5,
+          "total": 9,
+          "stability": 66,
+          "points": 0
+        },
+        {
+          "at": 600.5,
+          "total": 9,
+          "stability": 66,
+          "points": 0
+        },
+        {
+          "at": 660.5,
+          "total": 9,
+          "stability": 66,
+          "points": 0
+        },
+        {
+          "at": 720.5,
+          "total": 8,
+          "stability": 57,
+          "points": 0
+        },
+        {
+          "at": 780.5,
+          "total": 5,
+          "stability": 52,
+          "points": 0
+        },
+        {
+          "at": 840.5,
+          "total": 4,
+          "stability": 52,
+          "points": 0
+        },
+        {
+          "at": 900.5,
+          "total": 2,
+          "stability": 24,
+          "points": 0
+        },
+        {
+          "at": 960.5,
+          "total": 2,
+          "stability": 24,
+          "points": 0
+        },
+        {
+          "at": 1020.5,
+          "total": 2,
+          "stability": 24,
+          "points": 0
+        },
+        {
+          "at": 1080.5,
+          "total": 2,
+          "stability": 24,
+          "points": 0
+        },
+        {
+          "at": 1140.5,
+          "total": 2,
+          "stability": 24,
+          "points": 0
+        }
+      ],
+      "eggs": {
+        "healthySeconds": 0,
+        "nextAt": 150.5,
+        "reserve": 0
+      },
+      "resources": {
+        "wood": 6.487162499999404,
+        "litter": 29.999,
+        "remains": 0.10119800000001133
+      },
+      "finalEnvironment": {
+        "sunlight": 1,
+        "water": 1,
+        "air": 1,
+        "soil": 0.15
+      }
+    },
+    "airBad": {
+      "fixture": true,
+      "minutes": 20,
+      "total": 2,
+      "types": 1,
+      "meals": {
+        "v2_grass_to_grasshopper": 105,
+        "v2_grasshopper_to_frog": 4
+      },
+      "predation": 4,
+      "naturalEnd": 4,
+      "starvation": 1,
+      "reproduction": 0,
+      "replenishment": 0,
+      "developmentChanges": 0,
+      "processed": 6.469837500000094,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 0,
+      "organicOrigins": 5,
+      "episodes": [],
+      "earned": 0,
+      "spent": 0,
+      "points": 0,
+      "stability": 24,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "oak": 2
+      },
+      "peak": 13,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 13,
+          "stability": 90,
+          "points": 0
+        },
+        {
+          "at": 60.5,
+          "total": 12,
+          "stability": 92,
+          "points": 0
+        },
+        {
+          "at": 120.5,
+          "total": 12,
+          "stability": 93,
+          "points": 0
+        },
+        {
+          "at": 180.5,
+          "total": 11,
+          "stability": 92,
+          "points": 0
+        },
+        {
+          "at": 240.5,
+          "total": 11,
+          "stability": 92,
+          "points": 0
+        },
+        {
+          "at": 300.5,
+          "total": 11,
+          "stability": 92,
+          "points": 0
+        },
+        {
+          "at": 360.5,
+          "total": 10,
+          "stability": 95,
+          "points": 0
+        },
+        {
+          "at": 420.5,
+          "total": 10,
+          "stability": 93,
+          "points": 0
+        },
+        {
+          "at": 480.5,
+          "total": 10,
+          "stability": 95,
+          "points": 0
+        },
+        {
+          "at": 540.5,
+          "total": 9,
+          "stability": 66,
+          "points": 0
+        },
+        {
+          "at": 600.5,
+          "total": 9,
+          "stability": 66,
+          "points": 0
+        },
+        {
+          "at": 660.5,
+          "total": 9,
+          "stability": 66,
+          "points": 0
+        },
+        {
+          "at": 720.5,
+          "total": 9,
+          "stability": 66,
+          "points": 0
+        },
+        {
+          "at": 780.5,
+          "total": 6,
+          "stability": 69,
+          "points": 0
+        },
+        {
+          "at": 840.5,
+          "total": 5,
+          "stability": 71,
+          "points": 0
+        },
+        {
+          "at": 900.5,
+          "total": 2,
+          "stability": 24,
+          "points": 0
+        },
+        {
+          "at": 960.5,
+          "total": 2,
+          "stability": 24,
+          "points": 0
+        },
+        {
+          "at": 1020.5,
+          "total": 2,
+          "stability": 24,
+          "points": 0
+        },
+        {
+          "at": 1080.5,
+          "total": 2,
+          "stability": 24,
+          "points": 0
+        },
+        {
+          "at": 1140.5,
+          "total": 2,
+          "stability": 24,
+          "points": 0
+        }
+      ],
+      "eggs": {
+        "healthySeconds": 0,
+        "nextAt": 150.5,
+        "reserve": 0
+      },
+      "resources": {
+        "wood": 6.487162499999404,
+        "litter": 29.999,
+        "remains": 0.3429999999999994
+      },
+      "finalEnvironment": {
+        "sunlight": 1,
+        "water": 1,
+        "air": 0.15,
+        "soil": 1
+      }
+    },
+    "noDecomposer": {
+      "fixture": true,
+      "minutes": 20,
+      "total": 8,
+      "types": 3,
+      "meals": {
+        "v2_grass_to_grasshopper": 195,
+        "v2_grasshopper_to_frog": 8
+      },
+      "predation": 8,
+      "naturalEnd": 8,
+      "starvation": 0,
+      "reproduction": 9,
+      "replenishment": 4,
+      "developmentChanges": 14,
+      "processed": 6.353000000000155,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 0,
+      "organicOrigins": 8,
+      "episodes": [],
+      "earned": 0,
+      "spent": 0,
+      "points": 0,
+      "stability": 61,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "oak": 2,
+        "frog": 1,
+        "grass": 5
+      },
+      "peak": 13,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 11,
+          "stability": 87,
+          "points": 0
+        },
+        {
+          "at": 60.5,
+          "total": 10,
+          "stability": 91,
+          "points": 0
+        },
+        {
+          "at": 120.5,
+          "total": 11,
+          "stability": 91,
+          "points": 0
+        },
+        {
+          "at": 180.5,
+          "total": 11,
+          "stability": 89,
+          "points": 0
+        },
+        {
+          "at": 240.5,
+          "total": 12,
+          "stability": 91,
+          "points": 0
+        },
+        {
+          "at": 300.5,
+          "total": 12,
+          "stability": 89,
+          "points": 0
+        },
+        {
+          "at": 360.5,
+          "total": 13,
+          "stability": 91,
+          "points": 0
+        },
+        {
+          "at": 420.5,
+          "total": 13,
+          "stability": 90,
+          "points": 0
+        },
+        {
+          "at": 480.5,
+          "total": 13,
+          "stability": 91,
+          "points": 0
+        },
+        {
+          "at": 540.5,
+          "total": 11,
+          "stability": 56,
+          "points": 0
+        },
+        {
+          "at": 600.5,
+          "total": 12,
+          "stability": 90,
+          "points": 0
+        },
+        {
+          "at": 660.5,
+          "total": 11,
+          "stability": 56,
+          "points": 0
+        },
+        {
+          "at": 720.5,
+          "total": 9,
+          "stability": 60,
+          "points": 0
+        },
+        {
+          "at": 780.5,
+          "total": 9,
+          "stability": 91,
+          "points": 0
+        },
+        {
+          "at": 840.5,
+          "total": 9,
+          "stability": 60,
+          "points": 0
+        },
+        {
+          "at": 900.5,
+          "total": 10,
+          "stability": 92,
+          "points": 0
+        },
+        {
+          "at": 960.5,
+          "total": 9,
+          "stability": 90,
+          "points": 0
+        },
+        {
+          "at": 1020.5,
+          "total": 8,
+          "stability": 61,
+          "points": 0
+        },
+        {
+          "at": 1080.5,
+          "total": 9,
+          "stability": 92,
+          "points": 0
+        },
+        {
+          "at": 1140.5,
+          "total": 9,
+          "stability": 88,
+          "points": 0
+        }
+      ],
+      "eggs": {
+        "healthySeconds": 150,
+        "nextAt": 1136,
+        "reserve": 1
+      },
+      "resources": {
+        "wood": 7.49999999999921,
+        "litter": 29.999,
+        "remains": 0.4470000000000848
+      },
+      "finalEnvironment": {
+        "sunlight": 1,
+        "water": 1,
+        "air": 1,
+        "soil": 1
+      }
+    }
+  },
+  "economy": [
+    {
+      "round": 2,
+      "topic": "food:v2_pine_to_caterpillar",
+      "startPermanent": 143,
+      "startCare": 28,
+      "earned": 15,
+      "studyEarned": 12,
+      "permanentSpent": 0,
+      "careSpent": 14,
+      "endPermanent": 158,
+      "endCare": 14,
+      "totalCards": 24,
+      "cleared": true
+    },
+    {
+      "round": 3,
+      "topic": "soil",
+      "startPermanent": 158,
+      "startCare": 28,
+      "earned": 8,
+      "studyEarned": 8,
+      "permanentSpent": 0,
+      "careSpent": 14,
+      "endPermanent": 166,
+      "endCare": 14,
+      "totalCards": 24,
+      "cleared": true
+    },
+    {
+      "round": 4,
+      "topic": "producers",
+      "startPermanent": 166,
+      "startCare": 28,
+      "earned": 0,
+      "studyEarned": 0,
+      "permanentSpent": 0,
+      "careSpent": 14,
+      "endPermanent": 166,
+      "endCare": 14,
+      "totalCards": 24,
+      "cleared": true
+    },
+    {
+      "round": 5,
+      "topic": "food:v2_pine_to_caterpillar",
+      "startPermanent": 166,
+      "startCare": 28,
+      "earned": 0,
+      "studyEarned": 0,
+      "permanentSpent": 0,
+      "careSpent": 14,
+      "endPermanent": 166,
+      "endCare": 14,
+      "totalCards": 24,
+      "cleared": true
+    },
+    {
+      "round": 6,
+      "topic": "food:v2_pine_to_caterpillar",
+      "startPermanent": 166,
+      "startCare": 28,
+      "earned": 0,
+      "studyEarned": 0,
+      "permanentSpent": 0,
+      "careSpent": 14,
+      "endPermanent": 166,
+      "endCare": 14,
+      "totalCards": 24,
+      "cleared": true
+    }
+  ],
+  "classroom": [
+    {
+      "id": 1,
+      "total": 40,
+      "intro": 5,
+      "playBudget": 30,
+      "wrap": 5,
+      "firstClearMinutes": 15.5,
+      "firstCompleted": true
+    },
+    {
+      "id": 2,
+      "total": 40,
+      "intro": 3,
+      "wrap": 5,
+      "firstClearMinutes": 13,
+      "secondAvailableMinutes": 19,
+      "secondOptional": true
+    },
+    {
+      "id": 3,
+      "intro": 5,
+      "wrap": 5,
+      "earlyStopAt": 10,
+      "savedAndLoaded": true,
+      "incompleteWhenSaved": true,
+      "resumedClearAt": 1423,
+      "fullModelClearMinutes": 23.716666666666665,
+      "secondMandatory": false
+    },
+    {
+      "id": 4,
+      "newCards": 0,
+      "nextTargets": [
+        "raspberry",
+        "field-mouse",
+        "snail",
+        "snake",
+        "pine",
+        "aphid"
+      ],
+      "guide": "다시 들이기까지 15초 기다려요. 먹이와 환경을 먼저 살펴보세요."
+    },
+    {
+      "id": 5,
+      "cards": 24,
+      "secondTopics": [
+        "food:v2_pine_to_caterpillar",
+        "soil",
+        "producers"
+      ],
+      "plans": [
+        {
+          "needed": [
+            "pine",
+            "caterpillar"
+          ],
+          "relationId": "v2_pine_to_caterpillar",
+          "title": "소나무 → 솔나방 애벌레(송충이)",
+          "description": "두 생물을 놓고 실제로 먹기를 관찰해요. 💡에서 이번 숲의 발견을 기록해요. 생산자·소비자·분해자와 환경도 함께 돌봐요."
+        },
+        {
+          "needed": [
+            "earthworm",
+            "mushroom",
+            "soil-bacteria"
+          ],
+          "title": "낙엽과 토양",
+          "description": "참지렁이·구름송편버섯·고초균을 이 숲에서 눌러 비교해요. 참지렁이의 실제 낙엽 섭식도 살펴봐요. 동물의 섭식과 균류·세균의 분해는 달라요."
+        },
+        {
+          "needed": [
+            "oak",
+            "grass"
+          ],
+          "producerIds": [
+            "oak",
+            "grass"
+          ],
+          "relationId": "v2_grass_to_grasshopper",
+          "title": "여러 생산자",
+          "description": "이번 숲의 생산자 두 종류를 눌러 살펴봐요. 먹이 관계 하나를 실제로 관찰하고 💡에 기록해요. 환경과 생물 역할의 균형도 돌봐요."
+        }
+      ]
+    }
+  ]
+}

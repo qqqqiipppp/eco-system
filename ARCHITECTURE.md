@@ -1,3 +1,15 @@
+# 15단계 책임과 현재 계약
+
+data/card-unlocks.js의17개 고정 활동에3개 선택지·오답별 이유·집필자 예상 난도와 실제 관찰 근거를 둡니다. 신규 systems/learning-guidance.js는 순수 읽기 함수로 개체 부재/미획득/미관찰/대기 💡/실제 litter 섭식·반복 주제의 다음 행동을 파생합니다. activity-rules와 UI가 같은 근거를 읽으며 새 저장 필드를 만들지 않습니다. activity-rules는 조건, activities는 최초 완료/해금/기존 보상 경계를 유지합니다. 이미 완료한 신규 활동은 강화 조건을 재요구하지 않고 기존 권한/완료 시각을 보호합니다.
+
+activity-view는 접는 힌트와 현재 근거, collection-view는 필터·현재 개체 수·놓기/주제 설명을 담당합니다. main은 기존 selectSpecies를 콜백으로 연결합니다. 놓기 버튼은 선택만 하며 실제 placement 검증·서식지 투영·충돌·개체 ID는 그대로 입니다. goal-guidance의 💡 우선순위와 반복 주제 안내만 보완했습니다. 생태·분해·먹이·환경 사건·관리/경제·save/replay 엔진과시간/서식지 설정은 변경하지 않았습니다.
+
+schema16/생태2/시간1·단일 키·7~16 호환·미래17 보호 유지. 영구 성취/현재 회차 경계는14단계 계약을 따릅니다. 신규 타이머·RAF·서버·추적·이미지는 없습니다. [밸런스 감사](FOREST_BALANCE_AUDIT.md)와 [15단계 보고](STAGE15_REPORT.md)에 검증 경계가 있습니다.
+
+---
+
+아래는14단계 이전 설계·검증 이력입니다. 현재 동작·수치는 위15단계 안내를 우선합니다.
+
 # 14단계 현재 계약
 
 새 모듈: data/card-unlocks.js는 17개 활동/힌트, state/collection-state.js는 영구 도감과 회차 정보, systems/replay.js는 보유 카드에 맞는 주제·새 숲 후보 생성, systems/round-care.js는 비이월 관리 지원 차감, services/collection-migration.js는 저장16 확장, ui/collection-view.js는 도감·먹이그물·클리어·확인창입니다. main.js는 기존 상태 객체의 정체성을 유지하며 저장 성공 후 시스템 캐시와 DOM을 교체합니다. inventory/activities/기존 원장은 호환성을 위해 원래 필드를 유지하고 명시적 영구 필드 목록으로 이월합니다. 생태 계산과 habitat 엔진을 복제하지 않습니다.

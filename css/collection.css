@@ -15,3 +15,5 @@
 .header-actions button{font-size:12px;padding:6px 8px}.organism-card.locked-card .card-caption{font-size:10px}
 
 .clear-actions{display:flex;flex-wrap:wrap;gap:8px;position:sticky;bottom:-20px;background:var(--white);padding:8px 0;z-index:2}.clear-actions button{flex:1 0 150px}
+
+#guide-filter{min-height:44px;max-width:100%;font:inherit;padding:8px}.guide-filter-label{display:block;margin:12px 0}#guide-detail button{margin:8px 0}#replay-topic-hint{padding:12px;background:#edf3df;border-radius:8px}

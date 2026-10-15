@@ -16,7 +16,7 @@ export function explore(s,e,{delay=0,limit=17}={}){
  for(const a of cardUnlocks.slice(0,limit)){
   if(s.activities.find(p=>p.activityId===a.activityId).completed)continue;
   for(const id of a.inspect){if(!s.organisms.some(o=>o.speciesId===id)&&s.inventory.find(c=>c.speciesId===id)?.acquired){const p=placeStudy(s,id);if(p.ok)recordSpeciesObservation(s,p.instance.instanceId);}}
-  if(a.relationId){const r=foodRelationById[a.relationId];for(const id of [r.sourceSpeciesId,r.targetSpeciesId])if(!s.organisms.some(o=>o.speciesId===id)&&s.inventory.find(c=>c.speciesId===id)?.acquired)placeStudy(s,id);}
+  for(const rid of [...new Set([...(a.relationId?[a.relationId]:[]),...(a.relationIds||[])])]){const r=foodRelationById[rid];for(const id of [r.sourceSpeciesId,r.targetSpeciesId])if(!s.organisms.some(o=>o.speciesId===id)&&s.inventory.find(c=>c.speciesId===id)?.acquired)placeStudy(s,id);}
   if(activityCondition(s,a.activityId,a.correctAnswer).ok){const points=s.metrics.points,r=completeActivity(s,a.activityId,a.correctAnswer);assert(r.ok);assert.equal(s.metrics.points,points);trace.push({species:a.unlockSpeciesId,at:s.simulationTime,round:s.round.number,source:'actual-student-route'});}
  }
  syncCollection(s);

@@ -1,3 +1,4 @@
+import {learningEvidence} from './learning-guidance.js';
 import {activityById} from '../../data/activities.js';
 import {organismById} from '../../data/organisms.js';
 import {environmentFactors} from '../../data/environment-config.js';
@@ -9,12 +10,10 @@ export function activityCondition(state,activityId,answer) {
  const activity=activityById[activityId];
  if(!Object.hasOwn(activityById,activityId))return {ok:false,message:'알 수 없는 활동이에요.'};
  if(activity.collection){
-  const checks=activity.inspect.map(id=>({label:organismById[id].name+' 실제 개체 관찰',ok:!!state.profile.speciesObservations[id]}));
-  if(activity.priorActivity)checks.push({label:activityById[activity.priorActivity].title+' 완료',ok:state.activities.some(a=>a.activityId===activity.priorActivity&&a.completed)});
-  if(activity.relationId)checks.push({label:'실제 먹이 관계 발견 기록',ok:state.profile.relations.some(r=>r.relationId===activity.relationId)||state.observations.some(r=>r.relationId===activity.relationId)});
-  return {ok:checks.every(c=>c.ok)&&answer===activity.correctAnswer,checks,message:checks.every(c=>c.ok)?'관찰한 내용과 질문을 다시 살펴봐요.':activity.hint};
+  const checks=learningEvidence(state,activity),evidenceReady=checks.every(c=>c.ok);
+  return {ok:evidenceReady&&answer===activity.correctAnswer,checks,evidenceReady,message:!evidenceReady?checks.find(c=>!c.ok).next:activity.choices.find(c=>c.id===answer)?.feedback||'관찰한 내용과 선택지를 비교해 봐요.'};
  }
- if(activity.choices)return {ok:activity.choices.some(c=>c.id===answer)&&answer===activity.correctAnswer,message:activity.hint};
+ if(activity.choices)return {ok:activity.choices.some(c=>c.id===answer)&&answer===activity.correctAnswer,message:activity.choices.find(c=>c.id===answer)?.feedback||activity.hint};
  if(activity.type==='observation')return {ok:state.observations.some(o=>o.relationId===activity.requirements.relationId),message:activity.hint};
  const r=activity.requirements;
  const producers=new Set(state.organisms.filter(o=>organismById[o.speciesId]?.role==='producer').map(o=>o.speciesId));

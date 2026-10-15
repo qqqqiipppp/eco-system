@@ -123,7 +123,7 @@
     <p id="goal-status" role="status"></p>
     <section id="clear-collection" hidden>
       <p>숲속 생물과 환경의 관계를 잘 살펴보았어요.</p>
-      <p id="clear-progress"></p><p id="clear-invitation"></p><div id="clear-locked"></div>
+      <p id="clear-progress"></p><p id="clear-invitation"></p><p id="clear-optional"></p><div id="clear-locked"></div>
       <div class="clear-actions"><button id="clear-guide" type="button">도감 살펴보기</button><button id="replay-open" type="button">새로운 숲 만들기</button></div>
     </section>
     <button id="goal-close" type="button">지금 숲 계속 살펴보기</button>
@@ -183,6 +183,7 @@
   <dialog id="guide-dialog" aria-labelledby="guide-title">
    <div class="collection-actions"><button id="guide-close" type="button">숲으로 돌아가기</button><button id="guide-web" type="button">먹이그물 살펴보기</button></div>
    <h2 id="guide-title">나의 생물 도감</h2><p id="guide-progress"></p><p>카드를 얻는 것과 실제 숲에서 생물을 관찰하는 것은 달라요. 숲의 개체를 눌러 살펴보면 관찰 기록이 남아요.</p>
+   <label class="guide-filter-label">도감 보기 <select id="guide-filter"><option value="all">전체 24종</option><option value="unobserved">획득했지만 관찰 전</option><option value="locked">아직 잠긴 카드</option><option value="producer">생산자</option><option value="consumer">소비자</option><option value="decomposer">분해자</option></select></label>
    <section id="guide-detail" tabindex="-1" aria-label="생물 자세히 보기" hidden></section><div id="guide-list"></div>
   </dialog>
   <dialog id="web-dialog" aria-labelledby="web-title">
@@ -193,7 +194,7 @@
   </dialog>
   <dialog id="replay-dialog" aria-labelledby="replay-title">
    <h2 id="replay-title">새로운 숲을 만들까요?</h2><p>지금 숲의 생물과 환경은 새로 시작하지만, 획득한 카드와 도감·학습·첫 보상 기록, 남은 생태계 포인트는 그대로 남아요.</p><p>이번 숲 관리 지원 28점은 실제 관리에만 쓸 수 있고 다음 숲으로 가져갈 수 없어요.</p>
-   <label>새 숲 탐구 주제 <select id="replay-topic"></select></label><p>새 숲에서 다시 관찰하고, 환경과 생물 구성을 안정시켜요.</p>
+   <label>새 숲 탐구 주제 <select id="replay-topic"></select></label><p id="replay-topic-hint"></p><p>새 숲에서 다시 관찰하고, 환경과 생물 구성을 안정시켜요.</p>
    <div class="collection-actions"><button id="replay-cancel" type="button">취소 · 지금 숲 유지</button><button id="replay-confirm" type="button">새로운 숲 시작</button></div><p id="replay-result" role="status"></p>
   </dialog>
 </body>
