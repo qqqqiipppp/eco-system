@@ -1,0 +1,2498 @@
+{
+  "stage": "13.7",
+  "schemaVersion": 15,
+  "pacingRevision": 1,
+  "ecologyRevision": 2,
+  "beforeHead": "b915891d0d1385247f3abd28d4819ad97537681a",
+  "scenarios": {
+    "1": {
+      "minutes": 20,
+      "total": 7,
+      "types": 5,
+      "meals": {
+        "v2_grass_to_grasshopper": 78,
+        "v2_grasshopper_to_frog": 8,
+        "v2_grass_to_rabbit": 44
+      },
+      "predation": 8,
+      "naturalEnd": 8,
+      "starvation": 0,
+      "reproduction": 5,
+      "replenishment": 0,
+      "developmentChanges": 10,
+      "processed": 12.279027875000123,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 0,
+      "organicOrigins": 8,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 86,
+      "spent": 14,
+      "points": 72,
+      "stability": 84,
+      "cleared": true,
+      "clearedAt": 99.5,
+      "currentlyGoalReady": false,
+      "final": {
+        "oak": 2,
+        "mushroom": 1,
+        "rabbit": 1,
+        "frog": 1,
+        "grass": 2
+      },
+      "peak": 14,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 10,
+          "stability": 80,
+          "points": 11
+        },
+        {
+          "at": 60.5,
+          "total": 10,
+          "stability": 85,
+          "points": 51
+        },
+        {
+          "at": 120.5,
+          "total": 12,
+          "stability": 95,
+          "points": 51
+        },
+        {
+          "at": 180.5,
+          "total": 11,
+          "stability": 83,
+          "points": 51
+        },
+        {
+          "at": 240.5,
+          "total": 13,
+          "stability": 98,
+          "points": 51
+        },
+        {
+          "at": 300.5,
+          "total": 13,
+          "stability": 94,
+          "points": 51
+        },
+        {
+          "at": 360.5,
+          "total": 12,
+          "stability": 83,
+          "points": 62
+        },
+        {
+          "at": 420.5,
+          "total": 13,
+          "stability": 96,
+          "points": 62
+        },
+        {
+          "at": 480.5,
+          "total": 14,
+          "stability": 97,
+          "points": 62
+        },
+        {
+          "at": 540.5,
+          "total": 13,
+          "stability": 83,
+          "points": 62
+        },
+        {
+          "at": 600.5,
+          "total": 14,
+          "stability": 95,
+          "points": 62
+        },
+        {
+          "at": 660.5,
+          "total": 14,
+          "stability": 95,
+          "points": 66
+        },
+        {
+          "at": 720.5,
+          "total": 12,
+          "stability": 82,
+          "points": 66
+        },
+        {
+          "at": 780.5,
+          "total": 12,
+          "stability": 97,
+          "points": 66
+        },
+        {
+          "at": 840.5,
+          "total": 10,
+          "stability": 86,
+          "points": 66
+        },
+        {
+          "at": 900.5,
+          "total": 10,
+          "stability": 96,
+          "points": 66
+        },
+        {
+          "at": 960.5,
+          "total": 11,
+          "stability": 97,
+          "points": 66
+        },
+        {
+          "at": 1020.5,
+          "total": 9,
+          "stability": 81,
+          "points": 68
+        },
+        {
+          "at": 1080.5,
+          "total": 9,
+          "stability": 95,
+          "points": 68
+        },
+        {
+          "at": 1140.5,
+          "total": 9,
+          "stability": 97,
+          "points": 72
+        }
+      ],
+      "exact136Endpoint": true
+    },
+    "2": {
+      "minutes": 20,
+      "total": 10,
+      "types": 5,
+      "meals": {
+        "v2_grass_to_grasshopper": 306,
+        "v2_grasshopper_to_frog": 8,
+        "v2_grass_to_rabbit": 88
+      },
+      "predation": 8,
+      "naturalEnd": 9,
+      "starvation": 0,
+      "reproduction": 7,
+      "replenishment": 3,
+      "developmentChanges": 15,
+      "processed": 13.832702500000096,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 0,
+      "organicOrigins": 9,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 15,
+      "spent": 14,
+      "points": 31,
+      "stability": 85,
+      "cleared": true,
+      "clearedAt": 30,
+      "currentlyGoalReady": false,
+      "final": {
+        "oak": 2,
+        "frog": 1,
+        "mushroom": 1,
+        "rabbit": 2,
+        "grass": 4
+      },
+      "peak": 17,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 17,
+          "stability": 95,
+          "points": 30
+        },
+        {
+          "at": 60.5,
+          "total": 16,
+          "stability": 93,
+          "points": 30
+        },
+        {
+          "at": 120.5,
+          "total": 16,
+          "stability": 94,
+          "points": 30
+        },
+        {
+          "at": 180.5,
+          "total": 15,
+          "stability": 97,
+          "points": 30
+        },
+        {
+          "at": 240.5,
+          "total": 15,
+          "stability": 97,
+          "points": 30
+        },
+        {
+          "at": 300.5,
+          "total": 17,
+          "stability": 93,
+          "points": 30
+        },
+        {
+          "at": 360.5,
+          "total": 16,
+          "stability": 95,
+          "points": 31
+        },
+        {
+          "at": 420.5,
+          "total": 16,
+          "stability": 97,
+          "points": 31
+        },
+        {
+          "at": 480.5,
+          "total": 15,
+          "stability": 96,
+          "points": 31
+        },
+        {
+          "at": 540.5,
+          "total": 15,
+          "stability": 96,
+          "points": 31
+        },
+        {
+          "at": 600.5,
+          "total": 15,
+          "stability": 97,
+          "points": 31
+        },
+        {
+          "at": 660.5,
+          "total": 15,
+          "stability": 96,
+          "points": 35
+        },
+        {
+          "at": 720.5,
+          "total": 14,
+          "stability": 97,
+          "points": 35
+        },
+        {
+          "at": 780.5,
+          "total": 13,
+          "stability": 96,
+          "points": 35
+        },
+        {
+          "at": 840.5,
+          "total": 11,
+          "stability": 86,
+          "points": 35
+        },
+        {
+          "at": 900.5,
+          "total": 11,
+          "stability": 98,
+          "points": 35
+        },
+        {
+          "at": 960.5,
+          "total": 12,
+          "stability": 96,
+          "points": 35
+        },
+        {
+          "at": 1020.5,
+          "total": 10,
+          "stability": 82,
+          "points": 27
+        },
+        {
+          "at": 1080.5,
+          "total": 11,
+          "stability": 94,
+          "points": 27
+        },
+        {
+          "at": 1140.5,
+          "total": 11,
+          "stability": 95,
+          "points": 31
+        }
+      ],
+      "exact136Endpoint": true,
+      "developerFixture": true
+    },
+    "3": {
+      "minutes": 20,
+      "total": 4,
+      "types": 3,
+      "meals": {
+        "v2_pine_to_chipmunk": 17,
+        "v2_hazel_to_bulbul": 1,
+        "v2_bulbul_to_goshawk": 1,
+        "v2_chipmunk_to_goshawk": 1
+      },
+      "predation": 2,
+      "naturalEnd": 0,
+      "starvation": 2,
+      "reproduction": 0,
+      "replenishment": 0,
+      "developmentChanges": 0,
+      "processed": 6.601000000000146,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 0,
+      "organicOrigins": 2,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 12,
+      "spent": 0,
+      "points": 12,
+      "stability": 52,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "oak": 2,
+        "pine": 1,
+        "hazel": 1
+      },
+      "peak": 8,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 8,
+          "stability": 84,
+          "points": 0
+        },
+        {
+          "at": 60.5,
+          "total": 7,
+          "stability": 83,
+          "points": 0
+        },
+        {
+          "at": 120.5,
+          "total": 7,
+          "stability": 83,
+          "points": 0
+        },
+        {
+          "at": 180.5,
+          "total": 7,
+          "stability": 83,
+          "points": 0
+        },
+        {
+          "at": 240.5,
+          "total": 7,
+          "stability": 80,
+          "points": 0
+        },
+        {
+          "at": 300.5,
+          "total": 5,
+          "stability": 67,
+          "points": 0
+        },
+        {
+          "at": 360.5,
+          "total": 5,
+          "stability": 67,
+          "points": 0
+        },
+        {
+          "at": 420.5,
+          "total": 5,
+          "stability": 67,
+          "points": 0
+        },
+        {
+          "at": 480.5,
+          "total": 5,
+          "stability": 67,
+          "points": 4
+        },
+        {
+          "at": 540.5,
+          "total": 5,
+          "stability": 67,
+          "points": 4
+        },
+        {
+          "at": 600.5,
+          "total": 5,
+          "stability": 67,
+          "points": 4
+        },
+        {
+          "at": 660.5,
+          "total": 5,
+          "stability": 68,
+          "points": 8
+        },
+        {
+          "at": 720.5,
+          "total": 5,
+          "stability": 68,
+          "points": 8
+        },
+        {
+          "at": 780.5,
+          "total": 5,
+          "stability": 68,
+          "points": 8
+        },
+        {
+          "at": 840.5,
+          "total": 4,
+          "stability": 53,
+          "points": 8
+        },
+        {
+          "at": 900.5,
+          "total": 4,
+          "stability": 53,
+          "points": 8
+        },
+        {
+          "at": 960.5,
+          "total": 4,
+          "stability": 53,
+          "points": 8
+        },
+        {
+          "at": 1020.5,
+          "total": 4,
+          "stability": 50,
+          "points": 8
+        },
+        {
+          "at": 1080.5,
+          "total": 4,
+          "stability": 51,
+          "points": 8
+        },
+        {
+          "at": 1140.5,
+          "total": 4,
+          "stability": 52,
+          "points": 12
+        }
+      ],
+      "developerFixture": true,
+      "presentationDoesNotAffectEcology": true
+    },
+    "4": {
+      "minutes": 20,
+      "total": 5,
+      "types": 2,
+      "meals": {
+        "v2_grass_to_rabbit": 88
+      },
+      "predation": 0,
+      "naturalEnd": 7,
+      "starvation": 4,
+      "reproduction": 5,
+      "replenishment": 0,
+      "developmentChanges": 10,
+      "processed": 4.620999999999713,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 0,
+      "organicOrigins": 11,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 12,
+      "spent": 0,
+      "points": 12,
+      "stability": 78,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "rabbit": 2,
+        "grass": 3
+      },
+      "peak": 12,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 11,
+          "stability": 73,
+          "points": 0
+        },
+        {
+          "at": 60.5,
+          "total": 11,
+          "stability": 73,
+          "points": 0
+        },
+        {
+          "at": 120.5,
+          "total": 12,
+          "stability": 72,
+          "points": 0
+        },
+        {
+          "at": 180.5,
+          "total": 12,
+          "stability": 72,
+          "points": 0
+        },
+        {
+          "at": 240.5,
+          "total": 12,
+          "stability": 74,
+          "points": 0
+        },
+        {
+          "at": 300.5,
+          "total": 11,
+          "stability": 74,
+          "points": 0
+        },
+        {
+          "at": 360.5,
+          "total": 9,
+          "stability": 71,
+          "points": 0
+        },
+        {
+          "at": 420.5,
+          "total": 9,
+          "stability": 70,
+          "points": 0
+        },
+        {
+          "at": 480.5,
+          "total": 10,
+          "stability": 75,
+          "points": 4
+        },
+        {
+          "at": 540.5,
+          "total": 10,
+          "stability": 74,
+          "points": 4
+        },
+        {
+          "at": 600.5,
+          "total": 10,
+          "stability": 72,
+          "points": 4
+        },
+        {
+          "at": 660.5,
+          "total": 10,
+          "stability": 71,
+          "points": 8
+        },
+        {
+          "at": 720.5,
+          "total": 9,
+          "stability": 70,
+          "points": 8
+        },
+        {
+          "at": 780.5,
+          "total": 7,
+          "stability": 79,
+          "points": 8
+        },
+        {
+          "at": 840.5,
+          "total": 6,
+          "stability": 80,
+          "points": 8
+        },
+        {
+          "at": 900.5,
+          "total": 6,
+          "stability": 79,
+          "points": 8
+        },
+        {
+          "at": 960.5,
+          "total": 6,
+          "stability": 77,
+          "points": 8
+        },
+        {
+          "at": 1020.5,
+          "total": 5,
+          "stability": 73,
+          "points": 8
+        },
+        {
+          "at": 1080.5,
+          "total": 5,
+          "stability": 80,
+          "points": 8
+        },
+        {
+          "at": 1140.5,
+          "total": 5,
+          "stability": 79,
+          "points": 12
+        }
+      ],
+      "developerFixture": true,
+      "presentationDoesNotAffectEcology": true
+    },
+    "5": {
+      "minutes": 20,
+      "total": 9,
+      "types": 5,
+      "meals": {
+        "v2_grass_to_grasshopper": 272,
+        "v2_pine_to_caterpillar": 111,
+        "v2_hazel_to_aphid": 30
+      },
+      "predation": 0,
+      "naturalEnd": 10,
+      "starvation": 0,
+      "reproduction": 6,
+      "replenishment": 3,
+      "developmentChanges": 10,
+      "processed": 6.300000000000157,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 0,
+      "organicOrigins": 10,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 12,
+      "spent": 0,
+      "points": 12,
+      "stability": 87,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "pine": 2,
+        "hazel": 1,
+        "grass": 3,
+        "caterpillar": 2,
+        "grasshopper": 1
+      },
+      "peak": 14,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 12,
+          "stability": 88,
+          "points": 0
+        },
+        {
+          "at": 60.5,
+          "total": 12,
+          "stability": 89,
+          "points": 0
+        },
+        {
+          "at": 120.5,
+          "total": 12,
+          "stability": 89,
+          "points": 0
+        },
+        {
+          "at": 180.5,
+          "total": 13,
+          "stability": 88,
+          "points": 0
+        },
+        {
+          "at": 240.5,
+          "total": 13,
+          "stability": 90,
+          "points": 0
+        },
+        {
+          "at": 300.5,
+          "total": 13,
+          "stability": 85,
+          "points": 0
+        },
+        {
+          "at": 360.5,
+          "total": 14,
+          "stability": 84,
+          "points": 0
+        },
+        {
+          "at": 420.5,
+          "total": 14,
+          "stability": 86,
+          "points": 0
+        },
+        {
+          "at": 480.5,
+          "total": 13,
+          "stability": 89,
+          "points": 4
+        },
+        {
+          "at": 540.5,
+          "total": 11,
+          "stability": 87,
+          "points": 4
+        },
+        {
+          "at": 600.5,
+          "total": 11,
+          "stability": 88,
+          "points": 4
+        },
+        {
+          "at": 660.5,
+          "total": 12,
+          "stability": 91,
+          "points": 8
+        },
+        {
+          "at": 720.5,
+          "total": 8,
+          "stability": 89,
+          "points": 8
+        },
+        {
+          "at": 780.5,
+          "total": 9,
+          "stability": 87,
+          "points": 8
+        },
+        {
+          "at": 840.5,
+          "total": 7,
+          "stability": 87,
+          "points": 8
+        },
+        {
+          "at": 900.5,
+          "total": 7,
+          "stability": 90,
+          "points": 8
+        },
+        {
+          "at": 960.5,
+          "total": 8,
+          "stability": 90,
+          "points": 8
+        },
+        {
+          "at": 1020.5,
+          "total": 9,
+          "stability": 82,
+          "points": 8
+        },
+        {
+          "at": 1080.5,
+          "total": 9,
+          "stability": 87,
+          "points": 8
+        },
+        {
+          "at": 1140.5,
+          "total": 9,
+          "stability": 90,
+          "points": 12
+        }
+      ],
+      "developerFixture": true,
+      "presentationDoesNotAffectEcology": true
+    },
+    "6": {
+      "minutes": 20,
+      "total": 7,
+      "types": 3,
+      "meals": {
+        "v2_grass_to_snail": 44
+      },
+      "predation": 0,
+      "naturalEnd": 6,
+      "starvation": 0,
+      "reproduction": 6,
+      "replenishment": 0,
+      "developmentChanges": 12,
+      "processed": 16.05126599999961,
+      "wormProcessed": 13.351266000000315,
+      "soilContribution": 0,
+      "noticesShown": 6,
+      "organicOrigins": 6,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 12,
+      "spent": 0,
+      "points": 12,
+      "stability": 83,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "earthworm": 2,
+        "snail": 1,
+        "grass": 4
+      },
+      "peak": 11,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 7,
+          "stability": 86,
+          "points": 0
+        },
+        {
+          "at": 60.5,
+          "total": 7,
+          "stability": 85,
+          "points": 0
+        },
+        {
+          "at": 120.5,
+          "total": 8,
+          "stability": 88,
+          "points": 0
+        },
+        {
+          "at": 180.5,
+          "total": 8,
+          "stability": 87,
+          "points": 0
+        },
+        {
+          "at": 240.5,
+          "total": 9,
+          "stability": 86,
+          "points": 0
+        },
+        {
+          "at": 300.5,
+          "total": 9,
+          "stability": 84,
+          "points": 0
+        },
+        {
+          "at": 360.5,
+          "total": 9,
+          "stability": 82,
+          "points": 0
+        },
+        {
+          "at": 420.5,
+          "total": 9,
+          "stability": 86,
+          "points": 0
+        },
+        {
+          "at": 480.5,
+          "total": 10,
+          "stability": 84,
+          "points": 4
+        },
+        {
+          "at": 540.5,
+          "total": 10,
+          "stability": 83,
+          "points": 4
+        },
+        {
+          "at": 600.5,
+          "total": 11,
+          "stability": 81,
+          "points": 4
+        },
+        {
+          "at": 660.5,
+          "total": 11,
+          "stability": 85,
+          "points": 8
+        },
+        {
+          "at": 720.5,
+          "total": 10,
+          "stability": 85,
+          "points": 8
+        },
+        {
+          "at": 780.5,
+          "total": 8,
+          "stability": 87,
+          "points": 8
+        },
+        {
+          "at": 840.5,
+          "total": 8,
+          "stability": 86,
+          "points": 8
+        },
+        {
+          "at": 900.5,
+          "total": 8,
+          "stability": 85,
+          "points": 8
+        },
+        {
+          "at": 960.5,
+          "total": 8,
+          "stability": 88,
+          "points": 8
+        },
+        {
+          "at": 1020.5,
+          "total": 7,
+          "stability": 84,
+          "points": 8
+        },
+        {
+          "at": 1080.5,
+          "total": 7,
+          "stability": 84,
+          "points": 8
+        },
+        {
+          "at": 1140.5,
+          "total": 7,
+          "stability": 84,
+          "points": 12
+        }
+      ],
+      "developerFixture": true,
+      "presentationDoesNotAffectEcology": true
+    },
+    "7": {
+      "minutes": 20,
+      "total": 9,
+      "types": 6,
+      "meals": {},
+      "predation": 0,
+      "naturalEnd": 6,
+      "starvation": 0,
+      "reproduction": 6,
+      "replenishment": 0,
+      "developmentChanges": 12,
+      "processed": 27.526899000000224,
+      "wormProcessed": 6.675633000000158,
+      "soilContribution": 0,
+      "noticesShown": 6,
+      "organicOrigins": 6,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 12,
+      "spent": 0,
+      "points": 12,
+      "stability": 95,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "oak": 1,
+        "earthworm": 1,
+        "mushroom": 1,
+        "litter-mold": 1,
+        "soil-bacteria": 1,
+        "grass": 4
+      },
+      "peak": 12,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 9,
+          "stability": 96,
+          "points": 0
+        },
+        {
+          "at": 60.5,
+          "total": 9,
+          "stability": 96,
+          "points": 0
+        },
+        {
+          "at": 120.5,
+          "total": 10,
+          "stability": 95,
+          "points": 0
+        },
+        {
+          "at": 180.5,
+          "total": 10,
+          "stability": 95,
+          "points": 0
+        },
+        {
+          "at": 240.5,
+          "total": 11,
+          "stability": 95,
+          "points": 0
+        },
+        {
+          "at": 300.5,
+          "total": 11,
+          "stability": 93,
+          "points": 0
+        },
+        {
+          "at": 360.5,
+          "total": 11,
+          "stability": 93,
+          "points": 0
+        },
+        {
+          "at": 420.5,
+          "total": 11,
+          "stability": 93,
+          "points": 0
+        },
+        {
+          "at": 480.5,
+          "total": 12,
+          "stability": 93,
+          "points": 4
+        },
+        {
+          "at": 540.5,
+          "total": 12,
+          "stability": 93,
+          "points": 4
+        },
+        {
+          "at": 600.5,
+          "total": 12,
+          "stability": 93,
+          "points": 4
+        },
+        {
+          "at": 660.5,
+          "total": 12,
+          "stability": 94,
+          "points": 8
+        },
+        {
+          "at": 720.5,
+          "total": 11,
+          "stability": 95,
+          "points": 8
+        },
+        {
+          "at": 780.5,
+          "total": 12,
+          "stability": 94,
+          "points": 8
+        },
+        {
+          "at": 840.5,
+          "total": 10,
+          "stability": 95,
+          "points": 8
+        },
+        {
+          "at": 900.5,
+          "total": 10,
+          "stability": 95,
+          "points": 8
+        },
+        {
+          "at": 960.5,
+          "total": 9,
+          "stability": 96,
+          "points": 8
+        },
+        {
+          "at": 1020.5,
+          "total": 9,
+          "stability": 92,
+          "points": 8
+        },
+        {
+          "at": 1080.5,
+          "total": 9,
+          "stability": 93,
+          "points": 8
+        },
+        {
+          "at": 1140.5,
+          "total": 9,
+          "stability": 95,
+          "points": 12
+        }
+      ],
+      "developerFixture": true,
+      "presentationDoesNotAffectEcology": true
+    },
+    "8": {
+      "minutes": 20,
+      "total": 4,
+      "types": 2,
+      "meals": {
+        "v2_grass_to_grasshopper": 214,
+        "v2_grasshopper_to_frog": 8
+      },
+      "predation": 8,
+      "naturalEnd": 10,
+      "starvation": 0,
+      "reproduction": 7,
+      "replenishment": 5,
+      "developmentChanges": 12,
+      "processed": 4.276999999999737,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 0,
+      "organicOrigins": 10,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 12,
+      "spent": 0,
+      "points": 12,
+      "stability": 53,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "frog": 1,
+        "grass": 3
+      },
+      "peak": 11,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 10,
+          "stability": 82,
+          "points": 0
+        },
+        {
+          "at": 60.5,
+          "total": 9,
+          "stability": 85,
+          "points": 0
+        },
+        {
+          "at": 120.5,
+          "total": 10,
+          "stability": 86,
+          "points": 0
+        },
+        {
+          "at": 180.5,
+          "total": 10,
+          "stability": 85,
+          "points": 0
+        },
+        {
+          "at": 240.5,
+          "total": 11,
+          "stability": 86,
+          "points": 0
+        },
+        {
+          "at": 300.5,
+          "total": 11,
+          "stability": 84,
+          "points": 0
+        },
+        {
+          "at": 360.5,
+          "total": 11,
+          "stability": 83,
+          "points": 0
+        },
+        {
+          "at": 420.5,
+          "total": 10,
+          "stability": 83,
+          "points": 0
+        },
+        {
+          "at": 480.5,
+          "total": 10,
+          "stability": 77,
+          "points": 4
+        },
+        {
+          "at": 540.5,
+          "total": 10,
+          "stability": 78,
+          "points": 4
+        },
+        {
+          "at": 600.5,
+          "total": 10,
+          "stability": 76,
+          "points": 4
+        },
+        {
+          "at": 660.5,
+          "total": 10,
+          "stability": 79,
+          "points": 8
+        },
+        {
+          "at": 720.5,
+          "total": 9,
+          "stability": 78,
+          "points": 8
+        },
+        {
+          "at": 780.5,
+          "total": 7,
+          "stability": 83,
+          "points": 8
+        },
+        {
+          "at": 840.5,
+          "total": 6,
+          "stability": 83,
+          "points": 8
+        },
+        {
+          "at": 900.5,
+          "total": 6,
+          "stability": 85,
+          "points": 8
+        },
+        {
+          "at": 960.5,
+          "total": 6,
+          "stability": 85,
+          "points": 8
+        },
+        {
+          "at": 1020.5,
+          "total": 5,
+          "stability": 49,
+          "points": 8
+        },
+        {
+          "at": 1080.5,
+          "total": 5,
+          "stability": 50,
+          "points": 8
+        },
+        {
+          "at": 1140.5,
+          "total": 5,
+          "stability": 83,
+          "points": 12
+        }
+      ],
+      "developerFixture": true,
+      "presentationDoesNotAffectEcology": true
+    },
+    "9": {
+      "minutes": 20,
+      "total": 7,
+      "types": 5,
+      "meals": {
+        "v2_grass_to_grasshopper": 78,
+        "v2_grasshopper_to_frog": 8,
+        "v2_grass_to_rabbit": 44
+      },
+      "predation": 8,
+      "naturalEnd": 8,
+      "starvation": 0,
+      "reproduction": 5,
+      "replenishment": 0,
+      "developmentChanges": 10,
+      "processed": 12.279027875000123,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 0,
+      "organicOrigins": 8,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 86,
+      "spent": 14,
+      "points": 72,
+      "stability": 84,
+      "cleared": true,
+      "clearedAt": 99.5,
+      "currentlyGoalReady": false,
+      "final": {
+        "oak": 2,
+        "mushroom": 1,
+        "rabbit": 1,
+        "frog": 1,
+        "grass": 2
+      },
+      "peak": 14,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 10,
+          "stability": 80,
+          "points": 11
+        },
+        {
+          "at": 60.5,
+          "total": 10,
+          "stability": 85,
+          "points": 51
+        },
+        {
+          "at": 120.5,
+          "total": 12,
+          "stability": 95,
+          "points": 51
+        },
+        {
+          "at": 180.5,
+          "total": 11,
+          "stability": 83,
+          "points": 51
+        },
+        {
+          "at": 240.5,
+          "total": 13,
+          "stability": 98,
+          "points": 51
+        },
+        {
+          "at": 300.5,
+          "total": 13,
+          "stability": 94,
+          "points": 51
+        },
+        {
+          "at": 360.5,
+          "total": 12,
+          "stability": 83,
+          "points": 62
+        },
+        {
+          "at": 420.5,
+          "total": 13,
+          "stability": 96,
+          "points": 62
+        },
+        {
+          "at": 480.5,
+          "total": 14,
+          "stability": 97,
+          "points": 62
+        },
+        {
+          "at": 540.5,
+          "total": 13,
+          "stability": 83,
+          "points": 62
+        },
+        {
+          "at": 600.5,
+          "total": 14,
+          "stability": 95,
+          "points": 62
+        },
+        {
+          "at": 660.5,
+          "total": 14,
+          "stability": 95,
+          "points": 66
+        },
+        {
+          "at": 720.5,
+          "total": 12,
+          "stability": 82,
+          "points": 66
+        },
+        {
+          "at": 780.5,
+          "total": 12,
+          "stability": 97,
+          "points": 66
+        },
+        {
+          "at": 840.5,
+          "total": 10,
+          "stability": 86,
+          "points": 66
+        },
+        {
+          "at": 900.5,
+          "total": 10,
+          "stability": 96,
+          "points": 66
+        },
+        {
+          "at": 960.5,
+          "total": 11,
+          "stability": 97,
+          "points": 66
+        },
+        {
+          "at": 1020.5,
+          "total": 9,
+          "stability": 81,
+          "points": 68
+        },
+        {
+          "at": 1080.5,
+          "total": 9,
+          "stability": 95,
+          "points": 68
+        },
+        {
+          "at": 1140.5,
+          "total": 9,
+          "stability": 97,
+          "points": 72
+        }
+      ]
+    },
+    "10": {
+      "minutes": 20,
+      "total": 3,
+      "types": 3,
+      "meals": {},
+      "predation": 0,
+      "naturalEnd": 3,
+      "starvation": 0,
+      "reproduction": 0,
+      "replenishment": 0,
+      "developmentChanges": 2,
+      "processed": 5.809999999999983,
+      "wormProcessed": 1.1309999999999951,
+      "soilContribution": 0,
+      "noticesShown": 3,
+      "organicOrigins": 3,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 12,
+      "spent": 0,
+      "points": 12,
+      "stability": 62,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "mushroom": 1,
+        "earthworm": 1,
+        "soil-bacteria": 1
+      },
+      "peak": 6,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 3,
+          "stability": 88,
+          "points": 0
+        },
+        {
+          "at": 60.5,
+          "total": 3,
+          "stability": 88,
+          "points": 0
+        },
+        {
+          "at": 120.5,
+          "total": 3,
+          "stability": 88,
+          "points": 0
+        },
+        {
+          "at": 180.5,
+          "total": 3,
+          "stability": 75,
+          "points": 0
+        },
+        {
+          "at": 240.5,
+          "total": 3,
+          "stability": 63,
+          "points": 0
+        },
+        {
+          "at": 300.5,
+          "total": 3,
+          "stability": 62,
+          "points": 0
+        },
+        {
+          "at": 360.5,
+          "total": 3,
+          "stability": 62,
+          "points": 0
+        },
+        {
+          "at": 420.5,
+          "total": 3,
+          "stability": 62,
+          "points": 0
+        },
+        {
+          "at": 480.5,
+          "total": 3,
+          "stability": 62,
+          "points": 4
+        },
+        {
+          "at": 540.5,
+          "total": 3,
+          "stability": 62,
+          "points": 4
+        },
+        {
+          "at": 600.5,
+          "total": 3,
+          "stability": 62,
+          "points": 4
+        },
+        {
+          "at": 660.5,
+          "total": 3,
+          "stability": 63,
+          "points": 8
+        },
+        {
+          "at": 720.5,
+          "total": 3,
+          "stability": 63,
+          "points": 8
+        },
+        {
+          "at": 780.5,
+          "total": 3,
+          "stability": 63,
+          "points": 8
+        },
+        {
+          "at": 840.5,
+          "total": 3,
+          "stability": 63,
+          "points": 8
+        },
+        {
+          "at": 900.5,
+          "total": 3,
+          "stability": 63,
+          "points": 8
+        },
+        {
+          "at": 960.5,
+          "total": 3,
+          "stability": 63,
+          "points": 8
+        },
+        {
+          "at": 1020.5,
+          "total": 3,
+          "stability": 60,
+          "points": 8
+        },
+        {
+          "at": 1080.5,
+          "total": 3,
+          "stability": 61,
+          "points": 8
+        },
+        {
+          "at": 1140.5,
+          "total": 3,
+          "stability": 62,
+          "points": 12
+        }
+      ],
+      "developerNearEndFixture": true
+    },
+    "11": {
+      "minutes": 20,
+      "total": 11,
+      "types": 10,
+      "meals": {
+        "v2_grass_to_grasshopper": 1,
+        "v2_grasshopper_to_frog": 1,
+        "v2_caterpillar_to_tit": 5,
+        "v2_frog_to_weasel": 1,
+        "v2_pine_to_chipmunk": 1,
+        "v2_hazel_to_bulbul": 15,
+        "v2_grass_to_snail": 1,
+        "v2_snail_to_ladybird": 1,
+        "v2_chipmunk_to_goshawk": 1,
+        "v2_grass_to_rabbit": 18,
+        "v2_hazel_to_aphid": 1,
+        "v2_aphid_to_spider": 1,
+        "v2_spider_to_tit": 1,
+        "v2_bulbul_to_goshawk": 1,
+        "v2_rabbit_to_goshawk": 1
+      },
+      "predation": 13,
+      "naturalEnd": 8,
+      "starvation": 5,
+      "reproduction": 3,
+      "replenishment": 4,
+      "developmentChanges": 8,
+      "processed": 42.10466899999922,
+      "wormProcessed": 6.675633000000158,
+      "soilContribution": 0,
+      "noticesShown": 12,
+      "organicOrigins": 12,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 12,
+      "spent": 0,
+      "points": 12,
+      "stability": 86,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "oak": 1,
+        "mushroom": 1,
+        "pine": 1,
+        "raspberry": 1,
+        "hazel": 1,
+        "tit": 1,
+        "litter-mold": 1,
+        "soil-bacteria": 1,
+        "earthworm": 1,
+        "grass": 2
+      },
+      "peak": 30,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 30,
+          "stability": 96,
+          "points": 0
+        },
+        {
+          "at": 60.5,
+          "total": 24,
+          "stability": 87,
+          "points": 0
+        },
+        {
+          "at": 120.5,
+          "total": 23,
+          "stability": 85,
+          "points": 0
+        },
+        {
+          "at": 180.5,
+          "total": 23,
+          "stability": 85,
+          "points": 0
+        },
+        {
+          "at": 240.5,
+          "total": 23,
+          "stability": 85,
+          "points": 0
+        },
+        {
+          "at": 300.5,
+          "total": 21,
+          "stability": 86,
+          "points": 0
+        },
+        {
+          "at": 360.5,
+          "total": 20,
+          "stability": 87,
+          "points": 0
+        },
+        {
+          "at": 420.5,
+          "total": 20,
+          "stability": 87,
+          "points": 0
+        },
+        {
+          "at": 480.5,
+          "total": 20,
+          "stability": 87,
+          "points": 4
+        },
+        {
+          "at": 540.5,
+          "total": 18,
+          "stability": 81,
+          "points": 4
+        },
+        {
+          "at": 600.5,
+          "total": 18,
+          "stability": 81,
+          "points": 4
+        },
+        {
+          "at": 660.5,
+          "total": 18,
+          "stability": 82,
+          "points": 8
+        },
+        {
+          "at": 720.5,
+          "total": 18,
+          "stability": 82,
+          "points": 8
+        },
+        {
+          "at": 780.5,
+          "total": 14,
+          "stability": 83,
+          "points": 8
+        },
+        {
+          "at": 840.5,
+          "total": 13,
+          "stability": 83,
+          "points": 8
+        },
+        {
+          "at": 900.5,
+          "total": 13,
+          "stability": 83,
+          "points": 8
+        },
+        {
+          "at": 960.5,
+          "total": 12,
+          "stability": 83,
+          "points": 8
+        },
+        {
+          "at": 1020.5,
+          "total": 12,
+          "stability": 80,
+          "points": 8
+        },
+        {
+          "at": 1080.5,
+          "total": 11,
+          "stability": 84,
+          "points": 8
+        },
+        {
+          "at": 1140.5,
+          "total": 11,
+          "stability": 86,
+          "points": 12
+        }
+      ],
+      "developerAllCardFixture": true
+    },
+    "12": {
+      "minutes": 20,
+      "total": 11,
+      "types": 10,
+      "meals": {
+        "v2_grass_to_grasshopper": 1,
+        "v2_grasshopper_to_frog": 1,
+        "v2_caterpillar_to_tit": 5,
+        "v2_frog_to_weasel": 1,
+        "v2_pine_to_chipmunk": 1,
+        "v2_hazel_to_bulbul": 15,
+        "v2_grass_to_snail": 1,
+        "v2_snail_to_ladybird": 1,
+        "v2_chipmunk_to_goshawk": 1,
+        "v2_grass_to_rabbit": 18,
+        "v2_hazel_to_aphid": 1,
+        "v2_aphid_to_spider": 1,
+        "v2_spider_to_tit": 1,
+        "v2_bulbul_to_goshawk": 1,
+        "v2_rabbit_to_goshawk": 1
+      },
+      "predation": 13,
+      "naturalEnd": 8,
+      "starvation": 5,
+      "reproduction": 3,
+      "replenishment": 4,
+      "developmentChanges": 8,
+      "processed": 42.10466899999922,
+      "wormProcessed": 6.675633000000158,
+      "soilContribution": 0,
+      "noticesShown": 12,
+      "organicOrigins": 12,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 12,
+      "spent": 0,
+      "points": 12,
+      "stability": 86,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "oak": 1,
+        "mushroom": 1,
+        "pine": 1,
+        "raspberry": 1,
+        "hazel": 1,
+        "tit": 1,
+        "litter-mold": 1,
+        "soil-bacteria": 1,
+        "earthworm": 1,
+        "grass": 2
+      },
+      "peak": 30,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 30,
+          "stability": 96,
+          "points": 0
+        },
+        {
+          "at": 60.5,
+          "total": 24,
+          "stability": 87,
+          "points": 0
+        },
+        {
+          "at": 120.5,
+          "total": 23,
+          "stability": 85,
+          "points": 0
+        },
+        {
+          "at": 180.5,
+          "total": 23,
+          "stability": 85,
+          "points": 0
+        },
+        {
+          "at": 240.5,
+          "total": 23,
+          "stability": 85,
+          "points": 0
+        },
+        {
+          "at": 300.5,
+          "total": 21,
+          "stability": 86,
+          "points": 0
+        },
+        {
+          "at": 360.5,
+          "total": 20,
+          "stability": 87,
+          "points": 0
+        },
+        {
+          "at": 420.5,
+          "total": 20,
+          "stability": 87,
+          "points": 0
+        },
+        {
+          "at": 480.5,
+          "total": 20,
+          "stability": 87,
+          "points": 4
+        },
+        {
+          "at": 540.5,
+          "total": 18,
+          "stability": 81,
+          "points": 4
+        },
+        {
+          "at": 600.5,
+          "total": 18,
+          "stability": 81,
+          "points": 4
+        },
+        {
+          "at": 660.5,
+          "total": 18,
+          "stability": 82,
+          "points": 8
+        },
+        {
+          "at": 720.5,
+          "total": 18,
+          "stability": 82,
+          "points": 8
+        },
+        {
+          "at": 780.5,
+          "total": 14,
+          "stability": 83,
+          "points": 8
+        },
+        {
+          "at": 840.5,
+          "total": 13,
+          "stability": 83,
+          "points": 8
+        },
+        {
+          "at": 900.5,
+          "total": 13,
+          "stability": 83,
+          "points": 8
+        },
+        {
+          "at": 960.5,
+          "total": 12,
+          "stability": 83,
+          "points": 8
+        },
+        {
+          "at": 1020.5,
+          "total": 12,
+          "stability": 80,
+          "points": 8
+        },
+        {
+          "at": 1080.5,
+          "total": 11,
+          "stability": 84,
+          "points": 8
+        },
+        {
+          "at": 1140.5,
+          "total": 11,
+          "stability": 86,
+          "points": 12
+        }
+      ],
+      "developerAllCardFixture": true
+    },
+    "13": {
+      "minutes": 20,
+      "total": 7,
+      "types": 5,
+      "meals": {
+        "v2_grass_to_grasshopper": 78,
+        "v2_grasshopper_to_frog": 8,
+        "v2_grass_to_rabbit": 44
+      },
+      "predation": 8,
+      "naturalEnd": 8,
+      "starvation": 0,
+      "reproduction": 5,
+      "replenishment": 0,
+      "developmentChanges": 10,
+      "processed": 12.279027875000123,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 0,
+      "organicOrigins": 8,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 86,
+      "spent": 14,
+      "points": 72,
+      "stability": 84,
+      "cleared": true,
+      "clearedAt": 99.5,
+      "currentlyGoalReady": false,
+      "final": {
+        "oak": 2,
+        "mushroom": 1,
+        "rabbit": 1,
+        "frog": 1,
+        "grass": 2
+      },
+      "peak": 14,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 10,
+          "stability": 80,
+          "points": 11
+        },
+        {
+          "at": 60.5,
+          "total": 10,
+          "stability": 85,
+          "points": 51
+        },
+        {
+          "at": 120.5,
+          "total": 12,
+          "stability": 95,
+          "points": 51
+        },
+        {
+          "at": 180.5,
+          "total": 11,
+          "stability": 83,
+          "points": 51
+        },
+        {
+          "at": 240.5,
+          "total": 13,
+          "stability": 98,
+          "points": 51
+        },
+        {
+          "at": 300.5,
+          "total": 13,
+          "stability": 94,
+          "points": 51
+        },
+        {
+          "at": 360.5,
+          "total": 12,
+          "stability": 83,
+          "points": 62
+        },
+        {
+          "at": 420.5,
+          "total": 13,
+          "stability": 96,
+          "points": 62
+        },
+        {
+          "at": 480.5,
+          "total": 14,
+          "stability": 97,
+          "points": 62
+        },
+        {
+          "at": 540.5,
+          "total": 13,
+          "stability": 83,
+          "points": 62
+        },
+        {
+          "at": 600.5,
+          "total": 14,
+          "stability": 95,
+          "points": 62
+        },
+        {
+          "at": 660.5,
+          "total": 14,
+          "stability": 95,
+          "points": 66
+        },
+        {
+          "at": 720.5,
+          "total": 12,
+          "stability": 82,
+          "points": 66
+        },
+        {
+          "at": 780.5,
+          "total": 12,
+          "stability": 97,
+          "points": 66
+        },
+        {
+          "at": 840.5,
+          "total": 10,
+          "stability": 86,
+          "points": 66
+        },
+        {
+          "at": 900.5,
+          "total": 10,
+          "stability": 96,
+          "points": 66
+        },
+        {
+          "at": 960.5,
+          "total": 11,
+          "stability": 97,
+          "points": 66
+        },
+        {
+          "at": 1020.5,
+          "total": 9,
+          "stability": 81,
+          "points": 68
+        },
+        {
+          "at": 1080.5,
+          "total": 9,
+          "stability": 95,
+          "points": 68
+        },
+        {
+          "at": 1140.5,
+          "total": 9,
+          "stability": 97,
+          "points": 72
+        }
+      ],
+      "continuous20Equals10Save10": true,
+      "ephemeralEventIdsMayDiffer": true
+    },
+    "14": {
+      "genuine15PositionCount": 24,
+      "storedPixels": false,
+      "schemaChanged": false
+    },
+    "15": {
+      "minutes": 20,
+      "total": 7,
+      "types": 5,
+      "meals": {
+        "v2_grass_to_grasshopper": 78,
+        "v2_grasshopper_to_frog": 8,
+        "v2_grass_to_rabbit": 44
+      },
+      "predation": 8,
+      "naturalEnd": 8,
+      "starvation": 0,
+      "reproduction": 5,
+      "replenishment": 0,
+      "developmentChanges": 10,
+      "processed": 12.279027875000123,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "noticesShown": 0,
+      "organicOrigins": 8,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 86,
+      "spent": 14,
+      "points": 72,
+      "stability": 84,
+      "cleared": true,
+      "clearedAt": 99.5,
+      "currentlyGoalReady": false,
+      "final": {
+        "oak": 2,
+        "mushroom": 1,
+        "rabbit": 1,
+        "frog": 1,
+        "grass": 2
+      },
+      "peak": 14,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 10,
+          "stability": 80,
+          "points": 11
+        },
+        {
+          "at": 60.5,
+          "total": 10,
+          "stability": 85,
+          "points": 51
+        },
+        {
+          "at": 120.5,
+          "total": 12,
+          "stability": 95,
+          "points": 51
+        },
+        {
+          "at": 180.5,
+          "total": 11,
+          "stability": 83,
+          "points": 51
+        },
+        {
+          "at": 240.5,
+          "total": 13,
+          "stability": 98,
+          "points": 51
+        },
+        {
+          "at": 300.5,
+          "total": 13,
+          "stability": 94,
+          "points": 51
+        },
+        {
+          "at": 360.5,
+          "total": 12,
+          "stability": 83,
+          "points": 62
+        },
+        {
+          "at": 420.5,
+          "total": 13,
+          "stability": 96,
+          "points": 62
+        },
+        {
+          "at": 480.5,
+          "total": 14,
+          "stability": 97,
+          "points": 62
+        },
+        {
+          "at": 540.5,
+          "total": 13,
+          "stability": 83,
+          "points": 62
+        },
+        {
+          "at": 600.5,
+          "total": 14,
+          "stability": 95,
+          "points": 62
+        },
+        {
+          "at": 660.5,
+          "total": 14,
+          "stability": 95,
+          "points": 66
+        },
+        {
+          "at": 720.5,
+          "total": 12,
+          "stability": 82,
+          "points": 66
+        },
+        {
+          "at": 780.5,
+          "total": 12,
+          "stability": 97,
+          "points": 66
+        },
+        {
+          "at": 840.5,
+          "total": 10,
+          "stability": 86,
+          "points": 66
+        },
+        {
+          "at": 900.5,
+          "total": 10,
+          "stability": 96,
+          "points": 66
+        },
+        {
+          "at": 960.5,
+          "total": 11,
+          "stability": 97,
+          "points": 66
+        },
+        {
+          "at": 1020.5,
+          "total": 9,
+          "stability": 81,
+          "points": 68
+        },
+        {
+          "at": 1080.5,
+          "total": 9,
+          "stability": 95,
+          "points": 68
+        },
+        {
+          "at": 1140.5,
+          "total": 9,
+          "stability": 97,
+          "points": 72
+        }
+      ],
+      "rotations": 20,
+      "exact136Endpoint": true
+    }
+  },
+  "exitCode": 0
+}

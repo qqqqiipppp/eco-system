@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="./css/progress.css">
   <link rel="stylesheet" href="./css/guidance.css">
   <link rel="stylesheet" href="./css/cards.css">
+  <link rel="stylesheet" href="./css/habitats.css">
   <script type="module" src="./js/main.js"></script>
 </head>
 <body>
@@ -149,6 +150,7 @@
   </dialog>
   <dialog id="population-dialog" aria-labelledby="population-title">
     <h2 id="population-title">생물 상태와 개체 수</h2>
+    <p id="population-individual" hidden></p><div id="population-nearby" role="group" aria-label="겹친 생물 중 살펴볼 개체" hidden></div>
     <label>살펴볼 생물 <select id="population-species"></select></label>
     <p id="population-role"></p><p id="population-state" role="status"></p><p id="population-lifespan"></p>
     <p id="population-introduction"></p><p id="population-breeding"></p>

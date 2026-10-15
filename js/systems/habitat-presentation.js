@@ -1,0 +1,77 @@
+import {speciesHabitats,habitatZones,habitatPresentationConfig as config} from '../../data/habitats.js';
+import {organismById} from '../../data/organisms.js';
+import {provideHabitatAnchors} from './habitat-anchors.js';
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const hash=s=>{let h=2166136261;for(const c of s)h=Math.imul(h^c.charCodeAt(0),16777619);return h>>>0;};
+const area=b=>(b.right-b.left)*(b.bottom-b.top);
+const overlap=(a,b)=>Math.max(0,Math.min(a.right,b.right)-Math.max(a.left,b.left))*Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top));
+export function validHabitatAnchor(a,byId){
+ return a&&typeof a.id==='string'&&a.id.length>0&&a.id.length<=120&&Object.hasOwn(habitatZones,a.zone)&&['producer-area','activity-area','attachment'].includes(a.kind)&&typeof a.temporary==='boolean'&&typeof a.precise==='boolean'&&
+  [a.position?.x,a.position?.y,a.range?.x,a.range?.y].every(v=>Number.isFinite(v)&&v>=0&&v<=1)&&
+  Number.isInteger(a.capacity)&&a.capacity>0&&a.capacity<=30&&Number.isFinite(a.priority)&&
+  (a.sourceInstanceId===null||byId.has(a.sourceInstanceId))&&
+  !(a.zone==='branch'&&a.precise===true&&!a.sourceInstanceId&&!a.sourceObjectId);
+}
+// View-only cache. Never writes an organism, ecology RNG, food or stored field.
+export function createHabitatPresentation({provider=provideHabitatAnchors}={}){
+ let layout,organisms=[],byId=new Map(),offsets=new Map(),anchors=[],rebuilds=0,anchorChecks=0;
+ function bounds(o,p){const size=layout.sizes[o.speciesId],width=Math.max(config.minTouch,size.width);return {left:p.x-width/2,right:p.x+width/2,top:p.y-size.height,bottom:p.y+Math.max(20,config.minTouch-size.height)};}
+ function safe(o,p){
+  const size=layout.sizes[o.speciesId],half=Math.max(config.minTouch,size.width)/2;
+  const origin={x:o.position.x*layout.width,y:o.position.y*layout.height};
+  const dx=Math.min(config.maxOffsetPixels,config.maxOffsetNormalized*layout.width),dy=Math.min(config.maxOffsetPixels,config.maxOffsetNormalized*layout.height);
+  const lowX=Math.max(half+2,origin.x-dx),highX=Math.min(layout.width-half-2,origin.x+dx),lowY=Math.max(size.height+config.markerHeadroom,origin.y-dy),highY=Math.min(layout.height-Math.max(20,config.minTouch-size.height)-2,origin.y+dy);
+  p={x:lowX<=highX?clamp(p.x,lowX,highX):clamp(origin.x,half+2,layout.width-half-2),y:lowY<=highY?clamp(p.y,lowY,highY):clamp(origin.y,size.height+config.markerHeadroom,layout.height-Math.max(20,config.minTouch-size.height)-2)};
+  const blocked=layout.blockedRects.map(r=>({left:r.left*layout.width,right:r.right*layout.width,top:r.top*layout.height,bottom:r.bottom*layout.height}));
+  const clear=c=>blocked.every(r=>overlap(bounds(o,c),r)===0);
+  if(!clear(p)){
+   const alternatives=[origin,...blocked.flatMap(r=>[{x:r.left-half-2,y:p.y},{x:r.right+half+2,y:p.y},{x:p.x,y:r.top-Math.max(20,config.minTouch-size.height)-2},{x:p.x,y:r.bottom+size.height+config.markerHeadroom}])].filter(c=>c.x>=half+2&&c.x<=layout.width-half-2&&c.y>=size.height+config.markerHeadroom&&c.y<=layout.height-Math.max(20,config.minTouch-size.height)-2&&clear(c));
+   alternatives.sort((a,b)=>Math.hypot(a.x-p.x,a.y-p.y)-Math.hypot(b.x-p.x,b.y-p.y));
+   if(alternatives.length)p=alternatives[0];
+  }
+  return p;
+ }
+ function eligible(o,a){
+  const rule=speciesHabitats[o.speciesId];
+  if(a.kind==='activity-area')return true;
+  if(rule.movement==='perching')return a.zone==='branch'&&a.precise===true;
+  if(rule.movement==='plant-surface'||rule.movement==='tree-affinity'||o.speciesId==='grasshopper')return rule.preferredPlants.includes(a.sourceSpeciesId);
+  return [rule.primary,...rule.additional].includes(a.zone)&&a.kind!=='producer-area';
+ }
+ function rebuild(items,geometry){
+  rebuilds++;organisms=items;layout=geometry;byId=new Map(items.map(o=>[o.instanceId,o]));anchors=(provider(items,geometry)||[]).filter(a=>validHabitatAnchor(a,byId));offsets=new Map();
+  const occupied=[],usage=new Map();
+  const ordered=[...items].sort((a,b)=>(organismById[a.speciesId].role==='producer'?0:1)-(organismById[b.speciesId].role==='producer'?0:1)||a.instanceId.localeCompare(b.instanceId,'en'));
+  for(const o of ordered){
+   const origin={x:o.position.x*layout.width,y:o.position.y*layout.height},rule=speciesHabitats[o.speciesId];
+   if(organismById[o.speciesId].role==='producer'){offsets.set(o.instanceId,{x:0,y:0,anchorId:null,zone:rule.primary,fallback:false});occupied.push(bounds(o,origin));continue;}
+   const possible=anchors.filter(a=>{anchorChecks++;return eligible(o,a)&&(usage.get(a.id)||0)<a.capacity&&(a.kind==='activity-area'||Math.hypot((a.position.x-o.position.x)*layout.width,(a.position.y-o.position.y)*layout.height)<=config.maxOffsetPixels);}).sort((a,b)=>b.priority-a.priority||Math.hypot(a.position.x-o.position.x,a.position.y-o.position.y)-Math.hypot(b.position.x-o.position.x,b.position.y-o.position.y)||a.id.localeCompare(b.id,'en'));
+   const anchor=possible[0],fallback=!anchor||anchor.kind==='activity-area';
+   const bias=rule.movement==='slow-litter'||rule.stationary?12:rule.movement==='perching'?-12:rule.movement==='short-hop'?-6:0;
+   let preferred=fallback?{x:origin.x,y:origin.y+bias}:{x:anchor.position.x*layout.width,y:anchor.position.y*layout.height};
+   const candidates=[],phase=hash(o.instanceId)%3;
+   for(const dy of [0,-22,22,-44,44,-64,64])for(const dx of [0,-24,24,-48,48,-68,68]){
+    let p=safe(o,{x:preferred.x+dx,y:preferred.y+dy});
+    if(fallback){const bottom=rule.movement==='perching'?.73:rule.movement==='slow-litter'?.80:['soil-bacteria','litter-mold'].includes(o.speciesId)?.79:.77;p.y=clamp(p.y,config.groundTop*layout.height,bottom*layout.height);p=safe(o,p);}
+    else if(Math.abs(p.x-anchor.position.x*layout.width)>anchor.range.x*layout.width+12||Math.abs(p.y-anchor.position.y*layout.height)>anchor.range.y*layout.height+12)continue;
+    const box=bounds(o,p);
+    if(layout.blockedRects.some(r=>overlap(box,{left:r.left*layout.width,right:r.right*layout.width,top:r.top*layout.height,bottom:r.bottom*layout.height})>0))continue;
+    const collision=occupied.reduce((sum,b)=>sum+overlap(box,b)/Math.min(area(box),area(b)),0);
+    candidates.push({p,score:collision*1000+Math.hypot(p.x-preferred.x,p.y-preferred.y)+(phase===1?dx*.001:-dx*.001)});
+   }
+   candidates.sort((a,b)=>a.score-b.score);const p=candidates[0]?.p||safe(o,origin);
+   offsets.set(o.instanceId,{x:p.x-origin.x,y:p.y-origin.y,anchorId:anchor?.id||null,sourceInstanceId:anchor?.sourceInstanceId||null,zone:anchor?.zone||'ground',fallback});
+   if(anchor)usage.set(anchor.id,(usage.get(anchor.id)||0)+1);occupied.push(bounds(o,p));
+  }
+ }
+ function base(o){const offset=offsets.get(o.instanceId)||{x:0,y:0};return safe(o,{x:o.position.x*layout.width+offset.x,y:o.position.y*layout.height+offset.y});}
+ function position(o,depth=0){
+  let p=base(o);const target=byId.get(o.targetInstanceId);
+  if(depth<4&&target&&['moveToFood','eat'].includes(o.behaviorState)){
+   const d=Math.hypot(o.position.x-target.position.x,o.position.y-target.position.y),mix=clamp((.1-d)/.075,0,1);
+   if(mix>0){const t=position(target,depth+1);p=safe(o,{x:p.x*(1-mix)+(t.x+(o.position.x-target.position.x)*layout.width)*mix,y:p.y*(1-mix)+(t.y+(o.position.y-target.position.y)*layout.height)*mix});}
+  }else if(speciesHabitats[o.speciesId].movement==='short-hop'&&o.behaviorState==='wander')p.y-=Math.abs(Math.sin(o.position.x*120+o.position.y*90))*3;
+  return p;
+ }
+ return {rebuild,position,descriptor:id=>offsets.get(id),diagnostics:()=>({rebuilds,anchorChecks,anchors:anchors.length,assigned:offsets.size}),setProvider(next){provider=next;rebuild(organisms,layout);}};
+}

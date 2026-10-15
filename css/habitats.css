@@ -1,0 +1,18 @@
+/* View-only offsets live on existing anchors; ecological positions are intact. */
+.organism-name{overflow:hidden;text-overflow:ellipsis;max-width:var(--sprite-width)}
+.organism-hit{position:absolute;left:calc(max(48px,var(--sprite-width)) / -2);top:calc(0px - var(--sprite-height));width:max(48px,var(--sprite-width));height:max(48px,calc(var(--sprite-height) + 20px));min-width:48px;min-height:48px;padding:0;border:0;border-radius:9px;background:transparent;pointer-events:auto;touch-action:manipulation}
+.organism-hit:focus-visible{outline:2px solid #244c38;outline-offset:2px}
+.is-placing .organism-hit{pointer-events:none}
+.organism-object.is-inspected{z-index:60!important}
+.is-inspected .organism-visual{outline:2px solid #52764b;outline-offset:2px;border-radius:8px}
+.organism-object.has-event-marker{z-index:80!important}
+.organism-visual{pointer-events:none}
+#population-nearby{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+#population-nearby[hidden]{display:none}
+#population-nearby button{min-width:44px;min-height:44px;padding:8px 12px;border:1px solid #b8c6aa;border-radius:8px;background:#edf3df;color:#244c38;font:inherit}
+#population-nearby button[aria-pressed=true]{background:#d8e8c4;border-color:#52764b}
+#population-individual{padding:10px;background:#edf3df;border-radius:8px;font-size:13px;line-height:1.7}
+#population-dialog{scroll-padding-bottom:70px}
+#population-close{position:sticky;bottom:0;z-index:1;background:#edf3df}
+
+#population-dialog.is-choosing > :not(h2,#population-individual,#population-nearby,#population-close){display:none}

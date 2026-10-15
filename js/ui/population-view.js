@@ -1,3 +1,4 @@
+import {speciesHabitats,habitatZones,movementLabels} from '../../data/habitats.js';
 import {organisms,organismById,roleLabels} from '../../data/organisms.js';
 import {survivalStage,populationMessage,validateIntroduction} from '../systems/population.js';
 import {reproductionRules} from '../../data/population-config.js';
@@ -6,11 +7,26 @@ import {effectiveAge} from '../state/life-state.js';
 import {developmentRules} from '../../data/development-config.js';
 import {developmentStage,developmentConditions,developmentNotice} from '../systems/development.js';
 
-export function createPopulationView(state,onRelease){
+export function createPopulationView(state,onRelease,onFocus=()=>{}){
  const dialog=document.querySelector('#population-dialog'),select=document.querySelector('#population-species'),release=document.querySelector('#population-release');
  const developmentPanel=document.querySelector('#population-development');
  const developmentFields=Object.fromEntries(['cycle','development-stage','development-conditions','pending','development-history'].map(key=>[key,document.querySelector(`#population-${key}`)]));
- let confirmation=null;
+ let confirmation=null,selectedInstanceId=null,candidateIds=[],candidateSignature='';
+ const individual=document.querySelector('#population-individual'),nearby=document.querySelector('#population-nearby');
+ function choose(id){const o=state.organisms.find(o=>o.instanceId===id);if(!o)return;selectedInstanceId=id;select.value=o.speciesId;confirmation=null;onFocus(id);render();}
+ function renderIndividual(){
+  const o=state.organisms.find(o=>o.instanceId===selectedInstanceId);
+  dialog.dataset.selectedInstanceId=o?.instanceId||'';
+  individual.hidden=!candidateIds.length;
+  if(candidateIds.length)individual.textContent=o?`살펴보는 개체: ${organismById[o.speciesId].name}. 대표 생활 공간: ${habitatZones[speciesHabitats[o.speciesId].primary]}. ${movementLabels[speciesHabitats[o.speciesId].movement]}. 이 개체: ${labels[survivalStage(o)]}${o.development?' '+(developmentRules[o.speciesId]?.stages.find(s=>s.id===o.development.stage)?.label||''):''} 항상 이곳에만 사는 것은 아니에요.`:'여러 생물이 가까이 있어요. 살펴볼 개체를 골라 주세요.';
+  const live=candidateIds.filter(id=>state.organisms.some(o=>o.instanceId===id));
+  const signature=live.join('|')+'#'+selectedInstanceId;
+  nearby.hidden=live.length<2&&Boolean(o);
+  dialog.classList.toggle('is-choosing',candidateIds.length>0&&!o&&live.length>0);
+  if(signature!==candidateSignature){candidateSignature=signature;nearby.replaceChildren();for(const id of live){const o=state.organisms.find(o=>o.instanceId===id),button=document.createElement('button');button.type='button';button.dataset.inspectChoice=id;button.textContent=organismById[o.speciesId].name+' '+(state.organisms.filter(n=>n.speciesId===o.speciesId).findIndex(n=>n.instanceId===id)+1);button.setAttribute('aria-pressed',String(id===selectedInstanceId));button.addEventListener('click',()=>choose(id));nearby.append(button);}}
+ }
+ function inspect(ids){candidateIds=ids.filter(id=>state.organisms.some(o=>o.instanceId===id));selectedInstanceId=null;confirmation=null;onFocus(null);if(!candidateIds.length)return;if(!dialog.open)dialog.showModal();if(candidateIds.length===1)choose(candidateIds[0]);else render();}
+
  for(const species of organisms){const option=document.createElement('option');option.value=species.id;option.textContent=species.name;select.append(option);}
  const labels={normal:'현재는 정상 상태예요.',hungry:'먹이를 찾고 있어요.',severe:'먹이가 오랫동안 부족해요.',weak:'쇠약해졌어요. 먹이와 관리가 필요해요.',static:'자리를 지키고 있어요.'};
  function setText(node,text){if(node.textContent!==text)node.textContent=text;}
@@ -44,6 +60,7 @@ export function createPopulationView(state,onRelease){
  }
  function render(){
   if(!dialog.open)return;
+  renderIndividual();
   const id=select.value,species=organismById[id],members=state.organisms.filter(o=>o.speciesId===id);
   const lifeRule=lifespanRules[id];
   document.querySelector('#population-role').textContent=`역할: ${roleLabels[species.role]} · 현재 숲 개체 수: ${members.length}${lifeRule.unit}`;
@@ -61,15 +78,15 @@ export function createPopulationView(state,onRelease){
   document.querySelector('#population-soil').textContent=`유기물: ${Object.values(d.organicMatter).reduce((a,b)=>a+b,0)>1?'분해할 자원이 있어요':'조금 있어요'} · 토양의 이용 가능한 양분: ${d.soilNutrients>.6?'좋음':d.soilNutrients>.2?'보통':'조금'}. 분해자는 유기물 분해를 도와요. 화면에 없는 미생물의 분해도 조금 반영해요.`;
   const list=document.querySelector('#population-history');list.replaceChildren();
   for(const record of state.population.history.filter(r=>r.speciesId===id&&!['placement','reintroduction'].includes(r.cause)).slice(-4).reverse()){const li=document.createElement('li');li.textContent=populationMessage(record);list.append(li);}
-  release.disabled=!members.length;release.textContent=confirmation?'다시 눌러 한 개체 돌려보내기':'한 개체를 돌려보내 공간 마련';
+  release.disabled=candidateIds.length?!selectedInstanceId||!state.organisms.some(o=>o.instanceId===selectedInstanceId):!members.length;release.textContent=confirmation?'다시 눌러 한 개체 돌려보내기':'한 개체를 돌려보내 공간 마련';
  }
- document.querySelector('#population-open').addEventListener('click',()=>{confirmation=null;dialog.showModal();render();});
+ document.querySelector('#population-open').addEventListener('click',()=>{confirmation=null;selectedInstanceId=null;candidateIds=[];onFocus(null);dialog.showModal();render();});
  document.querySelector('#population-close').addEventListener('click',()=>dialog.close());
- select.addEventListener('change',()=>{confirmation=null;render();});
+ select.addEventListener('change',()=>{confirmation=null;selectedInstanceId=null;candidateIds=[];onFocus(null);render();});
  release.addEventListener('click',()=>{
-  const instance=state.organisms.find(o=>o.speciesId===select.value);if(!instance)return;
+  const instance=selectedInstanceId?state.organisms.find(o=>o.instanceId===selectedInstanceId):candidateIds.length?null:state.organisms.find(o=>o.speciesId===select.value);if(!instance)return;
   if(confirmation!==instance.instanceId){confirmation=instance.instanceId;render();return;}
   onRelease(instance.instanceId);confirmation=null;render();
  });
- return {render,select:id=>{select.value=id;confirmation=null;render()},reset:()=>{confirmation=null;select.value='oak';dialog.close()}};
+ return {render,inspect,select:id=>{select.value=id;confirmation=null;selectedInstanceId=null;candidateIds=[];onFocus(null);render()},reset:()=>{confirmation=null;selectedInstanceId=null;candidateIds=[];onFocus(null);select.value='oak';dialog.close()}};
 }

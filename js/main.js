@@ -51,7 +51,8 @@ try {
     const record=removeOrganism(gameState,id,'release');if(!record)return;
     feedingSystem.forget([id]);wander.forget([id]);scene.remove([id]);scene.showFeedback(populationMessage(record),true);
     eventSystem.refresh(gameState);eventView.render();stabilitySystem.update(gameState);refreshProgress();renderDashboard(gameState);saveService.schedule();loop.refresh();
-  });
+  },id=>scene.setFocused(id));
+  scene.setInspectHandler(ids=>populationView.inspect(ids));
   const forestView = createForestView(gameState,restartGame);
   const helpView = createHelpView(createGuideAdapter());
   function refreshProgress(seconds=0) {

@@ -1,3 +1,5 @@
+import {createHabitatPresentation} from '../systems/habitat-presentation.js';
+import {speciesHabitats} from '../../data/habitats.js';
 import { organismById } from '../../data/organisms.js';
 import { speciesProfiles, placementConfig } from '../../data/interaction-config.js';
 import { DEBUG_MODE, foodResourceConfig } from '../../data/ecology-config.js';
@@ -18,13 +20,26 @@ export function createOrganismLayer(forest, getOrganisms) {
   const feedback = forest.querySelector('#placement-feedback');
   const nodes = new Map();
   let layout;
+  const habitat=createHabitatPresentation();
+  let membership='',inspectHandler=()=>{},focusedId=null;
+  function refreshHabitats(force=false){
+    const items=getOrganisms(),signature=items.map(o=>o.instanceId).sort().join('|');
+    if(force||signature!==membership){membership=signature;habitat.rebuild(items,layout);for(const o of items)paint(o);}
+  }
   let feedbackTimer;
   let keyboardPosition = { x: 0.4, y: 0.72 };
 
   function paint(instance, direction) {
     const entry = nodes.get(instance.instanceId);
     if (!entry || !layout) return;
-    entry.anchor.style.transform = `translate(${instance.position.x * layout.width}px, ${instance.position.y * layout.height}px)`;
+    const point=habitat.position(instance),descriptor=habitat.descriptor(instance.instanceId);
+    entry.point=point;
+    entry.anchor.style.transform = `translate(${point.x}px, ${point.y}px)`;
+    entry.anchor.dataset.habitat=speciesHabitats[instance.speciesId].primary;
+    entry.anchor.dataset.movement=speciesHabitats[instance.speciesId].movement;
+    entry.anchor.dataset.anchorId=descriptor?.anchorId||'';
+    entry.anchor.dataset.anchorFallback=String(descriptor?.fallback??false);
+    entry.anchor.style.zIndex=String(2+Math.round(point.y/layout.height*12));
     if (direction) entry.image.style.transform = `scaleX(${direction})`;
   }
   function measure() {
@@ -44,6 +59,7 @@ export function createOrganismLayer(forest, getOrganisms) {
       return { left: (box.left - rect.left) / rect.width, right: (box.right - rect.left) / rect.width, top: (box.top - rect.top) / rect.height, bottom: (box.bottom - rect.top) / rect.height };
     });
     layout = { width: rect.width, height: rect.height, sizes, footprints, blockedRects };
+    refreshHabitats(true);
     for (const instance of getOrganisms()) {
       const entry = nodes.get(instance.instanceId);
       if (entry) sizeObject(entry.anchor, instance.speciesId);
@@ -57,6 +73,7 @@ export function createOrganismLayer(forest, getOrganisms) {
   }
   function add(instance, animate = false) {
     if (nodes.has(instance.instanceId)) return;
+    refreshHabitats();
     const definition = organismById[instance.speciesId];
     const anchor = document.createElement('div');
     anchor.className = 'organism-object';
@@ -79,7 +96,9 @@ export function createOrganismLayer(forest, getOrganisms) {
     name.className = 'organism-name';
     name.textContent = definition.name;
     visual.append(image, name);
-    anchor.append(visual);
+    const hit=document.createElement('button');hit.type='button';hit.className='organism-hit';hit.dataset.inspectInstance=instance.instanceId;
+    hit.setAttribute('aria-label',`${definition.name} ${getOrganisms().filter(o=>o.speciesId===instance.speciesId).findIndex(o=>o.instanceId===instance.instanceId)+1}번째 개체 살펴보기`);hit.setAttribute('aria-pressed','false');
+    anchor.append(visual,hit);
     layer.append(anchor);
     let debug;
     if (DEBUG_MODE) {
@@ -88,7 +107,7 @@ export function createOrganismLayer(forest, getOrganisms) {
       debug.append(document.createTextNode(''));
       visual.append(debug);
     }
-    nodes.set(instance.instanceId, { anchor, image, name, debug });
+    nodes.set(instance.instanceId, { anchor, image, name, debug, hit });
     paint(instance);
     showState(instance);
   }
@@ -118,9 +137,12 @@ export function createOrganismLayer(forest, getOrganisms) {
   }
   function remove(instanceIds) {
     for (const id of instanceIds) { nodes.get(id)?.anchor.remove(); nodes.delete(id); }
+    if(instanceIds.includes(focusedId))setFocused(null);
+    if(layout)refreshHabitats();
   }
   function showSelection(speciesId) {
     const profile = speciesProfiles[speciesId];
+    if(profile)setFocused(null);
     guide.hidden = !profile;
     forest.classList.toggle('is-placing', Boolean(profile));
     if (!profile) {
@@ -157,6 +179,23 @@ export function createOrganismLayer(forest, getOrganisms) {
     cursor.style.left = `${keyboardPosition.x * 100}%`;
     cursor.style.top = `${keyboardPosition.y * 100}%`;
   }
+  function setFocused(id){
+    focusedId=nodes.has(id)?id:null;
+    for(const [key,entry]of nodes){entry.anchor.classList.toggle('is-inspected',key===focusedId);entry.hit.setAttribute('aria-pressed',String(key===focusedId));}
+  }
+  function inspectInput(event){
+    if(forest.classList.contains('is-placing')||event.target.closest('[data-event-marker],[data-scene-ui]'))return false;
+    const exact=event.target.closest('[data-inspect-instance]');
+    let ids;
+    if(event.detail===0&&exact)ids=[exact.dataset.inspectInstance];
+    else {
+      const rect=surface.getBoundingClientRect(),x=event.clientX-rect.left,y=event.clientY-rect.top;
+      ids=[...nodes.entries()].filter(([,e])=>{if(!e.point)return false;const size=layout.sizes[e.anchor.dataset.speciesId],w=Math.max(48,size.width),h=Math.max(48,size.height+20);return x>=e.point.x-w/2&&x<=e.point.x+w/2&&y>=e.point.y-size.height&&y<=e.point.y-size.height+h;}).sort(([a,ea],[b,eb])=>Math.hypot(ea.point.x-x,ea.point.y-y)-Math.hypot(eb.point.x-x,eb.point.y-y)||a.localeCompare(b,'en')).map(([id])=>id);
+    }
+    if(!ids.length)return false;
+    event.preventDefault();event.stopImmediatePropagation();inspectHandler(ids);return true;
+  }
+  forest.addEventListener('click',inspectInput);
   surface.addEventListener('keydown', moveCursor);
   surface.addEventListener('pointerdown', () => { cursor.hidden = true; });
   const observer = new ResizeObserver(measure);
@@ -165,11 +204,13 @@ export function createOrganismLayer(forest, getOrganisms) {
   measure();
   return {
     add, remove, showSelection, showFeedback, readInput,
-    reset() { remove([...nodes.keys()]); clearTimeout(feedbackTimer); feedback.hidden=true; keyboardPosition={x:0.4,y:0.72}; showSelection(null); },
+    setInspectHandler:handler=>{inspectHandler=handler;},setFocused,
+    getPresentation:instance=>habitat.position(instance),getHabitatDiagnostics:()=>habitat.diagnostics(),
+    reset() { focusedId=null;membership='';remove([...nodes.keys()]); clearTimeout(feedbackTimer); feedback.hidden=true; keyboardPosition={x:0.4,y:0.72}; showSelection(null); },
     showStates: instances => { for (const instance of instances) showState(instance); },
     getLayout: () => layout,
     getEventAnchor: instanceId => nodes.get(instanceId)?.anchor,
     paintChanges: changed => { for (const { instance, direction } of changed) paint(instance, direction); },
-    dispose() { observer.disconnect(); window.removeEventListener('resize', measure); clearTimeout(feedbackTimer); },
+    dispose() { forest.removeEventListener('click',inspectInput);observer.disconnect(); window.removeEventListener('resize', measure); clearTimeout(feedbackTimer); },
   };
 }

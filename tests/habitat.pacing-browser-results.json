@@ -1,0 +1,19 @@
+{
+  "stage": "13.6",
+  "schemaVersion": 15,
+  "pacingRevision": 1,
+  "realPage": true,
+  "freshCards": 5,
+  "initialPoints": 0,
+  "initialEventAt": 240,
+  "eventInterval": 360,
+  "genuine14Migration": true,
+  "save15ReloadUnchanged": true,
+  "hidden": {
+    "before": 1,
+    "after": 1,
+    "resumed": 2
+  },
+  "errors": [],
+  "actualS5eHardware": false
+}

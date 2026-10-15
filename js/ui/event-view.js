@@ -97,7 +97,7 @@ export function createEventView(state, scene, onAcknowledge, management = {optio
       selected.push({event,anchor}); sources.add(source);
     }
     const visibleIds=new Set(selected.map(item=>item.event.eventId));
-    for(const [id,entry] of markers) if(!visibleIds.has(id)){entry.node.remove();markers.delete(id);}
+    for(const [id,entry] of markers) if(!visibleIds.has(id)){const parent=entry.node.parentElement;entry.node.remove();if(parent&&!parent.querySelector('[data-event-marker]'))parent.classList.remove('has-event-marker');markers.delete(id);}
     for(const {event,anchor} of selected) {
       let entry=markers.get(event.eventId);
       if(!entry) {
@@ -108,7 +108,7 @@ export function createEventView(state, scene, onAcknowledge, management = {optio
         node.addEventListener('pointerdown',e=>e.stopPropagation());
         entry={node}; markers.set(event.eventId,entry);
       }
-      if(entry.node.parentElement!==anchor)anchor.append(entry.node);
+      if(entry.node.parentElement!==anchor){const previous=entry.node.parentElement;anchor.append(entry.node);if(previous&&!previous.querySelector('[data-event-marker]'))previous.classList.remove('has-event-marker');}if(anchor.classList.contains('organism-object'))anchor.classList.add('has-event-marker');
       const markerLabel=`${event.payload.organicOriginSequence?'유기물 발생':event.payload.developmentSequence?'성장 관찰':event.kind==='insight'?'발견':event.kind==='question'?'조사':'알림'}: ${event.title}`;
       if(entry.node.getAttribute('aria-label')!==markerLabel)entry.node.setAttribute('aria-label',markerLabel);
     }

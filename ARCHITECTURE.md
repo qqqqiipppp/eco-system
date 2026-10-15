@@ -1,3 +1,9 @@
+## 13.7단계 현재 기준
+
+data/habitats.js→habitat-anchors 공급→habitat-presentation의 메모리 전용 투영→organism-layer transform을 연결합니다. model.position/feeding/wander/저장은 변경하지 않습니다. actual instanceID 선택은 기존population dialog로 전달하고 선택 ID는UI에만 보관합니다. 분해자 marker는 기존 DOM을 따라갑니다. 새 영구 필드/타이머 없음.
+
+[서식지 구조](FOREST_HABITAT_SYSTEM.md) · [완료 보고](STAGE13_7_REPORT.md)
+
 ## 13.6단계 현재 기준
 
 data/pacing-config.js가 생태 설정의 변환만 담당합니다. 실제 simulationTime/RAF/0.5 tick은 유지합니다. pacing-migration.js는 기존 시간 진행률·생태 deadline을 검증 전 한 번 변환합니다. save-format schema15는 validated feeding decision·acclimationUntil·hold 진행을 저장합니다. 돈·DOM·좌표 엔진의 책임은 그대로이며 반복 플레이는 인수 문서만 제공합니다.

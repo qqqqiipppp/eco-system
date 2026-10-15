@@ -1,3 +1,9 @@
+## 13.7단계 현재 기준
+
+새로 획득한 speciesId를 기존24종 habitats 설정으로 연결합니다. 새 숲/복원 시 view anchor·개체 선택 cache는 재계산하며 inventory/도감/생태position/영구보상 원장과 분리합니다. 실제가지/목재 데이터는16단계 공급 경계로 교체합니다. 이번 단계는 새 회차/해금/도감/추가예산 UI를 구현하지 않았습니다.
+
+[서식지 구조](FOREST_HABITAT_SYSTEM.md) · [완료 보고](STAGE13_7_REPORT.md)
+
 # 14단계 반복 플레이 인수 설계
 
 13.6은 한 숲만 저장한다. 새 회차/도감/잠금 카드 미리보기/새 버튼/회차 경제는 구현하지 않았다. schema15·pacingRevision1·ecologyRevision2/key eco-system:forest-save 기준이다.
