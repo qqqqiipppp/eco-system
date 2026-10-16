@@ -1,0 +1,182 @@
+{
+  "stage": "15.6",
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "actualS5e": false,
+  "scenarios": [
+    {
+      "consumer": "goshawk",
+      "food": "rabbit",
+      "releaseRabbit": false,
+      "meal": {
+        "relationId": "v2_rabbit_to_goshawk",
+        "foodPart": "animal",
+        "consumerSpeciesId": "goshawk",
+        "foodSpeciesId": "rabbit",
+        "consumerInstanceId": "fixture-0-0",
+        "foodInstanceId": "fixture-1-0"
+      },
+      "contactPixels": 20.704073343185392,
+      "victimDOMRemoved": true,
+      "actualTouch": true,
+      "points": 0,
+      "recordedWithoutAcknowledgement": false,
+      "feedback": "참매가 멧토끼를 먹었어요."
+    },
+    {
+      "consumer": "goshawk",
+      "food": "chipmunk",
+      "releaseRabbit": false,
+      "meal": {
+        "relationId": "v2_chipmunk_to_goshawk",
+        "foodPart": "animal",
+        "consumerSpeciesId": "goshawk",
+        "foodSpeciesId": "chipmunk",
+        "consumerInstanceId": "fixture-0-0",
+        "foodInstanceId": "fixture-1-0"
+      },
+      "contactPixels": 16.388906522401072,
+      "victimDOMRemoved": true,
+      "actualTouch": true,
+      "points": 0,
+      "recordedWithoutAcknowledgement": false,
+      "feedback": "참매가 다람쥐를 먹었어요."
+    },
+    {
+      "consumer": "goshawk",
+      "food": "bulbul",
+      "releaseRabbit": false,
+      "meal": {
+        "relationId": "v2_bulbul_to_goshawk",
+        "foodPart": "animal",
+        "consumerSpeciesId": "goshawk",
+        "foodSpeciesId": "bulbul",
+        "consumerInstanceId": "fixture-0-0",
+        "foodInstanceId": "fixture-1-0"
+      },
+      "contactPixels": 15.800768493968837,
+      "victimDOMRemoved": true,
+      "actualTouch": true,
+      "points": 0,
+      "recordedWithoutAcknowledgement": false,
+      "feedback": "참매가 직박구리를 먹었어요."
+    },
+    {
+      "consumer": "weasel",
+      "food": "frog",
+      "releaseRabbit": false,
+      "meal": {
+        "relationId": "v2_frog_to_weasel",
+        "foodPart": "animal",
+        "consumerSpeciesId": "weasel",
+        "foodSpeciesId": "frog",
+        "consumerInstanceId": "fixture-0-0",
+        "foodInstanceId": "fixture-1-0"
+      },
+      "contactPixels": 22.433000356617473,
+      "victimDOMRemoved": true,
+      "actualTouch": true,
+      "points": 0,
+      "recordedWithoutAcknowledgement": false,
+      "feedback": "족제비가 참개구리를 먹었어요."
+    },
+    {
+      "consumer": "tit",
+      "food": "spider",
+      "releaseRabbit": false,
+      "meal": {
+        "relationId": "v2_spider_to_tit",
+        "foodPart": "animal",
+        "consumerSpeciesId": "tit",
+        "foodSpeciesId": "spider",
+        "consumerInstanceId": "fixture-0-0",
+        "foodInstanceId": "fixture-1-0"
+      },
+      "contactPixels": 17.630999999999972,
+      "victimDOMRemoved": true,
+      "actualTouch": true,
+      "points": 0,
+      "recordedWithoutAcknowledgement": false,
+      "feedback": "박새가 무당거미를 먹었어요."
+    },
+    {
+      "consumer": "bulbul",
+      "food": "hazel",
+      "releaseRabbit": false,
+      "meal": {
+        "relationId": "v2_hazel_to_bulbul",
+        "foodPart": "fruit",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "fixture-0-0",
+        "foodInstanceId": "fixture-1-0"
+      },
+      "contactPixels": 21.382000000000062,
+      "victimDOMRemoved": false,
+      "actualTouch": true,
+      "points": 0,
+      "recordedWithoutAcknowledgement": false,
+      "feedback": "직박구리: 팽나무의 열매에서 먹이를 얻었어요."
+    },
+    {
+      "consumer": "chipmunk",
+      "food": "pine",
+      "releaseRabbit": false,
+      "meal": {
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "fixture-0-0",
+        "foodInstanceId": "fixture-1-0"
+      },
+      "contactPixels": 20.774000000000058,
+      "victimDOMRemoved": false,
+      "actualTouch": true,
+      "points": 0,
+      "recordedWithoutAcknowledgement": false,
+      "feedback": "다람쥐: 소나무의 씨앗에서 먹이를 얻었어요."
+    },
+    {
+      "consumer": "spider",
+      "food": "aphid",
+      "releaseRabbit": false,
+      "meal": {
+        "relationId": "v2_aphid_to_spider",
+        "foodPart": "animal",
+        "consumerSpeciesId": "spider",
+        "foodSpeciesId": "aphid",
+        "consumerInstanceId": "fixture-0-0",
+        "foodInstanceId": "fixture-1-0"
+      },
+      "contactPixels": 12.21999999999997,
+      "victimDOMRemoved": true,
+      "actualTouch": true,
+      "points": 0,
+      "recordedWithoutAcknowledgement": false,
+      "feedback": "무당거미가 청동풍뎅이를 먹었어요."
+    },
+    {
+      "consumer": "goshawk",
+      "food": "chipmunk",
+      "releaseRabbit": true,
+      "meal": {
+        "relationId": "v2_chipmunk_to_goshawk",
+        "foodPart": "animal",
+        "consumerSpeciesId": "goshawk",
+        "foodSpeciesId": "chipmunk",
+        "consumerInstanceId": "fixture-0-0",
+        "foodInstanceId": "fixture-1-0"
+      },
+      "contactPixels": 27.34483764808262,
+      "victimDOMRemoved": true,
+      "actualTouch": true,
+      "points": 0,
+      "recordedWithoutAcknowledgement": false,
+      "feedback": "참매가 다람쥐를 먹었어요."
+    }
+  ],
+  "errors": []
+}

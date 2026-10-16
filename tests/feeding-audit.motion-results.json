@@ -1,0 +1,288 @@
+{
+  "stage": "15.6",
+  "note": "actual movement + feeding at 30 steps/sec; seeded wander; no placements or care; explicit insight acknowledgements",
+  "continuous": {
+    "at": 1200,
+    "count": 11,
+    "peak": 30,
+    "meals": {
+      "v2_grass_to_grasshopper": 1,
+      "v2_spider_to_tit": 1,
+      "v2_grasshopper_to_frog": 1,
+      "v2_pine_to_chipmunk": 1,
+      "v2_frog_to_snake": 1,
+      "v2_chipmunk_to_goshawk": 1,
+      "v2_hazel_to_bulbul": 12,
+      "v2_grass_to_snail": 1,
+      "v2_snail_to_ladybird": 1,
+      "v2_grass_to_rabbit": 17,
+      "v2_hazel_to_aphid": 23,
+      "v2_raspberry_to_bulbul": 2,
+      "v2_caterpillar_to_tit": 2,
+      "v2_bulbul_to_goshawk": 1,
+      "v2_rabbit_to_goshawk": 1,
+      "v2_pine_to_caterpillar": 61
+    },
+    "predation": 9,
+    "points": 192,
+    "observations": 16,
+    "processed": 43.643997261458765,
+    "wormProcessed": 6.522498750000168,
+    "cleared": false,
+    "checkpoints": [
+      {
+        "time": 60,
+        "count": 25,
+        "points": 132
+      },
+      {
+        "time": 120,
+        "count": 24,
+        "points": 156
+      },
+      {
+        "time": 180,
+        "count": 25,
+        "points": 156
+      },
+      {
+        "time": 240,
+        "count": 25,
+        "points": 156
+      },
+      {
+        "time": 300,
+        "count": 22,
+        "points": 168
+      },
+      {
+        "time": 360,
+        "count": 21,
+        "points": 168
+      },
+      {
+        "time": 420,
+        "count": 21,
+        "points": 168
+      },
+      {
+        "time": 480,
+        "count": 20,
+        "points": 180
+      },
+      {
+        "time": 540,
+        "count": 18,
+        "points": 180
+      },
+      {
+        "time": 600,
+        "count": 19,
+        "points": 192
+      },
+      {
+        "time": 660,
+        "count": 18,
+        "points": 192
+      },
+      {
+        "time": 720,
+        "count": 18,
+        "points": 192
+      },
+      {
+        "time": 780,
+        "count": 14,
+        "points": 192
+      },
+      {
+        "time": 840,
+        "count": 13,
+        "points": 192
+      },
+      {
+        "time": 900,
+        "count": 14,
+        "points": 192
+      },
+      {
+        "time": 960,
+        "count": 12,
+        "points": 192
+      },
+      {
+        "time": 1020,
+        "count": 11,
+        "points": 192
+      },
+      {
+        "time": 1080,
+        "count": 11,
+        "points": 192
+      },
+      {
+        "time": 1140,
+        "count": 11,
+        "points": 192
+      },
+      {
+        "time": 1200,
+        "count": 11,
+        "points": 192
+      }
+    ]
+  },
+  "split": {
+    "first": {
+      "at": 600,
+      "count": 19,
+      "peak": 30,
+      "meals": {
+        "v2_grass_to_grasshopper": 1,
+        "v2_spider_to_tit": 1,
+        "v2_grasshopper_to_frog": 1,
+        "v2_pine_to_chipmunk": 1,
+        "v2_frog_to_snake": 1,
+        "v2_chipmunk_to_goshawk": 1,
+        "v2_hazel_to_bulbul": 12,
+        "v2_grass_to_snail": 1,
+        "v2_snail_to_ladybird": 1,
+        "v2_grass_to_rabbit": 17,
+        "v2_hazel_to_aphid": 22,
+        "v2_raspberry_to_bulbul": 2,
+        "v2_caterpillar_to_tit": 2,
+        "v2_bulbul_to_goshawk": 1,
+        "v2_rabbit_to_goshawk": 1,
+        "v2_pine_to_caterpillar": 3
+      },
+      "predation": 9,
+      "points": 192,
+      "observations": 16,
+      "processed": 20.37289696420138,
+      "wormProcessed": 2.9382000000000392,
+      "cleared": false,
+      "checkpoints": [
+        {
+          "time": 60,
+          "count": 25,
+          "points": 132
+        },
+        {
+          "time": 120,
+          "count": 24,
+          "points": 156
+        },
+        {
+          "time": 180,
+          "count": 25,
+          "points": 156
+        },
+        {
+          "time": 240,
+          "count": 25,
+          "points": 156
+        },
+        {
+          "time": 300,
+          "count": 22,
+          "points": 168
+        },
+        {
+          "time": 360,
+          "count": 21,
+          "points": 168
+        },
+        {
+          "time": 420,
+          "count": 21,
+          "points": 168
+        },
+        {
+          "time": 480,
+          "count": 20,
+          "points": 180
+        },
+        {
+          "time": 540,
+          "count": 18,
+          "points": 180
+        },
+        {
+          "time": 600,
+          "count": 19,
+          "points": 192
+        }
+      ]
+    },
+    "last": {
+      "at": 1200,
+      "count": 11,
+      "peak": 19,
+      "meals": {
+        "v2_hazel_to_aphid": 1,
+        "v2_pine_to_caterpillar": 58
+      },
+      "predation": 0,
+      "points": 192,
+      "observations": 16,
+      "processed": 43.643997261458765,
+      "wormProcessed": 6.522498750000168,
+      "cleared": false,
+      "checkpoints": [
+        {
+          "time": 660,
+          "count": 18,
+          "points": 192
+        },
+        {
+          "time": 720,
+          "count": 18,
+          "points": 192
+        },
+        {
+          "time": 780,
+          "count": 14,
+          "points": 192
+        },
+        {
+          "time": 840,
+          "count": 13,
+          "points": 192
+        },
+        {
+          "time": 900,
+          "count": 14,
+          "points": 192
+        },
+        {
+          "time": 960,
+          "count": 12,
+          "points": 192
+        },
+        {
+          "time": 1020,
+          "count": 11,
+          "points": 192
+        },
+        {
+          "time": 1080,
+          "count": 11,
+          "points": 192
+        },
+        {
+          "time": 1140,
+          "count": 11,
+          "points": 192
+        },
+        {
+          "time": 1200,
+          "count": 11,
+          "points": 192
+        }
+      ]
+    },
+    "exactAtLoad": true,
+    "note": "wander phase/seed not persisted by existing schema; subsequent populations need not equal uninterrupted play"
+  },
+  "exitCode": 0
+}

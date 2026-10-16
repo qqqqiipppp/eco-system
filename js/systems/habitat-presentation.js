@@ -4,6 +4,7 @@ import {provideHabitatAnchors} from './habitat-anchors.js';
 import {placementConfig,speciesProfiles} from '../../data/interaction-config.js';
 import {isPositionAllowed} from './placement-rules.js';
 import {forestGroundHeight} from '../../data/forest-spaces.js';
+import {feedingConfig} from '../../data/ecology-config.js';
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const hash=s=>{let h=2166136261;for(const c of s)h=Math.imul(h^c.charCodeAt(0),16777619);return h>>>0;};
 const area=b=>(b.right-b.left)*(b.bottom-b.top);
@@ -17,7 +18,7 @@ export function validHabitatAnchor(a,byId){
 }
 // View-only cache. Never writes an organism, ecology RNG, food or stored field.
 export function createHabitatPresentation({provider=provideHabitatAnchors}={}){
- let layout,organisms=[],byId=new Map(),offsets=new Map(),anchors=[],blocked=[],rebuilds=0,anchorChecks=0;
+ let layout,organisms=[],byId=new Map(),offsets=new Map(),anchors=[],blocked=[],ambushers=[],rebuilds=0,anchorChecks=0;
  function bounds(o,p){const size=layout.sizes[o.speciesId],width=Math.max(config.minTouch,size.width);return {left:p.x-width/2,right:p.x+width/2,top:p.y-size.height,bottom:p.y+Math.max(20,config.minTouch-size.height)};}
  function safe(o,p,attached=false){
   const size=layout.sizes[o.speciesId],half=Math.max(config.minTouch,size.width)/2;
@@ -49,6 +50,7 @@ export function createHabitatPresentation({provider=provideHabitatAnchors}={}){
  }
  function rebuild(items,geometry){
   rebuilds++;organisms=items;layout=geometry;byId=new Map(items.map(o=>[o.instanceId,o]));offsets=new Map();
+  ambushers=items.filter(o=>feedingConfig[o.speciesId]?.huntMode==='ambush');
   blocked=(geometry.visualBlockedRects||geometry.blockedRects).map(r=>({left:r.left*layout.width,right:r.right*layout.width,top:r.top*layout.height,bottom:r.bottom*layout.height}));
   const occupied=[],usage=new Map();
   const ordered=[...items].sort((a,b)=>(organismById[a.speciesId].role==='producer'?0:1)-(organismById[b.speciesId].role==='producer'?0:1)||a.instanceId.localeCompare(b.instanceId,'en'));
@@ -105,6 +107,12 @@ export function createHabitatPresentation({provider=provideHabitatAnchors}={}){
  }
  function position(o,depth=0){
   let p=base(o);const target=byId.get(o.targetInstanceId);
+  // An actual ambush stays at its resting support. Project only its live,
+  // in-range target to that contact point; never move either ecological point.
+  // The small cached list follows the existing tick order, not a new food preference.
+  const ambusher=ambushers.find(a=>a.targetInstanceId===o.instanceId&&['moveToFood','eat'].includes(a.behaviorState)&&Math.hypot(a.position.x-o.position.x,a.position.y-o.position.y)<=feedingConfig[a.speciesId].searchRadius);
+  if(ambusher){const a=base(ambusher);return safe(o,{x:a.x+(o.position.x-ambusher.position.x)*layout.width,y:a.y+(o.position.y-ambusher.position.y)*layout.height},true);}
+  if(feedingConfig[o.speciesId]?.huntMode==='ambush')return p;
   if(depth<4&&target&&['moveToFood','eat'].includes(o.behaviorState)){
    const d=Math.hypot(o.position.x-target.position.x,o.position.y-target.position.y),mix=clamp((.1-d)/.075,0,1);
    if(mix>0){const t=position(target,depth+1);p=safe(o,{x:p.x*(1-mix)+(t.x+(o.position.x-target.position.x)*layout.width)*mix,y:p.y*(1-mix)+(t.y+(o.position.y-target.position.y)*layout.height)*mix},true);}

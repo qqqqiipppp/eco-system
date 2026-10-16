@@ -2,7 +2,7 @@ import {createHabitatPresentation} from '../systems/habitat-presentation.js';
 import {speciesHabitats} from '../../data/habitats.js';
 import { organismById } from '../../data/organisms.js';
 import { speciesProfiles, placementConfig } from '../../data/interaction-config.js';
-import { DEBUG_MODE, foodResourceConfig } from '../../data/ecology-config.js';
+import { DEBUG_MODE, foodResourceConfig, feedingConfig } from '../../data/ecology-config.js';
 import {survivalStage} from '../systems/population.js';
 import {developmentStage,stageLabel} from '../systems/development.js';
 
@@ -23,6 +23,7 @@ export function createOrganismLayer(forest, getOrganisms) {
   let layout;
   const habitat=createHabitatPresentation();
   let membership='',inspectHandler=()=>{},focusedId=null,placingSpeciesId=null;
+  let ambushTargets=new Set();
   function refreshHabitats(force=false){
     const items=getOrganisms(),signature=items.map(o=>o.instanceId).sort().join('|');
     if(force||signature!==membership){membership=signature;habitat.rebuild(items,layout);for(const o of items)paint(o);}
@@ -217,7 +218,16 @@ export function createOrganismLayer(forest, getOrganisms) {
     setInspectHandler:handler=>{inspectHandler=handler;},setFocused,
     getPresentation:instance=>habitat.position(instance),getHabitatDiagnostics:()=>habitat.diagnostics(),
     reset() { focusedId=null;membership='';remove([...nodes.keys()]); clearTimeout(feedbackTimer); feedback.hidden=true; keyboardPosition={x:0.4,y:0.72}; namesToggle.setAttribute('aria-pressed','false');layer.classList.remove('show-names');showSelection(null); },
-    showStates: instances => { for (const instance of instances) showState(instance); },
+    showStates: instances => {
+      const nextTargets=new Set(instances.filter(o=>feedingConfig[o.speciesId]?.huntMode==='ambush'&&['moveToFood','eat'].includes(o.behaviorState)).map(o=>o.targetInstanceId).filter(Boolean));
+      for (const instance of instances) {
+        showState(instance);
+        // Stationary prey may have no movement delta to repaint. Entering or
+        // leaving ambush contact still needs a view-only position update.
+        if(nextTargets.has(instance.instanceId)||ambushTargets.has(instance.instanceId))paint(instance);
+      }
+      ambushTargets=nextTargets;
+    },
     getLayout: () => layout,
     getEventAnchor: instanceId => nodes.get(instanceId)?.anchor,
     paintChanges: changed => { for (const { instance, direction } of changed) paint(instance, direction); },

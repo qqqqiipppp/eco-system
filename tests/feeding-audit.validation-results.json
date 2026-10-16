@@ -1,0 +1,36 @@
+{
+  "stage": "15.6",
+  "verifiedDate": "2026-10-16",
+  "head": "fc468cd485200752232fb6b8869471bde399fd86",
+  "unit": {
+    "existing": 669,
+    "new": 52,
+    "total": 721,
+    "failed": 0
+  },
+  "browser": {
+    "existingSuites": 20,
+    "newSuites": 1,
+    "contactScenarios": 9,
+    "actualS5e": false
+  },
+  "syntaxFiles": 157,
+  "reportLocalLinks": 42,
+  "unchangedTrackedResultFiles": 51,
+  "changedFiles": [
+    "STAGE15_6_FEEDING_AUDIT.md",
+    "js/systems/feeding.js",
+    "js/systems/habitat-presentation.js",
+    "js/ui/organism-layer.js",
+    "tests/feeding-audit.browser-results.json",
+    "tests/feeding-audit.browser.test.cjs",
+    "tests/feeding-audit.long-results.json",
+    "tests/feeding-audit.long.test.mjs",
+    "tests/feeding-audit.motion-results.json",
+    "tests/feeding-audit.regression-results.json",
+    "tests/feeding-audit.results.json",
+    "tests/feeding-audit.test.mjs",
+    "tests/feeding-audit.validation-results.json",
+    "tests/run-tests.mjs"
+  ]
+}

@@ -14,6 +14,31 @@ import {updateEnvironmentEvents,captureEnvironmentImpact,observeEnvironmentImpac
 
 const distance = (a, b) => Math.hypot(a.position.x - b.position.x, a.position.y - b.position.y);
 
+// Pursuit moves in a straight line. A valid destination alone does not make
+// that route usable: reject UI obstacles expanded by the animal's footprint.
+// Open intervals match placement's strict rectangle-overlap rule (edge contact is allowed).
+function clearApproach(instance, target, layout) {
+  const footprint = layout.footprints[instance.speciesId];
+  return layout.blockedRects.every(rect => {
+    let enter = 0, leave = 1;
+    for (const [axis, low, high] of [
+      ['x', rect.left - footprint.halfWidth, rect.right + footprint.halfWidth],
+      ['y', rect.top - footprint.below, rect.bottom + footprint.above],
+    ]) {
+      const start = instance.position[axis], delta = target.position[axis] - start;
+      if (delta === 0) {
+        if (start <= low || start >= high) return true;
+      } else {
+        const a = (low - start) / delta, b = (high - start) / delta;
+        enter = Math.max(enter, Math.min(a, b));
+        leave = Math.min(leave, Math.max(a, b));
+        if (enter >= leave) return true;
+      }
+    }
+    return enter >= leave;
+  });
+}
+
 /** Low-frequency decisions plus lightweight pursuit movement. No DOM or timers.
  * All time is active simulation time; hidden tabs cannot accumulate hunger.
  */
@@ -67,6 +92,7 @@ export function createFeedingSystem(initialTime = 0,{environmentEventsEnabled=tr
         if (!byId.has(candidate.instanceId) || candidate.instanceId===instance.instanceId || !hasFoodStock(candidate,relation)) continue;
         // Screen constraints only: skip goals this animal cannot stand at.
         if (!isPositionAllowed(instance.speciesId, candidate.position, layout)) continue;
+        if (!clearApproach(instance, candidate, layout)) continue;
         const separation = distance(instance, candidate);
         if (separation <= nearestDistance) { nearest = candidate; nearestDistance = separation; }
       }
@@ -101,6 +127,13 @@ export function createFeedingSystem(initialTime = 0,{environmentEventsEnabled=tr
     eat(instance, clock, context) {
       const target = availableTarget(instance);
       if (!target) { returnToWander(instance, clock, true); return; }
+      // An ambush has no pursuit allowance: prey leaving its capture radius
+      // during the bite must escape, just as during moveToFood.
+      const config = feedingConfig[instance.speciesId];
+      if (config.huntMode === 'ambush' && distance(instance, target) > config.searchRadius) {
+        returnToWander(instance, clock, true);
+        return;
+      }
       // Live prey can move away while eating. Re-approach instead of remote eating.
       if (distance(instance, target) > ecologyConfig.arrivalDistance * 1.3) {
         instance.behaviorState = 'moveToFood';
