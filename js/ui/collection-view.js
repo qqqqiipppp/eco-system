@@ -25,7 +25,7 @@ export function createCollectionView(state,{onActivity,onReplay,onPlace=()=>{}})
   if(acquired){const place=node('button','이 생물 놓기');place.dataset.guidePlace=o.id;place.addEventListener('click',()=>{guide.close();onPlace(o.id);});d.append(place,node('p','지금 숲에 '+state.organisms.filter(n=>n.speciesId===o.id).length+'개체가 있어요.'));d.append(node('p',roleLabels[o.role]+' · '+o.habitat),node('p',o.description));
    const relations=foodRelations.filter(r=>r.sourceSpeciesId===o.id||r.targetSpeciesId===o.id);
    for(const r of relations)d.append(node('p',organismById[r.sourceSpeciesId].name+' → '+organismById[r.targetSpeciesId].name+' · '+(state.profile.relations.some(v=>v.relationId===r.relationId)?'누적 발견':'아직 미발견')));
-   if(!relations.length)d.append(node('p',o.id==='earthworm'?'공유 낙엽 잔해를 먹는 토양동물이에요. 22개 먹이 관계와 별도로 살펴봐요.':'유기물 분해는 22개 먹이 관계와 따로 살펴봐요.'));
+   if(!relations.length)d.append(node('p',o.id==='earthworm'?'공유 낙엽 잔해를 먹는 토양동물이에요. 먹고 먹히는 관계와 함께 살펴봐요.':'유기물 분해는 따로 살펴봐요.'));
    if(first)d.append(node('p','처음 획득: '+first.round+'번째 숲'+(first.source==='prior-right'?' (이전 저장 권한 포함)':'')));
    if(observed)d.append(node('p','처음 관찰: '+observed.round+'번째 숲 · '+(observed.source==='inspection'?'실제 개체 살펴보기':'실제 먹이 관계 발견')));
   }else if(a){d.append(node('p',a.hint));const b=node('button','탐구 활동 보기');b.dataset.guideActivity=a.activityId;b.addEventListener('click',()=>{guide.close();onActivity(a.activityId);});d.append(b);}
@@ -40,7 +40,7 @@ export function createCollectionView(state,{onActivity,onReplay,onPlace=()=>{}})
  }
  function renderWeb(){
   syncCollection(state);const known=new Set(state.profile.relations.map(o=>o.relationId)),current=new Set(state.observations.map(o=>o.relationId)),filter=document.querySelector('#web-filter').value;
-  document.querySelector('#web-progress').textContent='누적 발견 '+known.size+' / 22개 관계 · 이번 숲 '+current.size+'개';
+  document.querySelector('#web-progress').textContent='누적 발견 '+known.size+' / '+foodRelations.length+'개 관계 · 이번 숲 '+current.size+'개';
   const list=document.querySelector('#web-list');list.replaceChildren();
   for(const r of [...foodRelations].sort((a,b)=>Number(known.has(b.relationId))-Number(known.has(a.relationId)))){
    if(filter==='found'&&!known.has(r.relationId)||filter==='available'&&(!owned(r.sourceSpeciesId)||!owned(r.targetSpeciesId)))continue;

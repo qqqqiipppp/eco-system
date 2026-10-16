@@ -1,0 +1,187 @@
+{
+  "stage": "15.7",
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "actualS5e": false,
+  "scenarios": [
+    {
+      "consumer": "ladybird",
+      "food": "earthworm",
+      "releaseFirst": false,
+      "meal": {
+        "relationId": "v2_earthworm_to_ladybird",
+        "foodPart": "animal",
+        "consumerSpeciesId": "ladybird",
+        "foodSpeciesId": "earthworm",
+        "consumerInstanceId": "fixture-0-0",
+        "foodInstanceId": "fixture-1-0"
+      },
+      "confirmedPoints": 12,
+      "reload": true,
+      "webCount": 27,
+      "contactPixels": 21.177999999999997,
+      "victimDOMRemoved": true,
+      "actualTouch": true,
+      "points": 0,
+      "recordedWithoutAcknowledgement": false,
+      "feedback": "홍단딱정벌레가 참지렁이를 먹었어요."
+    },
+    {
+      "consumer": "weasel",
+      "food": "earthworm",
+      "releaseFirst": false,
+      "meal": {
+        "relationId": "v2_earthworm_to_weasel",
+        "foodPart": "animal",
+        "consumerSpeciesId": "weasel",
+        "foodSpeciesId": "earthworm",
+        "consumerInstanceId": "fixture-0-0",
+        "foodInstanceId": "fixture-1-0"
+      },
+      "confirmedPoints": 12,
+      "reload": true,
+      "webCount": 27,
+      "contactPixels": 20.533000000000015,
+      "victimDOMRemoved": true,
+      "actualTouch": true,
+      "points": 0,
+      "recordedWithoutAcknowledgement": false,
+      "feedback": "족제비가 참지렁이를 먹었어요."
+    },
+    {
+      "consumer": "field-mouse",
+      "food": "earthworm",
+      "releaseFirst": false,
+      "meal": {
+        "relationId": "v2_earthworm_to_field_mouse",
+        "foodPart": "animal",
+        "consumerSpeciesId": "field-mouse",
+        "foodSpeciesId": "earthworm",
+        "consumerInstanceId": "fixture-0-0",
+        "foodInstanceId": "fixture-1-0"
+      },
+      "confirmedPoints": 12,
+      "reload": true,
+      "webCount": 27,
+      "contactPixels": 19.55600000000004,
+      "victimDOMRemoved": true,
+      "actualTouch": true,
+      "points": 0,
+      "recordedWithoutAcknowledgement": false,
+      "feedback": "고슴도치가 참지렁이를 먹었어요."
+    },
+    {
+      "consumer": "field-mouse",
+      "food": "aphid",
+      "releaseFirst": false,
+      "meal": {
+        "relationId": "v2_aphid_to_field_mouse",
+        "foodPart": "animal",
+        "consumerSpeciesId": "field-mouse",
+        "foodSpeciesId": "aphid",
+        "consumerInstanceId": "fixture-0-0",
+        "foodInstanceId": "fixture-1-0"
+      },
+      "confirmedPoints": 12,
+      "reload": true,
+      "webCount": 27,
+      "contactPixels": 20.27500000000009,
+      "victimDOMRemoved": true,
+      "actualTouch": true,
+      "points": 0,
+      "recordedWithoutAcknowledgement": false,
+      "feedback": "고슴도치가 청동풍뎅이를 먹었어요."
+    },
+    {
+      "consumer": "bulbul",
+      "food": "caterpillar",
+      "releaseFirst": false,
+      "meal": {
+        "relationId": "v2_caterpillar_to_bulbul",
+        "foodPart": "animal",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "caterpillar",
+        "consumerInstanceId": "fixture-0-0",
+        "foodInstanceId": "fixture-1-0"
+      },
+      "confirmedPoints": 12,
+      "reload": true,
+      "webCount": 27,
+      "contactPixels": 21.382000000000062,
+      "victimDOMRemoved": true,
+      "actualTouch": true,
+      "points": 0,
+      "recordedWithoutAcknowledgement": false,
+      "feedback": "직박구리가 솔나방 애벌레(송충이)를 먹었어요."
+    },
+    {
+      "consumer": "ladybird",
+      "food": "earthworm",
+      "releaseFirst": true,
+      "meal": {
+        "relationId": "v2_earthworm_to_ladybird",
+        "foodPart": "animal",
+        "consumerSpeciesId": "ladybird",
+        "foodSpeciesId": "earthworm",
+        "consumerInstanceId": "fixture-0-0",
+        "foodInstanceId": "fixture-1-0"
+      },
+      "confirmedPoints": 12,
+      "reload": true,
+      "webCount": 27,
+      "contactPixels": 20.446007923308674,
+      "victimDOMRemoved": true,
+      "actualTouch": true,
+      "points": 0,
+      "recordedWithoutAcknowledgement": false,
+      "feedback": "홍단딱정벌레가 참지렁이를 먹었어요."
+    },
+    {
+      "consumer": "field-mouse",
+      "food": "earthworm",
+      "releaseFirst": true,
+      "meal": {
+        "relationId": "v2_earthworm_to_field_mouse",
+        "foodPart": "animal",
+        "consumerSpeciesId": "field-mouse",
+        "foodSpeciesId": "earthworm",
+        "consumerInstanceId": "fixture-0-0",
+        "foodInstanceId": "fixture-1-0"
+      },
+      "confirmedPoints": 12,
+      "reload": true,
+      "webCount": 27,
+      "contactPixels": 21.17900944331436,
+      "victimDOMRemoved": true,
+      "actualTouch": true,
+      "points": 0,
+      "recordedWithoutAcknowledgement": false,
+      "feedback": "고슴도치가 참지렁이를 먹었어요."
+    },
+    {
+      "consumer": "weasel",
+      "food": "earthworm",
+      "releaseFirst": true,
+      "meal": {
+        "relationId": "v2_earthworm_to_weasel",
+        "foodPart": "animal",
+        "consumerSpeciesId": "weasel",
+        "foodSpeciesId": "earthworm",
+        "consumerInstanceId": "fixture-0-0",
+        "foodInstanceId": "fixture-1-0"
+      },
+      "confirmedPoints": 12,
+      "reload": true,
+      "webCount": 27,
+      "contactPixels": 21.449009324441956,
+      "victimDOMRemoved": true,
+      "actualTouch": true,
+      "points": 0,
+      "recordedWithoutAcknowledgement": false,
+      "feedback": "족제비가 참지렁이를 먹었어요."
+    }
+  ],
+  "errors": []
+}

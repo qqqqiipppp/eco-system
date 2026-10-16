@@ -1,4 +1,4 @@
-// Sources actually read for 11.55. No external requests during gameplay.
+// F1–F19: original audit. F20–F24: sources read for 15.7. No gameplay requests.
 export const foodEvidence={
  F1:{url:'https://genebank.rda.go.kr/PB/st/cyberView.bo?ord_gb=0&species_id=ZE1AA0027&viewMenuList=0',note:'방아깨비의 벼과 잎 먹이. 강아지풀 특정 쌍 직접 기록은 아님.'},
  F2:{url:'https://www.jstage.jst.go.jp/article/izu/19/0/19_85/_pdf/-char/en',note:'2025 일본 조사 표2: 참개구리 위내용물의 메뚜기목. 방아깨비 특정 쌍은 아님.'},
@@ -19,5 +19,10 @@ export const foodEvidence={
  F17:{url:'https://www.cheongju.go.kr/bluecity/contents.do?key=17364',note:'청주시 홍단딱정벌레 성충의 밤 연체동물·작은 곤충 식성. 명주달팽이 특정 쌍은 미확인. ZIN 달팽이 지침은 유충 자료라 성충의 직접 근거로 쓰지 않음.'},
  F18:{url:'https://www.nibr.go.kr/aiibook/access/ecatalogt.jsp?Dir=1116&callmode=admin&catimage=&eclang=ko&start=65&um=s',note:'고슴도치의 절지동물 먹이군. 방아깨비 특정 쌍은 미확인, 모든 곤충을 먹는다는 주장 아님.'},
  F19:{url:'https://www.jstage.jst.go.jp/article/jjeez/26/2/26_55/_pdf',note:'Nakano 2015 p56 성충의 실제 섭식 행동·흔적 조사, p60 표5에 팽나무 Celtis sinensis. 일본 도쿄2002~2014 식물 이용 기록이며 국내 현장 검증은 아님. 잎 자원량·회복 속도는 게임 단순화.'},
+ F20:{url:'https://www.nibr.go.kr/aiibook/access/ecatalogt.jsp?Dir=1484&callmode=admin&catimage=&eclang=ko&start=226&um=s',location:'226쪽 생태',note:'국립생물자원관 도감의 진홍단딱정벌레 성충과 지렁이 먹이군. 자료는 Coptolabrus smaragdinus branickii로 표기하며 카드의 홍단딱정벌레·참지렁이 정확쌍 기록은 아님. 분류 처리와 아종 차이를 남긴 B 단순화.'},
+ F21:{url:'https://academic.oup.com/mspecies/article/50/966/109/5102491',location:'Ecology > Diet, Tatara and Doi 1994를 정리한 절',note:'Law 2018의 Mustela sibirica 종 논문에서 지렁이류 식단 확인. 원 조사와 참지렁이 종 동정은 이번에 확인하지 못했으며 정확쌍이 아닌 먹이군 B 단순화.'},
+ F22:{url:'https://www.jstage.jst.go.jp/article/jjwrs/43/0/43_19/_pdf/-char/ja',location:'2018,43권 p21 본문·p22 표2',note:'일본 이토의 Erinaceus amurensis 113개체 위 내용물에서 지렁이류(Oligochaeta) 확인. 국내 현장 또는 Amynthas koreanus 정확쌍 자료는 아닌 B 단순화.'},
+ F23:{url:'https://www.jstage.jst.go.jp/article/jjwrs/43/0/43_19/_pdf/-char/ja',location:'2018,43권 p22 표2, 성충과 유충 구분',note:'같은 고슴도치 종의 위 내용물에 풍뎅이과 먹이군 확인. 유충은 별도 행이며 Anomala albopilosa 성충 정확쌍·크기는 미확인. 성충 카드를 이용하는 B 단순화.'},
+ F24:{url:'https://encykorea.aks.ac.kr/Article/E0031100',location:'송충이 > 내용 > 방제법① 천적; 임경빈 집필',note:'한국학중앙연구원 전문가 항목이 솔나방 유충의 천적에 직박구리를 명시. 원 관찰 자료와 영별 포획은 미확인하므로 직접 종쌍 실험 A로 격상하지 않은 B 단순화.'},
 };
 export const evidenceText=level=>level==='A'?'이 먹이 관계는 자료에서 확인했어요.':'먹이 종류 자료를 바탕으로 단순화한 관계예요. 이 두 종이 먹고 먹히는 모습을 직접 조사한 기록은 아직 확인하지 못했어요.';

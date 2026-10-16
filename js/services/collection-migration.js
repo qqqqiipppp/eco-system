@@ -21,7 +21,7 @@ export function restoreCollection(d,version,s,repair){
    const o=record(p.speciesObservations?.[id],p.speciesObservations?.[id]?.source==='food-observation'?'food-observation':'inspection');if(o)s.profile.speciesObservations[id]=o;
   }
   const seen=new Set();
-  for(const r of (Array.isArray(p.relations)?p.relations:[]).slice(0,22))if(r&&Object.hasOwn(foodRelationById,r.relationId)&&!seen.has(r.relationId)&&Number.isInteger(r.round)&&r.round>0&&r.round<=1e6&&bounded(r.discoveredAt,1e9)){seen.add(r.relationId);s.profile.relations.push({relationId:r.relationId,discoveredAt:r.discoveredAt,round:r.round,eventId:typeof r.eventId==='string'?r.eventId.slice(0,100):''});}
+  for(const r of (Array.isArray(p.relations)?p.relations:[]).slice(0,Object.keys(foodRelationById).length))if(r&&Object.hasOwn(foodRelationById,r.relationId)&&!seen.has(r.relationId)&&Number.isInteger(r.round)&&r.round>0&&r.round<=1e6&&bounded(r.discoveredAt,1e9)){seen.add(r.relationId);s.profile.relations.push({relationId:r.relationId,discoveredAt:r.discoveredAt,round:r.round,eventId:typeof r.eventId==='string'?r.eventId.slice(0,100):''});}
   const rounds=new Set();for(const r of (Array.isArray(p.clears)?p.clears:[]).slice(0,1000))if(Number.isInteger(r?.round)&&r.round>0&&r.round<=1e6&&bounded(r.at,1e9)&&!rounds.has(r.round)){rounds.add(r.round);s.profile.clears.push({round:r.round,at:r.at,topic:typeof r.topic==='string'?r.topic.slice(0,100):'basic'});}
   const r=object(d.round)?d.round:{};
   const valid=Number.isInteger(r.number)&&r.number>0&&r.number<=1e6&&r.id==='forest-'+r.number;

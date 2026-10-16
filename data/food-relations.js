@@ -28,6 +28,13 @@ export const foodRelations=[
  edge('bulbul','goshawk','animal','F15','A'),
  edge('snail','ladybird','animal','F17'),
  edge('grasshopper','field-mouse','animal','F18'),
+ // 15.7 additions begin — researched educational simplifications, not new preferences.
+ edge('earthworm','ladybird','animal','F20'),
+ edge('earthworm','weasel','animal','F21'),
+ edge('earthworm','field-mouse','animal','F22'),
+ edge('aphid','field-mouse','animal','F23'),
+ edge('caterpillar','bulbul','animal','F24'),
+ // 15.7 additions end
 ];
 export const foodPartLabels={leaves:'잎',needles:'솔잎',seeds:'씨앗',acorn:'도토리',fruit:'열매',animal:'동물'};
 export const foodRelationById=Object.fromEntries(foodRelations.map(r=>[r.relationId,r]));

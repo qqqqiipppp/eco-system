@@ -21,8 +21,8 @@ const answer=r=>({factor:r.factor,recovery:studyRecovery(r)});
 function ended(s,kind='drought'){
  const r=startEnvironmentEvent(s,kind),d=environmentEventDefinitions[kind];assert(r);s.simulationTime+=d.duration+d.recoverySeconds;updateEnvironmentEvents(s);return r;
 }
-test('A/B/H/U/V/Z: unchanged amounts, keys, actions,23/22 and5 incidents; every legacy achievement once',()=>{
- assert.equal(organisms.length,24);assert.equal(foodRelations.length,22);assert.equal(Object.keys(environmentEventDefinitions).length,5);
+test('A/B/H/U/V/Z: unchanged amounts, keys, actions,24 species and original22/expanded27,5 incidents; every legacy achievement once',()=>{
+ assert.equal(organisms.length,24);assert([22,27].includes(foodRelations.length));assert.equal(Object.keys(environmentEventDefinitions).length,5);
  assert.deepEqual(managementActions.map(a=>[a.cost,a.cooldown]),[[6,8],[6,8],[5,45],[8,75]]);
  const s=createGameState();assert(completeActivity(s,'producer_quiz','grass').ok);assert.equal(s.metrics.points,3);assert(completeActivity(s,'producer_quiz','grass').ok);assert.equal(s.metrics.points,3);
  assert.equal(grantReward(s,'observation','v2_grass_to_grasshopper','actual'),12);assert.equal(grantReward(s,'observation','v2_grass_to_grasshopper','again'),0);

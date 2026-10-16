@@ -1,0 +1,666 @@
+{
+  "stage": "15.7",
+  "motion": [
+    {
+      "seed": 12345,
+      "before": {
+        "total": 11,
+        "peak": 30,
+        "meals": {
+          "v2_grass_to_grasshopper": 1,
+          "v2_spider_to_tit": 1,
+          "v2_grasshopper_to_frog": 1,
+          "v2_pine_to_chipmunk": 1,
+          "v2_frog_to_snake": 1,
+          "v2_chipmunk_to_goshawk": 1,
+          "v2_hazel_to_bulbul": 12,
+          "v2_grass_to_snail": 1,
+          "v2_snail_to_ladybird": 1,
+          "v2_grass_to_rabbit": 17,
+          "v2_hazel_to_aphid": 23,
+          "v2_raspberry_to_bulbul": 2,
+          "v2_caterpillar_to_tit": 2,
+          "v2_bulbul_to_goshawk": 1,
+          "v2_rabbit_to_goshawk": 1,
+          "v2_pine_to_caterpillar": 61
+        },
+        "predations": 9,
+        "shortageConsumerSeconds": {
+          "caterpillar": 76.5,
+          "spider": 0.5,
+          "field-mouse": 289.5,
+          "weasel": 348,
+          "ladybird": 184.5,
+          "tit": 309,
+          "snake": 308,
+          "goshawk": 308
+        },
+        "wormLoss": [],
+        "processed": 43.643997261458765,
+        "wormProcessed": 6.522498750000168,
+        "soilContribution": 0,
+        "points": 192,
+        "observations": 16,
+        "roles": {
+          "producer": 5,
+          "consumer": 3,
+          "decomposer": 3
+        },
+        "stability": 88,
+        "changes": {
+          "predation": 9,
+          "reproduction": 2,
+          "replenishment": 3,
+          "starvation": 6,
+          "colony_renewal": 10,
+          "natural_lifespan": 9
+        }
+      },
+      "after": {
+        "total": 11,
+        "peak": 30,
+        "meals": {
+          "v2_grass_to_grasshopper": 1,
+          "v2_spider_to_tit": 1,
+          "v2_caterpillar_to_bulbul": 1,
+          "v2_grasshopper_to_frog": 1,
+          "v2_earthworm_to_field_mouse": 1,
+          "v2_pine_to_chipmunk": 1,
+          "v2_frog_to_snake": 1,
+          "v2_grass_to_snail": 1,
+          "v2_chipmunk_to_goshawk": 1,
+          "v2_grass_to_rabbit": 9,
+          "v2_hazel_to_aphid": 3,
+          "v2_snail_to_ladybird": 1,
+          "v2_hazel_to_bulbul": 12,
+          "v2_aphid_to_field_mouse": 1,
+          "v2_raspberry_to_bulbul": 15,
+          "v2_caterpillar_to_tit": 1,
+          "v2_rabbit_to_goshawk": 1,
+          "v2_bulbul_to_goshawk": 1,
+          "v2_pine_to_caterpillar": 61
+        },
+        "predations": 11,
+        "shortageConsumerSeconds": {
+          "caterpillar": 11.5,
+          "spider": 0.5,
+          "ladybird": 189.5,
+          "weasel": 345,
+          "tit": 399,
+          "field-mouse": 244,
+          "snake": 308,
+          "goshawk": 308
+        },
+        "wormLoss": [
+          {
+            "at": 9.5,
+            "consumer": "field-mouse"
+          }
+        ],
+        "processed": 36.1784985114585,
+        "wormProcessed": 0.057000000000000016,
+        "soilContribution": 0,
+        "points": 228,
+        "observations": 19,
+        "roles": {
+          "producer": 6,
+          "consumer": 2,
+          "decomposer": 3
+        },
+        "stability": 75,
+        "changes": {
+          "predation": 11,
+          "reproduction": 3,
+          "replenishment": 3,
+          "colony_renewal": 10,
+          "starvation": 6,
+          "natural_lifespan": 8
+        }
+      }
+    },
+    {
+      "seed": 51,
+      "before": {
+        "total": 11,
+        "peak": 30,
+        "meals": {
+          "v2_grass_to_grasshopper": 1,
+          "v2_grasshopper_to_frog": 1,
+          "v2_caterpillar_to_tit": 5,
+          "v2_frog_to_weasel": 1,
+          "v2_hazel_to_bulbul": 5,
+          "v2_pine_to_chipmunk": 1,
+          "v2_chipmunk_to_goshawk": 1,
+          "v2_grass_to_snail": 1,
+          "v2_snail_to_ladybird": 1,
+          "v2_hazel_to_aphid": 1,
+          "v2_grass_to_rabbit": 17,
+          "v2_aphid_to_spider": 1,
+          "v2_raspberry_to_bulbul": 9,
+          "v2_spider_to_tit": 1,
+          "v2_bulbul_to_goshawk": 1,
+          "v2_rabbit_to_goshawk": 1
+        },
+        "predations": 13,
+        "shortageConsumerSeconds": {
+          "field-mouse": 294,
+          "caterpillar": 1,
+          "spider": 20.5,
+          "snake": 349,
+          "ladybird": 184.5,
+          "tit": 787.5,
+          "weasel": 306,
+          "goshawk": 308
+        },
+        "wormLoss": [],
+        "processed": 41.64399726145782,
+        "wormProcessed": 6.522498750000168,
+        "soilContribution": 0,
+        "points": 192,
+        "observations": 16,
+        "roles": {
+          "producer": 6,
+          "consumer": 2,
+          "decomposer": 3
+        },
+        "stability": 86,
+        "changes": {
+          "predation": 13,
+          "reproduction": 3,
+          "replenishment": 4,
+          "starvation": 5,
+          "colony_renewal": 9,
+          "natural_lifespan": 8
+        }
+      },
+      "after": {
+        "total": 10,
+        "peak": 30,
+        "meals": {
+          "v2_grass_to_grasshopper": 1,
+          "v2_grasshopper_to_frog": 1,
+          "v2_earthworm_to_field_mouse": 1,
+          "v2_caterpillar_to_tit": 2,
+          "v2_frog_to_weasel": 1,
+          "v2_pine_to_chipmunk": 1,
+          "v2_hazel_to_bulbul": 10,
+          "v2_chipmunk_to_goshawk": 1,
+          "v2_grass_to_snail": 1,
+          "v2_snail_to_ladybird": 1,
+          "v2_hazel_to_aphid": 1,
+          "v2_grass_to_rabbit": 17,
+          "v2_aphid_to_spider": 1,
+          "v2_raspberry_to_bulbul": 4,
+          "v2_spider_to_tit": 1,
+          "v2_bulbul_to_goshawk": 1,
+          "v2_rabbit_to_goshawk": 1,
+          "v2_pine_to_caterpillar": 61
+        },
+        "predations": 11,
+        "shortageConsumerSeconds": {
+          "caterpillar": 8.5,
+          "spider": 24,
+          "snake": 349,
+          "field-mouse": 244,
+          "ladybird": 184.5,
+          "tit": 306.5,
+          "weasel": 306,
+          "goshawk": 308
+        },
+        "wormLoss": [
+          {
+            "at": 7,
+            "consumer": "field-mouse"
+          }
+        ],
+        "processed": 36.16349851145845,
+        "wormProcessed": 0.042,
+        "soilContribution": 0,
+        "points": 216,
+        "observations": 18,
+        "roles": {
+          "producer": 5,
+          "consumer": 2,
+          "decomposer": 3
+        },
+        "stability": 76,
+        "changes": {
+          "predation": 11,
+          "reproduction": 2,
+          "replenishment": 3,
+          "starvation": 6,
+          "colony_renewal": 10,
+          "natural_lifespan": 8
+        }
+      }
+    },
+    {
+      "seed": 777,
+      "before": {
+        "total": 11,
+        "peak": 30,
+        "meals": {
+          "v2_grass_to_grasshopper": 1,
+          "v2_grasshopper_to_frog": 1,
+          "v2_caterpillar_to_tit": 2,
+          "v2_frog_to_weasel": 1,
+          "v2_snail_to_ladybird": 1,
+          "v2_pine_to_chipmunk": 1,
+          "v2_hazel_to_bulbul": 16,
+          "v2_chipmunk_to_goshawk": 1,
+          "v2_hazel_to_aphid": 1,
+          "v2_grass_to_rabbit": 9,
+          "v2_aphid_to_spider": 1,
+          "v2_raspberry_to_bulbul": 12,
+          "v2_spider_to_tit": 1,
+          "v2_rabbit_to_goshawk": 1,
+          "v2_bulbul_to_goshawk": 1,
+          "v2_pine_to_caterpillar": 61
+        },
+        "predations": 10,
+        "shortageConsumerSeconds": {
+          "field-mouse": 293,
+          "caterpillar": 0.5,
+          "spider": 22.5,
+          "snake": 350,
+          "ladybird": 184.5,
+          "tit": 309,
+          "weasel": 306,
+          "goshawk": 308
+        },
+        "wormLoss": [],
+        "processed": 42.64399726145829,
+        "wormProcessed": 6.522498750000168,
+        "soilContribution": 0,
+        "points": 192,
+        "observations": 16,
+        "roles": {
+          "producer": 5,
+          "consumer": 3,
+          "decomposer": 3
+        },
+        "stability": 88,
+        "changes": {
+          "predation": 10,
+          "reproduction": 2,
+          "replenishment": 3,
+          "starvation": 6,
+          "colony_renewal": 10,
+          "natural_lifespan": 8
+        }
+      },
+      "after": {
+        "total": 10,
+        "peak": 30,
+        "meals": {
+          "v2_grass_to_grasshopper": 1,
+          "v2_grasshopper_to_frog": 1,
+          "v2_caterpillar_to_tit": 2,
+          "v2_frog_to_weasel": 1,
+          "v2_snail_to_ladybird": 1,
+          "v2_earthworm_to_field_mouse": 1,
+          "v2_pine_to_chipmunk": 1,
+          "v2_chipmunk_to_goshawk": 1,
+          "v2_hazel_to_bulbul": 21,
+          "v2_grass_to_rabbit": 9,
+          "v2_hazel_to_aphid": 1,
+          "v2_aphid_to_spider": 1,
+          "v2_raspberry_to_bulbul": 7,
+          "v2_spider_to_tit": 1,
+          "v2_rabbit_to_goshawk": 1,
+          "v2_bulbul_to_goshawk": 1,
+          "v2_pine_to_caterpillar": 61
+        },
+        "predations": 11,
+        "shortageConsumerSeconds": {
+          "caterpillar": 8,
+          "spider": 22.5,
+          "snake": 350,
+          "field-mouse": 244,
+          "ladybird": 184.5,
+          "tit": 311.5,
+          "weasel": 306,
+          "goshawk": 308
+        },
+        "wormLoss": [
+          {
+            "at": 12,
+            "consumer": "field-mouse"
+          }
+        ],
+        "processed": 36.193498511458394,
+        "wormProcessed": 0.07200000000000002,
+        "soilContribution": 0,
+        "points": 204,
+        "observations": 17,
+        "roles": {
+          "producer": 5,
+          "consumer": 2,
+          "decomposer": 3
+        },
+        "stability": 76,
+        "changes": {
+          "predation": 11,
+          "reproduction": 2,
+          "replenishment": 3,
+          "starvation": 6,
+          "colony_renewal": 10,
+          "natural_lifespan": 8
+        }
+      }
+    }
+  ],
+  "management": {
+    "actions": [
+      {
+        "release": "field-mouse",
+        "at": 300
+      },
+      {
+        "release": "weasel",
+        "at": 300
+      },
+      {
+        "reintroduce": "earthworm",
+        "at": 300
+      }
+    ],
+    "data": {
+      "minutes": 20,
+      "total": 11,
+      "types": 10,
+      "meals": {
+        "v2_grass_to_grasshopper": 1,
+        "v2_grasshopper_to_frog": 1,
+        "v2_caterpillar_to_tit": 5,
+        "v2_earthworm_to_field_mouse": 1,
+        "v2_frog_to_weasel": 1,
+        "v2_pine_to_chipmunk": 1,
+        "v2_grass_to_snail": 1,
+        "v2_chipmunk_to_goshawk": 1,
+        "v2_hazel_to_bulbul": 15,
+        "v2_snail_to_ladybird": 1,
+        "v2_grass_to_rabbit": 18,
+        "v2_hazel_to_aphid": 1,
+        "v2_aphid_to_spider": 1,
+        "v2_spider_to_tit": 1,
+        "v2_bulbul_to_goshawk": 1,
+        "v2_rabbit_to_goshawk": 1
+      },
+      "predation": 14,
+      "naturalEnd": 8,
+      "starvation": 3,
+      "reproduction": 3,
+      "replenishment": 4,
+      "developmentChanges": 8,
+      "processed": 38.405858999999,
+      "wormProcessed": 4.976823000000086,
+      "soilContribution": 0,
+      "noticesShown": 10,
+      "organicOrigins": 10,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 12,
+      "spent": 0,
+      "points": 12,
+      "stability": 86,
+      "cleared": false,
+      "clearedAt": null,
+      "currentlyGoalReady": false,
+      "final": {
+        "oak": 1,
+        "mushroom": 1,
+        "pine": 1,
+        "raspberry": 1,
+        "hazel": 1,
+        "tit": 1,
+        "litter-mold": 1,
+        "soil-bacteria": 1,
+        "earthworm": 1,
+        "grass": 2
+      },
+      "peak": 30,
+      "milestones": [
+        {
+          "at": 0.5,
+          "total": 30,
+          "stability": 96,
+          "points": 0
+        },
+        {
+          "at": 60.5,
+          "total": 23,
+          "stability": 86,
+          "points": 0
+        },
+        {
+          "at": 120.5,
+          "total": 22,
+          "stability": 83,
+          "points": 0
+        },
+        {
+          "at": 180.5,
+          "total": 22,
+          "stability": 83,
+          "points": 0
+        },
+        {
+          "at": 240.5,
+          "total": 22,
+          "stability": 83,
+          "points": 0
+        },
+        {
+          "at": 300.5,
+          "total": 20,
+          "stability": 88,
+          "points": 0
+        },
+        {
+          "at": 360.5,
+          "total": 19,
+          "stability": 91,
+          "points": 0
+        },
+        {
+          "at": 420.5,
+          "total": 19,
+          "stability": 91,
+          "points": 0
+        },
+        {
+          "at": 480.5,
+          "total": 19,
+          "stability": 90,
+          "points": 4
+        },
+        {
+          "at": 540.5,
+          "total": 18,
+          "stability": 81,
+          "points": 4
+        },
+        {
+          "at": 600.5,
+          "total": 18,
+          "stability": 81,
+          "points": 4
+        },
+        {
+          "at": 660.5,
+          "total": 18,
+          "stability": 82,
+          "points": 8
+        },
+        {
+          "at": 720.5,
+          "total": 18,
+          "stability": 82,
+          "points": 8
+        },
+        {
+          "at": 780.5,
+          "total": 14,
+          "stability": 83,
+          "points": 8
+        },
+        {
+          "at": 840.5,
+          "total": 13,
+          "stability": 83,
+          "points": 8
+        },
+        {
+          "at": 900.5,
+          "total": 13,
+          "stability": 83,
+          "points": 8
+        },
+        {
+          "at": 960.5,
+          "total": 12,
+          "stability": 83,
+          "points": 8
+        },
+        {
+          "at": 1020.5,
+          "total": 12,
+          "stability": 80,
+          "points": 8
+        },
+        {
+          "at": 1080.5,
+          "total": 11,
+          "stability": 84,
+          "points": 8
+        },
+        {
+          "at": 1140.5,
+          "total": 11,
+          "stability": 86,
+          "points": 12
+        }
+      ]
+    },
+    "actualExistingDomainActions": true,
+    "newPointGrant": false,
+    "notActualStudents": true
+  },
+  "split": {
+    "first": {
+      "total": 17,
+      "peak": 30,
+      "meals": {
+        "v2_grass_to_grasshopper": 1,
+        "v2_spider_to_tit": 1,
+        "v2_caterpillar_to_bulbul": 1,
+        "v2_grasshopper_to_frog": 1,
+        "v2_earthworm_to_field_mouse": 1,
+        "v2_pine_to_chipmunk": 1,
+        "v2_frog_to_snake": 1,
+        "v2_grass_to_snail": 1,
+        "v2_chipmunk_to_goshawk": 1,
+        "v2_grass_to_rabbit": 9,
+        "v2_hazel_to_aphid": 3,
+        "v2_snail_to_ladybird": 1,
+        "v2_hazel_to_bulbul": 12,
+        "v2_aphid_to_field_mouse": 1,
+        "v2_raspberry_to_bulbul": 15,
+        "v2_caterpillar_to_tit": 1,
+        "v2_rabbit_to_goshawk": 1,
+        "v2_bulbul_to_goshawk": 1,
+        "v2_pine_to_caterpillar": 3
+      },
+      "predations": 11,
+      "shortageConsumerSeconds": {
+        "caterpillar": 1.5,
+        "spider": 0.5,
+        "ladybird": 189.5,
+        "weasel": 345,
+        "tit": 399,
+        "field-mouse": 244,
+        "snake": 308
+      },
+      "wormLoss": [
+        {
+          "at": 9.5,
+          "consumer": "field-mouse"
+        }
+      ],
+      "processed": 17.373136225451283,
+      "wormProcessed": 0.057000000000000016,
+      "soilContribution": 0,
+      "points": 228,
+      "observations": 19,
+      "roles": {
+        "producer": 12,
+        "consumer": 2,
+        "decomposer": 3
+      },
+      "stability": 81,
+      "changes": {
+        "predation": 11,
+        "reproduction": 1,
+        "replenishment": 2,
+        "colony_renewal": 5,
+        "starvation": 5
+      }
+    },
+    "second": {
+      "total": 11,
+      "peak": 17,
+      "meals": {
+        "v2_pine_to_caterpillar": 58
+      },
+      "predations": 0,
+      "shortageConsumerSeconds": {
+        "goshawk": 308,
+        "caterpillar": 10
+      },
+      "wormLoss": [],
+      "processed": 36.1784985114585,
+      "wormProcessed": 0.057000000000000016,
+      "soilContribution": 0,
+      "points": 228,
+      "observations": 19,
+      "roles": {
+        "producer": 6,
+        "consumer": 2,
+        "decomposer": 3
+      },
+      "stability": 75,
+      "changes": {
+        "placement": 0,
+        "reintroduction": 0,
+        "reproduction": 3,
+        "predation": 11,
+        "starvation": 6,
+        "release": 0,
+        "natural_lifespan": 8,
+        "life_stage_exit": 0,
+        "colony_renewal": 10,
+        "colony_decline": 0,
+        "replenishment": 3
+      }
+    },
+    "exactRightsAtLoad": true,
+    "randomWanderPhaseNotSaved": true
+  },
+  "exitCode": 0
+}

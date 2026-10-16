@@ -1,0 +1,675 @@
+{
+  "stage": "15.7",
+  "meals": [
+    {
+      "relationId": "v2_grass_to_grasshopper",
+      "new": false,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_grasshopper_to_frog",
+      "new": false,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_grass_to_rabbit",
+      "new": false,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_oak_to_chipmunk",
+      "new": false,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_pine_to_chipmunk",
+      "new": false,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_pine_to_caterpillar",
+      "new": false,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_grass_to_snail",
+      "new": false,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_aphid_to_spider",
+      "new": false,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_caterpillar_to_tit",
+      "new": false,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_spider_to_tit",
+      "new": false,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_raspberry_to_bulbul",
+      "new": false,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_hazel_to_bulbul",
+      "new": false,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_hazel_to_aphid",
+      "new": false,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_frog_to_snake",
+      "new": false,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_grasshopper_to_weasel",
+      "new": false,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_chipmunk_to_weasel",
+      "new": false,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_frog_to_weasel",
+      "new": false,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_rabbit_to_goshawk",
+      "new": false,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_chipmunk_to_goshawk",
+      "new": false,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_bulbul_to_goshawk",
+      "new": false,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_snail_to_ladybird",
+      "new": false,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_grasshopper_to_field_mouse",
+      "new": false,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_earthworm_to_ladybird",
+      "new": true,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_earthworm_to_weasel",
+      "new": true,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_earthworm_to_field_mouse",
+      "new": true,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_aphid_to_field_mouse",
+      "new": true,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    },
+    {
+      "relationId": "v2_caterpillar_to_bulbul",
+      "new": true,
+      "success": true,
+      "noFood": true,
+      "range": true,
+      "blocked": true,
+      "stale": true,
+      "rewardOnce": 12,
+      "restored": true
+    }
+  ],
+  "alternatives": [
+    {
+      "consumer": "ladybird",
+      "old": "snail",
+      "newFood": "earthworm",
+      "nearestBoth": true,
+      "orderIndependent": true,
+      "removedTargetReplaced": true
+    },
+    {
+      "consumer": "field-mouse",
+      "old": "grasshopper",
+      "newFood": "earthworm",
+      "nearestBoth": true,
+      "orderIndependent": true,
+      "removedTargetReplaced": true
+    },
+    {
+      "consumer": "field-mouse",
+      "old": "grasshopper",
+      "newFood": "aphid",
+      "nearestBoth": true,
+      "orderIndependent": true,
+      "removedTargetReplaced": true
+    },
+    {
+      "consumer": "weasel",
+      "old": "frog",
+      "newFood": "earthworm",
+      "nearestBoth": true,
+      "orderIndependent": true,
+      "removedTargetReplaced": true
+    },
+    {
+      "consumer": "bulbul",
+      "old": "raspberry",
+      "newFood": "caterpillar",
+      "nearestBoth": true,
+      "orderIndependent": true,
+      "removedTargetReplaced": true
+    },
+    {
+      "consumer": "goshawk",
+      "old": "rabbit",
+      "newFood": "chipmunk",
+      "nearestBoth": true,
+      "orderIndependent": true,
+      "removedTargetReplaced": true
+    }
+  ],
+  "graph": {
+    "before": {
+      "edges": 22,
+      "participants": 20,
+      "components": 5,
+      "alternatives": 5,
+      "foods": {
+        "grasshopper": 1,
+        "frog": 1,
+        "rabbit": 1,
+        "chipmunk": 2,
+        "caterpillar": 1,
+        "snail": 1,
+        "spider": 1,
+        "tit": 2,
+        "bulbul": 2,
+        "aphid": 1,
+        "snake": 1,
+        "weasel": 3,
+        "goshawk": 3,
+        "ladybird": 1,
+        "field-mouse": 1
+      },
+      "vulnerable": [
+        {
+          "species": "oak",
+          "affects": [
+            "chipmunk"
+          ]
+        },
+        {
+          "species": "grass",
+          "affects": [
+            "grasshopper",
+            "rabbit",
+            "snail"
+          ]
+        },
+        {
+          "species": "grasshopper",
+          "affects": [
+            "frog",
+            "weasel",
+            "field-mouse"
+          ]
+        },
+        {
+          "species": "frog",
+          "affects": [
+            "snake",
+            "weasel"
+          ]
+        },
+        {
+          "species": "rabbit",
+          "affects": [
+            "goshawk"
+          ]
+        },
+        {
+          "species": "mushroom",
+          "affects": []
+        },
+        {
+          "species": "pine",
+          "affects": [
+            "chipmunk",
+            "caterpillar"
+          ]
+        },
+        {
+          "species": "raspberry",
+          "affects": [
+            "bulbul"
+          ]
+        },
+        {
+          "species": "hazel",
+          "affects": [
+            "bulbul",
+            "aphid"
+          ]
+        },
+        {
+          "species": "chipmunk",
+          "affects": [
+            "weasel",
+            "goshawk"
+          ]
+        },
+        {
+          "species": "field-mouse",
+          "affects": []
+        },
+        {
+          "species": "caterpillar",
+          "affects": [
+            "tit"
+          ]
+        },
+        {
+          "species": "aphid",
+          "affects": [
+            "spider"
+          ]
+        },
+        {
+          "species": "snail",
+          "affects": [
+            "ladybird"
+          ]
+        },
+        {
+          "species": "spider",
+          "affects": [
+            "tit"
+          ]
+        },
+        {
+          "species": "ladybird",
+          "affects": []
+        },
+        {
+          "species": "tit",
+          "affects": []
+        },
+        {
+          "species": "bulbul",
+          "affects": [
+            "goshawk"
+          ]
+        },
+        {
+          "species": "snake",
+          "affects": []
+        },
+        {
+          "species": "weasel",
+          "affects": []
+        },
+        {
+          "species": "goshawk",
+          "affects": []
+        },
+        {
+          "species": "litter-mold",
+          "affects": []
+        },
+        {
+          "species": "soil-bacteria",
+          "affects": []
+        },
+        {
+          "species": "earthworm",
+          "affects": []
+        }
+      ]
+    },
+    "after": {
+      "edges": 27,
+      "participants": 21,
+      "components": 4,
+      "alternatives": 7,
+      "foods": {
+        "grasshopper": 1,
+        "frog": 1,
+        "rabbit": 1,
+        "chipmunk": 2,
+        "caterpillar": 1,
+        "snail": 1,
+        "spider": 1,
+        "tit": 2,
+        "bulbul": 3,
+        "aphid": 1,
+        "snake": 1,
+        "weasel": 4,
+        "goshawk": 3,
+        "ladybird": 2,
+        "field-mouse": 3
+      },
+      "vulnerable": [
+        {
+          "species": "oak",
+          "affects": [
+            "chipmunk"
+          ]
+        },
+        {
+          "species": "grass",
+          "affects": [
+            "grasshopper",
+            "rabbit",
+            "snail"
+          ]
+        },
+        {
+          "species": "grasshopper",
+          "affects": [
+            "frog",
+            "weasel",
+            "field-mouse"
+          ]
+        },
+        {
+          "species": "frog",
+          "affects": [
+            "snake",
+            "weasel"
+          ]
+        },
+        {
+          "species": "rabbit",
+          "affects": [
+            "goshawk"
+          ]
+        },
+        {
+          "species": "mushroom",
+          "affects": []
+        },
+        {
+          "species": "pine",
+          "affects": [
+            "chipmunk",
+            "caterpillar"
+          ]
+        },
+        {
+          "species": "raspberry",
+          "affects": [
+            "bulbul"
+          ]
+        },
+        {
+          "species": "hazel",
+          "affects": [
+            "bulbul",
+            "aphid"
+          ]
+        },
+        {
+          "species": "chipmunk",
+          "affects": [
+            "weasel",
+            "goshawk"
+          ]
+        },
+        {
+          "species": "field-mouse",
+          "affects": []
+        },
+        {
+          "species": "caterpillar",
+          "affects": [
+            "tit",
+            "bulbul"
+          ]
+        },
+        {
+          "species": "aphid",
+          "affects": [
+            "spider",
+            "field-mouse"
+          ]
+        },
+        {
+          "species": "snail",
+          "affects": [
+            "ladybird"
+          ]
+        },
+        {
+          "species": "spider",
+          "affects": [
+            "tit"
+          ]
+        },
+        {
+          "species": "ladybird",
+          "affects": []
+        },
+        {
+          "species": "tit",
+          "affects": []
+        },
+        {
+          "species": "bulbul",
+          "affects": [
+            "goshawk"
+          ]
+        },
+        {
+          "species": "snake",
+          "affects": []
+        },
+        {
+          "species": "weasel",
+          "affects": []
+        },
+        {
+          "species": "goshawk",
+          "affects": []
+        },
+        {
+          "species": "litter-mold",
+          "affects": []
+        },
+        {
+          "species": "soil-bacteria",
+          "affects": []
+        },
+        {
+          "species": "earthworm",
+          "affects": [
+            "ladybird",
+            "weasel",
+            "field-mouse"
+          ]
+        }
+      ]
+    }
+  },
+  "exitCode": 0
+}
