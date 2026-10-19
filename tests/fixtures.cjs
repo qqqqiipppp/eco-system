@@ -4,10 +4,12 @@ exports.useUnlockedCards = async page => {
  await page.route('**/js/state/game-state.js',async route=>{
   const response=await route.fetch();
   let body=(await response.text()).replaceAll('\r\n','\n');
+  if(process.env.LEGACY_GOALS==='1')body=body.replace('goalRevision=GOAL_REVISION','goalRevision=1');
   body="import {enableDevelopmentPlacement} from '../systems/population.js';\n"+body.replace('return {','const state = {').replace('  };\n}', '  };\n  enableDevelopmentPlacement(state);return state;\n}').replace('acquired: forestDefinition.initialInventory.includes(speciesId)','acquired: true');
   await route.fulfill({response,body});
  });
 };
+exports.useLegacyGoals=async page=>page.route('**/js/state/game-state.js',async route=>{const response=await route.fetch();await route.fulfill({response,body:(await response.text()).replace('goalRevision=GOAL_REVISION','goalRevision=1')});});
 // Only test response injection installs this developer module; production has no flag.
 async function useDeveloperHarness(page,{species=false}={}) {
  await page.route('**/js/main.js',async route=>{

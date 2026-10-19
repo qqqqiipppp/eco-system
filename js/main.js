@@ -1,5 +1,6 @@
 import {createCollectionView} from './ui/collection-view.js';
 import {createForestFlow} from './ui/forest-flow.js';
+import {createLearningGoalView} from './ui/learning-goal-view.js';
 import {bindDialogPause} from './ui/dialog-pause.js';
 import {studentChange} from './ui/student-status.js';
 import {recordSpeciesObservation,syncCollection} from './state/collection-state.js';
@@ -47,7 +48,7 @@ const uiState = createUIState();
 let stabilitySystem = createStabilitySystem();
 
 try {
-  let flowView=null;
+  let flowView=null,learningGoalView=null;
   const forest = document.querySelector('.forest');
   const scene = createOrganismLayer(forest, () => gameState.organisms);
   let wander = createWanderSystem();
@@ -58,7 +59,8 @@ try {
     const record=removeOrganism(gameState,id,'release');if(!record)return;
     feedingSystem.forget([id]);wander.forget([id]);scene.remove([id]);scene.showFeedback(studentChange(record)||populationMessage(record),true);
     eventSystem.refresh(gameState);eventView.render();stabilitySystem.update(gameState);refreshProgress();renderDashboard(gameState);saveService.schedule();loop.refresh();
-  },id=>{scene.setFocused(id);if(id&&recordSpeciesObservation(gameState,id))saveService.schedule();flowView?.render();});
+  },id=>{scene.setFocused(id);if(id&&recordSpeciesObservation(gameState,id))saveService.schedule();flowView?.render();},(id,instance)=>learningGoalView?.render(id,instance));
+  learningGoalView=createLearningGoalView(gameState,{onChange:response=>{scene.showFeedback(response.message,response.ok);refreshProgress();saveService.schedule();flowView?.render();},onPlace:selectSpecies,onCare:()=>{const event=gameState.events.find(e=>e.status==='active'&&e.sourceType==='environment'&&gameState.environment[e.payload.factor]?.value<.4);if(event)eventView.open(event.eventId);else document.querySelector('#environment-open').click();}});
   scene.setInspectHandler(ids=>populationView.inspect(ids));
   const forestView = createForestView(gameState,restartGame);
   const helpView = createHelpView(createGuideAdapter());
@@ -199,7 +201,7 @@ try {
     },
   });
   // Development harness installs its environment controls at this explicit boundary.
-  flowView=createForestFlow(gameState,{onActivity:openLockedActivity,onEvent:id=>eventView.open(id),onPlace:selectSpecies,onPopulation:()=>document.querySelector('#population-open').click()});
+  flowView=createForestFlow(gameState,{onActivity:openLockedActivity,onEvent:id=>eventView.open(id),onPlace:selectSpecies,onPopulation:()=>document.querySelector('#population-open').click(),onGoalInspect:action=>{clearSelection();if(action.id&&gameState.organisms.some(o=>o.instanceId===action.id))populationView.inspect([action.id]);else{document.querySelector('#population-open').click();populationView.select(action.speciesId||'grass');}}});
   renderDashboard(gameState);
   renderCards(gameState, selectSpecies, openLockedActivity);
   renderSelection(uiState, clearSelection);

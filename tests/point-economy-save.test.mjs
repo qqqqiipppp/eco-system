@@ -13,13 +13,13 @@ const snapshot=s=>createSaveSnapshot(s,emptyMemory,'2000-01-01T00:00:00Z');
 const load=s=>decodeSave(JSON.stringify(snapshot(s)));
 const protect=s=>({points:s.metrics.points,organisms:s.organisms.map(o=>({id:o.instanceId,position:o.position,life:o.life,development:o.development,growth:o.growth,hunger:o.hunger,foodStock:o.foodStock})),environment:s.environment,events:s.environmentEvents,legacy:s.legacyEcology,observations:s.observations,activities:s.activities,pending:s.population.breeding,decomposition:s.decomposition});
 test('X/Y: schema13 whitelist detaches receipts and keeps opening balance separate from old achievements',()=>{
- const s=createGameState();s.metrics.points=77;const raw=snapshot(s);assert.equal(SAVE_VERSION,16);assert.equal(raw.domain.pointEconomy.openingBalance,77);
- assert.notStrictEqual(raw.domain.pointEconomy,s.pointEconomy);assert.equal(raw.domain.pointEconomy.totals.legacy,0);assert.equal(raw.schemaVersion,16);assert.equal(raw.domain.ecologyRevision,2);
+ const s=createGameState();s.metrics.points=77;const raw=snapshot(s);assert.equal(SAVE_VERSION,17);assert.equal(raw.domain.pointEconomy.openingBalance,77);
+ assert.notStrictEqual(raw.domain.pointEconomy,s.pointEconomy);assert.equal(raw.domain.pointEconomy.totals.legacy,0);assert.equal(raw.schemaVersion,17);assert.equal(raw.domain.ecologyRevision,2);
  const r=decodeSave(JSON.stringify(raw));assert.equal(r.status,'loaded');assert.equal(r.state.metrics.points,77);assert.equal(ledgerBalance(r.state.pointEconomy),77);
 });
 for(const version of [7,8,9,10,11,12])test(`X/R/S: genuine pre13 version${version} preserves state and offers needed one-time support rather than retroactive incidents`,()=>{
  const raw=blockedPriorSave(version),r=decodeSave(JSON.stringify(raw));assert.equal(r.status,'loaded');const s=r.state;
- assert.equal(s.metrics.points,0);assert.equal(s.schemaVersion,16);assert.equal(s.pointEconomy.studyStartSequence,s.environmentEvents.sequence);assert(supportQuote(s).available,JSON.stringify(supportQuote(s)));
+ assert.equal(s.metrics.points,0);assert.equal(s.schemaVersion,17);assert.equal(s.pointEconomy.studyStartSequence,s.environmentEvents.sequence);assert(supportQuote(s).available,JSON.stringify(supportQuote(s)));
  const before=structuredClone(protect(s)),response=claimRecoverySupport(s);assert(response.ok);const amount=version<10?8:28;assert.equal(response.amount,amount);
  assert.deepEqual({...protect(s),points:0},before);const loaded=load(s);assert.equal(loaded.status,'loaded');assert.equal(loaded.state.metrics.points,amount);assert(!claimRecoverySupport(loaded.state).ok);
  assert.equal(loaded.state.pointEconomy.totals.support,amount);assert.equal(supportReserved(loaded.state),amount);assert.deepEqual(loaded.state.legacyEcology,s.legacyEcology);
@@ -61,7 +61,7 @@ test('R/S/X: losing the new economy object preserves independent support ownersh
  assert(executeManagement(carried.state,'water-care',{sourceType:'environment',sourceId:'water'}).ok);assert.equal(carried.state.metrics.points,22);assert.equal(supportReserved(carried.state),22);assert.equal(load(carried.state).status,'loaded');
 });
 test('X/Z: future14/unknown ecology stay blocked; savedAt dates never generate money or elapsed biology',()=>{
- const s=createGameState(),raw=snapshot(s);raw.schemaVersion=raw.domain.schemaVersion=17;assert(decodeSave(JSON.stringify(raw)).blocked);
+ const s=createGameState(),raw=snapshot(s);raw.schemaVersion=raw.domain.schemaVersion=18;assert(decodeSave(JSON.stringify(raw)).blocked);
  raw.schemaVersion=raw.domain.schemaVersion=13;raw.domain.ecologyRevision=999;assert(decodeSave(JSON.stringify(raw)).blocked);
  const a=snapshot(s),b=snapshot(s);a.savedAt='1900-01-01T00:00:00Z';b.savedAt='2099-01-01T00:00:00Z';assert.deepEqual(decodeSave(JSON.stringify(a)).state,decodeSave(JSON.stringify(b)).state);
 });

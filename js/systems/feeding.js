@@ -208,6 +208,7 @@ export function createFeedingSystem(initialTime = 0,{environmentEventsEnabled=tr
     }
     result.added=[...updateReproduction(state,ecologyConfig.tickSeconds,layout),...updateReplenishment(state,ecologyConfig.tickSeconds,layout)];
     result.updated = state.organisms;
+    advanceGoalInquiry(state,result.feedingEvents);
     result.ticked = true;
   }
 
@@ -247,3 +248,4 @@ export function createFeedingSystem(initialTime = 0,{environmentEventsEnabled=tr
     forget(ids){for(const id of ids){byId.delete(id);timing.delete(id);}},
   };
 }
+import {advanceGoalInquiry} from './learning-goals.js';

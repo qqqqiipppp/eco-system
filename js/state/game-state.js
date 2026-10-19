@@ -7,14 +7,17 @@ import { createOrganismInstance } from './organism-instance.js';
 import {ECOLOGY_REVISION} from '../../data/species-taxonomy.js';
 import {createEnvironmentEventState} from './environment-event-state.js';
 import {createPointEconomyState} from './point-economy-state.js';
+import {GOAL_REVISION} from '../../data/learning-goals.js';
+import {createLearningGoalProgress} from './learning-goal-state.js';
 
 /** Serializable domain state. UI selection stays separate and is not save data.
  * stability: null means not calculated; do not present a fabricated score.
  * Future save adapters must validate schemaVersion before restoring this shape.
  */
-export function createGameState() {
+export function createGameState({goalRevision=GOAL_REVISION}={}) {
   return {
-    schemaVersion: 16,
+    schemaVersion: 17,
+    goalRevision,learningGoalProgress:createLearningGoalProgress(),
     profile:createProfileState(),round:createRoundState(),
     pacingRevision:PACING_REVISION,
     pointEconomy:createPointEconomyState(),

@@ -3,6 +3,7 @@ import { placementConfig, speciesProfiles } from '../../data/interaction-config.
 import {addOrganism} from './lifecycle.js';
 import {validateIntroduction,recordIntroduction} from './population.js';
 import {isPositionAllowed} from './placement-rules.js';
+import {noteGoalIntroduction} from './learning-goals.js';
 export {isPositionAllowed} from './placement-rules.js';
 
 export function validatePlacement(state, speciesId, input, layout) {
@@ -24,6 +25,7 @@ export function placeOrganism(state, speciesId, input, layout) {
   if (!result.ok) return result;
   const instance=addOrganism(state,speciesId,input.position,result.reintroduction?'reintroduction':'placement');
   recordIntroduction(state,speciesId);
+  noteGoalIntroduction(state,instance);
   return { ok: true, instance };
 }
 

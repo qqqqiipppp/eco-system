@@ -1,0 +1,903 @@
+{
+  "stage": "15.10",
+  "baselineHead": "87011713ca547efd095c616904aab3478ebc8aeb",
+  "before": {
+    "unitGroups": [
+      {
+        "tests": 36,
+        "pass": 36,
+        "fail": 0
+      },
+      {
+        "tests": 314,
+        "pass": 314,
+        "fail": 0
+      },
+      {
+        "tests": 407,
+        "pass": 407,
+        "fail": 0
+      },
+      {
+        "tests": 181,
+        "pass": 181,
+        "fail": 0
+      },
+      {
+        "tests": 247,
+        "pass": 247,
+        "fail": 0
+      }
+    ],
+    "browser": {
+      "phase": "before",
+      "suites": [
+        {
+          "file": "balance.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "activities.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "biodiversity.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "detritus.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "development.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "environment.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "environment-events.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "feeding-audit.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "events.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "feeding.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "food-expansion.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "guidance.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "food-web.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "lifespan.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "habitat.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "pacing.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "management.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "point-economy.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "persistence.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "population.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "replay.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "spatial.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "ux.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "ux.full-flow.browser.test.cjs",
+          "status": 0
+        }
+      ]
+    },
+    "instant": {
+      "times": {
+        "firstFood": 5,
+        "firstNew": null,
+        "requiredLearning": 5,
+        "firstGrowth": 211,
+        "firstEnvironment": 240,
+        "firstDecomposer": null
+      },
+      "newCards": [
+        {
+          "speciesId": "rabbit",
+          "at": 0.5
+        },
+        {
+          "speciesId": "frog",
+          "at": 5
+        }
+      ],
+      "novel17": 0,
+      "clearAt": 100.5,
+      "cleared": true,
+      "points": 72,
+      "careSpent": 0,
+      "acquired": 7,
+      "observed": 4,
+      "food": 3,
+      "roundFood": 3,
+      "environmentBeforeClear": false,
+      "meaningfulActions": 25,
+      "availableChoiceIndicator": {
+        "average": 7.227083333333334,
+        "max": 10,
+        "zeroChoiceSeconds": 0,
+        "definition": "unfinished eligible learning + uninspected living instances + pending insight/question + missing owned core placement; optional UI browsing excluded"
+      },
+      "noticesUnique": 20,
+      "noticesByKind": {
+        "alert": 20
+      },
+      "peakActive": 4,
+      "clearEvidence": {
+        "at": 100.5,
+        "foodRelations": [
+          "v2_grass_to_grasshopper",
+          "v2_grasshopper_to_frog",
+          "v2_grass_to_rabbit"
+        ],
+        "activities": [
+          "producer_quiz",
+          "decomposer_classify",
+          "grass_observation",
+          "rabbit_habitat"
+        ],
+        "environmentEpisodes": 0,
+        "growthOpportunity": false,
+        "decomposerInspected": [],
+        "processed": 1.3099999999999938,
+        "managementActions": 0
+      },
+      "samples": [
+        {
+          "at": 0.5,
+          "options": 10,
+          "acquired": 6,
+          "points": 11,
+          "stability": 80
+        },
+        {
+          "at": 60.5,
+          "options": 8,
+          "acquired": 7,
+          "points": 51,
+          "stability": 87
+        },
+        {
+          "at": 120.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 51,
+          "stability": 95
+        },
+        {
+          "at": 180.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 51,
+          "stability": 98
+        },
+        {
+          "at": 240.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 51,
+          "stability": 98
+        },
+        {
+          "at": 300.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 51,
+          "stability": 96
+        },
+        {
+          "at": 360.5,
+          "options": 8,
+          "acquired": 7,
+          "points": 62,
+          "stability": 85
+        },
+        {
+          "at": 420.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 62,
+          "stability": 96
+        },
+        {
+          "at": 480.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 62,
+          "stability": 96
+        },
+        {
+          "at": 540.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 62,
+          "stability": 96
+        },
+        {
+          "at": 600.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 62,
+          "stability": 96
+        },
+        {
+          "at": 660.5,
+          "options": 8,
+          "acquired": 7,
+          "points": 66,
+          "stability": 85
+        },
+        {
+          "at": 720.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 66,
+          "stability": 98
+        },
+        {
+          "at": 780.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 66,
+          "stability": 98
+        },
+        {
+          "at": 840.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 66,
+          "stability": 98
+        },
+        {
+          "at": 900.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 66,
+          "stability": 98
+        },
+        {
+          "at": 960.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 66,
+          "stability": 93
+        },
+        {
+          "at": 1020.5,
+          "options": 8,
+          "acquired": 7,
+          "points": 68,
+          "stability": 81
+        },
+        {
+          "at": 1080.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 68,
+          "stability": 94
+        },
+        {
+          "at": 1140.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 72,
+          "stability": 96
+        }
+      ],
+      "hints": [
+        {
+          "at": 0.5,
+          "text": "방아깨비가 강아지풀을 먹는 모습을 관찰해요. 💡가 나타나면 발견 기록하기를 눌러요."
+        },
+        {
+          "at": 240,
+          "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+        },
+        {
+          "at": 600,
+          "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+        },
+        {
+          "at": 960,
+          "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+        }
+      ],
+      "population": {
+        "oak": 2,
+        "mushroom": 1,
+        "rabbit": 1,
+        "frog": 1,
+        "grass": 3,
+        "grasshopper": 1
+      },
+      "meals": {
+        "v2_grass_to_grasshopper": 82,
+        "v2_grasshopper_to_frog": 4,
+        "v2_grass_to_rabbit": 36
+      },
+      "processed": 12.279027875000123,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 86,
+      "spent": 14,
+      "peak": 14,
+      "model": {
+        "instantCorrectAnswers": true,
+        "actualStudent": false
+      },
+      "wrongAnswers": 0
+    },
+    "ui": {
+      "stage": "15.9",
+      "baseline": "c0d66c916444aec74952de238642f6a36a83ee84",
+      "actualStudent": false,
+      "mode": "real browser UI, no fast-forward",
+      "runs": [
+        {
+          "before": true,
+          "viewport": "1280x800",
+          "wallSeconds": 42.224,
+          "activeClearSeconds": 42,
+          "taps": 30,
+          "uniqueDialogOpens": 5,
+          "automaticMenuMilliseconds": 912,
+          "steps": [
+            {
+              "name": "select/place two grasshoppers",
+              "taps": 6,
+              "wallMilliseconds": 214,
+              "activeSeconds": 0
+            },
+            {
+              "name": "place a decomposer",
+              "taps": 3,
+              "wallMilliseconds": 80,
+              "activeSeconds": 0
+            },
+            {
+              "name": "judge producer",
+              "taps": 3,
+              "wallMilliseconds": 104,
+              "activeSeconds": 0.5
+            },
+            {
+              "name": "judge decomposer",
+              "taps": 4,
+              "wallMilliseconds": 133,
+              "activeSeconds": 0.5
+            },
+            {
+              "name": "observe and record actual leaves meal",
+              "taps": 4,
+              "wallMilliseconds": 4700,
+              "activeSeconds": 5
+            },
+            {
+              "name": "learn and acquire frog card",
+              "taps": 3,
+              "wallMilliseconds": 107,
+              "activeSeconds": 5.5
+            },
+            {
+              "name": "place frog",
+              "taps": 3,
+              "wallMilliseconds": 96,
+              "activeSeconds": 5.5
+            },
+            {
+              "name": "observe and record actual predation",
+              "taps": 4,
+              "wallMilliseconds": 6568,
+              "activeSeconds": 12
+            },
+            {
+              "name": "maintain real forest balance to first goal",
+              "taps": 0,
+              "wallMilliseconds": 30094,
+              "activeSeconds": 42
+            }
+          ],
+          "dialogTextSamples": [
+            {
+              "id": "help-dialog",
+              "visibleCharacters": 187
+            },
+            {
+              "id": "activity-dialog",
+              "visibleCharacters": 313
+            },
+            {
+              "id": "activity-dialog",
+              "visibleCharacters": 374
+            },
+            {
+              "id": "activity-dialog",
+              "visibleCharacters": 323
+            },
+            {
+              "id": "activity-dialog",
+              "visibleCharacters": 341
+            },
+            {
+              "id": "activity-dialog",
+              "visibleCharacters": 423
+            },
+            {
+              "id": "event-dialog",
+              "visibleCharacters": 69
+            },
+            {
+              "id": "event-dialog",
+              "visibleCharacters": 195
+            },
+            {
+              "id": "event-dialog",
+              "visibleCharacters": 218
+            },
+            {
+              "id": "activity-dialog",
+              "visibleCharacters": 343
+            },
+            {
+              "id": "activity-dialog",
+              "visibleCharacters": 441
+            },
+            {
+              "id": "event-dialog",
+              "visibleCharacters": 63
+            },
+            {
+              "id": "event-dialog",
+              "visibleCharacters": 207
+            },
+            {
+              "id": "event-dialog",
+              "visibleCharacters": 230
+            }
+          ],
+          "points": 35,
+          "food": [
+            "v2_grass_to_grasshopper",
+            "v2_grasshopper_to_frog"
+          ],
+          "activities": [
+            "producer_quiz",
+            "decomposer_classify",
+            "grass_observation"
+          ],
+          "environmentEpisodes": 0,
+          "errors": []
+        },
+        {
+          "before": false,
+          "viewport": "1280x800",
+          "wallSeconds": 46.342,
+          "activeClearSeconds": 47.5,
+          "taps": 28,
+          "uniqueDialogOpens": 5,
+          "automaticMenuMilliseconds": 723,
+          "steps": [
+            {
+              "name": "select/place two grasshoppers",
+              "taps": 6,
+              "wallMilliseconds": 195,
+              "activeSeconds": 2
+            },
+            {
+              "name": "place a decomposer",
+              "taps": 3,
+              "wallMilliseconds": 86,
+              "activeSeconds": 2
+            },
+            {
+              "name": "judge producer",
+              "taps": 4,
+              "wallMilliseconds": 182,
+              "activeSeconds": 2
+            },
+            {
+              "name": "judge decomposer",
+              "taps": 3,
+              "wallMilliseconds": 100,
+              "activeSeconds": 2
+            },
+            {
+              "name": "observe and record actual leaves meal",
+              "taps": 3,
+              "wallMilliseconds": 5765,
+              "activeSeconds": 8
+            },
+            {
+              "name": "learn and acquire frog card",
+              "taps": 3,
+              "wallMilliseconds": 92,
+              "activeSeconds": 8
+            },
+            {
+              "name": "place frog",
+              "taps": 3,
+              "wallMilliseconds": 80,
+              "activeSeconds": 8
+            },
+            {
+              "name": "observe and record actual predation",
+              "taps": 3,
+              "wallMilliseconds": 9604,
+              "activeSeconds": 17.5
+            },
+            {
+              "name": "maintain real forest balance to first goal",
+              "taps": 0,
+              "wallMilliseconds": 30116,
+              "activeSeconds": 47.5
+            }
+          ],
+          "dialogTextSamples": [
+            {
+              "id": "help-dialog",
+              "visibleCharacters": 169
+            },
+            {
+              "id": "activity-dialog",
+              "visibleCharacters": 102
+            },
+            {
+              "id": "activity-dialog",
+              "visibleCharacters": 155
+            },
+            {
+              "id": "activity-dialog",
+              "visibleCharacters": 120
+            },
+            {
+              "id": "activity-dialog",
+              "visibleCharacters": 170
+            },
+            {
+              "id": "event-dialog",
+              "visibleCharacters": 70
+            },
+            {
+              "id": "event-dialog",
+              "visibleCharacters": 114
+            },
+            {
+              "id": "activity-dialog",
+              "visibleCharacters": 120
+            },
+            {
+              "id": "activity-dialog",
+              "visibleCharacters": 185
+            },
+            {
+              "id": "event-dialog",
+              "visibleCharacters": 65
+            },
+            {
+              "id": "event-dialog",
+              "visibleCharacters": 109
+            }
+          ],
+          "points": 35,
+          "food": [
+            "v2_grass_to_grasshopper",
+            "v2_grasshopper_to_frog"
+          ],
+          "activities": [
+            "producer_quiz",
+            "decomposer_classify",
+            "grass_observation"
+          ],
+          "environmentEpisodes": 0,
+          "errors": []
+        }
+      ]
+    }
+  },
+  "after": {
+    "unitGroups": [
+      {
+        "tests": 36,
+        "pass": 36,
+        "fail": 0
+      },
+      {
+        "tests": 314,
+        "pass": 314,
+        "fail": 0
+      },
+      {
+        "tests": 407,
+        "pass": 407,
+        "fail": 0
+      },
+      {
+        "tests": 181,
+        "pass": 181,
+        "fail": 0
+      },
+      {
+        "tests": 247,
+        "pass": 247,
+        "fail": 0
+      },
+      {
+        "tests": 44,
+        "pass": 44,
+        "fail": 0
+      }
+    ],
+    "browser": {
+      "phase": "after",
+      "suites": [
+        {
+          "file": "balance.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "activities.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "biodiversity.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "detritus.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "development.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "environment.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "environment-events.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "feeding-audit.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "events.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "feeding.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "food-expansion.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "guidance.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "food-web.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "lifespan.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "habitat.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "pacing.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "management.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "point-economy.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "persistence.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "population.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "replay.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "spatial.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "ux.browser.test.cjs",
+          "status": 0
+        },
+        {
+          "file": "ux.full-flow.browser.test.cjs",
+          "status": 0
+        }
+      ]
+    }
+  },
+  "protectedHistory": {
+    "files": 91,
+    "changed": [],
+    "hashes": {
+      "balance.baseline-results.json": "bcd39f04b94c8f6671122c069f9a6076d11cfb0f4c8ad7be1e46cf4e8b59d957",
+      "balance.browser-results.json": "95ecacba5cf191c8425882fff0922c2322635d06eefac74f60f4d67660236353",
+      "balance.detritus.browser.test-after-results.json": "5f60cbe85a88835c4af370d3d15a67174da6e0998e59ae97f7b0c1c9e0970a8d",
+      "balance.detritus.browser.test-before-results.json": "5f60cbe85a88835c4af370d3d15a67174da6e0998e59ae97f7b0c1c9e0970a8d",
+      "balance.habitat.browser.test-after-results.json": "4936942b4611d66eee524f209f16285a640046c9e508fa55292404ee1132360b",
+      "balance.habitat.browser.test-before-results.json": "4936942b4611d66eee524f209f16285a640046c9e508fa55292404ee1132360b",
+      "balance.long-results.json": "8f8986d17b3dd264c91092b4eb347334ef72c3142922a2e43ad9ef2f5d3bd48a",
+      "balance.pacing.browser.test-after-results.json": "9a85a5807d14ec3b28cc1d374f156c4f0a219f762a1e7ac72258dc45ae1cdfdf",
+      "balance.pacing.browser.test-before-results.json": "9a85a5807d14ec3b28cc1d374f156c4f0a219f762a1e7ac72258dc45ae1cdfdf",
+      "balance.point-economy.browser.test-after-results.json": "25462cfd146eeba7db7c7aabc7ed4b6607c0db0833dbe09ed57b05a90ab578c3",
+      "balance.point-economy.browser.test-before-results.json": "25462cfd146eeba7db7c7aabc7ed4b6607c0db0833dbe09ed57b05a90ab578c3",
+      "balance.replay.browser.test-after-results.json": "30b9e740ecc8ee1cd612de11315ca969dbcde311102833afc6a7acb3375411d4",
+      "balance.replay.browser.test-before-results.json": "30b9e740ecc8ee1cd612de11315ca969dbcde311102833afc6a7acb3375411d4",
+      "balance.validation-results.json": "720817f487e5b2316ee9f2c613627fa0cfb624a5f08aff6b3cfaea7cb2c826ac",
+      "biodiversity.audit-before-results.json": "604b4e3e3d6bfc109b0f5c27246d58da94e9d9ecc2cd28ef3c8a826d6ebd18a8",
+      "biodiversity.baseline-results.json": "f420a8a6cfce3f1a11b3cc915cdce46ef68b677680916e0fbcbadb03f40e978d",
+      "biodiversity.browser-before-results.json": "a0d04953fc55d303c6bb7c3bfbea1b8c5d454b7ea6f034e2dc0f98cf9cf255b7",
+      "biodiversity.browser-final-results.json": "d83714cbf086fee93fdca580a2a7554a33706738984183660398f39917128c21",
+      "biodiversity.browser-results.json": "6c9a0834ba838270ce01e735dec99ffc6b76574fc1ce2af77120cbf94e81874f",
+      "biodiversity.c-results.json": "abd1f3fc10e814c9005694be80cb5b13a0302b1f6878d4f686cb962b127af521",
+      "biodiversity.candidates-results.json": "6e68e3f3e639ef7507a4d72f930bfddd7104755824e19e03cc3a36e9e4c1d80f",
+      "biodiversity.combined-candidates-results.json": "65d1b42f56457ba2bc6cd4809581f6ce23dbaa37a6807243915c371a4ec3d99c",
+      "biodiversity.final-results.json": "72a751c5b1b9ff79987bb6218ceccd6553cdb442d1fbd9acc80e08908f19673d",
+      "biodiversity.intermediate14-results.json": "0c1adaa9de43c0c708c68b75a11a084f49039872343a7177524693265163c8a5",
+      "biodiversity.long-results.json": "71dbbebff287b625e83ee05918638a2bf363f764ed2d5cbd5d18f35e14832583",
+      "biodiversity.refuge-candidates-results.json": "76a3a9a97f9ab2a60de621d94ead19fc9d1e802caf484531d50b881ddd821265",
+      "biodiversity.reproduction-only-results.json": "00e2aed5562d0f288644cb87efdf54c252fbc6bdfb963e36ef6386d7e89b8fb2",
+      "biodiversity.results.json": "cf7ae29179acb5fb2e42d8b466b18d7b5a8c1edf56525b56e96521e040a938b1",
+      "biodiversity.saved16-before.json": "ae21f5b27d5dfbe8f6438e0a43f641dc3e32497139653a121ce2e6e521940a59",
+      "biodiversity.validation-results.json": "7579915cb347b774df54c4ae4782857454d5b4667876b2ee34deed381652244d",
+      "detritus.browser-results.json": "46140d6650edc7d6f4ebde289c8b8a914390a981c525352bd9d423a1e794b75d",
+      "detritus.long-results.json": "9c43019a0818d5a3dcce45fbf5ba9ac509718f61bec254f76509fb01c97112ab",
+      "environment-events.long-results.json": "de693f21df92d2b742e83253af864435a574422dffaf022a3b2634c9dc9f7b58",
+      "feeding-audit.browser-results.json": "3e32c3d13ee7a130f7868b10c7273554034e74f17ad02071d3ffe8d6d6fd3ade",
+      "feeding-audit.long-results.json": "940057c172335eede7968a54f08df4cbde28b2d2f0a63075c7253c2abbf86b3e",
+      "feeding-audit.motion-results.json": "78921b9808506daf51cd45e05f2f1f0a706b1227f55941cd8b5f7f567890f296",
+      "feeding-audit.regression-results.json": "f8106b4bf2e784a309307122a84ea9fcf2b500701ef8c94c65e84c5f90b33167",
+      "feeding-audit.results.json": "b07892b359ea3abf852018fc9f8a2793c7cdf9a60ed425a561eef69388a76735",
+      "feeding-audit.validation-results.json": "113f348e51d794b6b09fd99572ae5662e178952e77c77914762be0480c768520",
+      "food-expansion.baseline-results.json": "bc6e3b2797e3da7bea1a8f441a42fd1395ab69cf0edcda00f6c3392f801759c3",
+      "food-expansion.browser-after-results.json": "e7c064d4ffe5331e60a13199f8db384ff2f6632aefe6d4ad1a7a09027750fd47",
+      "food-expansion.browser-before-results.json": "9be01bd50c4b37bb2933856d901da8d9d146bb9615bdb214147cae8eb1903540",
+      "food-expansion.browser-results.json": "be774b188d4c2f2dedd09ca983b948b2a1f9c8df48ca87c78d60f84cb1155c71",
+      "food-expansion.long-results.json": "b71bb8d7131cb15b96d8939c296cb3717211a4023e0af0dd78d03a4c47137023",
+      "food-expansion.motion-results.json": "0ba161e7a3264030da5d39b30b0b66d7994533fd2aa8b10e484342defd9f59a7",
+      "food-expansion.results.json": "848202c514b66ea6a12aa5fea8a8c4a2cb8bd9df017c67f8193f67a99d15f421",
+      "food-expansion.validation-results.json": "8a6477df41f88686f3dcecc979189aee7c751de0b22510858dd53c8b68a1bad4",
+      "habitat.baseline-results.json": "03378e280ae4e7cfd47f443b1bfdf0ecb3fb7c4eb62acbf2b2b6d11d2dfd49ad",
+      "habitat.browser-results.json": "4b48373fb024e66f138e7685674a7f63a1ae008c28119f88687d8c7d5cbf7514",
+      "habitat.detritus-browser-results.json": "5f60cbe85a88835c4af370d3d15a67174da6e0998e59ae97f7b0c1c9e0970a8d",
+      "habitat.long-results.json": "ce0b3da8ebd7369fa09c1a4efdd50a8e803ee77bf98b8916b25d4e7e616181ca",
+      "habitat.pacing-browser-results.json": "62f6549d4ac70d11d171fe0e80426fa12365d83c6846bb66b6f5c7436068178f",
+      "habitat.point-economy-browser-results.json": "25462cfd146eeba7db7c7aabc7ed4b6607c0db0833dbe09ed57b05a90ab578c3",
+      "habitat.visibility-results.json": "e80c977a98729032a37f53c979f4372e7bd52603a67fd5073390d027dc2d5ec1",
+      "pacing.baseline-results.json": "ba68ac25c3fac38c9a018797e10e1e4f9b96773f552f24348231af8f6b092d95",
+      "pacing.browser-results.json": "9a85a5807d14ec3b28cc1d374f156c4f0a219f762a1e7ac72258dc45ae1cdfdf",
+      "pacing.detritus-browser-results.json": "a1eeaabdee40f756d72edb7bb36de4f091dc0aaa53bea86ca504fafee6817756",
+      "pacing.economy-browser-results.json": "25462cfd146eeba7db7c7aabc7ed4b6607c0db0833dbe09ed57b05a90ab578c3",
+      "pacing.legacy-fixtures.json": "f12165159fd3ceadbb266bdcf064a417bc149a93aa88e622329b3a9286667a38",
+      "pacing.long-results.json": "4166a5e645dde7f3dcf32e52ac19b216d5b34a1040c7effc505f9c11c709a0d8",
+      "point-economy-baseline-results.json": "a04a020d24776f92bcc907e27e0364dd4672d80759f60d6a2340373abccfdf01",
+      "point-economy.browser-results.json": "42c33714ca13d17273e068744d66dc8e87ab36a70a0a95a5d922649aa2751f4b",
+      "point-economy.long-results.json": "6b3c04746c70e8164434bd0c422933319eb5bca17a781eb58a494b6a5723c849",
+      "replay.browser-results.json": "30b9e740ecc8ee1cd612de11315ca969dbcde311102833afc6a7acb3375411d4",
+      "replay.detritus-browser-results.json": "a1eeaabdee40f756d72edb7bb36de4f091dc0aaa53bea86ca504fafee6817756",
+      "replay.habitat-browser-results.json": "4936942b4611d66eee524f209f16285a640046c9e508fa55292404ee1132360b",
+      "replay.long-results.json": "b8ab272995de9ff39df6a26b86128166d3eb67c89ddd8202586ffe0c0228d446",
+      "replay.pacing-browser-results.json": "9a85a5807d14ec3b28cc1d374f156c4f0a219f762a1e7ac72258dc45ae1cdfdf",
+      "replay.point-economy-browser-results.json": "2c2d78f1cb5f6e9dce58582a33f9ed301e9a41b2a9392c07d70816047a8a0d1e",
+      "replay.validation-results.json": "c22eb3593824d04de8255a4ab3306891abc728b6a1f0e656948efa5c7bc3e606",
+      "spatial.balance.browser.test-results.json": "95ecacba5cf191c8425882fff0922c2322635d06eefac74f60f4d67660236353",
+      "spatial.baseline-results.json": "f30c607145868737ab64e778b9d96702307d415b7ff761f2cca6ee5bacf1524d",
+      "spatial.browser-results.json": "91cb51a9304551788fbfd5e0fa0a91860f24f8345415ec6168d7f86f147a1d88",
+      "spatial.detritus.browser.test-results.json": "93987eeda9b9fee86756406e425775bcc41dfe9018662977f88957e2d3ca7b29",
+      "spatial.ecology-baseline-results.json": "7114d6e96a043b728af9e80f21d6494c1fefa928641c405d4559f01a9b49cf0d",
+      "spatial.habitat.browser.test-results.json": "9c5be3ca3acdf3b10c5bab5ff3d788051ff2988d1261f846bfeff5e226653e7f",
+      "spatial.long-results.json": "992c2693826feb8ee6baa14b1ff7c074d53df10a6dad3cab9887004bab17d2a7",
+      "spatial.pacing.browser.test-results.json": "62f6549d4ac70d11d171fe0e80426fa12365d83c6846bb66b6f5c7436068178f",
+      "spatial.point-economy.browser.test-results.json": "25462cfd146eeba7db7c7aabc7ed4b6607c0db0833dbe09ed57b05a90ab578c3",
+      "spatial.replay.browser.test-results.json": "30b9e740ecc8ee1cd612de11315ca969dbcde311102833afc6a7acb3375411d4",
+      "spatial.validation-results.json": "b0c7a19dc52c62d0b5672ca261f21b443a65d49c6ae423c4768f0998f84a08aa",
+      "ux.audit-results.json": "0aa75e791ca193bebaee59053ef2154493a22491e3496f6ff70c8a1edf2b103b",
+      "ux.browser-regression-results.json": "764cb09dc4cff00ec4fe327fb524ce4b0221e579a20e89ff65f286c684a31552",
+      "ux.browser-results.json": "cbd6b4a1a0f1f6fa1e4c03e35ecb5de7cff4398f48d5497642e58fb89a364def",
+      "ux.flow-baseline.json": "5dfa0bb2ece564a9e963b183068c4c3ce7e4648da46474488d69cf7c257ddcc2",
+      "ux.full-flow-results.json": "20374e31d5bd8aba5c1f69be8bbf8659d7d2f02c77173d95cd5b009bfca4c53b",
+      "ux.prior-result-hashes.json": "314491529b7738fd1bef7bfdd661ade54798473ece7bdbd56b8ee32552de7a96",
+      "ux.realtime-continuous-checkpoint.json": "784f1f64ab8aa1b80f359db75177d01cfbe74493a2550375aac0641f23e5b7b7",
+      "ux.realtime-results.json": "0df6ea56c6112be702074fdc15c70e8f36a982a27c4b4f40f77b46d4e1e75ea9",
+      "ux.realtime-split-checkpoint.json": "f605691f9ab26c4f5656d25d892351c6891858520ba2203936a94e0dae64c5a5",
+      "ux.validation-results.json": "7bfe33030a76cd72b19a1d7131c1b943d5a937404d0b8a6798b8618b8e7df799"
+    }
+  },
+  "note": "Old goal cohort1 runs against current ecology/save code; new44 tests use actual new goal2. Unit groups overlap; do not sum as unique tests."
+}

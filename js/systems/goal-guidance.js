@@ -10,10 +10,17 @@ import {discoveryEvents,eventConfig} from '../../data/event-config.js';
 import {survivalStage,validateIntroduction} from './population.js';
 import {placementConfig} from '../../data/interaction-config.js';
 import {pointGuidance} from './point-economy.js';
+import {learningGoalAction} from './learning-goal-guidance.js';
 
 const relationNames={v2_grass_to_grasshopper:'강아지풀 → 방아깨비',v2_grasshopper_to_frog:'방아깨비 → 참개구리'};
 export function goalPresentation(state) {
  const evaluation=evaluateForestGoal(state);
+ if(state.goalRevision===2){
+  const detail={food:'실제로 먹는 모습을 💡에 기록하고 이어지는 관계를 찾아요.',roles:'식물의 먹이 제공과 소비자의 섭식, 분해자의 실제 유기물 처리를 연결해요.',inquiry:'식물의 먹이와 환경을 보고 선택한 뒤, 실제 먹기와 먹이 회복을 확인해요.',stability:state.metrics.stabilitySummary?.hint||'생물과 먹이의 균형을 살펴봐요.',environment:'햇빛·물·공기·토양을 함께 살펴봐요.',structure:'세 가지 역할이 함께 살아가도록 돌봐요.'};
+  const groups=evaluation.checks.map(c=>({id:c.id,ok:c.ok,title:c.label,detail:c.ok?'이번 숲에서 확인했어요.':detail[c.id]}));
+  groups.push({id:'hold',ok:state.forestProgress.cleared,title:'알맞은 숲 유지하기',detail:evaluation.ready?'알맞은 상태를 잠시 이어가요.':'탐구와 숲의 상태를 함께 살펴봐요.'});
+  return {ready:evaluation.ready,groups,achieved:groups.filter(g=>g.ok).length,total:groups.length};
+ }
  if(state.round?.number>1){const groups=evaluation.checks.map(c=>({id:c.id,ok:c.ok,title:c.label,detail:c.ok?'이 숲에서 확인했어요.':'지금 숲을 관찰하고 환경과 생물 구성을 살펴봐요.'}));groups.push({id:'hold',ok:state.forestProgress.cleared,title:'안정 상태 30초 유지',detail:Math.floor(state.forestProgress.stableSeconds)+'/30초'});return {ready:evaluation.ready,groups,achieved:groups.filter(g=>g.ok).length,total:groups.length};}
  const check=id=>evaluation.checks.find(item=>item.id===id).ok;
  const missingRelations=forestGoal.requiredObservations.filter(id=>!state.observations.some(item=>item.relationId===id));
@@ -34,6 +41,7 @@ export function goalPresentation(state) {
 }
 
 export function nextAction(state) {
+ if(state.goalRevision===2){const action=learningGoalAction(state);return action?.text||'탐구를 마쳤어요. 지금 숲의 성장·새 먹이 관계·환경 변화를 더 살펴보거나 도감에서 다음 숲의 주제를 골라요.';}
  if(state.round?.number>1)return replayNextAction(state);
  const has=id=>state.organisms.some(item=>item.speciesId===id);
  const observed=id=>state.observations.some(item=>item.relationId===id);

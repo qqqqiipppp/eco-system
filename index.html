@@ -148,7 +148,7 @@
     </section>
     <section id="help-controls" hidden><h2>기본 조작</h2><ol>
       <li>생물 카드를 터치하고 숲에 놓아요.</li><li>생물이 먹이를 찾는 모습을 관찰해요.</li><li>💡를 눌러 발견을 기록해요.</li><li>숲 메모나 잠긴 카드에서 짧은 활동을 해요.</li><li>!의 원인을 보고 포인트로 관리해요.</li>
-    </ol><p>숲 목표에서 부족한 조건과 30초 유지 도전을 확인해요.</p><button id="help-finish" type="button">숲으로 가기</button></section>
+    </ol><p>숲 메모에서 다음 탐구를 골라요. 먹이 관계와 분해자의 일을 보고, 내 선택 뒤 실제 변화도 확인해요.</p><button id="help-finish" type="button">숲으로 가기</button></section>
     <button id="help-skip" type="button">숲으로 가기</button>
   </dialog>
   <noscript><p class="load-error">생물 카드를 보려면 브라우저에서 JavaScript를 켜 주세요.</p></noscript>
@@ -162,7 +162,7 @@
     <h2 id="population-title">생물 살펴보기</h2>
     <p id="population-individual" hidden></p><div id="population-nearby" role="group" aria-label="겹친 생물 중 살펴볼 개체" hidden></div>
     <label>살펴볼 생물 <select id="population-species"></select></label>
-    <p id="population-role"></p><p id="population-state" role="status"></p><p id="population-food"></p><p id="population-introduction"></p><button id="population-place" type="button">이 생물 더 놓기</button>
+    <p id="population-role"></p><p id="population-state" role="status"></p><p id="population-food"></p><section id="population-inquiry" aria-label="이 숲의 탐구" hidden></section><p id="population-introduction"></p><button id="population-place" type="button">이 생물 더 놓기</button>
     <details id="population-more"><summary>성장·환경·돌려보내기</summary><p id="population-lifespan"></p>
     <p id="population-breeding"></p>
     <section id="population-development" aria-labelledby="population-development-title" hidden>

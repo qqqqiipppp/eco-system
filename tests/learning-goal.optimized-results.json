@@ -1,0 +1,167 @@
+{
+  "stage": "15.10",
+  "actualS5e": false,
+  "actualChildren": false,
+  "mode": "optimized real foreground UI, no imposed46s pause",
+  "runs": [
+    {
+      "split": false,
+      "wallSeconds": 53.395,
+      "activeSeconds": 49.5,
+      "savedAt": null,
+      "restoredAt": null,
+      "afterSaveSeconds": null,
+      "oldPathAt": 11,
+      "oldPathBlocked": true,
+      "clearAt": 49.5,
+      "goalActions": "watch",
+      "proof": {
+        "work": {
+          "mushroom": 0.5939625000000004,
+          "litter-mold": 0,
+          "soil-bacteria": 0
+        },
+        "decomposer": {
+          "speciesId": "mushroom",
+          "at": 11,
+          "processed": 0.13200000000000003
+        },
+        "inquiry": {
+          "phase": "confirmed",
+          "choice": "watch",
+          "plantId": "grass-01",
+          "speciesId": "grass",
+          "at": 11,
+          "stockBefore": 1.720128304,
+          "environmentBefore": {
+            "sunlight": 1,
+            "water": 1,
+            "air": 1,
+            "soil": 1
+          },
+          "managementBefore": 0,
+          "introducedIds": [],
+          "meal": {
+            "at": 18,
+            "foodId": "grass-01",
+            "stockAfter": 1.5603959280000002
+          },
+          "outcome": {
+            "at": 19,
+            "foodId": "grass-01",
+            "stock": 1.6804445280000002
+          },
+          "confirmedAt": 19.5
+        }
+      },
+      "tapsToClear": 37,
+      "dialogsToClear": 8,
+      "textCharactersToClear": 1515,
+      "clearAudit": {
+        "taps": 38,
+        "dialogs": [
+          {
+            "id": "help-dialog",
+            "characters": 169
+          },
+          {
+            "id": "activity-dialog",
+            "characters": 102
+          },
+          {
+            "id": "activity-dialog",
+            "characters": 107
+          },
+          {
+            "id": "event-dialog",
+            "characters": 70
+          },
+          {
+            "id": "activity-dialog",
+            "characters": 120
+          },
+          {
+            "id": "event-dialog",
+            "characters": 65
+          },
+          {
+            "id": "population-dialog",
+            "characters": 295
+          },
+          {
+            "id": "population-dialog",
+            "characters": 348
+          },
+          {
+            "id": "population-dialog",
+            "characters": 408
+          },
+          {
+            "id": "goal-dialog",
+            "characters": 179
+          }
+        ]
+      },
+      "views": [
+        {
+          "width": 1280,
+          "height": 800,
+          "horizontal": false,
+          "vertical": false,
+          "forestHeight": 335,
+          "touch": []
+        },
+        {
+          "width": 1138,
+          "height": 712,
+          "horizontal": false,
+          "vertical": false,
+          "forestHeight": 249,
+          "touch": []
+        },
+        {
+          "width": 960,
+          "height": 600,
+          "horizontal": false,
+          "vertical": false,
+          "forestHeight": 226,
+          "touch": []
+        },
+        {
+          "width": 1366,
+          "height": 768,
+          "horizontal": false,
+          "vertical": false,
+          "forestHeight": 303,
+          "touch": []
+        },
+        {
+          "width": 412,
+          "height": 915,
+          "horizontal": false,
+          "vertical": true,
+          "forestHeight": 380,
+          "touch": []
+        }
+      ],
+      "pauses": [
+        {
+          "dialog": "population",
+          "at": 19.5,
+          "frozen": true
+        }
+      ],
+      "snapshots": [],
+      "final": {
+        "points": 35,
+        "cards": 6,
+        "food": 2,
+        "environmentEpisodes": 0,
+        "growth": 0,
+        "processed": 0.7919625000000006,
+        "goalRevision": 2
+      },
+      "errors": []
+    }
+  ]
+}

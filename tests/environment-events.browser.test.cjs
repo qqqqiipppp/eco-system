@@ -77,7 +77,7 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/',KEY='eco-sy
  async function closeEnvironment(page){await page.locator('#environment-close').tap();}
  async function resumeUntil(page,predicate){await page.emulateMedia({reducedMotion:'no-preference'});await page.waitForFunction(predicate,null,{polling:100});await page.emulateMedia({reducedMotion:'reduce'});}
  try{
-  const base=await setup();assert.equal((await state(base)).schemaVersion,16);assert.equal(await base.locator('.organism-card').count(),24);assert.equal((await state(base)).inventory.filter(c=>c.acquired).length,5);
+  const base=await setup();assert.equal((await state(base)).schemaVersion,17);assert.equal(await base.locator('.organism-card').count(),24);assert.equal((await state(base)).inventory.filter(c=>c.acquired).length,5);
   await openEnvironment(base);assert.equal(await base.locator('#environment-event-current').isVisible(),false);assert.equal(await base.locator('#environment-dialog select, #environment-dialog input').count(),0);assert.equal(await base.locator('[data-force-environment-event]').count(),0);await closeEnvironment(base);
   const names={'drought':'가뭄',rain:'비 내림',cloudy:'흐린 날씨','air-pollution':'공기 오염','soil-damage':'숲 바닥 훼손'};
   for(const [kind,name]of Object.entries(names)){

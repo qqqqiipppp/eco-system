@@ -1,0 +1,585 @@
+{
+  "stage": "15.10",
+  "actualS5e": false,
+  "actualChildren": false,
+  "mode": "real foreground20min, no fast-forward",
+  "runs": [
+    {
+      "split": false,
+      "wallSeconds": 1205.666,
+      "activeSeconds": 1200,
+      "savedAt": null,
+      "restoredAt": null,
+      "afterSaveSeconds": null,
+      "oldPathAt": 46,
+      "oldPathBlocked": true,
+      "clearAt": 85,
+      "goalActions": "watch",
+      "proof": {
+        "work": {
+          "mushroom": 0.8393885263270415,
+          "litter-mold": 0,
+          "soil-bacteria": 0
+        },
+        "decomposer": {
+          "speciesId": "mushroom",
+          "at": 46,
+          "processed": 0.5520000000000004
+        },
+        "inquiry": {
+          "phase": "confirmed",
+          "choice": "watch",
+          "plantId": "grass-01",
+          "speciesId": "grass",
+          "at": 46,
+          "stockBefore": 2.660620136,
+          "environmentBefore": {
+            "sunlight": 1,
+            "water": 1,
+            "air": 1,
+            "soil": 1
+          },
+          "managementBefore": 0,
+          "introducedIds": [],
+          "meal": {
+            "at": 54,
+            "foodId": "grass-01",
+            "stockAfter": 2
+          },
+          "outcome": {
+            "at": 55,
+            "foodId": "grass-01",
+            "stock": 2.1201296000000003
+          },
+          "confirmedAt": 55
+        }
+      },
+      "tapsToClear": 39,
+      "dialogsToClear": 10,
+      "textCharactersToClear": 1812,
+      "clearAudit": {
+        "taps": 39,
+        "dialogs": [
+          {
+            "id": "help-dialog",
+            "characters": 169
+          },
+          {
+            "id": "activity-dialog",
+            "characters": 102
+          },
+          {
+            "id": "activity-dialog",
+            "characters": 107
+          },
+          {
+            "id": "event-dialog",
+            "characters": 70
+          },
+          {
+            "id": "activity-dialog",
+            "characters": 120
+          },
+          {
+            "id": "event-dialog",
+            "characters": 65
+          },
+          {
+            "id": "population-dialog",
+            "characters": 295
+          },
+          {
+            "id": "population-dialog",
+            "characters": 348
+          },
+          {
+            "id": "population-dialog",
+            "characters": 357
+          },
+          {
+            "id": "goal-dialog",
+            "characters": 179
+          }
+        ]
+      },
+      "views": [
+        {
+          "width": 1280,
+          "height": 800,
+          "horizontal": false,
+          "vertical": false,
+          "forestHeight": 335,
+          "touch": []
+        },
+        {
+          "width": 1138,
+          "height": 712,
+          "horizontal": false,
+          "vertical": false,
+          "forestHeight": 249,
+          "touch": []
+        },
+        {
+          "width": 960,
+          "height": 600,
+          "horizontal": false,
+          "vertical": false,
+          "forestHeight": 226,
+          "touch": []
+        },
+        {
+          "width": 1366,
+          "height": 768,
+          "horizontal": false,
+          "vertical": false,
+          "forestHeight": 303,
+          "touch": []
+        },
+        {
+          "width": 412,
+          "height": 915,
+          "horizontal": false,
+          "vertical": true,
+          "forestHeight": 380,
+          "touch": []
+        }
+      ],
+      "pauses": [
+        {
+          "dialog": "population",
+          "at": 55,
+          "frozen": true
+        }
+      ],
+      "snapshots": [
+        {
+          "at": 120,
+          "total": 8,
+          "points": 35,
+          "environmentEpisodes": 0,
+          "processed": 1.4999999999999898
+        },
+        {
+          "at": 180,
+          "total": 9,
+          "points": 35,
+          "environmentEpisodes": 0,
+          "processed": 2.104999999999977
+        },
+        {
+          "at": 240,
+          "total": 9,
+          "points": 35,
+          "environmentEpisodes": 1,
+          "processed": 2.699999999999964
+        },
+        {
+          "at": 300,
+          "total": 10,
+          "points": 35,
+          "environmentEpisodes": 1,
+          "processed": 3.2971454166666208
+        },
+        {
+          "at": 360,
+          "total": 9,
+          "points": 35,
+          "environmentEpisodes": 1,
+          "processed": 3.7975452949652335
+        },
+        {
+          "at": 420,
+          "total": 10,
+          "points": 35,
+          "environmentEpisodes": 1,
+          "processed": 4.450939951215232
+        },
+        {
+          "at": 480,
+          "total": 10,
+          "points": 35,
+          "environmentEpisodes": 1,
+          "processed": 5.104999999999947
+        },
+        {
+          "at": 540,
+          "total": 11,
+          "points": 35,
+          "environmentEpisodes": 1,
+          "processed": 5.6999999999999345
+        },
+        {
+          "at": 600,
+          "total": 11,
+          "points": 35,
+          "environmentEpisodes": 2,
+          "processed": 6.304999999999922
+        },
+        {
+          "at": 660,
+          "total": 11,
+          "points": 35,
+          "environmentEpisodes": 2,
+          "processed": 6.904999999999909
+        },
+        {
+          "at": 720,
+          "total": 12,
+          "points": 35,
+          "environmentEpisodes": 2,
+          "processed": 7.499999999999896
+        },
+        {
+          "at": 780,
+          "total": 13,
+          "points": 35,
+          "environmentEpisodes": 2,
+          "processed": 8.104999999999901
+        },
+        {
+          "at": 840,
+          "total": 12,
+          "points": 35,
+          "environmentEpisodes": 2,
+          "processed": 8.699999999999994
+        },
+        {
+          "at": 900,
+          "total": 10,
+          "points": 35,
+          "environmentEpisodes": 2,
+          "processed": 9.300000000000088
+        },
+        {
+          "at": 960,
+          "total": 10,
+          "points": 35,
+          "environmentEpisodes": 3,
+          "processed": 9.900000000000182
+        },
+        {
+          "at": 1020,
+          "total": 9,
+          "points": 35,
+          "environmentEpisodes": 3,
+          "processed": 10.500000000000275
+        },
+        {
+          "at": 1080,
+          "total": 9,
+          "points": 35,
+          "environmentEpisodes": 3,
+          "processed": 11.08930500000031
+        },
+        {
+          "at": 1140,
+          "total": 9,
+          "points": 35,
+          "environmentEpisodes": 3,
+          "processed": 11.692642500000328
+        }
+      ],
+      "final": {
+        "points": 35,
+        "cards": 6,
+        "food": 2,
+        "environmentEpisodes": 3,
+        "growth": 13,
+        "processed": 12.295042500000347,
+        "goalRevision": 2
+      },
+      "errors": []
+    },
+    {
+      "split": true,
+      "wallSeconds": 1206.378,
+      "activeSeconds": 1200,
+      "savedAt": 600,
+      "restoredAt": 600,
+      "afterSaveSeconds": 600,
+      "oldPathAt": 46,
+      "oldPathBlocked": true,
+      "clearAt": 86,
+      "goalActions": "watch",
+      "proof": {
+        "work": {
+          "mushroom": 0.8462131360210974,
+          "litter-mold": 0,
+          "soil-bacteria": 0
+        },
+        "decomposer": {
+          "speciesId": "mushroom",
+          "at": 46,
+          "processed": 0.5520000000000004
+        },
+        "inquiry": {
+          "phase": "confirmed",
+          "choice": "watch",
+          "plantId": "grass-01",
+          "speciesId": "grass",
+          "at": 46,
+          "stockBefore": 2.741465776,
+          "environmentBefore": {
+            "sunlight": 1,
+            "water": 1,
+            "air": 1,
+            "soil": 1
+          },
+          "managementBefore": 0,
+          "introducedIds": [],
+          "meal": {
+            "at": 55,
+            "foodId": "grass-01",
+            "stockAfter": 2
+          },
+          "outcome": {
+            "at": 56,
+            "foodId": "grass-01",
+            "stock": 2.1201296000000003
+          },
+          "confirmedAt": 56
+        }
+      },
+      "tapsToClear": 267,
+      "dialogsToClear": 10,
+      "textCharactersToClear": 1812,
+      "clearAudit": {
+        "taps": 39,
+        "dialogs": [
+          {
+            "id": "help-dialog",
+            "characters": 169
+          },
+          {
+            "id": "activity-dialog",
+            "characters": 102
+          },
+          {
+            "id": "activity-dialog",
+            "characters": 107
+          },
+          {
+            "id": "event-dialog",
+            "characters": 70
+          },
+          {
+            "id": "activity-dialog",
+            "characters": 120
+          },
+          {
+            "id": "event-dialog",
+            "characters": 65
+          },
+          {
+            "id": "population-dialog",
+            "characters": 295
+          },
+          {
+            "id": "population-dialog",
+            "characters": 348
+          },
+          {
+            "id": "population-dialog",
+            "characters": 357
+          },
+          {
+            "id": "goal-dialog",
+            "characters": 179
+          }
+        ]
+      },
+      "views": [
+        {
+          "width": 1280,
+          "height": 800,
+          "horizontal": false,
+          "vertical": false,
+          "forestHeight": 335,
+          "touch": []
+        },
+        {
+          "width": 1138,
+          "height": 712,
+          "horizontal": false,
+          "vertical": false,
+          "forestHeight": 249,
+          "touch": []
+        },
+        {
+          "width": 960,
+          "height": 600,
+          "horizontal": false,
+          "vertical": false,
+          "forestHeight": 226,
+          "touch": []
+        },
+        {
+          "width": 1366,
+          "height": 768,
+          "horizontal": false,
+          "vertical": false,
+          "forestHeight": 303,
+          "touch": []
+        },
+        {
+          "width": 412,
+          "height": 915,
+          "horizontal": false,
+          "vertical": true,
+          "forestHeight": 380,
+          "touch": []
+        }
+      ],
+      "pauses": [
+        {
+          "dialog": "population",
+          "at": 56,
+          "frozen": true
+        },
+        {
+          "dialog": "help/save/reload",
+          "at": 600,
+          "exactRights": true
+        }
+      ],
+      "snapshots": [
+        {
+          "at": 120,
+          "total": 8,
+          "points": 35,
+          "environmentEpisodes": 0,
+          "processed": 1.4999999999999898
+        },
+        {
+          "at": 180,
+          "total": 9,
+          "points": 35,
+          "environmentEpisodes": 0,
+          "processed": 2.099999999999977
+        },
+        {
+          "at": 240,
+          "total": 9,
+          "points": 35,
+          "environmentEpisodes": 1,
+          "processed": 2.699999999999964
+        },
+        {
+          "at": 300,
+          "total": 10,
+          "points": 35,
+          "environmentEpisodes": 1,
+          "processed": 3.2971454166666208
+        },
+        {
+          "at": 360,
+          "total": 9,
+          "points": 35,
+          "environmentEpisodes": 1,
+          "processed": 3.7975452949652335
+        },
+        {
+          "at": 420,
+          "total": 10,
+          "points": 35,
+          "environmentEpisodes": 1,
+          "processed": 4.444803701215232
+        },
+        {
+          "at": 480,
+          "total": 10,
+          "points": 35,
+          "environmentEpisodes": 1,
+          "processed": 5.099999999999947
+        },
+        {
+          "at": 540,
+          "total": 11,
+          "points": 35,
+          "environmentEpisodes": 1,
+          "processed": 5.6999999999999345
+        },
+        {
+          "at": 600,
+          "total": 11,
+          "points": 35,
+          "environmentEpisodes": 2,
+          "processed": 6.299999999999922
+        },
+        {
+          "at": 660,
+          "total": 11,
+          "points": 35,
+          "environmentEpisodes": 2,
+          "processed": 6.899999999999909
+        },
+        {
+          "at": 720,
+          "total": 12,
+          "points": 35,
+          "environmentEpisodes": 2,
+          "processed": 7.504999999999896
+        },
+        {
+          "at": 780,
+          "total": 13,
+          "points": 35,
+          "environmentEpisodes": 2,
+          "processed": 8.0999999999999
+        },
+        {
+          "at": 840,
+          "total": 12,
+          "points": 35,
+          "environmentEpisodes": 2,
+          "processed": 8.704999999999995
+        },
+        {
+          "at": 900,
+          "total": 10,
+          "points": 35,
+          "environmentEpisodes": 2,
+          "processed": 9.300000000000088
+        },
+        {
+          "at": 960,
+          "total": 10,
+          "points": 35,
+          "environmentEpisodes": 3,
+          "processed": 9.900000000000182
+        },
+        {
+          "at": 1020,
+          "total": 9,
+          "points": 35,
+          "environmentEpisodes": 3,
+          "processed": 10.505000000000276
+        },
+        {
+          "at": 1080,
+          "total": 9,
+          "points": 35,
+          "environmentEpisodes": 3,
+          "processed": 11.08930500000031
+        },
+        {
+          "at": 1140,
+          "total": 9,
+          "points": 35,
+          "environmentEpisodes": 3,
+          "processed": 11.697811250000328
+        }
+      ],
+      "final": {
+        "points": 35,
+        "cards": 6,
+        "food": 2,
+        "environmentEpisodes": 3,
+        "growth": 13,
+        "processed": 12.295042500000347,
+        "goalRevision": 2
+      },
+      "errors": []
+    }
+  ]
+}

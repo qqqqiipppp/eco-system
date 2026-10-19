@@ -1,0 +1,69 @@
+{
+  "stage": "15.10",
+  "setup": "completed revision1 actual-engine model; UI creates and completes revision2 round",
+  "actualChildren": false,
+  "actualS5e": false,
+  "round": 2,
+  "clearAt": 36.5,
+  "points": 72,
+  "careSpent": 0,
+  "food": [
+    {
+      "relationId": "v2_grass_to_grasshopper",
+      "eventId": "event-1",
+      "discoveredAt": 5
+    }
+  ],
+  "proof": {
+    "work": {
+      "mushroom": 0.4380000000000003,
+      "litter-mold": 0,
+      "soil-bacteria": 0
+    },
+    "decomposer": {
+      "speciesId": "mushroom",
+      "at": 5,
+      "processed": 0.05999999999999999
+    },
+    "inquiry": {
+      "phase": "confirmed",
+      "choice": "watch",
+      "plantId": "grass-01",
+      "speciesId": "grass",
+      "at": 5,
+      "stockBefore": 2,
+      "environmentBefore": {
+        "sunlight": 1,
+        "water": 1,
+        "air": 1,
+        "soil": 1
+      },
+      "managementBefore": 0,
+      "introducedIds": [],
+      "meal": {
+        "at": 5.5,
+        "foodId": "grass-01",
+        "stockAfter": 1.060007128
+      },
+      "outcome": {
+        "at": 6.5,
+        "foodId": "grass-01",
+        "stock": 1.180023328
+      },
+      "confirmedAt": 6.5
+    }
+  },
+  "profileClears": [
+    {
+      "round": 1,
+      "at": 100.5,
+      "topic": "basic"
+    },
+    {
+      "round": 2,
+      "at": 36.5,
+      "topic": "food:v2_grass_to_grasshopper"
+    }
+  ],
+  "errors": []
+}

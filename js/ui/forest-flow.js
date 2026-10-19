@@ -5,6 +5,7 @@ import {activityCondition} from '../systems/activity-rules.js';
 import {nextAction} from '../systems/goal-guidance.js';
 import {validateIntroduction} from '../systems/population.js';
 import {placementConfig} from '../../data/interaction-config.js';
+import {learningGoalAction} from '../systems/learning-goal-guidance.js';
 
 export function readyActivity(state,activity){
  if(state.activities.find(a=>a.activityId===activity.activityId)?.completed)return false;
@@ -23,6 +24,10 @@ export function forestAction(state){
  const discovery=active[0];
  if(discovery?.kind==='insight')return {kind:'event',id:discovery.eventId,text:discovery.message,label:discovery.payload.developmentSequence?'성장 기록':'발견 기록'};
  const has=id=>state.organisms.some(o=>o.speciesId===id),owns=id=>state.inventory.some(c=>c.speciesId===id&&c.acquired);
+ if(state.goalRevision===2&&!state.forestProgress.cleared){
+  if(discovery?.kind==='alert'&&!discovery.payload.populationSequence&&!discovery.payload.organicOriginSequence)return {kind:'event',id:discovery.eventId,text:discovery.message,label:'도와주기'};
+  return learningGoalAction(state);
+ }
  if(state.organisms.length>=placementConfig.maxOrganisms&&['grass','grasshopper','frog','mushroom'].some(id=>owns(id)&&!has(id)))return {kind:'population',text:'숲이 가득 찼어요. 필요한 생물을 골라 돌려보낼 수 있어요.',label:'자리 살펴보기'};
  for(const id of ['grass','grasshopper','frog','mushroom'])if(!has(id)&&owns(id)&&validateIntroduction(state,id).ok)return {kind:'place',id,text:organismById[id].name+' 카드를 골라 숲에 놓아요.',label:'놓기'};
  if(discovery?.kind==='alert'&&!discovery.payload.populationSequence&&!discovery.payload.organicOriginSequence)return {kind:'event',id:discovery.eventId,text:discovery.message,label:'도와주기'};
@@ -33,11 +38,11 @@ export function forestAction(state){
  const hint=nextAction(state).split(/(?<=\.)\s/)[0];
  return {kind:'watch',text:state.forestProgress.cleared?'첫 목표를 해냈어요. 이제 성장과 환경 변화를 더 살펴봐요.':hint,label:''};
 }
-export function createForestFlow(state,{onActivity,onEvent,onPlace,onPopulation}){
+export function createForestFlow(state,{onActivity,onEvent,onPlace,onPopulation,onGoalInspect}){
  const toggle=document.querySelector('#memo-toggle'),body=document.querySelector('#memo-body'),text=document.querySelector('#next-action'),action=document.querySelector('#memo-action');
  let current;
  toggle.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')!=='true';toggle.setAttribute('aria-expanded',String(open));body.hidden=!open;});
- action.addEventListener('click',()=>{if(current?.kind==='activity')onActivity(current.id);else if(current?.kind==='event')onEvent(current.id);else if(current?.kind==='place')onPlace(current.id);else if(current?.kind==='population')onPopulation();});
+ action.addEventListener('click',()=>{if(current?.kind==='activity')onActivity(current.id);else if(current?.kind==='event')onEvent(current.id);else if(current?.kind==='place')onPlace(current.id);else if(current?.kind==='population')onPopulation();else if(current?.kind==='goal-inspect')onGoalInspect(current);});
  function render(){
   current=forestAction(state);if(text.textContent!==current.text)text.textContent=current.text;
   action.hidden=!current.label;if(action.textContent!==current.label)action.textContent=current.label;

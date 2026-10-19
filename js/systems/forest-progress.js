@@ -4,8 +4,16 @@ import {organismById} from '../../data/organisms.js';
 import {forestGoal,progressWeights} from '../../data/forest-goal.js';
 import {environmentFactors} from '../../data/environment-config.js';
 import {factorValue} from './environment.js';
+import {evaluateLearningGoals} from './learning-goals.js';
 
 export function evaluateForestGoal(state) {
+ if(state.goalRevision===2){
+  const checks=[...evaluateLearningGoals(state),
+   {id:'stability',label:'생물과 먹이의 균형이 알맞아요',ok:Number.isFinite(state.metrics.stability)&&state.metrics.stability>=forestGoal.minimumStability},
+   {id:'environment',label:'네 가지 환경이 모두 보통 이상이에요',ok:Object.keys(environmentFactors).every(k=>factorValue(state.environment,k)>=forestGoal.minimumEnvironment)},
+   {id:'structure',label:'생산자·소비자·분해자가 함께 있어요',ok:['producer','consumer','decomposer'].every(role=>state.organisms.some(o=>organismById[o.speciesId].role===role))},
+  ];return {checks,ready:checks.every(c=>c.ok)};
+ }
  if(state.round?.number>1){
   const checks=[
    {id:'stability',label:'안정도 70 이상',ok:Number.isFinite(state.metrics.stability)&&state.metrics.stability>=forestGoal.minimumStability},
@@ -34,7 +42,7 @@ export function updateForestGoal(state,seconds=0) {
 }
 export function calculateProgress(state) {
  if(state.forestProgress.cleared)return 100;
- if(state.round?.number>1){const e=evaluateForestGoal(state);return Math.round(e.checks.filter(c=>c.ok).length/e.checks.length*80+state.forestProgress.stableSeconds/forestGoal.stableSeconds*20);}
+ if(state.goalRevision===2||state.round?.number>1){const e=evaluateForestGoal(state);return Math.round(e.checks.filter(c=>c.ok).length/e.checks.length*80+state.forestProgress.stableSeconds/forestGoal.stableSeconds*20);}
  const parts={
   observations:forestGoal.requiredObservations.filter(id=>state.observations.some(item=>item.relationId===id)).length/forestGoal.requiredObservations.length,
   activities:forestGoal.requiredActivities.filter(id=>state.activities.some(item=>item.activityId===id&&item.completed)).length/forestGoal.requiredActivities.length,

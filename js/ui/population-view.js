@@ -10,7 +10,7 @@ import {developmentStage,developmentConditions,developmentNotice} from '../syste
 import {studentStatus,studentFood} from './student-status.js';
 import {placementConfig} from '../../data/interaction-config.js';
 
-export function createPopulationView(state,onRelease,onFocus=()=>{}){
+export function createPopulationView(state,onRelease,onFocus=()=>{},onRender=()=>{}){
  const dialog=document.querySelector('#population-dialog'),select=document.querySelector('#population-species'),release=document.querySelector('#population-release');
  const developmentPanel=document.querySelector('#population-development');
  const developmentFields=Object.fromEntries(['cycle','development-stage','development-conditions','pending','development-history'].map(key=>[key,document.querySelector(`#population-${key}`)]));
@@ -68,6 +68,7 @@ export function createPopulationView(state,onRelease,onFocus=()=>{}){
   document.querySelector('#population-role').textContent=`역할: ${roleLabels[species.role]} · 현재 숲 개체 수: ${members.length}${lifeRule.unit}`;
   const stages=members.map(survivalStage),worst=['weak','severe','hungry','normal','static'].find(v=>stages.includes(v));
   const selected=members.find(o=>o.instanceId===selectedInstanceId)||members.find(o=>survivalStage(o)===worst)||members[0];
+  onRender(id,selected);
   document.querySelector('#population-state').textContent=studentStatus(selected,state.simulationTime);
   document.querySelector('#population-food').textContent=studentFood(id);
   document.querySelector('#population-place').disabled=state.organisms.length>=placementConfig.maxOrganisms||!state.inventory.some(c=>c.speciesId===id&&c.acquired)||!validateIntroduction(state,id).ok;

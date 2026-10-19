@@ -1,0 +1,227 @@
+{
+  "stage": "15.10",
+  "fixture": "60 active seconds of actual model ecology, extra grasses legally released, then60 actual model seconds to honor introduction cooldown; inquiry not started; bad sunlight is an explicit QA setup",
+  "actualChildren": false,
+  "actualS5e": false,
+  "scenarios": [
+    {
+      "kind": "care",
+      "copy": "이 식물의 먹이 자원은 충분해요. 햇빛 나쁨 · 물 좋음 · 공기 좋음 · 토양 좋음\n\n이 종류의 식물이 먹이가 된 발견을 기록했어요. 지금 먹이와 환경을 살펴보고 어떻게 할지 골라요.\n\n강아지풀을 더 놓고 살펴볼래요나쁜 환경부터 돌볼래요",
+      "touch": [
+        {
+          "width": 1280,
+          "height": 800,
+          "buttons": [
+            {
+              "height": 44,
+              "width": 474
+            },
+            {
+              "height": 44,
+              "width": 474
+            }
+          ]
+        },
+        {
+          "width": 1138,
+          "height": 712,
+          "buttons": [
+            {
+              "height": 44,
+              "width": 474
+            },
+            {
+              "height": 44,
+              "width": 474
+            }
+          ]
+        },
+        {
+          "width": 960,
+          "height": 600,
+          "buttons": [
+            {
+              "height": 44,
+              "width": 474
+            },
+            {
+              "height": 44,
+              "width": 474
+            }
+          ]
+        },
+        {
+          "width": 1366,
+          "height": 768,
+          "buttons": [
+            {
+              "height": 44,
+              "width": 474
+            },
+            {
+              "height": 44,
+              "width": 474
+            }
+          ]
+        },
+        {
+          "width": 412,
+          "height": 915,
+          "buttons": [
+            {
+              "height": 44,
+              "width": 328
+            },
+            {
+              "height": 44,
+              "width": 328
+            }
+          ]
+        }
+      ],
+      "at": 125.5,
+      "proof": {
+        "phase": "confirmed",
+        "choice": "care",
+        "plantId": "grass-01",
+        "speciesId": "grass",
+        "at": 120,
+        "stockBefore": 3,
+        "environmentBefore": {
+          "sunlight": 0.15,
+          "water": 1,
+          "air": 1,
+          "soil": 1
+        },
+        "managementBefore": 0,
+        "introducedIds": [],
+        "meal": {
+          "at": 124.5,
+          "foodId": "grass-01",
+          "stockAfter": 1.5088470885508078
+        },
+        "outcome": {
+          "at": 125.5,
+          "foodId": "grass-01",
+          "stock": 1.6221447353979452
+        },
+        "confirmedAt": 125.5
+      },
+      "pointsBefore": 51,
+      "pointsAfter": 43,
+      "noReward": true,
+      "readOnlyFrozen": true
+    },
+    {
+      "kind": "plant",
+      "copy": "이 식물의 먹이 자원은 충분해요. 햇빛 좋음 · 물 좋음 · 공기 좋음 · 토양 좋음\n\n이 종류의 식물이 먹이가 된 발견을 기록했어요. 지금 먹이와 환경을 살펴보고 어떻게 할지 골라요.\n\n먹이와 환경이 괜찮아 지켜볼래요강아지풀을 더 놓고 살펴볼래요",
+      "touch": [
+        {
+          "width": 1280,
+          "height": 800,
+          "buttons": [
+            {
+              "height": 44,
+              "width": 474
+            },
+            {
+              "height": 44,
+              "width": 474
+            }
+          ]
+        },
+        {
+          "width": 1138,
+          "height": 712,
+          "buttons": [
+            {
+              "height": 44,
+              "width": 474
+            },
+            {
+              "height": 44,
+              "width": 474
+            }
+          ]
+        },
+        {
+          "width": 960,
+          "height": 600,
+          "buttons": [
+            {
+              "height": 44,
+              "width": 474
+            },
+            {
+              "height": 44,
+              "width": 474
+            }
+          ]
+        },
+        {
+          "width": 1366,
+          "height": 768,
+          "buttons": [
+            {
+              "height": 44,
+              "width": 474
+            },
+            {
+              "height": 44,
+              "width": 474
+            }
+          ]
+        },
+        {
+          "width": 412,
+          "height": 915,
+          "buttons": [
+            {
+              "height": 44,
+              "width": 328
+            },
+            {
+              "height": 44,
+              "width": 328
+            }
+          ]
+        }
+      ],
+      "at": 126,
+      "proof": {
+        "phase": "confirmed",
+        "choice": "plant",
+        "plantId": "grass-01",
+        "speciesId": "grass",
+        "at": 120,
+        "stockBefore": 3,
+        "environmentBefore": {
+          "sunlight": 1,
+          "water": 1,
+          "air": 1,
+          "soil": 1
+        },
+        "managementBefore": 0,
+        "introducedIds": [
+          "organism-12"
+        ],
+        "meal": {
+          "at": 125,
+          "foodId": "organism-12",
+          "stockAfter": 2
+        },
+        "outcome": {
+          "at": 126,
+          "foodId": "organism-12",
+          "stock": 2.12
+        },
+        "confirmedAt": 126
+      },
+      "pointsBefore": 51,
+      "pointsAfter": 51,
+      "noReward": true,
+      "readOnlyFrozen": true
+    }
+  ],
+  "errors": []
+}

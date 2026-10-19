@@ -25,7 +25,7 @@ const surface=o=>{o.life.initialAge=survivalConfig.earthwormCycleSeconds-surviva
 const covered=o=>{o.life.initialAge=0;};
 
 test('15.8 contracts:24 species,27 unchanged relations,save16/eco2/pacing1 and no new initial money',()=>{
- const s=world([]);assert.equal(organisms.length,24);assert.equal(foodRelations.length,27);assert.equal(SAVE_VERSION,16);assert.equal(s.ecologyRevision,2);assert.equal(s.pacingRevision,1);assert.equal(s.metrics.points,0);assert.equal(ecologyConfig.tickSeconds,.5);assert.equal(ecologyConfig.searchRetrySeconds,2);assert.equal(ecologyConfig.eatSeconds,1);
+ const s=world([]);assert.equal(organisms.length,24);assert.equal(foodRelations.length,27);assert.equal(SAVE_VERSION,17);assert.equal(s.ecologyRevision,2);assert.equal(s.pacingRevision,1);assert.equal(s.metrics.points,0);assert.equal(ecologyConfig.tickSeconds,.5);assert.equal(ecologyConfig.searchRetrySeconds,2);assert.equal(ecologyConfig.eatSeconds,1);
  const baseline=JSON.parse(readFileSync(new URL('./food-expansion.baseline-results.json',import.meta.url)));
  assert.deepEqual(foodRelations.slice(0,22),baseline.relations);
  assert.equal(organisms.filter(o=>o.role==='producer').length,5);assert.equal(organisms.filter(o=>o.role==='consumer').length,16);assert.equal(organisms.filter(o=>o.role==='decomposer').length,3);

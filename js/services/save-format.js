@@ -21,8 +21,9 @@ import {foodStockCapacity} from '../systems/food-resources.js';
 import {snapshotEnvironmentEvents,restoreEnvironmentEvents} from './environment-event-migration.js';
 import {snapshotPointEconomy,restorePointEconomy} from './point-economy-migration.js';
 import {snapshotDecomposition,restoreDecompositionDetails} from './decomposition-migration.js';
+import {snapshotLearningGoals,restoreLearningGoals} from './learning-goal-migration.js';
 
-export const SAVE_VERSION=16;
+export const SAVE_VERSION=17;
 const object=value=>value!==null&&typeof value==='object'&&!Array.isArray(value);
 const validId=value=>typeof value==='string'&&/^[a-zA-Z0-9_-]{1,80}$/.test(value);
 const text=value=>typeof value==='string'?value.slice(0,100):'';
@@ -32,6 +33,7 @@ const own=(value,key)=>Object.hasOwn(value,key);
 // event objects, DOM, layout and UI selection never enter the save.
 export function createSaveSnapshot(state,eventMemory,savedAt) {
  return {schemaVersion:SAVE_VERSION,savedAt,domain:{
+  ...snapshotLearningGoals(state),
   ...collectionSnapshot(state),schemaVersion:SAVE_VERSION,pacingRevision:PACING_REVISION,ecologyRevision:ECOLOGY_REVISION,legacyEcology:structuredClone(state.legacyEcology),ecosystemId:'forest',simulationTime:state.simulationTime,nextInstanceSequence:state.nextInstanceSequence,
   inventory:state.inventory.map(({speciesId,acquired})=>({speciesId,acquired})),
   organisms:state.organisms.map(item=>{
@@ -73,13 +75,14 @@ export function decodeSave(raw) {
  let input;
  try {if(typeof raw!=='string'||raw.length>1000000)return fresh('damaged');input=JSON.parse(raw);}catch{return fresh('damaged');}
  if(!object(input)||!Number.isInteger(input.schemaVersion))return fresh('missing-version');
- if(![7,8,9,10,11,12,13,14,15,SAVE_VERSION].includes(input.schemaVersion))return fresh(input.schemaVersion>SAVE_VERSION?'future-version':'old-version',true);
+ if(![7,8,9,10,11,12,13,14,15,16,SAVE_VERSION].includes(input.schemaVersion))return fresh(input.schemaVersion>SAVE_VERSION?'future-version':'old-version',true);
  const d=input.domain;
  let roundRepaired=false;
  if(input.schemaVersion>=16&&object(d)){const initial=createGameState();for(const [k,test]of [['organisms',Array.isArray],['environment',object]])if(!test(d[k])){d[k]=initial[k];roundRepaired=true;}}
  if(!object(d)||d.schemaVersion!==input.schemaVersion||d.ecosystemId!=='forest'||!Array.isArray(d.organisms)||!Array.isArray(d.inventory)||!object(d.environment)||!object(d.metrics))return fresh('damaged');
  if(input.schemaVersion>=10&&d.ecologyRevision!==ECOLOGY_REVISION)return fresh('unknown-ecology',true);
  if(input.schemaVersion>=15&&d.pacingRevision!==PACING_REVISION)return fresh('unknown-pacing',true);
+ if(input.schemaVersion>=17&&![1,2].includes(d.goalRevision))return fresh('unknown-goal',true);
  migratePacingInput(input);
  const previous=input.schemaVersion<10;
  let repaired=roundRepaired;
@@ -251,5 +254,6 @@ export function decodeSave(raw) {
  state.recoverySupportUsed=input.schemaVersion<13?false:typeof d.recoverySupportUsed==='boolean'?d.recoverySupportUsed:typeof d.pointEconomy?.support?.used==='boolean'?d.pointEconomy.support.used:true;
  state.pointEconomy=restorePointEconomy(d.pointEconomy,input.schemaVersion,state,{number,repair:()=>{repaired=true;}});
  state.recoverySupportUsed=state.recoverySupportUsed||state.pointEconomy.support.used||state.pointEconomy.totals.support>0;
+ restoreLearningGoals(d,input.schemaVersion,state,()=>{repaired=true;});
  return {state,eventMemory,savedAt:typeof input.savedAt==='string'&&Number.isFinite(Date.parse(input.savedAt))?input.savedAt:null,status:repaired?'recovered':'loaded',blocked:false};
 }
