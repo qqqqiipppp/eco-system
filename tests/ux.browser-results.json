@@ -1,0 +1,108 @@
+{
+  "stage": "15.9",
+  "actualS5e": false,
+  "views": [
+    {
+      "width": 1280,
+      "height": 800,
+      "horizontalOverflow": false,
+      "verticalOverflow": false,
+      "minTouch": 44,
+      "memoOutsideForest": true,
+      "forestHeight": 335
+    },
+    {
+      "width": 1138,
+      "height": 712,
+      "horizontalOverflow": false,
+      "verticalOverflow": false,
+      "minTouch": 44,
+      "memoOutsideForest": true,
+      "forestHeight": 249
+    },
+    {
+      "width": 960,
+      "height": 600,
+      "horizontalOverflow": false,
+      "verticalOverflow": false,
+      "minTouch": 44,
+      "memoOutsideForest": true,
+      "forestHeight": 226
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "horizontalOverflow": false,
+      "verticalOverflow": false,
+      "minTouch": 44,
+      "memoOutsideForest": true,
+      "forestHeight": 303
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "horizontalOverflow": false,
+      "verticalOverflow": true,
+      "minTouch": 44,
+      "memoOutsideForest": true,
+      "forestHeight": 380
+    }
+  ],
+  "pause": [
+    {
+      "dialog": "help",
+      "before": 6.5,
+      "after": 7,
+      "noCatchup": true
+    },
+    {
+      "dialog": "activity",
+      "before": 7,
+      "after": 7.5,
+      "noCatchup": true
+    },
+    {
+      "dialog": "guide",
+      "before": 7.5,
+      "after": 8.5,
+      "noCatchup": true
+    },
+    {
+      "dialog": "web",
+      "before": 8.5,
+      "after": 9,
+      "noCatchup": true
+    },
+    {
+      "dialog": "environment",
+      "before": 9,
+      "after": 9.5,
+      "noCatchup": true
+    },
+    {
+      "dialog": "population",
+      "before": 9.5,
+      "after": 10.5,
+      "noCatchup": true
+    },
+    {
+      "dialog": "goal",
+      "before": 10.5,
+      "after": 11,
+      "noCatchup": true
+    }
+  ],
+  "errors": [],
+  "firstFlow": {
+    "scope": "same first placement, real discovery, frog unlock and placement selection",
+    "taps": 8,
+    "largeDialogs": 2,
+    "headerLearningVisits": 0,
+    "activityVisibleCharacters": 120,
+    "points": 16
+  },
+  "savedWhileReading": true,
+  "backReentry": true,
+  "memoDoesNotPause": true,
+  "discoveryWebLink": true
+}

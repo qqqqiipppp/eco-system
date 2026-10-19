@@ -1,10 +1,12 @@
 import {careAvailable} from '../systems/round-care.js';
 import { eventConfig, discoveryEvents, eventPriority } from '../../data/event-config.js';
 import {legacyEcology} from '../../data/legacy-ecology.js';
+import {activities} from '../../data/activities.js';
+import {nextReadyActivity} from './forest-flow.js';
 const symbols = { alert:'!', question:'?', insight:'💡' };
 
 /** Markers follow existing organism anchors. Rules and mutations stay in systems. */
-export function createEventView(state, scene, onAcknowledge, management = {options:()=>[]}) {
+export function createEventView(state, scene, onAcknowledge, management = {options:()=>[]}, {onActivity=()=>{},onWeb=()=>{}}={}) {
   const markers = new Map();
   const dialog = document.querySelector('#event-dialog');
   const title = document.querySelector('#event-title');
@@ -31,26 +33,26 @@ export function createEventView(state, scene, onAcknowledge, management = {optio
   function acknowledge(event, answer) {
     const response=onAcknowledge(event.eventId, answer);
     setText(result,response.message);
-    if(response.ok) { shownStatus=event.status; actions.replaceChildren(); detail.hidden=false; }
+    if(response.ok) { shownStatus=event.status; actions.replaceChildren();
+      const ready=nextReadyActivity(state);
+      if(ready)actions.append(button(ready.unlockSpeciesId&&!state.inventory.some(c=>c.speciesId===ready.unlockSpeciesId&&c.acquired)?'다음 카드 활동':'짧은 활동',()=>{close();onActivity(ready.activityId);}));
+      if(event.payload.relationId){const web=button('먹이그물에서 보기',()=>{close();onWeb(event.payload.relationId);});web.dataset.openRelation=event.payload.relationId;actions.append(web);}
+    }
     render();
   }
   function open(event) {
-    inspected=false; managementArea.replaceChildren(); managementSignature='';
+    inspected=true; managementArea.replaceChildren(); managementSignature='';
     openId=event.eventId; shownStatus=event.status;
     setText(title,`${symbols[event.kind]} ${event.title}`); setText(message,event.message);
-    setText(detail,event.explanation); detail.hidden=true; result.textContent=''; actions.replaceChildren();
-    actions.append(button(event.kind==='question'?'원인 생각하기':'살펴보기',()=>{
-      actions.replaceChildren();
+    setText(detail,event.explanation); detail.hidden=false; result.textContent=''; actions.replaceChildren();
+    document.querySelector('#event-more').open=false;
       if(event.kind==='question') {
         for(const choice of event.payload.choices) actions.append(button(choice.label,()=>{const response=onAcknowledge(event.eventId,choice.id);setText(result,response.message);if(response.ok){detail.hidden=false;shownStatus=event.status;actions.replaceChildren();render();}}));
       } else {
-        detail.hidden=false;
-        inspected=true;
         const recordLabel=event.payload.organicOriginSequence?'유기물 발생 확인':event.payload.environmentEventId?'환경 변화 기록하기':event.payload.developmentSequence?'성장 기록하기':event.kind==='insight'?'발견 기록하기':'확인했어요';
         actions.append(button(recordLabel,()=>acknowledge(event)));
         renderManagement(event);
       }
-    }));
     dialog.showModal();
   }
   function renderManagement(event) {
@@ -115,7 +117,7 @@ export function createEventView(state, scene, onAcknowledge, management = {optio
     }
     if(openId) {
       const event=state.events.find(item=>item.eventId===openId);
-      if(!event||event.status!==shownStatus){shownStatus=event?.status;actions.replaceChildren();setText(result,'상황이 달라졌어요. 문제가 해결되었거나 생물이 자연으로 돌아갔어요.');}
+      if(!event||event.status!==shownStatus){shownStatus=event?.status;actions.replaceChildren();setText(result,'상황이 달라졌어요. 숲을 다시 살펴봐요.');}
       if(event?.status==='active'){setText(title,`${symbols[event.kind]} ${event.title}`);setText(message,event.message);setText(detail,event.explanation);}
       renderManagement(event);
     }
@@ -132,5 +134,5 @@ export function createEventView(state, scene, onAcknowledge, management = {optio
   document.querySelector('#observations-open').addEventListener('click',()=>document.querySelector('#observations-dialog').showModal());
   document.querySelector('#observations-close').addEventListener('click',()=>document.querySelector('#observations-dialog').close());
   window.addEventListener('resize',render);
-  return {render,reset() { if(dialog.open)dialog.close();openId=null;shownStatus=null;inspected=false;managementSignature='';managementArea.replaceChildren();for(const entry of markers.values())entry.node.remove();markers.clear();render(); }};
+  return {render,open(id){const event=state.events.find(e=>e.eventId===id&&e.status==='active');if(event)open(event);},reset() { if(dialog.open)dialog.close();openId=null;shownStatus=null;inspected=false;managementSignature='';managementArea.replaceChildren();for(const entry of markers.values())entry.node.remove();markers.clear();render(); }};
 }

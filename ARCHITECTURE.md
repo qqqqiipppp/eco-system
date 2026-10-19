@@ -305,3 +305,14 @@ cards.css의 한 줄 가로 스크롤로24개를 담고 이름 줄바꿈과 터�
 
 
 11~14버전은 development-migration.js에서 성장 origin/progressSeconds, 원장과 씨앗/알 대기를 whitelist로 복원한다. stage 캐시는 저장하지 않고 재계산한다. version10은 현재 생태 기록을 archive로 보내지 않으며 version7~9의 종 변경 이전만 기존 ecology-migration에 맡긴다. 미래14 초과 스키마 또는 미지 ecologyRevision은 덮어쓰기를 차단한다. 저장된 활성 시계 외 시간은 성장에 적용하지 않는다.
+# 15.9단계 UI와 시간 정지
+
+- `ui/forest-flow.js`는 실제 이벤트·기존 활동 조건·현재 카드 권한을 읽어 한 가지 행동을 고른다. 카드 표시는 관찰 필요/활동 가능/놓기 가능/현재 숲 개체 수를 구분한다. 완료·기록·지급은 기존 systems 콜백만 수행한다.
+- `data/student-text.js`는 먹이 부위와 한국어 조사를 공통 생성한다. `ui/student-status.js`는 실제 탐색·접근·먹기·shortage·쇠약을 읽고, 지렁이 피복은 기존 `prey-access`의 저장된 생애 위상을 사용한다. CSS 위치는 판정에 쓰지 않는다.
+- `ui/dialog-pause.js`의 MutationObserver 하나가 native dialog의 open 속성만 관찰한다. 기존 `update-loop`의 isPaused 조건으로 RAF를 중단하고 previousTime을 비운다. 재개 때 밀린 벽시계 시간을 적용하지 않는다. 독립 루프·타이머·저장 필드는 없다. 작은 숲 메모는 dialog가 아니므로 정지하지 않는다.
+- `main.js`는 위 UI와 기존 event/activity/placement/save의 연결만 추가한다. 이벤트 확인은 직접 기존 acknowledge를 호출하고, 성공 후 관련 카드 활동으로 이어지는 버튼을 제공한다. 메뉴를 열기만 해서는 관찰이나 보상을 만들지 않는다.
+- `css/forest-ux.css`는 기존 화면 위에 적용하는 UI 전용 규칙이다. 메모는 숲 밖의 고정 높이 줄에 있어 접기/펼치기가 숲 크기나 생물 선택 좌표를 바꾸지 않는다. 기존 공간 투영·겹친 개체 선택·48px 개체 타깃을 유지한다.
+
+schemaVersion16/ecologyRevision2/pacingRevision1, 저장 키와 마이그레이션은 그대로다. 기존 목표도 유지하며 새 학생 전용 확장 목표는 별도 영구 버전과 구버전의 미완료 권한을 함께 설계해야 한다. 자세한 검증과 제한은 STAGE15_9_CORE_GAMEPLAY_UX.md를 참고한다.
+
+---

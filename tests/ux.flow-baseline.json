@@ -1,0 +1,26 @@
+{
+  "stage": "15.9 baseline",
+  "scope": "first placement through real discovery and frog unlock/placement selection",
+  "taps": 10,
+  "dialogSamples": [
+    {
+      "id": "event-dialog",
+      "characters": 69
+    },
+    {
+      "id": "activity-dialog",
+      "characters": 343
+    },
+    {
+      "id": "activity-dialog",
+      "characters": 441
+    }
+  ],
+  "initialMemoCharacters": "살펴보기\n지금 해 볼 일\n\n참개구리 카드를 고르고 방아깨비 가까이에 놓아 주세요.\n\n강아지풀, 방아깨비, 참개구리를 놓고\n먹이를 찾는 모습을 살펴보세요.",
+  "state": {
+    "time": 5,
+    "points": 16,
+    "observations": 1,
+    "owned": 6
+  }
+}

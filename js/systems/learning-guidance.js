@@ -27,7 +27,7 @@ export function relationHint(s,relationId){
 }
 export function learningEvidence(s,a){
  const checks=a.inspect.map(id=>({id:'inspect:'+id,label:organismById[id].name+' 개체 살펴보기',ok:!!s.profile.speciesObservations[id],next:has(s,id)?'카드 선택을 해제한 뒤 숲의 '+organismById[id].name+'를 눌러 살펴봐요.':placementHint(s,id)}));
- if(a.priorActivity)checks.push({id:'activity:'+a.priorActivity,label:activityById[a.priorActivity].title+' 완료',ok:s.activities.some(p=>p.activityId===a.priorActivity&&p.completed),next:'배움에서 ‘'+activityById[a.priorActivity].title+'’을 먼저 살펴봐요.'});
+ if(a.priorActivity)checks.push({id:'activity:'+a.priorActivity,label:activityById[a.priorActivity].title+' 완료',ok:s.activities.some(p=>p.activityId===a.priorActivity&&p.completed),next:'활동 ‘'+activityById[a.priorActivity].title+'’을 먼저 살펴봐요.'});
  for(const rid of [...new Set([...(a.relationId?[a.relationId]:[]),...(a.relationIds||[])])]){const r=foodRelationById[rid];checks.push({id:'food:'+rid,label:organismById[r.sourceSpeciesId].name+' → '+organismById[r.targetSpeciesId].name+' 발견',ok:discovered(s,rid),next:relationHint(s,rid)});}
  if(a.requiresLitterMeal)checks.push({id:'litter-meal',label:'이번 숲의 실제 참지렁이 낙엽 섭식',ok:s.decomposition.earthwormProcessed>0,next:!has(s,'earthworm')?placementHint(s,'earthworm'):s.decomposition.organicMatter.litter<=0?'지금은 낙엽 잔해가 없어요. 식물의 자연스러운 세대교체와 잔해 발생을 살펴봐요.':'생물 상태에서 참지렁이의 낙엽 잔해 섭식을 살펴봐요. 느낌표 확인만으로 섭식이 완료되지는 않아요.'});
  return checks;

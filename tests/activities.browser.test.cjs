@@ -1,3 +1,4 @@
+const {reveal}=require('./ux-browser-helpers.cjs');
 const { dismissWelcome, useDeveloperEnvironment } = require('./fixtures.cjs');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');const assert=require('node:assert/strict');
 (async()=>{const browser=await chromium.launch({channel:'msedge',headless:true});try{
@@ -13,13 +14,13 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');const asse
  await page.locator('[data-answer="confirm"]').click();assert.equal((await state()).inventory.find(c=>c.speciesId==='frog').acquired,false);assert.match(await page.locator('#activity-result').textContent(),/발견 기록/);await close();await tap(.4,.74);assert.equal((await state()).organisms.length,3);
  await card('rabbit').tap();await page.locator('[data-answer="confirm"]').click();assert.equal((await state()).inventory.find(c=>c.speciesId==='rabbit').acquired,false);await close();
  console.log('A/G/J: starter and locked-card hint, no placement selection, habitat incomplete');
- await page.locator('#activities-open').tap();await page.locator('[data-activity-id="decomposer_classify"]').tap();await page.locator('[data-answer="producer"]').click();assert.equal((await state()).metrics.points,0);assert.equal(await card('mushroom').getAttribute('data-locked'),'false');
+ await page.locator('#activities-open').tap();await reveal(page,'[data-activity-id="decomposer_classify"]');await page.locator('[data-activity-id="decomposer_classify"]').tap();await page.locator('[data-answer="producer"]').click();assert.equal((await state()).metrics.points,0);assert.equal(await card('mushroom').getAttribute('data-locked'),'false');
  await page.locator('[data-answer="decomposer"]').click();assert.equal((await state()).metrics.points,4);assert.equal(await card('mushroom').getAttribute('data-locked'),'false');await page.locator('[data-answer="decomposer"]').click();assert.equal((await state()).metrics.points,4);await close();
  await page.locator('#activities-open').tap();await page.locator('[data-answer="frog"]').click();assert.equal((await state()).metrics.points,4);await page.locator('[data-answer="grass"]').click();assert.equal((await state()).metrics.points,7);await close();
  console.log('E/F/I: classify retry, unlock and reward once; quiz retry and reward');
  await card('grasshopper').tap();await tap(.40,.70);await tap(.46,.70);
  await page.locator('.event-insight').first().waitFor({timeout:40000});assert.equal((await state()).observations.length,0);assert.equal((await state()).metrics.points,7);
- await page.locator('.event-insight').first().tap();await page.getByRole('button',{name:'살펴보기',exact:true}).click();await page.getByRole('button',{name:'발견 기록하기',exact:true}).click();assert.equal((await state()).metrics.points,19);await page.locator('#event-close').click();
+ await page.locator('.event-insight').first().tap();await page.getByRole('button',{name:'발견 기록하기',exact:true}).click();assert.equal((await state()).metrics.points,19);await page.locator('#event-close').click();
  await card('frog').tap();await page.locator('[data-answer="confirm"]').click();assert.equal(await card('frog').getAttribute('data-locked'),'false');assert.equal((await state()).metrics.points,23);await close();
  await card('rabbit').tap();const before=(await state()).organisms.length;await page.locator('[data-answer="confirm"]').click();assert.equal(await card('rabbit').getAttribute('data-locked'),'false');assert.equal((await state()).organisms.length,before);await close();
  console.log('B/C/H: genuine observation earns 12; frog unlocked; rabbit habitat unlock without automatic placement');
@@ -31,7 +32,7 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');const asse
  // Record the real predation marker before the population test: tapping an
  // active marker correctly opens its modal instead of placing another animal.
  await page.emulateMedia({reducedMotion:'reduce'});
- await page.locator('.event-insight[aria-label*="참개구리"]').tap();await page.getByRole('button',{name:'살펴보기',exact:true}).click();await page.getByRole('button',{name:'발견 기록하기',exact:true}).click();await page.locator('#event-close').click();
+ await page.locator('.event-insight[aria-label*="참개구리"]').tap();await page.getByRole('button',{name:'발견 기록하기',exact:true}).click();await page.locator('#event-close').click();
  await card('rabbit').tap();
  // Verify the new student introduction limit, then use an explicit saved fixture
  // for the independent 30-DOM activity-panel performance regression.
@@ -45,11 +46,11 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');const asse
  for(const [width,height]of [[960,600],[412,915]]){await page.setViewportSize({width,height});await page.waitForTimeout(100);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);const box=await page.locator('[data-answer="grass"]').boundingBox();assert(box.height>=44)}
  await page.setViewportSize({width:1138,height:712});if(process.env.SCREENSHOT_PATH)await page.screenshot({path:process.env.SCREENSHOT_PATH,fullPage:true});
  await page.evaluate(()=>{Object.defineProperty(document,'visibilityState',{configurable:true,get:()=> 'hidden'});document.dispatchEvent(new Event('visibilitychange'))});const hidden=await state();await page.waitForTimeout(700);assert.deepEqual(await state(),hidden);
- await page.evaluate(()=>{delete document.visibilityState;document.dispatchEvent(new Event('visibilitychange'))});await page.waitForTimeout(650);assert((await state()).simulationTime>hidden.simulationTime);
+ await page.evaluate(()=>{delete document.visibilityState;document.dispatchEvent(new Event('visibilitychange'))});await page.waitForTimeout(650);assert.equal((await state()).simulationTime,hidden.simulationTime); // Reading dialog remains paused after visibility resumes.
  console.log('L: 30 animals + activity UI',JSON.stringify(perf));await close();
  // K: use earned points after unlocking, through existing environment/event/management UI.
  await page.locator('#environment-open').click();await page.getByLabel('물 상태',{exact:true}).selectOption('bad');await page.locator('#environment-close').click();
  await page.locator('.abiotic-status .event-alert').waitFor({timeout:15000});
- await page.locator('.abiotic-status .event-alert').tap();await page.getByRole('button',{name:'살펴보기',exact:true}).click();await page.locator('[data-management-action="water-care"]').tap();assert.equal((await state()).environment.water.value,.6);assert.equal((await state()).managementHistory.length,1);assert(Number.isFinite((await state()).metrics.stability));
+ await page.locator('.abiotic-status .event-alert').tap();await page.locator('[data-management-action="water-care"]').tap();assert.equal((await state()).environment.water.value,.6);assert.equal((await state()).managementHistory.length,1);assert(Number.isFinite((await state()).metrics.stability));
  assert.deepEqual(errors,[]);console.log('K: earned points fund management after unlock; event and stability continue');console.log('PASS: stage 7 A-L');
 }finally{await browser.close()}})().catch(e=>{console.error(e);process.exitCode=1});

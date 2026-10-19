@@ -1,0 +1,106 @@
+{
+  "stage": "15.9",
+  "actualS5e": false,
+  "suites": [
+    {
+      "file": "balance.browser.test.cjs",
+      "status": 0,
+      "finalTargetedRerun": true
+    },
+    {
+      "file": "activities.browser.test.cjs",
+      "status": 0
+    },
+    {
+      "file": "browser.test.cjs",
+      "status": 0
+    },
+    {
+      "file": "biodiversity.browser.test.cjs",
+      "status": 0
+    },
+    {
+      "file": "detritus.browser.test.cjs",
+      "status": 0
+    },
+    {
+      "file": "development.browser.test.cjs",
+      "status": 0
+    },
+    {
+      "file": "environment.browser.test.cjs",
+      "status": 0
+    },
+    {
+      "file": "environment-events.browser.test.cjs",
+      "status": 0
+    },
+    {
+      "file": "feeding-audit.browser.test.cjs",
+      "status": 0
+    },
+    {
+      "file": "events.browser.test.cjs",
+      "status": 0
+    },
+    {
+      "file": "feeding.browser.test.cjs",
+      "status": 0
+    },
+    {
+      "file": "food-expansion.browser.test.cjs",
+      "status": 0
+    },
+    {
+      "file": "guidance.browser.test.cjs",
+      "status": 0,
+      "finalTargetedRerun": true
+    },
+    {
+      "file": "food-web.browser.test.cjs",
+      "status": 0
+    },
+    {
+      "file": "habitat.browser.test.cjs",
+      "status": 0
+    },
+    {
+      "file": "lifespan.browser.test.cjs",
+      "status": 0
+    },
+    {
+      "file": "pacing.browser.test.cjs",
+      "status": 0
+    },
+    {
+      "file": "management.browser.test.cjs",
+      "status": 0
+    },
+    {
+      "file": "point-economy.browser.test.cjs",
+      "status": 0
+    },
+    {
+      "file": "persistence.browser.test.cjs",
+      "status": 0
+    },
+    {
+      "file": "population.browser.test.cjs",
+      "status": 0,
+      "finalTargetedRerun": true
+    },
+    {
+      "file": "replay.browser.test.cjs",
+      "status": 0
+    },
+    {
+      "file": "spatial.browser.test.cjs",
+      "status": 0
+    },
+    {
+      "file": "ux.browser.test.cjs",
+      "status": 0,
+      "finalTargetedRerun": true
+    }
+  ]
+}

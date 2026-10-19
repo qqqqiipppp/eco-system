@@ -1,3 +1,4 @@
+const {reveal}=require('./ux-browser-helpers.cjs');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {dismissWelcome}=require('./fixtures.cjs'),{snapshot}=require('./habitat.browser-fixtures.cjs');
 const BASE=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/';
@@ -20,7 +21,7 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/';
   if(releaseRabbit){
    const rabbit=s.organisms.find(o=>o.speciesId==='rabbit');await p.waitForFunction(id=>window.state.organisms[0].targetInstanceId===id,rabbit.instanceId,{timeout:12000,polling:50});await p.emulateMedia({reducedMotion:'reduce'});
    // Student's existing two-tap release action removes the currently pursued rabbit.
-   await p.locator('#population-open').tap();await p.locator('#population-species').selectOption('rabbit');await p.locator('#population-release').tap();await p.locator('#population-release').tap();await p.locator('#population-close').tap();
+   await p.locator('#population-open').tap();await p.locator('#population-species').selectOption('rabbit');await reveal(p,'#population-release');await p.locator('#population-release').tap();await reveal(p,'#population-release');await p.locator('#population-release').tap();await p.locator('#population-close').tap();
    assert(!await p.evaluate(id=>window.state.organisms.some(o=>o.instanceId===id),rabbit.instanceId));await p.emulateMedia({reducedMotion:'no-preference'});
   }
   await p.waitForFunction(id=>window.audit.contacts.some(c=>c.consumer===id),consumer,{timeout:20000,polling:50});

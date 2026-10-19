@@ -19,7 +19,7 @@ const assert=require('node:assert/strict');
   await page.emulateMedia({reducedMotion:'no-preference'});return page;
  }
  async function environment(page,factor,level){await page.locator('#environment-open').click();await page.getByLabel(`${factor} 상태`,{exact:true}).selectOption(level);await page.locator('#environment-close').click();}
- async function inspectAlert(page){await page.locator('.event-alert').first().tap();await page.getByRole('button',{name:'살펴보기',exact:true}).click();}
+ async function inspectAlert(page){await page.locator('.event-alert').first().tap();}
  try{
   // A/B/C/G/H: earn points through the real investigation, then spend them.
   {
@@ -28,7 +28,7 @@ const assert=require('node:assert/strict');
    await page.locator('[data-management-action="water-care"]').tap({force:true});assert.match(await page.locator('#event-result').textContent(),/포인트가 부족/);
    const after=await snapshot(page);assert.equal(after.metrics.points,0);assert.equal(after.environment.water.value,before.environment.water.value);assert.equal(after.managementHistory.length,0);
    assert.equal(await page.locator('[data-management-action="food-support"]').count(),0);
-   await page.locator('#event-close').click();await page.locator('.event-question').tap();await page.getByRole('button',{name:'원인 생각하기',exact:true}).click();
+   await page.locator('#event-close').click();await page.locator('.event-question').tap();
    await page.getByRole('button',{name:'카드를 많이 모아서',exact:true}).click();assert.equal((await snapshot(page)).metrics.points,0);
    await page.getByRole('button',{name:'비생물 환경이 나빠져서',exact:true}).click();assert.equal((await snapshot(page)).metrics.points,10);
    await page.locator('#event-close').click();await inspectAlert(page);
@@ -44,7 +44,7 @@ const assert=require('node:assert/strict');
   // F: actual feeding, explicit record reward only once.
   {
    const page=await setup({grass:3,grasshopper:2});await page.locator('.event-insight').first().waitFor({timeout:30000});assert.equal((await snapshot(page)).metrics.points,0);
-   await page.locator('.event-insight').first().tap();await page.getByRole('button',{name:'살펴보기',exact:true}).click();await page.getByRole('button',{name:'발견 기록하기',exact:true}).click();assert.equal((await snapshot(page)).metrics.points,12);
+   await page.locator('.event-insight').first().tap();await page.getByRole('button',{name:'발견 기록하기',exact:true}).click();assert.equal((await snapshot(page)).metrics.points,12);
    await page.locator('#event-close').click();for(let i=0;i<2;i++){await page.locator('#observations-open').click();await page.locator('#observations-close').click()}assert.equal((await snapshot(page)).metrics.points,12);
    console.log('F: real feeding discovery grants 12 once');await page.close();
   }

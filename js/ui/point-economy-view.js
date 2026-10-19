@@ -33,6 +33,8 @@ export function bindPointEconomyView(state,callbacks){
    for(const r of candidates.slice(0,5)){const b=document.createElement('button');b.type='button';b.textContent=studyPresentation(state,r).name;b.dataset.studyEpisode=r.eventId;b.setAttribute('aria-pressed',String(r.eventId===chosen));b.addEventListener('click',()=>{chosen=r.eventId;answers={};signature='';for(const n of [...factorArea.children,...recoveryArea.children])n.setAttribute('aria-pressed','false');render();});episodes.append(b);}
   }
   support.hidden=!quote.available&&!reserved;set(supportHint,quote.available?quote.reason:reserved?'이 예산은 지정된 나쁜 환경을 보통으로 돌보는 데 먼저 써요. 다른 관리에는 남은 일반 포인트를 써요.':'');
+  // A genuine blocked state must not hide its one-time recovery route.
+  if(!support.hidden&&root.closest('details'))root.closest('details').open=true;
   supportButton.hidden=!quote.available;supportButton.textContent=`한 번 복구 지원 ${quote.amount}포인트 받기`;care.replaceChildren();
   for(const [factor,check] of careChecks){
    const action=managementActions.find(a=>a.effect.factor===factor)||managementActions.find(a=>a.actionId==='habitat-care');

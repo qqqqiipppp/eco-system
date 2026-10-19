@@ -1,4 +1,7 @@
 import {createCollectionView} from './ui/collection-view.js';
+import {createForestFlow} from './ui/forest-flow.js';
+import {bindDialogPause} from './ui/dialog-pause.js';
+import {studentChange} from './ui/student-status.js';
 import {recordSpeciesObservation,syncCollection} from './state/collection-state.js';
 import {createNextForest} from './systems/replay.js';
 import { createHelpView } from './ui/help-view.js';
@@ -44,6 +47,7 @@ const uiState = createUIState();
 let stabilitySystem = createStabilitySystem();
 
 try {
+  let flowView=null;
   const forest = document.querySelector('.forest');
   const scene = createOrganismLayer(forest, () => gameState.organisms);
   let wander = createWanderSystem();
@@ -52,16 +56,16 @@ try {
   const populationButton=document.createElement('button');populationButton.id='population-open';populationButton.type='button';populationButton.textContent='생물 상태';document.querySelector('.header-actions').append(populationButton);
   const populationView=createPopulationView(gameState,id=>{
     const record=removeOrganism(gameState,id,'release');if(!record)return;
-    feedingSystem.forget([id]);wander.forget([id]);scene.remove([id]);scene.showFeedback(populationMessage(record),true);
+    feedingSystem.forget([id]);wander.forget([id]);scene.remove([id]);scene.showFeedback(studentChange(record)||populationMessage(record),true);
     eventSystem.refresh(gameState);eventView.render();stabilitySystem.update(gameState);refreshProgress();renderDashboard(gameState);saveService.schedule();loop.refresh();
-  },id=>{scene.setFocused(id);if(id&&recordSpeciesObservation(gameState,id))saveService.schedule();});
+  },id=>{scene.setFocused(id);if(id&&recordSpeciesObservation(gameState,id))saveService.schedule();flowView?.render();});
   scene.setInspectHandler(ids=>populationView.inspect(ids));
   const forestView = createForestView(gameState,restartGame);
   const helpView = createHelpView(createGuideAdapter());
   const collectionView=createCollectionView(gameState,{onActivity:openLockedActivity,onReplay:startNextForest,onPlace:selectSpecies});
   function refreshProgress(seconds=0) {
     const cleared=updateForestGoal(gameState,seconds);
-    forestView.render();collectionView.renderClear();
+    forestView.render();collectionView.renderClear();flowView?.render();
     if(cleared&&!document.querySelector('dialog[open]'))document.querySelector('#goal-dialog').showModal();
     if(cleared)saveService.schedule();
   }
@@ -73,6 +77,7 @@ try {
     if(response.unlocked) {
       renderCards(gameState,selectSpecies,openLockedActivity);
       renderSelection(uiState,clearSelection);
+      flowView?.render();
     }
     renderDashboard(gameState);
     return response;
@@ -102,8 +107,10 @@ try {
       }
       return response;
     },
-  });
+  }, {onActivity:openLockedActivity,onWeb:id=>collectionView.openWeb(id)});
+  const reading=bindDialogPause(()=>loop.refresh());
   const loop = createUpdateLoop({
+    isPaused:reading.isPaused,
     hasWork: () => gameState.organisms.length>0 || hasDevelopmentWork(gameState) || hasEnvironmentEventWork(gameState) || Object.values(gameState.decomposition.organicMatter).some(v=>v>0) || Object.values(gameState.population.introductions).some(v=>v.nextAt>gameState.simulationTime) || eventSystem.needsTick(),
     update: dt => {
       const result = feedingSystem.update(gameState, dt, scene.getLayout());
@@ -128,7 +135,7 @@ try {
       if (result.eventTicked || result.removedIds.length) eventView.render();
       let notice;
       if(gameState.population.sequence>lastPopulationSequence)for(const record of gameState.population.history)if(record.sequence>lastPopulationSequence&&['starvation','reproduction','natural_lifespan','life_stage_exit','colony_decline','replenishment'].includes(record.cause))notice=record;
-      if(notice)scene.showFeedback(populationMessage(notice),!['starvation','colony_decline'].includes(notice.cause));
+      if(notice)scene.showFeedback(studentChange(notice)||populationMessage(notice),!['starvation','colony_decline'].includes(notice.cause));
       else if (result.feedingEvents.length) scene.showFeedback(feedingFeedback(result.feedingEvents), true);
       lastPopulationSequence=gameState.population.sequence;
     },
@@ -146,6 +153,7 @@ try {
     scene.showSelection(speciesId);
     populationView.select(speciesId);
   }
+  document.querySelector('#population-place').addEventListener('click',()=>{const id=document.querySelector('#population-species').value;document.querySelector('#population-dialog').close();selectSpecies(id);});
   forest.addEventListener('click', event => {
     if (event.target.closest('[data-event-marker]')) return;
     const result = placeOrganism(gameState, uiState.selectedSpeciesId, scene.readInput(event), scene.getLayout());
@@ -191,6 +199,7 @@ try {
     },
   });
   // Development harness installs its environment controls at this explicit boundary.
+  flowView=createForestFlow(gameState,{onActivity:openLockedActivity,onEvent:id=>eventView.open(id),onPlace:selectSpecies,onPopulation:()=>document.querySelector('#population-open').click()});
   renderDashboard(gameState);
   renderCards(gameState, selectSpecies, openLockedActivity);
   renderSelection(uiState, clearSelection);

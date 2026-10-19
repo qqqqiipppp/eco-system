@@ -35,7 +35,7 @@ export function createCollectionView(state,{onActivity,onReplay,onPlace=()=>{}})
   const p=collectionProgress(state);document.querySelector('#guide-progress').textContent='획득한 생물 '+p.acquired+' / '+p.total+'종 · 실제 관찰 '+p.observed+'종 · 아직 획득하지 못한 생물 '+(p.total-p.acquired)+'종';
   const list=document.querySelector('#guide-list');list.replaceChildren();
   const filter=document.querySelector('#guide-filter').value;
-  for(const o of organisms){if(filter==='unobserved'&&(!owned(o.id)||state.profile.speciesObservations[o.id])||filter==='locked'&&owned(o.id)||['producer','consumer','decomposer'].includes(filter)&&o.role!==filter)continue;const b=node('button');b.dataset.guideSpecies=o.id;b.className='guide-card'+(owned(o.id)?'':' is-locked');b.append(visual(o),node('strong',o.name),node('span',owned(o.id)?state.profile.speciesObservations[o.id]?'획득 · 관찰':'획득 · 관찰 전':'🔒 미획득'),node('small',owned(o.id)?roleLabels[o.role]:activityForSpecies[o.id]?.hint||'기존 학습 활동을 살펴봐요.'));b.addEventListener('click',()=>details(o));list.append(b);}
+  for(const o of organisms){if(filter==='unobserved'&&(!owned(o.id)||state.profile.speciesObservations[o.id])||filter==='locked'&&owned(o.id)||['producer','consumer','decomposer'].includes(filter)&&o.role!==filter)continue;const b=node('button');b.dataset.guideSpecies=o.id;b.className='guide-card'+(owned(o.id)?'':' is-locked');b.append(visual(o),node('strong',o.name),node('span',owned(o.id)?state.profile.speciesObservations[o.id]?'획득 · 관찰':'획득 · 관찰 전':'🔒 미획득'),node('small',owned(o.id)?roleLabels[o.role]:'카드를 눌러 탐구 방법을 봐요.'));b.addEventListener('click',()=>details(o));list.append(b);}
   empty.hidden=list.children.length>0;
  }
  function renderWeb(){
@@ -45,25 +45,30 @@ export function createCollectionView(state,{onActivity,onReplay,onPlace=()=>{}})
   for(const r of [...foodRelations].sort((a,b)=>Number(known.has(b.relationId))-Number(known.has(a.relationId)))){
    if(filter==='found'&&!known.has(r.relationId)||filter==='available'&&(!owned(r.sourceSpeciesId)||!owned(r.targetSpeciesId)))continue;
    const row=node('li');row.dataset.webRelation=r.relationId;row.dataset.discovered=String(known.has(r.relationId));
-   row.append(node('strong',(owned(r.sourceSpeciesId)?'':'🔒 ')+organismById[r.sourceSpeciesId].name+' → '+(owned(r.targetSpeciesId)?'':'🔒 ')+organismById[r.targetSpeciesId].name),node('p',(known.has(r.relationId)?'누적 발견':'아직 미발견')+' · '+(current.has(r.relationId)?'이번 숲 관찰 완료':'이번 숲 관찰 전')+' · '+foodPartLabels[r.foodPart]+' 먹이'));
+   row.append(node('strong',(owned(r.sourceSpeciesId)?'':'🔒 ')+organismById[r.sourceSpeciesId].name+' → '+(owned(r.targetSpeciesId)?'':'🔒 ')+organismById[r.targetSpeciesId].name),node('p',(current.has(r.relationId)?'이 숲에서 기록했어요':known.has(r.relationId)?'이전 숲에서 발견했어요':'아직 발견하지 못했어요')+' · '+foodPartLabels[r.foodPart]+' 먹이'));
    list.append(row);
   }
  }
- function openWeb(){renderWeb();if(!web.open)web.showModal();}
+ function openWeb(relationId){
+  const relation=typeof relationId==='string'&&foodRelations.find(r=>r.relationId===relationId);
+  if(relation)document.querySelector('#web-filter').value='all';
+  renderWeb();if(!web.open)web.showModal();
+  if(relation){const row=document.querySelector('[data-web-relation="'+relation.relationId+'"]');row.tabIndex=-1;row.focus();row.scrollIntoView({block:'nearest'});}
+ }
  let clearSignature='',origin=null,busy=false;
  function renderClear(){
   const area=document.querySelector('#clear-collection');area.hidden=!state.forestProgress.cleared;
   const title=document.querySelector('#goal-title'),close=document.querySelector('#goal-close'),actions=area.querySelector('.clear-actions');
-  if(area.hidden){title.textContent='숲 생태계 완성 목표';if(close.parentElement===actions)document.querySelector('#restart-open').before(close);return;}
-  if(title.textContent!=='숲 생태계 완성!')title.textContent='숲 생태계 완성!';
+  if(area.hidden){title.textContent='첫 숲 목표';if(close.parentElement===actions)document.querySelector('.reset-details').before(close);return;}
+  if(title.textContent!=='첫 숲 목표 달성!')title.textContent='첫 숲 목표 달성!';
   if(area.previousElementSibling!==title)title.after(area);
   if(close.parentElement!==actions)actions.append(close);
 
   syncCollection(state);const p=collectionProgress(state),preview=lockedPreview(state),signature=JSON.stringify([state.round.id,p,preview.map(o=>o.id),state.environmentEvents.sequence]);if(signature===clearSignature)return;clearSignature=signature;
   document.querySelector('#clear-progress').textContent='나의 생물 도감: '+p.acquired+' / 24종';
   document.querySelector('#clear-invitation').textContent=p.acquired===24?'24종 카드를 모두 모았어요! 새 숲에서 아직 관찰하지 못한 생물과 먹이 관계를 탐구해 봐요.':'아직 만나지 못한 생물들이 있어요. 다음 숲에서 탐구해 볼까요?';
-  document.querySelector('#clear-optional').textContent=state.environmentEvents.history.length?'원한다면 지금 숲의 성장·분해·환경 변화를 더 살펴봐도 좋아요.':'아직 환경 변화를 만나지 않았다면 지금 숲을 계속 살펴봐도 좋아요. 새 숲을 꼭 시작할 필요는 없어요.';
-  const list=document.querySelector('#clear-locked');list.replaceChildren();for(const o of preview){const b=node('button');b.dataset.previewSpecies=o.id;b.append(visual(o),node('strong','🔒 '+o.name),node('small',activityForSpecies[o.id]?.hint||''));b.addEventListener('click',()=>{document.querySelector('#goal-dialog').close();openGuide();details(o);});list.append(b);}
+  document.querySelector('#clear-optional').textContent=state.environmentEvents.history.length?'지금 숲에서 성장과 분해를 더 살펴봐요.':'숲을 계속 관찰하며 환경 변화를 만나 봐요.';
+  const list=document.querySelector('#clear-locked');list.replaceChildren();for(const o of preview){const b=node('button');b.dataset.previewSpecies=o.id;b.append(visual(o),node('strong','🔒 '+o.name),node('small','눌러서 탐구 방법 보기'));b.addEventListener('click',()=>{document.querySelector('#goal-dialog').close();openGuide();details(o);});list.append(b);}
  }
  document.querySelector('#guide-open').addEventListener('click',openGuide);document.querySelector('#guide-close').addEventListener('click',()=>guide.close());document.querySelector('#guide-filter').addEventListener('change',()=>{document.querySelector('#guide-detail').hidden=true;renderGuide();});
  document.querySelector('#web-open').addEventListener('click',openWeb);document.querySelector('#guide-web').addEventListener('click',()=>{guide.close();openWeb();});document.querySelector('#web-close').addEventListener('click',()=>web.close());document.querySelector('#web-filter').addEventListener('change',renderWeb);
@@ -83,5 +88,5 @@ export function createCollectionView(state,{onActivity,onReplay,onPlace=()=>{}})
   const result=onReplay(document.querySelector('#replay-topic').value);
   if(result.ok){replay.close();clearSignature='';}else {busy=false;document.querySelector('#replay-confirm').disabled=false;document.querySelector('#replay-result').textContent=result.message;}
  });
- return {openGuide,renderClear,reset(){clearSignature='';document.querySelector('#guide-detail').hidden=true;}};
+ return {openGuide,openWeb,renderClear,reset(){clearSignature='';document.querySelector('#guide-detail').hidden=true;}};
 }

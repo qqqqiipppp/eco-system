@@ -1,0 +1,164 @@
+{
+  "stage": "15.9",
+  "clock": "real browser RAF, no acceleration or state grants",
+  "actualS5e": false,
+  "runs": [
+    {
+      "split": true,
+      "wallSeconds": 1229.8690000000001,
+      "simulationSeconds": 1215,
+      "taps": 182,
+      "menusOpenedFromHeader": 0,
+      "points": 51,
+      "acquired": 13,
+      "observations": 2,
+      "cleared": {
+        "cleared": true,
+        "clearedAt": 121,
+        "stableSeconds": 30
+      },
+      "organisms": 11,
+      "environmentEpisodes": 3,
+      "development": 15,
+      "actions": [
+        {
+          "at": 5,
+          "type": "activity",
+          "id": "producer_quiz"
+        },
+        {
+          "at": 15.5,
+          "type": "activity",
+          "id": "grass_observation"
+        },
+        {
+          "at": 25.5,
+          "type": "activity",
+          "id": "decomposer_classify"
+        },
+        {
+          "at": 35.5,
+          "type": "activity",
+          "id": "rabbit_habitat"
+        },
+        {
+          "at": 40.5,
+          "type": "activity",
+          "id": "explore_pine"
+        },
+        {
+          "at": 46,
+          "type": "activity",
+          "id": "explore_raspberry"
+        },
+        {
+          "at": 51,
+          "type": "activity",
+          "id": "explore_chipmunk"
+        },
+        {
+          "at": 56,
+          "type": "activity",
+          "id": "explore_field-mouse"
+        },
+        {
+          "at": 61,
+          "type": "activity",
+          "id": "explore_snail"
+        },
+        {
+          "at": 66,
+          "type": "activity",
+          "id": "explore_snake"
+        },
+        {
+          "at": 604.5,
+          "type": "save-reload",
+          "points": 49
+        }
+      ],
+      "errors": [],
+      "additionalCheckpointReentry": {
+        "fromActiveSeconds": 1195,
+        "throughActiveSeconds": 1215,
+        "wallSeconds": 20.573,
+        "reason": "5-second sampling put first save after600; extend actual second leg beyond600 rather than claim595.5 as10minutes",
+        "inventoryPreserved": true,
+        "rewardsPreserved": true,
+        "errors": []
+      },
+      "secondLegActiveSeconds": 610.5
+    },
+    {
+      "split": false,
+      "wallSeconds": 1209.408,
+      "simulationSeconds": 1201,
+      "taps": 181,
+      "menusOpenedFromHeader": 0,
+      "points": 51,
+      "acquired": 13,
+      "observations": 2,
+      "cleared": {
+        "cleared": true,
+        "clearedAt": 116,
+        "stableSeconds": 30
+      },
+      "organisms": 11,
+      "environmentEpisodes": 3,
+      "development": 15,
+      "actions": [
+        {
+          "at": 10.5,
+          "type": "activity",
+          "id": "grass_observation"
+        },
+        {
+          "at": 20.5,
+          "type": "activity",
+          "id": "producer_quiz"
+        },
+        {
+          "at": 30.5,
+          "type": "activity",
+          "id": "decomposer_classify"
+        },
+        {
+          "at": 35.5,
+          "type": "activity",
+          "id": "rabbit_habitat"
+        },
+        {
+          "at": 41,
+          "type": "activity",
+          "id": "explore_pine"
+        },
+        {
+          "at": 46,
+          "type": "activity",
+          "id": "explore_raspberry"
+        },
+        {
+          "at": 51,
+          "type": "activity",
+          "id": "explore_chipmunk"
+        },
+        {
+          "at": 56,
+          "type": "activity",
+          "id": "explore_field-mouse"
+        },
+        {
+          "at": 61,
+          "type": "activity",
+          "id": "explore_snail"
+        },
+        {
+          "at": 66,
+          "type": "activity",
+          "id": "explore_snake"
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

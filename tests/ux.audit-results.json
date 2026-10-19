@@ -1,0 +1,849 @@
+{
+  "stage": "15.9",
+  "baseline": "c0d66c916444aec74952de238642f6a36a83ee84",
+  "species": 24,
+  "roles": {
+    "producer": 5,
+    "consumer": 16,
+    "decomposer": 3
+  },
+  "relations": 27,
+  "activities": 21,
+  "collectionActivities": 17,
+  "protectedFiles": [
+    {
+      "file": "data/organisms.js",
+      "unchanged": true
+    },
+    {
+      "file": "data/species-taxonomy.js",
+      "unchanged": true
+    },
+    {
+      "file": "data/food-relations.js",
+      "unchanged": true
+    },
+    {
+      "file": "data/survival-config.js",
+      "unchanged": true
+    },
+    {
+      "file": "data/population-config.js",
+      "unchanged": true
+    },
+    {
+      "file": "data/ecology-config.js",
+      "unchanged": true
+    },
+    {
+      "file": "data/lifespan-config.js",
+      "unchanged": true
+    },
+    {
+      "file": "data/development-config.js",
+      "unchanged": true
+    },
+    {
+      "file": "data/pacing-config.js",
+      "unchanged": true
+    },
+    {
+      "file": "data/environment-events.js",
+      "unchanged": true
+    },
+    {
+      "file": "data/management-actions.js",
+      "unchanged": true
+    },
+    {
+      "file": "data/point-economy.js",
+      "unchanged": true
+    },
+    {
+      "file": "data/forest-goal.js",
+      "unchanged": true
+    },
+    {
+      "file": "js/systems/feeding.js",
+      "unchanged": true
+    },
+    {
+      "file": "js/systems/prey-access.js",
+      "unchanged": true
+    },
+    {
+      "file": "js/systems/population.js",
+      "unchanged": true
+    },
+    {
+      "file": "js/systems/lifespan.js",
+      "unchanged": true
+    },
+    {
+      "file": "js/systems/development.js",
+      "unchanged": true
+    },
+    {
+      "file": "js/systems/decomposition.js",
+      "unchanged": true
+    },
+    {
+      "file": "js/systems/lifecycle.js",
+      "unchanged": true
+    },
+    {
+      "file": "js/systems/meal-readiness.js",
+      "unchanged": true
+    },
+    {
+      "file": "js/systems/activities.js",
+      "unchanged": true
+    },
+    {
+      "file": "js/systems/activity-rules.js",
+      "unchanged": true
+    },
+    {
+      "file": "js/systems/point-economy.js",
+      "unchanged": true
+    },
+    {
+      "file": "js/systems/replay.js",
+      "unchanged": true
+    },
+    {
+      "file": "js/systems/forest-progress.js",
+      "unchanged": true
+    },
+    {
+      "file": "js/services/save-format.js",
+      "unchanged": true
+    },
+    {
+      "file": "js/services/save-service.js",
+      "unchanged": true
+    },
+    {
+      "file": "js/services/collection-migration.js",
+      "unchanged": true
+    },
+    {
+      "file": "js/services/point-economy-migration.js",
+      "unchanged": true
+    },
+    {
+      "file": "js/services/pacing-migration.js",
+      "unchanged": true
+    }
+  ],
+  "priorResultFiles": 81,
+  "preservedResults": true,
+  "clear": {
+    "instant": {
+      "times": {
+        "firstFood": 5,
+        "firstNew": null,
+        "requiredLearning": 5,
+        "firstGrowth": 211,
+        "firstEnvironment": 240,
+        "firstDecomposer": null
+      },
+      "newCards": [
+        {
+          "speciesId": "rabbit",
+          "at": 0.5
+        },
+        {
+          "speciesId": "frog",
+          "at": 5
+        }
+      ],
+      "novel17": 0,
+      "clearAt": 100.5,
+      "cleared": true,
+      "points": 72,
+      "careSpent": 0,
+      "acquired": 7,
+      "observed": 4,
+      "food": 3,
+      "roundFood": 3,
+      "environmentBeforeClear": false,
+      "meaningfulActions": 25,
+      "availableChoiceIndicator": {
+        "average": 7.227083333333334,
+        "max": 10,
+        "zeroChoiceSeconds": 0,
+        "definition": "unfinished eligible learning + uninspected living instances + pending insight/question + missing owned core placement; optional UI browsing excluded"
+      },
+      "noticesUnique": 20,
+      "noticesByKind": {
+        "alert": 20
+      },
+      "peakActive": 4,
+      "clearEvidence": {
+        "at": 100.5,
+        "foodRelations": [
+          "v2_grass_to_grasshopper",
+          "v2_grasshopper_to_frog",
+          "v2_grass_to_rabbit"
+        ],
+        "activities": [
+          "producer_quiz",
+          "decomposer_classify",
+          "grass_observation",
+          "rabbit_habitat"
+        ],
+        "environmentEpisodes": 0,
+        "growthOpportunity": false,
+        "decomposerInspected": [],
+        "processed": 1.3099999999999938,
+        "managementActions": 0
+      },
+      "samples": [
+        {
+          "at": 0.5,
+          "options": 10,
+          "acquired": 6,
+          "points": 11,
+          "stability": 80
+        },
+        {
+          "at": 60.5,
+          "options": 8,
+          "acquired": 7,
+          "points": 51,
+          "stability": 87
+        },
+        {
+          "at": 120.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 51,
+          "stability": 95
+        },
+        {
+          "at": 180.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 51,
+          "stability": 98
+        },
+        {
+          "at": 240.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 51,
+          "stability": 98
+        },
+        {
+          "at": 300.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 51,
+          "stability": 96
+        },
+        {
+          "at": 360.5,
+          "options": 8,
+          "acquired": 7,
+          "points": 62,
+          "stability": 85
+        },
+        {
+          "at": 420.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 62,
+          "stability": 96
+        },
+        {
+          "at": 480.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 62,
+          "stability": 96
+        },
+        {
+          "at": 540.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 62,
+          "stability": 96
+        },
+        {
+          "at": 600.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 62,
+          "stability": 96
+        },
+        {
+          "at": 660.5,
+          "options": 8,
+          "acquired": 7,
+          "points": 66,
+          "stability": 85
+        },
+        {
+          "at": 720.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 66,
+          "stability": 98
+        },
+        {
+          "at": 780.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 66,
+          "stability": 98
+        },
+        {
+          "at": 840.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 66,
+          "stability": 98
+        },
+        {
+          "at": 900.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 66,
+          "stability": 98
+        },
+        {
+          "at": 960.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 66,
+          "stability": 93
+        },
+        {
+          "at": 1020.5,
+          "options": 8,
+          "acquired": 7,
+          "points": 68,
+          "stability": 81
+        },
+        {
+          "at": 1080.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 68,
+          "stability": 94
+        },
+        {
+          "at": 1140.5,
+          "options": 7,
+          "acquired": 7,
+          "points": 72,
+          "stability": 96
+        }
+      ],
+      "hints": [
+        {
+          "at": 0.5,
+          "text": "방아깨비가 강아지풀을 먹는 모습을 관찰해요. 💡가 나타나면 발견 기록하기를 눌러요."
+        },
+        {
+          "at": 240,
+          "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+        },
+        {
+          "at": 600,
+          "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+        },
+        {
+          "at": 960,
+          "text": "숲 목표를 달성했어요! 도감과 먹이그물에서 다음 탐구를 골라 봐요."
+        }
+      ],
+      "population": {
+        "oak": 2,
+        "mushroom": 1,
+        "rabbit": 1,
+        "frog": 1,
+        "grass": 3,
+        "grasshopper": 1
+      },
+      "meals": {
+        "v2_grass_to_grasshopper": 82,
+        "v2_grasshopper_to_frog": 4,
+        "v2_grass_to_rabbit": 36
+      },
+      "processed": 12.279027875000123,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 86,
+      "spent": 14,
+      "peak": 14,
+      "model": {
+        "instantCorrectAnswers": true,
+        "actualStudent": false
+      },
+      "wrongAnswers": 0
+    },
+    "normal": {
+      "times": {
+        "firstFood": 30.5,
+        "firstNew": 90.5,
+        "requiredLearning": 900.5,
+        "firstGrowth": 211,
+        "firstEnvironment": 240,
+        "firstDecomposer": 0.5
+      },
+      "newCards": [
+        {
+          "speciesId": "pine",
+          "at": 90.5
+        },
+        {
+          "speciesId": "raspberry",
+          "at": 90.5
+        },
+        {
+          "speciesId": "frog",
+          "at": 300.5
+        },
+        {
+          "speciesId": "rabbit",
+          "at": 420.5
+        }
+      ],
+      "novel17": 2,
+      "clearAt": 930,
+      "cleared": true,
+      "points": 83,
+      "careSpent": 0,
+      "acquired": 9,
+      "observed": 7,
+      "food": 3,
+      "roundFood": 3,
+      "environmentBeforeClear": true,
+      "meaningfulActions": 28,
+      "availableChoiceIndicator": {
+        "average": 5.60125,
+        "max": 8,
+        "zeroChoiceSeconds": 0,
+        "definition": "unfinished eligible learning + uninspected living instances + pending insight/question + missing owned core placement; optional UI browsing excluded"
+      },
+      "noticesUnique": 25,
+      "noticesByKind": {
+        "insight": 3,
+        "alert": 20,
+        "question": 2
+      },
+      "peakActive": 5,
+      "clearEvidence": {
+        "at": 930,
+        "foodRelations": [
+          "v2_grass_to_grasshopper",
+          "v2_grasshopper_to_frog",
+          "v2_grass_to_rabbit"
+        ],
+        "activities": [
+          "producer_quiz",
+          "decomposer_classify",
+          "grass_observation",
+          "rabbit_habitat",
+          "explore_pine",
+          "explore_raspberry"
+        ],
+        "environmentEpisodes": 2,
+        "growthOpportunity": true,
+        "decomposerInspected": [
+          "mushroom",
+          "soil-bacteria"
+        ],
+        "processed": 9.605000000000137,
+        "managementActions": 0
+      },
+      "samples": [
+        {
+          "at": 0.5,
+          "options": 5,
+          "acquired": 5,
+          "points": 0,
+          "stability": 80
+        },
+        {
+          "at": 60.5,
+          "options": 7,
+          "acquired": 5,
+          "points": 12,
+          "stability": 88
+        },
+        {
+          "at": 120.5,
+          "options": 6,
+          "acquired": 7,
+          "points": 15,
+          "stability": 86
+        },
+        {
+          "at": 180.5,
+          "options": 6,
+          "acquired": 7,
+          "points": 15,
+          "stability": 93
+        },
+        {
+          "at": 240.5,
+          "options": 6,
+          "acquired": 7,
+          "points": 15,
+          "stability": 91
+        },
+        {
+          "at": 300.5,
+          "options": 5,
+          "acquired": 8,
+          "points": 19,
+          "stability": 87
+        },
+        {
+          "at": 360.5,
+          "options": 7,
+          "acquired": 8,
+          "points": 41,
+          "stability": 66
+        },
+        {
+          "at": 420.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 45,
+          "stability": 95
+        },
+        {
+          "at": 480.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 61,
+          "stability": 98
+        },
+        {
+          "at": 540.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 61,
+          "stability": 95
+        },
+        {
+          "at": 600.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 61,
+          "stability": 95
+        },
+        {
+          "at": 660.5,
+          "options": 6,
+          "acquired": 9,
+          "points": 65,
+          "stability": 83
+        },
+        {
+          "at": 720.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 65,
+          "stability": 99
+        },
+        {
+          "at": 780.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 65,
+          "stability": 99
+        },
+        {
+          "at": 840.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 65,
+          "stability": 96
+        },
+        {
+          "at": 900.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 69,
+          "stability": 96
+        },
+        {
+          "at": 960.5,
+          "options": 6,
+          "acquired": 9,
+          "points": 69,
+          "stability": 86
+        },
+        {
+          "at": 1020.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 79,
+          "stability": 84
+        },
+        {
+          "at": 1080.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 79,
+          "stability": 93
+        },
+        {
+          "at": 1140.5,
+          "options": 5,
+          "acquired": 9,
+          "points": 83,
+          "stability": 94
+        }
+      ],
+      "hints": [
+        {
+          "at": 0.5,
+          "text": "방아깨비가 강아지풀을 먹는 모습을 관찰해요. 💡가 나타나면 발견 기록하기를 눌러요."
+        },
+        {
+          "at": 240,
+          "text": "잠긴 참개구리 카드를 눌러 관찰 활동을 완료해요. 참개구리를 배치할 수 있게 돼요."
+        },
+        {
+          "at": 600,
+          "text": "배움에서 구름송편버섯의 역할 활동을 완료해 주세요."
+        },
+        {
+          "at": 960,
+          "text": "다시 들이기까지 41초 기다려요. 먹이와 환경을 먼저 살펴보세요."
+        }
+      ],
+      "population": {
+        "oak": 2,
+        "mushroom": 1,
+        "soil-bacteria": 1,
+        "frog": 1,
+        "rabbit": 1,
+        "grass": 3,
+        "grasshopper": 1
+      },
+      "meals": {
+        "v2_grass_to_grasshopper": 85,
+        "v2_grasshopper_to_frog": 3,
+        "v2_grass_to_rabbit": 23
+      },
+      "processed": 12.29504250000035,
+      "wormProcessed": 0,
+      "soilContribution": 0,
+      "episodes": [
+        {
+          "kind": "drought",
+          "at": 240,
+          "phase": "ended"
+        },
+        {
+          "kind": "rain",
+          "at": 600,
+          "phase": "ended"
+        },
+        {
+          "kind": "cloudy",
+          "at": 960,
+          "phase": "ended"
+        }
+      ],
+      "earned": 83,
+      "spent": 0,
+      "peak": 15,
+      "model": {
+        "mode": "normal",
+        "cadence": 30,
+        "times": {
+          "producer_quiz": 90,
+          "grass_observation": 300,
+          "rabbit_habitat": 420,
+          "decomposer_classify": 900
+        },
+        "interests": [
+          "pine",
+          "raspberry"
+        ],
+        "wrongFirstAttempts": 0,
+        "multipleActionsPerDecision": true,
+        "actualStudent": false
+      },
+      "wrongAnswers": 0
+    },
+    "actualStudents": false,
+    "acceleratedModel": true,
+    "policyUnchanged": true
+  },
+  "studentCopyAudit": [
+    {
+      "file": "index.html",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "js/ui/activity-view.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "js/ui/collection-view.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "js/ui/dialog-pause.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "js/ui/environment-panel.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "js/ui/event-view.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "js/ui/forest-flow.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "js/ui/forest-view.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "js/ui/help-view.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "js/ui/organism-layer.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "js/ui/point-economy-view.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "js/ui/population-view.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "js/ui/render.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "js/ui/student-status.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "data/activities.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "data/card-unlocks.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "data/event-config.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "data/student-text.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "data/organisms.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "data/habitats.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "data/development-config.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "data/lifespan-config.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "data/environment-events.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "data/management-actions.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "data/point-economy.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "data/food-evidence.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "data/environment-config.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "js/systems/goal-guidance.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "js/systems/learning-guidance.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "js/systems/population.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "js/systems/development.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "js/systems/organic-notices.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "js/systems/environment-events.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "js/systems/point-economy.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "js/systems/management.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "js/systems/activities.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    },
+    {
+      "file": "js/systems/placement.js",
+      "review": "default/optional/history/recovery/legacy presentation reviewed; rule and ID fields retained"
+    }
+  ]
+}

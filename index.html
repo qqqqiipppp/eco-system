@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="./css/cards.css">
   <link rel="stylesheet" href="./css/habitats.css">
   <link rel="stylesheet" href="./css/collection.css">
+  <link rel="stylesheet" href="./css/forest-ux.css">
   <script type="module" src="./js/main.js"></script>
 </head>
 <body>
@@ -33,6 +34,11 @@
       <div class="metric environment"><span class="metric-icon sun-icon" aria-hidden="true">☀</span><div><h2>현재 환경 상태 · 살펴보기 ›</h2><p id="environment-value">맑은 숲</p><span class="metric-caption">눌러서 환경을 관찰해요</span></div><button id="environment-open" type="button" aria-label="환경 살펴보기"></button></div>
     </section>
 
+    <aside class="forest-memo" aria-label="숲 메모">
+      <button id="memo-toggle" type="button" aria-expanded="false" aria-controls="memo-body">숲 메모 <span aria-hidden="true">＋</span></button>
+      <div id="memo-body" hidden><p id="next-action"></p><button id="memo-action" type="button" hidden></button></div>
+      <span class="pause-hint" role="status">읽는 동안 숲은 잠깐 쉬어요.</span>
+    </aside>
     <section class="forest" aria-labelledby="forest-title">
       <img class="forest-art" src="./assets/images/forest.svg" alt="햇빛 아래 나무와 강아지풀이 자라는 임시 숲 배경. 땅 아래에는 흙과 뿌리가 보여요." draggable="false">
       <button id="placement-surface" class="placement-surface" type="button" aria-label="숲 배치 영역. 먼저 아래에서 생물 카드를 선택하세요."></button>
@@ -43,12 +49,7 @@
       <button id="names-toggle" type="button" data-presentation-ui aria-pressed="false">이름 모두 보기</button>
       <div class="abiotic-status" data-scene-ui aria-label="숲의 비생물 요소"><span><i aria-hidden="true">☀</i> 햇빛 <b>충분</b></span><span><i aria-hidden="true">◈</i> 물 <b>알맞음</b></span><span><i aria-hidden="true">≋</i> 공기 <b>좋음</b></span><span>토양 <b>좋음</b></span></div>
 
-      <aside class="observation" data-scene-ui aria-labelledby="observation-title">
-        <span class="observation-tag">살펴보기</span>
-        <h3 id="observation-title">지금 해 볼 일</h3>
-        <p id="next-action">방아깨비를 강아지풀 가까이에 놓아 주세요.</p>
-        <div class="observation-footer">강아지풀, 방아깨비, 참개구리를 놓고<br>먹이를 찾는 모습을 살펴보세요.</div>
-      </aside>
+
       <span class="soil-label" data-scene-ui>흙 <span>뿌리를 지탱하고, 물과 양분을 품어요</span></span>
       <div class="scene-caption" data-scene-ui><span aria-hidden="true">◌</span> 카드를 골라 숲에 생물을 놓아 보세요.</div>
       <p id="placement-feedback" class="placement-feedback" role="status" aria-live="polite" aria-atomic="true" hidden></p>
@@ -64,7 +65,7 @@
   </main>
   <dialog id="environment-dialog" aria-labelledby="environment-title">
     <div class="environment-heading"><h2 id="environment-title">환경 살펴보기</h2><button id="environment-close" type="button">닫기</button></div>
-    <p>원인과 생물의 변화를 살펴봐요. 필요한 관리에는 생태계 포인트를 사용해요.</p>
+    <p>햇빛·물·공기·토양이 생물에게 영향을 줘요.</p>
     <div id="environment-fields"></div>
     <section id="environment-event-current" aria-labelledby="environment-event-title" hidden>
       <h3 id="environment-event-title"></h3>
@@ -79,12 +80,13 @@
       <small>관찰과 기다리기 선택은 포인트를 쓰거나 얻지 않아요. 실제 관리 행동은 !에서 선택해요.</small>
     </section>
     <p id="environment-event-empty">지금 진행 중인 환경 사건은 없어요. 생물과 환경의 상태를 계속 살펴봐요.</p>
-    <section id="environment-event-history-area" aria-labelledby="environment-event-history-title" hidden>
+    <details><summary>환경 변화 기록</summary><section id="environment-event-history-area" aria-labelledby="environment-event-history-title" hidden>
       <h3 id="environment-event-history-title">최근 환경 사건</h3><ul id="environment-event-history"></ul>
       <small>먹이 발견과 성장 기록에 섞이지 않는 환경 기록이에요.</small>
     </section>
+    </details>
     <div id="environment-recovery"></div><p id="environment-result" role="status"></p>
-    <section id="point-economy" aria-labelledby="point-economy-title">
+    <details><summary>포인트·학습·진행 도움</summary><section id="point-economy" aria-labelledby="point-economy-title">
       <h3 id="point-economy-title">생태계 포인트와 다음 운영</h3>
       <p data-point-balance></p><p data-point-guidance></p><p data-study-hint></p>
       <section data-point-study hidden>
@@ -102,33 +104,34 @@
       <h4>최근 포인트 획득과 사용</h4><ul data-point-recent></ul>
       <p data-point-result role="status" aria-live="polite"></p>
     </section>
-    <p>햇빛·물·공기·토양은 식물의 성장과 먹이 회복에 영향을 줘요. 공기가 나쁘면 동물도 천천히 움직여요.</p>
+    </details>
+    <details><summary>환경과 생물의 관계</summary><p>햇빛·물·공기·토양은 식물의 성장과 먹이 회복에 영향을 줘요. 공기가 나쁘면 동물도 천천히 움직여요.</p>
     <p>물·햇빛 부족과 나쁜 토양은 식물의 회복에 불리해요. 관리 결과는 기존 생태 규칙에 따라 서서히 나타나요.</p>
     <p id="stability-hint" role="status"></p>
     <p id="management-status" role="status"></p>
-    <small>안정도는 이 게임에서 숲의 균형을 살펴보는 기준이에요.</small>
+    <small>안정도는 숲의 균형을 살펴보는 게임 기준이에요.</small></details>
   </dialog>
   <dialog id="activity-dialog" aria-labelledby="activity-title">
-    <nav id="activity-nav" aria-label="숲에서 배우기"></nav>
+    <details id="activity-library"><summary>다른 활동 보기</summary><nav id="activity-nav" aria-label="숲에서 배우기"></nav></details>
     <h2 id="activity-title"></h2><p id="activity-prompt"></p>
     <p id="activity-conditions"></p><div id="activity-choices"></div>
     <p id="activity-result" role="status" aria-live="polite"></p>
     <button id="activity-close" type="button">숲으로 돌아가기</button>
   </dialog>
   <dialog id="goal-dialog" aria-labelledby="goal-title">
-    <h2 id="goal-title">숲 생태계 완성 목표</h2>
+    <h2 id="goal-title">첫 숲 목표</h2>
     <p>관찰하고 배운 내용을 숲에 적용해 보세요.</p>
     <label>숲의 학습·게임 진행 <progress id="forest-progress" max="100" value="0"></progress></label>
-    <ul id="goal-checks"></ul>
+    <details id="goal-more"><summary>목표 자세히 보기</summary><ul id="goal-checks"></ul>
     <label><span id="hold-label">최종 안정 상태 30초 유지</span> <progress id="hold-progress" max="1" value="0"></progress></label>
-    <p id="goal-status" role="status"></p>
+    <p id="goal-status" role="status"></p></details>
     <section id="clear-collection" hidden>
-      <p>숲속 생물과 환경의 관계를 잘 살펴보았어요.</p>
-      <p id="clear-progress"></p><p id="clear-invitation"></p><p id="clear-optional"></p><div id="clear-locked"></div>
+      <p>첫 목표를 해냈어요. 숲의 변화는 계속돼요.</p>
+      <p id="clear-progress"></p><p id="clear-optional"></p><details><summary>다음 탐구와 새 숲</summary><p id="clear-invitation"></p><div id="clear-locked"></div></details>
       <div class="clear-actions"><button id="clear-guide" type="button">도감 살펴보기</button><button id="replay-open" type="button">새로운 숲 만들기</button></div>
     </section>
     <button id="goal-close" type="button">지금 숲 계속 살펴보기</button>
-    <button id="restart-open" type="button">처음부터 다시 하기</button>
+    <details class="reset-details"><summary>기록 초기화</summary><button id="restart-open" type="button">처음부터 다시 하기</button></details>
   </dialog>
   <dialog id="restart-dialog" aria-labelledby="restart-title">
     <h2 id="restart-title">처음부터 다시 할까요?</h2><p>현재 숲과 학습·발견·해금·클리어 기록이 모두 지워집니다.</p>
@@ -138,29 +141,30 @@
   <dialog id="help-dialog" aria-labelledby="help-title">
     <button id="help-close" type="button" aria-label="도움말 닫기">닫기</button>
     <section id="help-purpose"><h2 id="help-title">나만의 숲 생태계 만들기</h2>
-      <p><strong>게임 목표</strong><br>여러 생물이 함께 살아갈 수 있는 안정적인 숲을 만들어요. 15~20분을 목표로 탐구해요. 더 천천히 진행해도 괜찮아요.</p>
-      <p><strong>학습 목표</strong><br>생물과 환경, 생물의 역할과 먹이 관계를 알아봐요.</p>
-      <p>생물을 배치하고 관찰해요. 발견을 기록하고, 포인트로 숲의 문제를 돌봐요.</p>
-      <button id="help-start" type="button">게임 시작하기</button>
+      <p><strong>여러 생물이 함께 사는 숲을 만들어요.</strong></p>
+      <p>카드를 골라 숲에 놓아요.<br>먹는 모습을 보고 💡를 눌러 기록해요.<br>!가 보이면 먹이와 환경을 살펴봐요.</p>
+      <p>생산자는 양분을 만들고, 소비자는 먹이를 먹어요.<br>분해자는 죽은 생물의 유기물 분해를 도와요.</p>
+      <button id="help-start" type="button">조작 더 보기</button>
     </section>
     <section id="help-controls" hidden><h2>기본 조작</h2><ol>
-      <li>생물 카드를 터치하고 숲에 놓아요.</li><li>생물이 먹이를 찾는 모습을 관찰해요.</li><li>💡를 눌러 발견을 기록해요.</li><li>잠긴 카드와 배움에서 다음 생물을 해금해요.</li><li>!의 원인을 보고 포인트로 관리해요.</li>
+      <li>생물 카드를 터치하고 숲에 놓아요.</li><li>생물이 먹이를 찾는 모습을 관찰해요.</li><li>💡를 눌러 발견을 기록해요.</li><li>숲 메모나 잠긴 카드에서 짧은 활동을 해요.</li><li>!의 원인을 보고 포인트로 관리해요.</li>
     </ol><p>숲 목표에서 부족한 조건과 30초 유지 도전을 확인해요.</p><button id="help-finish" type="button">숲으로 가기</button></section>
-    <button id="help-skip" type="button">안내 건너뛰기</button>
+    <button id="help-skip" type="button">숲으로 가기</button>
   </dialog>
   <noscript><p class="load-error">생물 카드를 보려면 브라우저에서 JavaScript를 켜 주세요.</p></noscript>
   <dialog id="event-dialog" aria-labelledby="event-title">
     <h2 id="event-title"></h2><p id="event-message"></p>
-    <p id="event-detail" hidden></p><div id="event-actions"></div>
+    <details id="event-more"><summary>왜 그럴까요?</summary><p id="event-detail"></p></details><div id="event-actions"></div>
     <p id="event-result" role="status" aria-live="polite"></p>
     <button id="event-close" type="button">닫기</button>
   </dialog>
   <dialog id="population-dialog" aria-labelledby="population-title">
-    <h2 id="population-title">생물 상태와 개체 수</h2>
+    <h2 id="population-title">생물 살펴보기</h2>
     <p id="population-individual" hidden></p><div id="population-nearby" role="group" aria-label="겹친 생물 중 살펴볼 개체" hidden></div>
     <label>살펴볼 생물 <select id="population-species"></select></label>
-    <p id="population-role"></p><p id="population-state" role="status"></p><p id="population-lifespan"></p>
-    <p id="population-introduction"></p><p id="population-breeding"></p>
+    <p id="population-role"></p><p id="population-state" role="status"></p><p id="population-food"></p><p id="population-introduction"></p><button id="population-place" type="button">이 생물 더 놓기</button>
+    <details id="population-more"><summary>성장·환경·돌려보내기</summary><p id="population-lifespan"></p>
+    <p id="population-breeding"></p>
     <section id="population-development" aria-labelledby="population-development-title" hidden>
       <h3 id="population-development-title">성장과 세대교체</h3>
       <p id="population-cycle"></p><p id="population-development-stage"></p>
@@ -172,6 +176,7 @@
     <p id="population-soil"></p><ul id="population-history"></ul>
     <p>30개체까지 함께 살아요. 공간이 꽉 찼다면 한 개체를 돌려보내고 필요한 생물을 들여요. 돌려보낸 생물은 현재 숲에서 실제로 줄어들어요.</p>
     <button id="population-release" type="button">한 개체를 돌려보내 공간 마련</button>
+    </details>
     <button id="population-close" type="button">숲으로 돌아가기</button>
   </dialog>
   <dialog id="observations-dialog" aria-labelledby="observations-title">
@@ -183,15 +188,15 @@
 
   <dialog id="guide-dialog" aria-labelledby="guide-title">
    <div class="collection-actions"><button id="guide-close" type="button">숲으로 돌아가기</button><button id="guide-web" type="button">먹이그물 살펴보기</button></div>
-   <h2 id="guide-title">나의 생물 도감</h2><p id="guide-progress"></p><p>카드를 얻는 것과 실제 숲에서 생물을 관찰하는 것은 달라요. 숲의 개체를 눌러 살펴보면 관찰 기록이 남아요.</p>
+   <h2 id="guide-title">나의 생물 도감</h2><p id="guide-progress"></p><p>숲의 생물을 눌러 살펴보면 관찰 기록이 남아요.</p>
    <label class="guide-filter-label">도감 보기 <select id="guide-filter"><option value="all">전체 24종</option><option value="unobserved">획득했지만 관찰 전</option><option value="locked">아직 잠긴 카드</option><option value="producer">생산자</option><option value="consumer">소비자</option><option value="decomposer">분해자</option></select></label>
    <section id="guide-detail" tabindex="-1" aria-label="생물 자세히 보기" hidden></section><div id="guide-list"></div>
   </dialog>
   <dialog id="web-dialog" aria-labelledby="web-title">
    <div class="collection-actions"><button id="web-close" type="button">숲으로 돌아가기</button></div>
-   <h2 id="web-title">숲의 먹이그물</h2><p>화살표는 먹이에서 먹는 생물로 이어져요. 강아지풀 → 방아깨비는 방아깨비가 강아지풀을 먹는다는 뜻이에요.</p><p id="web-progress"></p>
-   <label>관계 보기 <select id="web-filter"><option value="all">전체 22개</option><option value="found">누적 발견한 관계</option><option value="available">획득 카드로 탐구 가능한 관계</option></select></label>
-   <ul id="web-list"></ul><p>참지렁이의 낙엽 잔해 섭식과 균류·세균의 분해는 별도의 물질 순환 과정이에요. 위 22개 관계에 더하지 않아요.</p>
+   <h2 id="web-title">숲의 먹이그물</h2><p>화살표는 먹이 → 먹는 생물이에요. 예: 강아지풀 → 방아깨비</p><p id="web-progress"></p>
+   <label>관계 보기 <select id="web-filter"><option value="all">전체 27개</option><option value="found">누적 발견한 관계</option><option value="available">획득 카드로 탐구 가능한 관계</option></select></label>
+   <ul id="web-list"></ul><p>참지렁이의 낙엽 잔해 섭식과 균류·세균의 분해는 별도의 물질 순환 과정이에요. 위 27개 관계에 더하지 않아요.</p>
   </dialog>
   <dialog id="replay-dialog" aria-labelledby="replay-title">
    <h2 id="replay-title">새로운 숲을 만들까요?</h2><p>지금 숲의 생물과 환경은 새로 시작하지만, 획득한 카드와 도감·학습·첫 보상 기록, 남은 생태계 포인트는 그대로 남아요.</p><p>이번 숲 관리 지원 28점은 실제 관리에만 쓸 수 있고 다음 숲으로 가져갈 수 없어요.</p>

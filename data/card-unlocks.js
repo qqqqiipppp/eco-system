@@ -27,6 +27,6 @@ for(const [index,a]of cardUnlocks.entries()){
  const offset=index%3;a.choices=[...a.choices.slice(offset),...a.choices.slice(0,offset)];
  const names=a.inspect.map(id=>organismById[id].name).join('·');
  const relations=[...new Set([...(a.relationId?[a.relationId]:[]),...(a.relationIds||[])])].map(id=>foodRelationById[id]);
- a.hint=names+' 개체를 눌러 살펴봐요.'+(a.priorActivity?' 배움에서 '+(a.priorActivity==='producer_quiz'?'양분을 만드는 생물':'구름송편버섯의 역할')+'을 완료해요.':'')+(relations.length?' '+relations.map(r=>organismById[r.sourceSpeciesId].name+' → '+organismById[r.targetSpeciesId].name).join(', ')+'를 실제로 관찰하고 💡에 기록해요.':'')+(a.requiresLitterMeal?' 이번 숲에서 참지렁이가 실제 낙엽 잔해를 먹는지 확인해요.':'')+' 그 뒤 질문에 답해요.';
+ a.hint=names+' 개체를 눌러 살펴봐요.'+(a.priorActivity?' 활동에서 '+(a.priorActivity==='producer_quiz'?'양분을 만드는 생물':'구름송편버섯의 역할')+'을 완료해요.':'')+(relations.length?' '+relations.map(r=>organismById[r.sourceSpeciesId].name+' → '+organismById[r.targetSpeciesId].name).join(', ')+'를 실제로 관찰하고 💡에 기록해요.':'')+(a.requiresLitterMeal?' 이번 숲에서 참지렁이가 실제 낙엽 잔해를 먹는지 확인해요.':'')+' 그 뒤 질문에 답해요.';
  a.unlockHint=a.title+' 탐구';
 }

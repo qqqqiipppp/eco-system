@@ -4,6 +4,7 @@ import { organismById, roleLabels } from '../../data/organisms.js';
 import { qualityLabel, environmentQuality, factorValue } from '../systems/environment.js';
 import { getSpeciesCount } from '../state/game-state.js';
 import {pointGuidance} from '../systems/point-economy.js';
+import {mealSentence} from '../../data/student-text.js';
 
 export function renderDashboard(state) {
   const summary = state.metrics.stabilitySummary;
@@ -52,8 +53,7 @@ export function feedingFeedback(events) {
     const consumer = organismById[event.consumerSpeciesId];
     const food = organismById[event.foodSpeciesId];
     const relation=relationFor(food.id,consumer.id);
-    if(relation?.core)return `${consumer.name}가 ${food.name}${food.role==='producer'?'을':'를'} 먹었어요.`;
-    return relation?.feedingMode==='resource'?`${consumer.name}: ${food.name}의 ${foodPartLabels[relation.foodPart]}에서 먹이를 얻었어요.`:`${consumer.name}가 ${food.name}를 먹었어요.`;
+    return relation?mealSentence(relation):'';
   }));
   const examples=[...descriptions];return examples.slice(0,2).join(' ')+(examples.length>2?' 다른 먹이 관계도 일어났어요.':'');
 }
@@ -67,9 +67,9 @@ export function renderSelection(uiState, onClear) {
   const panel = document.querySelector('#selection-panel');
   const species = organismById[uiState.selectedSpeciesId];
   if (!species) {
-    panel.innerHTML = '<h3>어떤 생물을 놓아 볼까요?</h3><p>카드를 고른 다음<br>숲의 표시된 영역을 눌러 주세요.</p><span class="selection-hint">카드 터치 → 숲 위치 터치</span>';
+    panel.innerHTML = '<p>카드 선택 → 숲에 놓기 · 선택을 풀고 생물을 누르면 살펴봐요.</p>';
     return;
   }
-  panel.innerHTML = `<div class="selection-topline"><h3>${species.name} · ${roleLabels[species.role]}</h3><button class="clear-selection" type="button">선택 해제</button></div><p>${species.description}</p><span class="selection-hint">숲의 표시된 영역을 터치해 놓아 주세요.</span>`;
+  panel.innerHTML = `<div class="selection-topline"><h3>${species.name} · 숲의 표시된 곳에 놓아요.</h3><button class="clear-selection" type="button">선택 해제</button></div>`;
   panel.querySelector('button').addEventListener('click', onClear);
 }

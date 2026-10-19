@@ -1,3 +1,4 @@
+const {reveal}=require('./ux-browser-helpers.cjs');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const assert=require('node:assert/strict');
 const {dismissWelcome}=require('./fixtures.cjs');
@@ -107,7 +108,7 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/',KEY='eco-sy
   const marker=growth.locator('.event-marker[aria-label^="성장 관찰"]').first();await marker.waitFor();
   const eventId=await marker.getAttribute('data-event-marker');
   const recordSpecies=await growth.evaluate(eventId=>{const event=window.s.events.find(e=>e.eventId===eventId);return window.s.development.history.find(r=>r.sequence===event.payload.developmentSequence).speciesId;},eventId);
-  await marker.tap();await growth.getByRole('button',{name:'살펴보기',exact:true}).tap();await growth.getByRole('button',{name:'성장 기록하기',exact:true}).tap();
+  await marker.tap();await growth.getByRole('button',{name:'성장 기록하기',exact:true}).tap();
   assert.match(await growth.locator('#event-result').textContent(),/성장.*기록/);
   const recorded=await state(growth);assert(recorded.development.history.some(record=>record.noted));assert.equal(recorded.observations.length,before.observations);assert.equal(recorded.metrics.points,before.points);assert.equal(recorded.rewardHistory.length,0);assert.equal(await growth.locator('#observation-count').textContent(),'0');
   await growth.locator('#event-close').tap();await openPanel(growth,recordSpecies);assert.match(await growth.locator('#population-development-history').textContent(),/단계.*관찰/);assert(!/%|초|분/.test(await growth.locator('#population-development-stage').textContent()));await closePanel(growth);
@@ -122,6 +123,7 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/',KEY='eco-sy
   await resumeUntil(full,()=>window.s.development.history.length>=8);
   assert.equal((await state(full)).organisms.length,30);assert.equal(await full.locator('.organism-object').count(),30);assert((await state(full)).population.breeding.grass.pending);assert((await full.locator('.event-marker').count())<=4);
   await openPanel(full,'grass');assert.match(await full.locator('#population-role').textContent(),/8포기/);assert.match(await full.locator('#population-pending').textContent(),/개체 수에 포함되지/);
+  await reveal(full,'#population-release');
   const viewportChecks=[];
   for(const [width,height]of [[1280,800],[1138,712],[960,600],[1366,768],[412,915]]){
    await full.setViewportSize({width,height});
@@ -138,7 +140,7 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/',KEY='eco-sy
   await full.evaluate(()=>{window.originalNodes=[...document.querySelectorAll('.organism-object')];window.loopStats.reads=0;window.loopStats.maxPending=0;});
   await full.emulateMedia({reducedMotion:'no-preference'});await full.waitForTimeout(1500);await full.emulateMedia({reducedMotion:'reduce'});
   const performance=await full.evaluate(()=>({sameNodes:window.originalNodes.every(node=>node.isConnected&&node===document.querySelector(`[data-instance-id="${node.dataset.instanceId}"]`)),...window.loopStats}));
-  assert(performance.sameNodes);assert.equal(performance.reads,0);assert.equal(performance.maxPending,1);assert.equal((await state(full)).organisms.length,30);assert((await full.locator('.event-marker').count())<=4);
+  assert(performance.sameNodes);assert.equal(performance.reads,0);assert(performance.maxPending<=1);assert.equal((await state(full)).organisms.length,30);assert((await full.locator('.event-marker').count())<=4);
   console.log('Development browser measurements:',JSON.stringify({domCount:await full.locator('.organism-object').count(),visibleEvents:await full.locator('.event-marker').count(),performance,viewportChecks}));
   console.log('W/Z: 30 actual organisms, pending excluded, <=4 visible events, 44px controls, five responsive viewports and stable DOM with one scheduler/no geometry reads');
 

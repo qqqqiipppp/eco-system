@@ -1,3 +1,4 @@
+const {reveal}=require('./ux-browser-helpers.cjs');
 const { dismissWelcome, useDeveloperEnvironment } = require('./fixtures.cjs');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');const assert=require('node:assert/strict');
 const BASE=process.env.BASE_URL||'http://127.0.0.1:8082/eco-system/';const KEY='eco-system:forest-save';
@@ -19,11 +20,11 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8082/eco-system/';const KEY='
  try{
   // F/G/K/L/M/O: real progression and management, actual subpath HTTP serving.
   const p=await setup();assert.equal((await snapshot(p)).inventory.filter(c=>c.acquired).length,5);
-  await p.locator('#activities-open').tap();await p.locator('[data-activity-id="decomposer_classify"]').tap();await p.locator('[data-answer="decomposer"]').click();await p.locator('#activity-close').click();await place(p,'mushroom',.36,.76);
+  await p.locator('#activities-open').tap();await reveal(p,'[data-activity-id="decomposer_classify"]');await p.locator('[data-activity-id="decomposer_classify"]').tap();await p.locator('[data-answer="decomposer"]').click();await p.locator('#activity-close').click();await place(p,'mushroom',.36,.76);
   await place(p,'grasshopper',.43,.70);await p.emulateMedia({reducedMotion:'no-preference'});await p.locator('.event-insight').first().waitFor({timeout:40000});
-  await p.locator('.event-insight').first().tap();await p.getByRole('button',{name:'살펴보기',exact:true}).click();await p.getByRole('button',{name:'발견 기록하기',exact:true}).click();await p.locator('#event-close').click();
+  await p.locator('.event-insight').first().tap();await p.getByRole('button',{name:'발견 기록하기',exact:true}).click();await p.locator('#event-close').click();
   await p.locator('.organism-card[data-species-id="frog"]').tap();await p.locator('[data-answer="confirm"]').click();await p.locator('#activity-close').click();
-  await environment(p,'물','bad');await p.locator('.abiotic-status .event-alert').waitFor({timeout:15000});await p.locator('.abiotic-status .event-alert').tap();await p.getByRole('button',{name:'살펴보기',exact:true}).click();await p.locator('[data-management-action="water-care"]').tap();await p.locator('#event-close').click();
+  await environment(p,'물','bad');await p.locator('.abiotic-status .event-alert').waitFor({timeout:15000});await p.locator('.abiotic-status .event-alert').tap();await p.locator('[data-management-action="water-care"]').tap();await p.locator('#event-close').click();
   await place(p,'frog',.16,.65);
   await p.evaluate(async()=>{window.stateForTest=(await import('./js/main.js')).gameState});await p.waitForFunction(()=>window.stateForTest.organisms.some(o=>o.behaviorState==='moveToFood'),null,{timeout:40000});await p.emulateMedia({reducedMotion:'reduce'});
   const before=await snapshot(p);await p.waitForTimeout(1600);assert.equal(await p.locator('#save-status').textContent(),'저장됨');
@@ -33,14 +34,14 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8082/eco-system/';const KEY='
   for(const organism of after.organisms){const prev=before.organisms.find(o=>o.instanceId===organism.instanceId);assert.deepEqual(organism.position,prev.position);if('hunger'in organism){assert.equal(organism.hunger,prev.hunger);assert.equal(organism.behaviorState,prev.behaviorState);assert.equal(organism.targetInstanceId,prev.targetInstanceId);assert.deepEqual(organism.feedingClock,prev.feedingClock);}}
   assert.equal(after.simulationTime,before.simulationTime);assert.equal(await p.locator('dialog[open]').count(),0);assert.equal(await p.locator('.organism-card[aria-pressed="true"]').count(),0);
   const writes=await p.evaluate(()=>window.writes);await p.waitForTimeout(1700);assert.equal(await p.evaluate(()=>window.writes),writes);
-  await p.locator('#goal-open').click();await p.locator('#restart-open').click();await p.locator('#restart-cancel').click();assert.deepEqual(await snapshot(p),after);
-  await p.locator('#goal-open').click();await p.locator('#restart-open').click();await p.locator('#restart-confirm').click();const fresh=await snapshot(p);assert.equal(fresh.organisms.length,3);assert.equal(fresh.metrics.points,0);assert.equal(fresh.simulationTime,0);assert.equal(fresh.managementHistory.length,0);assert.equal(fresh.inventory.filter(c=>c.acquired).length,5);assert.equal(await p.evaluate(key=>localStorage.getItem(key),KEY),null);
+  await p.locator('#goal-open').click();await reveal(p,'#restart-open');await p.locator('#restart-open').click();await p.locator('#restart-cancel').click();assert.deepEqual(await snapshot(p),after);
+  await p.locator('#goal-open').click();await reveal(p,'#restart-open');await p.locator('#restart-open').click();await p.locator('#restart-confirm').click();const fresh=await snapshot(p);assert.equal(fresh.organisms.length,3);assert.equal(fresh.metrics.points,0);assert.equal(fresh.simulationTime,0);assert.equal(fresh.managementHistory.length,0);assert.equal(fresh.inventory.filter(c=>c.acquired).length,5);assert.equal(await p.evaluate(key=>localStorage.getItem(key),KEY),null);
   assert.equal(await p.locator('.organism-object').count(),3);await place(p,'grass',.4,.74);assert.equal((await snapshot(p)).organisms.length,4);console.log('F/G/K/L/M/O: real progression restored at /eco-system/, safe feeding restart, save coalescing and in-place confirmed reset');
   const goalRaw=await seedSnapshot(p);
   // A/B/C/D/E: actual 30 seconds of ecology, no fast-forwarded clear clock.
-  const g=await setup(goalRaw,false);await g.locator('#goal-open').click();await g.waitForFunction(()=>document.querySelector('#hold-progress').value>.06,null,{timeout:15000});await g.locator('#goal-close').click();
+  const g=await setup(goalRaw,false);await g.waitForFunction(()=>document.querySelector('#hold-progress').value>.06,null,{timeout:15000});await g.locator('#goal-open').click();const readingHold=(await snapshot(g)).forestProgress.stableSeconds;await g.waitForTimeout(600);assert.equal((await snapshot(g)).forestProgress.stableSeconds,readingHold);await g.locator('#goal-close').click();
   await environment(g,'물','bad');assert.equal((await snapshot(g)).forestProgress.stableSeconds,0);assert.equal((await snapshot(g)).forestProgress.cleared,false);await environment(g,'물','good');
-  await g.waitForFunction(()=>document.querySelector('#goal-label').textContent==='숲 생태계 목표 달성!',null,{timeout:65000});const cleared=await snapshot(g);assert(cleared.forestProgress.cleared);assert(cleared.forestProgress.clearedAt>=30);await environment(g,'물','bad');await environment(g,'토양','bad');assert((await snapshot(g)).forestProgress.cleared);assert((await snapshot(g)).metrics.stability<cleared.metrics.bestStability);
+  await g.waitForFunction(()=>document.querySelector('#goal-label').textContent==='숲 생태계 목표 달성!',null,{timeout:65000});const cleared=await snapshot(g);assert(cleared.forestProgress.cleared);if(await g.locator('#goal-dialog').evaluate(d=>d.open))await g.locator('#goal-close').click();assert(cleared.forestProgress.clearedAt>=30);await environment(g,'물','bad');await environment(g,'토양','bad');assert((await snapshot(g)).forestProgress.cleared);assert((await snapshot(g)).metrics.stability<cleared.metrics.bestStability);
   await g.emulateMedia({reducedMotion:'reduce'});await g.reload({waitUntil:'networkidle'});assert((await snapshot(g)).forestProgress.cleared);await g.locator('#goal-open').click();if(process.env.SCREENSHOT_PATH)await g.screenshot({path:process.env.SCREENSHOT_PATH,fullPage:true});await g.locator('#goal-close').click();
   console.log('A/B/C/D/E: interrupted hold resets, real 30-second clear persists after deterioration/reload');
   // H: recreate a saved shortage immediately without trusting active event JSON.
@@ -59,7 +60,7 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8082/eco-system/';const KEY='
   for(const [width,height]of [[960,600],[412,915]]){await n.setViewportSize({width,height});await n.waitForTimeout(100);assert.equal(await n.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);}
   console.log('N/K: 30-organism restore and batched save',JSON.stringify(perf));
   // Storage denial leaves gameplay usable, reset failure keeps current state.
-  const denied=await setup();await denied.evaluate(()=>{Storage.prototype.setItem=function(){throw Error('quota')};Storage.prototype.removeItem=function(){throw Error('denied')}});await place(denied,'grass',.4,.74);await denied.waitForTimeout(1500);assert.match(await denied.locator('#save-status').textContent(),/저장하지 못/);const kept=await snapshot(denied);await denied.locator('#goal-open').click();await denied.locator('#restart-open').click();await denied.locator('#restart-confirm').click();assert.deepEqual(await snapshot(denied),kept);
+  const denied=await setup();await denied.evaluate(()=>{Storage.prototype.setItem=function(){throw Error('quota')};Storage.prototype.removeItem=function(){throw Error('denied')}});await place(denied,'grass',.4,.74);await denied.waitForTimeout(1500);assert.match(await denied.locator('#save-status').textContent(),/저장하지 못/);const kept=await snapshot(denied);await denied.locator('#goal-open').click();await reveal(denied,'#restart-open');await denied.locator('#restart-open').click();await denied.locator('#restart-confirm').click();assert.deepEqual(await snapshot(denied),kept);
   // Close and relaunch Edge with the same temporary browser profile.
   const os=require('node:os'),path=require('node:path'),fs=require('node:fs');
   const profile=fs.mkdtempSync(path.join(os.tmpdir(),'eco-system-save-'));

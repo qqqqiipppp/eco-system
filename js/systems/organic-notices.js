@@ -1,5 +1,6 @@
 import {organicNoticeConfig as config,organicWorkers,organicLabels} from '../../data/detritus-config.js';
 import {organismById} from '../../data/organisms.js';
+import {particle} from '../../data/student-text.js';
 
 // Position selects a visual learning partner, never a separate resource pool.
 export function eligibleOrganicWorker(state,instance,part){
@@ -31,7 +32,7 @@ export function organicNoticeCandidates(state){
 export function organicNoticeText(record,worker){
  const source=organismById[record.sourceSpeciesId].name,name=organismById[worker.speciesId].name;
  const role=worker.speciesId==='earthworm'?'식물 잔해를 먹고 분해와 토양을 돕는 소비자':worker.speciesId==='mushroom'?'죽은 나무를 분해하는 균류':worker.speciesId==='litter-mold'?'낙엽 분해에 참여하는 균류 군집':'유기물 분해에 참여하는 세균';
- return {title:`${name}의 유기물 역할 살펴보기`,message:`${source}가 자연으로 돌아가 ${organicLabels[record.part]}이 생겼어요. ${name}은 ${role}예요.`,explanation:'유기물이 생긴 뒤 가까운 생물에게 관심 표시를 연결했어요. 이미 이 잔해를 분해했다고 확인한 것은 아니에요. 숲의 유기물은 함께 사용하는 자원이며, 표시된 개체와 실제 처리량은 구분해요. 물·공기·토양 상태에 따라 실제 활동은 달라져요. 확인만으로 포인트를 받거나 유료 관리를 실행하지 않아요.'};
+ return {title:`${name}의 유기물 역할 살펴보기`,message:`${particle(source,'이','가')} 자연으로 돌아가 ${organicLabels[record.part]}이 생겼어요. ${particle(name,'은','는')} ${role}예요.`,explanation:'유기물이 생긴 뒤 가까운 생물에게 관심 표시를 연결했어요. 이미 이 잔해를 분해했다고 확인한 것은 아니에요. 숲의 유기물은 함께 사용하는 자원이며, 표시된 개체와 실제 처리량은 구분해요. 물·공기·토양 상태에 따라 실제 활동은 달라져요. 확인만으로 포인트를 받거나 유료 관리를 실행하지 않아요.'};
 }
 export function acknowledgeOrganicOrigin(state,sequence){
  const record=state.decomposition.notices.history.find(r=>r.sequence===sequence);

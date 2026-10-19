@@ -1,3 +1,4 @@
+const {reveal}=require('./ux-browser-helpers.cjs');
 const { dismissWelcome } = require('./fixtures.cjs');
 const { useUnlockedCards } = require('./fixtures.cjs');
 // Requires Playwright and a local static server; no application dependencies.
@@ -50,7 +51,7 @@ const assert = require('node:assert/strict');
     assert.equal(await page.locator('.organism-card').count(), 24);
     assert.equal(await page.locator('.organism-card[data-species-id="rabbit"]').getAttribute('data-locked'), 'true');
     await page.locator('#goal-open').click();
-    await page.locator('#restart-open').click();
+    await reveal(page,'#restart-open');await page.locator('#restart-open').click();
     await page.locator('#restart-confirm').click();
     await page.reload({ waitUntil: 'networkidle' });
 
@@ -65,7 +66,7 @@ const assert = require('node:assert/strict');
     await tap(0.4, 0.30);
     assert.equal(await count(), 3);
     assert.match(await page.locator('#placement-feedback').textContent(), /배치할 수 없어요/);
-    await page.locator('.observation').tap();
+    await page.locator('.forest-memo').tap();
     await page.locator('.dashboard').tap();
     await page.locator('.inventory-note').tap();
     assert.equal(await count(), 3);
@@ -153,7 +154,7 @@ const assert = require('node:assert/strict');
     console.log('30-object structure:', JSON.stringify(perf));
     if (process.env.SCREENSHOT_PATH) await page.screenshot({ path: process.env.SCREENSHOT_PATH, fullPage: true });
     await page.locator('#goal-open').click();
-    await page.locator('#restart-open').click();
+    await reveal(page,'#restart-open');await page.locator('#restart-open').click();
     await page.locator('#restart-confirm').click();
     await page.reload({ waitUntil: 'networkidle' });
     await choose('mushroom');

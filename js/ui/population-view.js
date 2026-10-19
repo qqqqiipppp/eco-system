@@ -7,6 +7,8 @@ import {lifespanRules,replenishmentRules} from '../../data/lifespan-config.js';
 import {effectiveAge} from '../state/life-state.js';
 import {developmentRules} from '../../data/development-config.js';
 import {developmentStage,developmentConditions,developmentNotice} from '../systems/development.js';
+import {studentStatus,studentFood} from './student-status.js';
+import {placementConfig} from '../../data/interaction-config.js';
 
 export function createPopulationView(state,onRelease,onFocus=()=>{}){
  const dialog=document.querySelector('#population-dialog'),select=document.querySelector('#population-species'),release=document.querySelector('#population-release');
@@ -19,7 +21,7 @@ export function createPopulationView(state,onRelease,onFocus=()=>{}){
   const o=state.organisms.find(o=>o.instanceId===selectedInstanceId);
   dialog.dataset.selectedInstanceId=o?.instanceId||'';
   individual.hidden=!candidateIds.length;
-  if(candidateIds.length)individual.textContent=o?`살펴보는 개체: ${organismById[o.speciesId].name}. 대표 생활 공간: ${habitatZones[speciesHabitats[o.speciesId].primary]}. ${movementLabels[speciesHabitats[o.speciesId].movement]}. 이 개체: ${labels[survivalStage(o)]}${o.development?' '+(developmentRules[o.speciesId]?.stages.find(s=>s.id===o.development.stage)?.label||''):''} 항상 이곳에만 사는 것은 아니에요.`:'여러 생물이 가까이 있어요. 살펴볼 개체를 골라 주세요.';
+  if(candidateIds.length)individual.textContent=o?organismById[o.speciesId].name+' · '+habitatZones[speciesHabitats[o.speciesId].primary]:'가까운 생물 중 하나를 골라요.';
   const live=candidateIds.filter(id=>state.organisms.some(o=>o.instanceId===id));
   const signature=live.join('|')+'#'+selectedInstanceId;
   nearby.hidden=live.length<2&&Boolean(o);
@@ -29,7 +31,6 @@ export function createPopulationView(state,onRelease,onFocus=()=>{}){
  function inspect(ids){candidateIds=ids.filter(id=>state.organisms.some(o=>o.instanceId===id));selectedInstanceId=null;confirmation=null;onFocus(null);if(!candidateIds.length)return;if(!dialog.open)dialog.showModal();if(candidateIds.length===1)choose(candidateIds[0]);else render();}
 
  for(const species of organisms){const option=document.createElement('option');option.value=species.id;option.textContent=species.name;select.append(option);}
- const labels={normal:'현재는 정상 상태예요.',hungry:'먹이를 찾고 있어요.',severe:'먹이가 오랫동안 부족해요.',weak:'쇠약해졌어요. 먹이와 관리가 필요해요.',static:'자리를 지키고 있어요.'};
  function setText(node,text){if(node.textContent!==text)node.textContent=text;}
  function renderDevelopment(id,members){
   const rule=developmentRules[id];developmentPanel.hidden=!rule;if(!rule)return;
@@ -66,12 +67,15 @@ export function createPopulationView(state,onRelease,onFocus=()=>{}){
   const lifeRule=lifespanRules[id];
   document.querySelector('#population-role').textContent=`역할: ${roleLabels[species.role]} · 현재 숲 개체 수: ${members.length}${lifeRule.unit}`;
   const stages=members.map(survivalStage),worst=['weak','severe','hungry','normal','static'].find(v=>stages.includes(v));
-  document.querySelector('#population-state').textContent=members.length?id==='earthworm'?(members.some(o=>o.lastLitterFeedingAt!==null&&state.simulationTime-o.lastLitterFeedingAt<=45)?'최근 공유 식물 잔해를 먹었어요. 균류·세균의 분해와 구분해요.':'공유 식물 잔해와 습한 환경을 살펴봐요.'):labels[worst]:'지금 숲에는 없어요. 획득한 카드는 계속 사용할 수 있어요.';
+  const selected=members.find(o=>o.instanceId===selectedInstanceId)||members.find(o=>survivalStage(o)===worst)||members[0];
+  document.querySelector('#population-state').textContent=studentStatus(selected,state.simulationTime);
+  document.querySelector('#population-food').textContent=studentFood(id);
+  document.querySelector('#population-place').disabled=state.organisms.length>=placementConfig.maxOrganisms||!state.inventory.some(c=>c.speciesId===id&&c.acquired)||!validateIntroduction(state,id).ok;
   const age=members.some(o=>lifeRule.model==='individual'&&effectiveAge(o,state.simulationTime)/o.life.duration>.8)?' 생애의 후반을 보내는 개체가 있어요. 자연스러운 세대교체를 살펴봐요.':'';
   const colony=lifeRule.model==='colony'&&members.length?` 군집 활동: ${members.some(o=>o.life.stressSeconds>0)?'서식 환경이 좋지 않아요':members.some(o=>o.life.vigor<.5)?'자원이 적어 쉬고 있어요':'새로운 세대가 이어질 수 있어요'}.`:'';
   document.querySelector('#population-lifespan').textContent=`생애주기: ${lifeRule.label}.${age}${colony} 실제 생애와 게임 시간은 달라요.`;
   const check=validateIntroduction(state,id),locked=!state.inventory.find(c=>c.speciesId===id)?.acquired;
-  document.querySelector('#population-introduction').textContent=locked?(activityForSpecies[id]?.hint||'카드를 해금한 뒤 들일 수 있어요.'):check.ok?'카드 선택 후 숲을 터치해요. 나쁜 환경에서는 먹이와 회복을 더 살펴보세요.':check.message;
+  document.querySelector('#population-introduction').textContent=locked?'잠긴 카드를 눌러 탐구 방법을 봐요.':state.organisms.length>=placementConfig.maxOrganisms?'숲이 가득 찼어요. 아래 자세히 보기에서 한 개체를 돌려보낼 수 있어요.':check.ok?'먹이와 환경을 살펴보고 필요한 생물을 놓아요.':check.message;
   const rule=reproductionRules[id];
   document.querySelector('#population-breeding').textContent=rule?id==='grass'?'씨앗을 만드는 강아지풀과 알맞은 환경·공간이 필요해요. 씨앗이 기다린 뒤 새싹이 나와요.':`${id==='grasshopper'?'성충 방아깨비':'성체 멧토끼'} ${rule.minimum}마리 이상과 먹이·환경·공간이 필요해요. 어린 개체는 아직 부모가 되지 못해요. 잠시 좋아졌다고 바로 늘어나지는 않아요.`:lifeRule.model==='colony'?'자원과 환경이 적절하면 군집 안에서 새 세대가 이어져요. 자원이 적으면 활동을 줄이고 쉬어요.':replenishmentRules[id]?'한 번 들인 생물은 먹이·환경·공간이 계속 적절하면 주변 서식지에서 제한적으로 보충돼요. 획득한 카드로 다시 들일 수도 있어요.':'긴 생애가 끝나도 획득한 카드로 다시 들일 수 있어요. 먹이와 공간을 먼저 살펴봐요.';
   renderDevelopment(id,members);

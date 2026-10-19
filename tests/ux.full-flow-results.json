@@ -1,0 +1,266 @@
+{
+  "stage": "15.9",
+  "baseline": "c0d66c916444aec74952de238642f6a36a83ee84",
+  "actualStudent": false,
+  "mode": "real browser UI, no fast-forward",
+  "runs": [
+    {
+      "before": false,
+      "viewport": "1280x800",
+      "wallSeconds": 44.541,
+      "activeClearSeconds": 46,
+      "taps": 28,
+      "uniqueDialogOpens": 5,
+      "automaticMenuMilliseconds": 603,
+      "steps": [
+        {
+          "name": "select/place two grasshoppers",
+          "taps": 6,
+          "wallMilliseconds": 181,
+          "activeSeconds": 2
+        },
+        {
+          "name": "place a decomposer",
+          "taps": 3,
+          "wallMilliseconds": 83,
+          "activeSeconds": 2
+        },
+        {
+          "name": "judge producer",
+          "taps": 4,
+          "wallMilliseconds": 134,
+          "activeSeconds": 2
+        },
+        {
+          "name": "judge decomposer",
+          "taps": 3,
+          "wallMilliseconds": 121,
+          "activeSeconds": 2
+        },
+        {
+          "name": "observe and record actual leaves meal",
+          "taps": 3,
+          "wallMilliseconds": 5740,
+          "activeSeconds": 8
+        },
+        {
+          "name": "learn and acquire frog card",
+          "taps": 3,
+          "wallMilliseconds": 94,
+          "activeSeconds": 8
+        },
+        {
+          "name": "place frog",
+          "taps": 3,
+          "wallMilliseconds": 77,
+          "activeSeconds": 8
+        },
+        {
+          "name": "observe and record actual predation",
+          "taps": 3,
+          "wallMilliseconds": 7938,
+          "activeSeconds": 16
+        },
+        {
+          "name": "maintain real forest balance to first goal",
+          "taps": 0,
+          "wallMilliseconds": 30036,
+          "activeSeconds": 46
+        }
+      ],
+      "dialogTextSamples": [
+        {
+          "id": "help-dialog",
+          "visibleCharacters": 169
+        },
+        {
+          "id": "activity-dialog",
+          "visibleCharacters": 102
+        },
+        {
+          "id": "activity-dialog",
+          "visibleCharacters": 155
+        },
+        {
+          "id": "activity-dialog",
+          "visibleCharacters": 120
+        },
+        {
+          "id": "activity-dialog",
+          "visibleCharacters": 170
+        },
+        {
+          "id": "event-dialog",
+          "visibleCharacters": 70
+        },
+        {
+          "id": "event-dialog",
+          "visibleCharacters": 114
+        },
+        {
+          "id": "activity-dialog",
+          "visibleCharacters": 120
+        },
+        {
+          "id": "activity-dialog",
+          "visibleCharacters": 185
+        },
+        {
+          "id": "event-dialog",
+          "visibleCharacters": 65
+        },
+        {
+          "id": "event-dialog",
+          "visibleCharacters": 109
+        }
+      ],
+      "points": 35,
+      "food": [
+        "v2_grass_to_grasshopper",
+        "v2_grasshopper_to_frog"
+      ],
+      "activities": [
+        "producer_quiz",
+        "decomposer_classify",
+        "grass_observation"
+      ],
+      "environmentEpisodes": 0,
+      "errors": []
+    },
+    {
+      "before": true,
+      "viewport": "1280x800",
+      "wallSeconds": 45.287,
+      "activeClearSeconds": 45,
+      "taps": 30,
+      "uniqueDialogOpens": 5,
+      "automaticMenuMilliseconds": 933,
+      "steps": [
+        {
+          "name": "select/place two grasshoppers",
+          "taps": 6,
+          "wallMilliseconds": 181,
+          "activeSeconds": 0
+        },
+        {
+          "name": "place a decomposer",
+          "taps": 3,
+          "wallMilliseconds": 87,
+          "activeSeconds": 0
+        },
+        {
+          "name": "judge producer",
+          "taps": 3,
+          "wallMilliseconds": 137,
+          "activeSeconds": 0.5
+        },
+        {
+          "name": "judge decomposer",
+          "taps": 4,
+          "wallMilliseconds": 138,
+          "activeSeconds": 0.5
+        },
+        {
+          "name": "observe and record actual leaves meal",
+          "taps": 4,
+          "wallMilliseconds": 4484,
+          "activeSeconds": 5
+        },
+        {
+          "name": "learn and acquire frog card",
+          "taps": 3,
+          "wallMilliseconds": 93,
+          "activeSeconds": 5
+        },
+        {
+          "name": "place frog",
+          "taps": 3,
+          "wallMilliseconds": 98,
+          "activeSeconds": 5
+        },
+        {
+          "name": "observe and record actual predation",
+          "taps": 4,
+          "wallMilliseconds": 9919,
+          "activeSeconds": 15
+        },
+        {
+          "name": "maintain real forest balance to first goal",
+          "taps": 0,
+          "wallMilliseconds": 30022,
+          "activeSeconds": 45
+        }
+      ],
+      "dialogTextSamples": [
+        {
+          "id": "help-dialog",
+          "visibleCharacters": 187
+        },
+        {
+          "id": "activity-dialog",
+          "visibleCharacters": 313
+        },
+        {
+          "id": "activity-dialog",
+          "visibleCharacters": 374
+        },
+        {
+          "id": "activity-dialog",
+          "visibleCharacters": 323
+        },
+        {
+          "id": "activity-dialog",
+          "visibleCharacters": 341
+        },
+        {
+          "id": "activity-dialog",
+          "visibleCharacters": 423
+        },
+        {
+          "id": "event-dialog",
+          "visibleCharacters": 69
+        },
+        {
+          "id": "event-dialog",
+          "visibleCharacters": 195
+        },
+        {
+          "id": "event-dialog",
+          "visibleCharacters": 218
+        },
+        {
+          "id": "activity-dialog",
+          "visibleCharacters": 343
+        },
+        {
+          "id": "activity-dialog",
+          "visibleCharacters": 441
+        },
+        {
+          "id": "event-dialog",
+          "visibleCharacters": 63
+        },
+        {
+          "id": "event-dialog",
+          "visibleCharacters": 207
+        },
+        {
+          "id": "event-dialog",
+          "visibleCharacters": 230
+        }
+      ],
+      "points": 35,
+      "food": [
+        "v2_grass_to_grasshopper",
+        "v2_grasshopper_to_frog"
+      ],
+      "activities": [
+        "producer_quiz",
+        "decomposer_classify",
+        "grass_observation"
+      ],
+      "environmentEpisodes": 0,
+      "errors": []
+    }
+  ]
+}

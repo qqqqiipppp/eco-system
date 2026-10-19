@@ -1,0 +1,242 @@
+{
+  "stage": "15.9",
+  "baseline": "c0d66c916444aec74952de238642f6a36a83ee84",
+  "unitGroups": {
+    "historicalOriginal22": 314,
+    "compressedOriginal22": 407,
+    "expanded27OldSurvival": 181,
+    "actual15_8Production": 247,
+    "newPresentation": 36
+  },
+  "unitGroupsOverlap": true,
+  "browserSuites": {
+    "existing": 23,
+    "newUI": 1,
+    "newFullFlow": 1,
+    "passed": 25
+  },
+  "realTime": [
+    {
+      "split": true,
+      "wallSeconds": 1229.8690000000001,
+      "simulationSeconds": 1215,
+      "taps": 182,
+      "menusOpenedFromHeader": 0,
+      "points": 51,
+      "acquired": 13,
+      "observations": 2,
+      "cleared": {
+        "cleared": true,
+        "clearedAt": 121,
+        "stableSeconds": 30
+      },
+      "organisms": 11,
+      "environmentEpisodes": 3,
+      "development": 15,
+      "actions": [
+        {
+          "at": 5,
+          "type": "activity",
+          "id": "producer_quiz"
+        },
+        {
+          "at": 15.5,
+          "type": "activity",
+          "id": "grass_observation"
+        },
+        {
+          "at": 25.5,
+          "type": "activity",
+          "id": "decomposer_classify"
+        },
+        {
+          "at": 35.5,
+          "type": "activity",
+          "id": "rabbit_habitat"
+        },
+        {
+          "at": 40.5,
+          "type": "activity",
+          "id": "explore_pine"
+        },
+        {
+          "at": 46,
+          "type": "activity",
+          "id": "explore_raspberry"
+        },
+        {
+          "at": 51,
+          "type": "activity",
+          "id": "explore_chipmunk"
+        },
+        {
+          "at": 56,
+          "type": "activity",
+          "id": "explore_field-mouse"
+        },
+        {
+          "at": 61,
+          "type": "activity",
+          "id": "explore_snail"
+        },
+        {
+          "at": 66,
+          "type": "activity",
+          "id": "explore_snake"
+        },
+        {
+          "at": 604.5,
+          "type": "save-reload",
+          "points": 49
+        }
+      ],
+      "errors": [],
+      "additionalCheckpointReentry": {
+        "fromActiveSeconds": 1195,
+        "throughActiveSeconds": 1215,
+        "wallSeconds": 20.573,
+        "reason": "5-second sampling put first save after600; extend actual second leg beyond600 rather than claim595.5 as10minutes",
+        "inventoryPreserved": true,
+        "rewardsPreserved": true,
+        "errors": []
+      },
+      "secondLegActiveSeconds": 610.5
+    },
+    {
+      "split": false,
+      "wallSeconds": 1209.408,
+      "simulationSeconds": 1201,
+      "taps": 181,
+      "menusOpenedFromHeader": 0,
+      "points": 51,
+      "acquired": 13,
+      "observations": 2,
+      "cleared": {
+        "cleared": true,
+        "clearedAt": 116,
+        "stableSeconds": 30
+      },
+      "organisms": 11,
+      "environmentEpisodes": 3,
+      "development": 15,
+      "actions": [
+        {
+          "at": 10.5,
+          "type": "activity",
+          "id": "grass_observation"
+        },
+        {
+          "at": 20.5,
+          "type": "activity",
+          "id": "producer_quiz"
+        },
+        {
+          "at": 30.5,
+          "type": "activity",
+          "id": "decomposer_classify"
+        },
+        {
+          "at": 35.5,
+          "type": "activity",
+          "id": "rabbit_habitat"
+        },
+        {
+          "at": 41,
+          "type": "activity",
+          "id": "explore_pine"
+        },
+        {
+          "at": 46,
+          "type": "activity",
+          "id": "explore_raspberry"
+        },
+        {
+          "at": 51,
+          "type": "activity",
+          "id": "explore_chipmunk"
+        },
+        {
+          "at": 56,
+          "type": "activity",
+          "id": "explore_field-mouse"
+        },
+        {
+          "at": 61,
+          "type": "activity",
+          "id": "explore_snail"
+        },
+        {
+          "at": 66,
+          "type": "activity",
+          "id": "explore_snake"
+        }
+      ],
+      "errors": []
+    }
+  ],
+  "protectedFiles": 31,
+  "priorResultsPreserved": 81,
+  "layouts": [
+    {
+      "width": 1280,
+      "height": 800,
+      "horizontalOverflow": false,
+      "verticalOverflow": false,
+      "minTouch": 44,
+      "memoOutsideForest": true,
+      "forestHeight": 335
+    },
+    {
+      "width": 1138,
+      "height": 712,
+      "horizontalOverflow": false,
+      "verticalOverflow": false,
+      "minTouch": 44,
+      "memoOutsideForest": true,
+      "forestHeight": 249
+    },
+    {
+      "width": 960,
+      "height": 600,
+      "horizontalOverflow": false,
+      "verticalOverflow": false,
+      "minTouch": 44,
+      "memoOutsideForest": true,
+      "forestHeight": 226
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "horizontalOverflow": false,
+      "verticalOverflow": false,
+      "minTouch": 44,
+      "memoOutsideForest": true,
+      "forestHeight": 303
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "horizontalOverflow": false,
+      "verticalOverflow": true,
+      "minTouch": 44,
+      "memoOutsideForest": true,
+      "forestHeight": 380
+    }
+  ],
+  "actualHardwareS5e": false,
+  "studentsObserved": false,
+  "clearPolicyUnchanged": true,
+  "instantModelClearSeconds": 100.5,
+  "browserFullClearSeconds": [
+    {
+      "before": false,
+      "seconds": 46
+    },
+    {
+      "before": true,
+      "seconds": 45
+    }
+  ],
+  "noCommitPush": true,
+  "pagesSettingsUnchanged": true
+}
