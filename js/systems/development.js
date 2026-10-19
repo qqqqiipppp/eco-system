@@ -4,6 +4,7 @@ import {naturalEndAt} from '../state/life-state.js';
 import {factorValue,growthSuitability} from './environment.js';
 import {organismById} from '../../data/organisms.js';
 import {populationConfig} from '../../data/population-config.js';
+import {hasRecentMeal} from './meal-readiness.js';
 
 export const developmentStage=instance=>instance.development?.stage||developmentRules[instance.speciesId]?.stages.at(-1).id;
 const stageDefinition=instance=>developmentRules[instance.speciesId]?.stages.find(s=>s.id===developmentStage(instance));
@@ -36,7 +37,7 @@ export function developmentRate(state,instance){
   if(!fields.every(f=>factorValue(state.environment,f)>=developmentConfig.minimumEnvironment))return 0;
   if(instance.speciesId==='grass')return growthSuitability('grass',state.environment);
   if(instance.speciesId==='rabbit'&&developmentStage(instance)==='baby')return 1;
-  return instance.hunger<=populationConfig.maxHealthyHunger&&instance.lastSuccessfulFeedingAt!==null&&state.simulationTime-instance.lastSuccessfulFeedingAt<=populationConfig.recentMealSeconds?1:0;
+  return instance.hunger<=populationConfig.maxHealthyHunger&&hasRecentMeal(instance,state.simulationTime)?1:0;
 }
 export function developmentConditions(state,instance){
   const rule=developmentRules[instance.speciesId];

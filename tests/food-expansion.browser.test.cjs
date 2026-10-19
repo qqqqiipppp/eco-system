@@ -2,10 +2,10 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright'),assert=req
 const {dismissWelcome}=require('./fixtures.cjs'),{snapshot}=require('./habitat.browser-fixtures.cjs');
 const BASE=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/';
 (async()=>{
- const {world}=await import('./ecology-fixtures.mjs'),{foodRelations}=await import('../data/food-relations.js');
+ const {world}=await import('./ecology-fixtures.mjs'),{foodRelations}=await import('../data/food-relations.js'),{survivalConfig}=await import('../data/survival-config.js');
  const browser=await chromium.launch({channel:'msedge',headless:true}),results={stage:'15.7',viewport:{width:1280,height:800},actualS5e:false,scenarios:[],errors:[]};
  async function scenario(consumer,food,{releaseFirst=false}={}){
-  const removedFood={ladybird:'snail','field-mouse':'grasshopper',weasel:'frog'}[consumer];const s=world([[consumer,1,.4],[food,1,consumer==='spider'?.41:.43],...(releaseFirst?[[removedFood,1,.41]]:[])]);s.organisms[0].hunger=1;for(const o of s.organisms.slice(1))if('hunger'in o)o.hunger=0;
+  const removedFood={ladybird:'snail','field-mouse':'grasshopper',weasel:'frog'}[consumer];const s=world([[consumer,1,.4],[food,1,consumer==='spider'?.41:.43],...(releaseFirst?[[removedFood,1,.41]]:[])]);s.organisms[0].hunger=1;for(const o of s.organisms.slice(1)){if('hunger'in o)o.hunger=0;if(o.speciesId==='earthworm')o.life.initialAge=survivalConfig.earthwormCycleSeconds-survivalConfig.earthwormSurfaceSeconds-(releaseFirst?4:0);}
   const c=await browser.newContext({viewport:results.viewport,hasTouch:true,reducedMotion:'reduce'});
   // Reproducible wandering only; production choices/resources/feeding/rendering remain active.
   await c.addInitScript(raw=>{Math.random=()=>.7;if(!sessionStorage.seeded){localStorage.setItem('eco-system:forest-save',JSON.stringify(raw));sessionStorage.seeded='1';}},await snapshot(s));

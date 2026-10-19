@@ -1,4 +1,5 @@
 import {ecologySeconds,ecologyRate,scaleFields} from './pacing-config.js';
+import {survivalConfig} from './survival-config.js';
 // Active game seconds; teaching trial values, never real biological rates.
 export const populationConfig = {
   graceSeconds:120, restoreGraceSeconds:30, severeHunger:.85,
@@ -23,7 +24,7 @@ export const decompositionConfig={maximum:30,litterPerProducer:.004,woodPerTree:
 
 scaleFields(populationConfig,['graceSeconds','restoreGraceSeconds','severeAfter','weakAfter','deathAfter','supportReliefSeconds','recentMealSeconds']);
 for(const key of Object.keys(starvationLimits))starvationLimits[key]=ecologySeconds(starvationLimits[key]);
-for(const key of Object.keys(satietySeconds))satietySeconds[key]=ecologySeconds(satietySeconds[key]);
+for(const key of Object.keys(satietySeconds))satietySeconds[key]=ecologySeconds(satietySeconds[key])*survivalConfig.satietyScale/.5;
 for(const rule of Object.values(reproductionRules))scaleFields(rule,['healthySeconds','cooldown']);
 scaleFields(decompositionConfig,['litterPerProducer','woodPerTree','backgroundRate','nutrientUsePerProducer'],ecologyRate);
 for(const rates of Object.values(decompositionConfig.rates))for(const key of Object.keys(rates))rates[key]=ecologyRate(rates[key]);

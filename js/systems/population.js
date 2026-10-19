@@ -12,6 +12,7 @@ import {placementConfig} from '../../data/interaction-config.js';
 import {lifespanRules,replenishmentRules} from '../../data/lifespan-config.js';
 import {developmentRules,developmentConfig} from '../../data/development-config.js';
 import {canReproduce} from './development.js';
+import {hasRecentMeal} from './meal-readiness.js';
 
 export function populationMessage(record){
   if(record.ecologyRevision===1){const name=legacyEcology.names[record.speciesId],unit=legacyEcology.lifespan[record.speciesId].unit;return `이전 구성 기록: ${name} ${record.countBefore}${unit} → ${record.countAfter}${unit} (${({predation:"먹이 이용",starvation:"먹이 부족",natural_lifespan:"수명 종료",life_stage_exit:"유충 시기 종료",colony_decline:"군집 감소",colony_renewal:"군집 갱신",replenishment:"주변 보충",reproduction:"새 세대",release:"돌려보내기"})[record.cause]||"학생 배치"}). 현재 생물의 관찰이 아니에요.`;}
@@ -100,7 +101,7 @@ export function updateReproduction(state,seconds,layout){
   }
   const ready=parents.filter(o=>{
    if(!canReproduce(o,state.simulationTime))return false;
-   if('hunger'in o)return o.hunger<=config.maxHealthyHunger&&o.lastSuccessfulFeedingAt!==null&&state.simulationTime-o.lastSuccessfulFeedingAt<=config.recentMealSeconds&&survivalStage(o)!=='weak'&&usableFood(state,o,layout).length>0;
+   if('hunger'in o)return o.hunger<=config.maxHealthyHunger&&hasRecentMeal(o,state.simulationTime)&&survivalStage(o)!=='weak'&&usableFood(state,o,layout).length>0;
    return o.growth>=.85&&o.foodStock>=foodResourceConfig[id].maximum*.6;
   });
   const healthy=environmentQuality(state.environment)>=config.minimumEnvironment&&['water','air'].every(f=>factorValue(state.environment,f)>=.4)&&ready.length>=rule.minimum&&parents.length<rule.maximum&&state.organisms.length<placementConfig.maxOrganisms;

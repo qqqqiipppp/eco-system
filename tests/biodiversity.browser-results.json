@@ -1,0 +1,78 @@
+{
+  "stage": "15.8",
+  "actualS5e": false,
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "scenarios": [
+    {
+      "name": "genuine fresh zero-point five-card start, touch placement, actual meal and record/reload",
+      "ok": true
+    },
+    {
+      "name": "ladybird real covered-to-surface prey access with mid-cover reload",
+      "covered": {
+        "t": 3,
+        "meals": 0,
+        "worm": true,
+        "target": null
+      },
+      "meal": {
+        "relationId": "v2_earthworm_to_ladybird",
+        "foodPart": "animal",
+        "consumerSpeciesId": "ladybird",
+        "foodSpeciesId": "earthworm",
+        "consumerInstanceId": "fixture-0-0",
+        "foodInstanceId": "fixture-1-0",
+        "at": 7.5
+      },
+      "touch44": true,
+      "pointsAfterRecord": 12,
+      "ok": true
+    },
+    {
+      "name": "field-mouse real covered-to-surface prey access with mid-cover reload",
+      "covered": {
+        "t": 3,
+        "meals": 0,
+        "worm": true,
+        "target": null
+      },
+      "meal": {
+        "relationId": "v2_earthworm_to_field_mouse",
+        "foodPart": "animal",
+        "consumerSpeciesId": "field-mouse",
+        "foodSpeciesId": "earthworm",
+        "consumerInstanceId": "fixture-0-0",
+        "foodInstanceId": "fixture-1-0",
+        "at": 7.5
+      },
+      "touch44": true,
+      "pointsAfterRecord": 12,
+      "ok": true
+    },
+    {
+      "name": "weasel real covered-to-surface prey access with mid-cover reload",
+      "covered": {
+        "t": 3,
+        "meals": 0,
+        "worm": true,
+        "target": null
+      },
+      "meal": {
+        "relationId": "v2_earthworm_to_weasel",
+        "foodPart": "animal",
+        "consumerSpeciesId": "weasel",
+        "foodSpeciesId": "earthworm",
+        "consumerInstanceId": "fixture-0-0",
+        "foodInstanceId": "fixture-1-0",
+        "at": 7.5
+      },
+      "touch44": true,
+      "pointsAfterRecord": 12,
+      "ok": true
+    }
+  ],
+  "errors": []
+}

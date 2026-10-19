@@ -11,6 +11,7 @@ import {updateDecomposition,decompositionMultiplier} from './decomposition.js';
 import {satietySeconds} from '../../data/population-config.js';
 import {updateDevelopment,canFeed,developmentActivity} from './development.js';
 import {updateEnvironmentEvents,captureEnvironmentImpact,observeEnvironmentImpact,currentEnvironmentEvent} from './environment-events.js';
+import {preyAccessible} from './prey-access.js';
 
 const distance = (a, b) => Math.hypot(a.position.x - b.position.x, a.position.y - b.position.y);
 
@@ -72,7 +73,7 @@ export function createFeedingSystem(initialTime = 0,{environmentEventsEnabled=tr
   function availableTarget(instance) {
     const target = byId.get(instance.targetInstanceId);
     const relation=target&&relationFor(target.speciesId,instance.speciesId);
-    return relation && hasFoodStock(target,relation) ? target : null;
+    return relation && hasFoodStock(target,relation) && preyAccessible(target,simulationTime) ? target : null;
   }
   function returnToWander(instance, clock, shortage = false) {
     instance.behaviorState = 'wander';
@@ -89,7 +90,7 @@ export function createFeedingSystem(initialTime = 0,{environmentEventsEnabled=tr
       const speciesId=relation.sourceSpeciesId;
       for (const candidate of bySpecies.get(speciesId) || []) {
         diagnostics.candidateChecks += 1;
-        if (!byId.has(candidate.instanceId) || candidate.instanceId===instance.instanceId || !hasFoodStock(candidate,relation)) continue;
+        if (!byId.has(candidate.instanceId) || candidate.instanceId===instance.instanceId || !hasFoodStock(candidate,relation) || !preyAccessible(candidate,simulationTime)) continue;
         // Screen constraints only: skip goals this animal cannot stand at.
         if (!isPositionAllowed(instance.speciesId, candidate.position, layout)) continue;
         if (!clearApproach(instance, candidate, layout)) continue;

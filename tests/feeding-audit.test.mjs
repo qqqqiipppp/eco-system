@@ -4,6 +4,7 @@ import {writeFileSync} from 'node:fs';
 import {foodRelations,relationsByConsumer} from '../data/food-relations.js';
 import {organisms,organismById} from '../data/organisms.js';
 import {feedingConfig,foodResourceConfig} from '../data/ecology-config.js';
+import {survivalConfig} from '../data/survival-config.js';
 import {createFeedingSystem} from '../js/systems/feeding.js';
 import {createEventSystem} from '../js/systems/events.js';
 import {recoverFoodStock,hasFoodStock} from '../js/systems/food-resources.js';
@@ -15,7 +16,7 @@ import {geometry} from './spatial-fixtures.mjs';
 const results={stage:'15.6',relations:[],multiple:[],limits:[]};
 function setup(consumer,foods=[]){
  const s=world([[consumer,1,.4]]),e=s.organisms[0];e.hunger=1;
- for(const [id,x=.41]of foods){const o=make(id,'food-'+s.organisms.length,x);if('hunger'in o)o.hunger=0;s.organisms.push(o);}
+ for(const [id,x=.41]of foods){const o=make(id,'food-'+s.organisms.length,x);if('hunger'in o)o.hunger=0;if(id==='earthworm')o.life.initialAge=survivalConfig.earthwormCycleSeconds-survivalConfig.earthwormSurfaceSeconds;s.organisms.push(o);}
  const f=createFeedingSystem(0,{environmentEventsEnabled:false}),meals=[];
  const run=(seconds=4,g=layout)=>{for(let i=0;i<Math.round(seconds*10);i++){const r=f.update(s,.1,g);meals.push(...r.feedingEvents);}return meals;};
  return {s,e,f,run,meals};

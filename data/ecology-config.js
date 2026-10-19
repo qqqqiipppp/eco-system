@@ -1,4 +1,5 @@
 import {ecologySeconds,ecologyRate,scaleFields} from './pacing-config.js';
+import {survivalConfig} from './survival-config.js';
 // Teaching-game values, not measurements or a realistic population model.
 export const DEBUG_MODE = false;
 export const ecologyConfig = {
@@ -35,4 +36,4 @@ export const feedingConfig = {
 
 // Search, bite, pursuit and screen movement retain their actual control cadence.
 for(const rule of Object.values(foodResourceConfig))scaleFields(rule,['recoveryPerSecond'],ecologyRate);
-for(const rule of Object.values(feedingConfig))scaleFields(rule,['hungerPerSecond'],ecologyRate);
+for(const rule of Object.values(feedingConfig))scaleFields(rule,['hungerPerSecond'],value=>ecologyRate(value)*survivalConfig.hungerScale/2);
