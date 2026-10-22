@@ -1,4 +1,4 @@
-const {reveal}=require('./ux-browser-helpers.cjs');
+const {reveal,tapBackground}=require('./ux-browser-helpers.cjs');
 const { dismissWelcome, useDeveloperEnvironment } = require('./fixtures.cjs');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');const assert=require('node:assert/strict');
 (async()=>{const browser=await chromium.launch({channel:'msedge',headless:true});try{
@@ -7,7 +7,7 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');const asse
  await useDeveloperEnvironment(page); await page.goto(process.env.BASE_URL||'http://127.0.0.1:8081/',{waitUntil:'networkidle'}); await dismissWelcome(page);
  const state=()=>page.evaluate(async()=>structuredClone((await import('./js/main.js')).gameState));
  const card=id=>page.locator(`.organism-card[data-species-id="${id}"]`);
- const tap=async(x,y)=>{const b=await page.locator('#placement-surface').boundingBox();await page.touchscreen.tap(b.x+x*b.width,b.y+y*b.height)};
+ const tap=(x,y)=>tapBackground(page,x,y);
  const close=()=>page.locator('#activity-close').click();
  assert.deepEqual((await state()).inventory.filter(c=>c.acquired).map(c=>c.speciesId),['oak','grass','grasshopper','mushroom','soil-bacteria']);
  await card('grass').tap();await card('frog').tap();assert.equal(await page.locator('.organism-card[aria-pressed="true"]').count(),0);

@@ -14,7 +14,8 @@ import { createForestView, showSaveStatus } from './ui/forest-view.js';
 import { createGameState, createUIState } from './state/game-state.js';
 import { renderDashboard, renderCards, renderSelection, feedingFeedback } from './ui/render.js';
 import { createOrganismLayer } from './ui/organism-layer.js';
-import { placeOrganism, placementMessage } from './systems/placement.js';
+import { placementMessage } from './systems/placement.js';
+import {placeNearestOrganism} from './systems/placement-target.js';
 import { createWanderSystem } from './systems/wander.js';
 import { createUpdateLoop } from './systems/update-loop.js';
 import { speciesProfiles } from '../data/interaction-config.js';
@@ -159,7 +160,8 @@ try {
   document.querySelector('#population-place').addEventListener('click',()=>{const id=document.querySelector('#population-species').value;document.querySelector('#population-dialog').close();selectSpecies(id);});
   forest.addEventListener('click', event => {
     if (event.target.closest('[data-event-marker]')) return;
-    const result = placeOrganism(gameState, uiState.selectedSpeciesId, scene.readInput(event), scene.getLayout());
+    const input=scene.readInput(event);if(input.isUI||!input.isPlayArea)return;
+    const result = placeNearestOrganism(gameState, uiState.selectedSpeciesId, input, scene.getLayout());
     scene.showFeedback(placementMessage(result), result.ok);
     if (!result.ok) return;
     scene.add(result.instance, true);

@@ -7,7 +7,6 @@
 @media(max-width:800px){#names-toggle{left:auto;right:14px;top:14px}}
 .organism-hit{position:absolute;left:calc(max(48px,var(--sprite-width)) / -2);top:calc(0px - var(--sprite-height));width:max(48px,var(--sprite-width));height:max(48px,calc(var(--sprite-height) + 20px));min-width:48px;min-height:48px;padding:0;border:0;border-radius:9px;background:transparent;pointer-events:auto;touch-action:manipulation}
 .organism-hit:focus-visible{outline:2px solid #244c38;outline-offset:2px}
-.is-placing .organism-hit{pointer-events:none}
 .organism-object.is-inspected{z-index:60!important}
 .is-inspected .organism-visual{outline:2px solid #52764b;outline-offset:2px;border-radius:8px}
 .organism-object.has-event-marker{z-index:80!important}

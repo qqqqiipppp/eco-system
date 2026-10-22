@@ -39,7 +39,7 @@ export function placementMessage(result) {
   return {
     selection: '먼저 생물 카드를 골라 주세요.',
     inventory: '아직 획득하지 않은 카드예요.',
-    area: '이곳에는 배치할 수 없어요. 표시된 영역을 눌러 주세요.',
+    area: '생물을 놓으려면 숲 배경을 눌러 주세요.',
     overlap: '나무끼리 너무 가까워요. 조금 떨어진 곳에 놓아 주세요.',
     limit: `지금은 생물을 ${placementConfig.maxOrganisms}개까지 놓을 수 있어요.`,
   }[result.reason]||result.message;

@@ -1,7 +1,7 @@
 import {createHabitatPresentation} from '../systems/habitat-presentation.js';
 import {speciesHabitats} from '../../data/habitats.js';
 import { organismById } from '../../data/organisms.js';
-import { speciesProfiles, placementConfig } from '../../data/interaction-config.js';
+import { speciesProfiles } from '../../data/interaction-config.js';
 import { DEBUG_MODE, foodResourceConfig, feedingConfig } from '../../data/ecology-config.js';
 import {survivalStage} from '../systems/population.js';
 import {developmentStage,stageLabel} from '../systems/development.js';
@@ -15,7 +15,6 @@ const youngNames={grass:{sprout:'강아지풀 새싹',grown:'자란 강아지풀
 export function createOrganismLayer(forest, getOrganisms) {
   const layer = forest.querySelector('#organism-layer');
   const surface = forest.querySelector('#placement-surface');
-  const guide = forest.querySelector('#placement-guide');
   const cursor = forest.querySelector('#placement-cursor');
   const feedback = forest.querySelector('#placement-feedback');
   const namesToggle=forest.querySelector('#names-toggle');
@@ -150,19 +149,13 @@ export function createOrganismLayer(forest, getOrganisms) {
     placingSpeciesId=speciesId;
     const profile = speciesProfiles[speciesId];
     if(profile)setFocused(null);
-    guide.hidden = !profile;
     forest.classList.toggle('is-placing', Boolean(profile));
     if (!profile) {
       cursor.hidden = true;
       surface.setAttribute('aria-label', '숲 배치 영역. 먼저 아래에서 생물 카드를 선택하세요.');
       return;
     }
-    const zone = placementConfig.zones[profile.zone];
-    guide.style.left = `${zone.left * 100}%`;
-    guide.style.top = `${zone.top * 100}%`;
-    guide.style.width = `${(zone.right - zone.left) * 100}%`;
-    guide.style.height = `${(zone.bottom - zone.top) * 100}%`;
-    surface.setAttribute('aria-label', `${organismById[speciesId].name} 배치 영역. 방향키로 위치를 정하고 Enter 키로 배치하세요.`);
+    surface.setAttribute('aria-label', `${organismById[speciesId].name} 놓기. 숲 어디든 누르면 가까운 알맞은 자리를 찾아요. 방향키와 Enter 키로도 배치할 수 있어요.`);
   }
   function showFeedback(message, ok) {
     clearTimeout(feedbackTimer);
@@ -174,9 +167,8 @@ export function createOrganismLayer(forest, getOrganisms) {
   function readInput(event) {
     const rect = surface.getBoundingClientRect();
     const raw = event.detail === 0 ? { ...keyboardPosition } : { x: (event.clientX - rect.left) / rect.width, y: (event.clientY - rect.top) / rect.height };
-    const isUI=Boolean(event.target.closest('[data-scene-ui],[data-presentation-ui]'));
-    const position=placingSpeciesId&&!isUI?habitat.placementPosition(placingSpeciesId,raw):raw;
-    return { position, isPlayArea: forest.contains(event.target), isUI };
+    const isUI=Boolean(event.target.closest('[data-scene-ui],[data-presentation-ui],[data-event-marker],button:not(#placement-surface),a,input,select,textarea,summary,[role="button"]'));
+    return { position:raw, isPlayArea: forest.contains(event.target), isUI };
   }
   function moveCursor(event) {
     const steps = { ArrowLeft: [-0.025, 0], ArrowRight: [0.025, 0], ArrowUp: [0, -0.025], ArrowDown: [0, 0.025] };
@@ -195,8 +187,9 @@ export function createOrganismLayer(forest, getOrganisms) {
   function toggleNames(event){event.stopPropagation();const visible=namesToggle.getAttribute('aria-pressed')!=='true';namesToggle.setAttribute('aria-pressed',String(visible));layer.classList.toggle('show-names',visible);}
   namesToggle.addEventListener('click',toggleNames);
   function inspectInput(event){
-    if(forest.classList.contains('is-placing')||event.target.closest('[data-event-marker],[data-scene-ui],[data-presentation-ui]'))return false;
+    if(event.target.closest('[data-event-marker],[data-scene-ui],[data-presentation-ui]'))return false;
     const exact=event.target.closest('[data-inspect-instance]');
+    if(forest.classList.contains('is-placing')&&!exact)return false;
     let ids;
     if(event.detail===0&&exact)ids=[exact.dataset.inspectInstance];
     else {

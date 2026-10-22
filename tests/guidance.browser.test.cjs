@@ -1,3 +1,4 @@
+const {tapBackground}=require('./ux-browser-helpers.cjs');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');const assert=require('node:assert/strict');
 const {dismissWelcome,useDeveloperEnvironment}=require('./fixtures.cjs');
 const BASE=process.env.BASE_URL||'http://127.0.0.1:8081/';const KEY='eco-system:forest-save';
@@ -10,7 +11,7 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8081/';const KEY='eco-system:
   await page.goto(url,{waitUntil:'networkidle'});return page;
  }
  const card=(p,id)=>p.locator(`.organism-card[data-species-id="${id}"]`);
- async function place(p,id,x=.44,y=.70){await card(p,id).tap();const box=await p.locator('#placement-surface').boundingBox();await p.touchscreen.tap(box.x+x*box.width,box.y+y*box.height)}
+ async function place(p,id,x=.44,y=.70){await card(p,id).tap();const box=await p.locator('#placement-surface').boundingBox();await tapBackground(p,x,y)}
  async function oldSave(p,{factor='water',count=3,cleared=false}={}){return p.evaluate(async({factor,count,cleared})=>{
   const {createGameState}=await import('./js/state/game-state.js');const {createOrganismInstance}=await import('./js/state/organism-instance.js');const {createSaveSnapshot}=await import('./js/services/save-format.js');
   const s=createGameState();s.simulationTime=80;s.environment[factor].value=.15;s.metrics.points=25;s.metrics.bestStability=85;s.forestProgress={cleared,clearedAt:cleared?60:null,stableSeconds:cleared?30:0};

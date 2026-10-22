@@ -1,4 +1,4 @@
-const {reveal}=require('./ux-browser-helpers.cjs');
+const {reveal,tapBackground}=require('./ux-browser-helpers.cjs');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright'),assert=require('node:assert/strict');
 const {dismissWelcome}=require('./fixtures.cjs'),BASE=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/',KEY='eco-system:forest-save';
 (async()=>{const browser=await chromium.launch({channel:'msedge',headless:true}),contexts=[],errors=[];
@@ -15,7 +15,7 @@ const {dismissWelcome}=require('./fixtures.cjs'),BASE=process.env.BASE_URL||'htt
   if(kind==='full'){s.organisms=Array.from({length:30},(_,i)=>make('grass','p'+i,.15+(i%6)*.06));}
   return JSON.stringify(createSaveSnapshot(s,{sequence:0,cooldowns:[],questionDone:[],pendingDiscoveries:[]},'2026-10-12T00:00:00Z'));
  },kind);}
- async function place(p,id){await p.locator(`.organism-card[data-species-id="${id}"]`).tap();const b=await p.locator('#placement-surface').boundingBox();await p.touchscreen.tap(b.x+b.width*.44,b.y+b.height*.72);}
+ async function place(p,id){await p.locator(`.organism-card[data-species-id="${id}"]`).tap();const b=await p.locator('#placement-surface').boundingBox();await tapBackground(p,.44,.4);}
  try{
   const p=await setup();await p.locator('#population-open').tap();assert.equal(await p.locator('#population-species option').count(),24);assert.equal(await p.locator('#environment-dialog select').count(),0);
   for(const [width,height]of [[1280,800],[1138,712],[960,600],[412,915]]){await p.setViewportSize({width,height});assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);assert((await p.locator('#population-close').boundingBox()).height>=44);assert((await p.locator('#population-species').boundingBox()).height>=44);}

@@ -1,0 +1,119 @@
+{
+  "stage": "15.11.5",
+  "beforeHead": "d9e83594c14d7491ace3c4b55bf18d743021d24f",
+  "method": "Git objects served in memory; no implementation copies",
+  "rows": [
+    {
+      "before": true,
+      "width": 1280,
+      "height": 800,
+      "forest": {
+        "x": 21,
+        "y": 204,
+        "width": 1238,
+        "height": 333
+      }
+    },
+    {
+      "before": true,
+      "width": 1138,
+      "height": 712,
+      "forest": {
+        "x": 21,
+        "y": 202,
+        "width": 1096,
+        "height": 247
+      }
+    },
+    {
+      "before": true,
+      "width": 960,
+      "height": 600,
+      "forest": {
+        "x": 15,
+        "y": 172,
+        "width": 930,
+        "height": 224
+      }
+    },
+    {
+      "before": true,
+      "width": 1366,
+      "height": 768,
+      "forest": {
+        "x": 21,
+        "y": 204,
+        "width": 1324,
+        "height": 301
+      }
+    },
+    {
+      "before": true,
+      "width": 412,
+      "height": 915,
+      "forest": {
+        "x": 11,
+        "y": 451,
+        "width": 390,
+        "height": 378
+      }
+    },
+    {
+      "before": false,
+      "width": 1280,
+      "height": 800,
+      "forest": {
+        "x": 21,
+        "y": 204,
+        "width": 1238,
+        "height": 333
+      }
+    },
+    {
+      "before": false,
+      "width": 1138,
+      "height": 712,
+      "forest": {
+        "x": 21,
+        "y": 202,
+        "width": 1096,
+        "height": 247
+      }
+    },
+    {
+      "before": false,
+      "width": 960,
+      "height": 600,
+      "forest": {
+        "x": 15,
+        "y": 172,
+        "width": 930,
+        "height": 224
+      }
+    },
+    {
+      "before": false,
+      "width": 1366,
+      "height": 768,
+      "forest": {
+        "x": 21,
+        "y": 204,
+        "width": 1324,
+        "height": 301
+      }
+    },
+    {
+      "before": false,
+      "width": 412,
+      "height": 915,
+      "forest": {
+        "x": 11,
+        "y": 451,
+        "width": 390,
+        "height": 378
+      }
+    }
+  ],
+  "forestGeometryExact": true,
+  "actualS5e": false
+}

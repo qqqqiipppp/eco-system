@@ -1,4 +1,4 @@
-const {reveal}=require('./ux-browser-helpers.cjs');
+const {reveal,tapBackground}=require('./ux-browser-helpers.cjs');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {dismissWelcome}=require('./fixtures.cjs'),BASE=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/',KEY='eco-system:forest-save';
 (async()=>{
@@ -18,7 +18,7 @@ const {dismissWelcome}=require('./fixtures.cjs'),BASE=process.env.BASE_URL||'htt
  const state=p=>p.evaluate(async()=>structuredClone((await import('./js/main.js')).gameState));
  const open=p=>p.locator('#environment-open').tap(),close=p=>p.locator('#environment-close').tap();
  const card=(p,id)=>p.locator(`.organism-card[data-species-id="${id}"]`);
- async function place(p,id,x,y=.72){await card(p,id).tap();const box=await p.locator('#placement-surface').boundingBox();await p.touchscreen.tap(box.x+x*box.width,box.y+y*box.height);}
+ async function place(p,id,x,y=.72){await card(p,id).tap();const box=await p.locator('#placement-surface').boundingBox();await tapBackground(p,x,y);}
  async function recordFood(p,name){await p.locator(`.event-insight[aria-label*="${name}"]`).first().waitFor({timeout:30000});await p.emulateMedia({reducedMotion:'reduce'});await p.locator(`.event-insight[aria-label*="${name}"]`).first().tap();await p.getByRole('button',{name:'발견 기록하기',exact:true}).tap();await p.locator('#event-close').tap();}
  try{
   // Scenario15 begins with actual student0 points and actual UI actions.

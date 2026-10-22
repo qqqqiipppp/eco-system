@@ -1,0 +1,5813 @@
+{
+  "stage": "15.11.5",
+  "beforeHead": "d9e83594c14d7491ace3c4b55bf18d743021d24f",
+  "continuousMinutes": 20,
+  "splitMinutes": [
+    10,
+    10
+  ],
+  "sameStudentProfilesAndSplitExact": true,
+  "mixed24UsesExpandedWanderArea": true,
+  "mixed": {
+    "before": {
+      "peak": 30,
+      "meals": 178,
+      "final": {
+        "at": 1200,
+        "total": 15,
+        "species": 15,
+        "counts": {
+          "oak": 1,
+          "mushroom": 1,
+          "pine": 1,
+          "raspberry": 1,
+          "hazel": 1,
+          "tit": 1,
+          "snake": 1,
+          "goshawk": 1,
+          "litter-mold": 1,
+          "soil-bacteria": 1,
+          "earthworm": 1,
+          "snail": 1,
+          "chipmunk": 1,
+          "rabbit": 1,
+          "grass": 1
+        },
+        "roleSpecies": {
+          "producer": 5,
+          "consumer": 7,
+          "decomposer": 3
+        },
+        "roleIndividuals": {
+          "producer": 5,
+          "consumer": 7,
+          "decomposer": 3
+        },
+        "liveGraphSpecies": 7,
+        "everFeedingConsumerSpecies": 14,
+        "everFoodParticipants": 19,
+        "actualRelations": 18,
+        "meals": 178,
+        "predations": 21,
+        "processed": 38.037786448957235,
+        "wormProcessed": 6.65212312500019,
+        "soilContribution": 0,
+        "soilNutrients": 0.1978917410677084,
+        "organicMatter": {
+          "wood": 0.01839749999997563,
+          "litter": 29.99,
+          "remains": 0
+        },
+        "environment": {
+          "sunlight": 0.7999999999999938,
+          "water": 1,
+          "air": 1,
+          "soil": 1
+        },
+        "stability": 89,
+        "points": 157,
+        "cleared": false,
+        "clearedAt": null,
+        "populationTotals": {
+          "predation": 21,
+          "reproduction": 2,
+          "replenishment": 4,
+          "colony_renewal": 7,
+          "release": 3,
+          "reintroduction": 12,
+          "natural_lifespan": 9
+        }
+      },
+      "causes": {
+        "natural_lifespan": 9,
+        "predation": 21,
+        "release": 3
+      },
+      "pointTotals": {
+        "legacy": 219,
+        "study": 12,
+        "support": 0,
+        "spent": 74
+      }
+    },
+    "after": {
+      "peak": 30,
+      "meals": 186,
+      "final": {
+        "at": 1200,
+        "total": 17,
+        "species": 17,
+        "counts": {
+          "oak": 1,
+          "rabbit": 1,
+          "mushroom": 1,
+          "pine": 1,
+          "raspberry": 1,
+          "hazel": 1,
+          "tit": 1,
+          "snake": 1,
+          "goshawk": 1,
+          "litter-mold": 1,
+          "soil-bacteria": 1,
+          "earthworm": 1,
+          "snail": 1,
+          "chipmunk": 1,
+          "grass": 1,
+          "frog": 1,
+          "caterpillar": 1
+        },
+        "roleSpecies": {
+          "producer": 5,
+          "consumer": 9,
+          "decomposer": 3
+        },
+        "roleIndividuals": {
+          "producer": 5,
+          "consumer": 9,
+          "decomposer": 3
+        },
+        "liveGraphSpecies": 11,
+        "everFeedingConsumerSpecies": 14,
+        "everFoodParticipants": 19,
+        "actualRelations": 17,
+        "meals": 186,
+        "predations": 18,
+        "processed": 38.03778644895723,
+        "wormProcessed": 6.65212312500019,
+        "soilContribution": 0,
+        "soilNutrients": 0.19689174106770851,
+        "organicMatter": {
+          "wood": 0.01839749999997563,
+          "litter": 29.99,
+          "remains": 0
+        },
+        "environment": {
+          "sunlight": 0.8,
+          "water": 1,
+          "air": 1,
+          "soil": 1
+        },
+        "stability": 92,
+        "points": 130,
+        "cleared": false,
+        "clearedAt": null,
+        "populationTotals": {
+          "predation": 18,
+          "reproduction": 2,
+          "replenishment": 4,
+          "colony_renewal": 7,
+          "release": 3,
+          "reintroduction": 11,
+          "natural_lifespan": 9
+        }
+      },
+      "causes": {
+        "natural_lifespan": 9,
+        "predation": 18,
+        "release": 3
+      },
+      "pointTotals": {
+        "legacy": 207,
+        "study": 12,
+        "support": 0,
+        "spent": 89
+      }
+    }
+  },
+  "actualS5e": false,
+  "expandedMixedResult": {
+    "kind": "managed24",
+    "seed": 11,
+    "start": 0,
+    "end": 1200,
+    "environmentEventsEnabled": true,
+    "actualMovementHz": 30,
+    "ecologyTickSeconds": 0.5,
+    "peak": 30,
+    "samples": [
+      {
+        "at": 0,
+        "total": 30,
+        "species": 24,
+        "counts": {
+          "oak": 1,
+          "grass": 7,
+          "grasshopper": 1,
+          "frog": 1,
+          "rabbit": 1,
+          "mushroom": 1,
+          "pine": 1,
+          "raspberry": 1,
+          "hazel": 1,
+          "chipmunk": 1,
+          "field-mouse": 1,
+          "caterpillar": 1,
+          "aphid": 1,
+          "snail": 1,
+          "spider": 1,
+          "ladybird": 1,
+          "tit": 1,
+          "bulbul": 1,
+          "snake": 1,
+          "weasel": 1,
+          "goshawk": 1,
+          "litter-mold": 1,
+          "soil-bacteria": 1,
+          "earthworm": 1
+        },
+        "roleSpecies": {
+          "producer": 5,
+          "consumer": 16,
+          "decomposer": 3
+        },
+        "roleIndividuals": {
+          "producer": 11,
+          "consumer": 16,
+          "decomposer": 3
+        },
+        "liveGraphSpecies": 21,
+        "everFeedingConsumerSpecies": 0,
+        "everFoodParticipants": 0,
+        "actualRelations": 0,
+        "meals": 0,
+        "predations": 0,
+        "processed": 0,
+        "wormProcessed": 0,
+        "soilContribution": 0,
+        "soilNutrients": 0,
+        "organicMatter": {
+          "wood": 0.3,
+          "litter": 0.5,
+          "remains": 0
+        },
+        "environment": {
+          "sunlight": 1,
+          "water": 1,
+          "air": 1,
+          "soil": 1
+        },
+        "stability": 95,
+        "points": 0,
+        "cleared": false,
+        "clearedAt": null,
+        "populationTotals": {}
+      },
+      {
+        "at": 300,
+        "total": 27,
+        "species": 20,
+        "counts": {
+          "oak": 1,
+          "grass": 8,
+          "rabbit": 1,
+          "mushroom": 1,
+          "pine": 1,
+          "raspberry": 1,
+          "hazel": 1,
+          "tit": 1,
+          "snake": 1,
+          "goshawk": 1,
+          "litter-mold": 1,
+          "soil-bacteria": 1,
+          "earthworm": 1,
+          "caterpillar": 1,
+          "grasshopper": 1,
+          "aphid": 1,
+          "snail": 1,
+          "chipmunk": 1,
+          "bulbul": 1,
+          "frog": 1
+        },
+        "roleSpecies": {
+          "producer": 5,
+          "consumer": 12,
+          "decomposer": 3
+        },
+        "roleIndividuals": {
+          "producer": 12,
+          "consumer": 12,
+          "decomposer": 3
+        },
+        "liveGraphSpecies": 16,
+        "everFeedingConsumerSpecies": 12,
+        "everFoodParticipants": 17,
+        "actualRelations": 12,
+        "meals": 21,
+        "predations": 8,
+        "processed": 9.579495335416683,
+        "wormProcessed": 1.7213499999999848,
+        "soilContribution": 0,
+        "soilNutrients": 0,
+        "organicMatter": {
+          "wood": 0.08455466458333208,
+          "litter": 22.499949999999714,
+          "remains": 0
+        },
+        "environment": {
+          "sunlight": 1,
+          "water": 0.5666666666666655,
+          "air": 1,
+          "soil": 1
+        },
+        "stability": 94,
+        "points": 124,
+        "cleared": false,
+        "clearedAt": null,
+        "populationTotals": {
+          "predation": 8,
+          "reproduction": 1,
+          "replenishment": 1,
+          "colony_renewal": 1,
+          "release": 3,
+          "reintroduction": 6
+        }
+      },
+      {
+        "at": 600,
+        "total": 27,
+        "species": 20,
+        "counts": {
+          "oak": 1,
+          "grass": 8,
+          "rabbit": 1,
+          "mushroom": 1,
+          "pine": 1,
+          "raspberry": 1,
+          "hazel": 1,
+          "tit": 1,
+          "snake": 1,
+          "goshawk": 1,
+          "litter-mold": 1,
+          "soil-bacteria": 1,
+          "earthworm": 1,
+          "aphid": 1,
+          "snail": 1,
+          "chipmunk": 1,
+          "caterpillar": 1,
+          "grasshopper": 1,
+          "bulbul": 1,
+          "frog": 1
+        },
+        "roleSpecies": {
+          "producer": 5,
+          "consumer": 12,
+          "decomposer": 3
+        },
+        "roleIndividuals": {
+          "producer": 12,
+          "consumer": 12,
+          "decomposer": 3
+        },
+        "liveGraphSpecies": 16,
+        "everFeedingConsumerSpecies": 14,
+        "everFoodParticipants": 19,
+        "actualRelations": 16,
+        "meals": 79,
+        "predations": 12,
+        "processed": 17.51156799670111,
+        "wormProcessed": 3.0678243750000598,
+        "soilContribution": 0,
+        "soilNutrients": 0,
+        "organicMatter": {
+          "wood": 0.39171970225693575,
+          "litter": 29.9918,
+          "remains": 0
+        },
+        "environment": {
+          "sunlight": 1,
+          "water": 0.8,
+          "air": 1,
+          "soil": 1
+        },
+        "stability": 95,
+        "points": 153,
+        "cleared": false,
+        "clearedAt": null,
+        "populationTotals": {
+          "predation": 12,
+          "reproduction": 1,
+          "replenishment": 2,
+          "colony_renewal": 3,
+          "release": 3,
+          "reintroduction": 9
+        }
+      },
+      {
+        "at": 900,
+        "total": 21,
+        "species": 19,
+        "counts": {
+          "oak": 1,
+          "rabbit": 1,
+          "mushroom": 1,
+          "pine": 1,
+          "raspberry": 1,
+          "hazel": 1,
+          "tit": 1,
+          "snake": 1,
+          "goshawk": 1,
+          "litter-mold": 1,
+          "soil-bacteria": 1,
+          "earthworm": 1,
+          "grass": 3,
+          "aphid": 1,
+          "snail": 1,
+          "chipmunk": 1,
+          "bulbul": 1,
+          "grasshopper": 1,
+          "frog": 1
+        },
+        "roleSpecies": {
+          "producer": 5,
+          "consumer": 11,
+          "decomposer": 3
+        },
+        "roleIndividuals": {
+          "producer": 7,
+          "consumer": 11,
+          "decomposer": 3
+        },
+        "liveGraphSpecies": 14,
+        "everFeedingConsumerSpecies": 14,
+        "everFoodParticipants": 19,
+        "actualRelations": 17,
+        "meals": 142,
+        "predations": 16,
+        "processed": 27.456183948957545,
+        "wormProcessed": 4.852123125000122,
+        "soilContribution": 0,
+        "soilNutrients": 0.03334366606770822,
+        "organicMatter": {
+          "wood": 0,
+          "litter": 29.99,
+          "remains": 0
+        },
+        "environment": {
+          "sunlight": 1,
+          "water": 1,
+          "air": 1,
+          "soil": 1
+        },
+        "stability": 95,
+        "points": 154,
+        "cleared": false,
+        "clearedAt": null,
+        "populationTotals": {
+          "predation": 16,
+          "reproduction": 2,
+          "replenishment": 3,
+          "colony_renewal": 4,
+          "release": 3,
+          "reintroduction": 11,
+          "natural_lifespan": 6
+        }
+      },
+      {
+        "at": 1200,
+        "total": 17,
+        "species": 17,
+        "counts": {
+          "oak": 1,
+          "rabbit": 1,
+          "mushroom": 1,
+          "pine": 1,
+          "raspberry": 1,
+          "hazel": 1,
+          "tit": 1,
+          "snake": 1,
+          "goshawk": 1,
+          "litter-mold": 1,
+          "soil-bacteria": 1,
+          "earthworm": 1,
+          "snail": 1,
+          "chipmunk": 1,
+          "grass": 1,
+          "frog": 1,
+          "caterpillar": 1
+        },
+        "roleSpecies": {
+          "producer": 5,
+          "consumer": 9,
+          "decomposer": 3
+        },
+        "roleIndividuals": {
+          "producer": 5,
+          "consumer": 9,
+          "decomposer": 3
+        },
+        "liveGraphSpecies": 11,
+        "everFeedingConsumerSpecies": 14,
+        "everFoodParticipants": 19,
+        "actualRelations": 17,
+        "meals": 186,
+        "predations": 18,
+        "processed": 38.03778644895723,
+        "wormProcessed": 6.65212312500019,
+        "soilContribution": 0,
+        "soilNutrients": 0.19689174106770851,
+        "organicMatter": {
+          "wood": 0.01839749999997563,
+          "litter": 29.99,
+          "remains": 0
+        },
+        "environment": {
+          "sunlight": 0.8,
+          "water": 1,
+          "air": 1,
+          "soil": 1
+        },
+        "stability": 92,
+        "points": 130,
+        "cleared": false,
+        "clearedAt": null,
+        "populationTotals": {
+          "predation": 18,
+          "reproduction": 2,
+          "replenishment": 4,
+          "colony_renewal": 7,
+          "release": 3,
+          "reintroduction": 11,
+          "natural_lifespan": 9
+        }
+      }
+    ],
+    "final": {
+      "at": 1200,
+      "total": 17,
+      "species": 17,
+      "counts": {
+        "oak": 1,
+        "rabbit": 1,
+        "mushroom": 1,
+        "pine": 1,
+        "raspberry": 1,
+        "hazel": 1,
+        "tit": 1,
+        "snake": 1,
+        "goshawk": 1,
+        "litter-mold": 1,
+        "soil-bacteria": 1,
+        "earthworm": 1,
+        "snail": 1,
+        "chipmunk": 1,
+        "grass": 1,
+        "frog": 1,
+        "caterpillar": 1
+      },
+      "roleSpecies": {
+        "producer": 5,
+        "consumer": 9,
+        "decomposer": 3
+      },
+      "roleIndividuals": {
+        "producer": 5,
+        "consumer": 9,
+        "decomposer": 3
+      },
+      "liveGraphSpecies": 11,
+      "everFeedingConsumerSpecies": 14,
+      "everFoodParticipants": 19,
+      "actualRelations": 17,
+      "meals": 186,
+      "predations": 18,
+      "processed": 38.03778644895723,
+      "wormProcessed": 6.65212312500019,
+      "soilContribution": 0,
+      "soilNutrients": 0.19689174106770851,
+      "organicMatter": {
+        "wood": 0.01839749999997563,
+        "litter": 29.99,
+        "remains": 0
+      },
+      "environment": {
+        "sunlight": 0.8,
+        "water": 1,
+        "air": 1,
+        "soil": 1
+      },
+      "stability": 92,
+      "points": 130,
+      "cleared": false,
+      "clearedAt": null,
+      "populationTotals": {
+        "predation": 18,
+        "reproduction": 2,
+        "replenishment": 4,
+        "colony_renewal": 7,
+        "release": 3,
+        "reintroduction": 11,
+        "natural_lifespan": 9
+      }
+    },
+    "individuals": [
+      {
+        "instanceId": "fixture-0-0",
+        "speciesId": "oak",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 6506.1449331231415,
+        "initialAge": 780.737391974777,
+        "removedAt": null,
+        "removalCause": null,
+        "consumerSpeciesId": null,
+        "lifetime": null,
+        "meals": 0,
+        "mealTimes": [],
+        "firstHungryAt": null,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 1200,
+        "alive": true,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "fixture-1-0",
+        "speciesId": "grass",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 855.024536959827,
+        "initialAge": 42.75122684799135,
+        "removedAt": 812.5,
+        "removalCause": "natural_lifespan",
+        "consumerSpeciesId": null,
+        "lifetime": 812.5,
+        "meals": 0,
+        "mealTimes": [],
+        "firstHungryAt": null,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 812.5,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "fixture-2-0",
+        "speciesId": "grasshopper",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 599.5008875057101,
+        "initialAge": 47.960071000456814,
+        "removedAt": 10.5,
+        "removalCause": "predation",
+        "consumerSpeciesId": "frog",
+        "lifetime": 10.5,
+        "meals": 1,
+        "mealTimes": [
+          5
+        ],
+        "firstHungryAt": 3,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 10.5,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "fixture-3-0",
+        "speciesId": "frog",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 2229.0954569354653,
+        "initialAge": 267.49145483225584,
+        "removedAt": 13.5,
+        "removalCause": "predation",
+        "consumerSpeciesId": "snake",
+        "lifetime": 13.5,
+        "meals": 1,
+        "mealTimes": [
+          10.5
+        ],
+        "firstHungryAt": 4,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 13.5,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "fixture-4-0",
+        "speciesId": "rabbit",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 2256.874515709933,
+        "initialAge": 338.53117735648993,
+        "removedAt": null,
+        "removalCause": null,
+        "consumerSpeciesId": null,
+        "lifetime": null,
+        "meals": 32,
+        "mealTimes": [
+          24,
+          58.5,
+          94.5,
+          192,
+          210,
+          243.5,
+          279,
+          316.5,
+          350,
+          384.5,
+          419,
+          453,
+          487,
+          521,
+          554.5,
+          591.5,
+          625,
+          658.5,
+          692.5,
+          726.5,
+          760,
+          793.5,
+          827,
+          861.5,
+          896.5,
+          973,
+          993,
+          1028,
+          1061.5,
+          1098.5,
+          1132.5,
+          1172.5
+        ],
+        "firstHungryAt": 21,
+        "firstSevereAt": 168.5,
+        "shortageSeconds": 92.5,
+        "litterConsumed": null,
+        "observedLifetime": 1200,
+        "alive": true,
+        "meanMealInterval": 37.04838709677419
+      },
+      {
+        "instanceId": "fixture-5-0",
+        "speciesId": "mushroom",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": null,
+        "initialAge": null,
+        "removedAt": null,
+        "removalCause": null,
+        "consumerSpeciesId": null,
+        "lifetime": null,
+        "meals": 0,
+        "mealTimes": [],
+        "firstHungryAt": null,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 1200,
+        "alive": true,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "fixture-6-0",
+        "speciesId": "pine",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 4723.481285059825,
+        "initialAge": 708.5221927589737,
+        "removedAt": null,
+        "removalCause": null,
+        "consumerSpeciesId": null,
+        "lifetime": null,
+        "meals": 0,
+        "mealTimes": [],
+        "firstHungryAt": null,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 1200,
+        "alive": true,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "fixture-7-0",
+        "speciesId": "raspberry",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 2986.2730799708515,
+        "initialAge": 298.62730799708515,
+        "removedAt": null,
+        "removalCause": null,
+        "consumerSpeciesId": null,
+        "lifetime": null,
+        "meals": 0,
+        "mealTimes": [],
+        "firstHungryAt": null,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 1200,
+        "alive": true,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "fixture-8-0",
+        "speciesId": "hazel",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 5423.986773518845,
+        "initialAge": 650.8784128222615,
+        "removedAt": null,
+        "removalCause": null,
+        "consumerSpeciesId": null,
+        "lifetime": null,
+        "meals": 0,
+        "mealTimes": [],
+        "firstHungryAt": null,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 1200,
+        "alive": true,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "fixture-9-0",
+        "speciesId": "chipmunk",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 2090.6381173990667,
+        "initialAge": 313.59571760986,
+        "removedAt": 16,
+        "removalCause": "predation",
+        "consumerSpeciesId": "weasel",
+        "lifetime": 16,
+        "meals": 1,
+        "mealTimes": [
+          12.5
+        ],
+        "firstHungryAt": 7.5,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 16,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "fixture-10-0",
+        "speciesId": "field-mouse",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 2060.0813735858537,
+        "initialAge": 247.20976483030245,
+        "removedAt": 300,
+        "removalCause": "release",
+        "consumerSpeciesId": null,
+        "lifetime": 300,
+        "meals": 1,
+        "mealTimes": [
+          16
+        ],
+        "firstHungryAt": 6.5,
+        "firstSevereAt": 148,
+        "shortageSeconds": 186.5,
+        "litterConsumed": null,
+        "observedLifetime": 300,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "fixture-11-0",
+        "speciesId": "caterpillar",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 746.8401031382382,
+        "initialAge": 74.68401031382382,
+        "removedAt": 10.5,
+        "removalCause": "predation",
+        "consumerSpeciesId": "bulbul",
+        "lifetime": 10.5,
+        "meals": 0,
+        "mealTimes": [],
+        "firstHungryAt": 8,
+        "firstSevereAt": null,
+        "shortageSeconds": 2,
+        "litterConsumed": null,
+        "observedLifetime": 10.5,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "fixture-12-0",
+        "speciesId": "aphid",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 668.7284824345261,
+        "initialAge": 53.49827859476209,
+        "removedAt": 16,
+        "removalCause": "predation",
+        "consumerSpeciesId": "field-mouse",
+        "lifetime": 16,
+        "meals": 0,
+        "mealTimes": [],
+        "firstHungryAt": 13.5,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 16,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "fixture-13-0",
+        "speciesId": "snail",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 1754.8969404771924,
+        "initialAge": 263.23454107157886,
+        "removedAt": 13.5,
+        "removalCause": "predation",
+        "consumerSpeciesId": "ladybird",
+        "lifetime": 13.5,
+        "meals": 0,
+        "mealTimes": [],
+        "firstHungryAt": null,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 13.5,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "fixture-14-0",
+        "speciesId": "spider",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 986.6862104739994,
+        "initialAge": 98.66862104739994,
+        "removedAt": 10,
+        "removalCause": "predation",
+        "consumerSpeciesId": "tit",
+        "lifetime": 10,
+        "meals": 0,
+        "mealTimes": [],
+        "firstHungryAt": 8,
+        "firstSevereAt": null,
+        "shortageSeconds": 1.5,
+        "litterConsumed": null,
+        "observedLifetime": 10,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "fixture-15-0",
+        "speciesId": "ladybird",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 1178.6920864717104,
+        "initialAge": 117.86920864717104,
+        "removedAt": 300,
+        "removalCause": "release",
+        "consumerSpeciesId": null,
+        "lifetime": 300,
+        "meals": 1,
+        "mealTimes": [
+          13.5
+        ],
+        "firstHungryAt": 7.5,
+        "firstSevereAt": 153.5,
+        "shortageSeconds": 179.5,
+        "litterConsumed": null,
+        "observedLifetime": 300,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "fixture-16-0",
+        "speciesId": "tit",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 2064.675035176333,
+        "initialAge": 247.76100422115996,
+        "removedAt": null,
+        "removalCause": null,
+        "consumerSpeciesId": null,
+        "lifetime": null,
+        "meals": 2,
+        "mealTimes": [
+          10,
+          645
+        ],
+        "firstHungryAt": 7,
+        "firstSevereAt": 180.5,
+        "shortageSeconds": 918,
+        "litterConsumed": null,
+        "observedLifetime": 1200,
+        "alive": true,
+        "meanMealInterval": 635
+      },
+      {
+        "instanceId": "fixture-17-0",
+        "speciesId": "bulbul",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 2229.0926839923486,
+        "initialAge": 267.49112207908183,
+        "removedAt": 22.5,
+        "removalCause": "predation",
+        "consumerSpeciesId": "goshawk",
+        "lifetime": 22.5,
+        "meals": 1,
+        "mealTimes": [
+          10.5
+        ],
+        "firstHungryAt": 8,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 22.5,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "fixture-18-0",
+        "speciesId": "snake",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 2889.758429315407,
+        "initialAge": 433.463764397311,
+        "removedAt": null,
+        "removalCause": null,
+        "consumerSpeciesId": null,
+        "lifetime": null,
+        "meals": 3,
+        "mealTimes": [
+          13.5,
+          407.5,
+          800
+        ],
+        "firstHungryAt": 11.5,
+        "firstSevereAt": null,
+        "shortageSeconds": 14,
+        "litterConsumed": null,
+        "observedLifetime": 1200,
+        "alive": true,
+        "meanMealInterval": 393.25
+      },
+      {
+        "instanceId": "fixture-19-0",
+        "speciesId": "weasel",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 1570.5078086466528,
+        "initialAge": 188.46093703759834,
+        "removedAt": 300,
+        "removalCause": "release",
+        "consumerSpeciesId": null,
+        "lifetime": 300,
+        "meals": 1,
+        "mealTimes": [
+          16
+        ],
+        "firstHungryAt": 9,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 300,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "fixture-20-0",
+        "speciesId": "goshawk",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 2827.093662461266,
+        "initialAge": 508.87685924302787,
+        "removedAt": null,
+        "removalCause": null,
+        "consumerSpeciesId": null,
+        "lifetime": null,
+        "meals": 3,
+        "mealTimes": [
+          22.5,
+          471,
+          923
+        ],
+        "firstHungryAt": 11.5,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 1200,
+        "alive": true,
+        "meanMealInterval": 450.25
+      },
+      {
+        "instanceId": "fixture-21-0",
+        "speciesId": "litter-mold",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": null,
+        "initialAge": null,
+        "removedAt": null,
+        "removalCause": null,
+        "consumerSpeciesId": null,
+        "lifetime": null,
+        "meals": 0,
+        "mealTimes": [],
+        "firstHungryAt": null,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 1200,
+        "alive": true,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "fixture-22-0",
+        "speciesId": "soil-bacteria",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": null,
+        "initialAge": null,
+        "removedAt": null,
+        "removalCause": null,
+        "consumerSpeciesId": null,
+        "lifetime": null,
+        "meals": 0,
+        "mealTimes": [],
+        "firstHungryAt": null,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 1200,
+        "alive": true,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "fixture-23-0",
+        "speciesId": "earthworm",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 1946.6886669863015,
+        "initialAge": 194.66886669863015,
+        "removedAt": null,
+        "removalCause": null,
+        "consumerSpeciesId": null,
+        "lifetime": null,
+        "meals": 0,
+        "mealTimes": [],
+        "firstHungryAt": null,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": 6.65212312500019,
+        "observedLifetime": 1200,
+        "alive": true,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "pacing-extra-0",
+        "speciesId": "grass",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 803.8914635404944,
+        "initialAge": 40.19457317702472,
+        "removedAt": 764,
+        "removalCause": "natural_lifespan",
+        "consumerSpeciesId": null,
+        "lifetime": 764,
+        "meals": 0,
+        "mealTimes": [],
+        "firstHungryAt": null,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 764,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "pacing-extra-1",
+        "speciesId": "grass",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 769.5890338718891,
+        "initialAge": 38.479451693594456,
+        "removedAt": 731.5,
+        "removalCause": "natural_lifespan",
+        "consumerSpeciesId": null,
+        "lifetime": 731.5,
+        "meals": 0,
+        "mealTimes": [],
+        "firstHungryAt": null,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 731.5,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "pacing-extra-2",
+        "speciesId": "grass",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 783.7231747247279,
+        "initialAge": 39.18615873623639,
+        "removedAt": 745,
+        "removalCause": "natural_lifespan",
+        "consumerSpeciesId": null,
+        "lifetime": 745,
+        "meals": 0,
+        "mealTimes": [],
+        "firstHungryAt": null,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 745,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "pacing-extra-3",
+        "speciesId": "grass",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 899.6462388709188,
+        "initialAge": 44.98231194354594,
+        "removedAt": 855,
+        "removalCause": "natural_lifespan",
+        "consumerSpeciesId": null,
+        "lifetime": 855,
+        "meals": 0,
+        "mealTimes": [],
+        "firstHungryAt": null,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 855,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "pacing-extra-4",
+        "speciesId": "grass",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 803.8324608653784,
+        "initialAge": 40.19162304326892,
+        "removedAt": 764,
+        "removalCause": "natural_lifespan",
+        "consumerSpeciesId": null,
+        "lifetime": 764,
+        "meals": 0,
+        "mealTimes": [],
+        "firstHungryAt": null,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 764,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "pacing-extra-5",
+        "speciesId": "grass",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 957.1736710891128,
+        "initialAge": 47.85868355445564,
+        "removedAt": 909.5,
+        "removalCause": "natural_lifespan",
+        "consumerSpeciesId": null,
+        "lifetime": 909.5,
+        "meals": 0,
+        "mealTimes": [],
+        "firstHungryAt": null,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 909.5,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "organism-4",
+        "speciesId": "grass",
+        "createdAt": 129.5,
+        "creationCause": "reproduction",
+        "naturalLifetime": 799.6995024941862,
+        "initialAge": 0,
+        "removedAt": 929.5,
+        "removalCause": "natural_lifespan",
+        "consumerSpeciesId": null,
+        "lifetime": 800,
+        "meals": 0,
+        "mealTimes": [],
+        "firstHungryAt": null,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 800,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "organism-5",
+        "speciesId": "caterpillar",
+        "createdAt": 219.5,
+        "creationCause": "replenishment",
+        "naturalLifetime": 767.1331478096545,
+        "initialAge": 0,
+        "removedAt": 332,
+        "removalCause": "predation",
+        "consumerSpeciesId": "bulbul",
+        "lifetime": 112.5,
+        "meals": 6,
+        "mealTimes": [
+          233,
+          250.5,
+          270.5,
+          290.5,
+          311,
+          331
+        ],
+        "firstHungryAt": 227.5,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 112.5,
+        "alive": false,
+        "meanMealInterval": 19.6
+      },
+      {
+        "instanceId": "organism-6",
+        "speciesId": "grasshopper",
+        "createdAt": 300,
+        "creationCause": "reintroduction",
+        "naturalLifetime": 580.6666674697772,
+        "initialAge": 46.45333339758218,
+        "removedAt": 310,
+        "removalCause": "predation",
+        "consumerSpeciesId": "frog",
+        "lifetime": 10,
+        "meals": 1,
+        "mealTimes": [
+          305
+        ],
+        "firstHungryAt": 303,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 10,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "organism-7",
+        "speciesId": "aphid",
+        "createdAt": 300,
+        "creationCause": "reintroduction",
+        "naturalLifetime": 832.4446241743863,
+        "initialAge": 66.5955699339509,
+        "removedAt": 1066,
+        "removalCause": "natural_lifespan",
+        "consumerSpeciesId": null,
+        "lifetime": 766,
+        "meals": 23,
+        "mealTimes": [
+          321.5,
+          349,
+          383,
+          416.5,
+          450,
+          483.5,
+          517,
+          550.5,
+          584,
+          617.5,
+          651,
+          684.5,
+          718,
+          751.5,
+          785,
+          818.5,
+          852,
+          885.5,
+          919,
+          953,
+          986.5,
+          1020.5,
+          1054
+        ],
+        "firstHungryAt": 313.5,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 766,
+        "alive": false,
+        "meanMealInterval": 33.29545454545455
+      },
+      {
+        "instanceId": "organism-8",
+        "speciesId": "snail",
+        "createdAt": 300,
+        "creationCause": "reintroduction",
+        "naturalLifetime": 1875.560869043693,
+        "initialAge": 281.33413035655394,
+        "removedAt": null,
+        "removalCause": null,
+        "consumerSpeciesId": null,
+        "lifetime": null,
+        "meals": 27,
+        "mealTimes": [
+          315.5,
+          349,
+          382.5,
+          416,
+          449.5,
+          483,
+          516.5,
+          550,
+          583.5,
+          617,
+          650.5,
+          684,
+          717.5,
+          751,
+          787.5,
+          824.5,
+          863,
+          886,
+          923,
+          953.5,
+          989,
+          1024,
+          1063,
+          1088.5,
+          1122,
+          1160,
+          1191.5
+        ],
+        "firstHungryAt": 313.5,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 900,
+        "alive": true,
+        "meanMealInterval": 33.69230769230769
+      },
+      {
+        "instanceId": "organism-9",
+        "speciesId": "chipmunk",
+        "createdAt": 300,
+        "creationCause": "reintroduction",
+        "naturalLifetime": 1796.5401298832148,
+        "initialAge": 269.4810194824822,
+        "removedAt": null,
+        "removalCause": null,
+        "consumerSpeciesId": null,
+        "lifetime": null,
+        "meals": 47,
+        "mealTimes": [
+          313,
+          328,
+          346.5,
+          365.5,
+          383.5,
+          401.5,
+          420,
+          440,
+          460.5,
+          476,
+          494,
+          548,
+          557.5,
+          576.5,
+          594.5,
+          616,
+          631,
+          651,
+          668.5,
+          686.5,
+          709.5,
+          724,
+          745,
+          761.5,
+          779.5,
+          800,
+          816,
+          835,
+          853,
+          871.5,
+          889.5,
+          908,
+          930.5,
+          945,
+          964,
+          983,
+          1000.5,
+          1021,
+          1038,
+          1059,
+          1075.5,
+          1096.5,
+          1115,
+          1130,
+          1148.5,
+          1169.5,
+          1185
+        ],
+        "firstHungryAt": 307.5,
+        "firstSevereAt": 547,
+        "shortageSeconds": 30,
+        "litterConsumed": null,
+        "observedLifetime": 900,
+        "alive": true,
+        "meanMealInterval": 18.956521739130434
+      },
+      {
+        "instanceId": "organism-10",
+        "speciesId": "bulbul",
+        "createdAt": 300,
+        "creationCause": "reintroduction",
+        "naturalLifetime": 2600.8436042116955,
+        "initialAge": 312.10123250540346,
+        "removedAt": 471,
+        "removalCause": "predation",
+        "consumerSpeciesId": "goshawk",
+        "lifetime": 171,
+        "meals": 7,
+        "mealTimes": [
+          312.5,
+          332,
+          354,
+          375.5,
+          436.5,
+          451,
+          470
+        ],
+        "firstHungryAt": 308,
+        "firstSevereAt": 432,
+        "shortageSeconds": 35,
+        "litterConsumed": null,
+        "observedLifetime": 171,
+        "alive": false,
+        "meanMealInterval": 26.25
+      },
+      {
+        "instanceId": "organism-11",
+        "speciesId": "frog",
+        "createdAt": 300,
+        "creationCause": "reintroduction",
+        "naturalLifetime": 1761.251798691228,
+        "initialAge": 211.35021584294736,
+        "removedAt": 407.5,
+        "removalCause": "predation",
+        "consumerSpeciesId": "snake",
+        "lifetime": 107.5,
+        "meals": 1,
+        "mealTimes": [
+          310
+        ],
+        "firstHungryAt": 304,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 107.5,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "organism-12",
+        "speciesId": "caterpillar",
+        "createdAt": 540,
+        "creationCause": "replenishment",
+        "naturalLifetime": 575.9097991883755,
+        "initialAge": 0,
+        "removedAt": 645,
+        "removalCause": "predation",
+        "consumerSpeciesId": "tit",
+        "lifetime": 105,
+        "meals": 5,
+        "mealTimes": [
+          551.5,
+          570.5,
+          590.5,
+          611,
+          632
+        ],
+        "firstHungryAt": 548,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 105,
+        "alive": false,
+        "meanMealInterval": 20.125
+      },
+      {
+        "instanceId": "organism-13",
+        "speciesId": "grasshopper",
+        "createdAt": 600,
+        "creationCause": "reintroduction",
+        "naturalLifetime": 490.2472406812012,
+        "initialAge": 39.219779254496096,
+        "removedAt": 609.5,
+        "removalCause": "predation",
+        "consumerSpeciesId": "frog",
+        "lifetime": 9.5,
+        "meals": 1,
+        "mealTimes": [
+          605
+        ],
+        "firstHungryAt": 603,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 9.5,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "organism-14",
+        "speciesId": "bulbul",
+        "createdAt": 600,
+        "creationCause": "reintroduction",
+        "naturalLifetime": 2579.9186282325536,
+        "initialAge": 309.59023538790643,
+        "removedAt": 923,
+        "removalCause": "predation",
+        "consumerSpeciesId": "goshawk",
+        "lifetime": 323,
+        "meals": 15,
+        "mealTimes": [
+          613,
+          632,
+          654,
+          676.5,
+          697.5,
+          720.5,
+          740.5,
+          761.5,
+          783.5,
+          805.5,
+          827.5,
+          849,
+          870,
+          893.5,
+          913
+        ],
+        "firstHungryAt": 608,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 323,
+        "alive": false,
+        "meanMealInterval": 21.428571428571427
+      },
+      {
+        "instanceId": "organism-15",
+        "speciesId": "frog",
+        "createdAt": 600,
+        "creationCause": "reintroduction",
+        "naturalLifetime": 1734.4525335822254,
+        "initialAge": 208.13430402986705,
+        "removedAt": 800,
+        "removalCause": "predation",
+        "consumerSpeciesId": "snake",
+        "lifetime": 200,
+        "meals": 1,
+        "mealTimes": [
+          609.5
+        ],
+        "firstHungryAt": 604,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 200,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "organism-16",
+        "speciesId": "caterpillar",
+        "createdAt": 840,
+        "creationCause": "replenishment",
+        "naturalLifetime": 702.4447835236788,
+        "initialAge": 0,
+        "removedAt": 849,
+        "removalCause": "predation",
+        "consumerSpeciesId": "bulbul",
+        "lifetime": 9,
+        "meals": 0,
+        "mealTimes": [],
+        "firstHungryAt": 848,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 9,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "organism-17",
+        "speciesId": "grass",
+        "createdAt": 851,
+        "creationCause": "reproduction",
+        "naturalLifetime": 731.5509226731956,
+        "initialAge": 0,
+        "removedAt": null,
+        "removalCause": null,
+        "consumerSpeciesId": null,
+        "lifetime": null,
+        "meals": 0,
+        "mealTimes": [],
+        "firstHungryAt": null,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 349,
+        "alive": true,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "organism-18",
+        "speciesId": "grasshopper",
+        "createdAt": 900,
+        "creationCause": "reintroduction",
+        "naturalLifetime": 457.56152789108455,
+        "initialAge": 36.604922231286764,
+        "removedAt": 907.5,
+        "removalCause": "predation",
+        "consumerSpeciesId": "frog",
+        "lifetime": 7.5,
+        "meals": 1,
+        "mealTimes": [
+          906
+        ],
+        "firstHungryAt": 903,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 7.5,
+        "alive": false,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "organism-19",
+        "speciesId": "frog",
+        "createdAt": 900,
+        "creationCause": "reintroduction",
+        "naturalLifetime": 1974.0317480172962,
+        "initialAge": 236.88380976207554,
+        "removedAt": null,
+        "removalCause": null,
+        "consumerSpeciesId": null,
+        "lifetime": null,
+        "meals": 1,
+        "mealTimes": [
+          907.5
+        ],
+        "firstHungryAt": 904,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 300,
+        "alive": true,
+        "meanMealInterval": null
+      },
+      {
+        "instanceId": "organism-20",
+        "speciesId": "caterpillar",
+        "createdAt": 1140,
+        "creationCause": "replenishment",
+        "naturalLifetime": 722.7160066924989,
+        "initialAge": 0,
+        "removedAt": null,
+        "removalCause": null,
+        "consumerSpeciesId": null,
+        "lifetime": null,
+        "meals": 3,
+        "mealTimes": [
+          1155,
+          1171.5,
+          1191.5
+        ],
+        "firstHungryAt": 1148,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": null,
+        "observedLifetime": 60,
+        "alive": true,
+        "meanMealInterval": 18.25
+      }
+    ],
+    "changes": [
+      {
+        "sequence": 1,
+        "speciesId": "spider",
+        "changeType": "predation",
+        "cause": "predation",
+        "simulationTime": 10,
+        "countBefore": 1,
+        "countAfter": 0,
+        "noted": false,
+        "consumerSpeciesId": "tit"
+      },
+      {
+        "sequence": 2,
+        "speciesId": "grasshopper",
+        "changeType": "predation",
+        "cause": "predation",
+        "simulationTime": 10.5,
+        "countBefore": 1,
+        "countAfter": 0,
+        "noted": false,
+        "consumerSpeciesId": "frog"
+      },
+      {
+        "sequence": 3,
+        "speciesId": "caterpillar",
+        "changeType": "predation",
+        "cause": "predation",
+        "simulationTime": 10.5,
+        "countBefore": 1,
+        "countAfter": 0,
+        "noted": false,
+        "consumerSpeciesId": "bulbul"
+      },
+      {
+        "sequence": 4,
+        "speciesId": "snail",
+        "changeType": "predation",
+        "cause": "predation",
+        "simulationTime": 13.5,
+        "countBefore": 1,
+        "countAfter": 0,
+        "noted": false,
+        "consumerSpeciesId": "ladybird"
+      },
+      {
+        "sequence": 5,
+        "speciesId": "frog",
+        "changeType": "predation",
+        "cause": "predation",
+        "simulationTime": 13.5,
+        "countBefore": 1,
+        "countAfter": 0,
+        "noted": false,
+        "consumerSpeciesId": "snake"
+      },
+      {
+        "sequence": 6,
+        "speciesId": "aphid",
+        "changeType": "predation",
+        "cause": "predation",
+        "simulationTime": 16,
+        "countBefore": 1,
+        "countAfter": 0,
+        "noted": false,
+        "consumerSpeciesId": "field-mouse"
+      },
+      {
+        "sequence": 7,
+        "speciesId": "chipmunk",
+        "changeType": "predation",
+        "cause": "predation",
+        "simulationTime": 16,
+        "countBefore": 1,
+        "countAfter": 0,
+        "noted": false,
+        "consumerSpeciesId": "weasel"
+      },
+      {
+        "sequence": 8,
+        "speciesId": "bulbul",
+        "changeType": "predation",
+        "cause": "predation",
+        "simulationTime": 22.5,
+        "countBefore": 1,
+        "countAfter": 0,
+        "noted": false,
+        "consumerSpeciesId": "goshawk"
+      },
+      {
+        "sequence": 9,
+        "speciesId": "grass",
+        "changeType": "reproduction",
+        "cause": "reproduction",
+        "simulationTime": 129.5,
+        "countBefore": 7,
+        "countAfter": 8,
+        "noted": false,
+        "mode": "seed-spread"
+      },
+      {
+        "sequence": 10,
+        "speciesId": "caterpillar",
+        "changeType": "replenishment",
+        "cause": "replenishment",
+        "simulationTime": 219.5,
+        "countBefore": 0,
+        "countAfter": 1,
+        "noted": false,
+        "mode": "larval-recruitment"
+      },
+      {
+        "sequence": 11,
+        "speciesId": "litter-mold",
+        "changeType": "colony_renewal",
+        "cause": "colony_renewal",
+        "simulationTime": 259.5,
+        "countBefore": 1,
+        "countAfter": 1,
+        "noted": true
+      },
+      {
+        "sequence": 12,
+        "speciesId": "field-mouse",
+        "changeType": "release",
+        "cause": "release",
+        "simulationTime": 300,
+        "countBefore": 1,
+        "countAfter": 0,
+        "noted": false
+      },
+      {
+        "sequence": 13,
+        "speciesId": "ladybird",
+        "changeType": "release",
+        "cause": "release",
+        "simulationTime": 300,
+        "countBefore": 1,
+        "countAfter": 0,
+        "noted": false
+      },
+      {
+        "sequence": 14,
+        "speciesId": "weasel",
+        "changeType": "release",
+        "cause": "release",
+        "simulationTime": 300,
+        "countBefore": 1,
+        "countAfter": 0,
+        "noted": false
+      },
+      {
+        "sequence": 15,
+        "speciesId": "grasshopper",
+        "changeType": "reintroduction",
+        "cause": "reintroduction",
+        "simulationTime": 300,
+        "countBefore": 0,
+        "countAfter": 1,
+        "noted": true
+      },
+      {
+        "sequence": 16,
+        "speciesId": "aphid",
+        "changeType": "reintroduction",
+        "cause": "reintroduction",
+        "simulationTime": 300,
+        "countBefore": 0,
+        "countAfter": 1,
+        "noted": true
+      },
+      {
+        "sequence": 17,
+        "speciesId": "snail",
+        "changeType": "reintroduction",
+        "cause": "reintroduction",
+        "simulationTime": 300,
+        "countBefore": 0,
+        "countAfter": 1,
+        "noted": true
+      },
+      {
+        "sequence": 18,
+        "speciesId": "chipmunk",
+        "changeType": "reintroduction",
+        "cause": "reintroduction",
+        "simulationTime": 300,
+        "countBefore": 0,
+        "countAfter": 1,
+        "noted": true
+      },
+      {
+        "sequence": 19,
+        "speciesId": "bulbul",
+        "changeType": "reintroduction",
+        "cause": "reintroduction",
+        "simulationTime": 300,
+        "countBefore": 0,
+        "countAfter": 1,
+        "noted": true
+      },
+      {
+        "sequence": 20,
+        "speciesId": "frog",
+        "changeType": "reintroduction",
+        "cause": "reintroduction",
+        "simulationTime": 300,
+        "countBefore": 0,
+        "countAfter": 1,
+        "noted": true
+      },
+      {
+        "sequence": 21,
+        "speciesId": "grasshopper",
+        "changeType": "predation",
+        "cause": "predation",
+        "simulationTime": 310,
+        "countBefore": 1,
+        "countAfter": 0,
+        "noted": false,
+        "consumerSpeciesId": "frog"
+      },
+      {
+        "sequence": 22,
+        "speciesId": "caterpillar",
+        "changeType": "predation",
+        "cause": "predation",
+        "simulationTime": 332,
+        "countBefore": 1,
+        "countAfter": 0,
+        "noted": false,
+        "consumerSpeciesId": "bulbul"
+      },
+      {
+        "sequence": 23,
+        "speciesId": "frog",
+        "changeType": "predation",
+        "cause": "predation",
+        "simulationTime": 407.5,
+        "countBefore": 1,
+        "countAfter": 0,
+        "noted": false,
+        "consumerSpeciesId": "snake"
+      },
+      {
+        "sequence": 24,
+        "speciesId": "mushroom",
+        "changeType": "colony_renewal",
+        "cause": "colony_renewal",
+        "simulationTime": 448,
+        "countBefore": 1,
+        "countAfter": 1,
+        "noted": true
+      },
+      {
+        "sequence": 25,
+        "speciesId": "bulbul",
+        "changeType": "predation",
+        "cause": "predation",
+        "simulationTime": 471,
+        "countBefore": 1,
+        "countAfter": 0,
+        "noted": false,
+        "consumerSpeciesId": "goshawk"
+      },
+      {
+        "sequence": 26,
+        "speciesId": "litter-mold",
+        "changeType": "colony_renewal",
+        "cause": "colony_renewal",
+        "simulationTime": 519,
+        "countBefore": 1,
+        "countAfter": 1,
+        "noted": true
+      },
+      {
+        "sequence": 27,
+        "speciesId": "caterpillar",
+        "changeType": "replenishment",
+        "cause": "replenishment",
+        "simulationTime": 540,
+        "countBefore": 0,
+        "countAfter": 1,
+        "noted": false,
+        "mode": "larval-recruitment"
+      },
+      {
+        "sequence": 28,
+        "speciesId": "grasshopper",
+        "changeType": "reintroduction",
+        "cause": "reintroduction",
+        "simulationTime": 600,
+        "countBefore": 0,
+        "countAfter": 1,
+        "noted": true
+      },
+      {
+        "sequence": 29,
+        "speciesId": "bulbul",
+        "changeType": "reintroduction",
+        "cause": "reintroduction",
+        "simulationTime": 600,
+        "countBefore": 0,
+        "countAfter": 1,
+        "noted": true
+      },
+      {
+        "sequence": 30,
+        "speciesId": "frog",
+        "changeType": "reintroduction",
+        "cause": "reintroduction",
+        "simulationTime": 600,
+        "countBefore": 0,
+        "countAfter": 1,
+        "noted": true
+      },
+      {
+        "sequence": 31,
+        "speciesId": "grasshopper",
+        "changeType": "predation",
+        "cause": "predation",
+        "simulationTime": 609.5,
+        "countBefore": 1,
+        "countAfter": 0,
+        "noted": false,
+        "consumerSpeciesId": "frog"
+      },
+      {
+        "sequence": 32,
+        "speciesId": "caterpillar",
+        "changeType": "predation",
+        "cause": "predation",
+        "simulationTime": 645,
+        "countBefore": 1,
+        "countAfter": 0,
+        "noted": false,
+        "consumerSpeciesId": "tit"
+      },
+      {
+        "sequence": 33,
+        "speciesId": "grass",
+        "changeType": "natural_lifespan",
+        "cause": "natural_lifespan",
+        "simulationTime": 731.5,
+        "countBefore": 8,
+        "countAfter": 7,
+        "noted": false
+      },
+      {
+        "sequence": 34,
+        "speciesId": "grass",
+        "changeType": "natural_lifespan",
+        "cause": "natural_lifespan",
+        "simulationTime": 745,
+        "countBefore": 7,
+        "countAfter": 6,
+        "noted": false
+      },
+      {
+        "sequence": 35,
+        "speciesId": "grass",
+        "changeType": "natural_lifespan",
+        "cause": "natural_lifespan",
+        "simulationTime": 764,
+        "countBefore": 6,
+        "countAfter": 5,
+        "noted": false
+      },
+      {
+        "sequence": 36,
+        "speciesId": "grass",
+        "changeType": "natural_lifespan",
+        "cause": "natural_lifespan",
+        "simulationTime": 764,
+        "countBefore": 5,
+        "countAfter": 4,
+        "noted": false
+      },
+      {
+        "sequence": 37,
+        "speciesId": "litter-mold",
+        "changeType": "colony_renewal",
+        "cause": "colony_renewal",
+        "simulationTime": 778.5,
+        "countBefore": 1,
+        "countAfter": 1,
+        "noted": true
+      },
+      {
+        "sequence": 38,
+        "speciesId": "frog",
+        "changeType": "predation",
+        "cause": "predation",
+        "simulationTime": 800,
+        "countBefore": 1,
+        "countAfter": 0,
+        "noted": false,
+        "consumerSpeciesId": "snake"
+      },
+      {
+        "sequence": 39,
+        "speciesId": "grass",
+        "changeType": "natural_lifespan",
+        "cause": "natural_lifespan",
+        "simulationTime": 812.5,
+        "countBefore": 4,
+        "countAfter": 3,
+        "noted": false
+      },
+      {
+        "sequence": 40,
+        "speciesId": "caterpillar",
+        "changeType": "replenishment",
+        "cause": "replenishment",
+        "simulationTime": 840,
+        "countBefore": 0,
+        "countAfter": 1,
+        "noted": false,
+        "mode": "larval-recruitment"
+      },
+      {
+        "sequence": 41,
+        "speciesId": "caterpillar",
+        "changeType": "predation",
+        "cause": "predation",
+        "simulationTime": 849,
+        "countBefore": 1,
+        "countAfter": 0,
+        "noted": false,
+        "consumerSpeciesId": "bulbul"
+      },
+      {
+        "sequence": 42,
+        "speciesId": "grass",
+        "changeType": "reproduction",
+        "cause": "reproduction",
+        "simulationTime": 851,
+        "countBefore": 3,
+        "countAfter": 4,
+        "noted": false,
+        "mode": "seed-spread"
+      },
+      {
+        "sequence": 43,
+        "speciesId": "grass",
+        "changeType": "natural_lifespan",
+        "cause": "natural_lifespan",
+        "simulationTime": 855,
+        "countBefore": 4,
+        "countAfter": 3,
+        "noted": false
+      },
+      {
+        "sequence": 44,
+        "speciesId": "grasshopper",
+        "changeType": "reintroduction",
+        "cause": "reintroduction",
+        "simulationTime": 900,
+        "countBefore": 0,
+        "countAfter": 1,
+        "noted": true
+      },
+      {
+        "sequence": 45,
+        "speciesId": "frog",
+        "changeType": "reintroduction",
+        "cause": "reintroduction",
+        "simulationTime": 900,
+        "countBefore": 0,
+        "countAfter": 1,
+        "noted": true
+      },
+      {
+        "sequence": 46,
+        "speciesId": "grasshopper",
+        "changeType": "predation",
+        "cause": "predation",
+        "simulationTime": 907.5,
+        "countBefore": 1,
+        "countAfter": 0,
+        "noted": false,
+        "consumerSpeciesId": "frog"
+      },
+      {
+        "sequence": 47,
+        "speciesId": "grass",
+        "changeType": "natural_lifespan",
+        "cause": "natural_lifespan",
+        "simulationTime": 909.5,
+        "countBefore": 3,
+        "countAfter": 2,
+        "noted": false
+      },
+      {
+        "sequence": 48,
+        "speciesId": "bulbul",
+        "changeType": "predation",
+        "cause": "predation",
+        "simulationTime": 923,
+        "countBefore": 1,
+        "countAfter": 0,
+        "noted": false,
+        "consumerSpeciesId": "goshawk"
+      },
+      {
+        "sequence": 49,
+        "speciesId": "grass",
+        "changeType": "natural_lifespan",
+        "cause": "natural_lifespan",
+        "simulationTime": 929.5,
+        "countBefore": 2,
+        "countAfter": 1,
+        "noted": false
+      },
+      {
+        "sequence": 50,
+        "speciesId": "litter-mold",
+        "changeType": "colony_renewal",
+        "cause": "colony_renewal",
+        "simulationTime": 1038,
+        "countBefore": 1,
+        "countAfter": 1,
+        "noted": true
+      },
+      {
+        "sequence": 51,
+        "speciesId": "mushroom",
+        "changeType": "colony_renewal",
+        "cause": "colony_renewal",
+        "simulationTime": 1065,
+        "countBefore": 1,
+        "countAfter": 1,
+        "noted": true
+      },
+      {
+        "sequence": 52,
+        "speciesId": "aphid",
+        "changeType": "natural_lifespan",
+        "cause": "natural_lifespan",
+        "simulationTime": 1066,
+        "countBefore": 1,
+        "countAfter": 0,
+        "noted": false
+      },
+      {
+        "sequence": 53,
+        "speciesId": "soil-bacteria",
+        "changeType": "colony_renewal",
+        "cause": "colony_renewal",
+        "simulationTime": 1066.5,
+        "countBefore": 1,
+        "countAfter": 1,
+        "noted": true
+      },
+      {
+        "sequence": 54,
+        "speciesId": "caterpillar",
+        "changeType": "replenishment",
+        "cause": "replenishment",
+        "simulationTime": 1140,
+        "countBefore": 0,
+        "countAfter": 1,
+        "noted": false,
+        "mode": "larval-recruitment"
+      }
+    ],
+    "speciesTransitions": [
+      {
+        "at": 10,
+        "speciesId": "spider",
+        "type": "extinct-in-current-forest"
+      },
+      {
+        "at": 10.5,
+        "speciesId": "grasshopper",
+        "type": "extinct-in-current-forest"
+      },
+      {
+        "at": 10.5,
+        "speciesId": "caterpillar",
+        "type": "extinct-in-current-forest"
+      },
+      {
+        "at": 13.5,
+        "speciesId": "frog",
+        "type": "extinct-in-current-forest"
+      },
+      {
+        "at": 13.5,
+        "speciesId": "snail",
+        "type": "extinct-in-current-forest"
+      },
+      {
+        "at": 16,
+        "speciesId": "chipmunk",
+        "type": "extinct-in-current-forest"
+      },
+      {
+        "at": 16,
+        "speciesId": "aphid",
+        "type": "extinct-in-current-forest"
+      },
+      {
+        "at": 22.5,
+        "speciesId": "bulbul",
+        "type": "extinct-in-current-forest"
+      },
+      {
+        "at": 219.5,
+        "speciesId": "caterpillar",
+        "type": "returned-or-first-appeared"
+      },
+      {
+        "at": 300,
+        "speciesId": "grasshopper",
+        "type": "returned-or-first-appeared"
+      },
+      {
+        "at": 300,
+        "speciesId": "frog",
+        "type": "returned-or-first-appeared"
+      },
+      {
+        "at": 300,
+        "speciesId": "chipmunk",
+        "type": "returned-or-first-appeared"
+      },
+      {
+        "at": 300,
+        "speciesId": "field-mouse",
+        "type": "extinct-in-current-forest"
+      },
+      {
+        "at": 300,
+        "speciesId": "aphid",
+        "type": "returned-or-first-appeared"
+      },
+      {
+        "at": 300,
+        "speciesId": "snail",
+        "type": "returned-or-first-appeared"
+      },
+      {
+        "at": 300,
+        "speciesId": "ladybird",
+        "type": "extinct-in-current-forest"
+      },
+      {
+        "at": 300,
+        "speciesId": "bulbul",
+        "type": "returned-or-first-appeared"
+      },
+      {
+        "at": 300,
+        "speciesId": "weasel",
+        "type": "extinct-in-current-forest"
+      },
+      {
+        "at": 310,
+        "speciesId": "grasshopper",
+        "type": "extinct-in-current-forest"
+      },
+      {
+        "at": 332,
+        "speciesId": "caterpillar",
+        "type": "extinct-in-current-forest"
+      },
+      {
+        "at": 407.5,
+        "speciesId": "frog",
+        "type": "extinct-in-current-forest"
+      },
+      {
+        "at": 471,
+        "speciesId": "bulbul",
+        "type": "extinct-in-current-forest"
+      },
+      {
+        "at": 540,
+        "speciesId": "caterpillar",
+        "type": "returned-or-first-appeared"
+      },
+      {
+        "at": 600,
+        "speciesId": "grasshopper",
+        "type": "returned-or-first-appeared"
+      },
+      {
+        "at": 600,
+        "speciesId": "frog",
+        "type": "returned-or-first-appeared"
+      },
+      {
+        "at": 600,
+        "speciesId": "bulbul",
+        "type": "returned-or-first-appeared"
+      },
+      {
+        "at": 609.5,
+        "speciesId": "grasshopper",
+        "type": "extinct-in-current-forest"
+      },
+      {
+        "at": 645,
+        "speciesId": "caterpillar",
+        "type": "extinct-in-current-forest"
+      },
+      {
+        "at": 800,
+        "speciesId": "frog",
+        "type": "extinct-in-current-forest"
+      },
+      {
+        "at": 840,
+        "speciesId": "caterpillar",
+        "type": "returned-or-first-appeared"
+      },
+      {
+        "at": 849,
+        "speciesId": "caterpillar",
+        "type": "extinct-in-current-forest"
+      },
+      {
+        "at": 900,
+        "speciesId": "grasshopper",
+        "type": "returned-or-first-appeared"
+      },
+      {
+        "at": 900,
+        "speciesId": "frog",
+        "type": "returned-or-first-appeared"
+      },
+      {
+        "at": 907.5,
+        "speciesId": "grasshopper",
+        "type": "extinct-in-current-forest"
+      },
+      {
+        "at": 923,
+        "speciesId": "bulbul",
+        "type": "extinct-in-current-forest"
+      },
+      {
+        "at": 1066,
+        "speciesId": "aphid",
+        "type": "extinct-in-current-forest"
+      },
+      {
+        "at": 1140,
+        "speciesId": "caterpillar",
+        "type": "returned-or-first-appeared"
+      }
+    ],
+    "meals": [
+      {
+        "at": 5,
+        "relationId": "v2_grass_to_grasshopper",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "grasshopper",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-2-0",
+        "foodInstanceId": "pacing-extra-0"
+      },
+      {
+        "at": 10,
+        "relationId": "v2_spider_to_tit",
+        "foodPart": "animal",
+        "consumerSpeciesId": "tit",
+        "foodSpeciesId": "spider",
+        "consumerInstanceId": "fixture-16-0",
+        "foodInstanceId": "fixture-14-0"
+      },
+      {
+        "at": 10.5,
+        "relationId": "v2_grasshopper_to_frog",
+        "foodPart": "animal",
+        "consumerSpeciesId": "frog",
+        "foodSpeciesId": "grasshopper",
+        "consumerInstanceId": "fixture-3-0",
+        "foodInstanceId": "fixture-2-0"
+      },
+      {
+        "at": 10.5,
+        "relationId": "v2_caterpillar_to_bulbul",
+        "foodPart": "animal",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "caterpillar",
+        "consumerInstanceId": "fixture-17-0",
+        "foodInstanceId": "fixture-11-0"
+      },
+      {
+        "at": 12.5,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "fixture-9-0",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 13.5,
+        "relationId": "v2_snail_to_ladybird",
+        "foodPart": "animal",
+        "consumerSpeciesId": "ladybird",
+        "foodSpeciesId": "snail",
+        "consumerInstanceId": "fixture-15-0",
+        "foodInstanceId": "fixture-13-0"
+      },
+      {
+        "at": 13.5,
+        "relationId": "v2_frog_to_snake",
+        "foodPart": "animal",
+        "consumerSpeciesId": "snake",
+        "foodSpeciesId": "frog",
+        "consumerInstanceId": "fixture-18-0",
+        "foodInstanceId": "fixture-3-0"
+      },
+      {
+        "at": 16,
+        "relationId": "v2_aphid_to_field_mouse",
+        "foodPart": "animal",
+        "consumerSpeciesId": "field-mouse",
+        "foodSpeciesId": "aphid",
+        "consumerInstanceId": "fixture-10-0",
+        "foodInstanceId": "fixture-12-0"
+      },
+      {
+        "at": 16,
+        "relationId": "v2_chipmunk_to_weasel",
+        "foodPart": "animal",
+        "consumerSpeciesId": "weasel",
+        "foodSpeciesId": "chipmunk",
+        "consumerInstanceId": "fixture-19-0",
+        "foodInstanceId": "fixture-9-0"
+      },
+      {
+        "at": 22.5,
+        "relationId": "v2_bulbul_to_goshawk",
+        "foodPart": "animal",
+        "consumerSpeciesId": "goshawk",
+        "foodSpeciesId": "bulbul",
+        "consumerInstanceId": "fixture-20-0",
+        "foodInstanceId": "fixture-17-0"
+      },
+      {
+        "at": 24,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "pacing-extra-5"
+      },
+      {
+        "at": 58.5,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "pacing-extra-5"
+      },
+      {
+        "at": 94.5,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "pacing-extra-5"
+      },
+      {
+        "at": 192,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "pacing-extra-5"
+      },
+      {
+        "at": 210,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "organism-4"
+      },
+      {
+        "at": 233,
+        "relationId": "v2_pine_to_caterpillar",
+        "foodPart": "needles",
+        "consumerSpeciesId": "caterpillar",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-5",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 243.5,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "fixture-1-0"
+      },
+      {
+        "at": 250.5,
+        "relationId": "v2_pine_to_caterpillar",
+        "foodPart": "needles",
+        "consumerSpeciesId": "caterpillar",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-5",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 270.5,
+        "relationId": "v2_pine_to_caterpillar",
+        "foodPart": "needles",
+        "consumerSpeciesId": "caterpillar",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-5",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 279,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "pacing-extra-5"
+      },
+      {
+        "at": 290.5,
+        "relationId": "v2_pine_to_caterpillar",
+        "foodPart": "needles",
+        "consumerSpeciesId": "caterpillar",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-5",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 305,
+        "relationId": "v2_grass_to_grasshopper",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "grasshopper",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-6",
+        "foodInstanceId": "pacing-extra-3"
+      },
+      {
+        "at": 310,
+        "relationId": "v2_grasshopper_to_frog",
+        "foodPart": "animal",
+        "consumerSpeciesId": "frog",
+        "foodSpeciesId": "grasshopper",
+        "consumerInstanceId": "organism-11",
+        "foodInstanceId": "organism-6"
+      },
+      {
+        "at": 311,
+        "relationId": "v2_pine_to_caterpillar",
+        "foodPart": "needles",
+        "consumerSpeciesId": "caterpillar",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-5",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 312.5,
+        "relationId": "v2_hazel_to_bulbul",
+        "foodPart": "fruit",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-10",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 313,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 315.5,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "pacing-extra-0"
+      },
+      {
+        "at": 316.5,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "pacing-extra-5"
+      },
+      {
+        "at": 321.5,
+        "relationId": "v2_hazel_to_aphid",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "aphid",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-7",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 328,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 331,
+        "relationId": "v2_pine_to_caterpillar",
+        "foodPart": "needles",
+        "consumerSpeciesId": "caterpillar",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-5",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 332,
+        "relationId": "v2_caterpillar_to_bulbul",
+        "foodPart": "animal",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "caterpillar",
+        "consumerInstanceId": "organism-10",
+        "foodInstanceId": "organism-5"
+      },
+      {
+        "at": 346.5,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 349,
+        "relationId": "v2_hazel_to_aphid",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "aphid",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-7",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 349,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "pacing-extra-0"
+      },
+      {
+        "at": 350,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "pacing-extra-5"
+      },
+      {
+        "at": 354,
+        "relationId": "v2_raspberry_to_bulbul",
+        "foodPart": "fruit",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "raspberry",
+        "consumerInstanceId": "organism-10",
+        "foodInstanceId": "fixture-7-0"
+      },
+      {
+        "at": 365.5,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 375.5,
+        "relationId": "v2_hazel_to_bulbul",
+        "foodPart": "fruit",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-10",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 382.5,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "pacing-extra-3"
+      },
+      {
+        "at": 383,
+        "relationId": "v2_hazel_to_aphid",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "aphid",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-7",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 383.5,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 384.5,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "pacing-extra-0"
+      },
+      {
+        "at": 401.5,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 407.5,
+        "relationId": "v2_frog_to_snake",
+        "foodPart": "animal",
+        "consumerSpeciesId": "snake",
+        "foodSpeciesId": "frog",
+        "consumerInstanceId": "fixture-18-0",
+        "foodInstanceId": "organism-11"
+      },
+      {
+        "at": 416,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "pacing-extra-3"
+      },
+      {
+        "at": 416.5,
+        "relationId": "v2_hazel_to_aphid",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "aphid",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-7",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 419,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "organism-4"
+      },
+      {
+        "at": 420,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 436.5,
+        "relationId": "v2_hazel_to_bulbul",
+        "foodPart": "fruit",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-10",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 440,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 449.5,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "pacing-extra-3"
+      },
+      {
+        "at": 450,
+        "relationId": "v2_hazel_to_aphid",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "aphid",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-7",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 451,
+        "relationId": "v2_hazel_to_bulbul",
+        "foodPart": "fruit",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-10",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 453,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "pacing-extra-5"
+      },
+      {
+        "at": 460.5,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 470,
+        "relationId": "v2_hazel_to_bulbul",
+        "foodPart": "fruit",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-10",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 471,
+        "relationId": "v2_bulbul_to_goshawk",
+        "foodPart": "animal",
+        "consumerSpeciesId": "goshawk",
+        "foodSpeciesId": "bulbul",
+        "consumerInstanceId": "fixture-20-0",
+        "foodInstanceId": "organism-10"
+      },
+      {
+        "at": 476,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 483,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "pacing-extra-1"
+      },
+      {
+        "at": 483.5,
+        "relationId": "v2_hazel_to_aphid",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "aphid",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-7",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 487,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "pacing-extra-0"
+      },
+      {
+        "at": 494,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 516.5,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "pacing-extra-1"
+      },
+      {
+        "at": 517,
+        "relationId": "v2_hazel_to_aphid",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "aphid",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-7",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 521,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "pacing-extra-1"
+      },
+      {
+        "at": 548,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 550,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "pacing-extra-1"
+      },
+      {
+        "at": 550.5,
+        "relationId": "v2_hazel_to_aphid",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "aphid",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-7",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 551.5,
+        "relationId": "v2_pine_to_caterpillar",
+        "foodPart": "needles",
+        "consumerSpeciesId": "caterpillar",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-12",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 554.5,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "pacing-extra-5"
+      },
+      {
+        "at": 557.5,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 570.5,
+        "relationId": "v2_pine_to_caterpillar",
+        "foodPart": "needles",
+        "consumerSpeciesId": "caterpillar",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-12",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 576.5,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 583.5,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "pacing-extra-0"
+      },
+      {
+        "at": 584,
+        "relationId": "v2_hazel_to_aphid",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "aphid",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-7",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 590.5,
+        "relationId": "v2_pine_to_caterpillar",
+        "foodPart": "needles",
+        "consumerSpeciesId": "caterpillar",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-12",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 591.5,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "pacing-extra-5"
+      },
+      {
+        "at": 594.5,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 605,
+        "relationId": "v2_grass_to_grasshopper",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "grasshopper",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-13",
+        "foodInstanceId": "pacing-extra-3"
+      },
+      {
+        "at": 609.5,
+        "relationId": "v2_grasshopper_to_frog",
+        "foodPart": "animal",
+        "consumerSpeciesId": "frog",
+        "foodSpeciesId": "grasshopper",
+        "consumerInstanceId": "organism-15",
+        "foodInstanceId": "organism-13"
+      },
+      {
+        "at": 611,
+        "relationId": "v2_pine_to_caterpillar",
+        "foodPart": "needles",
+        "consumerSpeciesId": "caterpillar",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-12",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 613,
+        "relationId": "v2_hazel_to_bulbul",
+        "foodPart": "fruit",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-14",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 616,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 617,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "fixture-1-0"
+      },
+      {
+        "at": 617.5,
+        "relationId": "v2_hazel_to_aphid",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "aphid",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-7",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 625,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "pacing-extra-0"
+      },
+      {
+        "at": 631,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 632,
+        "relationId": "v2_pine_to_caterpillar",
+        "foodPart": "needles",
+        "consumerSpeciesId": "caterpillar",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-12",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 632,
+        "relationId": "v2_raspberry_to_bulbul",
+        "foodPart": "fruit",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "raspberry",
+        "consumerInstanceId": "organism-14",
+        "foodInstanceId": "fixture-7-0"
+      },
+      {
+        "at": 645,
+        "relationId": "v2_caterpillar_to_tit",
+        "foodPart": "animal",
+        "consumerSpeciesId": "tit",
+        "foodSpeciesId": "caterpillar",
+        "consumerInstanceId": "fixture-16-0",
+        "foodInstanceId": "organism-12"
+      },
+      {
+        "at": 650.5,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "fixture-1-0"
+      },
+      {
+        "at": 651,
+        "relationId": "v2_hazel_to_aphid",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "aphid",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-7",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 651,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 654,
+        "relationId": "v2_raspberry_to_bulbul",
+        "foodPart": "fruit",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "raspberry",
+        "consumerInstanceId": "organism-14",
+        "foodInstanceId": "fixture-7-0"
+      },
+      {
+        "at": 658.5,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "fixture-1-0"
+      },
+      {
+        "at": 668.5,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 676.5,
+        "relationId": "v2_raspberry_to_bulbul",
+        "foodPart": "fruit",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "raspberry",
+        "consumerInstanceId": "organism-14",
+        "foodInstanceId": "fixture-7-0"
+      },
+      {
+        "at": 684,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "fixture-1-0"
+      },
+      {
+        "at": 684.5,
+        "relationId": "v2_hazel_to_aphid",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "aphid",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-7",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 686.5,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 692.5,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "pacing-extra-0"
+      },
+      {
+        "at": 697.5,
+        "relationId": "v2_hazel_to_bulbul",
+        "foodPart": "fruit",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-14",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 709.5,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 717.5,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "pacing-extra-0"
+      },
+      {
+        "at": 718,
+        "relationId": "v2_hazel_to_aphid",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "aphid",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-7",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 720.5,
+        "relationId": "v2_hazel_to_bulbul",
+        "foodPart": "fruit",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-14",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 724,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 726.5,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "pacing-extra-5"
+      },
+      {
+        "at": 740.5,
+        "relationId": "v2_hazel_to_bulbul",
+        "foodPart": "fruit",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-14",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 745,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 751,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "fixture-1-0"
+      },
+      {
+        "at": 751.5,
+        "relationId": "v2_hazel_to_aphid",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "aphid",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-7",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 760,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "fixture-1-0"
+      },
+      {
+        "at": 761.5,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 761.5,
+        "relationId": "v2_raspberry_to_bulbul",
+        "foodPart": "fruit",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "raspberry",
+        "consumerInstanceId": "organism-14",
+        "foodInstanceId": "fixture-7-0"
+      },
+      {
+        "at": 779.5,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 783.5,
+        "relationId": "v2_hazel_to_bulbul",
+        "foodPart": "fruit",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-14",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 785,
+        "relationId": "v2_hazel_to_aphid",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "aphid",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-7",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 787.5,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "fixture-1-0"
+      },
+      {
+        "at": 793.5,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "pacing-extra-5"
+      },
+      {
+        "at": 800,
+        "relationId": "v2_frog_to_snake",
+        "foodPart": "animal",
+        "consumerSpeciesId": "snake",
+        "foodSpeciesId": "frog",
+        "consumerInstanceId": "fixture-18-0",
+        "foodInstanceId": "organism-15"
+      },
+      {
+        "at": 800,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 805.5,
+        "relationId": "v2_hazel_to_bulbul",
+        "foodPart": "fruit",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-14",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 816,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 818.5,
+        "relationId": "v2_hazel_to_aphid",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "aphid",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-7",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 824.5,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "pacing-extra-3"
+      },
+      {
+        "at": 827,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "pacing-extra-3"
+      },
+      {
+        "at": 827.5,
+        "relationId": "v2_hazel_to_bulbul",
+        "foodPart": "fruit",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-14",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 835,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 849,
+        "relationId": "v2_caterpillar_to_bulbul",
+        "foodPart": "animal",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "caterpillar",
+        "consumerInstanceId": "organism-14",
+        "foodInstanceId": "organism-16"
+      },
+      {
+        "at": 852,
+        "relationId": "v2_hazel_to_aphid",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "aphid",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-7",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 853,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 861.5,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "organism-4"
+      },
+      {
+        "at": 863,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "pacing-extra-5"
+      },
+      {
+        "at": 870,
+        "relationId": "v2_hazel_to_bulbul",
+        "foodPart": "fruit",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-14",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 871.5,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 885.5,
+        "relationId": "v2_hazel_to_aphid",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "aphid",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-7",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 886,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "organism-17"
+      },
+      {
+        "at": 889.5,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 893.5,
+        "relationId": "v2_hazel_to_bulbul",
+        "foodPart": "fruit",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-14",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 896.5,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "organism-4"
+      },
+      {
+        "at": 906,
+        "relationId": "v2_grass_to_grasshopper",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "grasshopper",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-18",
+        "foodInstanceId": "pacing-extra-5"
+      },
+      {
+        "at": 907.5,
+        "relationId": "v2_grasshopper_to_frog",
+        "foodPart": "animal",
+        "consumerSpeciesId": "frog",
+        "foodSpeciesId": "grasshopper",
+        "consumerInstanceId": "organism-19",
+        "foodInstanceId": "organism-18"
+      },
+      {
+        "at": 908,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 913,
+        "relationId": "v2_hazel_to_bulbul",
+        "foodPart": "fruit",
+        "consumerSpeciesId": "bulbul",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-14",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 919,
+        "relationId": "v2_hazel_to_aphid",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "aphid",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-7",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 923,
+        "relationId": "v2_bulbul_to_goshawk",
+        "foodPart": "animal",
+        "consumerSpeciesId": "goshawk",
+        "foodSpeciesId": "bulbul",
+        "consumerInstanceId": "fixture-20-0",
+        "foodInstanceId": "organism-14"
+      },
+      {
+        "at": 923,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "organism-17"
+      },
+      {
+        "at": 930.5,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 945,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 953,
+        "relationId": "v2_hazel_to_aphid",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "aphid",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-7",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 953.5,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "organism-17"
+      },
+      {
+        "at": 964,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 973,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "organism-17"
+      },
+      {
+        "at": 983,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 986.5,
+        "relationId": "v2_hazel_to_aphid",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "aphid",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-7",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 989,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "organism-17"
+      },
+      {
+        "at": 993,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "organism-17"
+      },
+      {
+        "at": 1000.5,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 1020.5,
+        "relationId": "v2_hazel_to_aphid",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "aphid",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-7",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 1021,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 1024,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "organism-17"
+      },
+      {
+        "at": 1028,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "organism-17"
+      },
+      {
+        "at": 1038,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 1054,
+        "relationId": "v2_hazel_to_aphid",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "aphid",
+        "foodSpeciesId": "hazel",
+        "consumerInstanceId": "organism-7",
+        "foodInstanceId": "fixture-8-0"
+      },
+      {
+        "at": 1059,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 1061.5,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "organism-17"
+      },
+      {
+        "at": 1063,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "organism-17"
+      },
+      {
+        "at": 1075.5,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 1088.5,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "organism-17"
+      },
+      {
+        "at": 1096.5,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 1098.5,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "organism-17"
+      },
+      {
+        "at": 1115,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 1122,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "organism-17"
+      },
+      {
+        "at": 1130,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 1132.5,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "organism-17"
+      },
+      {
+        "at": 1148.5,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 1155,
+        "relationId": "v2_pine_to_caterpillar",
+        "foodPart": "needles",
+        "consumerSpeciesId": "caterpillar",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-20",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 1160,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "organism-17"
+      },
+      {
+        "at": 1169.5,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 1171.5,
+        "relationId": "v2_pine_to_caterpillar",
+        "foodPart": "needles",
+        "consumerSpeciesId": "caterpillar",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-20",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 1172.5,
+        "relationId": "v2_grass_to_rabbit",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "rabbit",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "fixture-4-0",
+        "foodInstanceId": "organism-17"
+      },
+      {
+        "at": 1185,
+        "relationId": "v2_pine_to_chipmunk",
+        "foodPart": "seeds",
+        "consumerSpeciesId": "chipmunk",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-9",
+        "foodInstanceId": "fixture-6-0"
+      },
+      {
+        "at": 1191.5,
+        "relationId": "v2_grass_to_snail",
+        "foodPart": "leaves",
+        "consumerSpeciesId": "snail",
+        "foodSpeciesId": "grass",
+        "consumerInstanceId": "organism-8",
+        "foodInstanceId": "organism-17"
+      },
+      {
+        "at": 1191.5,
+        "relationId": "v2_pine_to_caterpillar",
+        "foodPart": "needles",
+        "consumerSpeciesId": "caterpillar",
+        "foodSpeciesId": "pine",
+        "consumerInstanceId": "organism-20",
+        "foodInstanceId": "fixture-6-0"
+      }
+    ],
+    "actions": [
+      {
+        "at": 150,
+        "type": "paid-management",
+        "record": {
+          "actionId": "food-support",
+          "sourceEventId": "event-28",
+          "sourceId": "fixture-10-0",
+          "executedAt": 150,
+          "cost": 5,
+          "result": "applied",
+          "roundSupportUsed": 0,
+          "targetFactor": null,
+          "beforeValue": 1,
+          "afterValue": 0.35,
+          "supportUsed": 0
+        }
+      },
+      {
+        "at": 180,
+        "type": "paid-management",
+        "record": {
+          "actionId": "food-support",
+          "sourceEventId": "event-29",
+          "sourceId": "fixture-15-0",
+          "executedAt": 180,
+          "cost": 5,
+          "result": "applied",
+          "roundSupportUsed": 0,
+          "targetFactor": null,
+          "beforeValue": 1,
+          "afterValue": 0.35,
+          "supportUsed": 0
+        }
+      },
+      {
+        "at": 210,
+        "type": "paid-management",
+        "record": {
+          "actionId": "food-support",
+          "sourceEventId": "event-32",
+          "sourceId": "fixture-16-0",
+          "executedAt": 210,
+          "cost": 5,
+          "result": "applied",
+          "roundSupportUsed": 0,
+          "targetFactor": null,
+          "beforeValue": 1,
+          "afterValue": 0.35,
+          "supportUsed": 0
+        }
+      },
+      {
+        "at": 240,
+        "type": "paid-management",
+        "record": {
+          "actionId": "food-support",
+          "sourceEventId": "event-33",
+          "sourceId": "fixture-10-0",
+          "executedAt": 240,
+          "cost": 5,
+          "result": "applied",
+          "roundSupportUsed": 0,
+          "targetFactor": null,
+          "beforeValue": 1,
+          "afterValue": 0.35,
+          "supportUsed": 0
+        }
+      },
+      {
+        "at": 300,
+        "type": "release",
+        "instanceId": "fixture-10-0",
+        "speciesId": "field-mouse"
+      },
+      {
+        "at": 300,
+        "type": "release",
+        "instanceId": "fixture-15-0",
+        "speciesId": "ladybird"
+      },
+      {
+        "at": 300,
+        "type": "release",
+        "instanceId": "fixture-19-0",
+        "speciesId": "weasel"
+      },
+      {
+        "at": 300,
+        "type": "introduction-attempt",
+        "speciesId": "grasshopper",
+        "ok": true,
+        "reason": null
+      },
+      {
+        "at": 300,
+        "type": "introduction-attempt",
+        "speciesId": "aphid",
+        "ok": true,
+        "reason": null
+      },
+      {
+        "at": 300,
+        "type": "introduction-attempt",
+        "speciesId": "snail",
+        "ok": true,
+        "reason": null
+      },
+      {
+        "at": 300,
+        "type": "introduction-attempt",
+        "speciesId": "chipmunk",
+        "ok": true,
+        "reason": null
+      },
+      {
+        "at": 300,
+        "type": "introduction-attempt",
+        "speciesId": "bulbul",
+        "ok": true,
+        "reason": null
+      },
+      {
+        "at": 300,
+        "type": "introduction-attempt",
+        "speciesId": "frog",
+        "ok": true,
+        "reason": null
+      },
+      {
+        "at": 330,
+        "type": "paid-management",
+        "record": {
+          "actionId": "water-care",
+          "sourceEventId": "event-47",
+          "sourceId": "water",
+          "executedAt": 330,
+          "cost": 6,
+          "result": "resolved",
+          "factor": "water",
+          "valueAfter": 0.6,
+          "roundSupportUsed": 0,
+          "targetFactor": "water",
+          "beforeValue": 0.35,
+          "afterValue": 0.6,
+          "supportUsed": 0
+        }
+      },
+      {
+        "at": 390,
+        "type": "paid-management",
+        "record": {
+          "actionId": "food-support",
+          "sourceEventId": "event-38",
+          "sourceId": "fixture-16-0",
+          "executedAt": 390,
+          "cost": 5,
+          "result": "applied",
+          "roundSupportUsed": 0,
+          "targetFactor": null,
+          "beforeValue": 1,
+          "afterValue": 0.35,
+          "supportUsed": 0
+        }
+      },
+      {
+        "at": 450,
+        "type": "paid-management",
+        "record": {
+          "actionId": "food-support",
+          "sourceEventId": "event-55",
+          "sourceId": "fixture-16-0",
+          "executedAt": 450,
+          "cost": 5,
+          "result": "applied",
+          "roundSupportUsed": 0,
+          "targetFactor": null,
+          "beforeValue": 1,
+          "afterValue": 0.35,
+          "supportUsed": 0
+        }
+      },
+      {
+        "at": 510,
+        "type": "paid-management",
+        "record": {
+          "actionId": "food-support",
+          "sourceEventId": "event-58",
+          "sourceId": "fixture-16-0",
+          "executedAt": 510,
+          "cost": 5,
+          "result": "applied",
+          "roundSupportUsed": 0,
+          "targetFactor": null,
+          "beforeValue": 1,
+          "afterValue": 0.35,
+          "supportUsed": 0
+        }
+      },
+      {
+        "at": 570,
+        "type": "paid-management",
+        "record": {
+          "actionId": "food-support",
+          "sourceEventId": "event-60",
+          "sourceId": "fixture-16-0",
+          "executedAt": 570,
+          "cost": 5,
+          "result": "applied",
+          "roundSupportUsed": 0,
+          "targetFactor": null,
+          "beforeValue": 1,
+          "afterValue": 0.35,
+          "supportUsed": 0
+        }
+      },
+      {
+        "at": 600,
+        "type": "introduction-attempt",
+        "speciesId": "grasshopper",
+        "ok": true,
+        "reason": null
+      },
+      {
+        "at": 600,
+        "type": "introduction-attempt",
+        "speciesId": "bulbul",
+        "ok": true,
+        "reason": null
+      },
+      {
+        "at": 600,
+        "type": "introduction-attempt",
+        "speciesId": "frog",
+        "ok": true,
+        "reason": null
+      },
+      {
+        "at": 630,
+        "type": "paid-management",
+        "record": {
+          "actionId": "food-support",
+          "sourceEventId": "event-63",
+          "sourceId": "fixture-16-0",
+          "executedAt": 630,
+          "cost": 5,
+          "result": "applied",
+          "roundSupportUsed": 0,
+          "targetFactor": null,
+          "beforeValue": 1,
+          "afterValue": 0.35,
+          "supportUsed": 0
+        }
+      },
+      {
+        "at": 840,
+        "type": "paid-management",
+        "record": {
+          "actionId": "food-support",
+          "sourceEventId": "event-72",
+          "sourceId": "fixture-16-0",
+          "executedAt": 840,
+          "cost": 5,
+          "result": "applied",
+          "roundSupportUsed": 0,
+          "targetFactor": null,
+          "beforeValue": 1,
+          "afterValue": 0.35,
+          "supportUsed": 0
+        }
+      },
+      {
+        "at": 900,
+        "type": "paid-management",
+        "record": {
+          "actionId": "food-support",
+          "sourceEventId": "event-79",
+          "sourceId": "fixture-16-0",
+          "executedAt": 900,
+          "cost": 5,
+          "result": "applied",
+          "roundSupportUsed": 0,
+          "targetFactor": null,
+          "beforeValue": 1,
+          "afterValue": 0.35,
+          "supportUsed": 0
+        }
+      },
+      {
+        "at": 900,
+        "type": "introduction-attempt",
+        "speciesId": "grasshopper",
+        "ok": true,
+        "reason": null
+      },
+      {
+        "at": 900,
+        "type": "introduction-attempt",
+        "speciesId": "caterpillar",
+        "ok": false,
+        "reason": "cooldown"
+      },
+      {
+        "at": 900,
+        "type": "introduction-attempt",
+        "speciesId": "frog",
+        "ok": true,
+        "reason": null
+      },
+      {
+        "at": 960,
+        "type": "paid-management",
+        "record": {
+          "actionId": "food-support",
+          "sourceEventId": "event-82",
+          "sourceId": "fixture-16-0",
+          "executedAt": 960,
+          "cost": 5,
+          "result": "applied",
+          "roundSupportUsed": 0,
+          "targetFactor": null,
+          "beforeValue": 1,
+          "afterValue": 0.35,
+          "supportUsed": 0
+        }
+      },
+      {
+        "at": 1020,
+        "type": "paid-management",
+        "record": {
+          "actionId": "habitat-care",
+          "sourceEventId": "event-91",
+          "sourceId": "sunlight",
+          "executedAt": 1020,
+          "cost": 8,
+          "result": "applied",
+          "factor": "sunlight",
+          "valueAfter": 0.6,
+          "roundSupportUsed": 0,
+          "targetFactor": "sunlight",
+          "beforeValue": 0.3500000000000034,
+          "afterValue": 0.6,
+          "supportUsed": 0
+        }
+      },
+      {
+        "at": 1080,
+        "type": "paid-management",
+        "record": {
+          "actionId": "food-support",
+          "sourceEventId": "event-90",
+          "sourceId": "fixture-16-0",
+          "executedAt": 1080,
+          "cost": 5,
+          "result": "applied",
+          "roundSupportUsed": 0,
+          "targetFactor": null,
+          "beforeValue": 1,
+          "afterValue": 0.35,
+          "supportUsed": 0
+        }
+      },
+      {
+        "at": 1140,
+        "type": "paid-management",
+        "record": {
+          "actionId": "food-support",
+          "sourceEventId": "event-97",
+          "sourceId": "fixture-16-0",
+          "executedAt": 1140,
+          "cost": 5,
+          "result": "applied",
+          "roundSupportUsed": 0,
+          "targetFactor": null,
+          "beforeValue": 1,
+          "afterValue": 0.35,
+          "supportUsed": 0
+        }
+      },
+      {
+        "at": 1200,
+        "type": "paid-management",
+        "record": {
+          "actionId": "food-support",
+          "sourceEventId": "event-101",
+          "sourceId": "fixture-16-0",
+          "executedAt": 1200,
+          "cost": 5,
+          "result": "applied",
+          "roundSupportUsed": 0,
+          "targetFactor": null,
+          "beforeValue": 1,
+          "afterValue": 0.35,
+          "supportUsed": 0
+        }
+      }
+    ],
+    "saveChecks": [],
+    "diagnostics": {
+      "ticks": 2400,
+      "searches": 753,
+      "candidateChecks": 1071,
+      "plantMeals": 168,
+      "predations": 18
+    },
+    "wormIndividuals": [
+      {
+        "instanceId": "fixture-23-0",
+        "speciesId": "earthworm",
+        "createdAt": 0,
+        "creationCause": "initial",
+        "naturalLifetime": 1946.6886669863015,
+        "initialAge": 194.66886669863015,
+        "removedAt": null,
+        "removalCause": null,
+        "consumerSpeciesId": null,
+        "lifetime": null,
+        "meals": 0,
+        "mealTimes": [],
+        "firstHungryAt": null,
+        "firstSevereAt": null,
+        "shortageSeconds": 0,
+        "litterConsumed": 6.65212312500019,
+        "observedLifetime": 1200,
+        "alive": true,
+        "meanMealInterval": null
+      }
+    ],
+    "causeCounts": {
+      "natural_lifespan": 9,
+      "predation": 18,
+      "release": 3
+    },
+    "environmentEvents": [
+      {
+        "eventId": "environment-1",
+        "kind": "drought",
+        "factor": "water",
+        "phase": "ended",
+        "startedAt": 240,
+        "duration": 90,
+        "recoverySeconds": 120,
+        "intensity": 1,
+        "floor": 0.35,
+        "beforeValue": 1,
+        "valueAfter": 0.8,
+        "appliedDelta": -0.65,
+        "effectSeconds": 90,
+        "recoveryElapsed": 53.5,
+        "recoveredDelta": 0.20000000000000007,
+        "recoveryTarget": 0.8,
+        "valueAtEffectEnd": 0.35,
+        "effectEndedAt": 330,
+        "endedAt": 383.5,
+        "observed": true,
+        "choice": "observe",
+        "evidence": [
+          {
+            "instanceId": "fixture-0-0",
+            "speciesId": "oak",
+            "type": "producer-decline",
+            "at": 240.5
+          },
+          {
+            "instanceId": "fixture-1-0",
+            "speciesId": "grass",
+            "type": "producer-decline",
+            "at": 240.5
+          },
+          {
+            "instanceId": "fixture-6-0",
+            "speciesId": "pine",
+            "type": "producer-decline",
+            "at": 240.5
+          },
+          {
+            "instanceId": "fixture-7-0",
+            "speciesId": "raspberry",
+            "type": "producer-decline",
+            "at": 240.5
+          },
+          {
+            "instanceId": "fixture-8-0",
+            "speciesId": "hazel",
+            "type": "producer-decline",
+            "at": 240.5
+          }
+        ],
+        "responses": [
+          {
+            "actionId": "food-support",
+            "at": 240,
+            "cost": 5,
+            "factor": null,
+            "beforeValue": 1,
+            "afterValue": 0.35
+          },
+          {
+            "actionId": "water-care",
+            "at": 330,
+            "cost": 6,
+            "factor": "water",
+            "beforeValue": 0.35,
+            "afterValue": 0.6
+          }
+        ]
+      },
+      {
+        "eventId": "environment-2",
+        "kind": "rain",
+        "factor": "water",
+        "phase": "ended",
+        "startedAt": 600,
+        "duration": 60,
+        "recoverySeconds": 0,
+        "intensity": 1,
+        "floor": 0.35,
+        "beforeValue": 0.8,
+        "valueAfter": 1,
+        "appliedDelta": 0.19999999999999996,
+        "effectSeconds": 60,
+        "recoveryElapsed": 0,
+        "recoveredDelta": 0,
+        "recoveryTarget": 0.8,
+        "valueAtEffectEnd": 1,
+        "effectEndedAt": 660,
+        "endedAt": 660,
+        "observed": true,
+        "choice": "wait",
+        "evidence": [
+          {
+            "instanceId": "fixture-0-0",
+            "speciesId": "oak",
+            "type": "producer-recovery",
+            "at": 600.5
+          },
+          {
+            "instanceId": "fixture-1-0",
+            "speciesId": "grass",
+            "type": "producer-recovery",
+            "at": 600.5
+          },
+          {
+            "instanceId": "fixture-6-0",
+            "speciesId": "pine",
+            "type": "producer-recovery",
+            "at": 600.5
+          },
+          {
+            "instanceId": "fixture-7-0",
+            "speciesId": "raspberry",
+            "type": "producer-recovery",
+            "at": 600.5
+          },
+          {
+            "instanceId": "fixture-8-0",
+            "speciesId": "hazel",
+            "type": "producer-recovery",
+            "at": 600.5
+          }
+        ],
+        "responses": [
+          {
+            "actionId": "food-support",
+            "at": 630,
+            "cost": 5,
+            "factor": null,
+            "beforeValue": 1,
+            "afterValue": 0.35
+          }
+        ]
+      },
+      {
+        "eventId": "environment-3",
+        "kind": "cloudy",
+        "factor": "sunlight",
+        "phase": "ended",
+        "startedAt": 960,
+        "duration": 60,
+        "recoverySeconds": 120,
+        "intensity": 1,
+        "floor": 0.35,
+        "beforeValue": 1,
+        "valueAfter": 0.8,
+        "appliedDelta": -0.649999999999995,
+        "effectSeconds": 60,
+        "recoveryElapsed": 53.5,
+        "recoveredDelta": 0.20000000000000007,
+        "recoveryTarget": 0.8,
+        "valueAtEffectEnd": 0.3500000000000034,
+        "effectEndedAt": 1020,
+        "endedAt": 1073.5,
+        "observed": true,
+        "choice": "observe",
+        "evidence": [
+          {
+            "instanceId": "fixture-0-0",
+            "speciesId": "oak",
+            "type": "producer-decline",
+            "at": 960.5
+          },
+          {
+            "instanceId": "fixture-6-0",
+            "speciesId": "pine",
+            "type": "producer-decline",
+            "at": 960.5
+          },
+          {
+            "instanceId": "fixture-7-0",
+            "speciesId": "raspberry",
+            "type": "producer-decline",
+            "at": 960.5
+          },
+          {
+            "instanceId": "fixture-8-0",
+            "speciesId": "hazel",
+            "type": "producer-decline",
+            "at": 960.5
+          },
+          {
+            "instanceId": "organism-17",
+            "speciesId": "grass",
+            "type": "growth-delay",
+            "at": 960.5
+          }
+        ],
+        "responses": [
+          {
+            "actionId": "food-support",
+            "at": 960,
+            "cost": 5,
+            "factor": null,
+            "beforeValue": 1,
+            "afterValue": 0.35
+          },
+          {
+            "actionId": "habitat-care",
+            "at": 1020,
+            "cost": 8,
+            "factor": "sunlight",
+            "beforeValue": 0.3500000000000034,
+            "afterValue": 0.6
+          }
+        ]
+      }
+    ],
+    "development": {
+      "sequence": 6,
+      "history": [
+        {
+          "sequence": 1,
+          "instanceId": "fixture-5-0",
+          "speciesId": "mushroom",
+          "stage": "fruiting",
+          "simulationTime": 90,
+          "noted": false
+        },
+        {
+          "sequence": 2,
+          "instanceId": "organism-4",
+          "speciesId": "grass",
+          "stage": "grown",
+          "simulationTime": 219.5,
+          "noted": false
+        },
+        {
+          "sequence": 3,
+          "instanceId": "organism-4",
+          "speciesId": "grass",
+          "stage": "seeding",
+          "simulationTime": 282,
+          "noted": false
+        },
+        {
+          "sequence": 4,
+          "instanceId": "fixture-5-0",
+          "speciesId": "mushroom",
+          "stage": "spore-ready",
+          "simulationTime": 313,
+          "noted": false
+        },
+        {
+          "sequence": 5,
+          "instanceId": "organism-17",
+          "speciesId": "grass",
+          "stage": "grown",
+          "simulationTime": 941,
+          "noted": false
+        },
+        {
+          "sequence": 6,
+          "instanceId": "organism-17",
+          "speciesId": "grass",
+          "stage": "seeding",
+          "simulationTime": 1006,
+          "noted": false
+        }
+      ]
+    },
+    "breeding": {
+      "grass": {
+        "healthySeconds": 8.5,
+        "nextAt": 941
+      },
+      "grasshopper": {
+        "healthySeconds": 0,
+        "nextAt": 120.5
+      },
+      "rabbit": {
+        "healthySeconds": 0,
+        "nextAt": 180.5
+      }
+    },
+    "replenishment": {
+      "grasshopper": {
+        "healthySeconds": 0,
+        "nextAt": 150.5,
+        "reserve": 0
+      },
+      "caterpillar": {
+        "healthySeconds": 60,
+        "nextAt": 1440
+      }
+    },
+    "pointsLedger": {
+      "openingBalance": 0,
+      "openingAt": 0,
+      "studyStartSequence": 0,
+      "legacyClaimed": [
+        "observation:v2_grass_to_grasshopper",
+        "observation:v2_spider_to_tit",
+        "observation:v2_grasshopper_to_frog",
+        "observation:v2_caterpillar_to_bulbul",
+        "observation:v2_pine_to_chipmunk",
+        "observation:v2_snail_to_ladybird",
+        "observation:v2_frog_to_snake",
+        "observation:v2_aphid_to_field_mouse",
+        "observation:v2_chipmunk_to_weasel",
+        "observation:v2_bulbul_to_goshawk",
+        "observation:v2_grass_to_rabbit",
+        "observation:v2_pine_to_caterpillar",
+        "observation:v2_hazel_to_bulbul",
+        "observation:v2_grass_to_snail",
+        "observation:v2_hazel_to_aphid",
+        "management:water_shortage_resolved",
+        "observation:v2_raspberry_to_bulbul",
+        "observation:v2_caterpillar_to_tit"
+      ],
+      "studyClaims": [
+        {
+          "rewardId": "environment-study:environment-1",
+          "eventId": "environment-1",
+          "kind": "drought",
+          "grantedAt": 390,
+          "amount": 4,
+          "factor": "water",
+          "recovery": "mixed"
+        },
+        {
+          "rewardId": "environment-study:environment-2",
+          "eventId": "environment-2",
+          "kind": "rain",
+          "grantedAt": 660,
+          "amount": 4,
+          "factor": "water",
+          "recovery": "rain"
+        },
+        {
+          "rewardId": "environment-study:environment-3",
+          "eventId": "environment-3",
+          "kind": "cloudy",
+          "grantedAt": 1080,
+          "amount": 4,
+          "factor": "sunlight",
+          "recovery": "mixed"
+        }
+      ],
+      "studyClaimedIds": [
+        "environment-1",
+        "environment-2",
+        "environment-3"
+      ],
+      "studyUnidentifiedCount": 0,
+      "studyCount": 3,
+      "support": {
+        "used": false,
+        "grantedAt": null,
+        "amount": 0,
+        "budget": 0,
+        "remaining": 0,
+        "factors": []
+      },
+      "sequence": 38,
+      "totals": {
+        "legacy": 207,
+        "study": 12,
+        "support": 0,
+        "spent": 89
+      },
+      "ledger": [
+        {
+          "sequence": 1,
+          "id": "observation:v2_grass_to_grasshopper",
+          "type": "legacy",
+          "amount": 12,
+          "at": 5,
+          "balance": 12,
+          "sourceId": "event-7"
+        },
+        {
+          "sequence": 2,
+          "id": "observation:v2_spider_to_tit",
+          "type": "legacy",
+          "amount": 12,
+          "at": 10,
+          "balance": 24,
+          "sourceId": "event-8"
+        },
+        {
+          "sequence": 3,
+          "id": "observation:v2_grasshopper_to_frog",
+          "type": "legacy",
+          "amount": 12,
+          "at": 11,
+          "balance": 36,
+          "sourceId": "event-10"
+        },
+        {
+          "sequence": 4,
+          "id": "observation:v2_caterpillar_to_bulbul",
+          "type": "legacy",
+          "amount": 12,
+          "at": 11,
+          "balance": 48,
+          "sourceId": "event-11"
+        },
+        {
+          "sequence": 5,
+          "id": "observation:v2_pine_to_chipmunk",
+          "type": "legacy",
+          "amount": 12,
+          "at": 13,
+          "balance": 60,
+          "sourceId": "event-14"
+        },
+        {
+          "sequence": 6,
+          "id": "observation:v2_snail_to_ladybird",
+          "type": "legacy",
+          "amount": 12,
+          "at": 14,
+          "balance": 72,
+          "sourceId": "event-15"
+        },
+        {
+          "sequence": 7,
+          "id": "observation:v2_frog_to_snake",
+          "type": "legacy",
+          "amount": 12,
+          "at": 14,
+          "balance": 84,
+          "sourceId": "event-16"
+        },
+        {
+          "sequence": 8,
+          "id": "observation:v2_aphid_to_field_mouse",
+          "type": "legacy",
+          "amount": 12,
+          "at": 16,
+          "balance": 96,
+          "sourceId": "event-19"
+        },
+        {
+          "sequence": 9,
+          "id": "observation:v2_chipmunk_to_weasel",
+          "type": "legacy",
+          "amount": 12,
+          "at": 16,
+          "balance": 108,
+          "sourceId": "event-20"
+        },
+        {
+          "sequence": 10,
+          "id": "observation:v2_bulbul_to_goshawk",
+          "type": "legacy",
+          "amount": 12,
+          "at": 23,
+          "balance": 120,
+          "sourceId": "event-23"
+        },
+        {
+          "sequence": 11,
+          "id": "observation:v2_grass_to_rabbit",
+          "type": "legacy",
+          "amount": 12,
+          "at": 24,
+          "balance": 132,
+          "sourceId": "event-25"
+        },
+        {
+          "sequence": 12,
+          "id": "management:1",
+          "type": "management",
+          "amount": -5,
+          "at": 150,
+          "balance": 127,
+          "sourceId": "food-support"
+        },
+        {
+          "sequence": 13,
+          "id": "management:2",
+          "type": "management",
+          "amount": -5,
+          "at": 180,
+          "balance": 122,
+          "sourceId": "food-support"
+        },
+        {
+          "sequence": 14,
+          "id": "management:3",
+          "type": "management",
+          "amount": -5,
+          "at": 210,
+          "balance": 117,
+          "sourceId": "food-support"
+        },
+        {
+          "sequence": 15,
+          "id": "observation:v2_pine_to_caterpillar",
+          "type": "legacy",
+          "amount": 12,
+          "at": 233,
+          "balance": 129,
+          "sourceId": "event-37"
+        },
+        {
+          "sequence": 16,
+          "id": "management:4",
+          "type": "management",
+          "amount": -5,
+          "at": 240,
+          "balance": 124,
+          "sourceId": "food-support"
+        },
+        {
+          "sequence": 17,
+          "id": "observation:v2_hazel_to_bulbul",
+          "type": "legacy",
+          "amount": 12,
+          "at": 313,
+          "balance": 136,
+          "sourceId": "event-49"
+        },
+        {
+          "sequence": 18,
+          "id": "observation:v2_grass_to_snail",
+          "type": "legacy",
+          "amount": 12,
+          "at": 316,
+          "balance": 148,
+          "sourceId": "event-51"
+        },
+        {
+          "sequence": 19,
+          "id": "observation:v2_hazel_to_aphid",
+          "type": "legacy",
+          "amount": 12,
+          "at": 322,
+          "balance": 160,
+          "sourceId": "event-52"
+        },
+        {
+          "sequence": 20,
+          "id": "management:5",
+          "type": "management",
+          "amount": -6,
+          "at": 330,
+          "balance": 154,
+          "sourceId": "water-care"
+        },
+        {
+          "sequence": 21,
+          "id": "management:water_shortage_resolved",
+          "type": "legacy",
+          "amount": 3,
+          "at": 330,
+          "balance": 157,
+          "sourceId": "event-47"
+        },
+        {
+          "sequence": 22,
+          "id": "observation:v2_raspberry_to_bulbul",
+          "type": "legacy",
+          "amount": 12,
+          "at": 354,
+          "balance": 169,
+          "sourceId": "event-53"
+        },
+        {
+          "sequence": 23,
+          "id": "management:6",
+          "type": "management",
+          "amount": -5,
+          "at": 390,
+          "balance": 164,
+          "sourceId": "food-support"
+        },
+        {
+          "sequence": 24,
+          "id": "environment-study:environment-1",
+          "type": "study",
+          "amount": 4,
+          "at": 390,
+          "balance": 168,
+          "sourceId": "environment-1"
+        },
+        {
+          "sequence": 25,
+          "id": "management:7",
+          "type": "management",
+          "amount": -5,
+          "at": 450,
+          "balance": 163,
+          "sourceId": "food-support"
+        },
+        {
+          "sequence": 26,
+          "id": "management:8",
+          "type": "management",
+          "amount": -5,
+          "at": 510,
+          "balance": 158,
+          "sourceId": "food-support"
+        },
+        {
+          "sequence": 27,
+          "id": "management:9",
+          "type": "management",
+          "amount": -5,
+          "at": 570,
+          "balance": 153,
+          "sourceId": "food-support"
+        },
+        {
+          "sequence": 28,
+          "id": "management:10",
+          "type": "management",
+          "amount": -5,
+          "at": 630,
+          "balance": 148,
+          "sourceId": "food-support"
+        },
+        {
+          "sequence": 29,
+          "id": "observation:v2_caterpillar_to_tit",
+          "type": "legacy",
+          "amount": 12,
+          "at": 645,
+          "balance": 160,
+          "sourceId": "event-67"
+        },
+        {
+          "sequence": 30,
+          "id": "environment-study:environment-2",
+          "type": "study",
+          "amount": 4,
+          "at": 660,
+          "balance": 164,
+          "sourceId": "environment-2"
+        },
+        {
+          "sequence": 31,
+          "id": "management:11",
+          "type": "management",
+          "amount": -5,
+          "at": 840,
+          "balance": 159,
+          "sourceId": "food-support"
+        },
+        {
+          "sequence": 32,
+          "id": "management:12",
+          "type": "management",
+          "amount": -5,
+          "at": 900,
+          "balance": 154,
+          "sourceId": "food-support"
+        },
+        {
+          "sequence": 33,
+          "id": "management:13",
+          "type": "management",
+          "amount": -5,
+          "at": 960,
+          "balance": 149,
+          "sourceId": "food-support"
+        },
+        {
+          "sequence": 34,
+          "id": "management:14",
+          "type": "management",
+          "amount": -8,
+          "at": 1020,
+          "balance": 141,
+          "sourceId": "habitat-care"
+        },
+        {
+          "sequence": 35,
+          "id": "management:15",
+          "type": "management",
+          "amount": -5,
+          "at": 1080,
+          "balance": 136,
+          "sourceId": "food-support"
+        },
+        {
+          "sequence": 36,
+          "id": "environment-study:environment-3",
+          "type": "study",
+          "amount": 4,
+          "at": 1080,
+          "balance": 140,
+          "sourceId": "environment-3"
+        },
+        {
+          "sequence": 37,
+          "id": "management:16",
+          "type": "management",
+          "amount": -5,
+          "at": 1140,
+          "balance": 135,
+          "sourceId": "food-support"
+        },
+        {
+          "sequence": 38,
+          "id": "management:17",
+          "type": "management",
+          "amount": -5,
+          "at": 1200,
+          "balance": 130,
+          "sourceId": "food-support"
+        }
+      ]
+    },
+    "rewardHistory": [
+      {
+        "rewardId": "observation:v2_grass_to_grasshopper",
+        "grantedAt": 5,
+        "sourceId": "event-7",
+        "amount": 12
+      },
+      {
+        "rewardId": "observation:v2_spider_to_tit",
+        "grantedAt": 10,
+        "sourceId": "event-8",
+        "amount": 12
+      },
+      {
+        "rewardId": "observation:v2_grasshopper_to_frog",
+        "grantedAt": 11,
+        "sourceId": "event-10",
+        "amount": 12
+      },
+      {
+        "rewardId": "observation:v2_caterpillar_to_bulbul",
+        "grantedAt": 11,
+        "sourceId": "event-11",
+        "amount": 12
+      },
+      {
+        "rewardId": "observation:v2_pine_to_chipmunk",
+        "grantedAt": 13,
+        "sourceId": "event-14",
+        "amount": 12
+      },
+      {
+        "rewardId": "observation:v2_snail_to_ladybird",
+        "grantedAt": 14,
+        "sourceId": "event-15",
+        "amount": 12
+      },
+      {
+        "rewardId": "observation:v2_frog_to_snake",
+        "grantedAt": 14,
+        "sourceId": "event-16",
+        "amount": 12
+      },
+      {
+        "rewardId": "observation:v2_aphid_to_field_mouse",
+        "grantedAt": 16,
+        "sourceId": "event-19",
+        "amount": 12
+      },
+      {
+        "rewardId": "observation:v2_chipmunk_to_weasel",
+        "grantedAt": 16,
+        "sourceId": "event-20",
+        "amount": 12
+      },
+      {
+        "rewardId": "observation:v2_bulbul_to_goshawk",
+        "grantedAt": 23,
+        "sourceId": "event-23",
+        "amount": 12
+      },
+      {
+        "rewardId": "observation:v2_grass_to_rabbit",
+        "grantedAt": 24,
+        "sourceId": "event-25",
+        "amount": 12
+      },
+      {
+        "rewardId": "observation:v2_pine_to_caterpillar",
+        "grantedAt": 233,
+        "sourceId": "event-37",
+        "amount": 12
+      },
+      {
+        "rewardId": "observation:v2_hazel_to_bulbul",
+        "grantedAt": 313,
+        "sourceId": "event-49",
+        "amount": 12
+      },
+      {
+        "rewardId": "observation:v2_grass_to_snail",
+        "grantedAt": 316,
+        "sourceId": "event-51",
+        "amount": 12
+      },
+      {
+        "rewardId": "observation:v2_hazel_to_aphid",
+        "grantedAt": 322,
+        "sourceId": "event-52",
+        "amount": 12
+      },
+      {
+        "rewardId": "management:water_shortage_resolved",
+        "grantedAt": 330,
+        "sourceId": "event-47",
+        "amount": 3
+      },
+      {
+        "rewardId": "observation:v2_raspberry_to_bulbul",
+        "grantedAt": 354,
+        "sourceId": "event-53",
+        "amount": 12
+      },
+      {
+        "rewardId": "observation:v2_caterpillar_to_tit",
+        "grantedAt": 645,
+        "sourceId": "event-67",
+        "amount": 12
+      }
+    ],
+    "managementHistory": [
+      {
+        "actionId": "food-support",
+        "sourceEventId": "event-28",
+        "sourceId": "fixture-10-0",
+        "executedAt": 150,
+        "cost": 5,
+        "result": "applied",
+        "roundSupportUsed": 0,
+        "targetFactor": null,
+        "beforeValue": 1,
+        "afterValue": 0.35,
+        "supportUsed": 0
+      },
+      {
+        "actionId": "food-support",
+        "sourceEventId": "event-29",
+        "sourceId": "fixture-15-0",
+        "executedAt": 180,
+        "cost": 5,
+        "result": "applied",
+        "roundSupportUsed": 0,
+        "targetFactor": null,
+        "beforeValue": 1,
+        "afterValue": 0.35,
+        "supportUsed": 0
+      },
+      {
+        "actionId": "food-support",
+        "sourceEventId": "event-32",
+        "sourceId": "fixture-16-0",
+        "executedAt": 210,
+        "cost": 5,
+        "result": "applied",
+        "roundSupportUsed": 0,
+        "targetFactor": null,
+        "beforeValue": 1,
+        "afterValue": 0.35,
+        "supportUsed": 0
+      },
+      {
+        "actionId": "food-support",
+        "sourceEventId": "event-33",
+        "sourceId": "fixture-10-0",
+        "executedAt": 240,
+        "cost": 5,
+        "result": "applied",
+        "roundSupportUsed": 0,
+        "targetFactor": null,
+        "beforeValue": 1,
+        "afterValue": 0.35,
+        "supportUsed": 0
+      },
+      {
+        "actionId": "water-care",
+        "sourceEventId": "event-47",
+        "sourceId": "water",
+        "executedAt": 330,
+        "cost": 6,
+        "result": "resolved",
+        "factor": "water",
+        "valueAfter": 0.6,
+        "roundSupportUsed": 0,
+        "targetFactor": "water",
+        "beforeValue": 0.35,
+        "afterValue": 0.6,
+        "supportUsed": 0
+      },
+      {
+        "actionId": "food-support",
+        "sourceEventId": "event-38",
+        "sourceId": "fixture-16-0",
+        "executedAt": 390,
+        "cost": 5,
+        "result": "applied",
+        "roundSupportUsed": 0,
+        "targetFactor": null,
+        "beforeValue": 1,
+        "afterValue": 0.35,
+        "supportUsed": 0
+      },
+      {
+        "actionId": "food-support",
+        "sourceEventId": "event-55",
+        "sourceId": "fixture-16-0",
+        "executedAt": 450,
+        "cost": 5,
+        "result": "applied",
+        "roundSupportUsed": 0,
+        "targetFactor": null,
+        "beforeValue": 1,
+        "afterValue": 0.35,
+        "supportUsed": 0
+      },
+      {
+        "actionId": "food-support",
+        "sourceEventId": "event-58",
+        "sourceId": "fixture-16-0",
+        "executedAt": 510,
+        "cost": 5,
+        "result": "applied",
+        "roundSupportUsed": 0,
+        "targetFactor": null,
+        "beforeValue": 1,
+        "afterValue": 0.35,
+        "supportUsed": 0
+      },
+      {
+        "actionId": "food-support",
+        "sourceEventId": "event-60",
+        "sourceId": "fixture-16-0",
+        "executedAt": 570,
+        "cost": 5,
+        "result": "applied",
+        "roundSupportUsed": 0,
+        "targetFactor": null,
+        "beforeValue": 1,
+        "afterValue": 0.35,
+        "supportUsed": 0
+      },
+      {
+        "actionId": "food-support",
+        "sourceEventId": "event-63",
+        "sourceId": "fixture-16-0",
+        "executedAt": 630,
+        "cost": 5,
+        "result": "applied",
+        "roundSupportUsed": 0,
+        "targetFactor": null,
+        "beforeValue": 1,
+        "afterValue": 0.35,
+        "supportUsed": 0
+      },
+      {
+        "actionId": "food-support",
+        "sourceEventId": "event-72",
+        "sourceId": "fixture-16-0",
+        "executedAt": 840,
+        "cost": 5,
+        "result": "applied",
+        "roundSupportUsed": 0,
+        "targetFactor": null,
+        "beforeValue": 1,
+        "afterValue": 0.35,
+        "supportUsed": 0
+      },
+      {
+        "actionId": "food-support",
+        "sourceEventId": "event-79",
+        "sourceId": "fixture-16-0",
+        "executedAt": 900,
+        "cost": 5,
+        "result": "applied",
+        "roundSupportUsed": 0,
+        "targetFactor": null,
+        "beforeValue": 1,
+        "afterValue": 0.35,
+        "supportUsed": 0
+      },
+      {
+        "actionId": "food-support",
+        "sourceEventId": "event-82",
+        "sourceId": "fixture-16-0",
+        "executedAt": 960,
+        "cost": 5,
+        "result": "applied",
+        "roundSupportUsed": 0,
+        "targetFactor": null,
+        "beforeValue": 1,
+        "afterValue": 0.35,
+        "supportUsed": 0
+      },
+      {
+        "actionId": "habitat-care",
+        "sourceEventId": "event-91",
+        "sourceId": "sunlight",
+        "executedAt": 1020,
+        "cost": 8,
+        "result": "applied",
+        "factor": "sunlight",
+        "valueAfter": 0.6,
+        "roundSupportUsed": 0,
+        "targetFactor": "sunlight",
+        "beforeValue": 0.3500000000000034,
+        "afterValue": 0.6,
+        "supportUsed": 0
+      },
+      {
+        "actionId": "food-support",
+        "sourceEventId": "event-90",
+        "sourceId": "fixture-16-0",
+        "executedAt": 1080,
+        "cost": 5,
+        "result": "applied",
+        "roundSupportUsed": 0,
+        "targetFactor": null,
+        "beforeValue": 1,
+        "afterValue": 0.35,
+        "supportUsed": 0
+      },
+      {
+        "actionId": "food-support",
+        "sourceEventId": "event-97",
+        "sourceId": "fixture-16-0",
+        "executedAt": 1140,
+        "cost": 5,
+        "result": "applied",
+        "roundSupportUsed": 0,
+        "targetFactor": null,
+        "beforeValue": 1,
+        "afterValue": 0.35,
+        "supportUsed": 0
+      },
+      {
+        "actionId": "food-support",
+        "sourceEventId": "event-101",
+        "sourceId": "fixture-16-0",
+        "executedAt": 1200,
+        "cost": 5,
+        "result": "applied",
+        "roundSupportUsed": 0,
+        "targetFactor": null,
+        "beforeValue": 1,
+        "afterValue": 0.35,
+        "supportUsed": 0
+      }
+    ],
+    "inventory": [
+      {
+        "speciesId": "oak",
+        "acquired": true
+      },
+      {
+        "speciesId": "grass",
+        "acquired": true
+      },
+      {
+        "speciesId": "grasshopper",
+        "acquired": true
+      },
+      {
+        "speciesId": "frog",
+        "acquired": true
+      },
+      {
+        "speciesId": "rabbit",
+        "acquired": true
+      },
+      {
+        "speciesId": "mushroom",
+        "acquired": true
+      },
+      {
+        "speciesId": "pine",
+        "acquired": true
+      },
+      {
+        "speciesId": "raspberry",
+        "acquired": true
+      },
+      {
+        "speciesId": "hazel",
+        "acquired": true
+      },
+      {
+        "speciesId": "chipmunk",
+        "acquired": true
+      },
+      {
+        "speciesId": "field-mouse",
+        "acquired": true
+      },
+      {
+        "speciesId": "caterpillar",
+        "acquired": true
+      },
+      {
+        "speciesId": "aphid",
+        "acquired": true
+      },
+      {
+        "speciesId": "snail",
+        "acquired": true
+      },
+      {
+        "speciesId": "spider",
+        "acquired": true
+      },
+      {
+        "speciesId": "ladybird",
+        "acquired": true
+      },
+      {
+        "speciesId": "tit",
+        "acquired": true
+      },
+      {
+        "speciesId": "bulbul",
+        "acquired": true
+      },
+      {
+        "speciesId": "snake",
+        "acquired": true
+      },
+      {
+        "speciesId": "weasel",
+        "acquired": true
+      },
+      {
+        "speciesId": "goshawk",
+        "acquired": true
+      },
+      {
+        "speciesId": "litter-mold",
+        "acquired": true
+      },
+      {
+        "speciesId": "soil-bacteria",
+        "acquired": true
+      },
+      {
+        "speciesId": "earthworm",
+        "acquired": true
+      }
+    ],
+    "isStudentObservation": false,
+    "managementPolicy": "Every30s existing affordable care and learning; every300s release worm predators then legal card return attempts. No grants or hidden placement bypass."
+  }
+}

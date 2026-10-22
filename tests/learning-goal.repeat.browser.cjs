@@ -1,3 +1,4 @@
+const {tapBackground}=require('./ux-browser-helpers.cjs');
 const fs=require('node:fs'),assert=require('node:assert/strict'),{chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const BASE=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/';
 (async()=>{
@@ -9,7 +10,7 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/';
   await p.goto(BASE);await p.evaluate(async()=>window.s=(await import('./js/main.js')).gameState);const state=()=>p.evaluate(()=>structuredClone(window.s));assert.equal((await state()).goalRevision,1);
   await p.locator('#goal-open').click();await p.locator('#replay-open').click();await p.locator('#replay-topic').selectOption('food:v2_grass_to_grasshopper');await p.locator('#replay-confirm').click();
   const start=await state();assert.equal(start.goalRevision,2);assert.equal(start.round.number,2);assert.equal(start.observations.length,0);assert.equal(start.learningGoalProgress.decomposer,null);assert.equal(start.learningGoalProgress.inquiry,null);assert.equal(start.round.care.remaining,28);assert.deepEqual(start.inventory,previous.inventory);assert.deepEqual(start.pointEconomy,previous.pointEconomy);assert(start.profile.relations.length>0);assert.equal(start.organisms.length,3);
-  const place=async(id,x=.43)=>{await p.locator('.organism-card[data-species-id="'+id+'"]').click();const box=await p.locator('#placement-surface').boundingBox();await p.touchscreen.tap(box.x+box.width*x,box.y+box.height*.72);await p.locator('.clear-selection').click();};
+  const place=async(id,x=.43)=>{await p.locator('.organism-card[data-species-id="'+id+'"]').click();const box=await p.locator('#placement-surface').boundingBox();await tapBackground(p,x,.4);await p.locator('.clear-selection').click();};
   await place('grasshopper',.4);await place('grasshopper',.46);await place('mushroom',.32);
   await p.waitForFunction(()=>window.s.events.some(e=>e.status==='active'&&e.payload.relationId==='v2_grass_to_grasshopper'),null,{timeout:40000});
   const id=(await state()).events.find(e=>e.status==='active'&&e.payload.relationId==='v2_grass_to_grasshopper').eventId;

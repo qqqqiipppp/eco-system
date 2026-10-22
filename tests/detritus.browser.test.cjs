@@ -1,4 +1,4 @@
-const {reveal}=require('./ux-browser-helpers.cjs');
+const {reveal,tapBackground}=require('./ux-browser-helpers.cjs');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {dismissWelcome}=require('./fixtures.cjs'),BASE=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/';
 (async()=>{
@@ -10,7 +10,7 @@ const {dismissWelcome}=require('./fixtures.cjs'),BASE=process.env.BASE_URL||'htt
   const p=await c.newPage();p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>{if(m.type()==='error')errors.push(m.text());});p.on('response',r=>{if(r.status()>=400)errors.push(r.status()+' '+r.url());});await p.goto(BASE,{waitUntil:'networkidle'});await dismissWelcome(p);await p.evaluate(async()=>{window.s=(await import('./js/main.js')).gameState;});assert.equal(await p.locator('#load-error').isVisible(),false);return p;
  }
  const state=p=>p.evaluate(()=>structuredClone(window.s)),card=(p,id)=>p.locator(`.organism-card[data-species-id="${id}"]`);
- async function place(p,id,x){await card(p,id).tap();const b=await p.locator('#placement-surface').boundingBox();await p.touchscreen.tap(b.x+x*b.width,b.y+.74*b.height);}
+ async function place(p,id,x){await card(p,id).tap();const b=await p.locator('#placement-surface').boundingBox();await tapBackground(p,x,.4);}
  try{
   const fresh=await setup();const initial=await state(fresh);assert.equal(initial.schemaVersion,17);assert.equal(initial.metrics.points,0);assert.equal(initial.inventory.length,24);assert.deepEqual(initial.inventory.filter(c=>c.acquired).map(c=>c.speciesId),['oak','grass','grasshopper','mushroom','soil-bacteria']);assert.equal(await fresh.locator('.organism-card[data-upcoming="true"]').count(),0);
   await place(fresh,'mushroom',.4);await place(fresh,'soil-bacteria',.6);const placed=await state(fresh);assert.equal(placed.organisms.length,5);assert.equal(placed.metrics.points,0);assert(placed.activities.every(a=>!a.completed));

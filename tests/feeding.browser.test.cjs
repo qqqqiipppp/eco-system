@@ -1,3 +1,4 @@
+const {tapBackground}=require('./ux-browser-helpers.cjs');
 const { dismissWelcome } = require('./fixtures.cjs');
 const { useUnlockedCards } = require('./fixtures.cjs');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
@@ -30,7 +31,7 @@ const assert = require('node:assert/strict');
         const box = await page.locator('#placement-surface').boundingBox();
         const x = 0.18 + (i % 7) * 0.07;
         const y = species === 'grass' ? 0.74 : 0.69;
-        await page.touchscreen.tap(box.x + box.width * x, box.y + box.height * y);
+        await tapBackground(page,x,.4);
       }
     }
     const initial = await snapshot();

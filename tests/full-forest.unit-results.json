@@ -1,0 +1,1713 @@
+{
+  "stage": "15.11.5",
+  "exitCode": 0,
+  "actualS5e": false,
+  "rows": [
+    {
+      "speciesId": "oak",
+      "side": "left",
+      "requested": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.16,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 192,
+        "y": 237.9605415860735
+      },
+      "distancePixels": 101.9605415860735,
+      "anchor": "background:ground-band",
+      "checked": 22,
+      "elapsedMs": 3.592800000000011
+    },
+    {
+      "speciesId": "oak",
+      "side": "middle",
+      "requested": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 600,
+        "y": 222.71280735160195
+      },
+      "distancePixels": 86.71280735160195,
+      "anchor": "background:ground-band",
+      "checked": 34,
+      "elapsedMs": 1.780600000000021
+    },
+    {
+      "speciesId": "oak",
+      "side": "right",
+      "requested": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.9,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 1080,
+        "y": 232.7177840224809
+      },
+      "distancePixels": 96.71778402248091,
+      "anchor": "background:ground-band",
+      "checked": 24,
+      "elapsedMs": 0.9253999999999962
+    },
+    {
+      "speciesId": "grass",
+      "side": "left",
+      "requested": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.16,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 192,
+        "y": 237.9605415860735
+      },
+      "distancePixels": 101.9605415860735,
+      "anchor": "background:ground-band",
+      "checked": 22,
+      "elapsedMs": 1.3256000000000085
+    },
+    {
+      "speciesId": "grass",
+      "side": "middle",
+      "requested": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 600,
+        "y": 222.71280735160195
+      },
+      "distancePixels": 86.71280735160195,
+      "anchor": "background:ground-band",
+      "checked": 34,
+      "elapsedMs": 1.1603000000000065
+    },
+    {
+      "speciesId": "grass",
+      "side": "right",
+      "requested": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.9,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 1080,
+        "y": 232.7177840224809
+      },
+      "distancePixels": 96.71778402248091,
+      "anchor": "background:ground-band",
+      "checked": 24,
+      "elapsedMs": 0.9886999999999944
+    },
+    {
+      "speciesId": "grasshopper",
+      "side": "left",
+      "requested": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.18,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 126,
+        "y": 201.80992230099167
+      },
+      "distancePixels": 93.20378679679577,
+      "anchor": "producer:fixture-0-0:surface",
+      "checked": 24,
+      "elapsedMs": 3.6052999999999997
+    },
+    {
+      "speciesId": "grasshopper",
+      "side": "middle",
+      "requested": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 534,
+        "y": 187.0098125513868
+      },
+      "distancePixels": 83.41463286814621,
+      "anchor": "producer:fixture-0-0:surface",
+      "checked": 36,
+      "elapsedMs": 3.278099999999995
+    },
+    {
+      "speciesId": "grasshopper",
+      "side": "right",
+      "requested": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.865,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 1014,
+        "y": 194.3854914147922
+      },
+      "distancePixels": 88.11847483783848,
+      "anchor": "producer:fixture-0-0:surface",
+      "checked": 26,
+      "elapsedMs": 2.408100000000019
+    },
+    {
+      "speciesId": "frog",
+      "side": "left",
+      "requested": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.16,
+        "y": 0.58
+      },
+      "screen": {
+        "x": 192,
+        "y": 222.71180272703708
+      },
+      "distancePixels": 86.71180272703708,
+      "anchor": "background:grass-band",
+      "checked": 22,
+      "elapsedMs": 2.612000000000023
+    },
+    {
+      "speciesId": "frog",
+      "side": "middle",
+      "requested": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.58
+      },
+      "screen": {
+        "x": 600,
+        "y": 222.63371979598816
+      },
+      "distancePixels": 86.63371979598816,
+      "anchor": "background:grass-band",
+      "checked": 34,
+      "elapsedMs": 4.183899999999994
+    },
+    {
+      "speciesId": "frog",
+      "side": "right",
+      "requested": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.9,
+        "y": 0.58
+      },
+      "screen": {
+        "x": 1080,
+        "y": 224.9150521860722
+      },
+      "distancePixels": 88.91505218607219,
+      "anchor": "background:grass-band",
+      "checked": 24,
+      "elapsedMs": 1.994799999999998
+    },
+    {
+      "speciesId": "rabbit",
+      "side": "left",
+      "requested": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.16,
+        "y": 0.58
+      },
+      "screen": {
+        "x": 192,
+        "y": 232.21276595744678
+      },
+      "distancePixels": 96.21276595744678,
+      "anchor": "background:ground-band",
+      "checked": 22,
+      "elapsedMs": 1.7287000000000035
+    },
+    {
+      "speciesId": "rabbit",
+      "side": "middle",
+      "requested": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.58
+      },
+      "screen": {
+        "x": 600,
+        "y": 232.21276595744678
+      },
+      "distancePixels": 96.21276595744678,
+      "anchor": "background:ground-band",
+      "checked": 34,
+      "elapsedMs": 2.2918999999999983
+    },
+    {
+      "speciesId": "rabbit",
+      "side": "right",
+      "requested": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.9,
+        "y": 0.58
+      },
+      "screen": {
+        "x": 1080,
+        "y": 232.21276595744678
+      },
+      "distancePixels": 96.21276595744678,
+      "anchor": "background:ground-band",
+      "checked": 24,
+      "elapsedMs": 1.415900000000022
+    },
+    {
+      "speciesId": "mushroom",
+      "side": "left",
+      "requested": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.16,
+        "y": 0.68
+      },
+      "screen": {
+        "x": 192,
+        "y": 243.20000000000002
+      },
+      "distancePixels": 107.20000000000002,
+      "anchor": "background:ground-band",
+      "checked": 22,
+      "elapsedMs": 1.2158000000000015
+    },
+    {
+      "speciesId": "mushroom",
+      "side": "middle",
+      "requested": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.68
+      },
+      "screen": {
+        "x": 600,
+        "y": 243.20000000000002
+      },
+      "distancePixels": 107.20000000000002,
+      "anchor": "background:ground-band",
+      "checked": 34,
+      "elapsedMs": 2.4277999999999906
+    },
+    {
+      "speciesId": "mushroom",
+      "side": "right",
+      "requested": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.9,
+        "y": 0.68
+      },
+      "screen": {
+        "x": 1080,
+        "y": 243.20000000000002
+      },
+      "distancePixels": 107.20000000000002,
+      "anchor": "background:ground-band",
+      "checked": 24,
+      "elapsedMs": 1.841399999999993
+    },
+    {
+      "speciesId": "pine",
+      "side": "left",
+      "requested": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.16,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 192,
+        "y": 237.9605415860735
+      },
+      "distancePixels": 101.9605415860735,
+      "anchor": "background:ground-band",
+      "checked": 22,
+      "elapsedMs": 0.8517999999999972
+    },
+    {
+      "speciesId": "pine",
+      "side": "middle",
+      "requested": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 600,
+        "y": 222.71280735160195
+      },
+      "distancePixels": 86.71280735160195,
+      "anchor": "background:ground-band",
+      "checked": 34,
+      "elapsedMs": 0.8562000000000012
+    },
+    {
+      "speciesId": "pine",
+      "side": "right",
+      "requested": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.9,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 1080,
+        "y": 232.7177840224809
+      },
+      "distancePixels": 96.71778402248091,
+      "anchor": "background:ground-band",
+      "checked": 24,
+      "elapsedMs": 0.5201000000000136
+    },
+    {
+      "speciesId": "raspberry",
+      "side": "left",
+      "requested": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.16,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 192,
+        "y": 237.9605415860735
+      },
+      "distancePixels": 101.9605415860735,
+      "anchor": "background:ground-band",
+      "checked": 22,
+      "elapsedMs": 0.650100000000009
+    },
+    {
+      "speciesId": "raspberry",
+      "side": "middle",
+      "requested": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 600,
+        "y": 222.71280735160195
+      },
+      "distancePixels": 86.71280735160195,
+      "anchor": "background:ground-band",
+      "checked": 34,
+      "elapsedMs": 0.7431000000000267
+    },
+    {
+      "speciesId": "raspberry",
+      "side": "right",
+      "requested": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.9,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 1080,
+        "y": 232.7177840224809
+      },
+      "distancePixels": 96.71778402248091,
+      "anchor": "background:ground-band",
+      "checked": 24,
+      "elapsedMs": 0.4275000000000091
+    },
+    {
+      "speciesId": "hazel",
+      "side": "left",
+      "requested": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.16,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 192,
+        "y": 237.9605415860735
+      },
+      "distancePixels": 101.9605415860735,
+      "anchor": "background:ground-band",
+      "checked": 22,
+      "elapsedMs": 0.5434999999999945
+    },
+    {
+      "speciesId": "hazel",
+      "side": "middle",
+      "requested": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 600,
+        "y": 222.71280735160195
+      },
+      "distancePixels": 86.71280735160195,
+      "anchor": "background:ground-band",
+      "checked": 34,
+      "elapsedMs": 0.40500000000000114
+    },
+    {
+      "speciesId": "hazel",
+      "side": "right",
+      "requested": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.9,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 1080,
+        "y": 232.7177840224809
+      },
+      "distancePixels": 96.71778402248091,
+      "anchor": "background:ground-band",
+      "checked": 24,
+      "elapsedMs": 0.29110000000000014
+    },
+    {
+      "speciesId": "chipmunk",
+      "side": "left",
+      "requested": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.16,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 102,
+        "y": 194.9098646034816
+      },
+      "distancePixels": 107.56566435252718,
+      "anchor": "producer:fixture-0-0:surface",
+      "checked": 28,
+      "elapsedMs": 2.615399999999994
+    },
+    {
+      "speciesId": "chipmunk",
+      "side": "middle",
+      "requested": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.52,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 673,
+        "y": 201.1063829787234
+      },
+      "distancePixels": 97.81534186707216,
+      "anchor": "background:middle-trunk",
+      "checked": 40,
+      "elapsedMs": 2.5400000000000205
+    },
+    {
+      "speciesId": "chipmunk",
+      "side": "right",
+      "requested": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.94,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 1161,
+        "y": 159.87234042553192
+      },
+      "distancePixels": 84.44458915402743,
+      "anchor": "background:right-trunk",
+      "checked": 28,
+      "elapsedMs": 1.3192999999999984
+    },
+    {
+      "speciesId": "field-mouse",
+      "side": "left",
+      "requested": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.16,
+        "y": 0.58
+      },
+      "screen": {
+        "x": 192,
+        "y": 232.21276595744678
+      },
+      "distancePixels": 96.21276595744678,
+      "anchor": "background:ground-band",
+      "checked": 22,
+      "elapsedMs": 1.14609999999999
+    },
+    {
+      "speciesId": "field-mouse",
+      "side": "middle",
+      "requested": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.58
+      },
+      "screen": {
+        "x": 600,
+        "y": 232.21276595744678
+      },
+      "distancePixels": 96.21276595744678,
+      "anchor": "background:ground-band",
+      "checked": 34,
+      "elapsedMs": 1.608099999999979
+    },
+    {
+      "speciesId": "field-mouse",
+      "side": "right",
+      "requested": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.9,
+        "y": 0.58
+      },
+      "screen": {
+        "x": 1080,
+        "y": 232.21276595744678
+      },
+      "distancePixels": 96.21276595744678,
+      "anchor": "background:ground-band",
+      "checked": 24,
+      "elapsedMs": 1.0297999999999945
+    },
+    {
+      "speciesId": "caterpillar",
+      "side": "left",
+      "requested": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.16,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 126,
+        "y": 210.70986460348166
+      },
+      "distancePixels": 99.68733053437914,
+      "anchor": "producer:fixture-0-0:surface",
+      "checked": 26,
+      "elapsedMs": 0.7972000000000037
+    },
+    {
+      "speciesId": "caterpillar",
+      "side": "middle",
+      "requested": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 534,
+        "y": 195.19057869028893
+      },
+      "distancePixels": 88.65395989853633,
+      "anchor": "producer:fixture-0-0:surface",
+      "checked": 38,
+      "elapsedMs": 1.2614999999999839
+    },
+    {
+      "speciesId": "caterpillar",
+      "side": "right",
+      "requested": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.9,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 1014,
+        "y": 202.88177438779607
+      },
+      "distancePixels": 93.96367247644194,
+      "anchor": "producer:fixture-0-0:surface",
+      "checked": 28,
+      "elapsedMs": 0.799999999999983
+    },
+    {
+      "speciesId": "aphid",
+      "side": "left",
+      "requested": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.16,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 126,
+        "y": 215.70986460348163
+      },
+      "distancePixels": 103.48749931805953,
+      "anchor": "producer:fixture-0-0:surface",
+      "checked": 26,
+      "elapsedMs": 0.8044999999999902
+    },
+    {
+      "speciesId": "aphid",
+      "side": "middle",
+      "requested": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 534,
+        "y": 200.1905786902889
+      },
+      "distancePixels": 92.06753169600114,
+      "anchor": "producer:fixture-0-0:surface",
+      "checked": 38,
+      "elapsedMs": 1.1364999999999839
+    },
+    {
+      "speciesId": "aphid",
+      "side": "right",
+      "requested": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.9,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 1014,
+        "y": 207.88177438779604
+      },
+      "distancePixels": 97.58580577695719,
+      "anchor": "producer:fixture-0-0:surface",
+      "checked": 28,
+      "elapsedMs": 0.8559999999999945
+    },
+    {
+      "speciesId": "snail",
+      "side": "left",
+      "requested": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.16,
+        "y": 0.58
+      },
+      "screen": {
+        "x": 192,
+        "y": 224.97872340425533
+      },
+      "distancePixels": 88.97872340425533,
+      "anchor": "background:grass-band",
+      "checked": 22,
+      "elapsedMs": 0.989200000000011
+    },
+    {
+      "speciesId": "snail",
+      "side": "middle",
+      "requested": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.58
+      },
+      "screen": {
+        "x": 600,
+        "y": 224.97872340425533
+      },
+      "distancePixels": 88.97872340425533,
+      "anchor": "background:grass-band",
+      "checked": 34,
+      "elapsedMs": 1.3286000000000229
+    },
+    {
+      "speciesId": "snail",
+      "side": "right",
+      "requested": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.9,
+        "y": 0.58
+      },
+      "screen": {
+        "x": 1080,
+        "y": 224.97872340425533
+      },
+      "distancePixels": 88.97872340425533,
+      "anchor": "background:grass-band",
+      "checked": 24,
+      "elapsedMs": 1.0401999999999987
+    },
+    {
+      "speciesId": "spider",
+      "side": "left",
+      "requested": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.16,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 292,
+        "y": 204
+      },
+      "distancePixels": 120.9297316626478,
+      "anchor": "background:left-trunk",
+      "checked": 26,
+      "elapsedMs": 0.9182999999999879
+    },
+    {
+      "speciesId": "spider",
+      "side": "middle",
+      "requested": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 673,
+        "y": 201.1063829787234
+      },
+      "distancePixels": 97.81534186707216,
+      "anchor": "background:middle-trunk",
+      "checked": 38,
+      "elapsedMs": 0.9084000000000003
+    },
+    {
+      "speciesId": "spider",
+      "side": "right",
+      "requested": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.9,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 1161,
+        "y": 159.87234042553192
+      },
+      "distancePixels": 84.44458915402743,
+      "anchor": "background:right-trunk",
+      "checked": 26,
+      "elapsedMs": 0.7571000000000083
+    },
+    {
+      "speciesId": "ladybird",
+      "side": "left",
+      "requested": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.16,
+        "y": 0.58
+      },
+      "screen": {
+        "x": 192,
+        "y": 242.3404255319149
+      },
+      "distancePixels": 106.34042553191489,
+      "anchor": "background:surface-litter",
+      "checked": 22,
+      "elapsedMs": 0.819199999999995
+    },
+    {
+      "speciesId": "ladybird",
+      "side": "middle",
+      "requested": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.58
+      },
+      "screen": {
+        "x": 600,
+        "y": 242.3404255319149
+      },
+      "distancePixels": 106.34042553191489,
+      "anchor": "background:surface-litter",
+      "checked": 34,
+      "elapsedMs": 1.420800000000014
+    },
+    {
+      "speciesId": "ladybird",
+      "side": "right",
+      "requested": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.9,
+        "y": 0.58
+      },
+      "screen": {
+        "x": 1080,
+        "y": 242.3404255319149
+      },
+      "distancePixels": 106.34042553191489,
+      "anchor": "background:surface-litter",
+      "checked": 24,
+      "elapsedMs": 1.0311999999999841
+    },
+    {
+      "speciesId": "tit",
+      "side": "left",
+      "requested": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.16,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 292,
+        "y": 137.44680851063828
+      },
+      "distancePixels": 100.01046572667511,
+      "anchor": "background:left-crown",
+      "checked": 26,
+      "elapsedMs": 0.867699999999985
+    },
+    {
+      "speciesId": "tit",
+      "side": "middle",
+      "requested": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 673,
+        "y": 155.53191489361703
+      },
+      "distancePixels": 75.56782185170813,
+      "anchor": "background:middle-crown",
+      "checked": 40,
+      "elapsedMs": 0.8228999999999758
+    },
+    {
+      "speciesId": "tit",
+      "side": "right",
+      "requested": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.9,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 1162,
+        "y": 102.72340425531915
+      },
+      "distancePixels": 88.49481241493712,
+      "anchor": "background:right-crown",
+      "checked": 26,
+      "elapsedMs": 0.7341000000000122
+    },
+    {
+      "speciesId": "bulbul",
+      "side": "left",
+      "requested": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.16,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 292,
+        "y": 137.44680851063828
+      },
+      "distancePixels": 100.01046572667511,
+      "anchor": "background:left-crown",
+      "checked": 26,
+      "elapsedMs": 0.7730999999999995
+    },
+    {
+      "speciesId": "bulbul",
+      "side": "middle",
+      "requested": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 673,
+        "y": 155.53191489361703
+      },
+      "distancePixels": 75.56782185170813,
+      "anchor": "background:middle-crown",
+      "checked": 40,
+      "elapsedMs": 1.1454999999999984
+    },
+    {
+      "speciesId": "bulbul",
+      "side": "right",
+      "requested": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.9,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 1162,
+        "y": 102.72340425531915
+      },
+      "distancePixels": 88.49481241493712,
+      "anchor": "background:right-crown",
+      "checked": 26,
+      "elapsedMs": 0.49150000000000205
+    },
+    {
+      "speciesId": "snake",
+      "side": "left",
+      "requested": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.16,
+        "y": 0.58
+      },
+      "screen": {
+        "x": 192,
+        "y": 232.21276595744678
+      },
+      "distancePixels": 96.21276595744678,
+      "anchor": "background:ground-band",
+      "checked": 22,
+      "elapsedMs": 0.9492999999999938
+    },
+    {
+      "speciesId": "snake",
+      "side": "middle",
+      "requested": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.58
+      },
+      "screen": {
+        "x": 600,
+        "y": 232.21276595744678
+      },
+      "distancePixels": 96.21276595744678,
+      "anchor": "background:ground-band",
+      "checked": 34,
+      "elapsedMs": 1.5944000000000074
+    },
+    {
+      "speciesId": "snake",
+      "side": "right",
+      "requested": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.9,
+        "y": 0.58
+      },
+      "screen": {
+        "x": 1080,
+        "y": 232.21276595744678
+      },
+      "distancePixels": 96.21276595744678,
+      "anchor": "background:ground-band",
+      "checked": 24,
+      "elapsedMs": 0.9232000000000085
+    },
+    {
+      "speciesId": "weasel",
+      "side": "left",
+      "requested": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.16,
+        "y": 0.58
+      },
+      "screen": {
+        "x": 192,
+        "y": 232.21276595744678
+      },
+      "distancePixels": 96.21276595744678,
+      "anchor": "background:ground-band",
+      "checked": 22,
+      "elapsedMs": 1.3892000000000166
+    },
+    {
+      "speciesId": "weasel",
+      "side": "middle",
+      "requested": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.58
+      },
+      "screen": {
+        "x": 600,
+        "y": 232.21276595744678
+      },
+      "distancePixels": 96.21276595744678,
+      "anchor": "background:ground-band",
+      "checked": 34,
+      "elapsedMs": 1.2747999999999706
+    },
+    {
+      "speciesId": "weasel",
+      "side": "right",
+      "requested": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.9,
+        "y": 0.58
+      },
+      "screen": {
+        "x": 1080,
+        "y": 232.21276595744678
+      },
+      "distancePixels": 96.21276595744678,
+      "anchor": "background:ground-band",
+      "checked": 24,
+      "elapsedMs": 1.2615999999999872
+    },
+    {
+      "speciesId": "goshawk",
+      "side": "left",
+      "requested": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.16,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 292,
+        "y": 137.44680851063828
+      },
+      "distancePixels": 100.01046572667511,
+      "anchor": "background:left-crown",
+      "checked": 26,
+      "elapsedMs": 0.5402000000000271
+    },
+    {
+      "speciesId": "goshawk",
+      "side": "middle",
+      "requested": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 673,
+        "y": 155.53191489361703
+      },
+      "distancePixels": 75.56782185170813,
+      "anchor": "background:middle-crown",
+      "checked": 40,
+      "elapsedMs": 0.7126999999999839
+    },
+    {
+      "speciesId": "goshawk",
+      "side": "right",
+      "requested": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.9,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 1162,
+        "y": 102.72340425531915
+      },
+      "distancePixels": 88.49481241493712,
+      "anchor": "background:right-crown",
+      "checked": 26,
+      "elapsedMs": 0.6449999999999818
+    },
+    {
+      "speciesId": "litter-mold",
+      "side": "left",
+      "requested": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.16,
+        "y": 0.68
+      },
+      "screen": {
+        "x": 192,
+        "y": 243.20000000000002
+      },
+      "distancePixels": 107.20000000000002,
+      "anchor": "background:surface-litter",
+      "checked": 22,
+      "elapsedMs": 1.0090000000000146
+    },
+    {
+      "speciesId": "litter-mold",
+      "side": "middle",
+      "requested": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.68
+      },
+      "screen": {
+        "x": 600,
+        "y": 243.20000000000002
+      },
+      "distancePixels": 107.20000000000002,
+      "anchor": "background:surface-litter",
+      "checked": 34,
+      "elapsedMs": 2.241100000000017
+    },
+    {
+      "speciesId": "litter-mold",
+      "side": "right",
+      "requested": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.9,
+        "y": 0.68
+      },
+      "screen": {
+        "x": 1080,
+        "y": 243.20000000000002
+      },
+      "distancePixels": 107.20000000000002,
+      "anchor": "background:surface-litter",
+      "checked": 24,
+      "elapsedMs": 1.6295000000000073
+    },
+    {
+      "speciesId": "soil-bacteria",
+      "side": "left",
+      "requested": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.16,
+        "y": 0.68
+      },
+      "screen": {
+        "x": 192,
+        "y": 243.20000000000002
+      },
+      "distancePixels": 107.20000000000002,
+      "anchor": "background:ground-band",
+      "checked": 22,
+      "elapsedMs": 0.8653999999999655
+    },
+    {
+      "speciesId": "soil-bacteria",
+      "side": "middle",
+      "requested": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.68
+      },
+      "screen": {
+        "x": 600,
+        "y": 243.20000000000002
+      },
+      "distancePixels": 107.20000000000002,
+      "anchor": "background:ground-band",
+      "checked": 34,
+      "elapsedMs": 4.037899999999979
+    },
+    {
+      "speciesId": "soil-bacteria",
+      "side": "right",
+      "requested": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.9,
+        "y": 0.68
+      },
+      "screen": {
+        "x": 1080,
+        "y": 243.20000000000002
+      },
+      "distancePixels": 107.20000000000002,
+      "anchor": "background:ground-band",
+      "checked": 24,
+      "elapsedMs": 2.149600000000021
+    },
+    {
+      "speciesId": "earthworm",
+      "side": "left",
+      "requested": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.16,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 192,
+        "y": 265.48936170212767
+      },
+      "distancePixels": 129.48936170212767,
+      "anchor": "background:low-ground",
+      "checked": 22,
+      "elapsedMs": 1.769900000000007
+    },
+    {
+      "speciesId": "earthworm",
+      "side": "middle",
+      "requested": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 600,
+        "y": 265.48936170212767
+      },
+      "distancePixels": 129.48936170212767,
+      "anchor": "background:low-ground",
+      "checked": 34,
+      "elapsedMs": 2.050399999999968
+    },
+    {
+      "speciesId": "earthworm",
+      "side": "right",
+      "requested": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.9,
+        "y": 0.72
+      },
+      "screen": {
+        "x": 1080,
+        "y": 265.48936170212767
+      },
+      "distancePixels": 129.48936170212767,
+      "anchor": "background:low-ground",
+      "checked": 24,
+      "elapsedMs": 1.3140000000000214
+    },
+    {
+      "profile": "29to30",
+      "checked": 20,
+      "elapsedMs": 13.162900000000036
+    }
+  ],
+  "meals": [
+    {
+      "relationId": "v2_grass_to_grasshopper",
+      "at": 5,
+      "count": 1
+    },
+    {
+      "relationId": "v2_grasshopper_to_frog",
+      "at": 6,
+      "count": 1
+    },
+    {
+      "relationId": "v2_grass_to_rabbit",
+      "at": 23,
+      "count": 1
+    },
+    {
+      "relationId": "v2_oak_to_chipmunk",
+      "at": 9.5,
+      "count": 1
+    },
+    {
+      "relationId": "v2_pine_to_chipmunk",
+      "at": 9.5,
+      "count": 1
+    },
+    {
+      "relationId": "v2_pine_to_caterpillar",
+      "at": 10,
+      "count": 1
+    },
+    {
+      "relationId": "v2_grass_to_snail",
+      "at": 15.5,
+      "count": 1
+    },
+    {
+      "relationId": "v2_aphid_to_spider",
+      "at": 10,
+      "count": 1
+    },
+    {
+      "relationId": "v2_caterpillar_to_tit",
+      "at": 9,
+      "count": 1
+    },
+    {
+      "relationId": "v2_spider_to_tit",
+      "at": 9,
+      "count": 1
+    },
+    {
+      "relationId": "v2_raspberry_to_bulbul",
+      "at": 10,
+      "count": 1
+    },
+    {
+      "relationId": "v2_hazel_to_bulbul",
+      "at": 10,
+      "count": 1
+    },
+    {
+      "relationId": "v2_hazel_to_aphid",
+      "at": 15.5,
+      "count": 1
+    },
+    {
+      "relationId": "v2_frog_to_snake",
+      "at": 13.5,
+      "count": 1
+    },
+    {
+      "relationId": "v2_grasshopper_to_weasel",
+      "at": 11,
+      "count": 1
+    },
+    {
+      "relationId": "v2_chipmunk_to_weasel",
+      "at": 11,
+      "count": 1
+    },
+    {
+      "relationId": "v2_frog_to_weasel",
+      "at": 11,
+      "count": 1
+    },
+    {
+      "relationId": "v2_rabbit_to_goshawk",
+      "at": 13.5,
+      "count": 1
+    },
+    {
+      "relationId": "v2_chipmunk_to_goshawk",
+      "at": 13.5,
+      "count": 1
+    },
+    {
+      "relationId": "v2_bulbul_to_goshawk",
+      "at": 13.5,
+      "count": 1
+    },
+    {
+      "relationId": "v2_snail_to_ladybird",
+      "at": 9.5,
+      "count": 1
+    },
+    {
+      "relationId": "v2_grasshopper_to_field_mouse",
+      "at": 8.5,
+      "count": 1
+    },
+    {
+      "relationId": "v2_earthworm_to_ladybird",
+      "at": 119.5,
+      "count": 1
+    },
+    {
+      "relationId": "v2_earthworm_to_weasel",
+      "at": 118.5,
+      "count": 1
+    },
+    {
+      "relationId": "v2_earthworm_to_field_mouse",
+      "at": 118.5,
+      "count": 1
+    },
+    {
+      "relationId": "v2_aphid_to_field_mouse",
+      "at": 8.5,
+      "count": 1
+    },
+    {
+      "relationId": "v2_caterpillar_to_bulbul",
+      "at": 10,
+      "count": 1
+    }
+  ],
+  "searchRadii": {
+    "grasshopper": {
+      "initialHunger": 0.45,
+      "hungerPerSecond": 0.05600000000000001,
+      "hungryAt": 0.6,
+      "mealRelief": 0.65,
+      "searchRadius": 0.34,
+      "speed": 0.037
+    },
+    "frog": {
+      "initialHunger": 0.45,
+      "hungerPerSecond": 0.04000000000000001,
+      "hungryAt": 0.6,
+      "mealRelief": 0.7,
+      "searchRadius": 0.38,
+      "speed": 0.056
+    },
+    "rabbit": {
+      "initialHunger": 0.2,
+      "hungerPerSecond": 0.019200000000000002,
+      "hungryAt": 0.6,
+      "mealRelief": 0.7,
+      "searchRadius": 0.34,
+      "speed": 0.045
+    },
+    "chipmunk": {
+      "initialHunger": 0.35,
+      "hungerPerSecond": 0.0352,
+      "hungryAt": 0.6,
+      "mealRelief": 0.65,
+      "searchRadius": 0.4,
+      "speed": 0.065
+    },
+    "field-mouse": {
+      "initialHunger": 0.35,
+      "hungerPerSecond": 0.04000000000000001,
+      "hungryAt": 0.6,
+      "mealRelief": 0.65,
+      "searchRadius": 0.35,
+      "speed": 0.035
+    },
+    "caterpillar": {
+      "initialHunger": 0.35,
+      "hungerPerSecond": 0.032,
+      "hungryAt": 0.6,
+      "mealRelief": 0.65,
+      "searchRadius": 0.32,
+      "speed": 0.018
+    },
+    "aphid": {
+      "initialHunger": 0.35,
+      "hungerPerSecond": 0.019200000000000002,
+      "hungryAt": 0.6,
+      "mealRelief": 0.65,
+      "searchRadius": 0.32,
+      "speed": 0.026
+    },
+    "snail": {
+      "initialHunger": 0.35,
+      "hungerPerSecond": 0.019200000000000002,
+      "hungryAt": 0.6,
+      "mealRelief": 0.65,
+      "searchRadius": 0.3,
+      "speed": 0.014
+    },
+    "spider": {
+      "initialHunger": 0.35,
+      "hungerPerSecond": 0.032,
+      "hungryAt": 0.6,
+      "mealRelief": 0.7,
+      "searchRadius": 0.025,
+      "speed": 0,
+      "huntMode": "ambush",
+      "maxPursuitSeconds": 2
+    },
+    "ladybird": {
+      "initialHunger": 0.35,
+      "hungerPerSecond": 0.0352,
+      "hungryAt": 0.6,
+      "mealRelief": 0.7,
+      "searchRadius": 0.34,
+      "speed": 0.038
+    },
+    "tit": {
+      "initialHunger": 0.35,
+      "hungerPerSecond": 0.038400000000000004,
+      "hungryAt": 0.6,
+      "mealRelief": 0.7,
+      "searchRadius": 0.44,
+      "speed": 0.085
+    },
+    "bulbul": {
+      "initialHunger": 0.35,
+      "hungerPerSecond": 0.032,
+      "hungryAt": 0.6,
+      "mealRelief": 0.7,
+      "searchRadius": 0.44,
+      "speed": 0.075
+    },
+    "snake": {
+      "initialHunger": 0.35,
+      "hungerPerSecond": 0.022400000000000003,
+      "hungryAt": 0.6,
+      "mealRelief": 0.75,
+      "searchRadius": 0.4,
+      "speed": 0.048
+    },
+    "weasel": {
+      "initialHunger": 0.35,
+      "hungerPerSecond": 0.0288,
+      "hungryAt": 0.6,
+      "mealRelief": 0.75,
+      "searchRadius": 0.44,
+      "speed": 0.072
+    },
+    "goshawk": {
+      "initialHunger": 0.35,
+      "hungerPerSecond": 0.022400000000000003,
+      "hungryAt": 0.6,
+      "mealRelief": 0.8,
+      "searchRadius": 0.48,
+      "speed": 0.09
+    }
+  }
+}

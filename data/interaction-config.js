@@ -1,9 +1,10 @@
-// Temporary screen rules, not habitat conditions or ecological relationships.
+// Physical model bounds shared by placement, movement and food approach.
+// Habitat projection chooses the nearby visible support separately.
 export const placementConfig = {
   maxOrganisms: 30,
   zones: {
-    ground: { left: 0.08, right: 0.69, top: 0.68, bottom: 0.78 },
-    activity: { left: 0.08, right: 0.69, top: 0.58, bottom: 0.78 },
+    ground: { left: 0.04, right: 0.96, top: 0.68, bottom: 0.78 },
+    activity: { left: 0.04, right: 0.96, top: 0.58, bottom: 0.78 },
   },
   largePlantSpacing: { x: 0.09, y: 0.07 },
 };

@@ -1,3 +1,4 @@
+const {tapBackground}=require('./ux-browser-helpers.cjs');
 const fs=require('node:fs'),assert=require('node:assert/strict'),{chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const BASE=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/',long=process.argv.includes('--long'),optimized=process.argv.includes('--optimized');
 const output=process.env.RESULTS_PATH||'tests/learning-goal.browser-results.json';
@@ -11,7 +12,7 @@ const result={stage:'15.10',actualS5e:false,actualChildren:false,mode:long?'real
   await p.goto(BASE);await p.locator('#help-skip').click();await p.evaluate(async()=>window.goalState=(await import('./js/main.js')).gameState);
   const state=()=>p.evaluate(async()=>structuredClone((await import('./js/main.js')).gameState));
   const close=async()=>{for(const id of ['goal','event','activity','population','environment','help','web','guide'])if(await p.locator('#'+id+'-dialog').evaluate(d=>d.open))await p.locator('#'+id+'-close').click();};
-  const place=async(id,x=.43)=>{await close();await p.locator('.organism-card[data-species-id="'+id+'"]').click();const b=await p.locator('#placement-surface').boundingBox();await p.touchscreen.tap(b.x+b.width*x,b.y+b.height*.72);if(await p.locator('.clear-selection').count())await p.locator('.clear-selection').click();};
+  const place=async(id,x=.43)=>{await close();await p.locator('.organism-card[data-species-id="'+id+'"]').click();const b=await p.locator('#placement-surface').boundingBox();await tapBackground(p,x,.4);if(await p.locator('.clear-selection').count())await p.locator('.clear-selection').click();};
   const activity=async(id,answer)=>{await close();if(id==='grass_observation')await p.locator('.organism-card[data-species-id="frog"]').click();else{await p.locator('#activities-open').click();if(id!=='producer_quiz'){if(!await p.locator('#activity-library').evaluate(d=>d.open))await p.locator('#activity-library > summary').click();await p.locator('[data-activity-id="'+id+'"]').click();}}await p.locator('[data-answer="'+answer+'"]').click();await p.locator('#activity-close').click();};
   const record=async rid=>{await close();const s=await state(),e=s.events.find(e=>e.status==='active'&&e.payload.relationId===rid);assert(e,JSON.stringify({rid,at:s.simulationTime,events:s.events,organisms:s.organisms.map(o=>o.speciesId)}));await p.locator('[data-event-marker="'+e.eventId+'"]').click();await p.getByRole('button',{name:'발견 기록하기',exact:true}).click();await p.locator('#event-close').click();};
   const inspect=async species=>{await close();await p.locator('#population-open').click();await p.locator('#population-species').selectOption(species);};

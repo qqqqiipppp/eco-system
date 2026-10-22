@@ -70,6 +70,6 @@ export function renderSelection(uiState, onClear) {
     panel.innerHTML = '<p>카드 선택 → 숲에 놓기 · 선택을 풀고 생물을 누르면 살펴봐요.</p>';
     return;
   }
-  panel.innerHTML = `<div class="selection-topline"><h3>${species.name} · 숲의 표시된 곳에 놓아요.</h3><button class="clear-selection" type="button">선택 해제</button></div>`;
+  panel.innerHTML = `<div class="selection-topline"><h3>${species.name} · 숲을 누르면 가까운 자리에 놓아요.</h3><button class="clear-selection" type="button">선택 해제</button></div>`;
   panel.querySelector('button').addEventListener('click', onClear);
 }

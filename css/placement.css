@@ -2,7 +2,6 @@
 .placement-surface{position:absolute;inset:0;z-index:0;width:100%;height:100%;padding:0;border:0;border-radius:inherit;background:transparent;touch-action:manipulation}
 .placement-surface:focus-visible{outline-offset:-4px}
 .is-placing .placement-surface{cursor:crosshair}
-.placement-guide{position:absolute;z-index:1;border:2px dashed #355637;border-radius:12px;background:#f1f6d82b;pointer-events:none}
 .organism-layer{position:absolute;inset:0;pointer-events:none;z-index:2;overflow:hidden}
 .organism-object{position:absolute;left:0;top:0;width:0;height:0}
 .organism-visual{position:absolute;left:calc(var(--sprite-width) / -2);top:calc(0px - var(--sprite-height));width:var(--sprite-width);height:calc(var(--sprite-height) + 20px);text-align:center;transform-origin:50% var(--sprite-height)}

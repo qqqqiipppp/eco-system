@@ -1,6 +1,7 @@
 const fs=require('node:fs'),assert=require('node:assert/strict'),{chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const BASE=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/';
 const screenDir=process.env.GOAL_SCREENSHOT_DIR||require('node:os').tmpdir();
+const {tapBackground}=require('./ux-browser-helpers.cjs');
 const result={stage:'15.10',fixture:'60 active seconds of actual model ecology, extra grasses legally released, then60 actual model seconds to honor introduction cooldown; inquiry not started; bad sunlight is an explicit QA setup',actualChildren:false,actualS5e:false,scenarios:[],errors:[]};
 (async()=>{const b=await chromium.launch({channel:'msedge',headless:true});
  const {learningProfile}=await import('./learning-goal-fixtures.mjs'),{removeOrganism}=await import('../js/systems/lifecycle.js'),{createSaveSnapshot}=await import('../js/services/save-format.js');
@@ -19,7 +20,7 @@ const result={stage:'15.10',fixture:'60 active seconds of actual model ecology, 
    else {await p.locator('[data-environment-recovery="sunlight"]').click();await p.locator('#environment-close').click();}
    s=await state();assert.equal(s.managementActionCount,before.managementActionCount+1);assert.equal(s.metrics.points,before.metrics.points-8);assert.equal(s.learningGoalProgress.inquiry.phase,'watching');assert(s.environment.sunlight.value>=.4);
   }else {
-   await p.locator('[data-goal-action="plant"]').click();assert.equal((await state()).learningGoalProgress.inquiry.phase,'watching');const s=await state(),animal=s.organisms.find(o=>['grasshopper','rabbit'].includes(o.speciesId));const box=await p.locator('#placement-surface').boundingBox();await p.touchscreen.tap(box.x+box.width*animal.position.x,box.y+box.height*animal.position.y);await p.locator('.clear-selection').click();assert.equal((await state()).learningGoalProgress.inquiry.introducedIds.length,1);assert.equal((await state()).learningGoalProgress.inquiry.phase,'watching');
+   await p.locator('[data-goal-action="plant"]').click();assert.equal((await state()).learningGoalProgress.inquiry.phase,'watching');const s=await state(),animal=s.organisms.find(o=>o.speciesId==='rabbit')||s.organisms.find(o=>o.speciesId==='grasshopper');await tapBackground(p,animal.position.x,.4);await p.locator('.clear-selection').click();assert.equal((await state()).learningGoalProgress.inquiry.introducedIds.length,1);assert.equal((await state()).learningGoalProgress.inquiry.phase,'watching');
   }
   await p.waitForFunction(()=>window.goalState.learningGoalProgress.inquiry.phase==='result',null,{timeout:150000}).catch(async e=>{fs.writeFileSync(screenDir+'/stage15_10-controls-'+kind+'-failure.json',JSON.stringify(await state(),null,2));throw e;});assert(!(await state()).forestProgress.cleared);await p.locator('#population-open').click();await p.locator('#population-species').selectOption('grass');const proof=await state();assert(proof.learningGoalProgress.inquiry.meal);assert(proof.learningGoalProgress.inquiry.outcome);await p.locator('[data-goal-action="confirm"]').click();const after=await state();assert.equal(after.learningGoalProgress.inquiry.phase,'confirmed');assert.equal(after.metrics.points,proof.metrics.points);assert.deepEqual(after.rewardHistory,proof.rewardHistory);
   await p.screenshot({path:screenDir+'/stage15_10-'+kind+'.png'});

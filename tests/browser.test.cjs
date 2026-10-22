@@ -1,4 +1,4 @@
-const {reveal}=require('./ux-browser-helpers.cjs');
+const {reveal,tapBackground}=require('./ux-browser-helpers.cjs');
 const { dismissWelcome } = require('./fixtures.cjs');
 const { useUnlockedCards } = require('./fixtures.cjs');
 // Requires Playwright and a local static server; no application dependencies.
@@ -32,10 +32,7 @@ const assert = require('node:assert/strict');
     const state = () => page.evaluate(async () => structuredClone((await import('./js/main.js')).gameState));
     const count = async () => (await state()).organisms.length;
     const choose = id => page.locator(`.organism-card[data-species-id="${id}"]`).tap();
-    const tap = async (x, y) => {
-      const box = await page.locator('#placement-surface').boundingBox();
-      await page.touchscreen.tap(box.x + x * box.width, box.y + y * box.height);
-    };
+    const tap = (x,y)=>tapBackground(page,x,y);
     assert.equal(await count(), 3);
     assert.equal(await page.locator('.organism-object').count(), 3);
     assert.equal(await page.locator('.organism-card').count(), 24);
@@ -60,21 +57,21 @@ const assert = require('node:assert/strict');
     assert.match(await page.locator('#placement-feedback').textContent(), /먼저/);
     await choose('oak');
     assert.equal(await page.locator('.organism-card[aria-pressed="true"]').count(), 1);
-    await tap(0.25, 0.72);
+    await page.locator('[data-inspect-instance]').first().tap();
     assert.equal(await count(), 3);
-    assert.match(await page.locator('#placement-feedback').textContent(), /가까워요/);
+    assert(await page.locator('#population-dialog').evaluate(d=>d.open));
+    await page.locator('#population-close').click();
     await tap(0.4, 0.30);
-    assert.equal(await count(), 3);
-    assert.match(await page.locator('#placement-feedback').textContent(), /배치할 수 없어요/);
+    assert.equal(await count(), 4);
+    assert((await state()).organisms.at(-1).position.y>=.68);
     await page.locator('.forest-memo').tap();
     await page.locator('.dashboard').tap();
     await page.locator('.inventory-note').tap();
-    assert.equal(await count(), 3);
-    await tap(0.4, 0.72);
+    assert.equal(await count(), 4);
     assert.equal(await count(), 4);
     assert.equal((await state()).organisms.at(-1).speciesId, 'oak');
     assert.equal((await state()).inventory.length, 24);
-    await tap(0.081, 0.73);
+    await tap(0.081, 0.30);
     assert.equal(await count(), 5);
     assert.equal(await page.locator('.organism-card[data-species-id="oak"]').getAttribute('aria-pressed'), 'true');
 
@@ -115,9 +112,9 @@ const assert = require('node:assert/strict');
     }
     await page.evaluate(() => { delete document.visibilityState; document.dispatchEvent(new Event('visibilitychange')); });
     // Fill to 30 using the real touch path, including many rabbits.
-    for (let attempts = 0; attempts < 30 && await count() < 30; attempts += 1) {
+    for (let attempts = 0; attempts < 100 && await count() < 30; attempts += 1) {
       const i = await count();
-      await tap(0.12 + (i % 9) * 0.06, 0.64 + (i % 3) * 0.035);
+      await tap(0.08 + (attempts % 10) * 0.09, 0.58 + (attempts % 3) * 0.06);
     }
     await tap(0.4, 0.72);
     assert.equal(await count(), 30);

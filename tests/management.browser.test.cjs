@@ -1,3 +1,4 @@
+const {tapBackground}=require('./ux-browser-helpers.cjs');
 const { dismissWelcome, useDeveloperEnvironment } = require('./fixtures.cjs');
 const { useUnlockedCards } = require('./fixtures.cjs');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
@@ -14,7 +15,7 @@ const assert=require('node:assert/strict');
     await useDeveloperEnvironment(page); await page.goto(process.env.BASE_URL||'http://127.0.0.1:8080/',{waitUntil:'networkidle'}); await dismissWelcome(page);await page.emulateMedia({reducedMotion:'reduce'});
   for(const [species,count] of Object.entries(counts)){
    await page.locator(`.organism-card[data-species-id="${species}"]`).tap();
-   for(let i=0;i<count;i++){const box=await page.locator('#placement-surface').boundingBox();await page.touchscreen.tap(box.x+box.width*(.16+(i%6)*.08),box.y+box.height*(species==='grass'?.74:.6+Math.floor(i/6)*.035));}
+   for(let i=0;i<count;i++){const box=await page.locator('#placement-surface').boundingBox();await tapBackground(page,.16+(i%6)*.08,.4);}
   }
   await page.emulateMedia({reducedMotion:'no-preference'});return page;
  }

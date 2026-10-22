@@ -16,6 +16,19 @@ export function validHabitatAnchor(a,byId){
   (a.sourceInstanceId===null||byId.has(a.sourceInstanceId))&&
   !(a.zone==='branch'&&a.precise===true&&!a.sourceInstanceId&&!a.sourceObjectId);
 }
+export function isHabitatAnchorEligible(speciesId,a){
+ const rule=speciesHabitats[speciesId];if(!rule)return false;
+ if(a.kind==='activity-area'){
+  if(a.sourceObjectId==='soil-cutaway'&&speciesId!=='earthworm')return false;
+  if(a.id==='background:surface-litter'&&speciesId==='earthworm')return false;
+  return a.zone==='ground'||[rule.primary,...rule.additional].includes(a.zone);
+ }
+ if(rule.movement==='perching')return a.zone==='branch'&&a.precise===true||a.zone==='canopy'&&Boolean(a.sourceObjectId);
+ if(rule.movement==='tree-affinity')return a.zone==='trunk'&&(Boolean(a.sourceObjectId)||rule.preferredPlants.includes(a.sourceSpeciesId));
+ if(rule.movement==='plant-surface'||speciesId==='grasshopper')return rule.preferredPlants.includes(a.sourceSpeciesId);
+ if(speciesId==='spider')return a.zone==='trunk'&&Boolean(a.sourceObjectId);
+ return false;
+}
 // View-only cache. Never writes an organism, ecology RNG, food or stored field.
 export function createHabitatPresentation({provider=provideHabitatAnchors}={}){
  let layout,organisms=[],byId=new Map(),offsets=new Map(),anchors=[],blocked=[],ambushers=[],rebuilds=0,anchorChecks=0;
@@ -35,19 +48,7 @@ export function createHabitatPresentation({provider=provideHabitatAnchors}={}){
   }
   return p;
  }
- function eligible(o,a){
-  const rule=speciesHabitats[o.speciesId];
-  if(a.kind==='activity-area'){
-   if(a.sourceObjectId==='soil-cutaway'&&o.speciesId!=='earthworm')return false;
-   if(a.id==='background:surface-litter'&&o.speciesId==='earthworm')return false;
-   return a.zone==='ground'||[rule.primary,...rule.additional].includes(a.zone);
-  }
-  if(rule.movement==='perching')return a.zone==='branch'&&a.precise===true||a.zone==='canopy'&&Boolean(a.sourceObjectId);
-  if(rule.movement==='tree-affinity')return a.zone==='trunk'&&(Boolean(a.sourceObjectId)||rule.preferredPlants.includes(a.sourceSpeciesId));
-  if(rule.movement==='plant-surface'||o.speciesId==='grasshopper')return rule.preferredPlants.includes(a.sourceSpeciesId);
-  if(o.speciesId==='spider')return a.zone==='trunk'&&Boolean(a.sourceObjectId);
-  return false;
- }
+ const eligible=(o,a)=>isHabitatAnchorEligible(o.speciesId,a);
  function rebuild(items,geometry){
   rebuilds++;organisms=items;layout=geometry;byId=new Map(items.map(o=>[o.instanceId,o]));offsets=new Map();
   ambushers=items.filter(o=>feedingConfig[o.speciesId]?.huntMode==='ambush');
@@ -70,7 +71,10 @@ export function createHabitatPresentation({provider=provideHabitatAnchors}={}){
   anchors=(provider(items,geometry,producerPositions)||[]).filter(a=>validHabitatAnchor(a,byId));
   for(const o of ordered.filter(o=>organismById[o.speciesId].role!=='producer')){
    const origin={x:o.position.x*layout.width,y:o.position.y*layout.height},rule=speciesHabitats[o.speciesId];
-   const possible=anchors.filter(a=>{anchorChecks++;return eligible(o,a)&&(usage.get(a.id)||0)<a.capacity;}).sort((a,b)=>b.priority-a.priority||Math.hypot(a.position.x-o.position.x,a.position.y-o.position.y)-Math.hypot(b.position.x-o.position.x,b.position.y-o.position.y)||a.id.localeCompare(b.id,'en'));
+   let possible=anchors.filter(a=>{anchorChecks++;return eligible(o,a)&&(usage.get(a.id)||0)<a.capacity;});
+   const supports=possible.filter(a=>a.kind!=='activity-area');if(supports.length)possible=supports;
+   else {const primary=possible.filter(a=>a.zone===rule.primary);if(primary.length)possible=primary;}
+   possible.sort((a,b)=>Math.hypot((a.position.x-o.position.x)*layout.width,(a.position.y-o.position.y)*layout.height)-Math.hypot((b.position.x-o.position.x)*layout.width,(b.position.y-o.position.y)*layout.height)||b.priority-a.priority||a.id.localeCompare(b.id,'en'));
    const anchor=possible[0],fallback=!anchor||anchor.kind==='activity-area',attached=Boolean(anchor&&anchor.kind!=='activity-area'&&(anchor.sourceObjectId||anchor.sourceInstanceId));
    const bias=rule.movement==='slow-litter'||rule.stationary?12:rule.movement==='perching'?-12:rule.movement==='short-hop'?-6:0;
    let preferred=fallback?{x:origin.x,y:anchor?clamp(origin.y+bias,(anchor.position.y-anchor.range.y)*layout.height,(anchor.position.y+anchor.range.y)*layout.height):origin.y+bias}:{x:anchor.position.x*layout.width,y:anchor.position.y*layout.height};

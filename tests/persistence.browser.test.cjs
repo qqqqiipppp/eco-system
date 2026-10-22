@@ -1,4 +1,4 @@
-const {reveal}=require('./ux-browser-helpers.cjs');
+const {reveal,tapBackground}=require('./ux-browser-helpers.cjs');
 const { dismissWelcome, useDeveloperEnvironment } = require('./fixtures.cjs');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');const assert=require('node:assert/strict');
 const BASE=process.env.BASE_URL||'http://127.0.0.1:8082/eco-system/';const KEY='eco-system:forest-save';
@@ -8,7 +8,7 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8082/eco-system/';const KEY='
   await c.addInitScript(({raw,key})=>{if(raw!==undefined&&!sessionStorage.getItem('seeded')){localStorage.setItem(key,raw);sessionStorage.setItem('seeded','yes')}window.writes=0;const original=Storage.prototype.setItem;Storage.prototype.setItem=function(...args){if(this===localStorage)window.writes++;return original.apply(this,args)};},{raw,key:KEY});
   const p=await c.newPage();p.on('pageerror',e=>errors.push(e.message));p.on('response',r=>{if(r.status()>=400)errors.push(`${r.status()} ${r.url()}`)});await useDeveloperEnvironment(p); await p.goto(BASE,{waitUntil:'networkidle'}); await dismissWelcome(p);return p;}
  async function environment(p,factor,level){if(await p.locator('#goal-dialog').evaluate(d=>d.open))await p.locator('#goal-close').click();await p.locator('#environment-open').click();await p.getByLabel(`${factor} 상태`,{exact:true}).selectOption(level);await p.locator('#environment-close').click();}
- async function place(p,id,x=.4,y=.72){await p.locator(`.organism-card[data-species-id="${id}"]`).tap();const box=await p.locator('#placement-surface').boundingBox();await p.touchscreen.tap(box.x+x*box.width,box.y+y*box.height);}
+ async function place(p,id,x=.4,y=.72){await p.locator(`.organism-card[data-species-id="${id}"]`).tap();const box=await p.locator('#placement-surface').boundingBox();await tapBackground(p,x,y);}
  async function seedSnapshot(p,count=12){return p.evaluate(async(count)=>{
   const {createGameState}=await import('./js/state/game-state.js');const {createOrganismInstance}=await import('./js/state/organism-instance.js');const {createSaveSnapshot}=await import('./js/services/save-format.js');const {completeActivity}=await import('./js/systems/activities.js');
   const s=createGameState();s.inventory.forEach(c=>c.acquired=true);s.observations=['v2_grass_to_grasshopper','v2_grasshopper_to_frog'].map(relationId=>({relationId,eventId:'old',discoveredAt:0}));

@@ -1,3 +1,4 @@
+const {tapBackground}=require('./ux-browser-helpers.cjs');
 // Compare complete first-goal UI paths against the actual15.8 Git source.
 // Old responses are read from Git into memory; no checkout/copy/mutation.
 const fs=require('node:fs'),{execFileSync}=require('node:child_process'),assert=require('node:assert/strict'),{chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
@@ -10,7 +11,7 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/',HEAD='c0d66
   const state=()=>p.evaluate(async()=>structuredClone((await import('./js/main.js')).gameState));
   const step=async(name,fn)=>{const a=await p.evaluate(()=>window.flowAudit.taps),started=Date.now();await fn();steps.push({name,taps:(await p.evaluate(()=>window.flowAudit.taps))-a,wallMilliseconds:Date.now()-started,activeSeconds:(await state()).simulationTime});};
   const close=async()=>{const id=await p.evaluate(()=>[...document.querySelectorAll('dialog[open]')].at(-1)?.id);if(id){const selector={goal:'#goal-close',event:'#event-close',activity:'#activity-close',population:'#population-close'}[id.replace('-dialog','')];if(selector)await p.locator(selector).click();else await p.keyboard.press('Escape');}};
-  const place=async(id,x=.43)=>{await close();await p.locator('.organism-card[data-species-id="'+id+'"]').click();const box=await p.locator('#placement-surface').boundingBox();await p.touchscreen.tap(box.x+box.width*x,box.y+box.height*.72);await p.locator('.clear-selection').click();};
+  const place=async(id,x=.43)=>{await close();await p.locator('.organism-card[data-species-id="'+id+'"]').click();const box=await p.locator('#placement-surface').boundingBox();await tapBackground(p,x,.72);await p.locator('.clear-selection').click();};
   await step('select/place two grasshoppers',async()=>{await place('grasshopper',.4);await place('grasshopper',.46);});
   await step('place a decomposer',()=>place('mushroom',.32));
   const activity=async(id,answer)=>{await close();const started=Date.now();if(id==='grass_observation'){await p.locator('.organism-card[data-species-id="frog"]').click();}else {let direct=false;if(!before){const next=await p.evaluate(async()=>{const {forestAction}=await import('./js/ui/forest-flow.js');return forestAction((await import('./js/main.js')).gameState);});if(next.kind==='activity'&&next.id===id){if(await p.locator('#memo-toggle').getAttribute('aria-expanded')==='false')await p.locator('#memo-toggle').click();await p.locator('#memo-action').click();direct=true;}}

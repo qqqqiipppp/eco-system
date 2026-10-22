@@ -1,0 +1,1564 @@
+{
+  "stage": "15.11.5",
+  "actualS5e": false,
+  "actualStudents": false,
+  "fixture": "Matrix uses explicit QA card rights and live supporting plants; ordinary discovery scene earns its cards and rewards",
+  "matrix": [
+    {
+      "speciesId": "oak",
+      "side": "left",
+      "touch": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.15993538,
+        "y": 0.72
+      },
+      "display": {
+        "x": 198,
+        "y": 233.065,
+        "anchor": "background:ground-band",
+        "fallback": "false"
+      },
+      "distancePixels": 99.86503204325325
+    },
+    {
+      "speciesId": "oak",
+      "side": "middle",
+      "touch": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "display": {
+        "x": 619,
+        "y": 218.128,
+        "anchor": "background:ground-band",
+        "fallback": "false"
+      },
+      "distancePixels": 84.92799999999997
+    },
+    {
+      "speciesId": "oak",
+      "side": "right",
+      "touch": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.89983845,
+        "y": 0.72
+      },
+      "display": {
+        "x": 1114,
+        "y": 227.923,
+        "anchor": "background:ground-band",
+        "fallback": "false"
+      },
+      "distancePixels": 94.72321114172597
+    },
+    {
+      "speciesId": "grass",
+      "side": "left",
+      "touch": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.15993538,
+        "y": 0.72
+      },
+      "display": {
+        "x": 198,
+        "y": 233.065,
+        "anchor": "background:ground-band",
+        "fallback": "false"
+      },
+      "distancePixels": 99.86503204325325
+    },
+    {
+      "speciesId": "grass",
+      "side": "middle",
+      "touch": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "display": {
+        "x": 619,
+        "y": 218.128,
+        "anchor": "background:ground-band",
+        "fallback": "false"
+      },
+      "distancePixels": 84.92799999999997
+    },
+    {
+      "speciesId": "grass",
+      "side": "right",
+      "touch": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.89983845,
+        "y": 0.72
+      },
+      "display": {
+        "x": 1114,
+        "y": 227.923,
+        "anchor": "background:ground-band",
+        "fallback": "false"
+      },
+      "distancePixels": 94.72321114172597
+    },
+    {
+      "speciesId": "grasshopper",
+      "side": "left",
+      "touch": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.15993538,
+        "y": 0.78
+      },
+      "display": {
+        "x": 130.75,
+        "y": 196.905,
+        "anchor": "producer:fixture-0-0:surface",
+        "fallback": "false"
+      },
+      "distancePixels": 92.6911857999454
+    },
+    {
+      "speciesId": "grasshopper",
+      "side": "middle",
+      "touch": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "display": {
+        "x": 551.67,
+        "y": 182.394,
+        "anchor": "producer:fixture-0-0:surface",
+        "fallback": "false"
+      },
+      "distancePixels": 83.38692065306168
+    },
+    {
+      "speciesId": "grasshopper",
+      "side": "right",
+      "touch": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.89983845,
+        "y": 0.78
+      },
+      "display": {
+        "x": 1046.87,
+        "y": 189.876,
+        "anchor": "producer:fixture-0-0:surface",
+        "fallback": "false"
+      },
+      "distancePixels": 88.00851024758923
+    },
+    {
+      "speciesId": "frog",
+      "side": "left",
+      "touch": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.15993538,
+        "y": 0.58
+      },
+      "display": {
+        "x": 198,
+        "y": 218.065,
+        "anchor": "background:grass-band",
+        "fallback": "true"
+      },
+      "distancePixels": 84.86503770693793
+    },
+    {
+      "speciesId": "frog",
+      "side": "middle",
+      "touch": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.58
+      },
+      "display": {
+        "x": 619,
+        "y": 218.002,
+        "anchor": "background:grass-band",
+        "fallback": "true"
+      },
+      "distancePixels": 84.80199999999999
+    },
+    {
+      "speciesId": "frog",
+      "side": "right",
+      "touch": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.85983845,
+        "y": 0.58
+      },
+      "display": {
+        "x": 1112.48,
+        "y": 217.371,
+        "anchor": "background:grass-band",
+        "fallback": "true"
+      },
+      "distancePixels": 84.18857191448254
+    },
+    {
+      "speciesId": "rabbit",
+      "side": "left",
+      "touch": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.13491054,
+        "y": 0.58
+      },
+      "display": {
+        "x": 215.019,
+        "y": 227.432,
+        "anchor": "background:ground-band",
+        "fallback": "true"
+      },
+      "distancePixels": 95.7423602435202
+    },
+    {
+      "speciesId": "rabbit",
+      "side": "middle",
+      "touch": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.58
+      },
+      "display": {
+        "x": 643,
+        "y": 227.432,
+        "anchor": "background:ground-band",
+        "fallback": "true"
+      },
+      "distancePixels": 97.24026853109773
+    },
+    {
+      "speciesId": "rabbit",
+      "side": "right",
+      "touch": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.89983845,
+        "y": 0.58
+      },
+      "display": {
+        "x": 1138,
+        "y": 227.432,
+        "anchor": "background:ground-band",
+        "fallback": "true"
+      },
+      "distancePixels": 97.19109951019172
+    },
+    {
+      "speciesId": "mushroom",
+      "side": "left",
+      "touch": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.15993538,
+        "y": 0.68
+      },
+      "display": {
+        "x": 198,
+        "y": 238.44,
+        "anchor": "background:ground-band",
+        "fallback": "true"
+      },
+      "distancePixels": 105.24003040668507
+    },
+    {
+      "speciesId": "mushroom",
+      "side": "middle",
+      "touch": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.68
+      },
+      "display": {
+        "x": 619,
+        "y": 238.44,
+        "anchor": "background:ground-band",
+        "fallback": "true"
+      },
+      "distancePixels": 105.23999999999998
+    },
+    {
+      "speciesId": "mushroom",
+      "side": "right",
+      "touch": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.89983845,
+        "y": 0.68
+      },
+      "display": {
+        "x": 1114,
+        "y": 238.44,
+        "anchor": "background:ground-band",
+        "fallback": "true"
+      },
+      "distancePixels": 105.24019004163759
+    },
+    {
+      "speciesId": "pine",
+      "side": "left",
+      "touch": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.15993538,
+        "y": 0.72
+      },
+      "display": {
+        "x": 198,
+        "y": 233.065,
+        "anchor": "background:ground-band",
+        "fallback": "false"
+      },
+      "distancePixels": 99.86503204325325
+    },
+    {
+      "speciesId": "pine",
+      "side": "middle",
+      "touch": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "display": {
+        "x": 619,
+        "y": 218.128,
+        "anchor": "background:ground-band",
+        "fallback": "false"
+      },
+      "distancePixels": 84.92799999999997
+    },
+    {
+      "speciesId": "pine",
+      "side": "right",
+      "touch": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.89983845,
+        "y": 0.72
+      },
+      "display": {
+        "x": 1114,
+        "y": 227.923,
+        "anchor": "background:ground-band",
+        "fallback": "false"
+      },
+      "distancePixels": 94.72321114172597
+    },
+    {
+      "speciesId": "raspberry",
+      "side": "left",
+      "touch": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.15993538,
+        "y": 0.72
+      },
+      "display": {
+        "x": 198,
+        "y": 233.065,
+        "anchor": "background:ground-band",
+        "fallback": "false"
+      },
+      "distancePixels": 99.86503204325325
+    },
+    {
+      "speciesId": "raspberry",
+      "side": "middle",
+      "touch": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "display": {
+        "x": 619,
+        "y": 218.128,
+        "anchor": "background:ground-band",
+        "fallback": "false"
+      },
+      "distancePixels": 84.92799999999997
+    },
+    {
+      "speciesId": "raspberry",
+      "side": "right",
+      "touch": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.89983845,
+        "y": 0.72
+      },
+      "display": {
+        "x": 1114,
+        "y": 227.923,
+        "anchor": "background:ground-band",
+        "fallback": "false"
+      },
+      "distancePixels": 94.72321114172597
+    },
+    {
+      "speciesId": "hazel",
+      "side": "left",
+      "touch": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.15993538,
+        "y": 0.72
+      },
+      "display": {
+        "x": 198,
+        "y": 233.065,
+        "anchor": "background:ground-band",
+        "fallback": "false"
+      },
+      "distancePixels": 99.86503204325325
+    },
+    {
+      "speciesId": "hazel",
+      "side": "middle",
+      "touch": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "display": {
+        "x": 619,
+        "y": 218.128,
+        "anchor": "background:ground-band",
+        "fallback": "false"
+      },
+      "distancePixels": 84.92799999999997
+    },
+    {
+      "speciesId": "hazel",
+      "side": "right",
+      "touch": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.89983845,
+        "y": 0.72
+      },
+      "display": {
+        "x": 1114,
+        "y": 227.923,
+        "anchor": "background:ground-band",
+        "fallback": "false"
+      },
+      "distancePixels": 94.72321114172597
+    },
+    {
+      "speciesId": "chipmunk",
+      "side": "left",
+      "touch": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.15993538,
+        "y": 0.72
+      },
+      "display": {
+        "x": 106.75,
+        "y": 189.975,
+        "anchor": "producer:fixture-0-0:surface",
+        "fallback": "false"
+      },
+      "distancePixels": 107.53868850325449
+    },
+    {
+      "speciesId": "chipmunk",
+      "side": "middle",
+      "touch": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.52,
+        "y": 0.72
+      },
+      "display": {
+        "x": 694.312,
+        "y": 196.966,
+        "anchor": "background:middle-trunk",
+        "fallback": "false"
+      },
+      "distancePixels": 98.68130572707275
+    },
+    {
+      "speciesId": "chipmunk",
+      "side": "right",
+      "touch": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.93983845,
+        "y": 0.72
+      },
+      "display": {
+        "x": 1197.77,
+        "y": 156.581,
+        "anchor": "background:right-trunk",
+        "fallback": "false"
+      },
+      "distancePixels": 86.77912226451699
+    },
+    {
+      "speciesId": "field-mouse",
+      "side": "left",
+      "touch": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.15993538,
+        "y": 0.58
+      },
+      "display": {
+        "x": 198,
+        "y": 227.432,
+        "anchor": "background:ground-band",
+        "fallback": "true"
+      },
+      "distancePixels": 94.232033958734
+    },
+    {
+      "speciesId": "field-mouse",
+      "side": "middle",
+      "touch": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.58
+      },
+      "display": {
+        "x": 619,
+        "y": 227.432,
+        "anchor": "background:ground-band",
+        "fallback": "true"
+      },
+      "distancePixels": 94.23199999999997
+    },
+    {
+      "speciesId": "field-mouse",
+      "side": "right",
+      "touch": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.89983845,
+        "y": 0.58
+      },
+      "display": {
+        "x": 1114,
+        "y": 227.432,
+        "anchor": "background:ground-band",
+        "fallback": "true"
+      },
+      "distancePixels": 94.23221224188678
+    },
+    {
+      "speciesId": "caterpillar",
+      "side": "left",
+      "touch": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.15993538,
+        "y": 0.72
+      },
+      "display": {
+        "x": 130.75,
+        "y": 205.775,
+        "anchor": "producer:fixture-0-0:surface",
+        "fallback": "false"
+      },
+      "distancePixels": 98.99727029064994
+    },
+    {
+      "speciesId": "caterpillar",
+      "side": "middle",
+      "touch": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "display": {
+        "x": 551.67,
+        "y": 190.575,
+        "anchor": "producer:fixture-0-0:surface",
+        "fallback": "false"
+      },
+      "distancePixels": 88.46027088473109
+    },
+    {
+      "speciesId": "caterpillar",
+      "side": "right",
+      "touch": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.89983845,
+        "y": 0.72
+      },
+      "display": {
+        "x": 1046.87,
+        "y": 198.108,
+        "anchor": "producer:fixture-0-0:surface",
+        "fallback": "false"
+      },
+      "distancePixels": 93.52206886077755
+    },
+    {
+      "speciesId": "aphid",
+      "side": "left",
+      "touch": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.15993538,
+        "y": 0.72
+      },
+      "display": {
+        "x": 130.75,
+        "y": 210.775,
+        "anchor": "producer:fixture-0-0:surface",
+        "fallback": "false"
+      },
+      "distancePixels": 102.71908062770032
+    },
+    {
+      "speciesId": "aphid",
+      "side": "middle",
+      "touch": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "display": {
+        "x": 551.67,
+        "y": 195.575,
+        "anchor": "producer:fixture-0-0:surface",
+        "fallback": "false"
+      },
+      "distancePixels": 91.78218522676393
+    },
+    {
+      "speciesId": "aphid",
+      "side": "right",
+      "touch": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.89983845,
+        "y": 0.72
+      },
+      "display": {
+        "x": 1046.87,
+        "y": 203.108,
+        "anchor": "producer:fixture-0-0:surface",
+        "fallback": "false"
+      },
+      "distancePixels": 97.05904060931171
+    },
+    {
+      "speciesId": "snail",
+      "side": "left",
+      "touch": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.12844851,
+        "y": 0.58
+      },
+      "display": {
+        "x": 207.019,
+        "y": 220.347,
+        "anchor": "background:grass-band",
+        "fallback": "true"
+      },
+      "distancePixels": 87.60425406337296
+    },
+    {
+      "speciesId": "snail",
+      "side": "middle",
+      "touch": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.58
+      },
+      "display": {
+        "x": 643,
+        "y": 220.347,
+        "anchor": "background:grass-band",
+        "fallback": "true"
+      },
+      "distancePixels": 90.39136910679026
+    },
+    {
+      "speciesId": "snail",
+      "side": "right",
+      "touch": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.89983845,
+        "y": 0.58
+      },
+      "display": {
+        "x": 1138,
+        "y": 220.347,
+        "anchor": "background:grass-band",
+        "fallback": "true"
+      },
+      "distancePixels": 90.33847247435611
+    },
+    {
+      "speciesId": "spider",
+      "side": "left",
+      "touch": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.13993538,
+        "y": 0.72
+      },
+      "display": {
+        "x": 301.247,
+        "y": 199.8,
+        "anchor": "background:left-trunk",
+        "fallback": "false"
+      },
+      "distancePixels": 122.79653858720935
+    },
+    {
+      "speciesId": "spider",
+      "side": "middle",
+      "touch": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.48,
+        "y": 0.72
+      },
+      "display": {
+        "x": 694.312,
+        "y": 196.966,
+        "anchor": "background:middle-trunk",
+        "fallback": "false"
+      },
+      "distancePixels": 98.68130572707275
+    },
+    {
+      "speciesId": "spider",
+      "side": "right",
+      "touch": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.88,
+        "y": 0.72
+      },
+      "display": {
+        "x": 1197.77,
+        "y": 156.581,
+        "anchor": "background:right-trunk",
+        "fallback": "false"
+      },
+      "distancePixels": 86.77912226451699
+    },
+    {
+      "speciesId": "ladybird",
+      "side": "left",
+      "touch": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.12,
+        "y": 0.72
+      },
+      "display": {
+        "x": 216.56,
+        "y": 237.351,
+        "anchor": "background:surface-litter",
+        "fallback": "true"
+      },
+      "distancePixels": 105.77779162470729
+    },
+    {
+      "speciesId": "ladybird",
+      "side": "middle",
+      "touch": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.48,
+        "y": 0.58
+      },
+      "display": {
+        "x": 662.24,
+        "y": 237.351,
+        "anchor": "background:surface-litter",
+        "fallback": "true"
+      },
+      "distancePixels": 112.77024608024938
+    },
+    {
+      "speciesId": "ladybird",
+      "side": "right",
+      "touch": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.88,
+        "y": 0.58
+      },
+      "display": {
+        "x": 1157.44,
+        "y": 237.351,
+        "anchor": "background:surface-litter",
+        "fallback": "true"
+      },
+      "distancePixels": 112.77024608024938
+    },
+    {
+      "speciesId": "tit",
+      "side": "left",
+      "touch": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.15993538,
+        "y": 0.72
+      },
+      "display": {
+        "x": 301.247,
+        "y": 134.617,
+        "anchor": "background:left-crown",
+        "fallback": "false"
+      },
+      "distancePixels": 103.17673079721028
+    },
+    {
+      "speciesId": "tit",
+      "side": "middle",
+      "touch": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "display": {
+        "x": 694.312,
+        "y": 152.33,
+        "anchor": "background:middle-crown",
+        "fallback": "false"
+      },
+      "distancePixels": 77.70363082893876
+    },
+    {
+      "speciesId": "tit",
+      "side": "right",
+      "touch": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.89983845,
+        "y": 0.72
+      },
+      "display": {
+        "x": 1198.8,
+        "y": 100.609,
+        "anchor": "background:right-crown",
+        "fallback": "false"
+      },
+      "distancePixels": 90.6605387199965
+    },
+    {
+      "speciesId": "bulbul",
+      "side": "left",
+      "touch": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.15993538,
+        "y": 0.72
+      },
+      "display": {
+        "x": 301.247,
+        "y": 134.617,
+        "anchor": "background:left-crown",
+        "fallback": "false"
+      },
+      "distancePixels": 103.17673079721028
+    },
+    {
+      "speciesId": "bulbul",
+      "side": "middle",
+      "touch": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "display": {
+        "x": 694.312,
+        "y": 152.33,
+        "anchor": "background:middle-crown",
+        "fallback": "false"
+      },
+      "distancePixels": 77.70363082893876
+    },
+    {
+      "speciesId": "bulbul",
+      "side": "right",
+      "touch": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.89983845,
+        "y": 0.72
+      },
+      "display": {
+        "x": 1198.8,
+        "y": 100.609,
+        "anchor": "background:right-crown",
+        "fallback": "false"
+      },
+      "distancePixels": 90.6605387199965
+    },
+    {
+      "speciesId": "snake",
+      "side": "left",
+      "touch": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.13167952,
+        "y": 0.58
+      },
+      "display": {
+        "x": 211.019,
+        "y": 227.432,
+        "anchor": "background:ground-band",
+        "fallback": "true"
+      },
+      "distancePixels": 95.11617919681169
+    },
+    {
+      "speciesId": "snake",
+      "side": "middle",
+      "touch": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.46,
+        "y": 0.58
+      },
+      "display": {
+        "x": 637.48,
+        "y": 227.432,
+        "anchor": "background:ground-band",
+        "fallback": "true"
+      },
+      "distancePixels": 96.02697654305271
+    },
+    {
+      "speciesId": "snake",
+      "side": "right",
+      "touch": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.85983845,
+        "y": 0.58
+      },
+      "display": {
+        "x": 1132.48,
+        "y": 227.432,
+        "anchor": "background:ground-band",
+        "fallback": "true"
+      },
+      "distancePixels": 95.98868800020132
+    },
+    {
+      "speciesId": "weasel",
+      "side": "left",
+      "touch": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.15993538,
+        "y": 0.58
+      },
+      "display": {
+        "x": 198,
+        "y": 227.432,
+        "anchor": "background:ground-band",
+        "fallback": "true"
+      },
+      "distancePixels": 94.232033958734
+    },
+    {
+      "speciesId": "weasel",
+      "side": "middle",
+      "touch": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.58
+      },
+      "display": {
+        "x": 619,
+        "y": 227.432,
+        "anchor": "background:ground-band",
+        "fallback": "true"
+      },
+      "distancePixels": 94.23199999999997
+    },
+    {
+      "speciesId": "weasel",
+      "side": "right",
+      "touch": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.89983845,
+        "y": 0.58
+      },
+      "display": {
+        "x": 1114,
+        "y": 227.432,
+        "anchor": "background:ground-band",
+        "fallback": "true"
+      },
+      "distancePixels": 94.23221224188678
+    },
+    {
+      "speciesId": "goshawk",
+      "side": "left",
+      "touch": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.15993538,
+        "y": 0.72
+      },
+      "display": {
+        "x": 301.247,
+        "y": 134.617,
+        "anchor": "background:left-crown",
+        "fallback": "false"
+      },
+      "distancePixels": 103.17673079721028
+    },
+    {
+      "speciesId": "goshawk",
+      "side": "middle",
+      "touch": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "display": {
+        "x": 694.312,
+        "y": 152.33,
+        "anchor": "background:middle-crown",
+        "fallback": "false"
+      },
+      "distancePixels": 77.70363082893876
+    },
+    {
+      "speciesId": "goshawk",
+      "side": "right",
+      "touch": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.89983845,
+        "y": 0.72
+      },
+      "display": {
+        "x": 1198.8,
+        "y": 100.609,
+        "anchor": "background:right-crown",
+        "fallback": "false"
+      },
+      "distancePixels": 90.6605387199965
+    },
+    {
+      "speciesId": "litter-mold",
+      "side": "left",
+      "touch": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.15993538,
+        "y": 0.68
+      },
+      "display": {
+        "x": 198,
+        "y": 238.44,
+        "anchor": "background:surface-litter",
+        "fallback": "true"
+      },
+      "distancePixels": 105.24003040668507
+    },
+    {
+      "speciesId": "litter-mold",
+      "side": "middle",
+      "touch": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.68
+      },
+      "display": {
+        "x": 619,
+        "y": 238.44,
+        "anchor": "background:surface-litter",
+        "fallback": "true"
+      },
+      "distancePixels": 105.23999999999998
+    },
+    {
+      "speciesId": "litter-mold",
+      "side": "right",
+      "touch": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.89983845,
+        "y": 0.68
+      },
+      "display": {
+        "x": 1114,
+        "y": 238.44,
+        "anchor": "background:surface-litter",
+        "fallback": "true"
+      },
+      "distancePixels": 105.24019004163759
+    },
+    {
+      "speciesId": "soil-bacteria",
+      "side": "left",
+      "touch": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.15993538,
+        "y": 0.68
+      },
+      "display": {
+        "x": 198,
+        "y": 238.44,
+        "anchor": "background:ground-band",
+        "fallback": "true"
+      },
+      "distancePixels": 105.24003040668507
+    },
+    {
+      "speciesId": "soil-bacteria",
+      "side": "middle",
+      "touch": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.68
+      },
+      "display": {
+        "x": 619,
+        "y": 238.44,
+        "anchor": "background:ground-band",
+        "fallback": "true"
+      },
+      "distancePixels": 105.23999999999998
+    },
+    {
+      "speciesId": "soil-bacteria",
+      "side": "right",
+      "touch": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.89983845,
+        "y": 0.68
+      },
+      "display": {
+        "x": 1114,
+        "y": 238.44,
+        "anchor": "background:ground-band",
+        "fallback": "true"
+      },
+      "distancePixels": 105.24019004163759
+    },
+    {
+      "speciesId": "earthworm",
+      "side": "left",
+      "touch": {
+        "x": 0.16,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.15993538,
+        "y": 0.72
+      },
+      "display": {
+        "x": 198,
+        "y": 260.023,
+        "anchor": "background:low-ground",
+        "fallback": "true"
+      },
+      "distancePixels": 126.82302523201376
+    },
+    {
+      "speciesId": "earthworm",
+      "side": "middle",
+      "touch": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "display": {
+        "x": 619,
+        "y": 260.023,
+        "anchor": "background:low-ground",
+        "fallback": "true"
+      },
+      "distancePixels": 126.82300000000001
+    },
+    {
+      "speciesId": "earthworm",
+      "side": "right",
+      "touch": {
+        "x": 0.9,
+        "y": 0.4
+      },
+      "model": {
+        "x": 0.89983845,
+        "y": 0.72
+      },
+      "display": {
+        "x": 1114,
+        "y": 260.023,
+        "anchor": "background:low-ground",
+        "fallback": "true"
+      },
+      "distancePixels": 126.82315770000368
+    }
+  ],
+  "views": [
+    {
+      "width": 1280,
+      "height": 800,
+      "forest": {
+        "width": 1238,
+        "height": 333
+      },
+      "model": {
+        "x": 0.94022617,
+        "y": 0.72
+      },
+      "display": {
+        "x": 1164,
+        "y": 228.868,
+        "anchor": "background:ground-band",
+        "fallback": "false"
+      },
+      "distancePixels": 79.01849608794134,
+      "hit": {
+        "width": 52,
+        "height": 63
+      },
+      "overflow": {
+        "horizontal": false,
+        "vertical": false
+      }
+    },
+    {
+      "width": 1138,
+      "height": 712,
+      "forest": {
+        "width": 1096,
+        "height": 247
+      },
+      "model": {
+        "x": 0.93978102,
+        "y": 0.72
+      },
+      "display": {
+        "x": 1030,
+        "y": 169.753,
+        "anchor": "background:ground-band",
+        "fallback": "false"
+      },
+      "distancePixels": 58.60349144035701,
+      "hit": {
+        "width": 52,
+        "height": 63
+      },
+      "overflow": {
+        "horizontal": false,
+        "vertical": false
+      }
+    },
+    {
+      "width": 960,
+      "height": 600,
+      "forest": {
+        "width": 930,
+        "height": 224
+      },
+      "model": {
+        "x": 0.93978495,
+        "y": 0.72
+      },
+      "display": {
+        "x": 874,
+        "y": 153.946,
+        "anchor": "background:ground-band",
+        "fallback": "false"
+      },
+      "distancePixels": 53.146376320498085,
+      "hit": {
+        "width": 52,
+        "height": 63
+      },
+      "overflow": {
+        "horizontal": false,
+        "vertical": false
+      }
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "forest": {
+        "width": 1324,
+        "height": 301
+      },
+      "model": {
+        "x": 0.94033233,
+        "y": 0.72
+      },
+      "display": {
+        "x": 1245,
+        "y": 206.877,
+        "anchor": "background:ground-band",
+        "fallback": "false"
+      },
+      "distancePixels": 71.42835521695848,
+      "hit": {
+        "width": 52,
+        "height": 63
+      },
+      "overflow": {
+        "horizontal": false,
+        "vertical": false
+      }
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "forest": {
+        "width": 390,
+        "height": 378
+      },
+      "model": {
+        "x": 0.94102564,
+        "y": 0.72
+      },
+      "display": {
+        "x": 364,
+        "y": 259.817,
+        "anchor": "background:ground-band",
+        "fallback": "false"
+      },
+      "distancePixels": 89.75466611268743,
+      "hit": {
+        "width": 48,
+        "height": 49.9375
+      },
+      "overflow": {
+        "horizontal": false,
+        "vertical": true
+      }
+    }
+  ],
+  "errors": [],
+  "failureKeepsSelectionAndRights": true,
+  "reloadExactCoordinates": true,
+  "oldPositionsPreserved": true,
+  "decomposition": {
+    "processed": 0.00705,
+    "earthworm": 0.00135,
+    "soil": 0.000027000000000000002,
+    "points": 0
+  },
+  "treeMeal": {
+    "pine": {
+      "x": 0.89983845,
+      "y": 0.72
+    },
+    "caterpillar": {
+      "x": 0.8824769239820229,
+      "y": 0.7201474623055534
+    }
+  },
+  "ordinaryDiscovery": {
+    "points": 28,
+    "observations": [
+      {
+        "relationId": "v2_grass_to_grasshopper",
+        "eventId": "event-1",
+        "discoveredAt": 6
+      },
+      {
+        "relationId": "v2_grasshopper_to_frog",
+        "eventId": "event-2",
+        "discoveredAt": 14
+      }
+    ],
+    "at": 14,
+    "predation": {
+      "sequence": 5,
+      "speciesId": "grasshopper",
+      "changeType": "predation",
+      "cause": "predation",
+      "simulationTime": 14,
+      "countBefore": 2,
+      "countAfter": 1,
+      "noted": false,
+      "consumerSpeciesId": "frog"
+    },
+    "rightPlant": {
+      "x": 0.87956204,
+      "y": 0.72
+    }
+  }
+}
