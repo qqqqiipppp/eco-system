@@ -1,0 +1,673 @@
+{
+  "stage": "15.11",
+  "date": "2026-10-22",
+  "beforeHead": "59566e4cc11571d1e7e4884d0b8432f85ceb5c03",
+  "unit": {
+    "before": {
+      "groups": [
+        36,
+        314,
+        407,
+        181,
+        247,
+        44
+      ],
+      "failures": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "after": {
+      "groups": [
+        36,
+        314,
+        407,
+        181,
+        247,
+        44,
+        58
+      ],
+      "failures": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "latestArrowPortChecks": 58
+  },
+  "browser": {
+    "before": {
+      "phase": "before",
+      "suites": [
+        {
+          "file": "browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "balance.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "activities.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "detritus.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "development.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "environment.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "biodiversity.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "environment-events.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "feeding-audit.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "events.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "feeding.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "food-expansion.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "lifespan.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "guidance.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "pacing.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "food-web.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "habitat.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "population.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "management.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "replay.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "point-economy.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "spatial.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "persistence.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "ux.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "ux.full-flow.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "learning-goal.repeat.browser.cjs",
+          "legacy": false,
+          "status": 0
+        },
+        {
+          "file": "learning-goal.browser.cjs",
+          "legacy": false,
+          "status": 0
+        },
+        {
+          "file": "learning-goal.controls.browser.cjs",
+          "legacy": false,
+          "status": 0
+        }
+      ]
+    },
+    "after": {
+      "phase": "after",
+      "suites": [
+        {
+          "file": "browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "balance.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "activities.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "biodiversity.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "detritus.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "development.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "environment.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "environment-events.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "feeding-audit.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "feeding.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "guidance.browser.test.cjs",
+          "legacy": true,
+          "status": 0,
+          "initialFailure": "Command failed: C:\\Users\\User\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe --require ./tests/legacy-browser.cjs tests/guidance.browser.test.cjs\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n1 !== 0\n\n    at C:\\Users\\User\\Documents\\GitHub\\eco-system\\tests\\guidance.browser.test.cjs:35:142 {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: 1,\n  expected: 0,\n  operator: 'strictEqual',\n  diff: 'simple'\n}\n",
+          "recheck": "PASS after scoping the environment selector to #environment-dialog inputs; guide search is a different input"
+        },
+        {
+          "file": "events.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "lifespan.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "food-expansion.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "pacing.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "food-web.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "habitat.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "population.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "management.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "replay.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "point-economy.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "spatial.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "ux.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "persistence.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "learning-goal.controls.browser.cjs",
+          "legacy": false,
+          "status": 0
+        },
+        {
+          "file": "ux.full-flow.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "learning-goal.repeat.browser.cjs",
+          "legacy": false,
+          "status": 0
+        },
+        {
+          "file": "learning-goal.browser.cjs",
+          "legacy": false,
+          "status": 0
+        }
+      ]
+    },
+    "newGuide": {
+      "cases": [
+        "fresh5/0,24 roles,locked preview,keyboard arrows: full state remains identical",
+        "all27 reachable,exact direction,chipmunk4,real chain,current/prior/unseen,3 decomposers without fake edges,worm consumer; reads pure",
+        "inspection→guide→web→forest exact living focus restored; actual release removes instance but keeps history",
+        "absent living instances retain confirmed relations; live filter is not an observation"
+      ],
+      "viewChecks": [
+        {
+          "width": 1280,
+          "height": 800,
+          "panel": "web",
+          "inside": true,
+          "horizontal": false,
+          "pageHorizontal": false,
+          "minTouch": 44,
+          "maxNodeOverflow": false,
+          "overlap": false,
+          "scrollable": true
+        },
+        {
+          "width": 1280,
+          "height": 800,
+          "panel": "guide",
+          "inside": true,
+          "horizontal": false,
+          "pageHorizontal": false,
+          "minTouch": 44,
+          "maxNodeOverflow": false,
+          "overlap": false,
+          "scrollable": false
+        },
+        {
+          "width": 1138,
+          "height": 712,
+          "panel": "web",
+          "inside": true,
+          "horizontal": false,
+          "pageHorizontal": false,
+          "minTouch": 44,
+          "maxNodeOverflow": false,
+          "overlap": false,
+          "scrollable": true
+        },
+        {
+          "width": 1138,
+          "height": 712,
+          "panel": "guide",
+          "inside": true,
+          "horizontal": false,
+          "pageHorizontal": false,
+          "minTouch": 44,
+          "maxNodeOverflow": false,
+          "overlap": false,
+          "scrollable": false
+        },
+        {
+          "width": 960,
+          "height": 600,
+          "panel": "web",
+          "inside": true,
+          "horizontal": false,
+          "pageHorizontal": false,
+          "minTouch": 44,
+          "maxNodeOverflow": false,
+          "overlap": false,
+          "scrollable": true
+        },
+        {
+          "width": 960,
+          "height": 600,
+          "panel": "guide",
+          "inside": true,
+          "horizontal": false,
+          "pageHorizontal": false,
+          "minTouch": 44,
+          "maxNodeOverflow": false,
+          "overlap": false,
+          "scrollable": false
+        },
+        {
+          "width": 1366,
+          "height": 768,
+          "panel": "web",
+          "inside": true,
+          "horizontal": false,
+          "pageHorizontal": false,
+          "minTouch": 44,
+          "maxNodeOverflow": false,
+          "overlap": false,
+          "scrollable": true
+        },
+        {
+          "width": 1366,
+          "height": 768,
+          "panel": "guide",
+          "inside": true,
+          "horizontal": false,
+          "pageHorizontal": false,
+          "minTouch": 44,
+          "maxNodeOverflow": false,
+          "overlap": false,
+          "scrollable": false
+        },
+        {
+          "width": 412,
+          "height": 915,
+          "panel": "web",
+          "inside": true,
+          "horizontal": false,
+          "pageHorizontal": false,
+          "minTouch": 44,
+          "maxNodeOverflow": false,
+          "overlap": false,
+          "scrollable": true
+        },
+        {
+          "width": 412,
+          "height": 915,
+          "panel": "guide",
+          "inside": true,
+          "horizontal": false,
+          "pageHorizontal": false,
+          "minTouch": 44,
+          "maxNodeOverflow": false,
+          "overlap": false,
+          "scrollable": false
+        }
+      ],
+      "allSpeciesNameChecks": 48,
+      "performance": {
+        "taps": 20,
+        "rectReads": 0,
+        "maxRAF": 1,
+        "intervals": 0,
+        "mutations": 0
+      }
+    },
+    "actualDiscovery": {
+      "stage": "15.11",
+      "mode": "real foreground UI,ordinary5cards/0points,actual meals and explicit records;no fake clock or grants",
+      "actualS5e": false,
+      "activeSeconds": 12.5,
+      "edges": [
+        {
+          "id": "v2_grass_to_grasshopper",
+          "source": "grass",
+          "target": "grasshopper",
+          "status": "current",
+          "marker": "url(#food-arrow-current)"
+        },
+        {
+          "id": "v2_grasshopper_to_frog",
+          "source": "grasshopper",
+          "target": "frog",
+          "status": "current",
+          "marker": "url(#food-arrow-current)"
+        }
+      ],
+      "chain": "grass→grasshopper→frog",
+      "points": 28,
+      "readOnlyExactState": true,
+      "oneModal": true,
+      "forestGeometryPreserved": true,
+      "schema": 17,
+      "goalRevision": 2,
+      "reloadExactRights": true,
+      "errors": []
+    }
+  },
+  "ecology": {
+    "stage": "15.11",
+    "exactFullSnapshots": true,
+    "continuousMinutes": 20,
+    "splitSeconds": [
+      600,
+      600
+    ],
+    "mixed24": true,
+    "beforeHead": "59566e4cc11571d1e7e4884d0b8432f85ceb5c03",
+    "actualS5e": false,
+    "actualStudents": false
+  },
+  "protectedChecks": {
+    "results": {
+      "files": 97,
+      "changed": []
+    },
+    "domain": {
+      "files": 79,
+      "changed": []
+    }
+  },
+  "ui": {
+    "before": {
+      "fixture": "QA display fixture,24 owned/live,current2/prior1,not an actual student observation",
+      "guide": {
+        "characters": 670,
+        "scrollHeight": 1300,
+        "clientHeight": 702,
+        "cards": 24,
+        "roles": [
+          "상수리나무\n획득 · 관찰 전\n생산자",
+          "강아지풀\n획득 · 관찰\n생산자",
+          "🦗\n방아깨비\n획득 · 관찰\n소비자",
+          "🐸\n참개구리\n획득 · 관찰\n소비자",
+          "멧토끼\n획득 · 관찰 전\n소비자",
+          "구름송편버섯\n획득 · 관찰 전\n분해자",
+          "🌲\n소나무\n획득 · 관찰 전\n생산자",
+          "🌿\n산딸기\n획득 · 관찰 전\n생산자",
+          "🌳\n팽나무\n획득 · 관찰 전\n생산자",
+          "🐿️\n다람쥐\n획득 · 관찰 전\n소비자",
+          "🦔\n고슴도치\n획득 · 관찰 전\n소비자",
+          "🐛\n솔나방 애벌레(송충이)\n획득 · 관찰 전\n소비자",
+          "🪲\n청동풍뎅이\n획득 · 관찰 전\n소비자",
+          "🐌\n명주달팽이\n획득 · 관찰 전\n소비자",
+          "🕷️\n무당거미\n획득 · 관찰 전\n소비자",
+          "🪲\n홍단딱정벌레\n획득 · 관찰 전\n소비자",
+          "🐦\n박새\n획득 · 관찰 전\n소비자",
+          "🐦\n직박구리\n획득 · 관찰 전\n소비자",
+          "🐍\n유혈목이\n획득 · 관찰 전\n소비자",
+          "🐾\n족제비\n획득 · 관찰 전\n소비자",
+          "🦅\n참매\n획득 · 관찰 전\n소비자",
+          "〰\n낙엽 분해 곰팡이 군집\n획득 · 관찰 전\n분해자",
+          "⋯\n고초균\n획득 · 관찰 전\n분해자",
+          "∿\n참지렁이\n획득 · 관찰 전\n소비자"
+        ]
+      },
+      "detail": {
+        "characters": 215,
+        "text": "다람쥐\n\n카드 획득 · 실제 숲 관찰 기록 없음\n\n이 생물 놓기\n\n지금 숲에 1개체가 있어요.\n\n소비자 · 낙엽수와 침엽수가 있는 숲\n\n도토리와 침엽수 씨앗을 이용해요. 소나무 씨앗 먹이는 먹이군을 단순화한 관계예요.\n\n상수리나무 → 다람쥐 · 누적 발견\n\n소나무 → 다람쥐 · 아직 미발견\n\n다람쥐 → 족제비 · 아직 미발견\n\n다람쥐 → 참매 · 아직 미발견\n\n처음 획득: 2번째 숲",
+        "imageCount": 0,
+        "relationLinks": 0
+      },
+      "web": {
+        "characters": 1134,
+        "scrollHeight": 2765,
+        "clientHeight": 702,
+        "relations": 27,
+        "svgArrows": 0
+      },
+      "taps": 4,
+      "notes": "same guide header→chipmunk→web→forest task; list scrolling adds gestures and is not counted as a tap",
+      "errors": []
+    },
+    "after": {
+      "fixture": "QA display fixture,24 owned/live,current2/prior1,not an actual student observation",
+      "guide": {
+        "characters": 1028,
+        "scrollHeight": 718,
+        "clientHeight": 718,
+        "cards": 24,
+        "roles": [
+          "상수리나무\n생산자 · 햇빛으로 양분 만들기\n획득 · ↶ 이전 관찰",
+          "강아지풀\n생산자 · 한해살이 풀\n획득 · ✓ 이번 숲 관찰",
+          "🦗\n방아깨비\n소비자 · 벼과 잎을 먹어요\n획득 · ✓ 이번 숲 관찰",
+          "🐸\n참개구리\n소비자 · 작은 곤충을 먹어요\n획득 · ✓ 이번 숲 관찰",
+          "멧토끼\n소비자 · 풀을 먹는 초식 동물\n획득 · 관찰 전",
+          "구름송편버섯\n분해자 · 죽은 나무를 분해해요\n획득 · 관찰 전",
+          "🌲\n소나무\n생산자 · 씨앗을 공급해요\n획득 · 관찰 전",
+          "🌿\n산딸기\n생산자 · 새가 먹는 열매\n획득 · 관찰 전",
+          "🌳\n팽나무\n생산자 · 잎과 작은 열매\n획득 · 관찰 전",
+          "🐿️\n다람쥐\n소비자 · 도토리·침엽수 씨앗\n획득 · ↶ 이전 관찰",
+          "🦔\n고슴도치\n소비자 · 곤충을 먹는 잡식 동물\n획득 · 관찰 전",
+          "🐛\n솔나방 애벌레(송충이)\n소비자 · 솔잎을 먹어요\n획득 · 관찰 전",
+          "🪲\n청동풍뎅이\n소비자 · 잎을 먹는 성충\n획득 · 관찰 전",
+          "🐌\n명주달팽이\n소비자 · 습한 곳의 잎 먹이\n획득 · 관찰 전",
+          "🕷️\n무당거미\n소비자 · 그물 가까이에서 기다려요\n획득 · 관찰 전",
+          "🪲\n홍단딱정벌레\n소비자 · 땅에서 먹이를 찾아요\n획득 · 관찰 전",
+          "🐦\n박새\n소비자 · 애벌레와 거미\n획득 · 관찰 전",
+          "🐦\n직박구리\n소비자 · 열매와 애벌레\n획득 · 관찰 전",
+          "🐍\n유혈목이\n소비자 · 개구리를 먹는 뱀\n획득 · 관찰 전",
+          "🐾\n족제비\n소비자 · 여러 동물을 먹어요\n획득 · 관찰 전",
+          "🦅\n참매\n소비자 · 숲의 상위 소비자\n획득 · 관찰 전",
+          "〰\n낙엽 분해 곰팡이 군집\n분해자 · 낙엽을 분해하는 여러 균류\n획득 · 관찰 전",
+          "⋯\n고초균\n분해자 · 유기물을 이용하는 세균\n획득 · 관찰 전",
+          "∿\n참지렁이\n소비자 · 분해를 돕는 토양동물\n획득 · 관찰 전"
+        ]
+      },
+      "detail": {
+        "characters": 343,
+        "text": "🐿️\n다람쥐\n목록 보기\n\n소비자 · 카드 획득\n\n↶ 이전 숲의 관찰이 있어요.\n\n지금 숲에 1개체가 있어요. 존재와 먹이 발견은 달라요.\n\n도토리와 침엽수 씨앗을 이용해요.\n\n사는 곳: 낙엽수와 침엽수가 있는 숲 · 게임 활동 공간: 나무줄기 주변\n\n먹이를 얻는 방법\n\n먹이: 상수리나무의 도토리 · 소나무 씨앗\n\n이 게임에서 먹는 생물\n상수리나무 → 다람쥐 · 도토리 · ↶ 이전 숲 발견\n소나무 → 다람쥐 · 씨앗 · ⋯ 아직 미발견\n다람쥐를 먹는 생물\n다람쥐 → 족제비 · 동물 먹이 · ⋯ 아직 미발견\n다람쥐 → 참매 · 동물 먹이 · ⋯ 아직 미발견\n생물 특징 더 보기\n관련 먹이그물 보기\n이 생물 놓기",
+        "imageCount": 0,
+        "relationLinks": 4
+      },
+      "web": {
+        "characters": 849,
+        "scrollHeight": 977,
+        "clientHeight": 718,
+        "relations": 27,
+        "svgArrows": 4
+      },
+      "taps": 4,
+      "notes": "same guide header→chipmunk→web→forest task; list scrolling adds gestures and is not counted as a tap",
+      "errors": []
+    }
+  },
+  "limits": {
+    "actualGalaxyTabS5e": false,
+    "actualStudents": false,
+    "continuousBrowser20MinutesThisStage": false,
+    "numericalEcology20MinutesThisStage": true,
+    "qaDisplayRecords": "Guide geometry/history tests use explicit QA fixtures; discovery.browser uses actual foreground meals and confirmations."
+  },
+  "gitDiffCheck": true,
+  "changedFiles": [
+    "ARCHITECTURE.md",
+    "FOREST_FIELD_GUIDE.md",
+    "README.md",
+    "index.html",
+    "js/main.js",
+    "js/ui/collection-view.js",
+    "tests/guidance.browser.test.cjs",
+    "tests/run-tests.mjs",
+    "tests/ux.browser.test.cjs",
+    "STAGE15_11_FIELD_GUIDE_FOOD_WEB.md",
+    "css/field-guide.css",
+    "js/ui/collection-dom.js",
+    "js/ui/collection-model.js",
+    "js/ui/field-guide-view.js",
+    "js/ui/food-web-layout.js",
+    "js/ui/food-web-view.js",
+    "tests/field-guide-baseline-loader.mjs",
+    "tests/field-guide-baseline-register.mjs",
+    "tests/field-guide-ecology.mjs",
+    "tests/field-guide.baseline-results.json",
+    "tests/field-guide.browser-results.json",
+    "tests/field-guide.browser.cjs",
+    "tests/field-guide.discovery-results.json",
+    "tests/field-guide.discovery.browser.cjs",
+    "tests/field-guide.ecology-results.json",
+    "tests/field-guide.regression-results.json",
+    "tests/field-guide.test.mjs"
+  ]
+}

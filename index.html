@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="./css/habitats.css">
   <link rel="stylesheet" href="./css/collection.css">
   <link rel="stylesheet" href="./css/forest-ux.css">
+  <link rel="stylesheet" href="./css/field-guide.css">
   <script type="module" src="./js/main.js"></script>
 </head>
 <body>
@@ -162,7 +163,7 @@
     <h2 id="population-title">생물 살펴보기</h2>
     <p id="population-individual" hidden></p><div id="population-nearby" role="group" aria-label="겹친 생물 중 살펴볼 개체" hidden></div>
     <label>살펴볼 생물 <select id="population-species"></select></label>
-    <p id="population-role"></p><p id="population-state" role="status"></p><p id="population-food"></p><section id="population-inquiry" aria-label="이 숲의 탐구" hidden></section><p id="population-introduction"></p><button id="population-place" type="button">이 생물 더 놓기</button>
+    <p id="population-role"></p><p id="population-state" role="status"></p><p id="population-food"></p><div class="population-collection-links"><button id="population-guide" type="button">이 생물 도감</button><button id="population-web" type="button">관련 먹이그물</button></div><section id="population-inquiry" aria-label="이 숲의 탐구" hidden></section><p id="population-introduction"></p><button id="population-place" type="button">이 생물 더 놓기</button>
     <details id="population-more"><summary>성장·환경·돌려보내기</summary><p id="population-lifespan"></p>
     <p id="population-breeding"></p>
     <section id="population-development" aria-labelledby="population-development-title" hidden>
@@ -188,15 +189,26 @@
 
   <dialog id="guide-dialog" aria-labelledby="guide-title">
    <div class="collection-actions"><button id="guide-close" type="button">숲으로 돌아가기</button><button id="guide-web" type="button">먹이그물 살펴보기</button></div>
-   <h2 id="guide-title">나의 생물 도감</h2><p id="guide-progress"></p><p>숲의 생물을 눌러 살펴보면 관찰 기록이 남아요.</p>
-   <label class="guide-filter-label">도감 보기 <select id="guide-filter"><option value="all">전체 24종</option><option value="unobserved">획득했지만 관찰 전</option><option value="locked">아직 잠긴 카드</option><option value="producer">생산자</option><option value="consumer">소비자</option><option value="decomposer">분해자</option></select></label>
-   <section id="guide-detail" tabindex="-1" aria-label="생물 자세히 보기" hidden></section><div id="guide-list"></div>
+   <h2 id="guide-title">나의 생물 도감</h2><p id="guide-progress"></p>
+   <div class="guide-tools"><label>이름 찾기 <input id="guide-search" type="search" placeholder="생물 이름" autocomplete="off"></label><label>도감 보기 <select id="guide-filter"><option value="all">전체 24종</option><option value="unobserved">획득했지만 관찰 전</option><option value="locked">아직 잠긴 카드</option><option value="producer">생산자</option><option value="consumer">소비자</option><option value="decomposer">분해자</option></select></label></div>
+   <div class="guide-role-filters" role="group" aria-label="생태계에서 하는 역할"><button type="button" data-guide-role-filter="all">전체 24</button><button type="button" data-guide-role-filter="producer">생산자 5</button><button type="button" data-guide-role-filter="consumer">소비자 16</button><button type="button" data-guide-role-filter="decomposer">분해자 3</button></div>
+   <p id="guide-results" role="status"></p><p class="collection-note">도감을 읽는 것과 실제 숲을 관찰하는 것은 달라요.</p>
+   <div id="guide-layout"><div class="guide-browser"><div id="guide-list"></div><p id="guide-empty" hidden>이름이나 분류를 바꾸어 찾아봐요.</p></div><section id="guide-detail" tabindex="-1" aria-label="생물 자세히 보기" hidden></section></div>
   </dialog>
   <dialog id="web-dialog" aria-labelledby="web-title">
-   <div class="collection-actions"><button id="web-close" type="button">숲으로 돌아가기</button></div>
-   <h2 id="web-title">숲의 먹이그물</h2><p>화살표는 먹이 → 먹는 생물이에요. 예: 강아지풀 → 방아깨비</p><p id="web-progress"></p>
-   <label>관계 보기 <select id="web-filter"><option value="all">전체 27개</option><option value="found">누적 발견한 관계</option><option value="available">획득 카드로 탐구 가능한 관계</option></select></label>
-   <ul id="web-list"></ul><p>참지렁이의 낙엽 잔해 섭식과 균류·세균의 분해는 별도의 물질 순환 과정이에요. 위 27개 관계에 더하지 않아요.</p>
+   <div class="collection-actions"><button id="web-close" type="button">숲으로 돌아가기</button><button id="web-guide" type="button">고른 생물 도감</button></div>
+   <h2 id="web-title">숲의 먹이그물</h2><p>먹이 → 먹는 생물. 옆 생물을 누르면 연결을 따라갈 수 있어요.</p><p id="web-progress"></p>
+   <div class="web-tools"><label>중심 생물 <select id="web-species"></select></label><label>관계 보기 <select id="web-filter"><option value="all">전체 관계 미리보기</option><option value="current">이번 숲에서 관찰</option><option value="found">누적 발견한 관계</option><option value="available">획득 카드로 탐구 가능</option><option value="live">지금 두 생물이 있음</option></select></label></div>
+   <div class="web-legend" aria-label="발견 기록 범례"><span class="current">━━ ✓ 이번 숲 관찰</span><span class="previous">┄┄ ↶ 이전 숲 발견</span><span class="unseen">··· ⋯ 미발견 미리보기</span></div>
+   <p class="collection-note">선 모양은 발견 기록이에요. 먹는 횟수나 먹이 선호도를 뜻하지 않아요.</p>
+   <div id="web-canvas-scroll" tabindex="0" aria-label="먹이그물 그림, 작은 화면에서는 좌우로 움직여요" aria-describedby="web-scroll-help"><div class="web-column-labels" aria-hidden="true"><span>먹이가 되는 생물</span><span>고른 생물</span><span>이 생물을 먹는 생물</span></div><div id="web-stage"></div></div>
+   <p id="web-scroll-help" class="collection-note">작은 화면에서는 그림을 좌우로 움직여요. 아래 이름 버튼으로도 화살표를 고를 수 있어요.</p>
+   <p id="web-empty" hidden>이 분류에서 연결이 없어요. 다른 관계 보기나 생물을 골라 봐요.</p>
+   <p id="web-chain" role="status"></p><button id="web-chain-reset" type="button">여기서 다시 따라보기</button>
+   <div id="web-related" aria-label="화살표를 이름으로 고르기"></div><section id="web-selection" aria-label="고른 먹이 관계" hidden></section>
+   <aside id="web-decomposition" hidden></aside>
+   <details id="web-list-details"><summary>관계 전체를 글로 보기 · 27개</summary><ul id="web-list"></ul></details>
+   <p class="collection-note">세 분해자는 죽은 목재·낙엽·동물 유래 유기물의 처리를 따로 살펴봐요. 중심 생물에서 분해자를 골라 비교해 보세요.</p>
   </dialog>
   <dialog id="replay-dialog" aria-labelledby="replay-title">
    <h2 id="replay-title">새로운 숲을 만들까요?</h2><p>지금 숲의 생물과 환경은 새로 시작하지만, 획득한 카드와 도감·학습·첫 보상 기록, 남은 생태계 포인트는 그대로 남아요.</p><p>이번 숲 관리 지원 28점은 실제 관리에만 쓸 수 있고 다음 숲으로 가져갈 수 없어요.</p>

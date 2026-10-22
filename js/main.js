@@ -64,7 +64,8 @@ try {
   scene.setInspectHandler(ids=>populationView.inspect(ids));
   const forestView = createForestView(gameState,restartGame);
   const helpView = createHelpView(createGuideAdapter());
-  const collectionView=createCollectionView(gameState,{onActivity:openLockedActivity,onReplay:startNextForest,onPlace:selectSpecies});
+  const collectionView=createCollectionView(gameState,{onActivity:openLockedActivity,onReplay:startNextForest,onPlace:selectSpecies,onReturn:source=>{const id=source.instanceId,live=id&&gameState.organisms.some(o=>o.instanceId===id);scene.setFocused(live?id:null);if(live)document.querySelector('[data-inspect-instance="'+id+'"]')?.focus({preventScroll:true});}});
+  for(const [id,open]of [['population-guide','openGuide'],['population-web','openWeb']])document.querySelector('#'+id).addEventListener('click',()=>{const dialog=document.querySelector('#population-dialog'),source={instanceId:dialog.dataset.selectedInstanceId||null},speciesId=document.querySelector('#population-species').value;dialog.close();collectionView[open](speciesId,source);});
   function refreshProgress(seconds=0) {
     const cleared=updateForestGoal(gameState,seconds);
     forestView.render();collectionView.renderClear();flowView?.render();

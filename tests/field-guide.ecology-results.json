@@ -1,0 +1,13 @@
+{
+  "stage": "15.11",
+  "exactFullSnapshots": true,
+  "continuousMinutes": 20,
+  "splitSeconds": [
+    600,
+    600
+  ],
+  "mixed24": true,
+  "beforeHead": "59566e4cc11571d1e7e4884d0b8432f85ceb5c03",
+  "actualS5e": false,
+  "actualStudents": false
+}

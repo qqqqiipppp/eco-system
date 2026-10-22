@@ -1,0 +1,341 @@
+{
+  "stage": "15.11",
+  "actualS5e": false,
+  "actualStudents": false,
+  "displayFixture": "24 owned/live,current2/prior1;explicit QA record setup,not claimed as student discoveries",
+  "views": [
+    {
+      "width": 1280,
+      "height": 800,
+      "panel": "web",
+      "inside": true,
+      "horizontal": false,
+      "pageHorizontal": false,
+      "minTouch": 44,
+      "maxNodeOverflow": false,
+      "overlap": false,
+      "scrollable": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "panel": "guide",
+      "inside": true,
+      "horizontal": false,
+      "pageHorizontal": false,
+      "minTouch": 44,
+      "maxNodeOverflow": false,
+      "overlap": false,
+      "scrollable": false
+    },
+    {
+      "width": 1138,
+      "height": 712,
+      "panel": "web",
+      "inside": true,
+      "horizontal": false,
+      "pageHorizontal": false,
+      "minTouch": 44,
+      "maxNodeOverflow": false,
+      "overlap": false,
+      "scrollable": true
+    },
+    {
+      "width": 1138,
+      "height": 712,
+      "panel": "guide",
+      "inside": true,
+      "horizontal": false,
+      "pageHorizontal": false,
+      "minTouch": 44,
+      "maxNodeOverflow": false,
+      "overlap": false,
+      "scrollable": false
+    },
+    {
+      "width": 960,
+      "height": 600,
+      "panel": "web",
+      "inside": true,
+      "horizontal": false,
+      "pageHorizontal": false,
+      "minTouch": 44,
+      "maxNodeOverflow": false,
+      "overlap": false,
+      "scrollable": true
+    },
+    {
+      "width": 960,
+      "height": 600,
+      "panel": "guide",
+      "inside": true,
+      "horizontal": false,
+      "pageHorizontal": false,
+      "minTouch": 44,
+      "maxNodeOverflow": false,
+      "overlap": false,
+      "scrollable": false
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "panel": "web",
+      "inside": true,
+      "horizontal": false,
+      "pageHorizontal": false,
+      "minTouch": 44,
+      "maxNodeOverflow": false,
+      "overlap": false,
+      "scrollable": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "panel": "guide",
+      "inside": true,
+      "horizontal": false,
+      "pageHorizontal": false,
+      "minTouch": 44,
+      "maxNodeOverflow": false,
+      "overlap": false,
+      "scrollable": false
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "panel": "web",
+      "inside": true,
+      "horizontal": false,
+      "pageHorizontal": false,
+      "minTouch": 44,
+      "maxNodeOverflow": false,
+      "overlap": false,
+      "scrollable": true
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "panel": "guide",
+      "inside": true,
+      "horizontal": false,
+      "pageHorizontal": false,
+      "minTouch": 44,
+      "maxNodeOverflow": false,
+      "overlap": false,
+      "scrollable": false
+    }
+  ],
+  "cases": [
+    "fresh5/0,24 roles,locked preview,keyboard arrows: full state remains identical",
+    "all27 reachable,exact direction,chipmunk4,real chain,current/prior/unseen,3 decomposers without fake edges,worm consumer; reads pure",
+    "inspection→guide→web→forest exact living focus restored; actual release removes instance but keeps history",
+    "absent living instances retain confirmed relations; live filter is not an observation"
+  ],
+  "errors": [],
+  "allSpeciesNameChecks": [
+    {
+      "width": 960,
+      "speciesId": "oak"
+    },
+    {
+      "width": 960,
+      "speciesId": "grass"
+    },
+    {
+      "width": 960,
+      "speciesId": "grasshopper"
+    },
+    {
+      "width": 960,
+      "speciesId": "frog"
+    },
+    {
+      "width": 960,
+      "speciesId": "rabbit"
+    },
+    {
+      "width": 960,
+      "speciesId": "mushroom"
+    },
+    {
+      "width": 960,
+      "speciesId": "pine"
+    },
+    {
+      "width": 960,
+      "speciesId": "raspberry"
+    },
+    {
+      "width": 960,
+      "speciesId": "hazel"
+    },
+    {
+      "width": 960,
+      "speciesId": "chipmunk"
+    },
+    {
+      "width": 960,
+      "speciesId": "field-mouse"
+    },
+    {
+      "width": 960,
+      "speciesId": "caterpillar"
+    },
+    {
+      "width": 960,
+      "speciesId": "aphid"
+    },
+    {
+      "width": 960,
+      "speciesId": "snail"
+    },
+    {
+      "width": 960,
+      "speciesId": "spider"
+    },
+    {
+      "width": 960,
+      "speciesId": "ladybird"
+    },
+    {
+      "width": 960,
+      "speciesId": "tit"
+    },
+    {
+      "width": 960,
+      "speciesId": "bulbul"
+    },
+    {
+      "width": 960,
+      "speciesId": "snake"
+    },
+    {
+      "width": 960,
+      "speciesId": "weasel"
+    },
+    {
+      "width": 960,
+      "speciesId": "goshawk"
+    },
+    {
+      "width": 960,
+      "speciesId": "litter-mold"
+    },
+    {
+      "width": 960,
+      "speciesId": "soil-bacteria"
+    },
+    {
+      "width": 960,
+      "speciesId": "earthworm"
+    },
+    {
+      "width": 412,
+      "speciesId": "oak"
+    },
+    {
+      "width": 412,
+      "speciesId": "grass"
+    },
+    {
+      "width": 412,
+      "speciesId": "grasshopper"
+    },
+    {
+      "width": 412,
+      "speciesId": "frog"
+    },
+    {
+      "width": 412,
+      "speciesId": "rabbit"
+    },
+    {
+      "width": 412,
+      "speciesId": "mushroom"
+    },
+    {
+      "width": 412,
+      "speciesId": "pine"
+    },
+    {
+      "width": 412,
+      "speciesId": "raspberry"
+    },
+    {
+      "width": 412,
+      "speciesId": "hazel"
+    },
+    {
+      "width": 412,
+      "speciesId": "chipmunk"
+    },
+    {
+      "width": 412,
+      "speciesId": "field-mouse"
+    },
+    {
+      "width": 412,
+      "speciesId": "caterpillar"
+    },
+    {
+      "width": 412,
+      "speciesId": "aphid"
+    },
+    {
+      "width": 412,
+      "speciesId": "snail"
+    },
+    {
+      "width": 412,
+      "speciesId": "spider"
+    },
+    {
+      "width": 412,
+      "speciesId": "ladybird"
+    },
+    {
+      "width": 412,
+      "speciesId": "tit"
+    },
+    {
+      "width": 412,
+      "speciesId": "bulbul"
+    },
+    {
+      "width": 412,
+      "speciesId": "snake"
+    },
+    {
+      "width": 412,
+      "speciesId": "weasel"
+    },
+    {
+      "width": 412,
+      "speciesId": "goshawk"
+    },
+    {
+      "width": 412,
+      "speciesId": "litter-mold"
+    },
+    {
+      "width": 412,
+      "speciesId": "soil-bacteria"
+    },
+    {
+      "width": 412,
+      "speciesId": "earthworm"
+    }
+  ],
+  "performance": {
+    "taps": 20,
+    "rectReads": 0,
+    "maxRAF": 1,
+    "intervals": 0,
+    "mutations": 0
+  },
+  "metrics": {
+    "detailCharacters": 343,
+    "actualNavigation": "population→guide→web→guide→forest,4 button interactions after inspection",
+    "arrowsReachable": 27
+  }
+}

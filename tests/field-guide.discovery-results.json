@@ -1,0 +1,31 @@
+{
+  "stage": "15.11",
+  "mode": "real foreground UI,ordinary5cards/0points,actual meals and explicit records;no fake clock or grants",
+  "actualS5e": false,
+  "activeSeconds": 12.5,
+  "edges": [
+    {
+      "id": "v2_grass_to_grasshopper",
+      "source": "grass",
+      "target": "grasshopper",
+      "status": "current",
+      "marker": "url(#food-arrow-current)"
+    },
+    {
+      "id": "v2_grasshopper_to_frog",
+      "source": "grasshopper",
+      "target": "frog",
+      "status": "current",
+      "marker": "url(#food-arrow-current)"
+    }
+  ],
+  "chain": "grass→grasshopper→frog",
+  "points": 28,
+  "readOnlyExactState": true,
+  "oneModal": true,
+  "forestGeometryPreserved": true,
+  "schema": 17,
+  "goalRevision": 2,
+  "reloadExactRights": true,
+  "errors": []
+}
