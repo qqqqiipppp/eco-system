@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {writeFileSync} from 'node:fs';
+import {resultFile} from './result-output.mjs';
 import {organisms} from '../data/organisms.js';
 import {foodRelations} from '../data/food-relations.js';
 import {placementConfig} from '../data/interaction-config.js';
@@ -87,4 +88,4 @@ test('right litter/soil and three decomposer placements never fabricate work; ac
 test('bounded candidate search at29 organisms reaches the real30 limit without a new render loop',()=>{
  const s=world([...organisms.map((o,i)=>[o.id,1,.12+(i%6)*.1]),['grass',5,.2]]),g=geometry(),t=performance.now(),r=placeNearestOrganism(s,'grass',input(.94,.4),g);assert(r.ok);assert.equal(s.organisms.length,30);assert(r.placement.checked<180);const ms=performance.now()-t;rows.push({profile:'29to30',checked:r.placement.checked,elapsedMs:ms});assert.equal(placeNearestOrganism(s,'grass',input(),g).reason,'limit');
 });
-process.on('exit',code=>writeFileSync(new URL('./full-forest.unit-results.json',import.meta.url),JSON.stringify({stage:'15.11.5',exitCode:code,actualS5e:false,rows,meals,searchRadii:feedingConfig},null,2)+'\n'));
+process.on('exit',code=>writeFileSync(resultFile('full-forest.unit-results.json'),JSON.stringify({stage:'15.11.5',exitCode:code,actualS5e:false,rows,meals,searchRadii:feedingConfig},null,2)+'\n'));

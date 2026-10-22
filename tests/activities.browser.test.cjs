@@ -7,7 +7,7 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');const asse
  await useDeveloperEnvironment(page); await page.goto(process.env.BASE_URL||'http://127.0.0.1:8081/',{waitUntil:'networkidle'}); await dismissWelcome(page);
  const state=()=>page.evaluate(async()=>structuredClone((await import('./js/main.js')).gameState));
  const card=id=>page.locator(`.organism-card[data-species-id="${id}"]`);
- const tap=(x,y)=>tapBackground(page,x,y);
+ const tap=async(x,y)=>{if(await page.locator('#goal-dialog').evaluate(d=>d.open))await page.locator('#goal-close').click();return tapBackground(page,x,y);};
  const close=()=>page.locator('#activity-close').click();
  assert.deepEqual((await state()).inventory.filter(c=>c.acquired).map(c=>c.speciesId),['oak','grass','grasshopper','mushroom','soil-bacteria']);
  await card('grass').tap();await card('frog').tap();assert.equal(await page.locator('.organism-card[aria-pressed="true"]').count(),0);

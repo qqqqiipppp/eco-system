@@ -7,6 +7,8 @@ import {node,speciesVisual as visual} from './collection-dom.js';
 import {collectionProgress,syncCollection} from '../state/collection-state.js';
 import {activityCondition} from '../systems/activity-rules.js';
 import {replayTopics} from '../systems/replay.js';
+import {foodRelationById} from '../../data/food-relations.js';
+import {mealSentence} from '../../data/student-text.js';
 export function lockedPreview(s){
  return organisms.filter(o=>!s.inventory.find(c=>c.speciesId===o.id)?.acquired).sort((a,b)=>{
   const ready=o=>{const a=activityForSpecies[o.id];if(!a)return 0;const c=activityCondition(s,a.activityId,a.correctAnswer);return c.ok?2:c.checks?.length?c.checks.filter(c=>c.ok).length/c.checks.length:0;};
@@ -39,6 +41,11 @@ export function createCollectionView(state,{onActivity,onReplay,onPlace=()=>{},o
   if(close.parentElement!==actions)actions.append(close);
 
   syncCollection(state);const p=collectionProgress(state),preview=lockedPreview(state),signature=JSON.stringify([state.round.id,p,preview.map(o=>o.id),state.environmentEvents.sequence]);if(signature===clearSignature)return;clearSignature=signature;
+  const learned=document.querySelector('#clear-learned');learned.replaceChildren();
+  for(const record of state.observations){const relation=foodRelationById[record.relationId];if(relation)learned.append(node('li',mealSentence(relation)));}
+  const progress=state.learningGoalProgress;
+  if(state.goalRevision===2&&progress.decomposer)learned.append(node('li',organismById[progress.decomposer.speciesId].name+'의 분해 활동과 양분의 순환을 살펴봤어요.'));
+  if(state.goalRevision===2&&progress.inquiry?.phase==='confirmed')learned.append(node('li','내 선택 뒤 식물이 먹이가 되고, 그 식물의 먹이가 다시 늘어나는 것을 확인했어요.'));
   document.querySelector('#clear-progress').textContent='나의 생물 도감: '+p.acquired+' / 24종';
   document.querySelector('#clear-invitation').textContent=p.acquired===24?'24종 카드를 모두 모았어요! 새 숲에서 아직 관찰하지 못한 생물과 먹이 관계를 탐구해 봐요.':'아직 만나지 못한 생물들이 있어요. 다음 숲에서 탐구해 볼까요?';
   document.querySelector('#clear-optional').textContent=state.environmentEvents.history.length?'지금 숲에서 성장과 분해를 더 살펴봐요.':'숲을 계속 관찰하며 환경 변화를 만나 봐요.';

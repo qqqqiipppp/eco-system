@@ -101,7 +101,7 @@ const assert = require('node:assert/strict');
       await page.waitForTimeout(100);
       assert.deepEqual(await state(), hiddenState);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
-      if (width >= 960) assert.equal(await page.evaluate(() => document.documentElement.scrollHeight > innerHeight), false, `vertical overflow ${width}x${height}`);
+      await require('./ux-browser-helpers.cjs').assertReadablePage(page);
       assert.equal(await page.evaluate(() => {
         const layer = document.querySelector('#organism-layer').getBoundingClientRect();
         return [...document.querySelectorAll('.organism-visual')].every(node => {
@@ -118,6 +118,7 @@ const assert = require('node:assert/strict');
     }
     await tap(0.4, 0.72);
     assert.equal(await count(), 30);
+    await tap(.9,.18);
     assert.match(await page.locator('#placement-feedback').textContent(), /30개/);
     await page.waitForTimeout(400);
     await page.evaluate(() => {

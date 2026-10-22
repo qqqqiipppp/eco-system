@@ -72,7 +72,7 @@ const assert=require('node:assert/strict');
    assert.equal((await snapshot(page)).observations[0].relationId,'v2_grass_to_grasshopper');
    await page.locator('#event-close').click();
    await page.getByRole('button',{name:/발견 기록/}).click();
-   assert.match(await page.locator('#observation-records').textContent(),/방아깨비의 먹이 발견: 강아지풀의 잎.*단순화/);
+   assert.match(await page.locator('#observation-records').textContent(),/방아깨비가 강아지풀 잎을 먹었어요!/);
    await page.locator('#observations-close').click();
    // Encourage the next real meal without inventing a feeding event.
    await page.evaluate(async()=>{for(const item of (await import('./js/main.js')).gameState.organisms)if(item.speciesId==='grasshopper')item.hunger=1;});
@@ -106,7 +106,7 @@ const assert=require('node:assert/strict');
    for(const [width,height] of [[960,600],[412,915]]){
     await page.setViewportSize({width,height});await page.waitForTimeout(150);
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
-    if(width>=960)assert.equal(await page.evaluate(()=>document.documentElement.scrollHeight>innerHeight),false);
+    await require('./ux-browser-helpers.cjs').assertReadablePage(page);
    }
    await page.setViewportSize({width:1138,height:712});
    if(process.env.SCREENSHOT_PATH)await page.screenshot({path:process.env.SCREENSHOT_PATH,fullPage:true});

@@ -19,25 +19,27 @@
   <link rel="stylesheet" href="./css/collection.css">
   <link rel="stylesheet" href="./css/forest-ux.css">
   <link rel="stylesheet" href="./css/field-guide.css">
+  <link rel="stylesheet" href="./css/student-ux.css">
   <script type="module" src="./js/main.js"></script>
 </head>
 <body>
   <main class="game-shell">
     <header class="app-header">
       <div class="brand"><img src="./assets/images/leaf.svg" width="38" height="38" alt=""><div><h1>작은 숲 연구소</h1><p>4학년 과학 · 생물과 환경</p></div></div>
-      <div class="header-actions"><button id="guide-open" type="button">생물 도감</button><button id="web-open" type="button">먹이그물</button><button id="help-open" type="button">도움말</button><button id="activities-open" type="button">배움</button><button id="observations-open" type="button">발견 기록 <span id="observation-count">0</span></button></div>
+      <div class="header-actions"><button id="guide-open" type="button">생물 도감</button><button id="web-open" type="button">먹이그물</button><button id="help-open" type="button">도움말</button><button id="activities-open" type="button">미션 활동</button><button id="observations-open" type="button">발견 기록 <span id="observation-count">0</span></button></div>
     </header>
 
     <section class="dashboard" aria-label="나의 생태계 상태">
       <div class="metric stability"><span class="metric-icon" aria-hidden="true">♡</span><div><h2>생태계 안정도</h2><p id="stability-value">관찰 준비</p><progress id="stability-meter" max="100" value="0" aria-label="생태계 안정도"></progress></div></div>
-      <div class="metric"><span class="metric-icon point-icon" aria-hidden="true">✦</span><div><h2>생태계 포인트</h2><p><span id="points-value">0</span><small> P</small></p><span class="metric-caption">관찰과 배움으로 얻어요</span></div></div>
+      <div class="metric"><span class="metric-icon point-icon" aria-hidden="true">✦</span><div><h2>생태계 포인트</h2><p><span id="points-value">0</span><small> P</small></p><span class="metric-caption">관찰과 미션으로 얻어요</span></div></div>
       <div class="metric"><span class="metric-icon" aria-hidden="true">❧</span><div><h2>생물 다양성</h2><p><span id="diversity-value">2</span><small>종</small></p><span class="metric-caption">숲에 있는 생물의 종류</span></div></div>
       <div class="metric environment"><span class="metric-icon sun-icon" aria-hidden="true">☀</span><div><h2>현재 환경 상태 · 살펴보기 ›</h2><p id="environment-value">맑은 숲</p><span class="metric-caption">눌러서 환경을 관찰해요</span></div><button id="environment-open" type="button" aria-label="환경 살펴보기"></button></div>
     </section>
 
-    <aside class="forest-memo" aria-label="숲 메모">
-      <button id="memo-toggle" type="button" aria-expanded="false" aria-controls="memo-body">숲 메모 <span aria-hidden="true">＋</span></button>
-      <div id="memo-body" hidden><p id="next-action"></p><button id="memo-action" type="button" hidden></button></div>
+    <aside class="forest-memo" aria-label="숲 미션과 다음 할 일">
+      <button id="memo-toggle" type="button" aria-expanded="false" aria-controls="memo-body">숲 미션 <span id="mission-count" aria-live="polite">0/3</span> <span aria-hidden="true">▾</span></button>
+      <p id="mission-preview" class="mission-preview"></p>
+      <div id="memo-body" hidden><h2 id="mission-heading">나의 숲 미션</h2><ul id="mission-list" class="mission-list"></ul><p id="mission-context"></p><strong>다음 할 일</strong><p id="next-action"></p><button id="memo-action" type="button" hidden></button><button id="memo-goals" type="button">숲 목표 자세히 보기</button></div>
       <span class="pause-hint" role="status">읽는 동안 숲은 잠깐 쉬어요.</span>
     </aside>
     <section class="forest" aria-labelledby="forest-title">
@@ -56,16 +58,16 @@
     </section>
 
     <section class="inventory" aria-labelledby="inventory-title">
-      <div class="inventory-heading"><div><h2 id="inventory-title">나의 생물 카드 <span id="card-count">6</span></h2><p>카드를 고르고, 숲을 터치해요.</p></div><span class="inventory-note">옆으로 밀면 다른 카드도 보여요</span></div>
+      <div class="inventory-heading"><div><h2 id="inventory-title">나의 생물 카드 <span id="card-count">5 / 24</span></h2><p>카드를 고르고, 숲을 터치해요.</p></div><span class="inventory-note">옆으로 밀면 다른 카드도 보여요</span></div>
       <div class="inventory-content"><div id="card-list" class="card-list" role="group" aria-label="획득한 생물 카드"></div>
         <aside id="selection-panel" class="selection-panel" aria-label="선택한 생물 정보" aria-live="polite" aria-atomic="true"></aside>
       </div>
     </section>
-    <footer class="game-footer"><button id="goal-open" type="button"><span id="goal-label">🌲 숲 생태계 목표</span> <span id="goal-count">0/6개 달성</span></button><span id="care-budget" hidden></span><span id="save-status" role="status">자동 저장 준비</span></footer>
+    <footer class="game-footer"><button id="goal-open" type="button"><span id="goal-label">🌲 숲 생태계 목표</span> <span id="goal-count">0/3가지 탐구</span></button><span id="care-budget" hidden></span><span id="save-status" role="status">자동 저장 준비</span></footer>
   </main>
   <dialog id="environment-dialog" aria-labelledby="environment-title">
     <div class="environment-heading"><h2 id="environment-title">환경 살펴보기</h2><button id="environment-close" type="button">닫기</button></div>
-    <p>햇빛·물·공기·토양이 생물에게 영향을 줘요.</p>
+    <p>햇빛·물·공기·토양처럼 생물이 아닌 환경을 비생물 요소라고 해요. 비생물 요소는 생물의 생활에 영향을 줘요.</p>
     <div id="environment-fields"></div>
     <section id="environment-event-current" aria-labelledby="environment-event-title" hidden>
       <h3 id="environment-event-title"></h3>
@@ -112,7 +114,7 @@
     <small>안정도는 숲의 균형을 살펴보는 게임 기준이에요.</small></details>
   </dialog>
   <dialog id="activity-dialog" aria-labelledby="activity-title">
-    <details id="activity-library"><summary>다른 활동 보기</summary><nav id="activity-nav" aria-label="숲에서 배우기"></nav></details>
+    <details id="activity-library"><summary>다른 미션 보기</summary><nav id="activity-nav" aria-label="숲 미션 활동"></nav></details>
     <h2 id="activity-title"></h2><p id="activity-prompt"></p>
     <p id="activity-conditions"></p><div id="activity-choices"></div>
     <p id="activity-result" role="status" aria-live="polite"></p>
@@ -120,6 +122,7 @@
   </dialog>
   <dialog id="goal-dialog" aria-labelledby="goal-title">
     <h2 id="goal-title">첫 숲 목표</h2>
+    <ul id="goal-missions" class="mission-list"></ul>
     <p>관찰하고 배운 내용을 숲에 적용해 보세요.</p>
     <label>숲의 학습·게임 진행 <progress id="forest-progress" max="100" value="0"></progress></label>
     <details id="goal-more"><summary>목표 자세히 보기</summary><ul id="goal-checks"></ul>
@@ -127,6 +130,7 @@
     <p id="goal-status" role="status"></p></details>
     <section id="clear-collection" hidden>
       <p>첫 목표를 해냈어요. 숲의 변화는 계속돼요.</p>
+      <ul id="clear-learned"></ul>
       <p id="clear-progress"></p><p id="clear-optional"></p><details><summary>다음 탐구와 새 숲</summary><p id="clear-invitation"></p><div id="clear-locked"></div></details>
       <div class="clear-actions"><button id="clear-guide" type="button">도감 살펴보기</button><button id="replay-open" type="button">새로운 숲 만들기</button></div>
     </section>
@@ -142,13 +146,13 @@
     <button id="help-close" type="button" aria-label="도움말 닫기">닫기</button>
     <section id="help-purpose"><h2 id="help-title">나만의 숲 생태계 만들기</h2>
       <p><strong>여러 생물이 함께 사는 숲을 만들어요.</strong></p>
-      <p>카드를 골라 숲에 놓아요.<br>먹는 모습을 보고 💡를 눌러 기록해요.<br>!가 보이면 먹이와 환경을 살펴봐요.</p>
-      <p>생산자는 양분을 만들고, 소비자는 먹이를 먹어요.<br>분해자는 죽은 생물의 유기물 분해를 도와요.</p>
+      <p>먹이사슬 발견하기 · 생물의 역할 알아보기 · 숲의 변화 살펴보기</p><p>먼저 생물 카드를 골라 숲에 놓아 보세요. 다음 할 일은 <strong>숲 미션</strong>에서 찾아요.</p>
+
       <button id="help-start" type="button">조작 더 보기</button>
     </section>
-    <section id="help-controls" hidden><h2>기본 조작</h2><ol>
-      <li>생물 카드를 터치하고 숲에 놓아요.</li><li>생물이 먹이를 찾는 모습을 관찰해요.</li><li>💡를 눌러 발견을 기록해요.</li><li>숲 메모나 잠긴 카드에서 짧은 활동을 해요.</li><li>!의 원인을 보고 포인트로 관리해요.</li>
-    </ol><p>숲 메모에서 다음 탐구를 골라요. 먹이 관계와 분해자의 일을 보고, 내 선택 뒤 실제 변화도 확인해요.</p><button id="help-finish" type="button">숲으로 가기</button></section>
+    <section id="help-controls" hidden><h2>기본 조작</h2><p>숲의 동물·식물·균류·세균은 생물 요소예요. 햇빛·물처럼 생물이 아닌 환경은 비생물 요소예요.</p><ol>
+      <li>생물 카드를 터치하고 숲에 놓아요.</li><li>생물이 먹이를 찾는 모습을 관찰해요.</li><li>💡를 눌러 발견을 기록해요.</li><li>다음 할 일나 잠긴 카드에서 짧은 활동을 해요.</li><li>!의 원인을 보고 포인트로 관리해요.</li>
+    </ol><p>다음 할 일에서 다음 탐구를 골라요. 먹이 관계와 분해자의 일을 보고, 내 선택 뒤 실제 변화도 확인해요.</p><button id="help-finish" type="button">숲으로 가기</button></section>
     <button id="help-skip" type="button">숲으로 가기</button>
   </dialog>
   <noscript><p class="load-error">생물 카드를 보려면 브라우저에서 JavaScript를 켜 주세요.</p></noscript>
@@ -181,15 +185,15 @@
   </dialog>
   <dialog id="observations-dialog" aria-labelledby="observations-title">
     <h2 id="observations-title">내가 발견한 먹이 관계</h2>
-    <ul id="observation-records"></ul><p>게임에서 관찰한 관계예요. 단순화한 관계는 실제 종 쌍의 직접 조사와 구분해요.</p><div id="legacy-observations" hidden><h3>이전 구성의 발견 기록</h3><p>이전 학습은 유지돼요. 현재 생물의 발견은 새로 관찰하고 기록해요.</p><ul id="legacy-observation-records"></ul></div>
+    <ul id="observation-records"></ul><p>게임에서 살펴본 먹이 관계예요. 자연에서는 지역과 상황에 따라 달라질 수 있어요.</p><div id="legacy-observations" hidden><h3>이전 구성의 발견 기록</h3><p>이전 학습은 유지돼요. 현재 생물의 발견은 새로 관찰하고 기록해요.</p><ul id="legacy-observation-records"></ul></div>
     <button id="observations-close" type="button">닫기</button>
   </dialog>
   <p id="load-error" class="load-error" hidden>화면을 불러오지 못했어요. 새로고침해서 다시 시도해 주세요.</p>
 
   <dialog id="guide-dialog" aria-labelledby="guide-title">
    <div class="collection-actions"><button id="guide-close" type="button">숲으로 돌아가기</button><button id="guide-web" type="button">먹이그물 살펴보기</button></div>
-   <h2 id="guide-title">나의 생물 도감</h2><p id="guide-progress"></p>
-   <div class="guide-tools"><label>이름 찾기 <input id="guide-search" type="search" placeholder="생물 이름" autocomplete="off"></label><label>도감 보기 <select id="guide-filter"><option value="all">전체 24종</option><option value="unobserved">획득했지만 관찰 전</option><option value="locked">아직 잠긴 카드</option><option value="producer">생산자</option><option value="consumer">소비자</option><option value="decomposer">분해자</option></select></label></div>
+   <h2 id="guide-title">생물 도감</h2><p id="guide-progress"></p>
+   <div class="guide-tools"><label>이름 찾기 <input id="guide-search" type="search" placeholder="생물 이름" autocomplete="off"></label><label>도감 보기 <select id="guide-filter"><option value="all">전체 24종</option><option value="unobserved">카드는 있지만 살펴보기 전</option><option value="locked">아직 잠긴 카드</option><option value="producer">생산자</option><option value="consumer">소비자</option><option value="decomposer">분해자</option></select></label></div>
    <div class="guide-role-filters" role="group" aria-label="생태계에서 하는 역할"><button type="button" data-guide-role-filter="all">전체 24</button><button type="button" data-guide-role-filter="producer">생산자 5</button><button type="button" data-guide-role-filter="consumer">소비자 16</button><button type="button" data-guide-role-filter="decomposer">분해자 3</button></div>
    <p id="guide-results" role="status"></p><p class="collection-note">도감을 읽는 것과 실제 숲을 관찰하는 것은 달라요.</p>
    <div id="guide-layout"><div class="guide-browser"><div id="guide-list"></div><p id="guide-empty" hidden>이름이나 분류를 바꾸어 찾아봐요.</p></div><section id="guide-detail" tabindex="-1" aria-label="생물 자세히 보기" hidden></section></div>
@@ -197,8 +201,8 @@
   <dialog id="web-dialog" aria-labelledby="web-title">
    <div class="collection-actions"><button id="web-close" type="button">숲으로 돌아가기</button><button id="web-guide" type="button">고른 생물 도감</button></div>
    <h2 id="web-title">숲의 먹이그물</h2><p>먹이 → 먹는 생물. 옆 생물을 누르면 연결을 따라갈 수 있어요.</p><p id="web-progress"></p>
-   <div class="web-tools"><label>중심 생물 <select id="web-species"></select></label><label>관계 보기 <select id="web-filter"><option value="all">전체 관계 미리보기</option><option value="current">이번 숲에서 관찰</option><option value="found">누적 발견한 관계</option><option value="available">획득 카드로 탐구 가능</option><option value="live">지금 두 생물이 있음</option></select></label></div>
-   <div class="web-legend" aria-label="발견 기록 범례"><span class="current">━━ ✓ 이번 숲 관찰</span><span class="previous">┄┄ ↶ 이전 숲 발견</span><span class="unseen">··· ⋯ 미발견 미리보기</span></div>
+   <div class="web-tools"><label>중심 생물 <select id="web-species"></select></label><label>관계 보기 <select id="web-filter"><option value="all">전체 관계 미리보기</option><option value="current">이번 숲에서 관찰</option><option value="found">지금까지 발견한 관계</option><option value="available">획득 카드로 탐구 가능</option><option value="live">지금 두 생물이 있음</option></select></label></div>
+   <div class="web-legend" aria-label="발견 기록 범례"><span class="current">━━ ✓ 이번 숲 관찰</span><span class="previous">┄┄ ↶ 이전 숲 발견</span><span class="unseen">··· ⋯ 아직 발견하기 전</span></div>
    <p class="collection-note">선 모양은 발견 기록이에요. 먹는 횟수나 먹이 선호도를 뜻하지 않아요.</p>
    <div id="web-canvas-scroll" tabindex="0" aria-label="먹이그물 그림, 작은 화면에서는 좌우로 움직여요" aria-describedby="web-scroll-help"><div class="web-column-labels" aria-hidden="true"><span>먹이가 되는 생물</span><span>고른 생물</span><span>이 생물을 먹는 생물</span></div><div id="web-stage"></div></div>
    <p id="web-scroll-help" class="collection-note">작은 화면에서는 그림을 좌우로 움직여요. 아래 이름 버튼으로도 화살표를 고를 수 있어요.</p>

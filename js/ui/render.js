@@ -5,6 +5,7 @@ import { qualityLabel, environmentQuality, factorValue } from '../systems/enviro
 import { getSpeciesCount } from '../state/game-state.js';
 import {pointGuidance} from '../systems/point-economy.js';
 import {mealSentence} from '../../data/student-text.js';
+import {studentSentence} from './student-guidance.js';
 
 export function renderDashboard(state) {
   const summary = state.metrics.stabilitySummary;
@@ -16,7 +17,7 @@ export function renderDashboard(state) {
   setText('#points-value', state.metrics.points);
   const care=document.querySelector('#care-budget');if(care){care.hidden=state.round.number===1;care.textContent='이번 숲 관리 지원 '+state.round.care.remaining+' / '+state.round.care.limit+'점';}
   const round=document.querySelector('#forest-title span');if(round)round.textContent=String(state.round.number).padStart(2,'0');
-  setText('#management-status', state.managementEffects.length ? '서식지 회복 중이에요. 한동안 식물의 성장과 먹이 회복을 도와요.' : pointGuidance(state));
+  setText('#management-status', state.managementEffects.length ? '서식지 회복 중이에요. 한동안 식물의 성장과 먹이 회복을 도와요.' : studentSentence(pointGuidance(state)));
   setText('#diversity-value', getSpeciesCount(state));
   setText('#environment-value', qualityLabel(environmentQuality(state.environment)));
   const labels = ['sunlight', 'water', 'air', 'soil'];
@@ -67,9 +68,9 @@ export function renderSelection(uiState, onClear) {
   const panel = document.querySelector('#selection-panel');
   const species = organismById[uiState.selectedSpeciesId];
   if (!species) {
-    panel.innerHTML = '<p>카드 선택 → 숲에 놓기 · 선택을 풀고 생물을 누르면 살펴봐요.</p>';
+    panel.innerHTML = '<p>생물 카드를 고르면 숲에 놓을 수 있어요. 생물을 누르면 살펴봐요.</p>';
     return;
   }
-  panel.innerHTML = `<div class="selection-topline"><h3>${species.name} · 숲을 누르면 가까운 자리에 놓아요.</h3><button class="clear-selection" type="button">선택 해제</button></div>`;
+  panel.innerHTML = `<div class="selection-topline"><h3>${species.name} · 원하는 곳을 누르면 가까운 자리에 놓아요.</h3><button class="clear-selection" type="button">고르기 취소</button></div>`;
   panel.querySelector('button').addEventListener('click', onClear);
 }

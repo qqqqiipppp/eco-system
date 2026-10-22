@@ -3,6 +3,8 @@ import { eventConfig, discoveryEvents, eventPriority } from '../../data/event-co
 import {legacyEcology} from '../../data/legacy-ecology.js';
 import {activities} from '../../data/activities.js';
 import {nextReadyActivity} from './forest-flow.js';
+import {activityAction,studentEvent,discoveryCopy} from './student-guidance.js';
+import {foodRelationById} from '../../data/food-relations.js';
 const symbols = { alert:'!', question:'?', insight:'💡' };
 
 /** Markers follow existing organism anchors. Rules and mutations stay in systems. */
@@ -31,11 +33,13 @@ export function createEventView(state, scene, onAcknowledge, management = {optio
     element.addEventListener('click',action); return element;
   }
   function acknowledge(event, answer) {
+    const points=state.metrics.points;
     const response=onAcknowledge(event.eventId, answer);
-    setText(result,response.message);
+    const gained=state.metrics.points-points;
+    setText(result,response.ok&&event.payload.relationId?'먹이 관계를 알아냈어요!'+(gained>0?' 생태계 포인트 +'+gained:''):response.message);
     if(response.ok) { shownStatus=event.status; actions.replaceChildren();
       const ready=nextReadyActivity(state);
-      if(ready)actions.append(button(ready.unlockSpeciesId&&!state.inventory.some(c=>c.speciesId===ready.unlockSpeciesId&&c.acquired)?'다음 카드 활동':'짧은 활동',()=>{close();onActivity(ready.activityId);}));
+      if(ready)actions.append(button(activityAction(state,ready),()=>{close();onActivity(ready.activityId);}));
       if(event.payload.relationId){const web=button('먹이그물에서 보기',()=>{close();onWeb(event.payload.relationId);});web.dataset.openRelation=event.payload.relationId;actions.append(web);}
     }
     render();
@@ -43,8 +47,9 @@ export function createEventView(state, scene, onAcknowledge, management = {optio
   function open(event) {
     inspected=true; managementArea.replaceChildren(); managementSignature='';
     openId=event.eventId; shownStatus=event.status;
-    setText(title,`${symbols[event.kind]} ${event.title}`); setText(message,event.message);
-    setText(detail,event.explanation); detail.hidden=false; result.textContent=''; actions.replaceChildren();
+    const copy=studentEvent(event);
+    setText(title,`${symbols[event.kind]} ${copy.title}`); setText(message,copy.message);
+    setText(detail,copy.detail); detail.hidden=false; result.textContent=''; actions.replaceChildren();
     document.querySelector('#event-more').open=false;
       if(event.kind==='question') {
         for(const choice of event.payload.choices) actions.append(button(choice.label,()=>{const response=onAcknowledge(event.eventId,choice.id);setText(result,response.message);if(response.ok){detail.hidden=false;shownStatus=event.status;actions.replaceChildren();render();}}));
@@ -112,16 +117,16 @@ export function createEventView(state, scene, onAcknowledge, management = {optio
         entry={node}; markers.set(event.eventId,entry);
       }
       if(entry.node.parentElement!==anchor){const previous=entry.node.parentElement;anchor.append(entry.node);if(previous&&!previous.querySelector('[data-event-marker]'))previous.classList.remove('has-event-marker');}if(anchor.classList.contains('organism-object'))anchor.classList.add('has-event-marker');
-      const markerLabel=`${event.payload.organicOriginSequence?'유기물 발생':event.payload.developmentSequence?'성장 관찰':event.kind==='insight'?'발견':event.kind==='question'?'조사':'알림'}: ${event.title}`;
+      const markerLabel=`${event.payload.organicOriginSequence?'유기물 발생':event.payload.developmentSequence?'성장 관찰':event.kind==='insight'?'발견':event.kind==='question'?'조사':'알림'}: ${studentEvent(event).title}`;
       if(entry.node.getAttribute('aria-label')!==markerLabel)entry.node.setAttribute('aria-label',markerLabel);
     }
     if(openId) {
       const event=state.events.find(item=>item.eventId===openId);
       if(!event||event.status!==shownStatus){shownStatus=event?.status;actions.replaceChildren();setText(result,'상황이 달라졌어요. 숲을 다시 살펴봐요.');}
-      if(event?.status==='active'){setText(title,`${symbols[event.kind]} ${event.title}`);setText(message,event.message);setText(detail,event.explanation);}
+      if(event?.status==='active'){const copy=studentEvent(event);setText(title,`${symbols[event.kind]} ${copy.title}`);setText(message,copy.message);setText(detail,copy.detail);}
       renderManagement(event);
     }
-    const records=state.observations.map(item=>discoveryEvents[item.relationId]?.title).filter(Boolean);
+    const records=state.observations.map(item=>foodRelationById[item.relationId]?discoveryCopy(foodRelationById[item.relationId]).title:null).filter(Boolean);
     setText(document.querySelector('#observation-count'),String(records.length));
     const list=document.querySelector('#observation-records');
     const signature=records.join('|');

@@ -23,7 +23,7 @@ export function createLearningGoalView(state,{onChange,onPlace,onCare}){
   if(decomposerIds.includes(speciesId)){
    text(work>0?particle(organismById[speciesId].name,'이','가')+' 이 숲의 유기물을 실제로 분해하는 데 참여했어요. 양분은 식물이 다시 이용해요.':'이 분해자가 실제로 처리한 유기물은 아직 확인되지 않았어요. 자원과 환경을 살펴봐요.');
    if(p.decomposer)text('분해자의 역할을 이 숲의 탐구에 남겼어요.');
-   else if(!state.activities.find(a=>a.activityId==='decomposer_classify')?.completed)text('숲 메모의 분해자 역할 활동과 연결해 봐요.');
+   else if(!state.activities.find(a=>a.activityId==='decomposer_classify')?.completed)text('미션 활동에서 구름송편버섯의 역할을 알아봐요.');
    else button('실제 분해와 역할을 확인했어요',()=>changed(confirmDecomposerRole(state,speciesId)),!work,'decomposer');
   }else if(organismById[speciesId]?.role==='producer'){
    if(stock)text('이 식물의 먹이 자원은 '+stock+'. '+environment);

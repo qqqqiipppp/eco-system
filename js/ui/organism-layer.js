@@ -19,6 +19,7 @@ export function createOrganismLayer(forest, getOrganisms) {
   const feedback = forest.querySelector('#placement-feedback');
   const namesToggle=forest.querySelector('#names-toggle');
   const nodes = new Map();
+  const highlights=new Map();
   let layout;
   const habitat=createHabitatPresentation();
   let membership='',inspectHandler=()=>{},focusedId=null,placingSpeciesId=null;
@@ -81,6 +82,7 @@ export function createOrganismLayer(forest, getOrganisms) {
     const definition = organismById[instance.speciesId];
     const anchor = document.createElement('div');
     anchor.className = 'organism-object';
+    if(animate){anchor.classList.add('is-newly-placed');highlights.set(instance.instanceId,setTimeout(()=>{anchor.classList.remove('is-newly-placed');highlights.delete(instance.instanceId);},3500));}
     anchor.dataset.instanceId = instance.instanceId;
     anchor.dataset.speciesId = instance.speciesId;
     sizeObject(anchor, instance.speciesId);
@@ -141,7 +143,7 @@ export function createOrganismLayer(forest, getOrganisms) {
     }
   }
   function remove(instanceIds) {
-    for (const id of instanceIds) { nodes.get(id)?.anchor.remove(); nodes.delete(id); }
+    for (const id of instanceIds) { clearTimeout(highlights.get(id));highlights.delete(id);nodes.get(id)?.anchor.remove(); nodes.delete(id); }
     if(instanceIds.includes(focusedId))setFocused(null);
     if(layout)refreshHabitats();
   }

@@ -28,7 +28,7 @@ const assert = require('node:assert/strict');
   for(const [width,height] of [[1280,800],[960,600],[412,915]]) {
    await page.setViewportSize({width,height}); await page.waitForTimeout(100);
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
-   if(width>=960)assert.equal(await page.evaluate(()=>document.documentElement.scrollHeight>innerHeight),false);
+   await require('./ux-browser-helpers.cjs').assertReadablePage(page);
    await page.getByRole('button',{name:'환경 살펴보기',exact:true}).click();
    assert.equal(await page.getByLabel('토양 상태',{exact:true}).isVisible(),true);
    await page.getByRole('button',{name:'닫기',exact:true}).click();

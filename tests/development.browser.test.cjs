@@ -128,7 +128,7 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/',KEY='eco-sy
   for(const [width,height]of [[1280,800],[1138,712],[960,600],[1366,768],[412,915]]){
    await full.setViewportSize({width,height});
    assert.equal(await full.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,`page horizontal overflow ${width}x${height}`);
-   if(width>=960)assert.equal(await full.evaluate(()=>document.documentElement.scrollHeight>innerHeight),false,`page vertical overflow ${width}x${height}`);
+   await require('./ux-browser-helpers.cjs').assertReadablePage(full);
    const panel=await full.locator('#population-dialog').boundingBox();assert(panel.x>=0&&panel.y>=0&&panel.x+panel.width<=width+.5&&panel.y+panel.height<=height+.5,`dialog bounds ${width}x${height}`);
    assert.equal(await full.locator('#population-dialog').evaluate(node=>node.scrollWidth>node.clientWidth),false);
    const controlHeights=[];

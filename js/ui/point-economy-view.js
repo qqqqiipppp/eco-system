@@ -1,4 +1,5 @@
 import {careAvailable} from '../systems/round-care.js';
+import {studentSentence} from './student-guidance.js';
 import {environmentFactors} from '../../data/environment-config.js';
 import {managementActions} from '../../data/management-actions.js';
 import {pointEconomyConfig,recoveryChoices} from '../../data/point-economy.js';
@@ -22,13 +23,13 @@ export function bindPointEconomyView(state,callbacks){
  submit.addEventListener('click',()=>{const response=callbacks.onStudy?.(chosen,answers);set(result,response?.message||'원인과 결과를 골라 주세요.');signature='';render();});
  supportButton.addEventListener('click',()=>{const response=callbacks.onSupport?.();set(result,response?.message||'지금 가능한 회복 방법을 다시 살펴봐요.');signature='';render();});
  function render(){
-  const candidates=studyCandidates(state),quote=supportQuote(state),reserved=supportReserved(state),guide=pointGuidance(state);
+  const candidates=studyCandidates(state),quote=supportQuote(state),reserved=supportReserved(state),guide=studentSentence(pointGuidance(state));
   const careChecks=reserved?state.pointEconomy.support.factors.filter(f=>state.environment[f].value<pointEconomyConfig.minimumEnvironment).map(f=>{const check=callbacks.supportCareOption?.(f);return [f,check?{ok:check.ok,message:check.message}:null];}):[];
   if(!candidates.some(r=>r.eventId===chosen)){chosen=candidates[0]?.eventId||null;answers={};for(const b of [...factorArea.children,...recoveryArea.children])b.setAttribute('aria-pressed','false');}
   const current=candidates.find(r=>r.eventId===chosen),summary=studyPresentation(state,current);
   const next=JSON.stringify([state.metrics.points,state.pointEconomy.sequence,candidates.map(r=>r.eventId),chosen,quote,reserved,guide,careChecks]);if(next===signature)return;signature=next;
   set(balance,`현재 생태계 포인트: ${state.metrics.points}`+(state.round.number>1?' · 이번 숲 관리 지원: '+careAvailable(state)+' / 28점 (지원부터 사용)':''));set(guidance,guide);study.hidden=!summary;
-  set(studyHint,state.pointEconomy.studyCount>=pointEconomyConfig.studyLimit?'누적 환경 학습 운영 보상 5회는 모두 받았어요. 관찰과 자연 회복은 계속할 수 있어요.':summary?'완료된 실제 변화의 원인과 회복 결과를 확인하면 4포인트를 한 번 받아요. 그냥 열기·관찰·기다림에는 지급하지 않아요.':'실제로 변한 환경 사건이 끝나면 원인과 결과를 확인할 수 있어요. 이전 사건은 새 보상으로 바꾸지 않아요.');
+  set(studyHint,state.pointEconomy.studyCount>=pointEconomyConfig.studyLimit?'환경 변화 미션 5개를 모두 마쳤어요. 숲은 계속 살펴볼 수 있어요.':summary?'환경이 왜 변했고 어떻게 회복됐는지 확인해 보세요. 4포인트를 얻을 수 있어요.':'환경 변화가 끝나면 왜 변하고 어떻게 회복됐는지 확인해 보세요.');
   if(summary){set(question,`${summary.name}: 어떤 환경 요소가 변했나요?`);set(description,summary.description);episodes.replaceChildren();
    for(const r of candidates.slice(0,5)){const b=document.createElement('button');b.type='button';b.textContent=studyPresentation(state,r).name;b.dataset.studyEpisode=r.eventId;b.setAttribute('aria-pressed',String(r.eventId===chosen));b.addEventListener('click',()=>{chosen=r.eventId;answers={};signature='';for(const n of [...factorArea.children,...recoveryArea.children])n.setAttribute('aria-pressed','false');render();});episodes.append(b);}
   }
@@ -48,7 +49,7 @@ export function bindPointEconomyView(state,callbacks){
    const item=document.createElement('li'),reason=row.type==='study'?`${event?environmentEventDefinitions[event.kind].name+' ':''}원인·결과 학습`:row.type==='support'?'막힌 환경의 한 번 복구 지원':row.type==='management'?managementActions.find(a=>a.actionId===row.sourceId)?.name||'숲 관리':legacy;
    item.textContent=`${reason}: ${row.amount>0?'+':''}${row.amount}포인트`;recent.append(item);
   }
-  if(!recent.children.length){const item=document.createElement('li');item.textContent='이어서 시작한 포인트와 기존 보상은 보존돼요. 새 획득·지출이 생기면 여기에 남아요.';recent.append(item);}
+  if(!recent.children.length){const item=document.createElement('li');item.textContent='아직 포인트를 얻거나 쓰지 않았어요. 먹이 관계를 발견하면 포인트를 얻어요.';recent.append(item);}
  }
  return {render};
 }

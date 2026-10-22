@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {writeFileSync} from 'node:fs';
+import {resultFile} from './result-output.mjs';
 import {world,emptyMemory} from './ecology-fixtures.mjs';
 import {geometry} from './spatial-fixtures.mjs';
 import {runEconomy} from './point-economy-fixtures.mjs';
@@ -23,4 +24,4 @@ test('right10-save10 retains all boundary coordinates and food/life/rights; same
  const snap=createSaveSnapshot(last.state,emptyMemory,'2026-10-22T00:00:00Z');assert.equal(snap.schemaVersion,17);assert.equal(snap.domain.ecologyRevision,2);assert.equal(snap.domain.pacingRevision,1);assert.equal(snap.domain.goalRevision,2);
  results.split={coordinateBoundaryExact:true,finalDomainExact:true,snapshot:last.snapshot};
 });
-process.on('exit',code=>writeFileSync(new URL('./full-forest.long-results.json',import.meta.url),JSON.stringify({...results,exitCode:code},null,2)+'\n'));
+process.on('exit',code=>writeFileSync(resultFile('full-forest.long-results.json'),JSON.stringify({...results,exitCode:code},null,2)+'\n'));

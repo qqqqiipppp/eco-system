@@ -14,7 +14,7 @@ import { createForestView, showSaveStatus } from './ui/forest-view.js';
 import { createGameState, createUIState } from './state/game-state.js';
 import { renderDashboard, renderCards, renderSelection, feedingFeedback } from './ui/render.js';
 import { createOrganismLayer } from './ui/organism-layer.js';
-import { placementMessage } from './systems/placement.js';
+import {studentPlacementMessage} from './ui/student-guidance.js';
 import {placeNearestOrganism} from './systems/placement-target.js';
 import { createWanderSystem } from './systems/wander.js';
 import { createUpdateLoop } from './systems/update-loop.js';
@@ -46,6 +46,7 @@ Object.assign(gameState,restored.state);
 export let feedingSystem = createFeedingSystem(gameState.simulationTime);
 export let eventSystem = createEventSystem(gameState.simulationTime,restored.eventMemory);
 const uiState = createUIState();
+let selectionPlaced=false;
 let stabilitySystem = createStabilitySystem();
 
 try {
@@ -55,7 +56,7 @@ try {
   let wander = createWanderSystem();
   let lastCheckpoint = gameState.simulationTime;
   let lastPopulationSequence=gameState.population.sequence;
-  const populationButton=document.createElement('button');populationButton.id='population-open';populationButton.type='button';populationButton.textContent='생물 상태';document.querySelector('.header-actions').append(populationButton);
+  const populationButton=document.createElement('button');populationButton.id='population-open';populationButton.type='button';populationButton.textContent='생물 살펴보기';document.querySelector('.header-actions').append(populationButton);
   const populationView=createPopulationView(gameState,id=>{
     const record=removeOrganism(gameState,id,'release');if(!record)return;
     feedingSystem.forget([id]);wander.forget([id]);scene.remove([id]);scene.showFeedback(studentChange(record)||populationMessage(record),true);
@@ -147,14 +148,18 @@ try {
   function clearSelection() {
     const previousId = uiState.selectedSpeciesId;
     uiState.selectedSpeciesId = null;
+    selectionPlaced=false;
     renderSelection(uiState, clearSelection);
     scene.showSelection(null);
+    flowView?.render();
     document.querySelector(`[data-species-id="${previousId}"]`)?.focus();
   }
   function selectSpecies(speciesId) {
     uiState.selectedSpeciesId = speciesId;
+    selectionPlaced=false;
     renderSelection(uiState, clearSelection);
     scene.showSelection(speciesId);
+    flowView?.render();
     populationView.select(speciesId);
   }
   document.querySelector('#population-place').addEventListener('click',()=>{const id=document.querySelector('#population-species').value;document.querySelector('#population-dialog').close();selectSpecies(id);});
@@ -162,8 +167,9 @@ try {
     if (event.target.closest('[data-event-marker]')) return;
     const input=scene.readInput(event);if(input.isUI||!input.isPlayArea)return;
     const result = placeNearestOrganism(gameState, uiState.selectedSpeciesId, input, scene.getLayout());
-    scene.showFeedback(placementMessage(result), result.ok);
+    scene.showFeedback(studentPlacementMessage(result), result.ok);
     if (!result.ok) return;
+    selectionPlaced=true;
     scene.add(result.instance, true);
     eventSystem.refresh(gameState);
     eventView.render();
@@ -204,7 +210,7 @@ try {
     },
   });
   // Development harness installs its environment controls at this explicit boundary.
-  flowView=createForestFlow(gameState,{onActivity:openLockedActivity,onEvent:id=>eventView.open(id),onPlace:selectSpecies,onPopulation:()=>document.querySelector('#population-open').click(),onGoalInspect:action=>{clearSelection();if(action.id&&gameState.organisms.some(o=>o.instanceId===action.id))populationView.inspect([action.id]);else{document.querySelector('#population-open').click();populationView.select(action.speciesId||'grass');}}});
+  flowView=createForestFlow(gameState,{getSelection:()=>uiState.selectedSpeciesId,getPlacementConfirmed:()=>selectionPlaced,onActivity:openLockedActivity,onEvent:id=>eventView.open(id),onPlace:selectSpecies,onPopulation:()=>document.querySelector('#population-open').click(),onGoalInspect:action=>{clearSelection();if(action.id&&gameState.organisms.some(o=>o.instanceId===action.id))populationView.inspect([action.id]);else{document.querySelector('#population-open').click();populationView.select(action.speciesId||'grass');}}});
   renderDashboard(gameState);
   renderCards(gameState, selectSpecies, openLockedActivity);
   renderSelection(uiState, clearSelection);
@@ -228,7 +234,7 @@ try {
     for(const key of Object.keys(gameState))delete gameState[key];
     Object.assign(gameState,nextState);
     feedingSystem=createFeedingSystem();eventSystem=createEventSystem();stabilitySystem=createStabilitySystem();wander=createWanderSystem();
-    lastCheckpoint=0;lastPopulationSequence=0;uiState.selectedSpeciesId=null;populationView.reset();
+    lastCheckpoint=0;lastPopulationSequence=0;selectionPlaced=false;uiState.selectedSpeciesId=null;populationView.reset();
     document.querySelectorAll('dialog[open]').forEach(dialog=>dialog.close());
     scene.reset();activityView.reset();eventView.reset();collectionView.reset();
     stabilitySystem.update(gameState);refreshProgress();

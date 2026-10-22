@@ -1,0 +1,582 @@
+{
+  "stage": "15.11.6",
+  "baseHead": "edc05037825427867d4fff56932e504683b1f4d4",
+  "initialWorkingTreeClean": true,
+  "protected": {
+    "results": {
+      "count": 109,
+      "changed": []
+    },
+    "domain": {
+      "count": 80,
+      "changed": []
+    }
+  },
+  "units": {
+    "groups": [
+      36,
+      314,
+      407,
+      181,
+      247,
+      44,
+      58,
+      111,
+      76
+    ],
+    "total": 1474,
+    "failures": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "browserSuites": [
+    {
+      "file": "balance.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "detritus.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "development.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "activities.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "environment.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "biodiversity.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "environment-events.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "feeding-audit.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "feeding.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "food-expansion.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "events.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "lifespan.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "guidance.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "pacing.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "habitat.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "food-web.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "population.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "management.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "point-economy.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "replay.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "spatial.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "ux.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "persistence.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "learning-goal.controls.browser.cjs",
+      "legacy": false,
+      "status": 0
+    },
+    {
+      "file": "field-guide.browser.cjs",
+      "legacy": false,
+      "status": 0
+    },
+    {
+      "file": "ux.full-flow.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "field-guide.discovery.browser.cjs",
+      "legacy": false,
+      "status": 0
+    },
+    {
+      "file": "learning-goal.repeat.browser.cjs",
+      "legacy": false,
+      "status": 0
+    },
+    {
+      "file": "learning-goal.browser.cjs",
+      "legacy": false,
+      "status": 0
+    },
+    {
+      "file": "full-forest.browser.cjs",
+      "legacy": false,
+      "status": 0
+    }
+  ],
+  "laterPresentationChecks": [
+    {
+      "file": "ux.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "point-economy.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "learning-goal.repeat.browser.cjs",
+      "legacy": false,
+      "status": 0
+    },
+    {
+      "file": "learning-goal.browser.cjs",
+      "legacy": false,
+      "status": 0
+    }
+  ],
+  "onboardingChecks": [
+    {
+      "file": "ux.browser.test.cjs",
+      "legacy": true,
+      "status": 0
+    },
+    {
+      "file": "learning-goal.repeat.browser.cjs",
+      "legacy": false,
+      "status": 0
+    },
+    {
+      "file": "learning-goal.browser.cjs",
+      "legacy": false,
+      "status": 0
+    }
+  ],
+  "initialBrowser": {
+    "passed": 30,
+    "total": 31,
+    "failure": [
+      {
+        "file": "learning-goal.controls.browser.cjs",
+        "reason": "150s timeout: the rabbit ate a naturally replenished grass rather than the inquiry target"
+      }
+    ],
+    "baselineRetryWithLegalConsumerPlacement": [
+      {
+        "kind": "care",
+        "phase": "confirmed",
+        "noReward": true
+      },
+      {
+        "kind": "plant",
+        "phase": "confirmed",
+        "noReward": true
+      }
+    ]
+  },
+  "studentScreens": 115,
+  "contrastFailures": 0,
+  "forestAreaExactAtFiveSizes": true,
+  "denseSelections": 150,
+  "touchMatrix": 72,
+  "ecologyProfiles": [
+    {
+      "kind": "instant",
+      "minutes": 20,
+      "digest": "934298ae0eca2f3c0eeea1f83d411fff152f5ee58e2726ade2b91b3537df91e5",
+      "clearAt": 106.5,
+      "peak": 14
+    },
+    {
+      "kind": "normal",
+      "minutes": 20,
+      "digest": "7d3cee9bf4c346f8a123a490c543971982bcf7cd0d93e79722cccaaa104a1e52",
+      "clearAt": 930,
+      "peak": 15
+    },
+    {
+      "kind": "10-save-10",
+      "digest": "5990854dda3106033cfac26afb606cfd6b6b5eb8bf330e802740cbcf4e61a464",
+      "boundaryExact": true
+    },
+    {
+      "kind": "managed24",
+      "seed": 11,
+      "minutes": 20,
+      "digest": "37b3728c37da586b830a6bd74ccbcd50b60cdd56bcd86818aa2f0669bb3bec31",
+      "peak": 30,
+      "meals": 186,
+      "predations": 18,
+      "finalSpecies": 17,
+      "points": 130
+    },
+    {
+      "kind": "managed24",
+      "seed": 47,
+      "minutes": 20,
+      "digest": "a8ff05d4f9149279b726e9d53db3fca5be23e180360a3ea39ea72f4108fb6c8b",
+      "peak": 30,
+      "meals": 172,
+      "predations": 19,
+      "finalSpecies": 15,
+      "points": 119
+    },
+    {
+      "kind": "managed24",
+      "seed": 2026,
+      "minutes": 20,
+      "digest": "392f471b6bff950ca44e8fc0ad31766af1c637266117ae9d710db5f8fc2d401e",
+      "peak": 30,
+      "meals": 188,
+      "predations": 21,
+      "finalSpecies": 16,
+      "points": 169
+    },
+    {
+      "kind": "unmanaged24",
+      "seed": 11,
+      "minutes": 20,
+      "digest": "9bf6710accc491721181346ffcd5878a684669874d7e1cff3083471df1a2d480",
+      "peak": 30,
+      "meals": 75,
+      "predations": 11,
+      "finalSpecies": 10,
+      "points": 180
+    },
+    {
+      "kind": "unmanaged24",
+      "seed": 47,
+      "minutes": 20,
+      "digest": "298523ffc749b87a6bbf3c39c2e84c1bd0313e3360ca515b9a2fc233c7f6d503",
+      "peak": 30,
+      "meals": 83,
+      "predations": 10,
+      "finalSpecies": 11,
+      "points": 192
+    },
+    {
+      "kind": "unmanaged24",
+      "seed": 2026,
+      "minutes": 20,
+      "digest": "33993fc6ca07613dd7011a120249512c9432966b21e9c2a41fd258e19d6ecf69",
+      "peak": 30,
+      "meals": 81,
+      "predations": 10,
+      "finalSpecies": 11,
+      "points": 180
+    }
+  ],
+  "actualMissions": [
+    {
+      "step": "first forest",
+      "count": "0/3",
+      "next": "방아깨비를 골라 숲에 놓아 보세요."
+    },
+    {
+      "step": "actual connected food discoveries",
+      "count": "1/3",
+      "next": "분해자가 실제로 처리한 유기물과 역할을 연결해 봐요."
+    },
+    {
+      "step": "actual decomposition and explicit role confirmation",
+      "count": "2/3",
+      "next": "실제로 먹이가 된 식물을 살펴보고 어떻게 할지 골라요."
+    },
+    {
+      "step": "actual food recovery and explicit result confirmation",
+      "count": "3/3",
+      "next": "탐구를 마쳤어요. 생물의 역할과 환경이 알맞게 유지되는지 살펴봐요."
+    }
+  ],
+  "actualGoalClearAt": 47.5,
+  "actualS5e": false,
+  "actualChildren": false,
+  "commitOrPush": false,
+  "changedFiles": [
+    {
+      "status": " M",
+      "path": "ARCHITECTURE.md"
+    },
+    {
+      "status": " M",
+      "path": "README.md"
+    },
+    {
+      "status": " M",
+      "path": "index.html"
+    },
+    {
+      "status": " M",
+      "path": "js/main.js"
+    },
+    {
+      "status": " M",
+      "path": "js/ui/activity-view.js"
+    },
+    {
+      "status": " M",
+      "path": "js/ui/collection-model.js"
+    },
+    {
+      "status": " M",
+      "path": "js/ui/collection-view.js"
+    },
+    {
+      "status": " M",
+      "path": "js/ui/event-view.js"
+    },
+    {
+      "status": " M",
+      "path": "js/ui/field-guide-view.js"
+    },
+    {
+      "status": " M",
+      "path": "js/ui/food-web-layout.js"
+    },
+    {
+      "status": " M",
+      "path": "js/ui/food-web-view.js"
+    },
+    {
+      "status": " M",
+      "path": "js/ui/forest-flow.js"
+    },
+    {
+      "status": " M",
+      "path": "js/ui/forest-view.js"
+    },
+    {
+      "status": " M",
+      "path": "js/ui/learning-goal-view.js"
+    },
+    {
+      "status": " M",
+      "path": "js/ui/organism-layer.js"
+    },
+    {
+      "status": " M",
+      "path": "js/ui/point-economy-view.js"
+    },
+    {
+      "status": " M",
+      "path": "js/ui/render.js"
+    },
+    {
+      "status": " M",
+      "path": "tests/activities.browser.test.cjs"
+    },
+    {
+      "status": " M",
+      "path": "tests/balance.browser.test.cjs"
+    },
+    {
+      "status": " M",
+      "path": "tests/browser.test.cjs"
+    },
+    {
+      "status": " M",
+      "path": "tests/detritus.browser.test.cjs"
+    },
+    {
+      "status": " M",
+      "path": "tests/development.browser.test.cjs"
+    },
+    {
+      "status": " M",
+      "path": "tests/environment-events.browser.test.cjs"
+    },
+    {
+      "status": " M",
+      "path": "tests/environment.browser.test.cjs"
+    },
+    {
+      "status": " M",
+      "path": "tests/events.browser.test.cjs"
+    },
+    {
+      "status": " M",
+      "path": "tests/field-guide.browser.cjs"
+    },
+    {
+      "status": " M",
+      "path": "tests/food-web.browser.test.cjs"
+    },
+    {
+      "status": " M",
+      "path": "tests/full-forest-baseline-loader.mjs"
+    },
+    {
+      "status": " M",
+      "path": "tests/full-forest.browser.cjs"
+    },
+    {
+      "status": " M",
+      "path": "tests/full-forest.long.test.mjs"
+    },
+    {
+      "status": " M",
+      "path": "tests/full-forest.test.mjs"
+    },
+    {
+      "status": " M",
+      "path": "tests/guidance.browser.test.cjs"
+    },
+    {
+      "status": " M",
+      "path": "tests/learning-goal.browser.cjs"
+    },
+    {
+      "status": " M",
+      "path": "tests/learning-goal.controls.browser.cjs"
+    },
+    {
+      "status": " M",
+      "path": "tests/point-economy.browser.test.cjs"
+    },
+    {
+      "status": " M",
+      "path": "tests/replay.browser.test.cjs"
+    },
+    {
+      "status": " M",
+      "path": "tests/run-tests.mjs"
+    },
+    {
+      "status": " M",
+      "path": "tests/ux-browser-helpers.cjs"
+    },
+    {
+      "status": " M",
+      "path": "tests/ux.browser.test.cjs"
+    },
+    {
+      "status": "??",
+      "path": "STAGE15_11_6_STUDENT_UX_AND_PLACEMENT.md"
+    },
+    {
+      "status": "??",
+      "path": "css/student-ux.css"
+    },
+    {
+      "status": "??",
+      "path": "js/ui/student-guidance.js"
+    },
+    {
+      "status": "??",
+      "path": "tests/result-output.mjs"
+    },
+    {
+      "status": "??",
+      "path": "tests/student-ux.before-results.json"
+    },
+    {
+      "status": "??",
+      "path": "tests/student-ux.browser-results.json"
+    },
+    {
+      "status": "??",
+      "path": "tests/student-ux.browser.cjs"
+    },
+    {
+      "status": "??",
+      "path": "tests/student-ux.ecology-results.json"
+    },
+    {
+      "status": "??",
+      "path": "tests/student-ux.ecology.mjs"
+    },
+    {
+      "status": "??",
+      "path": "tests/student-ux.placement-results.json"
+    },
+    {
+      "status": "??",
+      "path": "tests/student-ux.regression-results.json"
+    },
+    {
+      "status": "??",
+      "path": "tests/student-ux.test.mjs"
+    }
+  ]
+}

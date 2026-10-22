@@ -3,7 +3,7 @@ import {foodRelations,foodRelationById,foodPartLabels} from '../../data/food-rel
 import {decompositionConfig} from '../../data/population-config.js';
 
 // Presentation selectors only. No sync, discovery acknowledgement or reward.
-export const relationStatusLabels={current:'✓ 이번 숲 관찰',previous:'↶ 이전 숲 발견',unseen:'⋯ 아직 미발견'};
+export const relationStatusLabels={current:'✓ 이번 숲 관찰',previous:'↶ 이전 숲 발견',unseen:'⋯ 아직 발견하기 전'};
 export function speciesStatus(s,id){
  const current=s.round.inspected.includes(id)||s.observations.some(o=>{const r=foodRelationById[o.relationId];return r&&(r.sourceSpeciesId===id||r.targetSpeciesId===id);});
  const priorRelation=s.profile.relations.some(o=>{const r=foodRelationById[o.relationId];return r&&(r.sourceSpeciesId===id||r.targetSpeciesId===id);});

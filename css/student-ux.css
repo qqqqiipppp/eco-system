@@ -1,0 +1,67 @@
+/* Student reading scale. Forest artwork/model geometry remains owned by its
+   existing styles; short screens may scroll rather than shrink the forest. */
+:root{--muted:#4d6050;--ink:#203c2d;--green:#2f603f}
+body{font-size:17px;line-height:1.6}button,input,select{font-family:inherit;font-weight:600}
+.game-shell{gap:6px}.brand h1{font-size:23px;line-height:1.35}.brand p{font-size:15px;color:var(--muted)}
+.header-actions button{font-size:16px!important;padding:8px 10px!important;line-height:1.4;min-width:44px;min-height:44px}
+.metric h2{font-size:15px;color:#4d6050;font-weight:700;margin:0;line-height:1.4}.metric p{font-size:22px;line-height:1.3}.metric small{font-size:16px;color:#4d6050}.stability h2{color:#e5efdf}.metric{padding:7px 12px}
+.point-icon,.sun-icon{color:#855b18}
+.forest{flex:1 0 auto;min-height:max(226px,calc(100svh - 465px))}
+#names-toggle{font-size:16px;line-height:1.4}
+.abiotic-status>span{font-size:15px;line-height:1.4;color:#36503a;padding:7px}.abiotic-status b{color:#2f5739}.abiotic-status i{color:#855b18}
+.soil-label{font-size:15px;line-height:1.4}
+.forest-memo{position:relative;gap:10px;height:48px;min-height:48px;z-index:90}
+.forest-memo button{font-size:16px;font-weight:700;line-height:1.4}
+#memo-toggle,#memo-toggle[data-actionable=true]{background:#244c38;color:white;border-color:#244c38;white-space:nowrap}
+#memo-toggle[aria-expanded=true] span{display:inline}.mission-preview{flex:1;min-width:0;font-size:16px;line-height:1.4;color:#203c2d;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+#memo-body{position:absolute;top:54px;left:0;width:min(540px,100%);height:auto;max-height:min(600px,75svh);overflow:auto;display:block;padding:18px;background:#fffef9;border:2px solid #496943;border-radius:12px;box-shadow:0 5px 12px #1e392833}
+#memo-body h2{font-size:22px;line-height:1.4}#mission-context{font-size:17px;font-weight:700;margin:10px 0 4px}#next-action{display:block;overflow:visible;font-size:17px;line-height:1.65;margin:6px 0 12px}
+.mission-list{list-style:none;padding:0;margin:10px 0}.mission-list li{padding:8px 0;border-bottom:1px solid #dfe5d9;font-size:18px;font-weight:700}.mission-list [data-achieved=true]{color:#2f603f}.mission-list .mission-note{display:block;font-size:16px;font-weight:500;color:#4d6050;margin:4px 0}
+#memo-goals{margin:8px 0 0 5px}.pause-hint{font-size:15px}
+.inventory-heading h2{font-size:18px}.inventory-heading h2 span{font-size:15px;color:#304f25}.inventory-heading p{font-size:15px;color:#4d6050}.inventory-note{font-size:15px;color:#4d6050}
+.card-list{gap:8px}.organism-card{flex:0 0 205px;grid-template-columns:38px minmax(0,1fr);min-height:108px;max-height:none;padding:8px;text-align:left;align-items:center;justify-items:stretch;gap:8px}
+.organism-card[aria-pressed=true]{padding:7px;border:2px solid #244c38;background:#e6efda}.organism-card[data-ready=true]{border-color:#496b32}
+.card-art{width:36px;height:48px}.card-role{display:inline-block;font-size:15px;line-height:1.3;color:#344d27;padding:1px 5px}.card-role.consumer{color:#674619}.card-role.decomposer{color:#61462e}
+.card-name{font-size:17px;line-height:1.4;word-break:keep-all;overflow-wrap:normal;margin:3px 0;font-weight:800;letter-spacing:0}.card-caption,.organism-card.locked-card .card-caption{font-size:15px!important;line-height:1.4;color:#4d6050;word-break:keep-all}
+.card-selected{top:3px;left:5px;right:auto;font-size:15px;color:#203c2d;background:#e6efda;padding:0 3px;line-height:1.3}
+.selection-panel,.selection-panel:has(.clear-selection){min-height:48px;max-height:none;padding:0 10px}.selection-panel h3,.selection-panel p{font-size:17px;line-height:1.5;color:#203c2d}.selection-panel p{margin:0}.selection-topline h3{font-size:17px}.selection-topline{align-items:center}.clear-selection{font-size:16px;white-space:nowrap}
+.game-footer{font-size:15px;min-height:44px}#goal-open{font-size:16px}#save-status{font-size:15px;color:#4d6050}#care-budget{font-size:15px}
+/* One reading scale, including expanded secondary explanations. */
+dialog{scroll-padding:70px 0;line-height:1.65}
+dialog h2{font-size:24px!important;line-height:1.4!important}dialog h3{font-size:20px!important;line-height:1.5!important}dialog h4{font-size:18px!important;line-height:1.5!important}
+dialog p,dialog li,dialog label,dialog details>p,#population-role,#population-food,#population-more p,#population-more li,#clear-progress{font-size:17px!important;line-height:1.7!important;color:#203c2d}
+dialog small,dialog .collection-note,dialog .development-caption{font-size:15px!important;line-height:1.6!important;color:#4d6050!important}
+dialog button,dialog select,dialog input,dialog summary,#population-inquiry button{font-size:17px!important;line-height:1.5;min-width:44px;min-height:44px}
+dialog summary{font-size:16px!important}dialog button{white-space:normal;word-break:keep-all}dialog button[aria-disabled=true]{color:#50584a!important}
+#activity-dialog,#event-dialog,#population-dialog,#goal-dialog,#goal-dialog:has(#clear-collection:not([hidden])){width:min(620px,calc(100% - 24px))}
+#activity-nav{max-height:210px}#activity-nav button{flex-basis:200px}#activity-choices{display:grid;grid-template-columns:1fr;gap:10px}
+#activity-result,#event-result{color:#244c38;font-weight:700}#activity-result:not(:empty),#event-result:not(:empty){background:#edf3df;border-radius:8px;padding:12px}
+#activity-dialog #activity-place{background:#244c38;color:white;font-weight:700}#activity-next{font-size:17px;line-height:1.65;margin:10px 0}
+#activity-close,#population-close,#event-close,#goal-close{position:sticky;bottom:-1px;z-index:4;background:#fffef9;border:2px solid #496943;box-shadow:0 -5px 0 #fffef9}
+#activity-library{order:10}.mission-result-fact{font-weight:600}#goal-missions .mission-note{font-size:16px!important}
+/* Collections use scrollable content, never tiny type to fit24 definitions. */
+#guide-dialog[open]{height:min(900px,94svh);max-height:94svh;gap:5px}
+#guide-dialog .collection-actions,#web-dialog .collection-actions{background:#fffef9}
+.guide-tools label,.web-tools label,.web-legend{font-size:16px}.guide-tools input,.guide-tools select{font-size:16px}
+#guide-list{grid-template-columns:repeat(3,minmax(0,1fr))}#guide-list .guide-card{min-height:112px;padding:10px;gap:10px;word-break:keep-all;overflow-wrap:normal}
+.guide-card-copy strong{font-size:18px;line-height:1.4}.guide-card-copy small,.guide-card-copy>span{font-size:15px!important;line-height:1.45!important;color:#3c523d}
+#guide-layout.has-detail{grid-template-columns:minmax(230px,.8fr) minmax(320px,1.2fr)}#guide-layout.has-detail #guide-list{grid-template-columns:1fr}
+.guide-detail-heading h3{overflow-wrap:normal;word-break:keep-all}.guide-detail-heading{flex-wrap:wrap}.guide-detail-heading button{margin-left:auto}
+.guide-relation-list button{font-size:16px!important}.web-legend .unseen{color:#50594a}
+#web-stage{min-width:960px}.web-column-labels{min-width:960px;font-size:16px;color:#203c2d}
+#web-stage .web-node{height:144px;padding:9px;grid-template-columns:30px minmax(0,1fr);gap:2px 6px}
+#web-stage .web-node.focus{padding:7px}#web-stage .web-node strong{font-size:17px;line-height:1.4;word-break:keep-all;overflow-wrap:normal}
+#web-stage .web-node small,#web-stage .web-node>span:last-child{font-size:15px!important;line-height:1.4!important}
+#web-canvas-scroll{max-height:540px}#web-related button,#web-list li button{font-size:16px!important}.web-edge.unseen{stroke:#586151}
+.organism-object.is-newly-placed .organism-visual{outline:3px solid #fffef9;outline-offset:4px;border-radius:8px;box-shadow:0 0 0 7px #244c38}
+.placement-feedback{font-size:17px!important;line-height:1.6!important;color:#203c2d;max-width:min(580px,calc(100% - 24px));pointer-events:none}
+@media(max-height:720px) and (min-width:801px){.forest{min-height:max(226px,calc(100svh - 463px))}.brand p{display:none}.organism-card{min-height:102px;max-height:none}.inventory-heading{height:auto}.inventory-heading p{display:none}}
+@media(max-width:1050px){.header-actions{gap:4px}.brand h1{font-size:22px}.metric h2{font-size:15px}.card-name{font-size:17px}.inventory-heading>div{gap:8px}.inventory-note{display:none}}
+@media(max-width:800px){
+ .game-shell{height:auto;gap:8px}.app-header{flex-wrap:wrap}.header-actions{width:100%;justify-content:flex-start}.brand p{display:none}.metric{padding:9px}.metric p{font-size:22px}
+ .forest{height:380px;min-height:380px;flex:none}.forest-memo{height:48px;min-height:48px;align-items:center}.forest-memo #memo-body{height:auto;display:block}.mission-preview{font-size:16px}
+ .organism-card{flex-basis:205px;grid-template-columns:38px minmax(0,1fr);text-align:left;min-height:108px}.card-art{height:48px}.card-name{font-size:17px}.inventory-heading>div{display:block}.inventory-heading p{font-size:15px}.selection-panel h3,.selection-panel p{font-size:17px}.selection-panel{min-height:48px}
+ #guide-list{grid-template-columns:repeat(2,minmax(0,1fr))}#guide-layout.has-detail{grid-template-columns:1fr}#guide-layout.has-detail .guide-browser{display:none}.guide-tools label{flex:1 1 100%}.guide-role-filters button{font-size:16px!important}
+ #guide-list .guide-card{display:block;min-height:140px;padding:10px}.guide-card-copy strong{font-size:18px}#guide-dialog[open]{height:94svh}.guide-tools{gap:4px}#guide-results,.collection-note{margin:2px 0!important}
+ .game-footer{flex-wrap:wrap;gap:4px}#save-status{max-width:100%;text-align:left}#goal-count{margin-left:4px}#memo-goals{margin-left:0}
+}

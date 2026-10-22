@@ -2,8 +2,8 @@
 export function focusLayout(relations,focus){
  const foods=[...new Set(relations.filter(r=>r.targetSpeciesId===focus).map(r=>r.sourceSpeciesId))];
  const predators=[...new Set(relations.filter(r=>r.sourceSpeciesId===focus).map(r=>r.targetSpeciesId))];
- const height=Math.max(300,Math.max(foods.length,predators.length)*108+52),width=780;
- const node=(id,x,y,side)=>({id,x,y,side,width:156,height:100});
+ const height=Math.max(320,Math.max(foods.length,predators.length)*132+60),width=780;
+ const node=(id,x,y,side)=>({id,x,y,side,width:156,height:116});
  const nodes=[node(focus,390,height/2,'focus'),...foods.map((id,i)=>node(id,94,(i+.5)*height/foods.length,'food')),...predators.map((id,i)=>node(id,686,(i+.5)*height/predators.length,'predator'))];
  const byId=new Map(nodes.map(n=>[n.id,n]));
  // Separate attachment points keep converging arrowheads distinguishable.
