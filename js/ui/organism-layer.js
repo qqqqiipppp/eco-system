@@ -5,6 +5,7 @@ import { speciesProfiles } from '../../data/interaction-config.js';
 import { DEBUG_MODE, foodResourceConfig, feedingConfig } from '../../data/ecology-config.js';
 import {survivalStage} from '../systems/population.js';
 import {developmentStage,stageLabel} from '../systems/development.js';
+import {visualAsset,createVisualTracker} from './species-visuals.js';
 
 // Short teaching labels fit the existing placeholder footprints.
 const youngNames={grass:{sprout:'강아지풀 새싹',grown:'자란 강아지풀'},grasshopper:{nymph:'방아깨비 약충'},rabbit:{baby:'새끼 멧토끼',juvenile:'어린 멧토끼'},mushroom:{mycelium:'버섯 균사체','spore-ready':'버섯 포자 준비'}};
@@ -20,6 +21,7 @@ export function createOrganismLayer(forest, getOrganisms) {
   const namesToggle=forest.querySelector('#names-toggle');
   const nodes = new Map();
   const highlights=new Map();
+  const visuals=createVisualTracker();
   let layout;
   const habitat=createHabitatPresentation();
   let membership='',inspectHandler=()=>{},focusedId=null,placingSpeciesId=null;
@@ -42,7 +44,7 @@ export function createOrganismLayer(forest, getOrganisms) {
     entry.anchor.dataset.anchorId=descriptor?.anchorId||'';
     entry.anchor.dataset.anchorFallback=String(descriptor?.fallback??false);
     entry.anchor.style.zIndex=String(2+Math.round(point.y/layout.height*12));
-    if (direction) entry.image.style.transform = `scaleX(${direction})`;
+    if (direction) entry.image.style.setProperty('--facing',direction);
   }
   function measure() {
     const rect = surface.getBoundingClientRect();
@@ -88,15 +90,12 @@ export function createOrganismLayer(forest, getOrganisms) {
     sizeObject(anchor, instance.speciesId);
     const visual = document.createElement('div');
     visual.className = `organism-visual${animate ? ' organism-enter' : ''}`;
-    const image = document.createElement(definition.image ? 'img' : 'span');
-    if (definition.image) {
-      image.src = definition.image;
+    const image = document.createElement('img');
+    image.className='organism-art';
+    {
+      image.src = visualAsset(instance.speciesId);
       image.alt = '';
       image.draggable = false;
-    } else {
-      image.className = 'organism-placeholder';
-      image.textContent = definition.placeholder;
-      image.setAttribute('aria-hidden', 'true');
     }
     const name = document.createElement('span');
     name.className = 'organism-name';
@@ -124,11 +123,11 @@ export function createOrganismLayer(forest, getOrganisms) {
     const stage=developmentStage(instance);
     if(entry.stage!==stage){
       entry.stage=stage;
-      if(stage){entry.anchor.dataset.developmentStage=stage;entry.name.textContent=youngNames[instance.speciesId]?.[stage]||organismById[instance.speciesId].name;entry.name.title=`${organismById[instance.speciesId].name} · ${stageLabel(instance)} · 임시 모습`;}
+      if(stage){entry.anchor.dataset.developmentStage=stage;entry.name.textContent=youngNames[instance.speciesId]?.[stage]||organismById[instance.speciesId].name;entry.name.title=`${organismById[instance.speciesId].name} · ${stageLabel(instance)}`;}
       else{delete entry.anchor.dataset.developmentStage;entry.name.textContent=organismById[instance.speciesId].name;entry.name.removeAttribute('title');}
     }
     if (instance.growth !== undefined && entry.growth !== instance.growth) {
-      entry.image.style.transform = `scale(${0.65 + instance.growth * 0.35})`;
+      entry.image.style.setProperty('--growth',0.65 + instance.growth * 0.35);
       entry.image.style.transformOrigin = '50% 100%';
       entry.growth = instance.growth;
     }
@@ -212,7 +211,8 @@ export function createOrganismLayer(forest, getOrganisms) {
     add, remove, showSelection, showFeedback, readInput,
     setInspectHandler:handler=>{inspectHandler=handler;},setFocused,
     getPresentation:instance=>habitat.position(instance),getHabitatDiagnostics:()=>habitat.diagnostics(),
-    reset() { focusedId=null;membership='';remove([...nodes.keys()]); clearTimeout(feedbackTimer); feedback.hidden=true; keyboardPosition={x:0.4,y:0.72}; namesToggle.setAttribute('aria-pressed','false');layer.classList.remove('show-names');showSelection(null); },
+    reset() { visuals.reset();focusedId=null;membership='';remove([...nodes.keys()]); clearTimeout(feedbackTimer); feedback.hidden=true; keyboardPosition={x:0.4,y:0.72}; namesToggle.setAttribute('aria-pressed','false');layer.classList.remove('show-names');showSelection(null); },
+    paintVisuals: (state,delta,work)=>{for(const frame of visuals.sample(state,delta,work)){const entry=nodes.get(frame.instanceId);if(!entry)continue;if(entry.facing!==frame.facing){entry.image.style.setProperty('--facing',frame.facing);entry.facing=frame.facing;}if(entry.visualKey!==frame.src){entry.visualKey=frame.src;entry.anchor.dataset.visualState=frame.motion;entry.anchor.dataset.visualFrame=frame.frame;entry.image.src=frame.src;}}},
     showStates: instances => {
       const nextTargets=new Set(instances.filter(o=>feedingConfig[o.speciesId]?.huntMode==='ambush'&&['moveToFood','eat'].includes(o.behaviorState)).map(o=>o.targetInstanceId).filter(Boolean));
       for (const instance of instances) {

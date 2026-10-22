@@ -172,7 +172,7 @@ export function createFeedingSystem(initialTime = 0,{environmentEventsEnabled=tr
     advanceManagement(state, ecologyConfig.tickSeconds);
     const environmentSample=environmentEventsEnabled&&(currentEnvironmentEvent(state)||state.simulationTime>=state.environmentEvents.nextAt)?captureEnvironmentImpact(state):null;
     if(environmentEventsEnabled)updateEnvironmentEvents(state);
-    updateDecomposition(state,ecologyConfig.tickSeconds);
+    updateDecomposition(state,ecologyConfig.tickSeconds,result.visualWork);
     const recoveryMultiplier = producerRecoveryMultiplier(state)*decompositionMultiplier(state);
     rebuildIndex(state);
     for (const instance of state.organisms) {
@@ -231,7 +231,7 @@ export function createFeedingSystem(initialTime = 0,{environmentEventsEnabled=tr
   return {
     update(state, deltaSeconds, layout) {
       const dt = Math.min(Math.max(deltaSeconds, 0), 0.1);
-      const result = { moved: [], updated: [], added:[], removedIds: [], feedingEvents: [], developmentChanges:[], ticked: false };
+      const result = { moved: [], updated: [], added:[], removedIds: [], feedingEvents: [], developmentChanges:[], ticked: false,visualWork:{} };
       accumulator += dt;
       if (accumulator + 1e-9 >= ecologyConfig.tickSeconds) {
         accumulator -= ecologyConfig.tickSeconds;

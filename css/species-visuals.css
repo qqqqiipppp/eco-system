@@ -1,0 +1,16 @@
+/* Two-frame SVG views, driven by the existing common RAF. No new scheduler. */
+.organism-visual img.organism-art{transform:scaleX(var(--facing,1)) scale(var(--growth,1)) scale(var(--stage-scale,1));transform-origin:50% 100%}
+.organism-object[data-species-id=rabbit][data-development-stage=baby]{--stage-scale:.68}.organism-object[data-species-id=rabbit][data-development-stage=juvenile]{--stage-scale:.84}
+.is-eating .organism-visual::after{display:none}
+.organism-object[data-visual-state=eat] .organism-visual::after,.organism-object[data-visual-state=covered-eat] .organism-visual::after{display:block;content:'먹기';font-size:13px;line-height:20px;width:32px;left:auto;right:-5px;top:-8px;background:#244c38;color:white;border:1px solid white;border-radius:6px}
+.organism-object[data-visual-state=active] .organism-visual{border-bottom:2px solid #e1d6a0}
+.forest-memo{height:auto;min-height:64px;gap:10px;align-items:center}
+.now-task{flex:1;min-width:0;line-height:1.4}.now-task>strong{font-size:15px;color:#34543c}.now-task .mission-preview{margin:0;font-size:17px;font-weight:700;white-space:normal;overflow:visible;line-height:1.4}
+#now-action{flex:none;min-width:92px;min-height:46px;background:#244c38;border:2px solid #244c38;color:#fff;font-size:17px;padding:8px 12px}
+#memo-body{top:100%;margin-top:6px}#memo-toggle{flex:none}
+.selected-art{width:48px;height:40px;object-fit:contain;flex:none}.selection-topline h3{flex:1}.selection-topline h3 small{font-size:15px;display:block;color:#34543c}
+#population-art{width:112px;height:84px;object-fit:contain;float:left;margin:0 12px 4px 0}#population-state{font-weight:700;font-size:19px}#population-food{clear:both}
+.card-art{width:42px;height:52px;object-fit:contain}.organism-card{grid-template-columns:42px minmax(0,1fr)}
+.guide-detail-heading>img{width:92px;height:76px;object-fit:contain}.guide-card>img{width:62px;height:48px;object-fit:contain}
+@media(max-width:800px){.forest-memo{height:auto;min-height:64px;flex-wrap:wrap;gap:4px 8px}.now-task{flex:1 1 calc(100% - 132px)}#now-action{margin-left:auto}#memo-toggle{font-size:15px}.forest-memo .now-task{order:-1;flex-basis:100%}.forest-memo .mission-preview{font-size:17px}.selected-art{display:none}}
+@media(prefers-reduced-motion:reduce){.organism-enter{animation:none}}

@@ -47,7 +47,7 @@ export function renderMissionList(node,state){
 }
 export function createForestFlow(state,{onActivity,onEvent,onPlace,onPopulation,onGoalInspect,getSelection=()=>null,getPlacementConfirmed=()=>false}){
  const toggle=document.querySelector('#memo-toggle'),body=document.querySelector('#memo-body'),text=document.querySelector('#next-action'),action=document.querySelector('#memo-action');
- let current;
+ let current,placementPending=false;
  const close=()=>{toggle.setAttribute('aria-expanded','false');body.hidden=true;};
  const fit=()=>{if(!body.hidden)body.style.maxHeight=Math.max(120,innerHeight-body.getBoundingClientRect().top-12)+'px';};
  toggle.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')!=='true';toggle.setAttribute('aria-expanded',String(open));body.hidden=!open;if(open){toggle.scrollIntoView({block:'center'});fit();}});
@@ -55,11 +55,15 @@ export function createForestFlow(state,{onActivity,onEvent,onPlace,onPopulation,
  document.addEventListener('click',e=>{if(!e.target.closest('.forest-memo'))close();});
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!body.hidden){close();toggle.focus({preventScroll:true});}});
  document.querySelector('#memo-goals').addEventListener('click',()=>{close();document.querySelector('#goal-open').click();});
- action.addEventListener('click',()=>{close();if(current?.kind==='activity')onActivity(current.id);else if(current?.kind==='event')onEvent(current.id);else if(current?.kind==='place')onPlace(current.id);else if(current?.kind==='population')onPopulation();else if(current?.kind==='goal-inspect')onGoalInspect(current);});
+ const execute=()=>{close();if(current?.kind==='activity')onActivity(current.id);else if(current?.kind==='event')onEvent(current.id);else if(current?.kind==='place')onPlace(current.id);else if(current?.kind==='population')onPopulation();else if(current?.kind==='goal-inspect')onGoalInspect(current);};
+ action.addEventListener('click',execute);
+ document.querySelector('#now-action').addEventListener('click',()=>{if(placementPending||current?.kind==='watch'){close();const surface=document.querySelector('#placement-surface');surface.scrollIntoView({block:'center'});surface.focus({preventScroll:true});}else execute();});
  function render(){
   current=forestAction(state);
   if(current.kind==='activity')current={...current,label:activityAction(state,activities.find(a=>a.activityId===current.id))};
   const selected=getSelection(),display=selected&&!getPlacementConfirmed()&&['place','watch'].includes(current.kind)?organismById[selected].name+' 카드를 골랐어요. 원하는 곳을 누르면 가까운 자리에 놓아요. '+placementHint(selected):studentSentence(current.text);
+  placementPending=Boolean(selected&&!getPlacementConfirmed()&&['place','watch'].includes(current.kind));
+  const now=document.querySelector('#now-action'),nowLabel=placementPending?'숲에 놓기':current.kind==='place'?'카드 고르기':current.label||'숲 살펴보기';if(now.textContent!==nowLabel)now.textContent=nowLabel;
   const next=studentSentence(current.text);if(text.textContent!==next)text.textContent=next;
   const preview=document.querySelector('#mission-preview');if(preview.textContent!==display)preview.textContent=display;
   const goals=forestMissions(state),count=document.querySelector('#mission-count'),context=document.querySelector('#mission-context');

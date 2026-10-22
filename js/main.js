@@ -129,6 +129,7 @@ try {
         if(result.feedingEvents.length||result.added.length||result.removedIds.length||result.developmentChanges.length)saveService.schedule();
         if(gameState.simulationTime-lastCheckpoint>=15) { lastCheckpoint=gameState.simulationTime;saveService.schedule(); }
       }
+      result.visualDelta=dt;
       return result;
     },
     render: result => {
@@ -136,6 +137,7 @@ try {
       for(const instance of result.added)scene.add(instance);
       scene.paintChanges(result.moved);
       if (result.ticked) scene.showStates(result.updated);
+      scene.paintVisuals(gameState,result.visualDelta,result.visualWork);
       if (result.ticked) { renderDashboard(gameState); activityView.render(); environmentPanel.render();populationView.render(); }
       if (result.eventTicked || result.removedIds.length) eventView.render();
       let notice;
@@ -215,6 +217,7 @@ try {
   renderCards(gameState, selectSpecies, openLockedActivity);
   renderSelection(uiState, clearSelection);
   gameState.organisms.forEach(instance => scene.add(instance));
+  scene.paintVisuals(gameState,0);
   eventSystem.refresh(gameState);
   refreshProgress();
   eventView.render();

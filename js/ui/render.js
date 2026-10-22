@@ -6,6 +6,7 @@ import { getSpeciesCount } from '../state/game-state.js';
 import {pointGuidance} from '../systems/point-economy.js';
 import {mealSentence} from '../../data/student-text.js';
 import {studentSentence} from './student-guidance.js';
+import {visualAsset} from './species-visuals.js';
 
 export function renderDashboard(state) {
   const summary = state.metrics.stabilitySummary;
@@ -40,7 +41,7 @@ export function renderCards(state, onSelect, onLocked = () => {}) {
     button.dataset.upcoming=String(upcoming);
     button.setAttribute('aria-label', acquired ? `${species.name}, ${roleLabels[species.role]}, 배치할 생물 선택` : `${species.name}, 잠김, ${upcoming?'추후 해금 예정':'해금 조건 보기'}`);
     // Only trusted, local species definitions are used in this template.
-    const visual = species.image ? `<img class="card-art" src="${species.image}" alt="" draggable="false">` : `<span class="card-art card-placeholder" aria-hidden="true">${species.placeholder}</span>`;
+    const visual = `<img class="card-art" src="${visualAsset(species.id)}" alt="" draggable="false">`;
     button.innerHTML = `${visual}<span><span class="card-role ${species.role}">${roleLabels[species.role]}</span><span class="card-name">${species.name}</span><span class="card-caption">${acquired ? species.caption : '🔒 ' + (unlock?.unlockHint||'추후 해금 예정')}</span></span><span class="card-selected" aria-hidden="true" hidden>✓ 선택</span>`;
     button.addEventListener('click', () => acquired ? onSelect(speciesId) : onLocked(unlock?.activityId));
     list.append(button);
@@ -71,6 +72,6 @@ export function renderSelection(uiState, onClear) {
     panel.innerHTML = '<p>생물 카드를 고르면 숲에 놓을 수 있어요. 생물을 누르면 살펴봐요.</p>';
     return;
   }
-  panel.innerHTML = `<div class="selection-topline"><h3>${species.name} · 원하는 곳을 누르면 가까운 자리에 놓아요.</h3><button class="clear-selection" type="button">고르기 취소</button></div>`;
+  panel.innerHTML = `<div class="selection-topline"><img class="selected-art" src="${visualAsset(species.id)}" alt=""><h3><small>선택한 생물</small>${species.name} · 원하는 곳을 누르면 가까운 자리에 놓아요.</h3><button class="clear-selection" type="button">고르기 취소</button></div>`;
   panel.querySelector('button').addEventListener('click', onClear);
 }

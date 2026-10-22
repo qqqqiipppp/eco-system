@@ -3,7 +3,7 @@ import {createHash} from 'node:crypto';
 import {writeFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
 const hash=value=>createHash('sha256').update(JSON.stringify(value)).digest('hex');
-const head='edc05037825427867d4fff56932e504683b1f4d4';
+const head=process.env.BASELINE_HEAD||'edc05037825427867d4fff56932e504683b1f4d4';
 if(process.argv.includes('--worker')){
  const {learningProfile,goalStudent}=await import('./learning-goal-fixtures.mjs');
  const {runBiodiversity}=await import('./biodiversity-fixtures.mjs');

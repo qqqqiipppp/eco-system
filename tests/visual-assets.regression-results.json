@@ -1,0 +1,1036 @@
+{
+  "stage": "15.12",
+  "startHead": "8cb9d9936d2b9a008a383a002187250d0ec99c99",
+  "startDirtyFiles": [],
+  "actualS5e": false,
+  "actualChildren": false,
+  "unit": {
+    "existing": 1474,
+    "newFinal": 53,
+    "total": 1527,
+    "groups": [
+      36,
+      314,
+      407,
+      181,
+      247,
+      44,
+      58,
+      111,
+      76,
+      52
+    ],
+    "finalNewLog": "C:\\Users\\User\\Documents\\Codex\\2026-10-06\\4-github-pages-samsung-galaxy-tab\\work/stage15_12-visual-unit-final.log"
+  },
+  "browser": {
+    "baseline": [
+      {
+        "file": "balance.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "detritus.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "activities.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "development.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "environment.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "biodiversity.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "environment-events.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "feeding-audit.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "feeding.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "food-expansion.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "events.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "lifespan.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "guidance.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "pacing.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "habitat.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "food-web.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "management.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "population.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "point-economy.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "replay.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "spatial.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "persistence.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "ux.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "ux.full-flow.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "field-guide.browser.cjs",
+        "legacy": false,
+        "status": 0
+      },
+      {
+        "file": "learning-goal.browser.cjs",
+        "legacy": false,
+        "status": 0
+      },
+      {
+        "file": "learning-goal.controls.browser.cjs",
+        "legacy": false,
+        "status": 0
+      },
+      {
+        "file": "field-guide.discovery.browser.cjs",
+        "legacy": false,
+        "status": 0
+      },
+      {
+        "file": "learning-goal.repeat.browser.cjs",
+        "legacy": false,
+        "status": 0
+      },
+      {
+        "file": "full-forest.browser.cjs",
+        "legacy": false,
+        "status": 0
+      }
+    ],
+    "final": [
+      {
+        "file": "balance.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "detritus.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "activities.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "development.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "environment.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "biodiversity.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "environment-events.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "feeding-audit.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "events.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "feeding.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "food-expansion.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "lifespan.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "guidance.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "pacing.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "habitat.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "food-web.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "population.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "management.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "replay.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "point-economy.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "spatial.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "persistence.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "ux.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "learning-goal.controls.browser.cjs",
+        "legacy": false,
+        "status": 0
+      },
+      {
+        "file": "field-guide.browser.cjs",
+        "legacy": false,
+        "status": 0
+      },
+      {
+        "file": "ux.full-flow.browser.test.cjs",
+        "legacy": true,
+        "status": 0
+      },
+      {
+        "file": "field-guide.discovery.browser.cjs",
+        "legacy": false,
+        "status": 0
+      },
+      {
+        "file": "learning-goal.browser.cjs",
+        "legacy": false,
+        "status": 0
+      },
+      {
+        "file": "learning-goal.repeat.browser.cjs",
+        "legacy": false,
+        "status": 0
+      },
+      {
+        "file": "full-forest.browser.cjs",
+        "legacy": false,
+        "status": 0
+      }
+    ],
+    "initialFinalFailure": {
+      "file": "persistence.browser.test.cjs",
+      "reason": "Old copy assertion /손상/ replaced by exact new student sentence; all storage assertions retained",
+      "verified": true
+    }
+  },
+  "ui": {
+    "screens": 115,
+    "contrastFailures": 0,
+    "views": [
+      {
+        "width": 1280,
+        "height": 800,
+        "forest": {
+          "x": 21,
+          "y": 232.640625,
+          "width": 1238,
+          "height": 333
+        },
+        "fonts": {
+          ".brand h1": {
+            "size": "23px",
+            "weight": "800",
+            "line": "31.05px",
+            "color": "rgb(32, 60, 45)"
+          },
+          ".metric h2": {
+            "size": "15px",
+            "weight": "700",
+            "line": "21px",
+            "color": "rgb(229, 239, 223)"
+          },
+          ".card-name": {
+            "size": "17px",
+            "weight": "800",
+            "line": "23.8px",
+            "color": "rgb(32, 60, 45)"
+          },
+          ".card-role": {
+            "size": "15px",
+            "weight": "600",
+            "line": "19.5px",
+            "color": "rgb(52, 77, 39)"
+          },
+          ".card-caption": {
+            "size": "15px",
+            "weight": "600",
+            "line": "21px",
+            "color": "rgb(77, 96, 80)"
+          },
+          ".selection-panel h3": {
+            "size": "17px",
+            "weight": "700",
+            "line": "25.5px",
+            "color": "rgb(32, 60, 45)"
+          },
+          "#memo-toggle": {
+            "size": "16px",
+            "weight": "700",
+            "line": "22.4px",
+            "color": "rgb(255, 255, 255)"
+          }
+        },
+        "horizontal": false,
+        "documentHeight": 864,
+        "footerEnd": 864.421875,
+        "forestHeight": 333,
+        "overflowY": "visible"
+      },
+      {
+        "width": 1138,
+        "height": 712,
+        "forest": {
+          "x": 21,
+          "y": 166.59375,
+          "width": 1096,
+          "height": 247
+        },
+        "fonts": {
+          ".brand h1": {
+            "size": "23px",
+            "weight": "800",
+            "line": "31.05px",
+            "color": "rgb(32, 60, 45)"
+          },
+          ".metric h2": {
+            "size": "15px",
+            "weight": "700",
+            "line": "21px",
+            "color": "rgb(229, 239, 223)"
+          },
+          ".card-name": {
+            "size": "17px",
+            "weight": "800",
+            "line": "23.8px",
+            "color": "rgb(32, 60, 45)"
+          },
+          ".card-role": {
+            "size": "15px",
+            "weight": "600",
+            "line": "19.5px",
+            "color": "rgb(52, 77, 39)"
+          },
+          ".card-caption": {
+            "size": "15px",
+            "weight": "600",
+            "line": "21px",
+            "color": "rgb(77, 96, 80)"
+          },
+          ".selection-panel h3": {
+            "size": "17px",
+            "weight": "700",
+            "line": "25.5px",
+            "color": "rgb(32, 60, 45)"
+          },
+          "#memo-toggle": {
+            "size": "16px",
+            "weight": "700",
+            "line": "22.4px",
+            "color": "rgb(255, 255, 255)"
+          }
+        },
+        "horizontal": false,
+        "documentHeight": 764,
+        "footerEnd": 764.375,
+        "forestHeight": 247,
+        "overflowY": "visible"
+      },
+      {
+        "width": 960,
+        "height": 600,
+        "forest": {
+          "x": 15,
+          "y": 177.1875,
+          "width": 930,
+          "height": 224
+        },
+        "fonts": {
+          ".brand h1": {
+            "size": "22px",
+            "weight": "800",
+            "line": "29.7px",
+            "color": "rgb(32, 60, 45)"
+          },
+          ".metric h2": {
+            "size": "15px",
+            "weight": "700",
+            "line": "21px",
+            "color": "rgb(229, 239, 223)"
+          },
+          ".card-name": {
+            "size": "17px",
+            "weight": "800",
+            "line": "23.8px",
+            "color": "rgb(32, 60, 45)"
+          },
+          ".card-role": {
+            "size": "15px",
+            "weight": "600",
+            "line": "19.5px",
+            "color": "rgb(52, 77, 39)"
+          },
+          ".card-caption": {
+            "size": "15px",
+            "weight": "600",
+            "line": "21px",
+            "color": "rgb(77, 96, 80)"
+          },
+          ".selection-panel h3": {
+            "size": "17px",
+            "weight": "700",
+            "line": "25.5px",
+            "color": "rgb(32, 60, 45)"
+          },
+          "#memo-toggle": {
+            "size": "16px",
+            "weight": "700",
+            "line": "22.4px",
+            "color": "rgb(255, 255, 255)"
+          }
+        },
+        "horizontal": false,
+        "documentHeight": 744,
+        "footerEnd": 743.96875,
+        "forestHeight": 224,
+        "overflowY": "visible"
+      },
+      {
+        "width": 1366,
+        "height": 768,
+        "forest": {
+          "x": 21,
+          "y": 168.640625,
+          "width": 1324,
+          "height": 301
+        },
+        "fonts": {
+          ".brand h1": {
+            "size": "23px",
+            "weight": "800",
+            "line": "31.05px",
+            "color": "rgb(32, 60, 45)"
+          },
+          ".metric h2": {
+            "size": "15px",
+            "weight": "700",
+            "line": "21px",
+            "color": "rgb(229, 239, 223)"
+          },
+          ".card-name": {
+            "size": "17px",
+            "weight": "800",
+            "line": "23.8px",
+            "color": "rgb(32, 60, 45)"
+          },
+          ".card-role": {
+            "size": "15px",
+            "weight": "600",
+            "line": "19.5px",
+            "color": "rgb(52, 77, 39)"
+          },
+          ".card-caption": {
+            "size": "15px",
+            "weight": "600",
+            "line": "21px",
+            "color": "rgb(77, 96, 80)"
+          },
+          ".selection-panel h3": {
+            "size": "17px",
+            "weight": "700",
+            "line": "25.5px",
+            "color": "rgb(32, 60, 45)"
+          },
+          "#memo-toggle": {
+            "size": "16px",
+            "weight": "700",
+            "line": "22.4px",
+            "color": "rgb(255, 255, 255)"
+          }
+        },
+        "horizontal": false,
+        "documentHeight": 832,
+        "footerEnd": 832.421875,
+        "forestHeight": 301,
+        "overflowY": "visible"
+      },
+      {
+        "width": 412,
+        "height": 915,
+        "forest": {
+          "x": 11,
+          "y": 368.578125,
+          "width": 390,
+          "height": 378
+        },
+        "fonts": {
+          ".brand h1": {
+            "size": "22px",
+            "weight": "800",
+            "line": "29.7px",
+            "color": "rgb(32, 60, 45)"
+          },
+          ".metric h2": {
+            "size": "15px",
+            "weight": "700",
+            "line": "21px",
+            "color": "rgb(229, 239, 223)"
+          },
+          ".card-name": {
+            "size": "17px",
+            "weight": "800",
+            "line": "23.8px",
+            "color": "rgb(32, 60, 45)"
+          },
+          ".card-role": {
+            "size": "15px",
+            "weight": "600",
+            "line": "19.5px",
+            "color": "rgb(52, 77, 39)"
+          },
+          ".card-caption": {
+            "size": "15px",
+            "weight": "600",
+            "line": "21px",
+            "color": "rgb(77, 96, 80)"
+          },
+          ".selection-panel h3": {
+            "size": "17px",
+            "weight": "700",
+            "line": "25.5px",
+            "color": "rgb(32, 60, 45)"
+          },
+          "#memo-toggle": {
+            "size": "15px",
+            "weight": "700",
+            "line": "21px",
+            "color": "rgb(255, 255, 255)"
+          }
+        },
+        "horizontal": false,
+        "documentHeight": 1242,
+        "footerEnd": 1231.859375,
+        "forestHeight": 378,
+        "overflowY": "visible"
+      }
+    ],
+    "rightPlacement": {
+      "requested": {
+        "x": 0.9,
+        "y": 0.18
+      },
+      "actualInput": {
+        "x": 0.8996350364963503,
+        "y": 0.2283653846153846
+      },
+      "model": {
+        "x": 0.89963504,
+        "y": 0.72
+      },
+      "display": {
+        "x": 986,
+        "y": 169.056
+      },
+      "highlight": true,
+      "feedback": "강아지풀을 놓았어요. 강아지풀은 땅에 뿌리를 내려요."
+    }
+  },
+  "motion": {
+    "species": 24,
+    "states": 70,
+    "rasterFrames": 140,
+    "liveConsumerCount": 15,
+    "surfaces": {
+      "cards": 24,
+      "guide": 24,
+      "web": 24,
+      "status": 24
+    },
+    "decomposition": {
+      "grass": [
+        "idle-0",
+        "idle-1",
+        "leaf-turn-0",
+        "leaf-turn-1"
+      ],
+      "mushroom": [
+        "idle-0",
+        "active-0",
+        "active-1"
+      ],
+      "litter-mold": [
+        "idle-0",
+        "active-0",
+        "active-1"
+      ],
+      "soil-bacteria": [
+        "idle-0",
+        "active-0",
+        "active-1"
+      ],
+      "earthworm": [
+        "covered-0",
+        "covered-eat-0",
+        "covered-eat-1",
+        "eat-0",
+        "eat-1"
+      ]
+    }
+  },
+  "placement": {
+    "matrixCases": 72,
+    "decomposition": {
+      "processed": 0.00705,
+      "earthworm": 0.00135,
+      "soil": 0.000027000000000000002,
+      "points": 0
+    },
+    "treeMeal": {
+      "pine": {
+        "x": 0.89983845,
+        "y": 0.72
+      },
+      "caterpillar": {
+        "x": 0.8825599271679246,
+        "y": 0.7169698261193539
+      }
+    },
+    "ordinaryDiscovery": {
+      "points": 28,
+      "observations": [
+        {
+          "relationId": "v2_grass_to_grasshopper",
+          "eventId": "event-1",
+          "discoveredAt": 5
+        },
+        {
+          "relationId": "v2_grasshopper_to_frog",
+          "eventId": "event-2",
+          "discoveredAt": 15
+        }
+      ],
+      "at": 15,
+      "predation": {
+        "sequence": 5,
+        "speciesId": "grasshopper",
+        "changeType": "predation",
+        "cause": "predation",
+        "simulationTime": 15,
+        "countBefore": 2,
+        "countAfter": 1,
+        "noted": false,
+        "consumerSpeciesId": "frog"
+      },
+      "rightPlant": {
+        "x": 0.87956204,
+        "y": 0.72
+      }
+    }
+  },
+  "performance": {
+    "maxPending": 1,
+    "reads": 0,
+    "intervals": 0,
+    "sameNodes": true,
+    "dom": 30
+  },
+  "overlap": [
+    {
+      "width": 1280,
+      "height": 800,
+      "severePairs": 2,
+      "hitPairs": 34,
+      "selected": 30,
+      "outside": 0,
+      "minHit": 47.999969482421875
+    },
+    {
+      "width": 1138,
+      "height": 712,
+      "severePairs": 4,
+      "hitPairs": 43,
+      "selected": 30,
+      "outside": 0,
+      "minHit": 48
+    },
+    {
+      "width": 960,
+      "height": 600,
+      "severePairs": 2,
+      "hitPairs": 53,
+      "selected": 30,
+      "outside": 0,
+      "minHit": 47.999969482421875
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "severePairs": 3,
+      "hitPairs": 35,
+      "selected": 30,
+      "outside": 0,
+      "minHit": 48
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "severePairs": 4,
+      "hitPairs": 83,
+      "selected": 30,
+      "outside": 0,
+      "minHit": 47.99999237060547
+    }
+  ],
+  "previousResultsUnchanged": 114,
+  "protectedDomainFiles": 80,
+  "domainChanged": [
+    "js/systems/decomposition.js",
+    "js/systems/feeding.js"
+  ],
+  "pairedProfilesExact": 9,
+  "changedFiles": [
+    {
+      "status": "M",
+      "path": "RCHITECTURE.md"
+    },
+    {
+      "status": "M",
+      "path": "README.md"
+    },
+    {
+      "status": "M",
+      "path": "assets/images/forest.svg"
+    },
+    {
+      "status": "M",
+      "path": "index.html"
+    },
+    {
+      "status": "M",
+      "path": "js/main.js"
+    },
+    {
+      "status": "M",
+      "path": "js/systems/decomposition.js"
+    },
+    {
+      "status": "M",
+      "path": "js/systems/feeding.js"
+    },
+    {
+      "status": "M",
+      "path": "js/ui/collection-dom.js"
+    },
+    {
+      "status": "M",
+      "path": "js/ui/field-guide-view.js"
+    },
+    {
+      "status": "M",
+      "path": "js/ui/forest-flow.js"
+    },
+    {
+      "status": "M",
+      "path": "js/ui/forest-view.js"
+    },
+    {
+      "status": "M",
+      "path": "js/ui/organism-layer.js"
+    },
+    {
+      "status": "M",
+      "path": "js/ui/population-view.js"
+    },
+    {
+      "status": "M",
+      "path": "js/ui/render.js"
+    },
+    {
+      "status": "M",
+      "path": "tests/persistence.browser.test.cjs"
+    },
+    {
+      "status": "M",
+      "path": "tests/run-tests.mjs"
+    },
+    {
+      "status": "M",
+      "path": "tests/student-ux.ecology.mjs"
+    },
+    {
+      "status": "??",
+      "path": "STAGE15_12_VISUAL_ASSETS_AND_UX_POLISH.md"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/README.md"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/aphid.svg"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/bulbul.svg"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/caterpillar.svg"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/chipmunk.svg"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/earthworm.svg"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/field-mouse.svg"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/frog.svg"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/goshawk.svg"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/grass.svg"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/grasshopper.svg"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/hazel.svg"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/ladybird.svg"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/litter-mold.svg"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/mushroom.svg"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/oak.svg"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/pine.svg"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/rabbit.svg"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/raspberry.svg"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/snail.svg"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/snake.svg"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/soil-bacteria.svg"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/spider.svg"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/tit.svg"
+    },
+    {
+      "status": "??",
+      "path": "assets/images/species/weasel.svg"
+    },
+    {
+      "status": "??",
+      "path": "css/species-visuals.css"
+    },
+    {
+      "status": "??",
+      "path": "js/ui/species-visuals.js"
+    },
+    {
+      "status": "??",
+      "path": "tests/visual-assets.browser-results.json"
+    },
+    {
+      "status": "??",
+      "path": "tests/visual-assets.browser.cjs"
+    },
+    {
+      "status": "??",
+      "path": "tests/visual-assets.ecology-results.json"
+    },
+    {
+      "status": "??",
+      "path": "tests/visual-assets.regression-results.json"
+    },
+    {
+      "status": "??",
+      "path": "tests/visual-assets.test.mjs"
+    },
+    {
+      "status": "??",
+      "path": "tests/visual-fixtures.mjs"
+    },
+    {
+      "status": "??",
+      "path": "tools/build-species-art.mjs"
+    }
+  ],
+  "counts": {
+    "modified": 17,
+    "added": 35,
+    "deleted": 0,
+    "total": 52
+  }
+}

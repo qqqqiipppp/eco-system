@@ -1,0 +1,1334 @@
+{
+  "stage": "15.12",
+  "actualS5e": false,
+  "actualChildren": false,
+  "assets": [
+    {
+      "id": "oak",
+      "states": [
+        {
+          "motion": "idle",
+          "frames": 2,
+          "changedChannels": 6051,
+          "paintedPixels": [
+            5597,
+            5597
+          ]
+        },
+        {
+          "motion": "growth",
+          "frames": 2,
+          "changedChannels": 8407,
+          "paintedPixels": [
+            5858,
+            6025
+          ]
+        },
+        {
+          "motion": "leaf-turn",
+          "frames": 2,
+          "changedChannels": 9430,
+          "paintedPixels": [
+            5594,
+            5597
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grass",
+      "states": [
+        {
+          "motion": "idle",
+          "frames": 2,
+          "changedChannels": 5210,
+          "paintedPixels": [
+            3436,
+            3453
+          ]
+        },
+        {
+          "motion": "growth",
+          "frames": 2,
+          "changedChannels": 8184,
+          "paintedPixels": [
+            3802,
+            3799
+          ]
+        },
+        {
+          "motion": "leaf-turn",
+          "frames": 2,
+          "changedChannels": 7800,
+          "paintedPixels": [
+            3460,
+            3475
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grasshopper",
+      "states": [
+        {
+          "motion": "idle",
+          "frames": 2,
+          "changedChannels": 1055,
+          "paintedPixels": [
+            2762,
+            2758
+          ]
+        },
+        {
+          "motion": "move",
+          "frames": 2,
+          "changedChannels": 6520,
+          "paintedPixels": [
+            2752,
+            2754
+          ]
+        },
+        {
+          "motion": "eat",
+          "frames": 2,
+          "changedChannels": 2621,
+          "paintedPixels": [
+            2804,
+            2807
+          ]
+        }
+      ]
+    },
+    {
+      "id": "frog",
+      "states": [
+        {
+          "motion": "idle",
+          "frames": 2,
+          "changedChannels": 1164,
+          "paintedPixels": [
+            3724,
+            3720
+          ]
+        },
+        {
+          "motion": "move",
+          "frames": 2,
+          "changedChannels": 6119,
+          "paintedPixels": [
+            3722,
+            3890
+          ]
+        },
+        {
+          "motion": "eat",
+          "frames": 2,
+          "changedChannels": 3929,
+          "paintedPixels": [
+            3819,
+            3905
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rabbit",
+      "states": [
+        {
+          "motion": "idle",
+          "frames": 2,
+          "changedChannels": 3455,
+          "paintedPixels": [
+            4762,
+            4759
+          ]
+        },
+        {
+          "motion": "move",
+          "frames": 2,
+          "changedChannels": 9414,
+          "paintedPixels": [
+            4760,
+            4851
+          ]
+        },
+        {
+          "motion": "eat",
+          "frames": 2,
+          "changedChannels": 6536,
+          "paintedPixels": [
+            4821,
+            4856
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mushroom",
+      "states": [
+        {
+          "motion": "idle",
+          "frames": 2,
+          "changedChannels": 6500,
+          "paintedPixels": [
+            4112,
+            4104
+          ]
+        },
+        {
+          "motion": "active",
+          "frames": 2,
+          "changedChannels": 8691,
+          "paintedPixels": [
+            4081,
+            4123
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pine",
+      "states": [
+        {
+          "motion": "idle",
+          "frames": 2,
+          "changedChannels": 5624,
+          "paintedPixels": [
+            4299,
+            4288
+          ]
+        },
+        {
+          "motion": "growth",
+          "frames": 2,
+          "changedChannels": 8918,
+          "paintedPixels": [
+            4729,
+            4713
+          ]
+        },
+        {
+          "motion": "leaf-turn",
+          "frames": 2,
+          "changedChannels": 8589,
+          "paintedPixels": [
+            4307,
+            4278
+          ]
+        }
+      ]
+    },
+    {
+      "id": "raspberry",
+      "states": [
+        {
+          "motion": "idle",
+          "frames": 2,
+          "changedChannels": 9719,
+          "paintedPixels": [
+            3459,
+            3513
+          ]
+        },
+        {
+          "motion": "growth",
+          "frames": 2,
+          "changedChannels": 12411,
+          "paintedPixels": [
+            3841,
+            3901
+          ]
+        },
+        {
+          "motion": "leaf-turn",
+          "frames": 2,
+          "changedChannels": 13652,
+          "paintedPixels": [
+            3432,
+            3559
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hazel",
+      "states": [
+        {
+          "motion": "idle",
+          "frames": 2,
+          "changedChannels": 12204,
+          "paintedPixels": [
+            4279,
+            4311
+          ]
+        },
+        {
+          "motion": "growth",
+          "frames": 2,
+          "changedChannels": 13563,
+          "paintedPixels": [
+            4483,
+            4682
+          ]
+        },
+        {
+          "motion": "leaf-turn",
+          "frames": 2,
+          "changedChannels": 16078,
+          "paintedPixels": [
+            4291,
+            4277
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chipmunk",
+      "states": [
+        {
+          "motion": "idle",
+          "frames": 2,
+          "changedChannels": 1317,
+          "paintedPixels": [
+            4682,
+            4679
+          ]
+        },
+        {
+          "motion": "move",
+          "frames": 2,
+          "changedChannels": 7855,
+          "paintedPixels": [
+            4679,
+            4785
+          ]
+        },
+        {
+          "motion": "eat",
+          "frames": 2,
+          "changedChannels": 3059,
+          "paintedPixels": [
+            4752,
+            4780
+          ]
+        }
+      ]
+    },
+    {
+      "id": "field-mouse",
+      "states": [
+        {
+          "motion": "idle",
+          "frames": 2,
+          "changedChannels": 1044,
+          "paintedPixels": [
+            4387,
+            4384
+          ]
+        },
+        {
+          "motion": "move",
+          "frames": 2,
+          "changedChannels": 5933,
+          "paintedPixels": [
+            4385,
+            4479
+          ]
+        },
+        {
+          "motion": "eat",
+          "frames": 2,
+          "changedChannels": 2553,
+          "paintedPixels": [
+            4459,
+            4479
+          ]
+        }
+      ]
+    },
+    {
+      "id": "caterpillar",
+      "states": [
+        {
+          "motion": "idle",
+          "frames": 2,
+          "changedChannels": 499,
+          "paintedPixels": [
+            3481,
+            3478
+          ]
+        },
+        {
+          "motion": "move",
+          "frames": 2,
+          "changedChannels": 6144,
+          "paintedPixels": [
+            3474,
+            3490
+          ]
+        },
+        {
+          "motion": "eat",
+          "frames": 2,
+          "changedChannels": 1590,
+          "paintedPixels": [
+            3518,
+            3534
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aphid",
+      "states": [
+        {
+          "motion": "idle",
+          "frames": 2,
+          "changedChannels": 879,
+          "paintedPixels": [
+            3349,
+            3349
+          ]
+        },
+        {
+          "motion": "move",
+          "frames": 2,
+          "changedChannels": 6213,
+          "paintedPixels": [
+            3347,
+            3334
+          ]
+        },
+        {
+          "motion": "eat",
+          "frames": 2,
+          "changedChannels": 3951,
+          "paintedPixels": [
+            3428,
+            3362
+          ]
+        }
+      ]
+    },
+    {
+      "id": "snail",
+      "states": [
+        {
+          "motion": "idle",
+          "frames": 2,
+          "changedChannels": 534,
+          "paintedPixels": [
+            4243,
+            4243
+          ]
+        },
+        {
+          "motion": "move",
+          "frames": 2,
+          "changedChannels": 7699,
+          "paintedPixels": [
+            4248,
+            4293
+          ]
+        },
+        {
+          "motion": "eat",
+          "frames": 2,
+          "changedChannels": 1857,
+          "paintedPixels": [
+            4268,
+            4284
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider",
+      "states": [
+        {
+          "motion": "idle",
+          "frames": 2,
+          "changedChannels": 159,
+          "paintedPixels": [
+            3832,
+            3832
+          ]
+        },
+        {
+          "motion": "move",
+          "frames": 2,
+          "changedChannels": 10481,
+          "paintedPixels": [
+            3832,
+            3875
+          ]
+        },
+        {
+          "motion": "eat",
+          "frames": 2,
+          "changedChannels": 1448,
+          "paintedPixels": [
+            3904,
+            3912
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ladybird",
+      "states": [
+        {
+          "motion": "idle",
+          "frames": 2,
+          "changedChannels": 810,
+          "paintedPixels": [
+            3349,
+            3349
+          ]
+        },
+        {
+          "motion": "move",
+          "frames": 2,
+          "changedChannels": 5803,
+          "paintedPixels": [
+            3347,
+            3334
+          ]
+        },
+        {
+          "motion": "eat",
+          "frames": 2,
+          "changedChannels": 3840,
+          "paintedPixels": [
+            3428,
+            3362
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tit",
+      "states": [
+        {
+          "motion": "idle",
+          "frames": 2,
+          "changedChannels": 989,
+          "paintedPixels": [
+            3819,
+            3818
+          ]
+        },
+        {
+          "motion": "move",
+          "frames": 2,
+          "changedChannels": 9710,
+          "paintedPixels": [
+            3812,
+            4342
+          ]
+        },
+        {
+          "motion": "eat",
+          "frames": 2,
+          "changedChannels": 2624,
+          "paintedPixels": [
+            3909,
+            3900
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bulbul",
+      "states": [
+        {
+          "motion": "idle",
+          "frames": 2,
+          "changedChannels": 1545,
+          "paintedPixels": [
+            3913,
+            3915
+          ]
+        },
+        {
+          "motion": "move",
+          "frames": 2,
+          "changedChannels": 10720,
+          "paintedPixels": [
+            3910,
+            4434
+          ]
+        },
+        {
+          "motion": "eat",
+          "frames": 2,
+          "changedChannels": 3398,
+          "paintedPixels": [
+            4006,
+            3992
+          ]
+        }
+      ]
+    },
+    {
+      "id": "snake",
+      "states": [
+        {
+          "motion": "idle",
+          "frames": 2,
+          "changedChannels": 1019,
+          "paintedPixels": [
+            4242,
+            4239
+          ]
+        },
+        {
+          "motion": "move",
+          "frames": 2,
+          "changedChannels": 6115,
+          "paintedPixels": [
+            4241,
+            4314
+          ]
+        },
+        {
+          "motion": "eat",
+          "frames": 2,
+          "changedChannels": 1823,
+          "paintedPixels": [
+            4337,
+            4347
+          ]
+        }
+      ]
+    },
+    {
+      "id": "weasel",
+      "states": [
+        {
+          "motion": "idle",
+          "frames": 2,
+          "changedChannels": 1262,
+          "paintedPixels": [
+            4017,
+            4015
+          ]
+        },
+        {
+          "motion": "move",
+          "frames": 2,
+          "changedChannels": 6194,
+          "paintedPixels": [
+            4017,
+            4109
+          ]
+        },
+        {
+          "motion": "eat",
+          "frames": 2,
+          "changedChannels": 2944,
+          "paintedPixels": [
+            4083,
+            4095
+          ]
+        }
+      ]
+    },
+    {
+      "id": "goshawk",
+      "states": [
+        {
+          "motion": "idle",
+          "frames": 2,
+          "changedChannels": 1391,
+          "paintedPixels": [
+            3859,
+            3859
+          ]
+        },
+        {
+          "motion": "move",
+          "frames": 2,
+          "changedChannels": 10540,
+          "paintedPixels": [
+            3851,
+            4380
+          ]
+        },
+        {
+          "motion": "eat",
+          "frames": 2,
+          "changedChannels": 3107,
+          "paintedPixels": [
+            3949,
+            3936
+          ]
+        }
+      ]
+    },
+    {
+      "id": "litter-mold",
+      "states": [
+        {
+          "motion": "idle",
+          "frames": 2,
+          "changedChannels": 2672,
+          "paintedPixels": [
+            3517,
+            3517
+          ]
+        },
+        {
+          "motion": "active",
+          "frames": 2,
+          "changedChannels": 5102,
+          "paintedPixels": [
+            3605,
+            3552
+          ]
+        }
+      ]
+    },
+    {
+      "id": "soil-bacteria",
+      "states": [
+        {
+          "motion": "idle",
+          "frames": 2,
+          "changedChannels": 3742,
+          "paintedPixels": [
+            4417,
+            4417
+          ]
+        },
+        {
+          "motion": "active",
+          "frames": 2,
+          "changedChannels": 6583,
+          "paintedPixels": [
+            4515,
+            4482
+          ]
+        }
+      ]
+    },
+    {
+      "id": "earthworm",
+      "states": [
+        {
+          "motion": "covered",
+          "frames": 2,
+          "changedChannels": 3536,
+          "paintedPixels": [
+            4062,
+            3906
+          ]
+        },
+        {
+          "motion": "surface",
+          "frames": 2,
+          "changedChannels": 3063,
+          "paintedPixels": [
+            2482,
+            2274
+          ]
+        },
+        {
+          "motion": "covered-eat",
+          "frames": 2,
+          "changedChannels": 3693,
+          "paintedPixels": [
+            4091,
+            3927
+          ]
+        },
+        {
+          "motion": "eat",
+          "frames": 2,
+          "changedChannels": 3340,
+          "paintedPixels": [
+            2546,
+            2315
+          ]
+        }
+      ]
+    }
+  ],
+  "live": [
+    {
+      "id": "frog",
+      "seen": [
+        "idle-0",
+        "idle-1",
+        "move-0",
+        "move-1",
+        "eat-0",
+        "eat-1"
+      ],
+      "actualEatSrc": "./assets/images/species/frog.svg#eat-1",
+      "pauseFrozen": true,
+      "saveReload": true
+    },
+    {
+      "id": "grasshopper",
+      "seen": [
+        "idle-0",
+        "idle-1",
+        "move-0",
+        "move-1",
+        "eat-0",
+        "eat-1"
+      ],
+      "actualEatSrc": "./assets/images/species/grasshopper.svg#eat-1",
+      "pauseFrozen": true,
+      "saveReload": true
+    },
+    {
+      "id": "rabbit",
+      "seen": [
+        "idle-0",
+        "idle-1",
+        "move-0",
+        "move-1",
+        "eat-0",
+        "eat-1"
+      ],
+      "actualEatSrc": "./assets/images/species/rabbit.svg#eat-1",
+      "pauseFrozen": true,
+      "saveReload": true
+    },
+    {
+      "id": "chipmunk",
+      "seen": [
+        "idle-0",
+        "idle-1",
+        "move-0",
+        "move-1",
+        "eat-0",
+        "eat-1"
+      ],
+      "actualEatSrc": "./assets/images/species/chipmunk.svg#eat-1",
+      "pauseFrozen": true,
+      "saveReload": true
+    },
+    {
+      "id": "field-mouse",
+      "seen": [
+        "idle-0",
+        "idle-1",
+        "move-0",
+        "move-1",
+        "eat-0",
+        "eat-1"
+      ],
+      "actualEatSrc": "./assets/images/species/field-mouse.svg#eat-1",
+      "pauseFrozen": true,
+      "saveReload": true
+    },
+    {
+      "id": "caterpillar",
+      "seen": [
+        "idle-0",
+        "idle-1",
+        "move-0",
+        "move-1",
+        "eat-0",
+        "eat-1"
+      ],
+      "actualEatSrc": "./assets/images/species/caterpillar.svg#eat-1",
+      "pauseFrozen": true,
+      "saveReload": true
+    },
+    {
+      "id": "aphid",
+      "seen": [
+        "idle-0",
+        "idle-1",
+        "move-0",
+        "move-1",
+        "eat-0",
+        "eat-1"
+      ],
+      "actualEatSrc": "./assets/images/species/aphid.svg#eat-1",
+      "pauseFrozen": true,
+      "saveReload": true
+    },
+    {
+      "id": "spider",
+      "seen": [
+        "idle-0",
+        "idle-1",
+        "move-0",
+        "move-1",
+        "eat-0",
+        "eat-1"
+      ],
+      "actualEatSrc": "./assets/images/species/spider.svg#eat-1",
+      "pauseFrozen": true,
+      "saveReload": true
+    },
+    {
+      "id": "snail",
+      "seen": [
+        "idle-0",
+        "idle-1",
+        "move-0",
+        "move-1",
+        "eat-0",
+        "eat-1"
+      ],
+      "actualEatSrc": "./assets/images/species/snail.svg#eat-1",
+      "pauseFrozen": true,
+      "saveReload": true
+    },
+    {
+      "id": "ladybird",
+      "seen": [
+        "idle-0",
+        "idle-1",
+        "move-0",
+        "move-1",
+        "eat-0",
+        "eat-1"
+      ],
+      "actualEatSrc": "./assets/images/species/ladybird.svg#eat-1",
+      "pauseFrozen": true,
+      "saveReload": true
+    },
+    {
+      "id": "tit",
+      "seen": [
+        "idle-0",
+        "idle-1",
+        "move-0",
+        "move-1",
+        "eat-0",
+        "eat-1"
+      ],
+      "actualEatSrc": "./assets/images/species/tit.svg#eat-1",
+      "pauseFrozen": true,
+      "saveReload": true
+    },
+    {
+      "id": "bulbul",
+      "seen": [
+        "idle-0",
+        "idle-1",
+        "move-0",
+        "move-1",
+        "eat-0",
+        "eat-1"
+      ],
+      "actualEatSrc": "./assets/images/species/bulbul.svg#eat-1",
+      "pauseFrozen": true,
+      "saveReload": true
+    },
+    {
+      "id": "weasel",
+      "seen": [
+        "idle-0",
+        "idle-1",
+        "move-0",
+        "move-1",
+        "eat-0",
+        "eat-1"
+      ],
+      "actualEatSrc": "./assets/images/species/weasel.svg#eat-1",
+      "pauseFrozen": true,
+      "saveReload": true
+    },
+    {
+      "id": "snake",
+      "seen": [
+        "idle-0",
+        "idle-1",
+        "move-0",
+        "move-1",
+        "eat-0",
+        "eat-1"
+      ],
+      "actualEatSrc": "./assets/images/species/snake.svg#eat-1",
+      "pauseFrozen": true,
+      "saveReload": true
+    },
+    {
+      "id": "goshawk",
+      "seen": [
+        "idle-0",
+        "idle-1",
+        "move-0",
+        "move-1",
+        "eat-0",
+        "eat-1"
+      ],
+      "actualEatSrc": "./assets/images/species/goshawk.svg#eat-1",
+      "pauseFrozen": true,
+      "saveReload": true
+    }
+  ],
+  "views": [
+    {
+      "width": 1280,
+      "height": 800,
+      "button": {
+        "width": 118.984375,
+        "height": 46,
+        "left": 1141.015625,
+        "right": 1260
+      },
+      "task": {
+        "left": 160.453125,
+        "right": 1131.015625
+      },
+      "overflow": false,
+      "saveMessages": [
+        {
+          "status": "unknown-pacing",
+          "text": "진행 속도가 다른 숲이라 열 수 없어요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "future-version",
+          "text": "더 새로운 게임에서 저장한 숲이에요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "old-version",
+          "text": "너무 오래된 버전의 숲이라 열 수 없어요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "damaged",
+          "text": "저장된 숲을 읽을 수 없어 새 숲을 열었어요."
+        },
+        {
+          "status": "missing-version",
+          "text": "저장된 숲의 버전을 알 수 없어 새 숲을 열었어요."
+        },
+        {
+          "status": "unknown-goal",
+          "text": "탐구 목표가 다른 숲이라 열 수 없어요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "unknown-ecology",
+          "text": "생물 종류가 다른 숲이라 열 수 없어요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "unavailable",
+          "text": "이 브라우저에서는 저장을 사용할 수 없어요"
+        },
+        {
+          "status": "failed",
+          "text": "저장하지 못했어요. 브라우저 저장 공간을 확인해 주세요."
+        },
+        {
+          "status": "recovered",
+          "text": "읽을 수 있는 기록으로 숲을 불러왔어요. 일부 기록은 정리했어요."
+        },
+        {
+          "status": "saved",
+          "text": "저장됨"
+        },
+        {
+          "status": "new",
+          "text": "자동 저장 준비"
+        }
+      ]
+    },
+    {
+      "width": 1138,
+      "height": 712,
+      "button": {
+        "width": 118.984375,
+        "height": 46,
+        "left": 999.015625,
+        "right": 1118
+      },
+      "task": {
+        "left": 160.453125,
+        "right": 989.015625
+      },
+      "overflow": false,
+      "saveMessages": [
+        {
+          "status": "unknown-pacing",
+          "text": "진행 속도가 다른 숲이라 열 수 없어요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "future-version",
+          "text": "더 새로운 게임에서 저장한 숲이에요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "old-version",
+          "text": "너무 오래된 버전의 숲이라 열 수 없어요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "damaged",
+          "text": "저장된 숲을 읽을 수 없어 새 숲을 열었어요."
+        },
+        {
+          "status": "missing-version",
+          "text": "저장된 숲의 버전을 알 수 없어 새 숲을 열었어요."
+        },
+        {
+          "status": "unknown-goal",
+          "text": "탐구 목표가 다른 숲이라 열 수 없어요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "unknown-ecology",
+          "text": "생물 종류가 다른 숲이라 열 수 없어요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "unavailable",
+          "text": "이 브라우저에서는 저장을 사용할 수 없어요"
+        },
+        {
+          "status": "failed",
+          "text": "저장하지 못했어요. 브라우저 저장 공간을 확인해 주세요."
+        },
+        {
+          "status": "recovered",
+          "text": "읽을 수 있는 기록으로 숲을 불러왔어요. 일부 기록은 정리했어요."
+        },
+        {
+          "status": "saved",
+          "text": "저장됨"
+        },
+        {
+          "status": "new",
+          "text": "자동 저장 준비"
+        }
+      ]
+    },
+    {
+      "width": 960,
+      "height": 600,
+      "button": {
+        "width": 118.984375,
+        "height": 46,
+        "left": 827.015625,
+        "right": 946
+      },
+      "task": {
+        "left": 154.453125,
+        "right": 817.015625
+      },
+      "overflow": false,
+      "saveMessages": [
+        {
+          "status": "unknown-pacing",
+          "text": "진행 속도가 다른 숲이라 열 수 없어요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "future-version",
+          "text": "더 새로운 게임에서 저장한 숲이에요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "old-version",
+          "text": "너무 오래된 버전의 숲이라 열 수 없어요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "damaged",
+          "text": "저장된 숲을 읽을 수 없어 새 숲을 열었어요."
+        },
+        {
+          "status": "missing-version",
+          "text": "저장된 숲의 버전을 알 수 없어 새 숲을 열었어요."
+        },
+        {
+          "status": "unknown-goal",
+          "text": "탐구 목표가 다른 숲이라 열 수 없어요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "unknown-ecology",
+          "text": "생물 종류가 다른 숲이라 열 수 없어요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "unavailable",
+          "text": "이 브라우저에서는 저장을 사용할 수 없어요"
+        },
+        {
+          "status": "failed",
+          "text": "저장하지 못했어요. 브라우저 저장 공간을 확인해 주세요."
+        },
+        {
+          "status": "recovered",
+          "text": "읽을 수 있는 기록으로 숲을 불러왔어요. 일부 기록은 정리했어요."
+        },
+        {
+          "status": "saved",
+          "text": "저장됨"
+        },
+        {
+          "status": "new",
+          "text": "자동 저장 준비"
+        }
+      ]
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "button": {
+        "width": 118.984375,
+        "height": 46,
+        "left": 1227.015625,
+        "right": 1346
+      },
+      "task": {
+        "left": 160.453125,
+        "right": 1217.015625
+      },
+      "overflow": false,
+      "saveMessages": [
+        {
+          "status": "unknown-pacing",
+          "text": "진행 속도가 다른 숲이라 열 수 없어요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "future-version",
+          "text": "더 새로운 게임에서 저장한 숲이에요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "old-version",
+          "text": "너무 오래된 버전의 숲이라 열 수 없어요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "damaged",
+          "text": "저장된 숲을 읽을 수 없어 새 숲을 열었어요."
+        },
+        {
+          "status": "missing-version",
+          "text": "저장된 숲의 버전을 알 수 없어 새 숲을 열었어요."
+        },
+        {
+          "status": "unknown-goal",
+          "text": "탐구 목표가 다른 숲이라 열 수 없어요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "unknown-ecology",
+          "text": "생물 종류가 다른 숲이라 열 수 없어요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "unavailable",
+          "text": "이 브라우저에서는 저장을 사용할 수 없어요"
+        },
+        {
+          "status": "failed",
+          "text": "저장하지 못했어요. 브라우저 저장 공간을 확인해 주세요."
+        },
+        {
+          "status": "recovered",
+          "text": "읽을 수 있는 기록으로 숲을 불러왔어요. 일부 기록은 정리했어요."
+        },
+        {
+          "status": "saved",
+          "text": "저장됨"
+        },
+        {
+          "status": "new",
+          "text": "자동 저장 준비"
+        }
+      ]
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "button": {
+        "width": 118.984375,
+        "height": 46,
+        "left": 283.015625,
+        "right": 402
+      },
+      "task": {
+        "left": 10,
+        "right": 402
+      },
+      "overflow": false,
+      "saveMessages": [
+        {
+          "status": "unknown-pacing",
+          "text": "진행 속도가 다른 숲이라 열 수 없어요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "future-version",
+          "text": "더 새로운 게임에서 저장한 숲이에요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "old-version",
+          "text": "너무 오래된 버전의 숲이라 열 수 없어요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "damaged",
+          "text": "저장된 숲을 읽을 수 없어 새 숲을 열었어요."
+        },
+        {
+          "status": "missing-version",
+          "text": "저장된 숲의 버전을 알 수 없어 새 숲을 열었어요."
+        },
+        {
+          "status": "unknown-goal",
+          "text": "탐구 목표가 다른 숲이라 열 수 없어요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "unknown-ecology",
+          "text": "생물 종류가 다른 숲이라 열 수 없어요. 새로 시작하기 전에는 저장을 바꾸지 않아요."
+        },
+        {
+          "status": "unavailable",
+          "text": "이 브라우저에서는 저장을 사용할 수 없어요"
+        },
+        {
+          "status": "failed",
+          "text": "저장하지 못했어요. 브라우저 저장 공간을 확인해 주세요."
+        },
+        {
+          "status": "recovered",
+          "text": "읽을 수 있는 기록으로 숲을 불러왔어요. 일부 기록은 정리했어요."
+        },
+        {
+          "status": "saved",
+          "text": "저장됨"
+        },
+        {
+          "status": "new",
+          "text": "자동 저장 준비"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "consistentSurfaces": {
+    "cards": 24,
+    "guide": 24,
+    "web": 24,
+    "status": 24
+  },
+  "decomposition": {
+    "grass": [
+      "idle-0",
+      "idle-1",
+      "leaf-turn-0",
+      "leaf-turn-1"
+    ],
+    "mushroom": [
+      "idle-0",
+      "active-0",
+      "active-1"
+    ],
+    "litter-mold": [
+      "idle-0",
+      "active-0",
+      "active-1"
+    ],
+    "soil-bacteria": [
+      "idle-0",
+      "active-0",
+      "active-1"
+    ],
+    "earthworm": [
+      "covered-0",
+      "covered-eat-0",
+      "covered-eat-1",
+      "eat-0",
+      "eat-1"
+    ]
+  },
+  "completed": true
+}

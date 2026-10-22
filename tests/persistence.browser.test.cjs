@@ -48,7 +48,7 @@ const BASE=process.env.BASE_URL||'http://127.0.0.1:8082/eco-system/';const KEY='
   const shortage=JSON.parse(goalRaw);shortage.domain.organisms.find(o=>o.speciesId==='frog').hunger=1;shortage.domain.organisms.find(o=>o.speciesId==='frog').foodShortageDuration=12;
   const h=await setup(JSON.stringify(shortage));assert((await snapshot(h)).events.some(e=>e.kind==='alert'&&e.payload.speciesId==='frog'));await h.reload({waitUntil:'networkidle'});assert((await snapshot(h)).events.some(e=>e.kind==='alert'));
   // I/J: damaged storage and out-of-range values are handled before render.
-  const bad=await setup('{broken');assert.equal((await snapshot(bad)).organisms.length,3);assert.match(await bad.locator('#save-status').textContent(),/손상/);
+  const bad=await setup('{broken');assert.equal((await snapshot(bad)).organisms.length,3);assert.match(await bad.locator('#save-status').textContent(),/저장된 숲을 읽을 수 없어 새 숲을 열었어요/);
   const corrupt=JSON.parse(goalRaw);corrupt.domain.metrics.points=-1;corrupt.domain.organisms[0].speciesId='missing';corrupt.domain.organisms[1].position.x=9;corrupt.domain.organisms.push({...corrupt.domain.organisms[2]});
   const j=await setup(JSON.stringify(corrupt));const fixed=await snapshot(j);assert.equal(fixed.metrics.points,0);assert(fixed.organisms.every(o=>o.position.x<=1));assert.equal(new Set(fixed.organisms.map(o=>o.instanceId)).size,fixed.organisms.length);
   console.log('H/I/J: live alerts regenerated, corrupt JSON/species/coordinates/points safely recovered');

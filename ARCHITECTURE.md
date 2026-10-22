@@ -1,3 +1,14 @@
+# 15.12단계 — 생태와 분리된 그림·동작 표현
+
+`js/ui/species-visuals.js`는 실제 생태 상태를 읽는 표현 계층입니다. 위치 변화, behaviorState, 성장량 변화, 참지렁이 litterConsumed와 기존120/3 접근 함수로 모션을 고릅니다. 공통 RAF의 dt로 프레임만 진행하고 native dialog/숨긴 탭/기존 reduced-motion 정지를 함께 따릅니다. 프레임·마지막 위치·최근 활동 시각은 모듈 메모리에만 있고 저장하지 않습니다.
+
+분해는 학습 원장에 의존하지 않습니다. `updateDecomposition`의 선택 인수 `visualWork`에 이미 계산된 종별 실제 배분량을 내보내며, feeding의 이번 update 결과로만 전달합니다. 이전 goal1 저장과 원장이 한도에 도달한 경우도 표현할 수 있습니다. 배분식·소모량·영양분·보상·저장은 변하지 않습니다. 첫3군집의 실제 기여 가능한 생물만 활동 표시를 켜고, 공유 자원 처리 위치를 새로 계산하지 않습니다.
+
+`tools/build-species-art.mjs`가 원본 벡터를 만들어 `assets/images/species/`의24개 SVG로 출력합니다. 각 파일은 상태×2프레임 뷰를 갖습니다. 강아지풀 새싹·방아깨비 약충·버섯 균사체는 추가 뷰이고, 어린 멧토끼는 표시 크기로 구분합니다. 방향과 성장 배율은 별도 CSS 변수로 합성하여 서로 덮어쓰지 않습니다. 기존 footprint·projection·anchor·hit button은 유지합니다.
+
+카드/선택/도감/먹이그물/상태창은 같은 visualAsset 함수를 사용합니다. `forest-flow`의 항상 보이는 행동 버튼은 기존 콜백을 호출하거나 숲으로 초점을 이동하며, 배치를 건너뛰지 않습니다. `css/species-visuals.css`가 마지막 화면 스타일을 담당합니다. [검증과 파일 목록](STAGE15_12_VISUAL_ASSETS_AND_UX_POLISH.md).
+
+---
 # 15.11.6단계 — 학생 안내의 표현 계층
 
 기존 data → state → UI 및 main 연결을 유지합니다. `js/ui/student-guidance.js`는 실제 목표·카드 권한·환경·기존 안내 함수를 읽는 순수 표현 함수입니다. 세 미션의 완료 여부는 `evaluateLearningGoals`를 그대로 읽고, 반복 숲의 첫 미션은 기존 탐구 주제를 표시합니다. 학습 완료 조건·포인트 원장·저장 데이터를 쓰지 않습니다.

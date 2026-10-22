@@ -2,7 +2,7 @@ import {readdirSync} from 'node:fs';import {spawnSync} from 'node:child_process'
 import {resultsDirectory} from './result-output.mjs';
 process.env.TEST_RESULTS_DIR=resultsDirectory;
 console.log('New test output directory: '+resultsDirectory);
-const historical=readdirSync(new URL('./',import.meta.url)).filter(f=>f.endsWith('.test.mjs')&&!['student-ux','full-forest','field-guide','learning-goal','ux','pacing','habitat','replay','balance','spatial','feeding-audit','food-expansion','biodiversity'].some(p=>f.startsWith(p))).map(f=>'tests/'+f);
+const historical=readdirSync(new URL('./',import.meta.url)).filter(f=>f.endsWith('.test.mjs')&&!['visual-assets','student-ux','full-forest','field-guide','learning-goal','ux','pacing','habitat','replay','balance','spatial','feeding-audit','food-expansion','biodiversity'].some(p=>f.startsWith(p))).map(f=>'tests/'+f);
 const current=['logic','activities','environment','feeding','events','management','point-economy','food-web','guidance','detritus','persistence','pacing','pacing.long','habitat','habitat.long','replay','replay.long','balance','balance.long','spatial','spatial.long','feeding-audit','feeding-audit.long'].map(f=>'tests/'+f+'.test.mjs');
 const expanded=['logic','activities','environment','feeding','events','management','point-economy','guidance','persistence','feeding-audit','food-expansion','food-expansion.long','food-expansion.motion'].map(f=>'tests/'+f+'.test.mjs');
 let failed=false;for(const [name,args]of [
@@ -23,3 +23,6 @@ if(spawnSync(process.execPath,['--test','tests/full-forest.test.mjs','tests/full
 
 console.log('Stage15.11.6 student guidance, Korean and actual mission selectors');
 if(spawnSync(process.execPath,['--test','tests/student-ux.test.mjs'],{stdio:'inherit',cwd:new URL('../',import.meta.url)}).status!==0)process.exitCode=1;
+
+console.log('Stage15.12 original art and actual state bindings');
+if(spawnSync(process.execPath,['--test','tests/visual-assets.test.mjs'],{stdio:'inherit',cwd:new URL('../',import.meta.url)}).status!==0)process.exitCode=1;

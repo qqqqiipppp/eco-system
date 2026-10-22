@@ -5,7 +5,7 @@ import {earthwormConfig as worm} from '../../data/detritus-config.js';
 import {recordDecomposerWork} from '../state/learning-goal-state.js';
 
 export function decompositionMultiplier(state){return 1+state.decomposition.soilNutrients*config.maximumGrowthBonus;}
-export function updateDecomposition(state,seconds){
+export function updateDecomposition(state,seconds,visualWork){
  const d=state.decomposition,plants=state.organisms.filter(o=>organismById[o.speciesId].role==='producer');
  d.organicMatter.litter=Math.min(config.maximum,d.organicMatter.litter+plants.length*config.litterPerProducer*seconds);
  d.organicMatter.wood=Math.min(config.maximum,d.organicMatter.wood+plants.filter(o=>['oak','pine','hazel'].includes(o.speciesId)).length*config.woodPerTree*seconds);
@@ -21,7 +21,13 @@ export function updateDecomposition(state,seconds){
   }
   const wormRate=part==='litter'?worms.length*worm.rate*wormActivity:0,totalRate=rate+wormRate;
   const amount=Math.min(d.organicMatter[part],totalRate*seconds);d.organicMatter[part]-=amount;processed+=amount;
-  for(const [id,contribution]of contributions)recordDecomposerWork(state,id,amount*contribution/totalRate);
+  for(const [id,contribution]of contributions){
+   const allocated=amount*contribution/totalRate;
+   recordDecomposerWork(state,id,allocated);
+   // Optional per-update output, never saved or used as ecological input.
+   // Also works for goalRevision1, whose learning ledger does not record work.
+   if(visualWork&&allocated>0)visualWork[id]=(visualWork[id]||0)+allocated;
+  }
   const eaten=amount*wormRate/totalRate;wormProcessed+=eaten;
   if(eaten>0)for(const instance of worms){instance.litterConsumed+=eaten/worms.length;instance.lastLitterFeedingAt=state.simulationTime;}
  }

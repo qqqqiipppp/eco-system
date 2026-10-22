@@ -17,21 +17,36 @@
  </g>
 </defs>
 <path fill="url(#sky)" d="M0 0h1200v470H0z"/>
-<!-- Static, lightweight scene. The final artwork can replace this SVG. -->
+<!-- Original static habitat illustration. Tree transforms match forest-spaces.js. -->
 <circle cx="699" cy="66" r="52" fill="#f4e9b1" opacity=".45"/><circle cx="699" cy="66" r="35" fill="#fff1bb"/><path d="m673 10-5-12m71 25 8-8m8 58 14 3m-56 40 5 13m-66-32-10 7" stroke="#f3e7b8" stroke-width="4" stroke-linecap="round"/>
 <path d="M68 100c6-13 22-12 27-4 5-20 34-20 41-1 15-6 26 1 28 9H65" fill="#f4f5df" opacity=".8"/><path d="M470 61c5-11 17-12 22-4 7-19 27-15 34 0 15-6 22 4 23 8h-80" fill="#f5f5e2" opacity=".7"/>
 <path d="M0 240C146 133 235 213 343 196S523 108 635 184 824 152 970 183s153 19 230-15v270H0" fill="#c3d5ad"/>
 <path d="M0 278c181-53 246 25 376-10s212-53 360-13 289-74 464-5v188H0" fill="#b2ca96"/>
 <!-- Distant canopy silhouettes -->
 <g fill="#a3bd88"><path d="M3 270V160c-31-22 9-67 24-39 23-29 62 9 39 36 25 28 8 59-21 53v66z"/><path d="M1138 257V139c-31-15-18-55 7-54 12-41 66-26 61 13 26 19 14 56-11 54l-12 107z"/><path d="M431 272v-94c-30-22-5-54 16-43 12-18 39 1 33 23 27 20 11 48-19 44l-6 72z"/></g>
+<!-- Right canopy/trunk supports at (1162,142) and (1161,221). -->
+<g stroke-linecap="round"><path d="M1150 271l5-110h14l6 110" fill="#977b52"/><path d="m1162 218-29-34m31 12 25-25" stroke="#977b52" stroke-width="7"/>
+<path d="M1126 157q-22-31 4-46 0-29 32-30 34-1 35 33 24 23-2 43-35 20-69 0" fill="#7f9b60"/>
+<path d="M1136 120q8-23 29-20 24 2 24 22-25 16-53-2" fill="#9fb573"/><path d="m1162 187 1 72m-9-42 6 3" stroke="#c2a171" stroke-width="2"/></g>
 <path d="M0 351c103-35 213-9 330-19s194-29 308-15 181 35 308 12 206-9 254 7v134H0" fill="url(#soil)"/>
 <path d="M0 340c103-35 213-9 330-19s194-29 308-15 181 35 308 12 206-9 254 7v29c-115-25-173-14-269 0s-172 0-281-20-181 2-294 9S118 330 0 365Z" fill="#89a858"/>
 <path d="M0 353c95-35 219-6 330-18s196-27 310-12 184 32 292 14 203-9 268 3" stroke="#b2c879" stroke-width="7" fill="none"/>
 <!-- Roots are part of the illustrative soil cutaway. -->
+<!-- Leaf litter lies above darker humus; roots and pores remain visible below. -->
+<path d="M0 360q175-22 330-9t301-14 301 15 268-4v17q-138-8-268 3t-301-16-301 12T0 377" fill="#755b42" opacity=".52"/>
+<path d="M0 427q175-13 330-4t301-4 301 13 268-6v44H0" fill="#6a5845" opacity=".33"/>
+<g fill="#b19a70" stroke="#d1bc8e" stroke-width="1.2">
+ <path d="m63 354 22-8-9 14Z"/><path d="m173 361 16-8 10 9Z"/><path d="m346 347 18-8 11 8Z"/><path d="m449 352 22-9-7 13Z"/><path d="m579 339 16-8 11 11Z"/><path d="m737 355 20-6 8 12Z"/><path d="m856 362 18-9 9 9Z"/><path d="m985 353 18-8 10 10Z"/><path d="m1094 351 19-8 8 10Z"/><path d="m1170 354 17-9 9 10Z"/>
+</g>
+<g fill="none" stroke="#bc9a6a" stroke-width="2" stroke-linecap="round"><path d="m1159 341-4 40-19 19m20-25 22 19m-111-42-10 25 8 14m-266-38 7 24-12 19m-683-32-8 22 9 15"/></g>
 <g fill="none" stroke="#c5a479" stroke-width="3" stroke-linecap="round"><path d="m291 347-8 33-31 19-24 9m56-26 22 28 4 24m-16-39-3 29m-27-30-5-8m384-50 9 40-15 29m17-24 32 15 13 26m-48-26-23 4"/><path d="m521 351-8 22 9 20m-10-19-10 7" stroke-width="2"/></g>
 <g fill="#c2a17a" opacity=".6"><ellipse cx="97" cy="390" rx="4" ry="2"/><ellipse cx="165" cy="416" rx="7" ry="3"/><ellipse cx="363" cy="388" rx="5" ry="3"/><ellipse cx="437" cy="426" rx="6" ry="2"/><ellipse cx="744" cy="384" rx="6" ry="3"/><ellipse cx="893" cy="406" rx="8" ry="3"/><ellipse cx="1021" cy="384" rx="4" ry="2"/><ellipse cx="1116" cy="419" rx="6" ry="3"/></g>
 <use href="#tree" transform="translate(292 325) scale(.91)"/>
 <use href="#tree" transform="translate(673 310) scale(.7)"/>
+<!-- Fine branches visible through the existing two canopies; no new anchors. -->
+<g fill="none" stroke="#9bb275" stroke-width="2" stroke-linecap="round"><path d="m211 182 22 8 11-12m24-57 9 14 14-3m31 68 18-5 6 7m276-37 17 6 8-11m35 24 14-8"/></g>
+<!-- Lower undergrowth spans the same whole-forest ground band. -->
+<g fill="#79964c" opacity=".8"><path d="M7 335q21-35 45-9 16-34 42 7Zm837 5q17-31 36-9 20-36 41 5Zm149-11q21-36 40-10 26-28 46 13Zm102 4q15-35 36-13 18-31 42 9Z"/></g>
 <g><use href="#grass" transform="translate(484 337) scale(.86)"/><use href="#grass" transform="translate(521 342) scale(1.05)"/><use href="#grass" transform="translate(551 338) scale(.65)"/><use href="#grass" transform="translate(88 336) scale(.75)"/><use href="#grass" transform="translate(802 350) scale(.7)"/><use href="#grass" transform="translate(1075 331) scale(.8)"/></g>
 <g><use href="#smallgrass" transform="translate(156 333)"/><use href="#smallgrass" transform="translate(372 325)"/><use href="#smallgrass" transform="translate(586 320)"/><use href="#smallgrass" transform="translate(744 342)"/><use href="#smallgrass" transform="translate(1137 334)"/><use href="#smallgrass" transform="translate(26 345)"/></g>
 <g fill="#cad790"><ellipse cx="183" cy="352" rx="4" ry="2"/><ellipse cx="409" cy="339" rx="5" ry="2"/><ellipse cx="717" cy="346" rx="4" ry="2"/><ellipse cx="1000" cy="346" rx="5" ry="2"/></g>

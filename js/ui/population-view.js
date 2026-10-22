@@ -9,6 +9,7 @@ import {developmentRules} from '../../data/development-config.js';
 import {developmentStage,developmentConditions,developmentNotice} from '../systems/development.js';
 import {studentStatus,studentFood} from './student-status.js';
 import {placementConfig} from '../../data/interaction-config.js';
+import {visualAsset} from './species-visuals.js';
 
 export function createPopulationView(state,onRelease,onFocus=()=>{},onRender=()=>{}){
  const dialog=document.querySelector('#population-dialog'),select=document.querySelector('#population-species'),release=document.querySelector('#population-release');
@@ -65,6 +66,7 @@ export function createPopulationView(state,onRelease,onFocus=()=>{},onRender=()=
   renderIndividual();
   const id=select.value,species=organismById[id],members=state.organisms.filter(o=>o.speciesId===id);
   const lifeRule=lifespanRules[id];
+  const art=document.querySelector('#population-art');if(art.dataset.species!==id){art.src=visualAsset(id);art.alt=species.name;art.dataset.species=id;}
   document.querySelector('#population-role').textContent=`역할: ${roleLabels[species.role]} · 현재 숲 개체 수: ${members.length}${lifeRule.unit}`;
   const stages=members.map(survivalStage),worst=['weak','severe','hungry','normal','static'].find(v=>stages.includes(v));
   const selected=members.find(o=>o.instanceId===selectedInstanceId)||members.find(o=>survivalStage(o)===worst)||members[0];
