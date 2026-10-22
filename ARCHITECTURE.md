@@ -1,3 +1,13 @@
+# 15.12.1단계 — 형태 원본과 프레임 조립
+
+`tools/species-art-shapes.mjs`가24종 각각의 몸·머리·다리·날개·식물·군집 원본을 정의하고, `tools/build-species-art.mjs`가 기존156개 named view를 조립합니다. 형태를 수정할 때 생성된 SVG만 수작업으로 바꾸지 않습니다. defs/use로 상태 간 도형을 공유하여 몸 구조·다리 수를 일관되게 유지합니다. `--check`는 저장된 SVG를 덮어쓰지 않고 원본과 비교합니다.
+
+현재 `data/`, `js/`, `css/`, `index.html`, 숲 배경과 anchor는 모두 보존했습니다. 모션 선택·시간·방향·성장 배율·일시 분해량 관측은15.12 코드를 그대로 사용합니다. 학명 검증 자료는 게임에서 불러오지 않는 `docs/species-art-references.json`에 따로 기록합니다. 사진은 자산으로 넣지 않았으며 비교 HTML은 옛 SVG와 새 SVG 및 사진 링크를 제공하는 QA 문서입니다.
+
+[원본 사진과 형태 비교](docs/species-art-qa.html) · [검증·남은 한계](STAGE15_12_1_SPECIES_ACCURATE_ART.md)
+
+---
+
 # 15.12단계 — 생태와 분리된 그림·동작 표현
 
 `js/ui/species-visuals.js`는 실제 생태 상태를 읽는 표현 계층입니다. 위치 변화, behaviorState, 성장량 변화, 참지렁이 litterConsumed와 기존120/3 접근 함수로 모션을 고릅니다. 공통 RAF의 dt로 프레임만 진행하고 native dialog/숨긴 탭/기존 reduced-motion 정지를 함께 따릅니다. 프레임·마지막 위치·최근 활동 시각은 모듈 메모리에만 있고 저장하지 않습니다.

@@ -1,3 +1,13 @@
+# 15.12.1단계 — 사진과 학명에 근거한 생물 외형
+
+24종의 SVG 외형을 실제 사진·분류 자료와 대조해 정밀화했습니다. 홍단딱정벌레의 긴 앞부분과 딱지날개, 박새/직박구리의 체형·무늬, 야생 포유류, 잎·수피·열매와 분해자 형태를 구분합니다. 기존156뷰·모션 연결·생태·경제·저장·숲 배경은 유지합니다. 명주달팽이 분류 대응과 참지렁이 정확종 사진은 미확정이므로 종 동정 수준의 완성을 주장하지 않습니다.
+
+[24종 전후 그림·사진 출처 QA](docs/species-art-qa.html) · [학명·특징·사진 권리 기록](docs/species-art-references.json) · [15.12.1 보고서](STAGE15_12_1_SPECIES_ACCURATE_ART.md)
+
+재생성: `node tools/build-species-art.mjs`. 덮어쓰기 없는 일치 검사: `node tools/build-species-art.mjs --check`. 전체 회귀는 기존 `node tests/run-tests.mjs`, 새156뷰·화면 검사는 `node tests/species-art.browser.cjs`입니다. 이전 결과를 덮어쓰지 않도록 RESULTS_PATH/SCREENSHOT_DIR/TEST_RESULTS_DIR에 새 위치를 지정합니다.
+
+---
+
 # 15.12단계 — 지금 할 일과 살아 움직이는 숲
 
 ‘지금 할 일’과 행동 버튼을 접지 않고 볼 수 있습니다. 24종은 직접 제작한 같은 화풍의 SVG를 사용하며, 숲에서 실제 이동·먹기·성장 회복·분해·지렁이 지표 접근 상태에 맞춰 두 프레임을 바꿉니다. 성체 식물의 잎 자세 변화는 실제 성장과 구분합니다. 카드·도감·먹이그물·생물 상태창도 같은 그림을 사용합니다.

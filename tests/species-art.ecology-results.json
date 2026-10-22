@@ -1,0 +1,185 @@
+{
+  "stage": "15.12.1",
+  "beforeHead": "3b28ecb04c75345628954e08310471faaaee40bb",
+  "method": "Read-only Git objects in memory; paired deterministic numerical simulation, not actual children or S5e",
+  "allNineProfilesExact": true,
+  "before": [
+    {
+      "kind": "instant",
+      "minutes": 20,
+      "digest": "934298ae0eca2f3c0eeea1f83d411fff152f5ee58e2726ade2b91b3537df91e5",
+      "clearAt": 106.5,
+      "peak": 14
+    },
+    {
+      "kind": "normal",
+      "minutes": 20,
+      "digest": "7d3cee9bf4c346f8a123a490c543971982bcf7cd0d93e79722cccaaa104a1e52",
+      "clearAt": 930,
+      "peak": 15
+    },
+    {
+      "kind": "10-save-10",
+      "digest": "5990854dda3106033cfac26afb606cfd6b6b5eb8bf330e802740cbcf4e61a464",
+      "boundaryExact": true
+    },
+    {
+      "kind": "managed24",
+      "seed": 11,
+      "minutes": 20,
+      "digest": "37b3728c37da586b830a6bd74ccbcd50b60cdd56bcd86818aa2f0669bb3bec31",
+      "peak": 30,
+      "meals": 186,
+      "predations": 18,
+      "finalSpecies": 17,
+      "points": 130
+    },
+    {
+      "kind": "managed24",
+      "seed": 47,
+      "minutes": 20,
+      "digest": "a8ff05d4f9149279b726e9d53db3fca5be23e180360a3ea39ea72f4108fb6c8b",
+      "peak": 30,
+      "meals": 172,
+      "predations": 19,
+      "finalSpecies": 15,
+      "points": 119
+    },
+    {
+      "kind": "managed24",
+      "seed": 2026,
+      "minutes": 20,
+      "digest": "392f471b6bff950ca44e8fc0ad31766af1c637266117ae9d710db5f8fc2d401e",
+      "peak": 30,
+      "meals": 188,
+      "predations": 21,
+      "finalSpecies": 16,
+      "points": 169
+    },
+    {
+      "kind": "unmanaged24",
+      "seed": 11,
+      "minutes": 20,
+      "digest": "9bf6710accc491721181346ffcd5878a684669874d7e1cff3083471df1a2d480",
+      "peak": 30,
+      "meals": 75,
+      "predations": 11,
+      "finalSpecies": 10,
+      "points": 180
+    },
+    {
+      "kind": "unmanaged24",
+      "seed": 47,
+      "minutes": 20,
+      "digest": "298523ffc749b87a6bbf3c39c2e84c1bd0313e3360ca515b9a2fc233c7f6d503",
+      "peak": 30,
+      "meals": 83,
+      "predations": 10,
+      "finalSpecies": 11,
+      "points": 192
+    },
+    {
+      "kind": "unmanaged24",
+      "seed": 2026,
+      "minutes": 20,
+      "digest": "33993fc6ca07613dd7011a120249512c9432966b21e9c2a41fd258e19d6ecf69",
+      "peak": 30,
+      "meals": 81,
+      "predations": 10,
+      "finalSpecies": 11,
+      "points": 180
+    }
+  ],
+  "after": [
+    {
+      "kind": "instant",
+      "minutes": 20,
+      "digest": "934298ae0eca2f3c0eeea1f83d411fff152f5ee58e2726ade2b91b3537df91e5",
+      "clearAt": 106.5,
+      "peak": 14
+    },
+    {
+      "kind": "normal",
+      "minutes": 20,
+      "digest": "7d3cee9bf4c346f8a123a490c543971982bcf7cd0d93e79722cccaaa104a1e52",
+      "clearAt": 930,
+      "peak": 15
+    },
+    {
+      "kind": "10-save-10",
+      "digest": "5990854dda3106033cfac26afb606cfd6b6b5eb8bf330e802740cbcf4e61a464",
+      "boundaryExact": true
+    },
+    {
+      "kind": "managed24",
+      "seed": 11,
+      "minutes": 20,
+      "digest": "37b3728c37da586b830a6bd74ccbcd50b60cdd56bcd86818aa2f0669bb3bec31",
+      "peak": 30,
+      "meals": 186,
+      "predations": 18,
+      "finalSpecies": 17,
+      "points": 130
+    },
+    {
+      "kind": "managed24",
+      "seed": 47,
+      "minutes": 20,
+      "digest": "a8ff05d4f9149279b726e9d53db3fca5be23e180360a3ea39ea72f4108fb6c8b",
+      "peak": 30,
+      "meals": 172,
+      "predations": 19,
+      "finalSpecies": 15,
+      "points": 119
+    },
+    {
+      "kind": "managed24",
+      "seed": 2026,
+      "minutes": 20,
+      "digest": "392f471b6bff950ca44e8fc0ad31766af1c637266117ae9d710db5f8fc2d401e",
+      "peak": 30,
+      "meals": 188,
+      "predations": 21,
+      "finalSpecies": 16,
+      "points": 169
+    },
+    {
+      "kind": "unmanaged24",
+      "seed": 11,
+      "minutes": 20,
+      "digest": "9bf6710accc491721181346ffcd5878a684669874d7e1cff3083471df1a2d480",
+      "peak": 30,
+      "meals": 75,
+      "predations": 11,
+      "finalSpecies": 10,
+      "points": 180
+    },
+    {
+      "kind": "unmanaged24",
+      "seed": 47,
+      "minutes": 20,
+      "digest": "298523ffc749b87a6bbf3c39c2e84c1bd0313e3360ca515b9a2fc233c7f6d503",
+      "peak": 30,
+      "meals": 83,
+      "predations": 10,
+      "finalSpecies": 11,
+      "points": 192
+    },
+    {
+      "kind": "unmanaged24",
+      "seed": 2026,
+      "minutes": 20,
+      "digest": "33993fc6ca07613dd7011a120249512c9432966b21e9c2a41fd258e19d6ecf69",
+      "peak": 30,
+      "meals": 81,
+      "predations": 10,
+      "finalSpecies": 11,
+      "points": 180
+    }
+  ],
+  "checkedAt": "2026-10-22",
+  "baselineHead": "3b28ecb04c75345628954e08310471faaaee40bb",
+  "actualS5e": false,
+  "actualChildren": false,
+  "originalHarnessStage": "15.11.6"
+}

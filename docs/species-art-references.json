@@ -1,0 +1,1478 @@
+{
+  "stage": "15.12.1",
+  "checkedAt": "2026-10-22",
+  "baselineHead": "3b28ecb04c75345628954e08310471faaaee40bb",
+  "policy": "External images are reference links only. No photo copying, embedding in game, automated vector tracing, or claim that an SVG can identify a species. Licenses recorded as observed, not inferred.",
+  "synonymScope": "Recorded project aliases and material naming conflicts are checked; this is not an exhaustive global synonym catalogue. No adopted extra synonym does not mean no synonyms exist.",
+  "species": [
+    {
+      "id": "oak",
+      "name": "상수리나무",
+      "projectScientificName": "Quercus acutissima",
+      "projectAliases": [],
+      "taxonomySource": "https://www.nibr.go.kr/aiibook/catImage/20/National%20Species%201.pdf",
+      "photos": [
+        {
+          "photoId": 139952358,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/139952358/medium.jpg",
+          "license": "cc-by",
+          "attribution": "(c) Bruce Kirchoff, some rights reserved (CC BY)",
+          "source": "https://www.inaturalist.org/photos/139952358",
+          "label": "Quercus acutissima",
+          "reviewed": true
+        },
+        {
+          "photoId": 454306081,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/454306081/medium.jpeg",
+          "license": "cc-by-nd",
+          "attribution": "(c) G. Gerben, some rights reserved (CC BY-ND), uploaded by G. Gerben",
+          "source": "https://www.inaturalist.org/photos/454306081",
+          "label": "Quercus acutissima",
+          "reviewed": true
+        },
+        {
+          "photoId": 64073143,
+          "url": "https://static.inaturalist.org/photos/64073143/medium.jpeg",
+          "license": null,
+          "attribution": "(c) Yanghoon Cho, all rights reserved, uploaded by Yanghoon Cho",
+          "source": "https://www.inaturalist.org/photos/64073143",
+          "label": "Quercus acutissima",
+          "reviewed": true
+        }
+      ],
+      "iNatTaxon": {
+        "id": 167634,
+        "name": "Quercus acutissima",
+        "url": "https://www.inaturalist.org/taxa/167634"
+      },
+      "taxonomyCheckedSources": [
+        "https://www.nibr.go.kr/aiibook/catImage/20/National%20Species%201.pdf",
+        "https://powo.science.kew.org/taxon/295743-1",
+        "https://www.bris.go.kr/portal/book/childIlustbkDetailPopup.do?ilustbkNo=1497&menuId=114",
+        "https://www.inaturalist.org/taxa/167634"
+      ],
+      "features": [
+        "긴 타원/피침형의 단순 잎",
+        "끝이 뾰족한 톱니",
+        "깊게 갈라진 회갈색 줄기",
+        "퍼진 수관",
+        "거친 비늘의 도토리 깍정이"
+      ],
+      "previousProblem": "둥근 수관과 보통 잎, 작은 도토리만 있음",
+      "implemented": "길고 톱니진 잎·줄기 결·도토리의 깍정이를 강조. 잎 자세 모션에서도 잘리지 않도록 그림 안 여백 조정",
+      "asset": "assets/images/species/oak.svg",
+      "status": "제작 완료 — 참고 사진의 대표 특징 반영",
+      "taxonomicCaution": "사진의 동정명과 기존 분류 출처를 대조. 게임용 대표 자세이며 종 전체의 변이·동정 형질을 모두 재현하지 않음."
+    },
+    {
+      "id": "grass",
+      "name": "강아지풀",
+      "projectScientificName": "Setaria viridis",
+      "projectAliases": [],
+      "taxonomySource": "https://www.nibr.go.kr/aiibook/catImage/20/National%20Species%201.pdf",
+      "photos": [
+        {
+          "photoId": 453056490,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/453056490/medium.jpeg",
+          "license": "cc-by-nc",
+          "attribution": "(c) eugenezakharov, some rights reserved (CC BY-NC), uploaded by eugenezakharov",
+          "source": "https://www.inaturalist.org/photos/453056490",
+          "label": "Setaria viridis",
+          "reviewed": true
+        },
+        {
+          "photoId": 9580146,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/9580146/medium.jpeg",
+          "license": "cc-by-nc",
+          "attribution": "(c) Don Sutherland, some rights reserved (CC BY-NC), uploaded by Don Sutherland",
+          "source": "https://www.inaturalist.org/photos/9580146",
+          "label": "Setaria viridis",
+          "reviewed": true
+        },
+        {
+          "photoId": 422593113,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/422593113/medium.jpeg",
+          "license": "cc-by",
+          "attribution": "(c) Thomas Gyselinck, some rights reserved (CC BY), uploaded by Thomas Gyselinck",
+          "source": "https://www.inaturalist.org/photos/422593113",
+          "label": "Setaria viridis",
+          "reviewed": true
+        }
+      ],
+      "iNatTaxon": {
+        "id": 79070,
+        "name": "Setaria viridis",
+        "url": "https://www.inaturalist.org/taxa/79070"
+      },
+      "taxonomyCheckedSources": [
+        "https://www.nibr.go.kr/aiibook/catImage/20/National%20Species%201.pdf",
+        "https://powo.science.kew.org/taxon/1171009-2",
+        "https://www.inaturalist.org/taxa/79070"
+      ],
+      "features": [
+        "원통형 꽃이삭",
+        "꽃이삭의 긴 까락",
+        "좁고 긴 잎",
+        "마디 있는 가는 줄기"
+      ],
+      "previousProblem": "굵고 매끈한 타원3개가 이삭처럼 보임",
+      "implemented": "작은 이삭과 까락이 모인 긴 원통형 머리·좁은 잎·줄기 마디. 새싹에는 이삭 없음",
+      "asset": "assets/images/species/grass.svg",
+      "status": "제작 완료 — 참고 사진의 대표 특징 반영",
+      "taxonomicCaution": "사진의 동정명과 기존 분류 출처를 대조. 게임용 대표 자세이며 종 전체의 변이·동정 형질을 모두 재현하지 않음."
+    },
+    {
+      "id": "grasshopper",
+      "name": "방아깨비",
+      "projectScientificName": "Acrida cinerea",
+      "projectAliases": [],
+      "taxonomySource": "https://species.nibr.go.kr/kiiks/social/grasshopper.do",
+      "photos": [
+        {
+          "photoId": 1111215,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/1111215/medium.JPG",
+          "license": "cc-by-sa",
+          "attribution": "(c) harum.koh, some rights reserved (CC BY-SA), uploaded by harum.koh",
+          "source": "https://www.inaturalist.org/photos/1111215",
+          "label": "Acrida cinerea",
+          "reviewed": true
+        },
+        {
+          "photoId": 542188675,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/542188675/medium.jpg",
+          "license": "cc-by-nc",
+          "attribution": "(c) 褄黒ハル, some rights reserved (CC BY-NC), uploaded by 褄黒ハル",
+          "source": "https://www.inaturalist.org/photos/542188675",
+          "label": "Acrida cinerea",
+          "reviewed": true
+        },
+        {
+          "photoId": 54690995,
+          "url": "https://static.inaturalist.org/photos/54690995/medium.jpeg",
+          "license": null,
+          "attribution": "(c) Wonwoong Kim, all rights reserved, uploaded by Wonwoong Kim",
+          "source": "https://www.inaturalist.org/photos/54690995",
+          "label": "Acrida cinerea",
+          "reviewed": true
+        }
+      ],
+      "iNatTaxon": {
+        "id": 358062,
+        "name": "Acrida cinerea",
+        "url": "https://www.inaturalist.org/taxa/358062"
+      },
+      "taxonomyCheckedSources": [
+        "https://species.nibr.go.kr/kiiks/social/grasshopper.do",
+        "https://www.inaturalist.org/taxa/358062"
+      ],
+      "features": [
+        "길게 기운 원뿔형 머리",
+        "가늘고 긴 몸과 긴 앞날개",
+        "눈이 머리 옆에 길쭉하게 위치",
+        "길고 접힌 뒷다리",
+        "짧은 칼 모양 더듬이"
+      ],
+      "previousProblem": "둥근 머리·넓적한 몸의 일반 메뚜기",
+      "implemented": "뾰족하고 긴 머리·경사진 눈·긴 날개·두꺼운 뒷넓적다리와 가는 종아리,6다리. 약충은 짧은 날개싹",
+      "asset": "assets/images/species/grasshopper.svg",
+      "status": "제작 완료 — 참고 사진의 대표 특징 반영",
+      "taxonomicCaution": "사진의 동정명과 기존 분류 출처를 대조. 게임용 대표 자세이며 종 전체의 변이·동정 형질을 모두 재현하지 않음."
+    },
+    {
+      "id": "frog",
+      "name": "참개구리",
+      "projectScientificName": "Pelophylax nigromaculatus",
+      "projectAliases": [
+        "Rana nigromaculata"
+      ],
+      "taxonomySource": "https://www.nibr.go.kr/aiibook/catImage/21/National%20Species%202.pdf",
+      "photos": [
+        {
+          "photoId": 600214579,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/600214579/medium.jpg",
+          "license": "cc-by-nc",
+          "attribution": "(c) Elena_Sherehora, some rights reserved (CC BY-NC), uploaded by Elena_Sherehora",
+          "source": "https://www.inaturalist.org/photos/600214579",
+          "label": "Pelophylax nigromaculatus",
+          "reviewed": true
+        },
+        {
+          "photoId": 296401866,
+          "url": "https://static.inaturalist.org/photos/296401866/medium.jpg",
+          "license": null,
+          "attribution": "(c) sarah laurino, all rights reserved, uploaded by sarah laurino",
+          "source": "https://www.inaturalist.org/photos/296401866",
+          "label": "Pelophylax nigromaculatus",
+          "reviewed": true
+        },
+        {
+          "photoId": 526141742,
+          "url": "https://static.inaturalist.org/photos/526141742/medium.jpg",
+          "license": null,
+          "attribution": "(c) Herpeto-Ichthyo Ecosystems and Lifeforms International Observation Society (HELIOS), all rights reserved, uploaded by Herpeto-Ichthyo Ecosystems and Lifeforms International Observation Society (HELIOS)",
+          "source": "https://www.inaturalist.org/photos/526141742",
+          "label": "Pelophylax nigromaculatus",
+          "reviewed": true
+        }
+      ],
+      "iNatTaxon": {
+        "id": 66330,
+        "name": "Pelophylax nigromaculatus",
+        "url": "https://www.inaturalist.org/taxa/66330"
+      },
+      "taxonomyCheckedSources": [
+        "https://www.nibr.go.kr/aiibook/catImage/21/National%20Species%202.pdf",
+        "https://www.inaturalist.org/taxa/66330"
+      ],
+      "features": [
+        "황갈색·회녹색의 몸",
+        "등과 다리의 검은 반점",
+        "밝은 중앙 등줄과 등옆선",
+        "돌출된 눈과 고막",
+        "접힌 굵은 뒷다리"
+      ],
+      "previousProblem": "균일한 연두색, 등 반점과 등줄이 부족",
+      "implemented": "회녹색/황갈색 바탕·검은 반점·밝은 줄·고막·긴 접힌 뒷다리·가느다란 앞다리",
+      "asset": "assets/images/species/frog.svg",
+      "status": "제작 완료 — 참고 사진의 대표 특징 반영",
+      "taxonomicCaution": "사진의 동정명과 기존 분류 출처를 대조. 게임용 대표 자세이며 종 전체의 변이·동정 형질을 모두 재현하지 않음."
+    },
+    {
+      "id": "rabbit",
+      "name": "멧토끼",
+      "projectScientificName": "Lepus coreanus",
+      "projectAliases": [],
+      "taxonomySource": "https://www.nibr.go.kr/aiibook/catImage/21/National%20Species%202.pdf",
+      "photos": [
+        {
+          "photoId": 24269600,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/24269600/medium.jpg",
+          "license": "cc-by-nc",
+          "attribution": "(c) Kim, Hyun-tae, some rights reserved (CC BY-NC), uploaded by Kim, Hyun-tae",
+          "source": "https://www.inaturalist.org/photos/24269600",
+          "label": "Lepus coreanus",
+          "reviewed": true
+        },
+        {
+          "photoId": 58736656,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/58736656/medium.jpg",
+          "license": "cc-by-nc",
+          "attribution": "(c) onidiras-iNaturalist, some rights reserved (CC BY-NC), uploaded by onidiras-iNaturalist",
+          "source": "https://www.inaturalist.org/photos/58736656",
+          "label": "Lepus coreanus",
+          "reviewed": true
+        },
+        {
+          "photoId": 10766514,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/10766514/medium.jpg",
+          "license": "cc-by-nc",
+          "attribution": "(c) Alexander Ganse, some rights reserved (CC BY-NC), uploaded by Alexander Ganse",
+          "source": "https://www.inaturalist.org/photos/10766514",
+          "label": "Lepus coreanus",
+          "reviewed": true
+        }
+      ],
+      "iNatTaxon": {
+        "id": 43144,
+        "name": "Lepus coreanus",
+        "url": "https://www.inaturalist.org/taxa/43144"
+      },
+      "taxonomyCheckedSources": [
+        "https://www.nibr.go.kr/aiibook/catImage/21/National%20Species%202.pdf",
+        "https://www.inaturalist.org/taxa/43144"
+      ],
+      "features": [
+        "회갈색 거친 털",
+        "검은 끝의 긴 귀",
+        "큰 뒷다리와 긴 뒷발",
+        "짧고 밝은 꼬리",
+        "길쭉한 야생 토끼 머리"
+      ],
+      "previousProblem": "반려 토끼 같은 둥근 몸과 균일한 갈색",
+      "implemented": "회갈색 털 결, 검은 귀 끝, 굵은 뒷넓적다리·긴 뒷발, 작은 꼬리와 머리 비율을 새로 그림",
+      "asset": "assets/images/species/rabbit.svg",
+      "status": "제작 완료 — 참고 사진의 대표 특징 반영",
+      "taxonomicCaution": "사진의 동정명과 기존 분류 출처를 대조. 게임용 대표 자세이며 종 전체의 변이·동정 형질을 모두 재현하지 않음."
+    },
+    {
+      "id": "mushroom",
+      "name": "구름송편버섯",
+      "projectScientificName": "Trametes versicolor",
+      "projectAliases": [
+        "Coriolus versicolor"
+      ],
+      "taxonomySource": "https://www.nibr.go.kr/aiibook/catImage/20/National%20Species%201.pdf",
+      "photos": [
+        {
+          "photoId": 160331738,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/160331738/medium.jpg",
+          "license": "cc-by",
+          "attribution": "(c) Christine Young, some rights reserved (CC BY), uploaded by Christine Young",
+          "source": "https://www.inaturalist.org/photos/160331738",
+          "label": "Trametes versicolor",
+          "reviewed": true
+        },
+        {
+          "photoId": 27005174,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/27005174/medium.jpg",
+          "license": "cc0",
+          "attribution": "no rights reserved, uploaded by Ken Kneidel",
+          "source": "https://www.inaturalist.org/photos/27005174",
+          "label": "Trametes versicolor",
+          "reviewed": true
+        },
+        {
+          "photoId": 160332042,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/160332042/medium.jpg",
+          "license": "cc-by",
+          "attribution": "(c) Christine Young, some rights reserved (CC BY), uploaded by Christine Young",
+          "source": "https://www.inaturalist.org/photos/160332042",
+          "label": "Trametes versicolor",
+          "reviewed": true
+        }
+      ],
+      "iNatTaxon": {
+        "id": 54134,
+        "name": "Trametes versicolor",
+        "url": "https://www.inaturalist.org/taxa/54134"
+      },
+      "taxonomyCheckedSources": [
+        "https://www.nibr.go.kr/aiibook/catImage/20/National%20Species%201.pdf",
+        "https://www.inaturalist.org/taxa/54134"
+      ],
+      "features": [
+        "목재에 붙는 얇은 부채형 자실체",
+        "겹쳐 자라는 선반 모양",
+        "여러 색의 동심원 띠",
+        "밝고 얇은 가장자리",
+        "흰색 계열의 미세한 구멍 밑면"
+      ],
+      "previousProblem": "두껍고 둥근 반원으로 잘린 나무 단면처럼 보임",
+      "implemented": "얇고 물결진 부채형 자실체를 겹치고 회색·갈색·크림색 띠와 밝은 가장자리, 드러난 밑면의 작은 구멍을 표시. 균사체 단계는 자실체 없음",
+      "asset": "assets/images/species/mushroom.svg",
+      "status": "제작 완료 — 참고 사진의 대표 특징 반영",
+      "taxonomicCaution": "사진의 동정명과 기존 분류 출처를 대조. 게임용 대표 자세이며 종 전체의 변이·동정 형질을 모두 재현하지 않음."
+    },
+    {
+      "id": "pine",
+      "name": "소나무",
+      "projectScientificName": "Pinus densiflora",
+      "projectAliases": [],
+      "taxonomySource": "https://www.nibr.go.kr/aiibook/catImage/20/National%20Species%201.pdf",
+      "photos": [
+        {
+          "photoId": 1586915,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/1586915/medium.JPG",
+          "license": "cc-by-sa",
+          "attribution": "(c) harum.koh, some rights reserved (CC BY-SA), uploaded by harum.koh",
+          "source": "https://www.inaturalist.org/photos/1586915",
+          "label": "Pinus densiflora",
+          "reviewed": true
+        },
+        {
+          "photoId": 1586917,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/1586917/medium.JPG",
+          "license": "cc-by-sa",
+          "attribution": "(c) harum.koh, some rights reserved (CC BY-SA), uploaded by harum.koh",
+          "source": "https://www.inaturalist.org/photos/1586917",
+          "label": "Pinus densiflora",
+          "reviewed": true
+        },
+        {
+          "photoId": 196995,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/196995/medium.jpg",
+          "license": "cc-by",
+          "attribution": "(c) Kok Leng Yeo, some rights reserved (CC BY)",
+          "source": "https://www.inaturalist.org/photos/196995",
+          "label": "Pinus densiflora",
+          "reviewed": true
+        }
+      ],
+      "iNatTaxon": {
+        "id": 135811,
+        "name": "Pinus densiflora",
+        "url": "https://www.inaturalist.org/taxa/135811"
+      },
+      "taxonomyCheckedSources": [
+        "https://www.nibr.go.kr/aiibook/catImage/20/National%20Species%201.pdf",
+        "https://powo.science.kew.org/taxon/urn%3Alsid%3Aipni.org%3Anames%3A262894-1",
+        "https://www.inaturalist.org/taxa/135811"
+      ],
+      "features": [
+        "두 잎씩 묶여 나는 바늘잎",
+        "붉은빛의 위쪽 줄기",
+        "비교적 열린 가지/수관",
+        "작은 난형 솔방울"
+      ],
+      "previousProblem": "삼각형 크리스마스트리 같은 외곽과 가로선",
+      "implemented": "굽은 적갈색 줄기·열린 가지·솔잎 쌍·작은 솔방울. 단일 삼각형을 없앰",
+      "asset": "assets/images/species/pine.svg",
+      "status": "제작 완료 — 참고 사진의 대표 특징 반영",
+      "taxonomicCaution": "사진의 동정명과 기존 분류 출처를 대조. 게임용 대표 자세이며 종 전체의 변이·동정 형질을 모두 재현하지 않음."
+    },
+    {
+      "id": "raspberry",
+      "name": "산딸기",
+      "projectScientificName": "Rubus crataegifolius",
+      "projectAliases": [],
+      "taxonomySource": "https://www.nibr.go.kr/aiibook/catImage/20/National%20Species%201.pdf",
+      "photos": [
+        {
+          "photoId": 8845762,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/8845762/medium.jpeg",
+          "license": "cc-by-nc-nd",
+          "attribution": "(c) Paul B., some rights reserved (CC BY-NC-ND), uploaded by Paul B.",
+          "source": "https://www.inaturalist.org/photos/8845762",
+          "label": "Rubus crataegifolius",
+          "reviewed": true
+        },
+        {
+          "photoId": 73738600,
+          "url": "https://static.inaturalist.org/photos/73738600/medium.jpeg",
+          "license": null,
+          "attribution": "(c) Yanghoon Cho, all rights reserved, uploaded by Yanghoon Cho",
+          "source": "https://www.inaturalist.org/photos/73738600",
+          "label": "Rubus crataegifolius",
+          "reviewed": true
+        },
+        {
+          "photoId": 28166057,
+          "url": "https://static.inaturalist.org/photos/28166057/medium.jpg",
+          "license": null,
+          "attribution": "(c) snv2, all rights reserved, uploaded by snv2",
+          "source": "https://www.inaturalist.org/photos/28166057",
+          "label": "Rubus crataegifolius",
+          "reviewed": true
+        }
+      ],
+      "iNatTaxon": {
+        "id": 448109,
+        "name": "Rubus crataegifolius",
+        "url": "https://www.inaturalist.org/taxa/448109"
+      },
+      "taxonomyCheckedSources": [
+        "https://www.nibr.go.kr/aiibook/catImage/20/National%20Species%201.pdf",
+        "https://powo.science.kew.org/taxon/736083-1",
+        "https://www.inaturalist.org/taxa/448109"
+      ],
+      "features": [
+        "3~5갈래로 갈라진 단순 잎",
+        "톱니 있는 잎 가장자리",
+        "여러 갈래로 뻗는 관목 줄기",
+        "작은 열매 알갱이가 모인 붉은 열매"
+      ],
+      "previousProblem": "매끈한 타원 잎과 둥근 열매3점",
+      "implemented": "손바닥처럼 갈라진 단순 잎과 잎맥, 관목 줄기와 작은 가시, 알갱이 모인 열매",
+      "asset": "assets/images/species/raspberry.svg",
+      "status": "제작 완료 — 참고 사진의 대표 특징 반영",
+      "taxonomicCaution": "사진의 동정명과 기존 분류 출처를 대조. 게임용 대표 자세이며 종 전체의 변이·동정 형질을 모두 재현하지 않음."
+    },
+    {
+      "id": "hazel",
+      "name": "팽나무",
+      "projectScientificName": "Celtis sinensis",
+      "projectAliases": [],
+      "taxonomySource": "https://www.nibr.go.kr/aiibook/catImage/20/National%20Species%201.pdf",
+      "photos": [
+        {
+          "photoId": 368486454,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/368486454/medium.jpeg",
+          "license": "cc0",
+          "attribution": "no rights reserved, uploaded by 葉子",
+          "source": "https://www.inaturalist.org/photos/368486454",
+          "label": "Celtis sinensis",
+          "reviewed": true
+        },
+        {
+          "photoId": 368486430,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/368486430/medium.jpeg",
+          "license": "cc0",
+          "attribution": "no rights reserved, uploaded by 葉子",
+          "source": "https://www.inaturalist.org/photos/368486430",
+          "label": "Celtis sinensis",
+          "reviewed": true
+        },
+        {
+          "photoId": 13654956,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/13654956/medium.jpg",
+          "license": "cc-by-nc",
+          "attribution": "(c) Young Chan, some rights reserved (CC BY-NC), uploaded by Young Chan",
+          "source": "https://www.inaturalist.org/photos/13654956",
+          "label": "Celtis sinensis",
+          "reviewed": true
+        }
+      ],
+      "iNatTaxon": {
+        "id": 76204,
+        "name": "Celtis sinensis",
+        "url": "https://www.inaturalist.org/taxa/76204"
+      },
+      "taxonomyCheckedSources": [
+        "https://www.nibr.go.kr/aiibook/catImage/20/National%20Species%201.pdf",
+        "https://powo.science.kew.org/taxon/urn%3Alsid%3Aipni.org%3Anames%3A851171-1/general-information",
+        "https://www.inaturalist.org/taxa/76204"
+      ],
+      "features": [
+        "넓게 퍼지는 큰 나무",
+        "회색의 비교적 매끈한 줄기",
+        "비대칭 잎 밑부분",
+        "잎 윗부분의 톱니와 기부3맥",
+        "자루에 매달린 둥근 작은 열매"
+      ],
+      "previousProblem": "개암나무처럼도 읽히는 보통 잎, 다른 나무와 비슷한 수관",
+      "implemented": "회색 줄기·넓은 가지·비대칭 잎과 기부 맥·가는 자루의 작은 갈색 열매. 개암 견과류나 상수리 도토리를 쓰지 않음",
+      "asset": "assets/images/species/hazel.svg",
+      "status": "제작 완료 — 참고 사진의 대표 특징 반영",
+      "taxonomicCaution": "사진의 동정명과 기존 분류 출처를 대조. 게임용 대표 자세이며 종 전체의 변이·동정 형질을 모두 재현하지 않음."
+    },
+    {
+      "id": "chipmunk",
+      "name": "다람쥐",
+      "projectScientificName": "Eutamias sibiricus",
+      "projectAliases": [
+        "Tamias sibiricus"
+      ],
+      "taxonomySource": "https://www.mammaldiversity.org/taxon/1001719/",
+      "photos": [
+        {
+          "photoId": 553742110,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/553742110/medium.jpg",
+          "license": "cc-by-nc",
+          "attribution": "(c) Дмитрий, some rights reserved (CC BY-NC), uploaded by Дмитрий",
+          "source": "https://www.inaturalist.org/photos/553742110",
+          "label": "Eutamias sibiricus",
+          "reviewed": true
+        },
+        {
+          "photoId": 213995998,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/213995998/medium.jpg",
+          "license": "cc-by-nc",
+          "attribution": "(c) Dmitry Dubikovskiy, some rights reserved (CC BY-NC), uploaded by Dmitry Dubikovskiy",
+          "source": "https://www.inaturalist.org/photos/213995998",
+          "label": "Eutamias sibiricus",
+          "reviewed": true
+        },
+        {
+          "photoId": 1958303,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/1958303/medium.jpg",
+          "license": "cc-by-nc",
+          "attribution": "(c) Paul Cools, some rights reserved (CC BY-NC), uploaded by Paul Cools",
+          "source": "https://www.inaturalist.org/photos/1958303",
+          "label": "Eutamias sibiricus",
+          "reviewed": true
+        }
+      ],
+      "iNatTaxon": {
+        "id": 520585,
+        "name": "Eutamias sibiricus",
+        "url": "https://www.inaturalist.org/taxa/520585"
+      },
+      "taxonomyCheckedSources": [
+        "https://www.mammaldiversity.org/taxon/1001719/",
+        "https://www.inaturalist.org/taxa/520585"
+      ],
+      "features": [
+        "몸 등 쪽의 여러 어두운 세로줄",
+        "눈 위아래 얼굴 줄무늬",
+        "작고 둥근 귀",
+        "가는 긴 꼬리",
+        "청설모보다 작고 가는 몸"
+      ],
+      "previousProblem": "줄무늬만 더한 토끼 같은 몸, 꼬리가 두껍고 크게 말림",
+      "implemented": "낮고 긴 몸·얼굴 줄·등의 진한 줄과 밝은 사이 줄·가늘고 긴 꼬리로 구분. 사선 측면에서는 등 줄 일부가 가려짐",
+      "asset": "assets/images/species/chipmunk.svg",
+      "status": "제작 완료 — 참고 사진의 대표 특징 반영",
+      "taxonomicCaution": "사진의 동정명과 기존 분류 출처를 대조. 게임용 대표 자세이며 종 전체의 변이·동정 형질을 모두 재현하지 않음."
+    },
+    {
+      "id": "field-mouse",
+      "name": "고슴도치",
+      "projectScientificName": "Erinaceus amurensis",
+      "projectAliases": [],
+      "taxonomySource": "https://www.nibr.go.kr/aiibook/access/ecatalogt.jsp?Dir=1116&callmode=admin&catimage=&eclang=ko&start=64&um=s",
+      "photos": [
+        {
+          "photoId": 675339045,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/675339045/medium.jpg",
+          "license": "cc-by-nc",
+          "attribution": "(c) 藜梓柠, some rights reserved (CC BY-NC), uploaded by 藜梓柠",
+          "source": "https://www.inaturalist.org/photos/675339045",
+          "label": "Erinaceus amurensis",
+          "reviewed": true
+        },
+        {
+          "photoId": 675339193,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/675339193/medium.jpg",
+          "license": "cc-by-nc",
+          "attribution": "(c) 藜梓柠, some rights reserved (CC BY-NC), uploaded by 藜梓柠",
+          "source": "https://www.inaturalist.org/photos/675339193",
+          "label": "Erinaceus amurensis",
+          "reviewed": true
+        },
+        {
+          "photoId": 263522592,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/263522592/medium.jpg",
+          "license": "cc-by-nc",
+          "attribution": "(c) Li Jianong, some rights reserved (CC BY-NC), uploaded by Li Jianong",
+          "source": "https://www.inaturalist.org/photos/263522592",
+          "label": "Erinaceus amurensis",
+          "reviewed": true
+        }
+      ],
+      "iNatTaxon": {
+        "id": 43047,
+        "name": "Erinaceus amurensis",
+        "url": "https://www.inaturalist.org/taxa/43047"
+      },
+      "taxonomyCheckedSources": [
+        "https://www.nibr.go.kr/aiibook/access/ecatalogt.jsp?Dir=1116&callmode=admin&catimage=&eclang=ko&start=64&um=s",
+        "https://www.inaturalist.org/taxa/43047"
+      ],
+      "features": [
+        "몸통 등/옆의 촘촘한 가시",
+        "털 난 얼굴과 뾰족한 주둥이",
+        "작은 둥근 귀",
+        "짧은 다리",
+        "가시가 없는 배와 얼굴"
+      ],
+      "previousProblem": "가시가 굵은 톱니 윤곽뿐이고 얼굴은 다른 포유류와 같음",
+      "implemented": "몸통에만 겹친 가시, 작은 귀와 긴 주둥이·검은 코·낮은4다리. 가시의 미세한 색띠는 축소 화면에서 생략",
+      "asset": "assets/images/species/field-mouse.svg",
+      "status": "제작 완료 — 참고 사진의 대표 특징 반영",
+      "taxonomicCaution": "사진의 동정명과 기존 분류 출처를 대조. 게임용 대표 자세이며 종 전체의 변이·동정 형질을 모두 재현하지 않음."
+    },
+    {
+      "id": "caterpillar",
+      "name": "솔나방 애벌레(송충이)",
+      "projectScientificName": "Dendrolimus spectabilis",
+      "projectAliases": [],
+      "taxonomySource": "https://www.nibr.go.kr/aiibook/access/ecatalogt.jsp?Dir=22&callmode=admin&catimage=&eclang=ko&start=506&um=s",
+      "photos": [
+        {
+          "photoId": 235663744,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/235663744/medium.jpeg",
+          "license": "cc-by-nc",
+          "attribution": "(c) Leslie Hurteau, some rights reserved (CC BY-NC)",
+          "source": "https://www.inaturalist.org/observations/137934194",
+          "label": "Dendrolimus spectabilis",
+          "place": "Daejeong-eup, Seogwipo-si, Jeju-do, South Korea",
+          "annotations": [
+            {
+              "user_id": 1020162,
+              "concatenated_attr_val": "1|6",
+              "controlled_attribute_id": 1,
+              "votes": [],
+              "uuid": "4186b2ee-9ee9-4a74-b165-6b47a7e5f2f0",
+              "controlled_value_id": 6,
+              "user": {
+                "id": 1020162,
+                "login": "lotteryd",
+                "spam": false,
+                "suspended": false,
+                "created_at": "2018-06-11T18:32:33+00:00",
+                "login_autocomplete": "lotteryd",
+                "login_exact": "lotteryd",
+                "name": "Lottery Discountz",
+                "name_autocomplete": "Lottery Discountz",
+                "orcid": null,
+                "icon": "https://static.inaturalist.org/attachments/users/icons/1020162/thumb.gif?1558013261",
+                "observations_count": 1350,
+                "identifications_count": 602984,
+                "journal_posts_count": 0,
+                "activity_count": 604334,
+                "species_count": 569,
+                "annotated_observations_count": 827238,
+                "universal_search_rank": 1350,
+                "roles": [],
+                "site_id": 1,
+                "icon_url": "https://static.inaturalist.org/attachments/users/icons/1020162/medium.gif?1558013261"
+              },
+              "vote_score": 0
+            }
+          ],
+          "reviewed": true
+        },
+        {
+          "photoId": 130224824,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/130224824/medium.png",
+          "license": "cc-by-nc",
+          "attribution": "(c) onidiras-iNaturalist, some rights reserved (CC BY-NC)",
+          "source": "https://www.inaturalist.org/observations/79503159",
+          "label": "Dendrolimus spectabilis",
+          "place": "대한민국 충청남도 천안시 서북구",
+          "annotations": [
+            {
+              "user_id": 2027679,
+              "concatenated_attr_val": "1|6",
+              "controlled_attribute_id": 1,
+              "votes": [],
+              "uuid": "4ba989b7-e9d0-499a-926b-089690a3a140",
+              "controlled_value_id": 6,
+              "user": {
+                "id": 2027679,
+                "login": "onidiras",
+                "spam": false,
+                "suspended": false,
+                "created_at": "2019-07-20T23:38:24+00:00",
+                "login_autocomplete": "onidiras",
+                "login_exact": "onidiras",
+                "name": "onidiras-iNaturalist",
+                "name_autocomplete": "onidiras-iNaturalist",
+                "orcid": null,
+                "icon": "https://static.inaturalist.org/attachments/users/icons/2027679/thumb.jpg?1644639147",
+                "observations_count": 79212,
+                "identifications_count": 16362,
+                "journal_posts_count": 15,
+                "activity_count": 95589,
+                "species_count": 7358,
+                "annotated_observations_count": 89125,
+                "universal_search_rank": 79212,
+                "roles": [],
+                "site_id": 1,
+                "icon_url": "https://static.inaturalist.org/attachments/users/icons/2027679/medium.jpg?1644639147"
+              },
+              "vote_score": 0
+            }
+          ],
+          "reviewed": true
+        },
+        {
+          "photoId": 116069413,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/116069413/medium.jpeg",
+          "license": "cc0",
+          "attribution": "no rights reserved",
+          "source": "https://www.inaturalist.org/observations/71309189",
+          "label": "Dendrolimus spectabilis",
+          "place": "日本、〒783-0093 高知県南国市物部 高知大学物部キャンパス",
+          "annotations": [
+            {
+              "user_id": 2027679,
+              "concatenated_attr_val": "1|6",
+              "controlled_attribute_id": 1,
+              "votes": [],
+              "uuid": "a555bc1d-2ef9-44bc-8846-ee6fe846ad2b",
+              "controlled_value_id": 6,
+              "user": {
+                "id": 2027679,
+                "login": "onidiras",
+                "spam": false,
+                "suspended": false,
+                "created_at": "2019-07-20T23:38:24+00:00",
+                "login_autocomplete": "onidiras",
+                "login_exact": "onidiras",
+                "name": "onidiras-iNaturalist",
+                "name_autocomplete": "onidiras-iNaturalist",
+                "orcid": null,
+                "icon": "https://static.inaturalist.org/attachments/users/icons/2027679/thumb.jpg?1644639147",
+                "observations_count": 79212,
+                "identifications_count": 16362,
+                "journal_posts_count": 15,
+                "activity_count": 95589,
+                "species_count": 7358,
+                "annotated_observations_count": 89125,
+                "universal_search_rank": 79212,
+                "roles": [],
+                "site_id": 1,
+                "icon_url": "https://static.inaturalist.org/attachments/users/icons/2027679/medium.jpg?1644639147"
+              },
+              "vote_score": 0
+            }
+          ],
+          "reviewed": true
+        }
+      ],
+      "iNatTaxon": {
+        "id": 896395,
+        "name": "Dendrolimus spectabilis",
+        "url": "https://www.inaturalist.org/taxa/896395"
+      },
+      "taxonomyCheckedSources": [
+        "https://www.nibr.go.kr/aiibook/access/ecatalogt.jsp?Dir=22&callmode=admin&catimage=&eclang=ko&start=506&um=s",
+        "https://www.forest.go.kr/kfsweb/mer/fip/dbhis/selectInsectDetail.do?dbhisIdno=57&dbhisTpcd=20&mn=AR04_02_02_05&viewType=time",
+        "https://www.inaturalist.org/taxa/896395"
+      ],
+      "features": [
+        "잘 구분되는 긴 몸마디",
+        "회갈색·검정·황갈색 무늬",
+        "몸마디의 긴 털",
+        "앞부분의 밝은 털 띠",
+        "머리 가까운 가슴다리와 배다리"
+      ],
+      "previousProblem": "구슬 모양 마디와 짧은 털, 무늬 없는 일반 애벌레",
+      "implemented": "짙은 마디·황갈색 등무늬·긴 털과 밝은 앞 띠,3쌍 가슴다리와5쌍 배다리의 측면 겹침. 나방 성충을 쓰지 않음",
+      "asset": "assets/images/species/caterpillar.svg",
+      "status": "제작 완료 — 참고 사진의 대표 특징 반영",
+      "taxonomicCaution": "사진의 동정명과 기존 분류 출처를 대조. 게임용 대표 자세이며 종 전체의 변이·동정 형질을 모두 재현하지 않음."
+    },
+    {
+      "id": "aphid",
+      "name": "청동풍뎅이",
+      "projectScientificName": "Anomala albopilosa",
+      "projectAliases": [],
+      "taxonomySource": "https://www.nibr.go.kr/aiibook/access/ecatalogt.jsp?Dir=22&callmode=normal&catimage=&eclang=ko&start=272&um=s",
+      "photos": [
+        {
+          "photoId": 571765073,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/571765073/medium.jpg",
+          "license": "cc-by-nc",
+          "attribution": "(c) Dhugal Lindsay, some rights reserved (CC BY-NC), uploaded by Dhugal Lindsay",
+          "source": "https://www.inaturalist.org/photos/571765073",
+          "label": "Anomala albopilosa",
+          "reviewed": true
+        },
+        {
+          "photoId": 541034298,
+          "url": "https://static.inaturalist.org/photos/541034298/medium.jpg",
+          "license": null,
+          "attribution": "(c) SAI A.D.A, all rights reserved, uploaded by SAI A.D.A",
+          "source": "https://www.inaturalist.org/photos/541034298",
+          "label": "Anomala albopilosa",
+          "reviewed": true
+        },
+        {
+          "photoId": 46358986,
+          "url": "https://static.inaturalist.org/photos/46358986/medium.jpg",
+          "license": null,
+          "attribution": "(c) mieko w, all rights reserved, uploaded by mieko w",
+          "source": "https://www.inaturalist.org/photos/46358986",
+          "label": "Anomala albopilosa",
+          "reviewed": true
+        }
+      ],
+      "iNatTaxon": {
+        "id": 360299,
+        "name": "Anomala albopilosa",
+        "url": "https://www.inaturalist.org/taxa/360299"
+      },
+      "taxonomyCheckedSources": [
+        "https://www.nibr.go.kr/aiibook/access/ecatalogt.jsp?Dir=22&callmode=normal&catimage=&eclang=ko&start=272&um=s",
+        "https://www.inaturalist.org/taxa/360299"
+      ],
+      "features": [
+        "작은 머리와 넓은 앞가슴",
+        "통통하고 볼록한 타원형 딱지날개",
+        "녹색·청동빛 표면",
+        "짧은 끝 부채꼴 더듬이",
+        "가슴 부분에 붙은6다리"
+      ],
+      "previousProblem": "홍단딱정벌레와 같은 둥근 곤충 틀, 길고 가는 더듬이",
+      "implemented": "볼록한 녹색 몸·넓은 앞가슴·작은 머리·짧은 더듬이 끝·6다리를 독립 구성",
+      "asset": "assets/images/species/aphid.svg",
+      "status": "제작 완료 — 참고 사진의 대표 특징 반영",
+      "taxonomicCaution": "사진의 동정명과 기존 분류 출처를 대조. 게임용 대표 자세이며 종 전체의 변이·동정 형질을 모두 재현하지 않음."
+    },
+    {
+      "id": "snail",
+      "name": "명주달팽이",
+      "projectScientificName": "Acusta despecta",
+      "projectAliases": [],
+      "taxonomySource": "https://www.nongsaro.go.kr/portal/ps/pss/pssa/hlsctSearchDtl.ps?hlsctCode=H00000535&menuId=PS00202&pageIndex=1&pageSize=10",
+      "photos": [
+        {
+          "photoId": 169087841,
+          "url": "https://static.inaturalist.org/photos/169087841/medium.jpg",
+          "license": null,
+          "attribution": "(c) Carol Kwok, all rights reserved, uploaded by Carol Kwok",
+          "source": "https://www.inaturalist.org/photos/169087841",
+          "label": "Acusta despecta",
+          "reviewed": true
+        },
+        {
+          "photoId": 1568647,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/1568647/medium.jpg",
+          "license": "cc-by-sa",
+          "attribution": "(c) ふうけ, some rights reserved (CC BY-SA)",
+          "source": "https://www.inaturalist.org/photos/1568647",
+          "label": "Acusta despecta",
+          "reviewed": true
+        },
+        {
+          "photoId": 91074228,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/91074228/medium.jpg",
+          "license": "cc-by",
+          "attribution": "(c) Takaaki Hattori, some rights reserved (CC BY), uploaded by Takaaki Hattori",
+          "source": "https://www.inaturalist.org/photos/91074228",
+          "label": "Acusta despecta",
+          "reviewed": true
+        }
+      ],
+      "iNatTaxon": {
+        "id": 446746,
+        "name": "Acusta despecta",
+        "url": "https://www.inaturalist.org/taxa/446746"
+      },
+      "taxonomyCheckedSources": [
+        "https://www.nongsaro.go.kr/portal/ps/pss/pssa/hlsctSearchDtl.ps?hlsctCode=H00000535&menuId=PS00202&pageIndex=1&pageSize=10",
+        "https://grandpark.seoul.go.kr/animal/animalView.do?idx=2082&lang=ko&menu_id=S001002002003&pageIndex=1",
+        "https://molluscabase.org/aphia.php?p=taxlist&tName=Acusta+despecta",
+        "https://www.inaturalist.org/taxa/446746"
+      ],
+      "features": [
+        "낮은 원뿔 모양 껍데기 꼭대기",
+        "부푼 마지막 나층과 큰 입구",
+        "황갈색의 얇아 보이는 껍데기",
+        "긴 눈자루2개와 짧은 더듬이2개",
+        "넓은 배발"
+      ],
+      "previousProblem": "평평한 원반형 나선 껍데기와2더듬이",
+      "implemented": "낮은 첨탑·겹친 나층·큰 껍데기 입구와4더듬이. 국명/학명 대응이 미해결이므로 특정 한국 개체의 표준 외형이라고 확정하지 않음",
+      "asset": "assets/images/species/snail.svg",
+      "status": "일부 개선 — 정확종 형태 검증 미완료",
+      "taxonomicCaution": "농사로/서울대공원의 Acusta despecta 국명은 확인. MolluscaBase의 A.despecta sieboldtiana→A.sieboldtiana 처리는 별도의 분류이다. 두 종을 동일하다고 확정하지 않고 기존 카드 학명을 유지."
+    },
+    {
+      "id": "spider",
+      "name": "무당거미",
+      "projectScientificName": "Trichonephila clavata",
+      "projectAliases": [
+        "Nephila clavata"
+      ],
+      "taxonomySource": "https://wsc.nmbe.ch/spec-data/29057",
+      "photos": [
+        {
+          "photoId": 240469491,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/240469491/medium.jpg",
+          "license": "cc-by-nc",
+          "attribution": "(c) Trey Wardlaw, some rights reserved (CC BY-NC), uploaded by Trey Wardlaw",
+          "source": "https://www.inaturalist.org/photos/240469491",
+          "label": "Trichonephila clavata",
+          "reviewed": true
+        },
+        {
+          "photoId": 240469503,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/240469503/medium.jpg",
+          "license": "cc-by-nc",
+          "attribution": "(c) Trey Wardlaw, some rights reserved (CC BY-NC), uploaded by Trey Wardlaw",
+          "source": "https://www.inaturalist.org/photos/240469503",
+          "label": "Trichonephila clavata",
+          "reviewed": true
+        },
+        {
+          "photoId": 53251434,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/53251434/medium.jpeg",
+          "license": "cc-by-nc",
+          "attribution": "(c) Observações Naturalistas | Bruno Uehara, some rights reserved (CC BY-NC), uploaded by Observações Naturalistas | Bruno Uehara",
+          "source": "https://www.inaturalist.org/photos/53251434",
+          "label": "Trichonephila clavata",
+          "reviewed": true
+        }
+      ],
+      "iNatTaxon": {
+        "id": 904334,
+        "name": "Trichonephila clavata",
+        "url": "https://www.inaturalist.org/taxa/904334"
+      },
+      "taxonomyCheckedSources": [
+        "https://wsc.nmbe.ch/spec-data/29057",
+        "https://www.inaturalist.org/taxa/904334"
+      ],
+      "features": [
+        "성숙 암컷의 길쭉한 복부",
+        "복부의 노랑·녹회색 띠",
+        "작은 머리가슴",
+        "머리가슴에 붙은 긴8다리",
+        "다리의 밝은 띠"
+      ],
+      "previousProblem": "짧고 굵은 다리가 복부 쪽에 붙은 둥근 거미",
+      "implemented": "작은 머리가슴에8다리를 붙이고 복부를 길게, 노랑·회녹색 띠와 다리 띠를 반영. 작은 수컷 외형은 대표하지 않음",
+      "asset": "assets/images/species/spider.svg",
+      "status": "제작 완료 — 참고 사진의 대표 특징 반영",
+      "taxonomicCaution": "성숙 암컷 대표 그림. 수컷/어린 거미의 크기·색은 이 그림으로 대표하지 않음."
+    },
+    {
+      "id": "ladybird",
+      "name": "홍단딱정벌레",
+      "projectScientificName": "Carabus smaragdinus",
+      "projectAliases": [
+        "Coptolabrus smaragdinus",
+        "Damaster smaragdinus"
+      ],
+      "taxonomySource": "https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=120930&mode=Info",
+      "photos": [
+        {
+          "photoId": 378861842,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/378861842/medium.jpg",
+          "license": "cc-by-nc",
+          "attribution": "(c) Junyoung Lee, some rights reserved (CC BY-NC), uploaded by Junyoung Lee",
+          "source": "https://www.inaturalist.org/photos/378861842",
+          "label": "Carabus smaragdinus",
+          "reviewed": true
+        },
+        {
+          "photoId": 311502693,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/311502693/medium.jpg",
+          "license": "cc-by-nc",
+          "attribution": "(c) georgming, some rights reserved (CC BY-NC), uploaded by georgming",
+          "source": "https://www.inaturalist.org/photos/311502693",
+          "label": "Carabus smaragdinus",
+          "reviewed": true
+        },
+        {
+          "photoId": 13128702,
+          "url": "https://static.inaturalist.org/photos/13128702/medium.jpeg",
+          "license": null,
+          "attribution": "(c) Taewoo Kim, all rights reserved, uploaded by Taewoo Kim",
+          "source": "https://www.inaturalist.org/photos/13128702",
+          "label": "Carabus smaragdinus",
+          "reviewed": true
+        }
+      ],
+      "iNatTaxon": {
+        "id": 508583,
+        "name": "Carabus smaragdinus",
+        "url": "https://www.inaturalist.org/taxa/508583"
+      },
+      "excludedPhotos": [
+        {
+          "photoId": 170197107,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/170197107/medium.jpeg",
+          "license": "cc-by-nc",
+          "attribution": "(c) Leslie Hurteau, some rights reserved (CC BY-NC), uploaded by Leslie Hurteau",
+          "source": "https://www.inaturalist.org/photos/170197107",
+          "label": "Carabus smaragdinus",
+          "reason": "Larva; excluded from adult shape reference"
+        }
+      ],
+      "taxonomyCheckedSources": [
+        "https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=120930&mode=Info",
+        "https://www.inaturalist.org/taxa/508583"
+      ],
+      "features": [
+        "길게 나온 머리와 큰턱",
+        "잘록하고 별도인 앞가슴",
+        "길고 넓은 타원형 딱지날개",
+        "딱지날개 점각·굴곡",
+        "가늘고 긴6다리·실 모양 더듬이"
+      ],
+      "previousProblem": "둥근 풍뎅이 몸통에 색만 바뀌고 앞부분이 짧았음",
+      "implemented": "앞가슴·머리·딱지날개를 분리하고 후방을 길게, 점각3줄·턱·긴6다리·더듬이를 그림. 구릿빛과 녹색 가장자리는 한 색형의 예이며 아종 판별을 뜻하지 않음",
+      "asset": "assets/images/species/ladybird.svg",
+      "status": "제작 완료 — 참고 사진의 대표 특징 반영",
+      "taxonomicCaution": "NCBI는 Carabus smaragdinus를 쓰며 Coptolabrus/Damaster 조합을 동형이명으로 열거. 아종과 체색 변이를 단일 표준색으로 확정하지 않음."
+    },
+    {
+      "id": "tit",
+      "name": "박새",
+      "projectScientificName": "Parus minor",
+      "projectAliases": [],
+      "taxonomySource": "https://www.rinya.maff.go.jp/chubu/policy/business/conservation/corridor/sizyuukara.html",
+      "photos": [
+        {
+          "photoId": 2743774,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/2743774/medium.jpg",
+          "license": "cc-by",
+          "attribution": "(c) Kim, Hyun-tae, some rights reserved (CC BY), uploaded by Kim, Hyun-tae",
+          "source": "https://www.inaturalist.org/photos/2743774",
+          "label": "Parus cinereus minor",
+          "reviewed": true
+        },
+        {
+          "photoId": 105265339,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/105265339/medium.jpg",
+          "license": "cc-by",
+          "attribution": "(c) WATANABE Hitoshi 渡辺仁, some rights reserved (CC BY), uploaded by WATANABE Hitoshi 渡辺仁",
+          "source": "https://www.inaturalist.org/photos/105265339",
+          "label": "Parus cinereus minor",
+          "reviewed": true
+        },
+        {
+          "photoId": 220332462,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/220332462/medium.jpeg",
+          "license": "cc-by-nc",
+          "attribution": "(c) yah_japan, some rights reserved (CC BY-NC), uploaded by yah_japan",
+          "source": "https://www.inaturalist.org/photos/220332462",
+          "label": "Parus cinereus minor",
+          "reviewed": true
+        }
+      ],
+      "iNatTaxon": {
+        "id": 1583985,
+        "name": "Parus cinereus minor",
+        "url": "https://www.inaturalist.org/taxa/1583985"
+      },
+      "taxonomyDifference": "iNaturalist lumps Parus minor within Parus cinereus; use only nominate minor photos, not the entire grey-tit complex. Game name is retained pending authority reconciliation.",
+      "taxonomyCheckedSources": [
+        "https://www.rinya.maff.go.jp/chubu/policy/business/conservation/corridor/sizyuukara.html",
+        "https://www.birds.cornell.edu/clementschecklist/updates-and-corrections-october-2024/",
+        "https://www.inaturalist.org/taxa/1583985"
+      ],
+      "features": [
+        "검은 머리·목",
+        "크고 흰 볼",
+        "밝은 배의 검은 가슴선",
+        "올리브색 등과 흰 날개선",
+        "작고 짧은 부리"
+      ],
+      "previousProblem": "직박구리와 같은 새 몸통을 색만 바꿈",
+      "implemented": "작고 둥근 몸·짧은 부리·흰 볼·검은 가슴선·올리브 등·흰 날개선을 독립 외형으로 그림",
+      "asset": "assets/images/species/tit.svg",
+      "status": "제작 완료 — 참고 사진의 대표 특징 반영",
+      "taxonomicCaution": "국내/일본 산림 자료는 Parus minor. Clements2024/AviList1.0 및 iNaturalist는 Parus cinereus에 통합. 사진은 minor 아종만 골랐으며 게임의 이름/ID를 변경하지 않음."
+    },
+    {
+      "id": "bulbul",
+      "name": "직박구리",
+      "projectScientificName": "Hypsipetes amaurotis",
+      "projectAliases": [
+        "Microscelis amaurotis"
+      ],
+      "taxonomySource": "https://www.nibr.go.kr/aiibook/access/ecatalogt.jsp?Dir=1403&callmode=admin&catimage=&eclang=ko&start=168&um=s",
+      "photos": [
+        {
+          "photoId": 20566056,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/20566056/medium.jpg",
+          "license": "cc-by",
+          "attribution": "(c) Toshihiro Gamo, some rights reserved (CC BY)",
+          "source": "https://www.inaturalist.org/photos/20566056",
+          "label": "Hypsipetes amaurotis",
+          "reviewed": true
+        },
+        {
+          "photoId": 388249265,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/388249265/medium.jpg",
+          "license": "cc-by-nc",
+          "attribution": "(c) Conor McMahon, some rights reserved (CC BY-NC), uploaded by Conor McMahon",
+          "source": "https://www.inaturalist.org/photos/388249265",
+          "label": "Hypsipetes amaurotis",
+          "reviewed": true
+        },
+        {
+          "photoId": 389293348,
+          "url": "https://static.inaturalist.org/photos/389293348/medium.jpeg",
+          "license": null,
+          "attribution": "(c) Chen Alice, all rights reserved, uploaded by Chen Alice",
+          "source": "https://www.inaturalist.org/photos/389293348",
+          "label": "Hypsipetes amaurotis",
+          "reviewed": true
+        }
+      ],
+      "iNatTaxon": {
+        "id": 144910,
+        "name": "Hypsipetes amaurotis",
+        "url": "https://www.inaturalist.org/taxa/144910"
+      },
+      "taxonomyCheckedSources": [
+        "https://www.nibr.go.kr/aiibook/access/ecatalogt.jsp?Dir=1403&callmode=admin&catimage=&eclang=ko&start=168&um=s",
+        "https://www.inaturalist.org/taxa/144910"
+      ],
+      "features": [
+        "길고 뾰족한 부리",
+        "회색 머리와 약한 뾰족 깃",
+        "갈색 귀/뺨 부분",
+        "길쭉한 회갈색 몸과 긴 꼬리",
+        "가슴의 옅은 줄무늬"
+      ],
+      "previousProblem": "박새와 같은 짧은 몸/꼬리와 큰 머리",
+      "implemented": "더 긴 몸과 꼬리·가느다란 부리·갈색 귀 부분·회색 가슴 무늬. 박새의 흰 볼/검은 가슴선은 없음",
+      "asset": "assets/images/species/bulbul.svg",
+      "status": "제작 완료 — 참고 사진의 대표 특징 반영",
+      "taxonomicCaution": "사진의 동정명과 기존 분류 출처를 대조. 게임용 대표 자세이며 종 전체의 변이·동정 형질을 모두 재현하지 않음."
+    },
+    {
+      "id": "snake",
+      "name": "유혈목이",
+      "projectScientificName": "Rhabdophis tigrinus",
+      "projectAliases": [],
+      "taxonomySource": "https://www.nibr.go.kr/aiibook/catImage/21/National%20Species%202.pdf",
+      "photos": [
+        {
+          "photoId": 398143272,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/398143272/medium.jpeg",
+          "license": "cc-by-nc",
+          "attribution": "(c) ak_s, some rights reserved (CC BY-NC)",
+          "source": "https://www.inaturalist.org/photos/398143272",
+          "label": "Rhabdophis tigrinus",
+          "reviewed": true
+        },
+        {
+          "photoId": 2813397,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/2813397/medium.jpg",
+          "license": "cc-by",
+          "attribution": "(c) Kim, Hyun-tae, some rights reserved (CC BY), uploaded by Kim, Hyun-tae",
+          "source": "https://www.inaturalist.org/photos/2813397",
+          "label": "Rhabdophis tigrinus",
+          "reviewed": true
+        },
+        {
+          "photoId": 137108344,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/137108344/medium.jpeg",
+          "license": "cc-by",
+          "attribution": "(c) rachelandjun, some rights reserved (CC BY), uploaded by rachelandjun",
+          "source": "https://www.inaturalist.org/photos/137108344",
+          "label": "Rhabdophis tigrinus",
+          "reviewed": true
+        }
+      ],
+      "iNatTaxon": {
+        "id": 28829,
+        "name": "Rhabdophis tigrinus",
+        "url": "https://www.inaturalist.org/taxa/28829"
+      },
+      "taxonomyCheckedSources": [
+        "https://www.nibr.go.kr/aiibook/catImage/21/National%20Species%202.pdf",
+        "https://www.inaturalist.org/taxa/28829"
+      ],
+      "features": [
+        "길고 가는 몸",
+        "목 뒤 붉은빛/주황색 부분",
+        "검은 사각 반점 줄",
+        "삼각형 독사형과 다른 길쭉한 머리",
+        "머리 옆 검은 무늬"
+      ],
+      "previousProblem": "일반 초록색 뱀에 목 띠만 있음",
+      "implemented": "더 가는 회녹색 몸·목 뒤 주황색과 검은 반점·밝은 아랫면·얼굴 검은 무늬. 체색은 개체차가 있어 유일한 색으로 확정하지 않음",
+      "asset": "assets/images/species/snake.svg",
+      "status": "제작 완료 — 참고 사진의 대표 특징 반영",
+      "taxonomicCaution": "사진의 동정명과 기존 분류 출처를 대조. 게임용 대표 자세이며 종 전체의 변이·동정 형질을 모두 재현하지 않음."
+    },
+    {
+      "id": "weasel",
+      "name": "족제비",
+      "projectScientificName": "Mustela sibirica",
+      "projectAliases": [],
+      "taxonomySource": "https://www.nibr.go.kr/aiibook/catImage/21/National%20Species%202.pdf",
+      "photos": [
+        {
+          "photoId": 420576,
+          "url": "https://static.inaturalist.org/photos/420576/medium.jpg",
+          "license": null,
+          "attribution": "(c) Kim, Hyun-tae, all rights reserved, uploaded by Kim, Hyun-tae",
+          "source": "https://www.inaturalist.org/photos/420576",
+          "label": "Mustela sibirica",
+          "reviewed": true
+        },
+        {
+          "photoId": 353278821,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/353278821/medium.jpg",
+          "license": "cc-by-nc",
+          "attribution": "(c) hangnamori, some rights reserved (CC BY-NC), uploaded by hangnamori",
+          "source": "https://www.inaturalist.org/photos/353278821",
+          "label": "Mustela sibirica",
+          "reviewed": true
+        },
+        {
+          "photoId": 679544409,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/679544409/medium.jpg",
+          "license": "cc-by",
+          "attribution": "(c) Поляков Александр, some rights reserved (CC BY), uploaded by Поляков Александр",
+          "source": "https://www.inaturalist.org/photos/679544409",
+          "label": "Mustela sibirica",
+          "reviewed": true
+        }
+      ],
+      "iNatTaxon": {
+        "id": 41813,
+        "name": "Mustela sibirica",
+        "url": "https://www.inaturalist.org/taxa/41813"
+      },
+      "taxonomyCheckedSources": [
+        "https://www.nibr.go.kr/aiibook/catImage/21/National%20Species%202.pdf",
+        "https://www.inaturalist.org/taxa/41813"
+      ],
+      "features": [
+        "매우 긴 몸통과 목",
+        "짧은4다리",
+        "작은 둥근 귀",
+        "담갈색/황갈색 털",
+        "어두운 얼굴과 밝은 입 주변"
+      ],
+      "previousProblem": "다른 포유류와 같은 둥근 몸·큰 귀",
+      "implemented": "길고 낮은 몸과 목, 짧은 다리·긴 꼬리·작은 귀·얼굴 색 배치를 독립 그림으로 구성",
+      "asset": "assets/images/species/weasel.svg",
+      "status": "제작 완료 — 참고 사진의 대표 특징 반영",
+      "taxonomicCaution": "사진의 동정명과 기존 분류 출처를 대조. 게임용 대표 자세이며 종 전체의 변이·동정 형질을 모두 재현하지 않음."
+    },
+    {
+      "id": "goshawk",
+      "name": "참매",
+      "projectScientificName": "Astur gentilis",
+      "projectAliases": [
+        "Accipiter gentilis"
+      ],
+      "taxonomySource": "https://www.worldbirdnames.org/updates/taxonomy/",
+      "photos": [
+        {
+          "photoId": 61773674,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/61773674/medium.jpg",
+          "license": "cc-by-nc",
+          "attribution": "(c) Luigi Andena, some rights reserved (CC BY-NC), uploaded by Luigi Andena",
+          "source": "https://www.inaturalist.org/photos/61773674",
+          "label": "Astur gentilis",
+          "reviewed": true
+        },
+        {
+          "photoId": 148266689,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/148266689/medium.jpg",
+          "license": "cc-by-nc-sa",
+          "attribution": "(c) Александр, some rights reserved (CC BY-NC-SA), uploaded by Александр",
+          "source": "https://www.inaturalist.org/photos/148266689",
+          "label": "Astur gentilis",
+          "reviewed": true
+        },
+        {
+          "photoId": 114910385,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/114910385/medium.jpg",
+          "license": "cc-by-nc",
+          "attribution": "(c) Stanislav Cherepushkin, some rights reserved (CC BY-NC), uploaded by Stanislav Cherepushkin",
+          "source": "https://www.inaturalist.org/photos/114910385",
+          "label": "Astur gentilis",
+          "reviewed": true
+        }
+      ],
+      "iNatTaxon": {
+        "id": 1579015,
+        "name": "Astur gentilis",
+        "url": "https://www.inaturalist.org/taxa/1579015"
+      },
+      "taxonomyCheckedSources": [
+        "https://www.worldbirdnames.org/updates/taxonomy/",
+        "https://www.inaturalist.org/taxa/1579015"
+      ],
+      "features": [
+        "성체의 회색 등",
+        "뚜렷한 흰 눈썹",
+        "가슴/배의 촘촘한 가로무늬",
+        "띠가 있는 긴 꼬리",
+        "굽은 부리·넓고 둥근 날개"
+      ],
+      "previousProblem": "직박구리 틀에 부리만 굽힌 맹금류",
+      "implemented": "성체 회색 몸·흰 눈썹·가로 배무늬·꼬리 띠와 굽은 부리, 비행 프레임은 넓은 날개. 유조의 세로무늬를 성체 표준으로 쓰지 않음",
+      "asset": "assets/images/species/goshawk.svg",
+      "status": "제작 완료 — 참고 사진의 대표 특징 반영",
+      "taxonomicCaution": "Astur gentilis는 북미 A.atricapillus와 구분. 성체 대표 그림이며 유조의 무늬/색이 다름."
+    },
+    {
+      "id": "litter-mold",
+      "name": "낙엽 분해 곰팡이 군집",
+      "projectScientificName": null,
+      "projectAliases": [],
+      "taxonomySource": "https://www.nrcs.usda.gov/state-offices/illinois/soil-tech-note-11a-biological-underground-community",
+      "photos": [
+        {
+          "photoId": "generic-mycelium",
+          "source": "https://frankies.jimdofree.com/pilze/",
+          "url": "https://image.jimcdn.com/app/cms/image/transf/dimension%3Dorigxorig%3Aformat%3Djpg/path/sec047962fe7c4024/image/ib0c7d3f2a6f0080d/version/1355831908/pilzmycel-mycel.jpg",
+          "label": "일반 균사 형태 — 종·분해 기능은 사진만으로 미확정",
+          "license": null,
+          "attribution": "Rights/photographer not verified; reference only; no reuse",
+          "usage": "General hyphal form only; not evidence that the photographed fungus is this game functional group",
+          "reviewed": true
+        }
+      ],
+      "unresolved": "Functional group; no invented species name",
+      "taxonomyCheckedSources": [
+        "https://www.nrcs.usda.gov/state-offices/illinois/soil-tech-note-11a-biological-underground-community",
+        "https://www.nrcs.usda.gov/sites/default/files/2025-06/Tech%20Note%20Cropland%20In-Field%20Soil%20Health%20Assessment%20Guide-508.pdf#page=13"
+      ],
+      "features": [
+        "낙엽 표면의 가는 밝은 균사",
+        "여러 갈래로 뻗는 실 같은 망",
+        "분해되는 낙엽과 함께 보임",
+        "단일 종/자실체 모양을 확정할 수 없음"
+      ],
+      "previousProblem": "막대 끝 둥근 머리가 나란히 서 있어 일반 버섯처럼 보임",
+      "implemented": "낙엽 위 흰빛/크림빛 균사망 중심으로 교체. 특정 종 포자낭·갓·학명을 부여하지 않음",
+      "asset": "assets/images/species/litter-mold.svg",
+      "status": "제작 완료 — 기능군 도식",
+      "taxonomicCaution": "기능군이므로 학명 null. 사진은 일반 균사 형태 참고일 뿐 특정 종/기능의 동정 자료가 아님."
+    },
+    {
+      "id": "soil-bacteria",
+      "name": "고초균",
+      "projectScientificName": "Bacillus subtilis",
+      "projectAliases": [],
+      "taxonomySource": "https://www.nongsaro.go.kr/portal/ps/psq/psqb/farmTermSimpleDicLst.ps?menuId=PS00064&sWordNm=%EA%B3%A0%EC%B4%88%EA%B7%A0&searchTagWord=%EA%B3%A0%EC%B4%88%EA%B7%A0",
+      "photos": [
+        {
+          "photoId": 304497,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/304497/medium.jpg",
+          "license": "cc-by-sa",
+          "attribution": "(c) Y tambe (original uploader), some rights reserved (CC BY-SA)",
+          "source": "https://www.inaturalist.org/photos/304497",
+          "label": "Bacillus subtilis",
+          "reviewed": true
+        },
+        {
+          "photoId": 329776973,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/329776973/medium.jpeg",
+          "license": "cc-by-nc",
+          "attribution": "(c) Róbert Ívar, some rights reserved (CC BY-NC)",
+          "source": "https://www.inaturalist.org/observations/188422517",
+          "label": "Bacillus subtilis",
+          "place": "816, Iceland",
+          "annotations": [],
+          "reviewed": true
+        },
+        {
+          "photoId": "CDC19261",
+          "url": "https://wwwn.cdc.gov/phil/PHIL_Images/19261/19261_lores.jpg",
+          "license": "Public domain; credit CDC and Dr. W.A. Clark; see PHIL terms",
+          "attribution": "CDC/Dr. W.A. Clark,1977",
+          "source": "https://wwwn.cdc.gov/phil/Details.aspx?pid=19261",
+          "label": "Bacillus subtilis, Gram-stained cells",
+          "reviewed": true
+        }
+      ],
+      "iNatTaxon": {
+        "id": 245605,
+        "name": "Bacillus subtilis",
+        "url": "https://www.inaturalist.org/taxa/245605"
+      },
+      "excludedPhotos": [
+        {
+          "photoId": 105398441,
+          "url": "https://inaturalist-open-data.s3.amazonaws.com/photos/105398441/medium.jpg",
+          "license": "cc-by-nc",
+          "attribution": "(c) Alexander Iosipenko, some rights reserved (CC BY-NC)",
+          "source": "https://www.inaturalist.org/observations/65477802",
+          "label": "Bacillus subtilis",
+          "place": "Строителей переулок, Луховицы, Московская область, RU",
+          "annotations": [],
+          "reason": "Culture colony; not used to infer cell shape"
+        }
+      ],
+      "taxonomyCheckedSources": [
+        "https://www.nongsaro.go.kr/portal/ps/psq/psqb/farmTermSimpleDicLst.ps?menuId=PS00064&sWordNm=%EA%B3%A0%EC%B4%88%EA%B7%A0&searchTagWord=%EA%B3%A0%EC%B4%88%EA%B7%A0",
+        "https://lpsn.dsmz.de/species/bacillus-subtilis",
+        "https://wwwn.cdc.gov/phil/Details.aspx?pid=19261",
+        "https://www.inaturalist.org/taxa/245605"
+      ],
+      "features": [
+        "막대 모양 세포",
+        "단독 또는 짧은 사슬",
+        "일부 세포의 내생포자",
+        "현미경에서 보이는 매우 작은 크기"
+      ],
+      "previousProblem": "굵고 짧은 캡슐과 긴 꼬리 모양 선",
+      "implemented": "가늘고 긴 막대·짧은 사슬·일부 내생포자 표시. 분지 균사/버섯처럼 표현하지 않음. 색은 구별을 위한 도식색이며 토양에서 실제로 보이는 녹색이 아님",
+      "asset": "assets/images/species/soil-bacteria.svg",
+      "status": "제작 완료 — 참고 사진의 대표 특징 반영",
+      "taxonomicCaution": "막대 형태만으로 종 동정 불가. 확대·도식색이며 현미경 염색 사진의 색과 자연 상태의 색은 다름."
+    },
+    {
+      "id": "earthworm",
+      "name": "참지렁이",
+      "projectScientificName": "Amynthas koreanus",
+      "projectAliases": [],
+      "taxonomySource": "https://www.nibr.go.kr/aiibook/catImage/21/National%20Species%202.pdf",
+      "photos": [],
+      "unresolved": "No exact name/recorded synonym match returned",
+      "taxonomyCheckedSources": [
+        "https://www.nibr.go.kr/aiibook/catImage/21/National%20Species%202.pdf",
+        "https://itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=975168",
+        "https://nomenclatura-oligochaetologica.inhs.illinois.edu/nomenclator-specierum/nomenclator-specierum-k/"
+      ],
+      "features": [
+        "가늘고 긴 마디진 몸",
+        "앞쪽에 가까운 환대",
+        "끝이 가늘어지는 꼬리",
+        "다리·눈·얼굴이 없음"
+      ],
+      "previousProblem": "두껍고 짧은 몸과 몸 한가운데 큰 띠",
+      "implemented": "몸을 가늘게 하고 많은 마디·앞쪽 환대를 표시. 정확종 사진이 없어 지렁이류 수준 도식으로만 개선하며 종 특유 색·생식표지·정확한 환대 마디 번호는 확정하지 않음",
+      "asset": "assets/images/species/earthworm.svg",
+      "status": "일부 개선 — 정확종 형태 검증 미완료",
+      "taxonomicCaution": "NIBR/ITIS의 이름을 대조했으나 확실한 정확종 사진3장을 확보하지 못함. 동정에는 전문가와 종 특유 표지가 필요."
+    }
+  ]
+}
