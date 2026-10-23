@@ -1,3 +1,13 @@
+# 15.12.2단계 — 기존 투영에 맞춘 정적 숲 배경
+
+`assets/images/forest.svg`만 게임 실행 자산으로 교체했습니다. viewBox1200×470, preserveAspectRatio=none, CSS object-fit:fill과 숲 크기는 유지합니다. 세 나무는 기존 반복 tree/transform 대신 동일한 전체 SVG 좌표에서 각각 직접 그립니다. `support-<anchor id>`는 실제 그림의 가지 stroke/줄기 fill 식별자이고 런타임 provider가 읽거나 새 생태 객체로 사용하는 필드는 아닙니다.
+
+수관 중심292/190·673/215·1162/142, 줄기292/282·673/278·1161/221과 기존 provider/groundContour/capacity/sourceObjectId는 그대로입니다. 나무 하부와 지면·낙엽·흙을 연결하고 표시 오프셋 근처에 추가 가지를 그렸습니다. 정밀 착지나 새 지하 자원은 없습니다. 런타임 data/js/css/index·생물 SVG·생성 원본은 변경하지 않았습니다.
+
+`tests/forest-background.browser.cjs`는 동일 저장 장면35개에서 실제 모델과 표시 좌표를 비교하고 SVG의 실제 그림과 지지점 접촉을 검사합니다. 기존 spatial 검사 중 옛 나무 도형 문자열을 찾던 한 항목만 새 자산 지지점 검사로 갱신합니다. [비교 자료](docs/forest-background-qa.html)와 [보고서](STAGE15_12_2_FOREST_BACKGROUND_REDESIGN.md)는 게임에서 로드하지 않습니다. 새 RAF/interval/프레임별 측정은 없습니다.
+
+---
+
 # 15.12.1단계 — 형태 원본과 프레임 조립
 
 `tools/species-art-shapes.mjs`가24종 각각의 몸·머리·다리·날개·식물·군집 원본을 정의하고, `tools/build-species-art.mjs`가 기존156개 named view를 조립합니다. 형태를 수정할 때 생성된 SVG만 수작업으로 바꾸지 않습니다. defs/use로 상태 간 도형을 공유하여 몸 구조·다리 수를 일관되게 유지합니다. `--check`는 저장된 SVG를 덮어쓰지 않고 원본과 비교합니다.

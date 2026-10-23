@@ -1,0 +1,1070 @@
+{
+  "stage": "15.12.2",
+  "checkedAt": "2026-10-23",
+  "baselineHead": "79f8a66402063ab76afed48d35a9079cf3d48c32",
+  "actualS5e": false,
+  "actualStudents": false,
+  "unit": {
+    "cohorts": [
+      36,
+      315,
+      407,
+      181,
+      247,
+      44,
+      58,
+      111,
+      76,
+      53
+    ],
+    "passed": 1528,
+    "failed": 0,
+    "updatedAssertion": "One spatial asset-string assertion now checks six unchanged support centers, unchanged viewBox and drawn support IDs. The companion browser uses actual SVG fill/stroke hit tests."
+  },
+  "browser": {
+    "before": {
+      "phase": "before",
+      "suites": [
+        {
+          "file": "balance.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "detritus.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "development.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "activities.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "environment.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "biodiversity.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "environment-events.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "feeding-audit.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "feeding.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "food-expansion.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "events.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "lifespan.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "guidance.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "pacing.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "habitat.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "food-web.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "population.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "management.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "point-economy.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "replay.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "spatial.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "ux.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "persistence.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "learning-goal.controls.browser.cjs",
+          "legacy": false,
+          "status": 0
+        },
+        {
+          "file": "field-guide.browser.cjs",
+          "legacy": false,
+          "status": 0
+        },
+        {
+          "file": "ux.full-flow.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "field-guide.discovery.browser.cjs",
+          "legacy": false,
+          "status": 0
+        },
+        {
+          "file": "learning-goal.browser.cjs",
+          "legacy": false,
+          "status": 0
+        },
+        {
+          "file": "learning-goal.repeat.browser.cjs",
+          "legacy": false,
+          "status": 0
+        },
+        {
+          "file": "full-forest.browser.cjs",
+          "legacy": false,
+          "status": 0
+        }
+      ]
+    },
+    "after": {
+      "phase": "after-final",
+      "suites": [
+        {
+          "file": "balance.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "detritus.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "activities.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "development.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "environment.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "biodiversity.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "environment-events.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "feeding-audit.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "feeding.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "events.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "food-expansion.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "lifespan.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "guidance.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "pacing.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "food-web.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "habitat.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "population.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "management.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "replay.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "point-economy.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "spatial.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "ux.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "persistence.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "learning-goal.controls.browser.cjs",
+          "legacy": false,
+          "status": 0
+        },
+        {
+          "file": "ux.full-flow.browser.test.cjs",
+          "legacy": true,
+          "status": 0
+        },
+        {
+          "file": "field-guide.browser.cjs",
+          "legacy": false,
+          "status": 0
+        },
+        {
+          "file": "field-guide.discovery.browser.cjs",
+          "legacy": false,
+          "status": 0
+        },
+        {
+          "file": "learning-goal.browser.cjs",
+          "legacy": false,
+          "status": 0
+        },
+        {
+          "file": "learning-goal.repeat.browser.cjs",
+          "legacy": false,
+          "status": 0
+        },
+        {
+          "file": "full-forest.browser.cjs",
+          "legacy": false,
+          "status": 0
+        }
+      ]
+    }
+  },
+  "protected": {
+    "trackedUnchanged": 453,
+    "historicalJsonUnchanged": 120,
+    "runtimeUnchanged": 121,
+    "speciesSvgUnchanged": 24,
+    "artSourceUnchanged": [
+      "tools/species-art-shapes.mjs",
+      "tools/build-species-art.mjs"
+    ],
+    "hashes": {
+      ".gitattributes": "d8fb0de4792538f93822b2c0d235604921299d5e54a3d6ec7a6cb34536e8bf1e",
+      ".nojekyll": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "AGENTS.md": "f774b4c8626d87941750fe35d25edac517b40938b2227d1d8ee0d824b38dec73",
+      "CLASSROOM_OBSERVATION_SHEET.md": "1224a9be29c119140a34e0a9f6fc76aebd8da05a7a6a5770d67c0e1fcd0d8c15",
+      "CLASSROOM_PLAYTEST_PLAN.md": "e8138896082f07f86624b78ca3f13c6fe0f6b712a92c295d5da070037fe1ee0f",
+      "FOREST_BALANCE_AUDIT.md": "f2fdbaa6ac59b5b0608e17230d7528777814c6c0914b19f6339d80f4a83326e3",
+      "FOREST_CARD_UNLOCKS.md": "f92cf68faa90af7252e8e8260cdc2c23c5a9962226237cddf3d2d39375268990",
+      "FOREST_DETRITUS.md": "af5466db294eb3e2c8e38cc4e1819627f46ec05fd0eace3b48494b1571c2b34d",
+      "FOREST_ENVIRONMENT_EVENTS.md": "d0ab88448f7d559cbaa926d1958ab330cd7be493b7b4ce25d2059117e0ae2e73",
+      "FOREST_FIELD_GUIDE.md": "e1034ecbb886db5a065fbf4976ddd06c7548cb12ba52ea50b8c362d695037377",
+      "FOREST_FOOD_WEB_AUDIT.md": "49c75af3648fa2b9429cb80dd1af42728f6d20f7a1ae24a44285f277699964f1",
+      "FOREST_GROWTH_STAGES.md": "7dbc494520f1ca5778437fcac72499f9d7374c7d4c278d4ae97a267317aaea05",
+      "FOREST_HABITAT_SYSTEM.md": "9f1fdb5f5aef7ed64426cf3d434d0cf4552246db5171686f191fd2b5c6db550b",
+      "FOREST_LIFESPANS.md": "980aac9ec522379ba206ae349866ac92fee47d8a9a1046c8e6f5fba1dfe01b33",
+      "FOREST_PACING.md": "e844a4d04fd54895a720605db134f2615c31b4217fee34e0c19f0fddf0c3dd74",
+      "FOREST_POINT_ECONOMY.md": "2ae88833fd4f17c118ef960c5b14c567667b106a4cf473b85f0c349713efd99e",
+      "FOREST_REPLAY_SYSTEM.md": "089ffecfca0d4a1aaa11a3d03d51726ae2cd3741b7182a6007704995f80a29a6",
+      "FOREST_SPECIES.md": "51a3183c248540c2a0485a48a88968f7eb82957364ed8a05bdc8d6e87bf11a69",
+      "QA.md": "9d7420cf869446526b263f86a0a72750bf1cade149c7e582beb7d92a41ce93c9",
+      "STAGE10_REPORT.md": "b9389420ee160b6ce93839b4f487efce729d8ae3db625fd077790e0b68726900",
+      "STAGE11_55_REPORT.md": "f75a64482d1e7a65a86ec98c0de63e86556c2d6dfe508d5901b03e2ad8dfb822",
+      "STAGE11_5_REPORT.md": "3cf4f3af6703cdeec6bd73dec4e80511a355b7937edfdf63f2829a659cc209bb",
+      "STAGE11_6_REPORT.md": "9380976aff7e79acbfd2653b9514091fb4ee0e320e99e6b26f2b116e70734223",
+      "STAGE11_REPORT.md": "d7a8b5c12f4d1bda0984327d31412a06ca414971ab0ef8be7e64bd3955e35ce8",
+      "STAGE12_REPORT.md": "b0d12ae53139aa085fb74e05b0fea2129ebbf0613d8ce9e7bd982b34a4077cea",
+      "STAGE13_5_REPORT.md": "e50ceb620eb3ff56c7109c8fad345db618a7d7774039f6b9e48e0ee92c9945d3",
+      "STAGE13_6_REPORT.md": "5c706299ad7bdcabcbcff2f8a6e691de049833664cdc98f4d0fb85f07226546b",
+      "STAGE13_7_REPORT.md": "5e3e249a03cde881560e3e38c5cabd85547e649ebb44fbfd448dea384bf6a08e",
+      "STAGE13_REPORT.md": "c8e7e380b1654a48973d7174feff65539718dce98e4af0db95099057dcb019af",
+      "STAGE14_REPLAY_HANDOFF.md": "1db60ab25b60807ff18de2ac78e66e9cb946da3cfb5e43d57db471648c09b0b5",
+      "STAGE14_REPORT.md": "4afd4848c7d37a9636da5f1090c9dfdfdf14029dcfca04b48d95a571c5dc9414",
+      "STAGE15_10_ECOSYSTEM_LEARNING_GOALS.md": "ad6fb817433957a5a810ce4923c5c108a3b0e43c55f48acb54cde54eeea87ddd",
+      "STAGE15_11_5_FULL_FOREST_PLACEMENT.md": "435118b9b952f0fc7aafc0ab6e02d00dcf3c8555c29028fddb793e36d24eaf38",
+      "STAGE15_11_6_STUDENT_UX_AND_PLACEMENT.md": "7025153cd1b3568f47dc86c1d4d067c8be8cfe115db4000b64f5617aa75456f2",
+      "STAGE15_11_FIELD_GUIDE_FOOD_WEB.md": "846dd94dcdb8bf0b37a6686ef6cd67de40dd7cb5019c9711876f65fbaea2912f",
+      "STAGE15_12_1_SPECIES_ACCURATE_ART.md": "d46ac86e36bbe54a25283dfecb289b68c152df3a1bc53aa875f0e56447ba71e5",
+      "STAGE15_12_VISUAL_ASSETS_AND_UX_POLISH.md": "887b53acbeba00b6637bc8841bc6a93312c9a856b5f4456eedadfad55a6621fa",
+      "STAGE15_5_REPORT.md": "8db2c6d33186fc00448a34f417035b15bb4a3890771ae3c69e0fd69556df36c9",
+      "STAGE15_6_FEEDING_AUDIT.md": "cfcf1a5f9264b02c860250fdc790f7eabafddb9212cf5d2482701f0ba0072257",
+      "STAGE15_7_FOOD_WEB_EXPANSION.md": "398c4486ebbdc4279cd5f8403d16393fb2dba353789dbd6223573c69bdc3f9a7",
+      "STAGE15_8_BIODIVERSITY_BALANCE.md": "99d3b493c07e4db57459e3eb48c57ebae6e560b62e5d90b46992911b5a8a1aa3",
+      "STAGE15_9_CORE_GAMEPLAY_UX.md": "769046735cbb807a07000a95e4b781bca52cf79f0391fbed076f1eef69cba2c3",
+      "STAGE15_REPORT.md": "339da79d82576e64d3de015f54cd27f8cde4095da074d162a0f012246081a268",
+      "STAGE2_REPORT.md": "ee170bbb79e046eaf7b920043b896814b6efe46d598a876e55876c7fafa4e5d0",
+      "STAGE3_REPORT.md": "c7289769776e469e79316037609271198f846d01801c1cf3ba4f847579ed38e6",
+      "STAGE4_REPORT.md": "ac94d892a1fd70213502813da504ee09d4e6d7d56cedff61b15e15b0f525d4d1",
+      "STAGE5_REPORT.md": "9229cfdc40c05567d30daa3361fff60d7d9a6d17a8d03cf0a8dd0e770092c744",
+      "STAGE6_REPORT.md": "b6de46eb26e2b338c3346229f2ef5e76d1a0ff59180df70e9dd3493ee239f8e2",
+      "STAGE7_REPORT.md": "f1b0758d17cb86ce4251ce75bb6882070708741059b47b61e6c4ecf66f6dd8ae",
+      "STAGE8_REPORT.md": "90321fb043c9cdd42b4da44ed709366e67339b0276c2105a88e908dfa16d246e",
+      "STAGE9_REPORT.md": "cfcf2e3167b70f7824878d463f5c79709e816007faa5960b796a9136b02e165b",
+      "assets/audio/.gitkeep": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "assets/images/grass.svg": "84057f9d6d56b43d3852c561572ebb01c76c0292cefee4ff5e5665eeb8b350ae",
+      "assets/images/leaf.svg": "0a16b250200af0313017e959c6f0404b930d60e4664274b6750a8e9a74952673",
+      "assets/images/mushroom.svg": "61d386f0ea454145a29b0f3a7fbc13116563a43d7fbab3bf74b9257e52f9cf48",
+      "assets/images/oak.svg": "40f5c1fe083ef5d93201b791385b2227974befbdcf7ba9109657f0da5f471a1a",
+      "assets/images/rabbit.svg": "0a6425cade7b04f1b1539b7df7c5c922746f76e0c96ab5ce230463a42d0d8795",
+      "assets/images/species/README.md": "1b1522b335870d6b8aa486a08fba2d4616933fd51e496d0bb9dac1b511bd8d16",
+      "assets/images/species/aphid.svg": "66f9f28362774f397377b147342d20cc0372fd6184cefdb19040079f600ba915",
+      "assets/images/species/bulbul.svg": "0cbfcc848cf11114daa53eae1561c072f2f2268eeb2b5d0e093ff5706a49d2c9",
+      "assets/images/species/caterpillar.svg": "914ca3df32c67738b2c07c0551cffee6ab2997f0cbd65b70177cc7538b91b4af",
+      "assets/images/species/chipmunk.svg": "d911f2b28ad25f4c8e879fdc797462608b75af8ccd58ccf9c4167fbf606de9d2",
+      "assets/images/species/earthworm.svg": "64733b8eaa4c2eff534f8984a6296e6ed50824e1970bcda37923f56802e1295d",
+      "assets/images/species/field-mouse.svg": "f7973f6d38c3f8ab5aa3bb2bce112866881fb9d3cbed1859aa5f0cdb9655d8a3",
+      "assets/images/species/frog.svg": "4d99388c47f6e53a50519a5851e63c986cb00b865b98b517533cb833f6d72697",
+      "assets/images/species/goshawk.svg": "09c9b434fd9ca7363a6eb3c59063352d7d35b8647ce4603a11c9a26168d5c301",
+      "assets/images/species/grass.svg": "23b363de5da489a89b9b22b94614f31d413bc59bd3ee41b697b09f925183b27c",
+      "assets/images/species/grasshopper.svg": "c5df80a5935ab8dfed4d70c2d9646830a59f63f0a5b7448c1395be209494e962",
+      "assets/images/species/hazel.svg": "d505a796dda51dd28555054fb53f4451d1775642b86541a6c1fb01f799e4eec5",
+      "assets/images/species/ladybird.svg": "a88e0b5212e8d68241807d3ae2406ed0b27f2535c14495305972569732051f0b",
+      "assets/images/species/litter-mold.svg": "d4a954dd411c36e2773feee56f0d7f14cfcbcce77f6ab8badde262840885eee4",
+      "assets/images/species/mushroom.svg": "d31f8f5adca1ce59d48cc116ecc7df2548610c7a25d4e2699bced5750b4f6785",
+      "assets/images/species/oak.svg": "f3095ebce44e67a60b617cba1eb98bc93f56df8d15246adf8fc6a6f52f5300f1",
+      "assets/images/species/pine.svg": "c3e1961d4a2f1cd65372006c1fff61a4615ffa25b2581d2183a9600565001aa0",
+      "assets/images/species/rabbit.svg": "b3e914ecbe64bd6fb558d8ee23dcabcdabbc20468d07142e8eed379955cb0faf",
+      "assets/images/species/raspberry.svg": "a541561ffeb8ea57cba812883232ac2df7a28c4788e134e5e3e65f4e0f48b2c2",
+      "assets/images/species/snail.svg": "b4552127864a7ccab2f7ecd981f2e73a5c6e59b8a8fdb71a5899db98eb4bcc0f",
+      "assets/images/species/snake.svg": "57500564c3ccb1c195ac8b2389c67c2aaadd1a1a2c600c9e81a3bde4346860bb",
+      "assets/images/species/soil-bacteria.svg": "bebee7600c322f652d10f3a97072b6cb31b296074281af789027f248bdff77fb",
+      "assets/images/species/spider.svg": "ddf8edac53313b7256f53d79803e8372041d8cfaa6612533a486303cc1e8241c",
+      "assets/images/species/tit.svg": "750bbc40bad9731a2107936814481e528c2443ab0e97f21ba0e015345a638872",
+      "assets/images/species/weasel.svg": "b4fc12a374e8c1d59fe6553e6124f0a7d028af1d076837e09c8558090ddd9b2d",
+      "css/activities.css": "2d24d2c1a66c452db523cabfaaf856bfe26890630263c2b12b5a11d5ced25680",
+      "css/base.css": "ce9dc58df608d280d06b3a40465fbb2f0a6df0687179407d007e854e5b35a3e2",
+      "css/cards.css": "38fe377c771477157c90a53414cf010310eebf5d9f6c7262e147005cd0a39d1a",
+      "css/collection.css": "a6930345ecc0e5aee9d4eceec692a66c3c70d695c87478eb4b3f13a193f2f34a",
+      "css/events.css": "ef35190b0a09bd9e325454846df23eb1bd22f647f2a1ee804aa303e39b03d13d",
+      "css/field-guide.css": "8308d02a0a930c128d0c6687d9e66437f1b2dd71c5246e0330678dd8a094255b",
+      "css/forest-ux.css": "8a03e9afc9ac31372f07ca73b71663bc018975046555304999c5b7856dc50dbc",
+      "css/game.css": "095273d0ab04fc94ca88822e94267ec92f35f1e05a8237f77ac41d585495e6fb",
+      "css/guidance.css": "f3abc83466833b60328b804bd0aaaa2c4de92db717ebb408870e519246e9aab2",
+      "css/habitats.css": "df74c50dbb7501e131b4d38f798a3986cd2c98dd28bf2fe34efaa70be6d68d35",
+      "css/placement.css": "e1011307f9bce56a2632282658f2fc1bb755b3fa1fcb0774f38cba6ee7d23fbb",
+      "css/progress.css": "11a3553e8505e0cd5018610b4f431960d5f57a7abeaa898f1c340e4046a81820",
+      "css/species-visuals.css": "c3bf5d9edd966f29179a9b3c2b6f19c71d493f8672f0b580e8fce3a3eeca9a87",
+      "css/student-ux.css": "836940b7894ef0a8e247878b976142dd0a86bfa259d3b5bc248f94790f3ac1a3",
+      "data/activities.js": "6c0763b25f66e4c91b08f2aa9cd482c8b98bf7f91ae259def3ee9e142ba0f2d5",
+      "data/card-unlocks.js": "dfffcec409d0c53d54954f533032f6d4814cc4bf2d037d7c2441ec581fe8d3ca",
+      "data/detritus-config.js": "a60fd00139e72d573bce7adb7be5627bd1f431acde73c31df4c42108e96a05f4",
+      "data/development-config.js": "a737639047a13fb4580098f08acad88e6fb5b2ce889b31759bf995d4c6db646a",
+      "data/ecology-config.js": "50724dcd510e55be8283c3f8efd1495a9d227716e9f9c1b8268991237d03d0a9",
+      "data/environment-config.js": "ef1ac0b86fd7cec630fa1fb34f8b4a245dd1f075ffd0408dfef15ca1f6f311f7",
+      "data/environment-events.js": "8000451e3e633622eafba55b7246ead74295dec9f566a4be3c18e349453a6868",
+      "data/event-config.js": "0a10347597087826525509b8967cf1e5a99fe07c310339788a7ef4641bfe0ec1",
+      "data/food-evidence.js": "1c93606e651ce54a5cac4752984e1600b428d8ff0bf19c37db8e78caef6b8f51",
+      "data/food-relations.js": "c005f0364dc9d542447a727aa421db73768275082cbb2bb5294f875499c660e7",
+      "data/forest-goal.js": "c30693a4b95533c3f39b68130ec828f8b16dd25b56fd44b03765e73fd645bd44",
+      "data/forest-spaces.js": "2559e3f98cf17dca4f0f3bd6c92ccfd721b052f2950911d136305d02d0c3f7bd",
+      "data/forest.js": "f7a80497271afdaf4221eafee41ffcd98ad0431ff18755ba6fc14d67aace8a92",
+      "data/habitats.js": "7b952de2a29e63786be256743fda0179d99cab08abeb69fb49533532d3806178",
+      "data/interaction-config.js": "dfe449143681f5ca5b0169eda8bd4adde807273d523048e7cc91d2d20ea748aa",
+      "data/learning-goals.js": "44d3804329075307b83d9ce6cd8bd72e768e8ec3f0a16053ccb49648843217ce",
+      "data/legacy-ecology.js": "8370bb9b484db72f24745e87dc7efc8f17cc3441f5d09f2eb1b5e5df205e5d8e",
+      "data/lifespan-config.js": "1181adfb892cec4e70ed7be84a8afea2dc0aa944fac5468c6bcf3df79e06d504",
+      "data/management-actions.js": "c0489b693c3b755de170b042fc4d62aa3eca3cc2114483338cf2e4c43cec8e6b",
+      "data/organisms.js": "9dfbd37596e7e08cdc3d50d1ccdc02426ebcce8cba9428612ddc69130637db84",
+      "data/pacing-config.js": "1a357e89843f3ee7b662c535d6e37f7719f92b8f17915350f60dbda5aa02e3bb",
+      "data/point-economy.js": "29542710135b349815de63e48300a02e720b3007c9d98a50b814e5bee48bb52c",
+      "data/population-config.js": "99470302865bde42c98dd45258dbc27e1378c4eb2f39ef9e5de7b989983d942e",
+      "data/species-taxonomy.js": "ba8733e1bc9df19c7e0962d04b1c0d6ba5f7e8c1a3b031215f25b2bbab66736d",
+      "data/stability-config.js": "22748bc4739aec45afcd4373e29b14a00f8bc48509be93f391d67a78d0c74f68",
+      "data/student-text.js": "dac18175f1ffde6d28ce34f2ccfe0803bcb95224ed44f6d6cd29f1ccf5ba2dc5",
+      "data/survival-config.js": "2c1225eed3c6426b88389c0fe76f3bb9f3fb905196a5a415dbd0ed86d89c572d",
+      "docs/species-art-qa.html": "d1010ce5cf358265cc5f91e13661112c36d3c1cf03ef0387e6a38bcc946ace71",
+      "docs/species-art-references.json": "ed92da4b8b3db9291796b40f289476fc25bb763047fffb3b67fd7de3202b82a2",
+      "index.html": "5652dc46cec03d8369f078d580178eff9663facff7b5302a7a2cbfaa3dce5da7",
+      "js/adapters/guide-preference.js": "07317fde0d789d3c8fa01b6324e44b9b44b005122ff3f8e72457e8ad5480a3a7",
+      "js/adapters/local-storage.js": "b37f719ddbf7a36a463883ee9fed76b27cbee976ec32ac6b9f50be6d0dcfa129",
+      "js/dev/environment-tools.js": "5c985fd81ae9d45907abbe685a3cc37b8ea0b5c8ed4098c0032b35e256283c50",
+      "js/dev/species-tools.js": "a60ab782a25ee2265488139fa87f711364d89ac07eab39e8d809aafeebe09f40",
+      "js/main.js": "a3969428af418860ff044e3ff201c0408f9704ad92ad71e630e042ba248d0d08",
+      "js/services/collection-migration.js": "5e915dad1ecb28dea5374a548caf009497bd82ea4e95c47437569cbc6f321567",
+      "js/services/decomposition-migration.js": "f430bd5be9a5ba696a1f4a9778d70554aea1d5bfaedd32f2e4c5f63f8a5379ea",
+      "js/services/development-migration.js": "b0c8039bed513323b4dea24b6558045789079b62f4543130defcde4599bb724a",
+      "js/services/ecology-migration.js": "43fc307014ce08c02136bc8b39734ff004d62899d9fe47351190f47eaff44e28",
+      "js/services/environment-event-migration.js": "44ecdad818ec8d7e26122ff9be1dcb59e3fbc5b8d29dc0882d48f6809e6d2dc3",
+      "js/services/learning-goal-migration.js": "f5074ce9c58f8e9d6ce392ea22e6ac2ba12e0999f4377af45ad42dab54dfaf5a",
+      "js/services/pacing-migration.js": "e7976f69fc5f6295cc630ce5e3e57b696fd4100c3eb7df3867a03a51303d7677",
+      "js/services/point-economy-migration.js": "f2a54f0664dd3408b415b44bfa3081388a6493008cd887f6796da78554adb9dd",
+      "js/services/progress-summary.js": "a041b232d00a8bc5b597cbebb57ca0889dfa81c7d72a98e807c708f896d95457",
+      "js/services/save-format.js": "401ee9e75d4bbc5e8b7e8a7a6d38f1a6d4c1a4ae3fde0641e5aa643f82e1fd12",
+      "js/services/save-service.js": "e0e95e42036868bff976e83843a908f5ab6638cb09a9cafe4c5dc2565c4cf84e",
+      "js/state/collection-state.js": "a7ca2f8181d9ae3fc64af25e7c1b881de98e0993805cf1632e266556705332b3",
+      "js/state/development-state.js": "b033870ff3fefacbf107fee93df65bd203c38cd3900e470530306ac3bdf1762a",
+      "js/state/environment-event-state.js": "3af0a4133af48e01a9f3f1f51d0d5dd6cc23565168e2e6b2b6c82cfb3ec50fe4",
+      "js/state/game-state.js": "f0893eee321ff34c4cc54971a76269d18c36b0eeaec3ae0fabeabe78c6ba73ca",
+      "js/state/learning-goal-state.js": "7972067a1f3740f370d95308c60e7dc46085908596286367e491be49586ca03a",
+      "js/state/life-state.js": "d038b93a490c03964bf899017fcab76e9eb7fbbaef6cb447de1d36adfbaa23d9",
+      "js/state/organism-instance.js": "5b1caae075eb5450699e2f635af8dbbe53e487582645ebd08bbc50314771a0b8",
+      "js/state/point-economy-state.js": "5868c8584ae380d29db1004820bf86fec7015a746daca2d78c4131dffdaadeb6",
+      "js/systems/activities.js": "bafa609379808beca2ff48e73a000772511c9e63947ecf633c5d828df57beece",
+      "js/systems/activity-rules.js": "f2b222bc5eef393e9072f87f2b478e153b20e68e479135b38074f4618dff33df",
+      "js/systems/decomposition.js": "f52efb90376815982943a92942f91181387dd5d68c91d60762f268fc3f302948",
+      "js/systems/development.js": "3519640d9fdfa125802841694437d0ac90ce90fdb024d470e260d792745b5e58",
+      "js/systems/environment-events.js": "b6571e12983f29de2b6828348c1942b45d2c1c0b00ab8ed5d0716b2a14c01ad0",
+      "js/systems/environment.js": "7f5e13fbf90e4f3711e9314464992810792a76caf3668033e327006bf4703370",
+      "js/systems/events.js": "3d7ada1aa26c8bec7409183b500857dacb0ef87c7dfbded1cc4d630cabac83d3",
+      "js/systems/feeding.js": "ec430c43da02e5f448d4ce6229d24f3d99f34a2ef352ddb8248d87447335f394",
+      "js/systems/food-resources.js": "f51875c4c816181832b28343fa8da1e6539dd6fe8c7a2086b9a5900ef3d4eea0",
+      "js/systems/forest-progress.js": "7868db3d5672aad2baa0069a13d54a6f85679acdb2b6eb6590645401c0d0f994",
+      "js/systems/goal-guidance.js": "a84993892f555c6cc9d91ab1b59b5b754277ffc105e7d93a23eeb5891c658d57",
+      "js/systems/habitat-anchors.js": "8bec60817dc5a98dd6d6454c4871d84270451baf69a134d777293dcf26f3f929",
+      "js/systems/habitat-presentation.js": "3cf3f832e331db0b8c59db370b93e78aaf5d750a45f38974010e68ceb1072de4",
+      "js/systems/learning-goal-guidance.js": "8f1c15119caaa61275422de305c8c6a419969ccb6b55582ad5465d4c2000bb41",
+      "js/systems/learning-goals.js": "942409e9652858c1550749c1eb02f08cefb8f9ebc981a0192ea14939f2ccc398",
+      "js/systems/learning-guidance.js": "4dd8059ce320d1df1e024f1bbc1058ce05e3059cc3357c4c1e7bfec2d893d6a4",
+      "js/systems/lifecycle.js": "2dd9a4b351d2ad1daf802b218e07854beb47f3c798af2f40205b0f70237e05bf",
+      "js/systems/lifespan.js": "5f61ce8df0911766e963980f43a9c5c23e1cba5aa9d4d740e2c63e5b3c500089",
+      "js/systems/management.js": "f5e3dccc05d789797695f32f240f3cfd2ebf0fbd2803ffc480396888dde0d1cb",
+      "js/systems/meal-readiness.js": "0a89c9c8f0f7d75fce35d60cd87806fb1a8bb2aac6fe62b6dc4dbaa487fdd27f",
+      "js/systems/organic-notices.js": "066f2c73f50e682a4998db9f8f870b6f6e50a2e7419ed3f962431acee482c045",
+      "js/systems/placement-rules.js": "8aa8ebde809bf5d8c22b6343d62c84bb9df9ae9929346537bd4bcc875e86105f",
+      "js/systems/placement-target.js": "1ce09b3b34ca4dce576e0afc6c5f5d57fb08afc9ab1debd2a6a931d98a360576",
+      "js/systems/placement.js": "185540f358459f26ab5f195d45dcdb172a9662c6ec39dea25cd33be10a3423a3",
+      "js/systems/point-economy.js": "cb9f9c4d69fd52756554a4845c4de6ac8b122d244e03c8225562084bfa1bd4d6",
+      "js/systems/population.js": "b43ef4479ca222ee854b1a35dff23efa217a70ffe90b2b3377fb9f9165a28c4f",
+      "js/systems/prey-access.js": "298ebe92eeb24f9917860df0f228f3be2fb8d71104a1b700cc222e6ed74217ee",
+      "js/systems/replay.js": "9590ce6eec27d3974625c23367edc0389de3dcc420cd57ab5595d92a9e55611f",
+      "js/systems/rewards.js": "187d0d5484b7349d7935ee0dbcb099f8b68a70fecb163cf8223fbd3ba770c85e",
+      "js/systems/round-care.js": "b91479aaf1f3deecb4a56a01700d942da8b007982bf9f2a89e5d5a70e5ddff90",
+      "js/systems/stability.js": "7ee1720ce9bd5537c65269ca021b200ad4e9bcd6357b6d8d8d993b8b33ad2e24",
+      "js/systems/unlocks.js": "86efc23a4979dd233dc0a3629f282ca9bb7836e65e42f4ec2db880d9ce32103e",
+      "js/systems/update-loop.js": "243dc68c7b3a5ebc365dc905ece11847254616b4338a77ba9ce9339c125d8d57",
+      "js/systems/wander.js": "51ad49f47c09fb424523b6ad7c37fa89c311ac4479294d7faab4899aae73947d",
+      "js/ui/activity-view.js": "6cb497c2438f3ea3f7a48b36a7d99d1ee732103280f560cd5da5f644f52cfb90",
+      "js/ui/collection-dom.js": "00c85b9f2efeccfa74244a595da6009d7cb7b9943e37817926de6abbefb2d9e7",
+      "js/ui/collection-model.js": "78433201ebfe934b2287b2b4a58351d784ab4b851d6352e44098e9dfd4aff35b",
+      "js/ui/collection-view.js": "7948930bff57b29e8842d65993f3fe6c228c76f065b1f9d693067be13af7321c",
+      "js/ui/dialog-pause.js": "b6f73d2713390a4ae676a61d18b7bad806d214caaa60918878c92bc310394c93",
+      "js/ui/environment-panel.js": "1d1c59586978d43713b46fd21d90158bfa8fae1cb49f1f56009435da69307b9e",
+      "js/ui/event-view.js": "66c6138c33d7184a12f6f1dc20846d775033de4c7c963791178fb0621b222018",
+      "js/ui/field-guide-view.js": "8d724e4be79490111a6c23f556a5774bc1fbc3bd7727b36f501d7974a0595c61",
+      "js/ui/food-web-layout.js": "d527092b56456f6da67f6121c3cb94247393373d9861da2b6c1f8126d7bc56e5",
+      "js/ui/food-web-view.js": "2e44e478d75ae6be10ae5bcbfafb8a3974ae509eda90df2ddaa513a5110e5be3",
+      "js/ui/forest-flow.js": "5fea37795c089a5a02da75a52e589dca03befc45c19d9867f6cedf2b1d0aa291",
+      "js/ui/forest-view.js": "0143987d063b8dedf97002b44d5ebb8dcf88c53d33d1fddd6fd2b68bc649079e",
+      "js/ui/help-view.js": "a35b68151cc24eabdd128e8d2462043ec85d02186b3a1d62af7133c0d351e372",
+      "js/ui/learning-goal-view.js": "421695c7f5c95e838e03d1bc21771699b4d0a7810ca78153a27780b77857413d",
+      "js/ui/organism-layer.js": "9e050d5d4affd6fe63cd6108af1e96381ce6a369267e12e20fb505d3403ff9da",
+      "js/ui/point-economy-view.js": "93ba9d783e10d59acda23527eee729c25cab23c271a8e89178fcc464561cdb3f",
+      "js/ui/population-view.js": "c544bf44df2555b31209a4f288ed47d87906639f6029127f142ba374ea8fe725",
+      "js/ui/render.js": "6d85d6af810647f07dbfddad473011f6b3eff1c4ad09ab1bb8f57896d2c68a69",
+      "js/ui/species-visuals.js": "e6c8611c8789b9e0d3abecf7eb6c588d21711958decd0cd59abdf648bc91684b",
+      "js/ui/student-guidance.js": "b35e7baf5b5897448d02fd7c2d2c5c02b779cc8d77d8d3bbaf388f7bc1ab444c",
+      "js/ui/student-status.js": "1f80d9aa5d8a66279c94dbacabd80ed916776ec4e95ce6566f1c86548604341e",
+      "tests/activities.browser.test.cjs": "c536c19fe2a2a5c0a5153bf530a739d70415e9c2d943143bd694fefbe5bfc810",
+      "tests/activities.test.mjs": "3924300726702520f5767eae97e785702de811ffdddf3387a1d594cc9928de03",
+      "tests/balance-fixtures.mjs": "6825d1a5acfa07ee28e219ee066e5e70f9c0e093715f0e166d24b2ee307b1618",
+      "tests/balance.baseline-results.json": "bcd39f04b94c8f6671122c069f9a6076d11cfb0f4c8ad7be1e46cf4e8b59d957",
+      "tests/balance.browser-results.json": "95ecacba5cf191c8425882fff0922c2322635d06eefac74f60f4d67660236353",
+      "tests/balance.browser.test.cjs": "13d54ca83426c8f23ab569672222c5d30a5879999f23003ba627e20c4b342564",
+      "tests/balance.detritus.browser.test-after-results.json": "5f60cbe85a88835c4af370d3d15a67174da6e0998e59ae97f7b0c1c9e0970a8d",
+      "tests/balance.detritus.browser.test-before-results.json": "5f60cbe85a88835c4af370d3d15a67174da6e0998e59ae97f7b0c1c9e0970a8d",
+      "tests/balance.habitat.browser.test-after-results.json": "4936942b4611d66eee524f209f16285a640046c9e508fa55292404ee1132360b",
+      "tests/balance.habitat.browser.test-before-results.json": "4936942b4611d66eee524f209f16285a640046c9e508fa55292404ee1132360b",
+      "tests/balance.long-results.json": "8f8986d17b3dd264c91092b4eb347334ef72c3142922a2e43ad9ef2f5d3bd48a",
+      "tests/balance.long.test.mjs": "f5b03014a1314375d2e676772f685f49e0fbf2552d3e528ba00982b3796f22e5",
+      "tests/balance.pacing.browser.test-after-results.json": "9a85a5807d14ec3b28cc1d374f156c4f0a219f762a1e7ac72258dc45ae1cdfdf",
+      "tests/balance.pacing.browser.test-before-results.json": "9a85a5807d14ec3b28cc1d374f156c4f0a219f762a1e7ac72258dc45ae1cdfdf",
+      "tests/balance.point-economy.browser.test-after-results.json": "25462cfd146eeba7db7c7aabc7ed4b6607c0db0833dbe09ed57b05a90ab578c3",
+      "tests/balance.point-economy.browser.test-before-results.json": "25462cfd146eeba7db7c7aabc7ed4b6607c0db0833dbe09ed57b05a90ab578c3",
+      "tests/balance.replay.browser.test-after-results.json": "30b9e740ecc8ee1cd612de11315ca969dbcde311102833afc6a7acb3375411d4",
+      "tests/balance.replay.browser.test-before-results.json": "30b9e740ecc8ee1cd612de11315ca969dbcde311102833afc6a7acb3375411d4",
+      "tests/balance.test.mjs": "c8d9861be8473b3953d322f616d0fabba8d18ece8f7199c13692ec9fa4ea422e",
+      "tests/balance.validation-results.json": "720817f487e5b2316ee9f2c613627fa0cfb624a5f08aff6b3cfaea7cb2c826ac",
+      "tests/biodiversity-audit.mjs": "4559567e0b8cd767b30ab8c8fa9203e4d76e15a1798faa80a51570ee359b3015",
+      "tests/biodiversity-experiments.mjs": "5a1a68c66c329d995b700901d28df79bbdd86503b8aeaebe8845e36e1b0a618a",
+      "tests/biodiversity-fixtures.mjs": "2b0e799485850d2e7d5a2552fa671635d4ecba19c3a790068de5237425cc3644",
+      "tests/biodiversity-policy-experiments.mjs": "f253c8efe0a8ca64619718389cd995a447d8efbcbc35a3637019f3e8a9a9bc8f",
+      "tests/biodiversity.audit-before-results.json": "604b4e3e3d6bfc109b0f5c27246d58da94e9d9ecc2cd28ef3c8a826d6ebd18a8",
+      "tests/biodiversity.baseline-results.json": "f420a8a6cfce3f1a11b3cc915cdce46ef68b677680916e0fbcbadb03f40e978d",
+      "tests/biodiversity.browser-before-results.json": "a0d04953fc55d303c6bb7c3bfbea1b8c5d454b7ea6f034e2dc0f98cf9cf255b7",
+      "tests/biodiversity.browser-final-results.json": "d83714cbf086fee93fdca580a2a7554a33706738984183660398f39917128c21",
+      "tests/biodiversity.browser-results.json": "6c9a0834ba838270ce01e735dec99ffc6b76574fc1ce2af77120cbf94e81874f",
+      "tests/biodiversity.browser.test.cjs": "006d3fc3a8b58f855575f5dc804d9a31b12fbb30c4bea9afc9e80644494fe69a",
+      "tests/biodiversity.c-results.json": "abd1f3fc10e814c9005694be80cb5b13a0302b1f6878d4f686cb962b127af521",
+      "tests/biodiversity.candidates-results.json": "6e68e3f3e639ef7507a4d72f930bfddd7104755824e19e03cc3a36e9e4c1d80f",
+      "tests/biodiversity.combined-candidates-results.json": "65d1b42f56457ba2bc6cd4809581f6ce23dbaa37a6807243915c371a4ec3d99c",
+      "tests/biodiversity.final-results.json": "72a751c5b1b9ff79987bb6218ceccd6553cdb442d1fbd9acc80e08908f19673d",
+      "tests/biodiversity.intermediate14-results.json": "0c1adaa9de43c0c708c68b75a11a084f49039872343a7177524693265163c8a5",
+      "tests/biodiversity.long-results.json": "71dbbebff287b625e83ee05918638a2bf363f764ed2d5cbd5d18f35e14832583",
+      "tests/biodiversity.long.test.mjs": "1afc642a38c0e14ab077f19e8096d0cde0f8376a745baa953d5fe2842b81cfc8",
+      "tests/biodiversity.refuge-candidates-results.json": "76a3a9a97f9ab2a60de621d94ead19fc9d1e802caf484531d50b881ddd821265",
+      "tests/biodiversity.reproduction-only-results.json": "00e2aed5562d0f288644cb87efdf54c252fbc6bdfb963e36ef6386d7e89b8fb2",
+      "tests/biodiversity.results.json": "cf7ae29179acb5fb2e42d8b466b18d7b5a8c1edf56525b56e96521e040a938b1",
+      "tests/biodiversity.saved16-before.json": "ae21f5b27d5dfbe8f6438e0a43f641dc3e32497139653a121ce2e6e521940a59",
+      "tests/biodiversity.test.mjs": "4fa8c3d44dc186754f7a3e8d30a87c419655733c2061c67e61311dd12aabccff",
+      "tests/biodiversity.validation-results.json": "7579915cb347b774df54c4ae4782857454d5b4667876b2ee34deed381652244d",
+      "tests/browser.test.cjs": "4f3b8f791673260dd6effc9bf0a4f6c79ab3a04e239ef4a946602fd5d4c71820",
+      "tests/detritus-save.test.mjs": "49aea5d277f7c9031614db83fe09d1404c9feeab3ee7689d398bac5c95ccdb4f",
+      "tests/detritus.browser-results.json": "46140d6650edc7d6f4ebde289c8b8a914390a981c525352bd9d423a1e794b75d",
+      "tests/detritus.browser.test.cjs": "e065fedf00e32ea3d23c866d253c1c6547330f78a48bfdd88484b9e89211b3ae",
+      "tests/detritus.long-results.json": "9c43019a0818d5a3dcce45fbf5ba9ac509718f61bec254f76509fb01c97112ab",
+      "tests/detritus.long.test.mjs": "9798108766eef6702e6865fe29c031f2b5b259b5ed1e4dd1799e8ecd6c517688",
+      "tests/detritus.test.mjs": "07405ef364b69a46dce6f4b53a6a74908570c097ae26c51da82880979fecf730",
+      "tests/development-save.test.mjs": "ca5c8f06f9ff7b9ad47d57ea3db56c33c22061e581bc2a30b7a0e5b1ca8f67f5",
+      "tests/development.browser.test.cjs": "1e88fec3df2e7c130ac601b87442f1ca3a53258680bbfbc02b3b4aada1687c40",
+      "tests/development.long.test.mjs": "9ef1db332bc029ae05bd5e0652788c8e887320f00d2f7cf3323911b45dae47cd",
+      "tests/development.test.mjs": "6a631bb184fbef676bccff31899347ab8340f19937cd0277a564faafc7a0a91b",
+      "tests/ecology-fixtures.mjs": "4ac116ce294263081acaed048d6753a4ac5dabf2213a3ab625fc9335e7026100",
+      "tests/ecology.long.test.mjs": "bef9dad8f11a1edd3d46600591b20ad801b3d9018866b5c764535bee16701c18",
+      "tests/ecology.test.mjs": "8ac03949b9910d4ee618a50a0c430ff252f1c5c57d11f66d5d92d04a88130e68",
+      "tests/environment-events-save.test.mjs": "cd640ddc5a34119c30c866a609ebc17d511a20b27192ac0b84621274cdcb5701",
+      "tests/environment-events.browser.test.cjs": "253ea4aea32126d68c86a541a51fe11d8529d245dc784cd8896212954d4c1f81",
+      "tests/environment-events.long-results.json": "de693f21df92d2b742e83253af864435a574422dffaf022a3b2634c9dc9f7b58",
+      "tests/environment-events.long.test.mjs": "2c6e15d657d0b24fff75b1262854b1875ca235a2b8d7a107a990c3c46ea87e85",
+      "tests/environment-events.test.mjs": "2a22f53a9ab73f9722e038c31134f2ae0294173dc0caf167b9b172ce1169699b",
+      "tests/environment.browser.test.cjs": "fea8e805a5a62d3e5ad133f8400dd23e6b7e706bea7d440f4861f554dc7421c4",
+      "tests/environment.test.mjs": "027d1baea35053ae53a6ec7d57428f900a1579cb5d99ded3fecfe70892cdb52b",
+      "tests/events.browser.test.cjs": "e8c20ddec4d105dace1e09f5c2f2ba06aa894826c8ab9f7642d6a559106b4fcf",
+      "tests/events.test.mjs": "98b245842ffbb22169eca256d9e4a4ce043482d9263e492144bd0d5bf20b1d82",
+      "tests/feeding-audit.browser-results.json": "3e32c3d13ee7a130f7868b10c7273554034e74f17ad02071d3ffe8d6d6fd3ade",
+      "tests/feeding-audit.browser.test.cjs": "f5d8b98751a64738043d8dae4572b038dfdcf97ba02ca790b896554c0d910caa",
+      "tests/feeding-audit.long-results.json": "940057c172335eede7968a54f08df4cbde28b2d2f0a63075c7253c2abbf86b3e",
+      "tests/feeding-audit.long.test.mjs": "74046236791dbb38aef722c72f73a2cd4bf8b2f76e737c172db9c93601558320",
+      "tests/feeding-audit.motion-results.json": "78921b9808506daf51cd45e05f2f1f0a706b1227f55941cd8b5f7f567890f296",
+      "tests/feeding-audit.regression-results.json": "f8106b4bf2e784a309307122a84ea9fcf2b500701ef8c94c65e84c5f90b33167",
+      "tests/feeding-audit.results.json": "b07892b359ea3abf852018fc9f8a2793c7cdf9a60ed425a561eef69388a76735",
+      "tests/feeding-audit.test.mjs": "73ed8899b3a42071819833531dec7b3dbde9f861b2659d7f9aee726aeb72b474",
+      "tests/feeding-audit.validation-results.json": "113f348e51d794b6b09fd99572ae5662e178952e77c77914762be0480c768520",
+      "tests/feeding.browser.test.cjs": "f3b4af78099a5e09505d584cd74627a0616f648349b0b6a72fc20f221be350ec",
+      "tests/feeding.test.mjs": "9427f53a1c47175cd8eeb43e64c4ce0341d5f41338d5445bbc83a044646ac9f3",
+      "tests/field-guide-baseline-loader.mjs": "8f2469566b0d988ad4369544bbd2134ea2c72288b8ee8088ec99b71c54c2df4e",
+      "tests/field-guide-baseline-register.mjs": "6942d13de1551e4ff9f43f550b675e14dcce8408718c7e15456528d2745f7a66",
+      "tests/field-guide-ecology.mjs": "9d9bdc83a8f2e022e74317daa26ab1b064101e86eeb13890421a298bd2c85fe7",
+      "tests/field-guide.baseline-results.json": "3238b9048fcba0ad7b8ef3ab615df3f440a9b29b3f2f050f8febf8e6c77c10d4",
+      "tests/field-guide.browser-results.json": "518b73d3a8e917ea9f444851cefb97d149135616e5ef0d7ebe96f919744bf1d0",
+      "tests/field-guide.browser.cjs": "42697b812d960c276fcd6ecd7d221503a60c6247cbd1aec192f17526f91679b6",
+      "tests/field-guide.discovery-results.json": "a33fed764d92413a747596c95c7120e05fd612399a1db0a170ddc05ea3129990",
+      "tests/field-guide.discovery.browser.cjs": "460daac2be8ba2f9f3053db5223716a0e7755fdec9375043dd168392349aee76",
+      "tests/field-guide.ecology-results.json": "3b6952517d0efa3de1e146864fafcf2533703f3bd99f5ff7ae0d90b4b6605452",
+      "tests/field-guide.regression-results.json": "8f39d453ce8aea8dad35e3ae6beed05f7e1e1176c065806fde0ed76478bbff98",
+      "tests/field-guide.test.mjs": "4f45d27e8a6a20b943f4d04bd4efd1e509ca7aef5997f01994de80fe053c9f5f",
+      "tests/fixtures.cjs": "075abda46e0b057a8827f328a7cd4174aec4af57406489c3573259af989f7708",
+      "tests/food-expansion-fixtures.mjs": "daa6b54710541240140b35a9987af25cd4f2a53fab4770199a230d73967062a5",
+      "tests/food-expansion.baseline-results.json": "bc6e3b2797e3da7bea1a8f441a42fd1395ab69cf0edcda00f6c3392f801759c3",
+      "tests/food-expansion.browser-after-results.json": "e7c064d4ffe5331e60a13199f8db384ff2f6632aefe6d4ad1a7a09027750fd47",
+      "tests/food-expansion.browser-before-results.json": "9be01bd50c4b37bb2933856d901da8d9d146bb9615bdb214147cae8eb1903540",
+      "tests/food-expansion.browser-results.json": "be774b188d4c2f2dedd09ca983b948b2a1f9c8df48ca87c78d60f84cb1155c71",
+      "tests/food-expansion.browser.test.cjs": "e240796c7795232bf0a1f6e519de8f323adcd4ca61bd320d39d8828ee806990c",
+      "tests/food-expansion.long-results.json": "b71bb8d7131cb15b96d8939c296cb3717211a4023e0af0dd78d03a4c47137023",
+      "tests/food-expansion.long.test.mjs": "f662e31729f751445ec587c60adbf653b0b974d7e055e6d21060312cc0adf9bc",
+      "tests/food-expansion.motion-results.json": "0ba161e7a3264030da5d39b30b0b66d7994533fd2aa8b10e484342defd9f59a7",
+      "tests/food-expansion.motion.test.mjs": "f281361a708a739cf83e90945101fa77e13b4f9b20d24b49f9cc62475c05d006",
+      "tests/food-expansion.results.json": "848202c514b66ea6a12aa5fea8a8c4a2cb8bd9df017c67f8193f67a99d15f421",
+      "tests/food-expansion.test.mjs": "ec35cb42072e0845ea11674cfd409318ddbc823054baf00768e56a9b46ab80d6",
+      "tests/food-expansion.validation-results.json": "8a6477df41f88686f3dcecc979189aee7c751de0b22510858dd53c8b68a1bad4",
+      "tests/food-web.browser.test.cjs": "e742ddcbb5cbfb43017af5a285ad5cfa03557a98f532aa5082a5085eacbcd046",
+      "tests/food-web.test.mjs": "c7ca2401620da3783fcd0264262d18f9102928f4c48a173d00bbc202230e0662",
+      "tests/full-forest-baseline-loader.mjs": "3579651f7330de09aea7fc56b196067d5b2db69d92b3e6488bbc78087c313a8d",
+      "tests/full-forest-baseline-register.mjs": "b75e5ceb505c7bd57e983efda12ac6a31d4b3f4876bc949d6feca8d7593df6fe",
+      "tests/full-forest.baseline-results.json": "093cc5faf1c3d1aad0140485d187809e94420a1bb32f2740910eaae90d952844",
+      "tests/full-forest.browser-results.json": "8f16ed19a1c42d1c6b9eba882492640bf789c525e41526a8f85bc6eeab292af5",
+      "tests/full-forest.browser.cjs": "20d3f7786a2372b23e6d4c4be5ae97277b4a1d77f8a21c1f5719db4a3aa2d0cb",
+      "tests/full-forest.ecology-results.json": "a0251f2b2c75551b36d499d2450f082329357a76d0f11ca5e747f65f218e7e56",
+      "tests/full-forest.ecology.mjs": "7a7926719258fde6262407d686cd588d135fbd272fdcb34702cf45081fd2880d",
+      "tests/full-forest.geometry-results.json": "72b9b17322c99537ea8cf31bee491a99b9cceed5f97f94f9c5a7ec7358211a84",
+      "tests/full-forest.long-results.json": "9536d17704dcf030eeabb6b4e8510a511bcf0f981d52d58abd3b1a2daa443af0",
+      "tests/full-forest.long.test.mjs": "e098db6d587cf177ef3993a552ee01ee678a415c5bd5bbd8b48c9337e16d968b",
+      "tests/full-forest.regression-results.json": "3a47d67a4cc87646472be51eb5f9f3ee394aa607c1218557a9d5831eb967e6b3",
+      "tests/full-forest.test.mjs": "57a9ca485536862b759232a1b939b7fdb5b70a434d61f49f620f6f1397a3b4f7",
+      "tests/full-forest.unit-results.json": "66d20d1773f20f2c1b300e6f54e7fd9b8ac7124502c02b11657af0a971989c53",
+      "tests/guidance.browser.test.cjs": "f0ebab021b8c9736bcc092b3ac4ef5f8d211b1bd82e6a2dffc32de17aa3587d7",
+      "tests/guidance.test.mjs": "4a553f57740ffff8f02eb4ce55b5fa678b9f2b6a9bd4e026a9551f5d71daf86c",
+      "tests/habitat.baseline-results.json": "03378e280ae4e7cfd47f443b1bfdf0ecb3fb7c4eb62acbf2b2b6d11d2dfd49ad",
+      "tests/habitat.browser-fixtures.cjs": "1e78fa0db09f710b39ed2d33603bfebfc30a4ce24aa142f057bb57f79b878035",
+      "tests/habitat.browser-results.json": "4b48373fb024e66f138e7685674a7f63a1ae008c28119f88687d8c7d5cbf7514",
+      "tests/habitat.browser.test.cjs": "fb2a62992b7cb73b86c1dcc0f374a40488b59fae658127843e128338e4c10290",
+      "tests/habitat.detritus-browser-results.json": "5f60cbe85a88835c4af370d3d15a67174da6e0998e59ae97f7b0c1c9e0970a8d",
+      "tests/habitat.long-results.json": "ce0b3da8ebd7369fa09c1a4efdd50a8e803ee77bf98b8916b25d4e7e616181ca",
+      "tests/habitat.long.test.mjs": "53e8858b572f9106e530675b75b4e8db710c1c851f3f967c825c5f7054dd079e",
+      "tests/habitat.pacing-browser-results.json": "62f6549d4ac70d11d171fe0e80426fa12365d83c6846bb66b6f5c7436068178f",
+      "tests/habitat.point-economy-browser-results.json": "25462cfd146eeba7db7c7aabc7ed4b6607c0db0833dbe09ed57b05a90ab578c3",
+      "tests/habitat.test.mjs": "c5fbb3f9d5b2bc48da4ac9a81e10df284a1f1097242bdf8233636ef65729113a",
+      "tests/habitat.visibility-results.json": "e80c977a98729032a37f53c979f4372e7bd52603a67fd5073390d027dc2d5ec1",
+      "tests/learning-goal-fixtures.mjs": "03c3ded5f02c76036b053ddd63e97ecb37413c1ea64bcd052b33b54cf4486524",
+      "tests/learning-goal.browser.cjs": "cb58f0ba091aa9b1502ad6d539f294e4b372ffe6956e89ed0bbda8778d7f0955",
+      "tests/learning-goal.controls-results.json": "e40725ca77ac3200349ed04ee4619e36b05f09519a3016546a8ea0870a4a9547",
+      "tests/learning-goal.controls.browser.cjs": "3a029ef456411a1edb0178eb14c5640e7031630512426be4ed3847de3be646b6",
+      "tests/learning-goal.models-results.json": "533fa01a9cff01f6295571f8de41184ac728aa0b469bc74849b63a945ff4b27f",
+      "tests/learning-goal.optimized-results.json": "b96e53f772173778fa66c3573d37f6e3177e9ca263eead7a8a6108dc28005520",
+      "tests/learning-goal.realtime-results.json": "537c68b241057cbcfe4f9d2b76f9ef1599740e1ce5b38a33f02d6bd77d643867",
+      "tests/learning-goal.regression-results.json": "b35e8a37c5fa67ebbbb5074ca8a2f869d4668875cb669fdfc6403150f3dfc734",
+      "tests/learning-goal.repeat-results.json": "0943b83f691c8e891b5f3437dfe5e74c63e68c845a4598173bf03b8318296c8d",
+      "tests/learning-goal.repeat.browser.cjs": "8bfac67b5abdcb7257ab43645433a07ba4a59e105a183272eb6278cdcefcf296",
+      "tests/learning-goal.test.mjs": "f0d0ed431f5b6702fb3e4276edf52be70f5e69303635dc3e4e6261770f4ea233",
+      "tests/legacy-browser.cjs": "f83225c1c8ca5cdb16e558825f5b8032cf106cfaf566d64a954bd803197ac3c5",
+      "tests/legacy-goal-loader.mjs": "7689ddcde664ffb48919783785397bf8c187360791ef0a98c3e1177880ec9ff0",
+      "tests/legacy-goal-register.mjs": "2dc1580587a38bb84d1adc968347d0b0d7d33f7cc92b3cf33c476baabade9eb1",
+      "tests/legacy-goal-snapshot.mjs": "919c85fc298dd0675f0f7f751901ff47f840eb19e1381370a30d2fb8381d49fb",
+      "tests/lifespan.browser.test.cjs": "d00b8b27ca9ff1d74601e29e6277e0fc1ae70ba2deb0866e1bf2bab00ef718b2",
+      "tests/lifespan.long.test.mjs": "d1650b7d8e049c2b0fff2c550dca403333b193d5b94877ddf1124aefe32ae261",
+      "tests/lifespan.test.mjs": "ef69a818a384907c29202d0d077a3274cd885999475c77a85a60089165f2104b",
+      "tests/logic.test.mjs": "c8aca77e7278a0680bd0c0cbfaaa1fbb5ed99e31e8a0017c875d509973ba857c",
+      "tests/management.browser.test.cjs": "857f408195350ca3a896b32f76ec9e2fe08b705a4c63247e4e9c900a93dc40fc",
+      "tests/management.test.mjs": "59e1b4d804041d732f947c40960518e94169935378a3a3d31b2e47d16d136eae",
+      "tests/original-food-web-loader.mjs": "6b39caa7da42c028697ce2da405d909187dbbe0162bdd3f1d8d37937175a4103",
+      "tests/original-food-web-register.mjs": "296af4aa232fd8b9df88687e2d7f5a5e6618020fc88ff7bdd0ecc2c11c922666",
+      "tests/original-pacing-loader.mjs": "b991a83faf5e5b1137ea42ad9a71380db1d0a10cce68fc6468e51496d66a146d",
+      "tests/original-pacing-register.mjs": "6ccbf6ccc5392aa8fa56d5f65aa602056b8a610af13b300eb4c82f5edb14d389",
+      "tests/original-placement-loader.mjs": "7c5c43401a6f0f15d086eea519b60b555e270ecb99806f4dae92aa4b70297bf4",
+      "tests/original-placement-register.mjs": "71a69a1ab2d02265dd5f9b9970d239cfa86ebbc1d64e778fda15a126bd0abc45",
+      "tests/original-survival-loader.mjs": "3c5c25a6a3915c17685223f63e6a2561c0cd3351574671d418779975591c581a",
+      "tests/original-survival-register.mjs": "e6e60242eaf6aec170210df6334edea2b6df33af33f01feed279a9f1684ce59f",
+      "tests/pacing-fixtures.mjs": "64081ccb3f5c99ff4a148df0aaf599b8c634e90a118e6e4357b934c28386fcbf",
+      "tests/pacing.baseline-results.json": "ba68ac25c3fac38c9a018797e10e1e4f9b96773f552f24348231af8f6b092d95",
+      "tests/pacing.browser-results.json": "9a85a5807d14ec3b28cc1d374f156c4f0a219f762a1e7ac72258dc45ae1cdfdf",
+      "tests/pacing.browser.test.cjs": "2ab777fa03fb6bdb3b3a951b3d89e4b46ea4321a21fce49d00af244bc8a5a029",
+      "tests/pacing.detritus-browser-results.json": "a1eeaabdee40f756d72edb7bb36de4f091dc0aaa53bea86ca504fafee6817756",
+      "tests/pacing.economy-browser-results.json": "25462cfd146eeba7db7c7aabc7ed4b6607c0db0833dbe09ed57b05a90ab578c3",
+      "tests/pacing.legacy-fixtures.json": "f12165159fd3ceadbb266bdcf064a417bc149a93aa88e622329b3a9286667a38",
+      "tests/pacing.long-results.json": "4166a5e645dde7f3dcf32e52ac19b216d5b34a1040c7effc505f9c11c709a0d8",
+      "tests/pacing.long.test.mjs": "4b499b3fa57037b65704e0698e482a2f44fdc7a59d5b4983d027ed4ea92c5224",
+      "tests/pacing.test.mjs": "9a4cf4f231287c6ed1286e967ba92ae3a5e44602a276de650e2c025aee2772fb",
+      "tests/persistence.browser.test.cjs": "84825916b1ba07ac1c126cbdde0b968ed7d1c6740ada37abc0cd74c59bf9a4e8",
+      "tests/persistence.test.mjs": "dd81083ee4b709387ac1a07fbcd60be7bf8d8384675909845d71a1157e93b1fa",
+      "tests/point-economy-baseline-results.json": "a04a020d24776f92bcc907e27e0364dd4672d80759f60d6a2340373abccfdf01",
+      "tests/point-economy-baseline.mjs": "9bf631bf0ac8cfad8ce288e378a7bbb846fedebc05181be0e9be5a66d9e5659d",
+      "tests/point-economy-fixtures.mjs": "355f3b6e83fdad88311490595ba10c4f26176cad32c1e01ddb10339b8a224e01",
+      "tests/point-economy-save.test.mjs": "32653e995de7f82e6fc250de4ea18d82597271286cd83dd4babd9c1b347c4973",
+      "tests/point-economy.browser-results.json": "42c33714ca13d17273e068744d66dc8e87ab36a70a0a95a5d922649aa2751f4b",
+      "tests/point-economy.browser.test.cjs": "67f8a9495360d2b89a03b0fdfc882d336dd4b12541f3b224b77c556369aa6b0a",
+      "tests/point-economy.long-results.json": "6b3c04746c70e8164434bd0c422933319eb5bca17a781eb58a494b6a5723c849",
+      "tests/point-economy.long.test.mjs": "5c64a9006fb4549803ba6e15377a61f0a6837c7146b2ad6930e15b26e4099dae",
+      "tests/point-economy.test.mjs": "34d8aad244eebcb1012e3196dea4bd31b0cc5a23e1c251980081f2ad1a09cb8a",
+      "tests/population.browser.test.cjs": "c21a473e7b4f8e35fa9458b879bd18d430ada109c38c03932b9029349d470463",
+      "tests/population.test.mjs": "c8d470dbc4e2a06ba6f82eda2264477917088547debe54a21cb3df71f846a8b0",
+      "tests/replay-fixtures.mjs": "197e5416c2f684f26303f2ac7f6f6ad2283c262342ae9569551343dc2e531e16",
+      "tests/replay.browser-results.json": "30b9e740ecc8ee1cd612de11315ca969dbcde311102833afc6a7acb3375411d4",
+      "tests/replay.browser.test.cjs": "ca1871d425b76ca4c015c990e6c97565d80507c83777221056dff1000714caab",
+      "tests/replay.detritus-browser-results.json": "a1eeaabdee40f756d72edb7bb36de4f091dc0aaa53bea86ca504fafee6817756",
+      "tests/replay.habitat-browser-results.json": "4936942b4611d66eee524f209f16285a640046c9e508fa55292404ee1132360b",
+      "tests/replay.long-results.json": "b8ab272995de9ff39df6a26b86128166d3eb67c89ddd8202586ffe0c0228d446",
+      "tests/replay.long.test.mjs": "b78b58c9132d52af196c3daef6d35a2e195fa8e120e30772464d94c3f6ff41d3",
+      "tests/replay.pacing-browser-results.json": "9a85a5807d14ec3b28cc1d374f156c4f0a219f762a1e7ac72258dc45ae1cdfdf",
+      "tests/replay.point-economy-browser-results.json": "2c2d78f1cb5f6e9dce58582a33f9ed301e9a41b2a9392c07d70816047a8a0d1e",
+      "tests/replay.test.mjs": "f591ff921cec991ca203e9b8434fb341a3e1708d783256d7e6014022dd52c52f",
+      "tests/replay.validation-results.json": "c22eb3593824d04de8255a4ab3306891abc728b6a1f0e656948efa5c7bc3e606",
+      "tests/result-output.mjs": "368d84d51e5de81d916e74721da304ec7d4afbcd51225f8b3a1eb1c08cad34ae",
+      "tests/run-tests.mjs": "f02cd7822659494cea400aa197d5a8b9cee8cd6bbf497afba40584a01a56cf07",
+      "tests/spatial-fixtures.mjs": "48bbfd8d18736c34424819076a5424788a783bec8c023afc3beaaa7cfb0b2be8",
+      "tests/spatial.balance.browser.test-results.json": "95ecacba5cf191c8425882fff0922c2322635d06eefac74f60f4d67660236353",
+      "tests/spatial.baseline-results.json": "f30c607145868737ab64e778b9d96702307d415b7ff761f2cca6ee5bacf1524d",
+      "tests/spatial.browser-fixtures.cjs": "b96430f3f6dfad01e71c4e7af91b9c8478737d0ad0b9a013c5c6c51948f03975",
+      "tests/spatial.browser-results.json": "91cb51a9304551788fbfd5e0fa0a91860f24f8345415ec6168d7f86f147a1d88",
+      "tests/spatial.browser.test.cjs": "dc96084a7e86f86bf6c484f45834de6ea92cfb6a7b82f725fd021162b58390fa",
+      "tests/spatial.detritus.browser.test-results.json": "93987eeda9b9fee86756406e425775bcc41dfe9018662977f88957e2d3ca7b29",
+      "tests/spatial.ecology-baseline-results.json": "7114d6e96a043b728af9e80f21d6494c1fefa928641c405d4559f01a9b49cf0d",
+      "tests/spatial.habitat.browser.test-results.json": "9c5be3ca3acdf3b10c5bab5ff3d788051ff2988d1261f846bfeff5e226653e7f",
+      "tests/spatial.long-results.json": "992c2693826feb8ee6baa14b1ff7c074d53df10a6dad3cab9887004bab17d2a7",
+      "tests/spatial.long.test.mjs": "8ce920707620f58dad152c9b5d3625040c05fc1efeccf98ff2b7d30b6736216c",
+      "tests/spatial.pacing.browser.test-results.json": "62f6549d4ac70d11d171fe0e80426fa12365d83c6846bb66b6f5c7436068178f",
+      "tests/spatial.point-economy.browser.test-results.json": "25462cfd146eeba7db7c7aabc7ed4b6607c0db0833dbe09ed57b05a90ab578c3",
+      "tests/spatial.replay.browser.test-results.json": "30b9e740ecc8ee1cd612de11315ca969dbcde311102833afc6a7acb3375411d4",
+      "tests/spatial.validation-results.json": "b0c7a19dc52c62d0b5672ca261f21b443a65d49c6ae423c4768f0998f84a08aa",
+      "tests/species-art.browser-results.json": "1d36a9d083a03406227bcbed6f047c179c4e2eda0223710667025b8d16895702",
+      "tests/species-art.browser.cjs": "f9e015d9c9b019f900d663756490a3b21ecf72df6aeab5e7342991896e982d92",
+      "tests/species-art.ecology-results.json": "7f49539987e158dded65fc09f10403611eec406bc49fdd4a919827380fadf996",
+      "tests/species-art.regression-results.json": "d627986624e2b209f73c42848fc7ef3643d8bbcf2f7fb867df0262c9e57ff710",
+      "tests/species-art.test.mjs": "428bc9f1cbc76195d67a1e503ea5de8da23b22f7753f05bc602a5774acdb21c8",
+      "tests/student-ux.before-results.json": "73bed5dc9c74ba40e543d422c2e401fad77bd287fa187285e1a3ce7d10f8d652",
+      "tests/student-ux.browser-results.json": "51c6111c1d17b4c804dc7e9c5d6b41c993131fdafd9349417b9600a71f24846a",
+      "tests/student-ux.browser.cjs": "5c896daf3eb6552a13cc229bccf9b9a7ca66bd923e250861495e741ab57b8781",
+      "tests/student-ux.ecology-results.json": "d0fa8cba4516b6b04720aa517864aa99e01992d2384047a2d8325988358274e4",
+      "tests/student-ux.ecology.mjs": "f5b854690dc72755f3770d17bd1f87bd7826b70772244fa6136857b15472e5d5",
+      "tests/student-ux.placement-results.json": "187c97db6324bd75c6591d9868135dde6015a372a7129e0ea6d132849b6f0795",
+      "tests/student-ux.regression-results.json": "08ded1bb6629d29449d623c41ef3f648a1ab78437da589730c52c7497fe1ee27",
+      "tests/student-ux.test.mjs": "caf5d1ce0ec3799b67822a2f86330884e7d1acda38cf209c6854446a7413677e",
+      "tests/ux-audit.mjs": "e6ee6afeb3b02f15bca62ccb14f04c4ae7e00f5ac381d510ff54b4a9bb41392f",
+      "tests/ux-browser-helpers.cjs": "d971aefe5c5c9c72ac9b77ce05229a9c9810ec5dee5d2d02bbd575802bed68cd",
+      "tests/ux.audit-results.json": "0aa75e791ca193bebaee59053ef2154493a22491e3496f6ff70c8a1edf2b103b",
+      "tests/ux.browser-regression-results.json": "764cb09dc4cff00ec4fe327fb524ce4b0221e579a20e89ff65f286c684a31552",
+      "tests/ux.browser-results.json": "cbd6b4a1a0f1f6fa1e4c03e35ecb5de7cff4398f48d5497642e58fb89a364def",
+      "tests/ux.browser.test.cjs": "f16a9540c157ac2a10d0638f9c96a587023e04e928d196841fcc8f791a726138",
+      "tests/ux.flow-baseline.json": "5dfa0bb2ece564a9e963b183068c4c3ce7e4648da46474488d69cf7c257ddcc2",
+      "tests/ux.full-flow-results.json": "20374e31d5bd8aba5c1f69be8bbf8659d7d2f02c77173d95cd5b009bfca4c53b",
+      "tests/ux.full-flow.browser.test.cjs": "3552e5427c2bf8bcb65c2050ec82a14de57df83a6ef42b5c02057ca3d8f9d61c",
+      "tests/ux.prior-result-hashes.json": "314491529b7738fd1bef7bfdd661ade54798473ece7bdbd56b8ee32552de7a96",
+      "tests/ux.realtime-continuous-checkpoint.json": "784f1f64ab8aa1b80f359db75177d01cfbe74493a2550375aac0641f23e5b7b7",
+      "tests/ux.realtime-results.json": "0df6ea56c6112be702074fdc15c70e8f36a982a27c4b4f40f77b46d4e1e75ea9",
+      "tests/ux.realtime-split-checkpoint.json": "f605691f9ab26c4f5656d25d892351c6891858520ba2203936a94e0dae64c5a5",
+      "tests/ux.realtime.browser.cjs": "04464f3111fbb9323deb7af36a7e5d13e07704b3529eaec57a478bf2fa182c3e",
+      "tests/ux.resume-tail.browser.cjs": "8016d6acd08d7596459c0e008649d7e92d663f5003bcf784083fb65ca1cbb2b7",
+      "tests/ux.test.mjs": "d1b0678e817e654ade2f70b48b8498e8e6bfa1c3b2250142adc8037609444b70",
+      "tests/ux.validation-results.json": "7bfe33030a76cd72b19a1d7131c1b943d5a937404d0b8a6798b8618b8e7df799",
+      "tests/visual-assets.browser-results.json": "2d45a4b981452cb6ec4cb6baf5fd3030b3b4a8fc089c99c9e1e60c2fad6a9ede",
+      "tests/visual-assets.browser.cjs": "7417b22cdd81f27e73cf448c4de797c5de49d8f57b3b293bc216adce8ccc9055",
+      "tests/visual-assets.ecology-results.json": "155fd578113976419b31ef6fa8da357ac24fffc8cf28b37127c66c1d9ef1337b",
+      "tests/visual-assets.regression-results.json": "1fa34b5fbb097c9120792b6c88c93a00702c93f5bf0af626cc943a94ab50054d",
+      "tests/visual-assets.test.mjs": "085f245f894d63fac2ad79068f29abaf08f2af55c98435dc6143f571e9d3e28a",
+      "tests/visual-fixtures.mjs": "c9d5630b7f1a8f5a3cd3f739986b079cd157938cc4ec735aace03a164e69193c",
+      "tools/build-species-art.mjs": "52440dc446bac62ad0ca117cce41693f176a9615cd3a640bdabdc86846517612",
+      "tools/species-art-shapes.mjs": "9d54335846c1ea5f9aeb7c5c7ec32e2142f02a3a1b937cc6b67c4782bc971615"
+    }
+  },
+  "contracts": {
+    "species": 24,
+    "foodRelations": 27,
+    "maxPopulation": 30,
+    "schemaVersion": 17,
+    "ecologyRevision": 2,
+    "pacingRevision": 1,
+    "goalRevisions": [
+      1,
+      2
+    ],
+    "saveKey": "eco-system:forest-save",
+    "wormSeconds": [
+      120,
+      3
+    ]
+  },
+  "transientFailures": {
+    "unit": "Initial run had one obsolete old-tree-string assertion; corrected the asset check and reran all1528 successfully. No domain assertion was removed.",
+    "browser": "First attempt after interruption had ERR_CONNECTION_REFUSED because local preview server had stopped. Restarted only that server; final31 suites all pass."
+  },
+  "performance": {
+    "method": "PC Edge/Chromium synthetic decode and cached canvas draw,11 samples; not real game FPS,tablet GPU,energy or memory measurement.",
+    "actualS5e": false,
+    "sizes": {
+      "before": {
+        "bytes": 6856,
+        "gzipBytes": 2704
+      },
+      "after": {
+        "bytes": 18039,
+        "gzipBytes": 6946
+      }
+    },
+    "raster": [
+      {
+        "width": 1238,
+        "height": 333,
+        "before": {
+          "medianDecodeMs": 1.5999999998603016,
+          "medianCachedDrawMs": 2.001999999997206,
+          "samples": 11,
+          "drawsPerSample": 50
+        },
+        "after": {
+          "medianDecodeMs": 1.8999999999068677,
+          "medianCachedDrawMs": 3.0739999999990686,
+          "samples": 11,
+          "drawsPerSample": 50
+        }
+      },
+      {
+        "width": 1096,
+        "height": 247,
+        "before": {
+          "medianDecodeMs": 1.5,
+          "medianCachedDrawMs": 1.498000000002794,
+          "samples": 11,
+          "drawsPerSample": 50
+        },
+        "after": {
+          "medianDecodeMs": 1.8000000000465661,
+          "medianCachedDrawMs": 2.4039999999990687,
+          "samples": 11,
+          "drawsPerSample": 50
+        }
+      },
+      {
+        "width": 930,
+        "height": 224,
+        "before": {
+          "medianDecodeMs": 1.5999999998603016,
+          "medianCachedDrawMs": 1.261999999997206,
+          "samples": 11,
+          "drawsPerSample": 50
+        },
+        "after": {
+          "medianDecodeMs": 1.8999999999068677,
+          "medianCachedDrawMs": 2.05,
+          "samples": 11,
+          "drawsPerSample": 50
+        }
+      },
+      {
+        "width": 1324,
+        "height": 301,
+        "before": {
+          "medianDecodeMs": 1.5999999998603016,
+          "medianCachedDrawMs": 1.918000000002794,
+          "samples": 11,
+          "drawsPerSample": 50
+        },
+        "after": {
+          "medianDecodeMs": 1.8999999999068677,
+          "medianCachedDrawMs": 2.93,
+          "samples": 11,
+          "drawsPerSample": 50
+        }
+      },
+      {
+        "width": 390,
+        "height": 378,
+        "before": {
+          "medianDecodeMs": 1.5,
+          "medianCachedDrawMs": 1.05,
+          "samples": 11,
+          "drawsPerSample": 50
+        },
+        "after": {
+          "medianDecodeMs": 2,
+          "medianCachedDrawMs": 1.75,
+          "samples": 11,
+          "drawsPerSample": 50
+        }
+      }
+    ],
+    "qa": {
+      "images": 16,
+      "scenes": 7,
+      "views": [
+        {
+          "width": 1280,
+          "height": 800,
+          "horizontalOverflow": false
+        },
+        {
+          "width": 1138,
+          "height": 712,
+          "horizontalOverflow": false
+        },
+        {
+          "width": 960,
+          "height": 600,
+          "horizontalOverflow": false
+        },
+        {
+          "width": 1366,
+          "height": 768,
+          "horizontalOverflow": false
+        },
+        {
+          "width": 412,
+          "height": 915,
+          "horizontalOverflow": false
+        }
+      ]
+    },
+    "completed": true
+  },
+  "files": [
+    {
+      "status": " M",
+      "file": "ARCHITECTURE.md"
+    },
+    {
+      "status": " M",
+      "file": "FOREST_SPATIAL_LAYOUT.md"
+    },
+    {
+      "status": " M",
+      "file": "README.md"
+    },
+    {
+      "status": " M",
+      "file": "assets/images/forest.svg"
+    },
+    {
+      "status": " M",
+      "file": "tests/spatial.test.mjs"
+    },
+    {
+      "status": "??",
+      "file": "STAGE15_12_2_FOREST_BACKGROUND_REDESIGN.md"
+    },
+    {
+      "status": "??",
+      "file": "docs/forest-background-qa.html"
+    },
+    {
+      "status": "??",
+      "file": "docs/forest-background/after-A-empty.jpg"
+    },
+    {
+      "status": "??",
+      "file": "docs/forest-background/after-B-starter.jpg"
+    },
+    {
+      "status": "??",
+      "file": "docs/forest-background/after-C-tree-users.jpg"
+    },
+    {
+      "status": "??",
+      "file": "docs/forest-background/after-D-ground.jpg"
+    },
+    {
+      "status": "??",
+      "file": "docs/forest-background/after-E-litter-soil.jpg"
+    },
+    {
+      "status": "??",
+      "file": "docs/forest-background/after-F-right.jpg"
+    },
+    {
+      "status": "??",
+      "file": "docs/forest-background/after-G-dense.jpg"
+    },
+    {
+      "status": "??",
+      "file": "docs/forest-background/after-anchors.png"
+    },
+    {
+      "status": "??",
+      "file": "docs/forest-background/before-A-empty.jpg"
+    },
+    {
+      "status": "??",
+      "file": "docs/forest-background/before-B-starter.jpg"
+    },
+    {
+      "status": "??",
+      "file": "docs/forest-background/before-C-tree-users.jpg"
+    },
+    {
+      "status": "??",
+      "file": "docs/forest-background/before-D-ground.jpg"
+    },
+    {
+      "status": "??",
+      "file": "docs/forest-background/before-E-litter-soil.jpg"
+    },
+    {
+      "status": "??",
+      "file": "docs/forest-background/before-F-right.jpg"
+    },
+    {
+      "status": "??",
+      "file": "docs/forest-background/before-G-dense.jpg"
+    },
+    {
+      "status": "??",
+      "file": "docs/forest-background/before-anchors.png"
+    },
+    {
+      "status": "??",
+      "file": "tests/forest-background.browser-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/forest-background.browser.cjs"
+    },
+    {
+      "status": "??",
+      "file": "tests/forest-background.ecology-results.json"
+    },
+    {
+      "status": "??",
+      "file": "tests/forest-background.regression-results.json"
+    }
+  ]
+}

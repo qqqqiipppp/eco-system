@@ -1,54 +1,165 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 470" preserveAspectRatio="none">
+<title>빛이 드는 숲의 수관, 열린 숲 바닥, 낙엽과 토양</title>
+<desc>배경 나무와 풀은 풍경과 생활 공간을 표현합니다. 실제 생물 개체나 먹이 자원을 추가하지 않습니다.</desc>
 <defs>
- <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#e4edd6"/><stop offset="1" stop-color="#cedfba"/></linearGradient>
- <linearGradient id="soil" x2="0" y2="1"><stop stop-color="#96734f"/><stop offset="1" stop-color="#796045"/></linearGradient>
- <g id="grass"><path d="M0 0Q-14-10-17-26Q-6-20-3-8Q-9-31 0-39Q6-22 4-9Q10-28 20-30Q17-13 9 0" fill="#6a8e46"/><path d="M3-1 0-26m3 24 10-17" stroke="#a2bc6c" stroke-width="2" fill="none"/></g>
- <g id="smallgrass"><path d="m0 0-5-10m6 10 2-15m-1 14 7-9" stroke="#8ca15a" stroke-width="3" stroke-linecap="round"/></g>
- <g id="tree">
-  <ellipse cx="0" cy="13" rx="105" ry="15" fill="#769551" opacity=".22"/>
-  <path d="M-19 4-12-149H13L21 4l18 9H-38Z" fill="#8b6e48"/>
-  <path d="M-8-124 0 0H13L5-145Z" fill="#a58659"/>
-  <path d="m-4-66-43-54m52 34 44-57" fill="none" stroke="#8b6e48" stroke-width="12" stroke-linecap="round"/>
-  <path d="M-95-100c-41-7-50-55-21-76-11-38 20-72 55-66 18-37 70-41 93-17 42-9 82 19 79 54 41 21 47 61 17 89 3 42-42 64-80 50-34 25-80 20-104-4-24 3-42-8-39-30" fill="#507344"/>
-  <path d="M-116-176c-11-38 20-72 55-66 18-37 70-41 93-17 42-9 82 19 79 54 18 5 29 24 28 37-22 25-64 33-87 15-25 24-63 30-89 4-22 13-69 6-79-27" fill="#70934f"/>
-  <path d="M-78-233c27-25 56-12 70-22 15-12 27-1 25 14-16 19-43 30-66 22-17 12-36 5-29-14" fill="#8ca85d"/>
-  <path d="M48-235c19 3 36 13 38 29-23 1-35-5-38-29m-131 58c19-6 30-1 34 10-14 8-26 6-34-10m90 51c23-5 37 1 42 12-18 9-36 6-42-12" fill="#87a357"/>
-  <path d="m-12-186 14-4m61 21 12 4m-130 38 11 5m33 40 10-1" stroke="#a4b775" stroke-width="4" stroke-linecap="round"/>
- </g>
+ <linearGradient id="daylight" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#e6eadd"/><stop offset=".65" stop-color="#e1e6d1"/><stop offset="1" stop-color="#d1d9bd"/></linearGradient>
+ <linearGradient id="floor-light" x1="0" y1="0" x2=".7" y2="1"><stop stop-color="#b7c39a"/><stop offset=".5" stop-color="#c9c9a5"/><stop offset="1" stop-color="#c6b792"/></linearGradient>
+ <linearGradient id="earth-depth" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#a99170"/><stop offset=".55" stop-color="#9b8366"/><stop offset="1" stop-color="#85735e"/></linearGradient>
+ <!-- Irregular brush shapes are reused sparsely, never as a texture pattern. -->
+ <g id="herb-a" fill="#8d9e76" stroke="#7e906b" stroke-width="1.3" stroke-linejoin="round"><path d="M0 0Q-18-14-23-34Q-8-24-3-8Q-10-39-4-51Q6-29 4-9Q12-35 25-39Q22-16 10 0Z"/><path d="M1-2-4-32M6-4 19-29" fill="none" stroke="#b2bc91"/></g>
+ <g id="herb-b" fill="#9ca984" stroke="#849573" stroke-width="1.2" stroke-linejoin="round"><path d="M0 0Q-19-8-28-25Q-9-21-1-5Q-4-25 4-36Q9-19 6-5Q19-24 35-23Q21-8 10 1Z"/><path d="M-15-18 1-4M6-5 23-18" fill="none" stroke="#bcc4a0"/></g>
+ <g id="low-sedge" fill="none" stroke="#99a47d" stroke-width="2.1" stroke-linecap="round"><path d="M0 0Q-1-18-9-28M2 0Q6-24 3-35M4 0Q17-23 27-25M-1 0Q-17-9-23-18M6 0Q19-12 32-12"/></g>
+ <g id="dry-leaf-a" fill="#b8a37d" stroke="#9f8c6b" stroke-width=".8"><path d="M-14 1Q-6-10 3-7L16-3Q7 8-3 8Z"/><path d="M-15 2 11-3M-5 0-5-5M3-1 5 4" fill="none"/></g>
+ <g id="dry-leaf-b" fill="#a99a77" stroke="#958768" stroke-width=".8"><path d="M-11 0-5-5-2-4 3-8 5-5 13-5 10 2 6 3 3 8-2 5-6 7-8 3Z"/><path d="M-13 2 9-4M-2 0-1-4M3-1 4 4" fill="none"/></g>
+ <g id="foliage-a" fill="#a6b28e"><path d="M-32 3Q-23-9-9-7Q-18-22-12-28Q4-22 7-10Q16-26 26-23Q31-12 18-4Q36-7 40 2Q18 10 4 6Q-12 15-32 3Z"/><path d="M-19 1 6-6 25 0M4-6-7-18" fill="none" stroke="#899c7b" stroke-width="1"/></g>
+ <g id="foliage-b" fill="#aeb994"><path d="M-25 2Q-27-9-12-15Q-3-12 0-6Q7-24 20-20Q21-10 12-4Q29-7 35 3Q18 13 0 6Q-11 11-25 2Z"/></g>
 </defs>
-<path fill="url(#sky)" d="M0 0h1200v470H0z"/>
-<!-- Original static habitat illustration. Tree transforms match forest-spaces.js. -->
-<circle cx="699" cy="66" r="52" fill="#f4e9b1" opacity=".45"/><circle cx="699" cy="66" r="35" fill="#fff1bb"/><path d="m673 10-5-12m71 25 8-8m8 58 14 3m-56 40 5 13m-66-32-10 7" stroke="#f3e7b8" stroke-width="4" stroke-linecap="round"/>
-<path d="M68 100c6-13 22-12 27-4 5-20 34-20 41-1 15-6 26 1 28 9H65" fill="#f4f5df" opacity=".8"/><path d="M470 61c5-11 17-12 22-4 7-19 27-15 34 0 15-6 22 4 23 8h-80" fill="#f5f5e2" opacity=".7"/>
-<path d="M0 240C146 133 235 213 343 196S523 108 635 184 824 152 970 183s153 19 230-15v270H0" fill="#c3d5ad"/>
-<path d="M0 278c181-53 246 25 376-10s212-53 360-13 289-74 464-5v188H0" fill="#b2ca96"/>
-<!-- Distant canopy silhouettes -->
-<g fill="#a3bd88"><path d="M3 270V160c-31-22 9-67 24-39 23-29 62 9 39 36 25 28 8 59-21 53v66z"/><path d="M1138 257V139c-31-15-18-55 7-54 12-41 66-26 61 13 26 19 14 56-11 54l-12 107z"/><path d="M431 272v-94c-30-22-5-54 16-43 12-18 39 1 33 23 27 20 11 48-19 44l-6 72z"/></g>
-<!-- Right canopy/trunk supports at (1162,142) and (1161,221). -->
-<g stroke-linecap="round"><path d="M1150 271l5-110h14l6 110" fill="#977b52"/><path d="m1162 218-29-34m31 12 25-25" stroke="#977b52" stroke-width="7"/>
-<path d="M1126 157q-22-31 4-46 0-29 32-30 34-1 35 33 24 23-2 43-35 20-69 0" fill="#7f9b60"/>
-<path d="M1136 120q8-23 29-20 24 2 24 22-25 16-53-2" fill="#9fb573"/><path d="m1162 187 1 72m-9-42 6 3" stroke="#c2a171" stroke-width="2"/></g>
-<path d="M0 351c103-35 213-9 330-19s194-29 308-15 181 35 308 12 206-9 254 7v134H0" fill="url(#soil)"/>
-<path d="M0 340c103-35 213-9 330-19s194-29 308-15 181 35 308 12 206-9 254 7v29c-115-25-173-14-269 0s-172 0-281-20-181 2-294 9S118 330 0 365Z" fill="#89a858"/>
-<path d="M0 353c95-35 219-6 330-18s196-27 310-12 184 32 292 14 203-9 268 3" stroke="#b2c879" stroke-width="7" fill="none"/>
-<!-- Roots are part of the illustrative soil cutaway. -->
-<!-- Leaf litter lies above darker humus; roots and pores remain visible below. -->
-<path d="M0 360q175-22 330-9t301-14 301 15 268-4v17q-138-8-268 3t-301-16-301 12T0 377" fill="#755b42" opacity=".52"/>
-<path d="M0 427q175-13 330-4t301-4 301 13 268-6v44H0" fill="#6a5845" opacity=".33"/>
-<g fill="#b19a70" stroke="#d1bc8e" stroke-width="1.2">
- <path d="m63 354 22-8-9 14Z"/><path d="m173 361 16-8 10 9Z"/><path d="m346 347 18-8 11 8Z"/><path d="m449 352 22-9-7 13Z"/><path d="m579 339 16-8 11 11Z"/><path d="m737 355 20-6 8 12Z"/><path d="m856 362 18-9 9 9Z"/><path d="m985 353 18-8 10 10Z"/><path d="m1094 351 19-8 8 10Z"/><path d="m1170 354 17-9 9 10Z"/>
+<!-- 1. Distant forest. These silhouettes are not food-producing instances. -->
+<g id="distant-forest">
+ <path d="M0 0H1200V470H0Z" fill="url(#daylight)"/>
+ <path d="M503 0H685L909 325H524Z" fill="#f5edcd" opacity=".18"/>
+ <path d="M662 10Q687-2 713 14Q733 36 719 59Q694 78 667 63Q642 39 662 10Z" fill="#f4edcf" opacity=".7"/>
+ <path d="M0 225Q54 182 128 200T262 190Q308 166 381 187T510 173Q571 151 634 178T768 180Q851 151 920 173T1065 172Q1136 155 1200 181V336H0Z" fill="#c8d1b8"/>
+ <g fill="#becab1">
+  <path d="M4 301 8 189Q-18 183-17 159Q-12 137 12 140Q18 111 46 116Q72 112 78 137Q104 145 94 168Q86 184 59 180L52 297Z"/>
+  <path d="M414 294 418 191Q398 186 397 168Q398 147 416 145Q415 122 438 117Q462 112 473 132Q498 131 502 155Q511 179 484 190L479 297Z"/>
+  <path d="M865 293 870 172Q840 171 842 148Q830 124 851 111Q858 83 885 91Q907 79 921 101Q948 102 945 127Q970 147 946 171L924 169 922 297Z"/>
+ </g>
+ <g fill="#b3c0a6">
+  <path d="M102 309 107 210Q81 210 83 190Q73 165 98 156Q95 135 121 133Q140 114 163 133Q192 130 198 153Q218 172 196 192L170 199 167 310Z"/>
+  <path d="M761 314 765 205Q739 206 736 188Q722 172 739 157Q738 137 760 134Q776 118 794 135Q822 129 825 153Q849 163 841 184Q835 201 807 203L810 317Z"/>
+  <path d="M1014 317 1019 206Q997 200 997 183Q986 162 1008 151Q1009 125 1032 124Q1058 113 1071 137Q1095 134 1102 158Q1119 177 1101 198L1065 205 1070 315Z"/>
+ </g>
+ <g fill="none" stroke="#cbd3bd" stroke-width="3" stroke-linecap="round"><path d="M31 286 36 175 20 157M447 286 449 175 470 154M889 286 891 159 872 137M135 292 137 185 155 166M784 298 785 179 767 159M1041 299 1044 185 1065 166"/></g>
+ <path d="M0 305Q96 277 201 290T395 276Q465 265 557 281T729 271Q824 254 899 275T1075 269Q1149 253 1200 274V363H0Z" fill="#b6c2a0"/>
+ <path d="M0 326Q105 306 205 312T389 299Q473 285 564 302T755 298Q844 283 940 300T1111 290Q1160 282 1200 299V359H0Z" fill="#a7b692"/>
 </g>
-<g fill="none" stroke="#bc9a6a" stroke-width="2" stroke-linecap="round"><path d="m1159 341-4 40-19 19m20-25 22 19m-111-42-10 25 8 14m-266-38 7 24-12 19m-683-32-8 22 9 15"/></g>
-<g fill="none" stroke="#c5a479" stroke-width="3" stroke-linecap="round"><path d="m291 347-8 33-31 19-24 9m56-26 22 28 4 24m-16-39-3 29m-27-30-5-8m384-50 9 40-15 29m17-24 32 15 13 26m-48-26-23 4"/><path d="m521 351-8 22 9 20m-10-19-10 7" stroke-width="2"/></g>
-<g fill="#c2a17a" opacity=".6"><ellipse cx="97" cy="390" rx="4" ry="2"/><ellipse cx="165" cy="416" rx="7" ry="3"/><ellipse cx="363" cy="388" rx="5" ry="3"/><ellipse cx="437" cy="426" rx="6" ry="2"/><ellipse cx="744" cy="384" rx="6" ry="3"/><ellipse cx="893" cy="406" rx="8" ry="3"/><ellipse cx="1021" cy="384" rx="4" ry="2"/><ellipse cx="1116" cy="419" rx="6" ry="3"/></g>
-<use href="#tree" transform="translate(292 325) scale(.91)"/>
-<use href="#tree" transform="translate(673 310) scale(.7)"/>
-<!-- Fine branches visible through the existing two canopies; no new anchors. -->
-<g fill="none" stroke="#9bb275" stroke-width="2" stroke-linecap="round"><path d="m211 182 22 8 11-12m24-57 9 14 14-3m31 68 18-5 6 7m276-37 17 6 8-11m35 24 14-8"/></g>
-<!-- Lower undergrowth spans the same whole-forest ground band. -->
-<g fill="#79964c" opacity=".8"><path d="M7 335q21-35 45-9 16-34 42 7Zm837 5q17-31 36-9 20-36 41 5Zm149-11q21-36 40-10 26-28 46 13Zm102 4q15-35 36-13 18-31 42 9Z"/></g>
-<g><use href="#grass" transform="translate(484 337) scale(.86)"/><use href="#grass" transform="translate(521 342) scale(1.05)"/><use href="#grass" transform="translate(551 338) scale(.65)"/><use href="#grass" transform="translate(88 336) scale(.75)"/><use href="#grass" transform="translate(802 350) scale(.7)"/><use href="#grass" transform="translate(1075 331) scale(.8)"/></g>
-<g><use href="#smallgrass" transform="translate(156 333)"/><use href="#smallgrass" transform="translate(372 325)"/><use href="#smallgrass" transform="translate(586 320)"/><use href="#smallgrass" transform="translate(744 342)"/><use href="#smallgrass" transform="translate(1137 334)"/><use href="#smallgrass" transform="translate(26 345)"/></g>
-<g fill="#cad790"><ellipse cx="183" cy="352" rx="4" ry="2"/><ellipse cx="409" cy="339" rx="5" ry="2"/><ellipse cx="717" cy="346" rx="4" ry="2"/><ellipse cx="1000" cy="346" rx="5" ry="2"/></g>
-<g><path d="M381 350q1-19 18-21 18-2 24 20Z" fill="#9a9b7a"/><path d="m388 338 12-6 11 4-4 11h-21" fill="#b8b799"/><path d="M913 349q4-15 17-15 13 2 17 16Z" fill="#a5a385"/></g>
+<!-- 2. Rear shrubs leave the middle clearing open. -->
+<g id="rear-understory" fill="#a0af8a">
+ <path d="M0 326Q8 302 24 306Q24 286 47 291Q61 272 82 287Q104 282 112 302Q139 299 146 319L149 340H0Z"/>
+ <path d="M344 318Q347 295 364 295Q378 271 401 288Q425 274 438 298Q458 300 461 317Z"/>
+ <path d="M713 314Q724 298 740 306Q749 279 768 293Q790 281 808 299Q826 292 836 314Z"/>
+ <path d="M925 319Q924 297 944 293Q960 275 979 291Q995 281 1011 295Q1034 289 1043 311L1047 327Z"/>
+</g>
+<!-- 3. Three independent trees. Visible support paths pass the existing
+     anchor centers. No new precise branch or ecology provider is introduced. -->
+<g id="left-tree" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M210 334Q260 317 312 322L355 339Q286 353 210 334Z" fill="#839575" opacity=".2"/>
+ <path id="support-left-trunk" d="M264 340Q286 324 282 296L280 256Q286 220 270 193L260 158 273 152Q286 173 291 197L301 178 313 183Q296 216 301 249L303 282Q303 312 315 328L338 338 314 341 294 334 282 344Z" fill="#999078" stroke="#867f68" stroke-width="2"/>
+ <path d="M287 332Q296 311 291 282L288 247Q291 218 279 188L277 165" fill="none" stroke="#b5aa8d" stroke-width="7"/>
+ <path d="M275 224Q250 211 232 183L211 152M297 220Q322 205 343 170L365 151M283 204Q282 160 305 129" fill="none" stroke="#958c74" stroke-width="10"/>
+ <path id="support-left-crown" d="M229 213Q263 209 292 190Q323 186 351 174M278 198 259 175M317 184 327 157" fill="none" stroke="#8b826a" stroke-width="7"/>
+ <path d="M269 175 243 129M302 165 294 102M328 177 355 117" fill="none" stroke="#9b9278" stroke-width="5"/>
+ <path d="M158 159Q145 141 160 126Q150 105 170 91Q171 69 198 73Q216 51 243 65Q270 50 290 67Q317 54 335 75Q366 67 378 92Q402 93 408 119Q425 138 403 155L375 165Q357 161 340 149Q321 162 299 148Q275 164 252 151Q236 165 212 155Q181 174 158 159Z" fill="#879c7a"/>
+ <path d="M166 123Q161 104 180 100Q182 79 205 83Q222 65 245 77Q270 62 289 79Q316 69 333 90Q358 79 372 101Q394 100 398 120Q375 135 351 125Q330 144 306 128Q280 142 258 130Q240 146 217 130Q185 142 166 123Z" fill="#9bab87"/>
+ <path d="M155 157Q177 159 197 146L214 164 231 173Q224 195 202 192Q179 207 159 187Q137 187 137 172Z" fill="#8c9e7c"/>
+ <path d="M349 153Q367 139 381 155Q401 146 415 164Q424 183 408 196Q383 203 365 191L339 195 327 181Z" fill="#8a9d79"/>
+ <path d="M193 91Q216 72 239 85Q257 74 273 86Q247 91 232 103Q209 109 193 99Z" fill="#b0bb97"/>
+ <path d="M310 96Q327 83 344 101L365 108Q346 123 328 112L310 116Z" fill="#abb894"/>
+ <path d="M160 174Q180 159 197 171L207 181Q187 188 172 184Z" fill="#a4b28c"/>
+ <path d="M366 169Q387 160 401 175Q389 188 370 181Z" fill="#a6b38e"/>
+ <path d="M188 118q18 4 30-4M265 107q15 1 24-8M351 135l17-2M155 178l11-3M385 188l13-2" fill="none" stroke="#b9c1a1" stroke-width="1.7"/>
+ <path d="M287 303l-3 13M296 267l2 18M285 246l-2 12M290 211l4 10M302 323l5 9" fill="none" stroke="#817963" stroke-width="1.7"/>
+ <path id="left-resting-forks" d="M281 224Q253 205 218 184L202 180M254 206Q234 203 219 199M299 246Q329 234 366 213L386 208M342 226 352 210" fill="none" stroke="#958c74" stroke-width="5"/>
+ <use href="#foliage-a" transform="translate(204 141) rotate(-16) scale(.65)"/>
+ <use href="#foliage-b" transform="translate(342 141) rotate(12) scale(.62)"/>
+</g>
+<g id="middle-tree" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M615 320Q653 301 701 312L726 324Q663 339 615 320Z" fill="#879776" opacity=".17"/>
+ <path id="support-middle-trunk" d="M648 326Q664 307 664 279Q670 254 668 227L655 192 668 183 681 216Q681 184 690 165L701 169Q686 200 686 230L681 278Q681 303 693 314L710 325 685 325 672 318 662 329Z" fill="#a09a80" stroke="#8d876f" stroke-width="1.8"/>
+ <path d="M672 312 674 278Q679 244 676 221L666 199" fill="none" stroke="#bbb095" stroke-width="5"/>
+ <path id="support-middle-crown" d="M624 227Q651 222 673 215Q701 211 723 194M652 221 639 197M695 211 707 181" fill="none" stroke="#918a72" stroke-width="6"/>
+ <path d="M664 216Q633 195 615 167M685 197 715 157M676 181 669 140" fill="none" stroke="#9d947b" stroke-width="6"/>
+ <path d="M570 184Q554 170 566 155Q557 135 577 126Q577 106 602 109Q622 92 643 109Q665 95 686 114Q713 103 728 125Q751 125 759 147Q779 164 762 182L739 191Q720 186 709 177Q692 191 674 179Q653 191 634 179Q613 195 595 183Z" fill="#91a180"/>
+ <path d="M575 150Q570 133 589 131Q593 112 612 122Q629 105 647 122Q668 109 685 128Q710 116 722 137Q748 133 749 152Q731 166 710 156Q690 171 673 156Q652 170 633 156Q606 169 575 150Z" fill="#a5b18e"/>
+ <path d="M569 184Q590 181 600 197L624 191 637 203Q627 220 607 216Q584 228 567 211Q552 211 551 198Z" fill="#97a783"/>
+ <path d="M718 181Q739 169 750 186Q770 179 779 197Q782 214 762 216Q745 229 726 213L706 215 697 202Z" fill="#8fa17e"/>
+ <path d="M602 133Q617 120 634 131L646 141Q625 151 609 144Z" fill="#b9c19c"/>
+ <path id="middle-resting-forks" d="M679 245Q702 224 727 208L744 199M671 214Q649 190 620 165L603 157M665 237Q627 224 599 211L586 206" fill="none" stroke="#9d947b" stroke-width="4.5"/>
+ <use href="#foliage-b" transform="translate(698 154) rotate(16) scale(.62)"/>
+ <path d="M608 202q10 0 16-5M742 200l12-3M672 286l1 10M669 254l-1 9" fill="none" stroke="#bdc5a5" stroke-width="1.7"/>
+</g>
+<g id="right-tree" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M1102 336Q1140 319 1182 321L1214 340Q1154 355 1102 336Z" fill="#8c9a78" opacity=".18"/>
+ <path id="support-right-trunk" d="M1158 341Q1173 326 1171 299Q1167 266 1154 233L1151 205Q1159 182 1150 158L1139 126 1150 122Q1166 148 1167 173L1165 213Q1163 234 1178 270L1185 304Q1188 325 1207 338L1183 340 1174 333 1169 344Z" fill="#a2987e" stroke="#8d846e" stroke-width="1.8"/>
+ <path d="M1182 329Q1180 304 1174 281L1160 237 1161 221 1159 191" fill="none" stroke="#bcb094" stroke-width="5"/>
+ <path d="M1159 205Q1138 186 1121 165M1163 184Q1186 166 1206 163M1158 155Q1135 134 1107 126" fill="none" stroke="#9c927a" stroke-width="8"/>
+ <path id="support-right-crown" d="M1119 159Q1142 154 1162 142Q1184 138 1206 128M1145 152 1130 132M1181 139 1189 115" fill="none" stroke="#92886f" stroke-width="6"/>
+ <path d="M1133 142 1124 110 1106 86M1161 136 1172 90M1190 132 1210 97" fill="none" stroke="#a1977d" stroke-width="5"/>
+ <path d="M1062 113Q1048 98 1065 81Q1067 63 1086 66Q1099 44 1121 58Q1144 44 1163 62Q1187 48 1202 67Q1223 63 1236 83L1241 125 1213 133 1196 120Q1178 132 1163 120Q1137 134 1120 120Q1097 138 1078 123Z" fill="#91a180"/>
+ <path d="M1069 94Q1068 79 1085 81Q1103 60 1121 76Q1143 61 1161 81Q1185 65 1202 84L1223 87 1223 105Q1202 115 1183 102Q1163 117 1144 103Q1121 117 1102 104Q1083 114 1069 94Z" fill="#a7b28f"/>
+ <path d="M1081 127Q1094 120 1108 131L1125 128 1136 146Q1126 164 1107 157Q1086 171 1071 153L1057 146 1062 130Z" fill="#95a581"/>
+ <path d="M1190 122Q1205 110 1223 126L1241 120V159Q1212 174 1194 153L1181 146Z" fill="#8c9d7c"/>
+ <path d="M1097 81Q1112 71 1125 84L1139 86Q1120 101 1104 94Z" fill="#bdc49f"/>
+ <path id="right-resting-fork" d="M1170 283Q1153 268 1135 255L1120 248" fill="none" stroke="#a1977d" stroke-width="5"/>
+ <use href="#foliage-a" transform="translate(1122 115) rotate(-15) scale(.55)"/>
+ <use href="#foliage-b" transform="translate(1199 113) rotate(12) scale(.65)"/>
+ <path d="M1157 226l5 8M1170 260l6 13M1179 300l2 12M1110 144l13-2" fill="none" stroke="#c4b79b" stroke-width="1.8"/>
+</g>
+<!-- 4. Continuous floor. Its rear edge follows forestGroundHeight without
+     changing that function; the litter band is above the soil cutaway. -->
+<g id="forest-floor">
+ <path d="M0 340Q172 323 330 321Q486 308 638.4 306Q798 306 945.6 318Q1087 320 1200 325V470H0Z" fill="url(#floor-light)"/>
+ <path d="M0 340Q172 323 330 321Q486 308 638.4 306Q798 306 945.6 318Q1087 320 1200 325" fill="none" stroke="#aab990" stroke-width="3"/>
+ <path d="M111 344Q258 321 394 331Q469 336 531 328Q646 309 735 326Q840 346 959 330L1050 331Q980 360 887 358Q747 350 645 348Q504 362 395 353Q270 356 111 344Z" fill="#d4cead" opacity=".57"/>
+ <path d="M0 357Q107 340 206 349Q298 338 372 348Q438 341 517 346Q614 335 699 345Q781 357 870 350Q971 338 1050 349Q1141 341 1200 346V384H0Z" fill="#c0ae89" opacity=".7"/>
+ <path d="M4 359Q98 350 151 356M387 345Q421 338 452 343M747 351Q792 355 822 349M1010 345Q1046 341 1075 344" fill="none" stroke="#a9b08b" stroke-width="2" stroke-linecap="round"/>
+</g>
+<!-- 5. Shallow humus and mineral soil. No underground resource is implied. -->
+<g id="soil-cutaway">
+ <path d="M0 370Q78 359 147 365Q244 356 319 366Q414 360 482 366Q579 355 649 362Q741 374 824 366Q922 358 1002 368Q1090 359 1200 365V470H0Z" fill="url(#earth-depth)"/>
+ <path d="M0 368Q78 357 147 363Q244 354 319 364Q414 358 482 364Q579 353 649 360Q741 372 824 364Q922 356 1002 366Q1090 357 1200 363L1200 381Q1091 374 1000 384Q916 375 824 383Q739 390 647 379Q569 373 482 383Q407 377 318 382Q242 371 147 380Q76 376 0 386Z" fill="#8d7a5e" opacity=".65"/>
+ <path d="M0 430Q89 419 161 427Q260 416 344 430Q439 426 511 432Q599 418 682 431Q771 437 855 429Q940 421 1029 433Q1123 422 1200 433V470H0Z" fill="#8a7862" opacity=".4"/>
+ <path d="M0 368Q78 357 147 363Q244 354 319 364Q414 358 482 364Q579 353 649 360Q741 372 824 364Q922 356 1002 366Q1090 357 1200 363" fill="none" stroke="#d1bb94" stroke-width="2.2"/>
+ <g fill="none" stroke="#c6b08c" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M286 365Q285 385 272 398L247 413M278 391Q296 399 301 420L305 446M291 406 282 428M261 405 249 399" stroke-width="3"/>
+  <path d="M676 365Q670 382 675 402L689 424 695 449M675 398Q655 402 644 418M686 421 710 429M661 408 659 426" stroke-width="2.6"/>
+  <path d="M1172 368Q1173 389 1163 407L1145 427M1170 395Q1186 403 1194 425M1159 412 1162 435M1181 406 1195 405" stroke-width="2.6"/>
+  <path d="M82 372Q89 390 81 404L68 415M84 397 95 414M443 369 449 391 442 408M448 388 461 399M896 371 889 390 874 402M891 387 904 401M1042 374 1036 391 1039 409" stroke-width="1.5"/>
+ </g>
+ <g fill="#bdab8c" opacity=".65"><path d="m26 405 7-2 4 4-8 2Zm111 25 9-3 5 3-3 3h-9Zm197-43 6-2 5 3-3 3h-7Zm42 61 8-2 4 3-5 2Zm145-50 5-3 5 4-7 3Zm53 35 10-3 4 4-5 3h-7Zm181-40 6-2 4 3-5 3Zm68 57 10-3 6 4-12 3Zm89-52 6-2 3 3-7 2Zm91 35 9-1 3 3-9 2Zm140-27 5-2 5 3-3 2Z"/></g>
+ <g fill="none" stroke="#7d705a" stroke-width="1.2" stroke-linecap="round" opacity=".5"><path d="m163 397 4-1M199 442l8-1M363 413l6 1M407 445l7-1M551 389l5-1M608 446l7-1M739 413l5 1M816 443l8-1M941 391l6 1M1000 448l8-1M1107 403l7-1"/></g>
+</g>
+<!-- 6. Low understory, always behind the existing organism DOM. -->
+<g id="near-understory" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M8 341Q26 318 44 330Q53 303 75 316Q98 306 111 329Q135 325 145 341Z" fill="#92a47d"/>
+ <path d="M225 339Q248 321 265 327L278 321 292 329 313 324 334 339Q276 351 225 339Z" fill="#a8ae89"/>
+ <path d="M603 323Q632 309 647 317L669 310 687 319 708 316 731 329Q664 338 603 323Z" fill="#a6ae88"/>
+ <path d="M970 332Q982 308 999 320Q1005 298 1028 309Q1050 303 1064 325Q1085 320 1097 337Z" fill="#9baa84"/>
+ <path d="M1103 340Q1111 317 1131 323Q1145 304 1161 322L1177 317 1200 330V346Z" fill="#93a27e"/>
+ <path id="right-surface-root" d="M1174 326Q1159 335 1122 334" fill="none" stroke="#afa488" stroke-width="3.5"/>
+ <path d="M271 337Q281 331 286 321M292 337l8-14M661 326l10-12M678 327l6-11M1166 339l9-15M1185 337l-3-12" fill="none" stroke="#afa488" stroke-width="4"/>
+ <use href="#herb-a" transform="translate(52 339) rotate(-12) scale(.7)"/>
+ <use href="#herb-b" transform="translate(122 337) rotate(7) scale(.56)"/>
+ <use href="#low-sedge" transform="translate(188 337) rotate(-9) scale(.65)"/>
+ <use href="#herb-b" transform="translate(344 330) rotate(-16) scale(.7)"/>
+ <use href="#herb-a" transform="translate(470 321) rotate(12) scale(.52)"/>
+ <use href="#herb-b" transform="translate(507 321) rotate(-8) scale(.4)"/>
+ <use href="#low-sedge" transform="translate(580 318) rotate(7) scale(.7)"/>
+ <use href="#herb-b" transform="translate(759 332) rotate(-8) scale(.55)"/>
+ <use href="#low-sedge" transform="translate(829 339) rotate(-17) scale(.65)"/>
+ <use href="#herb-a" transform="translate(1017 333) rotate(12) scale(.67)"/>
+ <use href="#herb-b" transform="translate(1088 335) rotate(-7) scale(.54)"/>
+ <use href="#low-sedge" transform="translate(1144 340) rotate(-8) scale(.67)"/>
+ <path d="M18 349Q32 345 49 348M297 347q17-5 29-1M523 333q21-4 35-1M866 346q26-4 39-1M1157 349q13-3 27 0" fill="none" stroke="#a8b18a" stroke-width="1.8"/>
+</g>
+<!-- 7. Sparse litter islands: no decorative fruit, mushroom or food stock. -->
+<g id="surface-litter">
+ <use href="#dry-leaf-a" transform="translate(64 361) rotate(13) scale(.7)"/>
+ <use href="#dry-leaf-b" transform="translate(102 356) rotate(-24) scale(.58)"/>
+ <use href="#dry-leaf-a" transform="translate(196 359) rotate(-13) scale(.8)"/>
+ <use href="#dry-leaf-b" transform="translate(226 364) rotate(16) scale(.65)"/>
+ <use href="#dry-leaf-a" transform="translate(367 354) rotate(-19) scale(.58)"/>
+ <use href="#dry-leaf-b" transform="translate(411 358) rotate(31) scale(.75)"/>
+ <use href="#dry-leaf-a" transform="translate(546 350) rotate(8) scale(.68)"/>
+ <use href="#dry-leaf-b" transform="translate(581 354) rotate(-12) scale(.55)"/>
+ <use href="#dry-leaf-a" transform="translate(728 364) rotate(-23) scale(.8)"/>
+ <use href="#dry-leaf-b" transform="translate(767 360) rotate(15) scale(.7)"/>
+ <use href="#dry-leaf-b" transform="translate(918 354) rotate(-20) scale(.7)"/>
+ <use href="#dry-leaf-a" transform="translate(947 359) rotate(16) scale(.6)"/>
+ <use href="#dry-leaf-a" transform="translate(1074 357) rotate(-15) scale(.8)"/>
+ <use href="#dry-leaf-b" transform="translate(1115 361) rotate(26) scale(.55)"/>
+ <use href="#dry-leaf-a" transform="translate(1184 356) rotate(-19) scale(.65)"/>
+ <g fill="none" stroke="#b1a07e" stroke-width="1.5" stroke-linecap="round"><path d="m153 357 18-3 7-5M452 355l21-1 8-4M814 362l22-3 5-5M1002 357l17-3 9 1"/></g>
+</g>
 </svg>
