@@ -10,7 +10,7 @@ import { createGuideAdapter } from './adapters/guide-preference.js';
 import { updateForestGoal } from './systems/forest-progress.js';
 import { createSaveService } from './services/save-service.js';
 import { createLocalAdapter,createNoSaveAdapter,createChapterProgressAdapter } from './adapters/local-storage.js';
-import {createStageGameState,updateStage,catchObservation,careFor} from './systems/chapter-stage.js';
+import {createStageGameState,updateStage,catchObservation,careFor,buyCheck,payFor,collectTrash} from './systems/chapter-stage.js';
 import {createChapterView} from './ui/chapter-view.js';
 import {createChapterWebView} from './ui/chapter-web-view.js';
 import {stages,stageById} from '../data/chapters.js';
@@ -70,7 +70,7 @@ try {
   if(chapterMode){
     document.body.classList.add('chapter-mode');
     const webView=createChapterWebView(chapterProgress,{onComplete:()=>chapterView.webDone()});
-    chapterView=createChapterView(()=>gameState,{forest,cleared:()=>chapterProgress.cleared(),openWeb:n=>webView.open(n),webComplete:n=>webView.isComplete(n),onCatch:catchStageObservation,onStage:id=>installForest(createStageGameState(stageById[id])),onCare:careStageEnvironment,onExit:()=>{location.href=location.pathname;}});
+    chapterView=createChapterView(()=>gameState,{forest,cleared:()=>chapterProgress.cleared(),openWeb:n=>webView.open(n),webComplete:n=>webView.isComplete(n),onCatch:catchStageObservation,onCollect:collectStageTrash,onStage:id=>installForest(createStageGameState(stageById[id])),onCare:careStageEnvironment,onExit:()=>{location.href=location.pathname;}});
   }else{
     const chapterButton=document.createElement('button');chapterButton.id='chapter-open';chapterButton.type='button';chapterButton.textContent='챕터 모드';
     chapterButton.addEventListener('click',()=>{location.search='?mode=chapter';});document.querySelector('.header-actions').append(chapterButton);
@@ -168,10 +168,16 @@ try {
     },
   });
   function catchStageObservation(offerId){
-    const response=catchObservation(gameState,offerId);if(!response.ok)return;
+    const response=catchObservation(gameState,offerId);if(!response.ok)return response;
     chapterProgress.markObserved(response.offer.relationId);
     scene.showFeedback(chapterView.caughtMessage(response),response.bonus);
-    afterStageChange(response);chapterView.render();
+    afterStageChange(response);renderDashboard(gameState);chapterView.render();
+    return response;
+  }
+  function collectStageTrash(trashId){
+    const response=collectTrash(gameState,trashId);if(!response.ok)return response;
+    scene.showFeedback(response.message,true);renderDashboard(gameState);chapterView.render();
+    return response;
   }
   function careStageEnvironment(factor){
     const response=careFor(gameState,factor);scene.showFeedback(response.message,response.ok);
@@ -207,9 +213,13 @@ try {
   forest.addEventListener('click', event => {
     if (event.target.closest('[data-event-marker]')) return;
     const input=scene.readInput(event);if(input.isUI||!input.isPlayArea)return;
+    // Chapter mode is a shop: a card costs points, charged only once it is placed.
+    const price=chapterMode&&uiState.selectedSpeciesId?buyCheck(gameState,uiState.selectedSpeciesId):null;
+    if(price&&!price.ok){scene.showFeedback(price.message,false);return;}
     const result = placeNearestOrganism(gameState, uiState.selectedSpeciesId, input, scene.getLayout());
     scene.showFeedback(studentPlacementMessage(result), result.ok);
     if (!result.ok) return;
+    if(price){payFor(gameState,uiState.selectedSpeciesId);chapterView.spent(price.price,result.instance);}
     selectionPlaced=true;
     scene.add(result.instance, true);
     eventSystem.refresh(gameState);
