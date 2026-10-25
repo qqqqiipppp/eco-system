@@ -16,7 +16,8 @@ function layout(nodes){
  const levels=webLevels(nodes),rows={},pos={},top=Math.max(1,...nodes.filter(id=>organismById[id].role==='consumer').map(id=>levels[id]));
  const living=nodes.filter(id=>organismById[id].role!=='decomposer'&&id!=='earthworm'),side=nodes.filter(id=>!living.includes(id));
  for(const id of living)(rows[levels[id]]??=[]).push(id);
- for(const [level,ids] of Object.entries(rows))ids.forEach((id,i)=>{pos[id]={x:(side.length?78:100)*(i+1)/(ids.length+1),y:76-64*Number(level)/top};});
+ for(const [level,ids] of Object.entries(rows))// A crowded row zigzags so its cards do not touch.
+ ids.forEach((id,i)=>{pos[id]={x:(side.length?78:100)*(i+1)/(ids.length+1),y:76-64*Number(level)/top+(ids.length>4?(i%2?-3:3):0)};});
  side.forEach((id,i)=>{pos[id]={x:87,y:12+66*(i+.5)/side.length};});
  return pos;
 }

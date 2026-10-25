@@ -145,12 +145,32 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
   assert.equal(await p.locator('.map-area .map-web').count(),1,'chapter 1 web completed');
   await p.locator('.chapter-dialog[open] button',{hasText:'닫기'}).click();
   await p.locator('.chapter-actions button',{hasText:'나의 먹이그물'}).click();
-  assert.equal(await p.locator('.chapter-web-dialog .web-node.unsorted').count(),1,'chapter 2 adds only the frog to sort');
+  assert.equal(await p.locator('.chapter-web-dialog .web-node.unsorted').count(),3,'chapter 2 adds the frog, the hackberry and the beetle to sort');
   await p.locator('.web-close').click();
   await p.locator('.chapter-actions button',{hasText:'숲 지도'}).click();
   assert.equal(await p.locator('.map-stone:not([disabled])').count(),3,'1-1, 1-2 and the next stage are open');
   if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-picker.png`});
   await p.locator('.chapter-dialog[open] button',{hasText:'닫기'}).click();
+  // Breeding in 1-3: buy a second grasshopper, see the pair, the eggs, the newborn.
+  await p.evaluate(()=>localStorage.setItem('eco-system:chapter-progress',JSON.stringify({cleared:['1-1','1-2']})));
+  await p.reload();await p.waitForSelector('.chapter-hud');
+  assert.match(await p.locator('.chapter-title h2').textContent(),/1-3/);
+  await p.evaluate(async()=>{(await import('./js/main.js')).gameState.metrics.points=12;});
+  await p.locator('.organism-card[data-species-id="grasshopper"]').click();await tapBackground(p,.6,.4);await p.waitForTimeout(300);
+  if(await p.locator('.clear-selection').count())await p.locator('.clear-selection').click();
+  await p.waitForSelector('#organism-layer [data-breed=pair]',{state:'attached',timeout:30000});
+  assert.equal(await p.locator('#organism-layer [data-breed=pair]').count(),1,'two grasshoppers make one pair');
+  await p.evaluate(async()=>{(await import('./js/main.js')).gameState.chapter.breeding.grasshopper.healthy=39.6;});
+  await p.waitForSelector('#organism-layer [data-breed=pending]',{state:'attached',timeout:10000});
+  assert.match(await p.locator('#organism-layer [data-breed=pending]').getAttribute('data-breed-label'),/^알 \d+$/);
+  if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-eggs.png`});
+  await p.evaluate(async()=>{(await import('./js/main.js')).gameState.chapter.breeding.grasshopper.pending.remaining=.4;});
+  await p.waitForSelector('#organism-layer [data-breed=young]',{state:'attached',timeout:10000});
+  assert.equal(await p.locator('#organism-layer [data-breed=young]').getAttribute('data-breed-label'),'새로 태어난 약충');
+  assert.match(await p.locator('#placement-feedback').textContent(),/약충이 태어났어요!.*불완전탈바꿈/);
+  if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-born.png`});
+  assert.equal((await chapter(p)).births.length,1);
+
   // A human-made crisis drops litter that is tapped away for a point.
   await p.evaluate(()=>localStorage.setItem('eco-system:chapter-progress',JSON.stringify({cleared:['1-1','1-2','1-3','2-1','2-2','2-3']})));
   await p.reload();await p.waitForSelector('.chapter-hud');

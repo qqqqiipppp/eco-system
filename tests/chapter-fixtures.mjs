@@ -42,6 +42,8 @@ export function carefulStudent(s){
   }
  }
  for(const t of [...s.chapter.trash])if(collectTrash(s,t.trashId).ok)acts.push('collect '+t.kind);
+ // A breeding stage: make a pair of the species that must have young.
+ if(stage.birthRequired&&count(s,stage.birthRequired)<2&&place(s,stage.birthRequired))acts.push('place '+stage.birthRequired);
  // Before weather: plant more food plants.
  if(prepareOptions(s).length){const r=prepareFor(s,prepareOptions(s).find(o=>o.id==='plant').ok?'plant':'wait');acts.push('prepare '+r.choice);if(r.choice==='plant'&&place(s,r.speciesId))acts.push('place '+r.speciesId);}
  return acts;
