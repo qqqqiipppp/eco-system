@@ -8,6 +8,8 @@ const {tapBackground}=require('./ux-browser-helpers.cjs');
 const base=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/';
 const launch=process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH,headless:true,args:['--no-sandbox']}:{channel:'msedge',headless:true};
 const shots=process.env.SCREENSHOT_DIR;
+// Every button other than the shop and the forest lives in one menu.
+const menu=async(p,label)=>{await p.locator('.chapter-menu-button').click();await p.locator('.chapter-menu button',{hasText:label}).click();};
 const forward=(p,seconds)=>p.evaluate(async seconds=>{const m=await import('./js/main.js');m.gameState.chapter.seedProgress=seconds;},seconds);
 const chapter=p=>p.evaluate(async()=>{const m=await import('./js/main.js');return JSON.parse(JSON.stringify(m.gameState.chapter));});
 // waitForFunction would treat an async predicate's Promise as already true.
@@ -40,6 +42,13 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
   assert.match(await p.locator('.chapter-title h2').textContent(),/1-1 풀밭의 시작/);
   assert.match(await p.locator('.chapter-status').textContent(),/먹는 동물이 없어요/);
   assert(!(await p.locator('.forest-memo').isVisible()),'mission memo hidden');
+  assert.equal(await p.locator('.app-header .dashboard').count(),1,'the four numbers sit in the top row');
+  assert(!(await p.locator('.chapter-menu').isVisible()),'menu starts closed');
+  await p.locator('.chapter-menu-button').click();assert(await p.locator('.chapter-menu #guide-open').isVisible());
+  await p.keyboard.press('Escape');assert(!(await p.locator('.chapter-menu').isVisible()),'Escape closes the menu');
+  assert.equal(await p.locator('.chapter-progress #placement-feedback').count(),1,'messages appear in the stage panel');
+  assert.match(await p.locator('.chapter-wallet').textContent(),/✦ \d+P/);
+  assert.equal(await p.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+1),true,'forest and shop fit without scrolling');
   const cards=await p.locator('.organism-card[data-species-id]').evaluateAll(cards=>cards.filter(c=>!c.disabled&&!c.classList.contains('locked')).map(c=>c.dataset.speciesId));
   assert(cards.includes('grasshopper')&&cards.includes('grass'));
 
@@ -140,14 +149,14 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
   await p.waitForFunction(()=>document.querySelector('.chapter-title h2')?.textContent.includes('2-1'));
   await p.waitForSelector('.chapter-dialog[open]');assert.match(await p.locator('.chapter-dialog[open]').textContent(),/물가/);
   await p.locator('.chapter-dialog[open] button',{hasText:'시작하기'}).click();
-  await p.locator('.chapter-actions button',{hasText:'숲 지도'}).click();
+  await menu(p,'숲 지도');
   assert.equal(await p.locator('.map-area').count(),4,'map shows 4 forest areas');
   assert.equal(await p.locator('.map-area .map-web').count(),1,'chapter 1 web completed');
   await p.locator('.chapter-dialog[open] button',{hasText:'닫기'}).click();
-  await p.locator('.chapter-actions button',{hasText:'나의 먹이그물'}).click();
+  await menu(p,'나의 먹이그물');
   assert.equal(await p.locator('.chapter-web-dialog .web-node.unsorted').count(),3,'chapter 2 adds the frog, the hackberry and the beetle to sort');
   await p.locator('.web-close').click();
-  await p.locator('.chapter-actions button',{hasText:'숲 지도'}).click();
+  await menu(p,'숲 지도');
   assert.equal(await p.locator('.map-stone:not([disabled])').count(),3,'1-1, 1-2 and the next stage are open');
   if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-picker.png`});
   await p.locator('.chapter-dialog[open] button',{hasText:'닫기'}).click();
@@ -188,10 +197,10 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
   await p.locator('.chapter-trash').click();
   assert.equal(await p.locator('.chapter-trash').count(),0);
   assert.equal(await p.evaluate(async()=>(await import('./js/main.js')).gameState.metrics.points),before+1);
-  await p.locator('.chapter-actions button',{hasText:'숲 지도'}).click();await p.waitForSelector('.chapter-map-dialog[open]');
+  await menu(p,'숲 지도');await p.waitForSelector('.chapter-map-dialog[open]');
   if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-map.png`});
   await p.locator('.chapter-dialog[open] button',{hasText:'닫기'}).click();
-  await p.locator('.chapter-actions button',{hasText:'기존 숲으로'}).click();await p.waitForSelector('#chapter-open');
+  await menu(p,'기존 숲으로');await p.waitForSelector('#chapter-open');
   assert.equal(await p.locator('.chapter-hud').count(),0);
   assert.deepEqual(errors,[],errors.join('\n'));
   await p.evaluate(()=>{localStorage.removeItem('eco-system:chapter-progress');});

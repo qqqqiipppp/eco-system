@@ -51,9 +51,26 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
  const hud=element('section',{className:'chapter-hud'},[
   element('div',{className:'chapter-title'},[eyebrow,title,goal]),
   element('div',{className:'chapter-progress'},[element('div',{className:'chapter-seeds'},seeds),meter,status,care]),
-  element('div',{className:'chapter-actions'},[webButton,mapButton,exitButton]),
  ]);hud.setAttribute('aria-label','스테이지 목표');
  document.querySelector('.dashboard').after(hud);
+ // One top row like the original's: the game, the four small numbers, a menu.
+ // The menu holds every other button (they keep their own handlers).
+ const header=document.querySelector('.app-header'),namesToggle=forest.querySelector('#names-toggle');
+ const menuButton=element('button',{type:'button',className:'chapter-menu-button',textContent:'☰ 메뉴'});
+ const menu=element('div',{className:'chapter-menu',id:'chapter-menu',hidden:true},[mapButton,webButton,element('hr'),header.querySelector('.header-actions'),...(namesToggle?[namesToggle]:[]),element('hr'),exitButton]);
+ menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-controls','chapter-menu');
+ const setMenu=open=>{menu.hidden=!open;menuButton.setAttribute('aria-expanded',String(open));};
+ menuButton.addEventListener('click',()=>setMenu(menu.hidden));
+ menu.addEventListener('click',event=>{if(event.target.closest('button')&&event.target!==namesToggle)setMenu(false);});
+ document.addEventListener('click',event=>{if(!menu.hidden&&!event.target.closest('.chapter-menu-wrap'))setMenu(false);});
+ document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!menu.hidden){setMenu(false);menuButton.focus();}});
+ header.querySelector('.brand').after(document.querySelector('.dashboard'));
+ header.append(element('div',{className:'chapter-menu-wrap'},[menuButton,menu]));
+ // Messages read where the student already looks: in place of the status line.
+ const feedback=document.querySelector('#placement-feedback');if(feedback)status.after(feedback);
+ // Points next to the shop, so "what can I buy" is one glance.
+ const wallet=element('span',{className:'chapter-wallet'});
+ document.querySelector('.inventory-heading')?.append(wallet);
  const layer=element('div',{className:'chapter-offers'}),warning=element('p',{className:'chapter-warning',hidden:true});
  warning.setAttribute('role','alert');forest.append(layer,warning);
  const dialog=element('dialog',{className:'chapter-dialog'});document.body.append(dialog);
@@ -76,6 +93,8 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   status.dataset.state=c.cleared?'clear':first?'blocked':'growing';
   renderCare(c.cleared?[]:careOptions(s),s.metrics.points);
   renderShop(s);
+  const coins=`✦ ${s.metrics.points}P`;if(wallet.textContent!==coins){wallet.textContent=coins;wallet.setAttribute('aria-label',`가진 포인트 ${s.metrics.points}`);}
+  renderAbiotic();
   renderNeeds(c.cleared?new Map():needStates(s),c.cleared?new Set():neededCards(s,blockers));
   renderTaps(c);
   renderBreeding(s);
@@ -86,6 +105,13 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   else if(idle&&!c.cleared&&crisisReport(s))openReport(crisisReport(s));
   if(c.cleared&&shownClear!==c.stageId&&!document.querySelector('dialog[open]'))openClear();
  }
+ // Abiotic chips: quiet when good, loud when bad.
+ const qualityOf={'좋음':'good','보통':'mid','나쁨':'bad'};
+ function renderAbiotic(){
+  for(const chip of forest.querySelectorAll('.abiotic-status>span')){
+   const q=qualityOf[chip.querySelector('b')?.textContent]||'';if((chip.dataset.quality||'')!==q)chip.dataset.quality=q;
+  }
+ }
  // A short-lived class for a one-off animation, removed when it ends.
  function pop(el,cls='pop'){if(!el)return;el.classList.remove(cls);void el.offsetWidth;el.classList.add(cls);el.addEventListener('animationend',()=>el.classList.remove(cls),{once:true});}
  // "+1P" / "-4P" rising from where it happened.
@@ -93,7 +119,7 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   const box=forest.getBoundingClientRect(),tag=element('span',{className:`chapter-float ${kind}`,textContent:text});
   tag.setAttribute('aria-hidden','true');tag.style.left=`${rect.left-box.left+rect.width/2}px`;tag.style.top=`${rect.top-box.top}px`;
   forest.append(tag);tag.addEventListener('animationend',()=>tag.remove(),{once:true});setTimeout(()=>tag.remove(),2000);
-  pop(document.querySelector('#points-value')?.closest('.metric'),'bump');
+  pop(document.querySelector('#points-value')?.closest('.metric'),'bump');pop(wallet,'bump');
  }
  // Breeding made visible. A pair wears two half hearts (left on one, right on
  // the other) that make one heart together; the stage's own species is bright,
@@ -176,7 +202,9 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
    if(layer.querySelector(`[data-tap-id="${offer.offerId}"]`))continue;
    const animal=forest.querySelector(`#organism-layer [data-instance-id="${offer.consumerInstanceId}"]`);if(!animal)continue;
    const r=animal.getBoundingClientRect();
-   tapButton(offer.offerId,'chapter-offer','💡','먹는 모습 관찰하기',r.left-box.left+r.width/2,r.top-box.top,button=>{
+   // Above a hungry badge, not on it.
+   const lift=['hungry','starving'].includes(animal.dataset.need)?30:0;
+   tapButton(offer.offerId,'chapter-offer','💡','먹는 모습 관찰하기',r.left-box.left+r.width/2,r.top-box.top-lift,button=>{
     const rect=button.getBoundingClientRect(),result=onCatch(offer.offerId);if(result?.ok)float(`+${config.observationReward}P${result.bonus?' ★':''}`,rect,'gain');});
   }
   for(const item of c.trash){

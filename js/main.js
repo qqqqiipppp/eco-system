@@ -166,7 +166,7 @@ try {
       let notice;
       if(gameState.population.sequence>lastPopulationSequence)for(const record of gameState.population.history)if(record.sequence>lastPopulationSequence&&record.mode!=='chapter-pair'&&['starvation','reproduction','natural_lifespan','life_stage_exit','colony_decline','replenishment'].includes(record.cause))notice=record;
       if(notice)scene.showFeedback(studentChange(notice)||populationMessage(notice),!['starvation','colony_decline'].includes(notice.cause));
-      else if (result.feedingEvents.length&&performance.now()>=holdFeedbackUntil) scene.showFeedback(feedingFeedback(result.feedingEvents), true);
+      else if (result.feedingEvents.length&&!chapterMode&&performance.now()>=holdFeedbackUntil) scene.showFeedback(feedingFeedback(result.feedingEvents), true);
       lastPopulationSequence=gameState.population.sequence;
     },
   });
