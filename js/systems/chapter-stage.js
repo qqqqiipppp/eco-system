@@ -278,7 +278,7 @@ export function breedingState(s) {
   for (const [id, rule] of Object.entries(breeding.species)) {
     const all = s.organisms.filter(o => o.speciesId === id), well = all.filter(o => wellParent(s, o)), memory = s.chapter.breeding[id];
     if (!all.length && !memory?.pending) continue;
-    out[id] = {count: all.length, pair: well.length >= 2 ? well.slice(0, 2).map(o => o.instanceId) : [], healthy: memory?.healthy || 0, pending: memory?.pending || null, rule};
+    out[id] = {count: all.length, pair: well.length >= 2 && all.length < breeding.maximum ? well.slice(0, 2).map(o => o.instanceId) : [], healthy: memory?.healthy || 0, pending: memory?.pending || null, rule};
   }
   return out;
 }
