@@ -1,5 +1,6 @@
 import {stageBlockers,careOptions,needStates,neededCards,priceOf,prepareOptions,crisisReport,markReported,breedingState,isYoung} from '../systems/chapter-stage.js';
 import {currentEnvironmentEvent} from '../systems/environment-events.js';
+import {factorValue,qualityLabel} from '../systems/environment.js';
 import {stageConfig as config,chapters,stages,stageById,crises,crisisForFactor,breeding} from '../../data/chapters.js';
 import {environmentFactors} from '../../data/environment-config.js';
 import {environmentEventDefinitions} from '../../data/environment-events.js';
@@ -94,7 +95,7 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   renderCare(c.cleared?[]:careOptions(s),s.metrics.points);
   renderShop(s);
   const coins=`✦ ${s.metrics.points}P`;if(wallet.textContent!==coins){wallet.textContent=coins;wallet.setAttribute('aria-label',`가진 포인트 ${s.metrics.points}`);}
-  renderAbiotic();
+  renderAbiotic(s);
   renderNeeds(c.cleared?new Map():needStates(s),c.cleared?new Set():neededCards(s,blockers));
   renderTaps(c);
   renderBreeding(s);
@@ -105,11 +106,26 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   else if(idle&&!c.cleared&&crisisReport(s))openReport(crisisReport(s));
   if(c.cleared&&shownClear!==c.stageId&&!document.querySelector('dialog[open]'))openClear();
  }
- // Abiotic chips: quiet when good, loud when bad.
+ // The abiotic factors as four small bars in the top row, replacing the single
+ // average word (one bad factor hid inside it) and the chips over the forest.
+ const envMetric=document.querySelector('.metric.environment'),envBars={};
+ if(envMetric){
+  envMetric.classList.add('chapter-env');envMetric.querySelector('h2').textContent='비생물 요소 ›';
+  const box=element('div',{className:'chapter-env-bars'});
+  for(const [key,f] of Object.entries(environmentFactors)){
+   const fill=element('span',{className:'env-fill'}),word=element('b');
+   const row=element('span',{className:'env-row'},[element('span',{className:'env-name',textContent:f.name}),element('span',{className:'env-bar'},[fill]),word]);
+   row.setAttribute('role','img');envBars[key]={row,fill,word};box.append(row);
+  }
+  envMetric.querySelector('h2').after(box);
+ }
  const qualityOf={'좋음':'good','보통':'mid','나쁨':'bad'};
- function renderAbiotic(){
-  for(const chip of forest.querySelectorAll('.abiotic-status>span')){
-   const q=qualityOf[chip.querySelector('b')?.textContent]||'';if((chip.dataset.quality||'')!==q)chip.dataset.quality=q;
+ function renderAbiotic(s){
+  for(const [key,{row,fill,word}] of Object.entries(envBars)){
+   const value=factorValue(s.environment,key),label=qualityLabel(value),width=`${Math.round(value*100)}%`;
+   if(fill.style.width!==width)fill.style.width=width;
+   if(word.textContent!==label){word.textContent=label;row.dataset.quality=qualityOf[label];}
+   const spoken=`${environmentFactors[key].name} ${Math.round(value*100)}%, ${label}`;if(row.getAttribute('aria-label')!==spoken)row.setAttribute('aria-label',spoken);
   }
  }
  // A short-lived class for a one-off animation, removed when it ends.

@@ -192,6 +192,9 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
   await p.reload();await p.waitForSelector('.chapter-hud');
   if(await p.locator('.chapter-dialog[open]').count())await p.locator('.chapter-dialog[open] button',{hasText:'시작하기'}).click();
   await p.evaluate(async()=>{const m=await import('./js/main.js');m.gameState.chapter.trash.push({trashId:'t1',kind:'soil-damage',x:.5,y:.74});m.gameState.environment.soil.value=.3;});
+  await p.waitForFunction(()=>document.querySelectorAll('.chapter-env .env-row')[3]?.dataset.quality==='bad');
+  assert.match(await p.locator('.chapter-env .env-row').nth(3).getAttribute('aria-label'),/^토양 30%, 나쁨$/,'each abiotic factor has its own bar');
+  assert(!(await p.locator('.abiotic-status').isVisible()),'no chips over the forest');
   await p.waitForSelector('.chapter-trash');
   await p.waitForSelector('.chapter-care button',{state:'attached'});assert.match(await p.locator('.chapter-care button').textContent(),/숲 바닥 되살리기/);
   if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-trash.png`});
