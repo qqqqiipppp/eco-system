@@ -164,3 +164,30 @@
 .chapter-mode .organism-object[data-breed=young]::before{background:#e5f4dc;color:#2f5a22;border:2px solid #5d9a4a}
 .chapter-mode .organism-object[data-breed=young] .organism-visual{transform:scale(.72)}
 .chapter-mode .organism-object[data-need=eaten][data-breed]::before{top:32px}
+/* Fit one screen (classroom laptops and tablets, 600–800 px tall): the forest
+   and the card shop are visible together, like the original's tank and shop bar.
+   The footer only holds regular-forest buttons, so it goes. */
+.chapter-mode .game-footer{display:none}
+@media (min-width:801px){
+ .chapter-mode .forest{flex:1 1 auto;min-height:200px}
+ .chapter-mode .metric{padding-top:5px;padding-bottom:5px}
+ .chapter-mode .metric h2{font-size:13px;line-height:1.3}
+ .chapter-mode .metric p{font-size:18px;line-height:1.25}
+ .chapter-mode .metric-icon{height:28px}
+ .chapter-mode .metric-caption{display:none}
+ .chapter-mode .chapter-hud{padding:6px 12px;gap:10px}
+ .chapter-mode .chapter-goal{font-size:14px;line-height:1.35}
+ .chapter-mode .chapter-status{font-size:14px;line-height:1.35}
+}
+/* "지금 필요해요" sits where the count line is, instead of on top of it. */
+.chapter-mode .organism-card[data-chapter-need] .card-caption{visibility:hidden}
+/* Portrait tablets: the four numbers in one row, a slightly shorter forest. */
+@media (max-width:800px) and (min-width:600px){
+ .chapter-mode .dashboard{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+ .chapter-mode .metric{padding:6px 8px;gap:6px}
+ .chapter-mode .metric-icon{display:none}
+ .chapter-mode .metric-caption,.chapter-mode #stability-meter{display:none}
+ .chapter-mode .metric h2{font-size:12px;line-height:1.3}
+ .chapter-mode .metric p{font-size:16px;line-height:1.25}
+ .chapter-mode .forest{height:340px;min-height:340px}
+}
