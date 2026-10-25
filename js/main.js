@@ -10,7 +10,7 @@ import { createGuideAdapter } from './adapters/guide-preference.js';
 import { updateForestGoal } from './systems/forest-progress.js';
 import { createSaveService } from './services/save-service.js';
 import { createLocalAdapter,createNoSaveAdapter,createChapterProgressAdapter } from './adapters/local-storage.js';
-import {createStageGameState,updateStage,catchObservation} from './systems/chapter-stage.js';
+import {createStageGameState,updateStage,catchObservation,careFor} from './systems/chapter-stage.js';
 import {createChapterView} from './ui/chapter-view.js';
 import {stages,stageById} from '../data/chapters.js';
 import {environmentEventDefinitions} from '../data/environment-events.js';
@@ -68,7 +68,7 @@ try {
   let chapterView=null;
   if(chapterMode){
     document.body.classList.add('chapter-mode');
-    chapterView=createChapterView(()=>gameState,{forest,cleared:()=>chapterProgress.cleared(),onCatch:catchStageObservation,onStage:id=>installForest(createStageGameState(stageById[id])),onEnvironment:()=>document.querySelector('#environment-open').click(),onExit:()=>{location.href=location.pathname;}});
+    chapterView=createChapterView(()=>gameState,{forest,cleared:()=>chapterProgress.cleared(),onCatch:catchStageObservation,onStage:id=>installForest(createStageGameState(stageById[id])),onCare:careStageEnvironment,onExit:()=>{location.href=location.pathname;}});
   }else{
     const chapterButton=document.createElement('button');chapterButton.id='chapter-open';chapterButton.type='button';chapterButton.textContent='챕터 모드';
     chapterButton.addEventListener('click',()=>{location.search='?mode=chapter';});document.querySelector('.header-actions').append(chapterButton);
@@ -169,6 +169,11 @@ try {
     const response=catchObservation(gameState,offerId);if(!response.ok)return;
     scene.showFeedback(chapterView.caughtMessage(response),response.bonus);
     afterStageChange(response);chapterView.render();
+  }
+  function careStageEnvironment(factor){
+    const response=careFor(gameState,factor);scene.showFeedback(response.message,response.ok);
+    if(response.ok){eventSystem.refresh(gameState);stabilitySystem.update(gameState);refreshProgress();renderDashboard(gameState);eventView.render();environmentPanel.render();loop.refresh();}
+    chapterView.render();
   }
   function afterStageChange(response){
     if(response.eventStarted){
