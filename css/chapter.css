@@ -4,7 +4,7 @@
 .chapter-dialog{width:min(480px,calc(100% - 28px));max-height:85svh;overflow:auto;border:1px solid #b8c6aa;border-radius:16px;padding:22px;background:var(--white);color:var(--ink)}
 .chapter-dialog h2{margin:0 0 8px}
 .chapter-dialog::backdrop{background:#1d2e2466}
-.chapter-hud{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) auto;align-items:center;gap:12px;padding:8px 14px;border:1px solid #b8c6aa;border-radius:12px;background:#fffdf0;flex-shrink:0}
+.chapter-hud{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);align-items:center;gap:12px;padding:8px 14px;border:1px solid #b8c6aa;border-radius:12px;background:#fffdf0;flex-shrink:0}
 .chapter-title h2{margin:0;font-size:18px}
 .chapter-title .eyebrow{font-size:13px;color:var(--muted)}
 .chapter-goal{margin:2px 0 0;font-size:15px;line-height:1.45}
@@ -111,7 +111,7 @@
 @keyframes chapter-float{to{transform:translate(-50%,-220%);opacity:0}}
 .chapter-seed.pop{animation:chapter-seed-pop .6s ease-out}
 @keyframes chapter-seed-pop{40%{transform:scale(1.5) rotate(-12deg)}}
-.metric.bump{animation:chapter-bump .45s ease-out}
+.metric.bump,.chapter-wallet.bump{animation:chapter-bump .45s ease-out}
 @keyframes chapter-bump{40%{transform:scale(1.06)}}
 /* The original's pet hatching: three seeds go into the soil and sprout. */
 .chapter-planting{display:flex;justify-content:center;gap:28px;height:70px;margin:-6px 0 6px;border-bottom:10px solid #8a6a4a;border-radius:0 0 8px 8px;background:linear-gradient(#f4f8ec,#e9f1dc)}
@@ -143,7 +143,7 @@
 .map-stone.current{background:#e0a526;color:#3d2800;outline:3px solid #fff;outline-offset:2px}
 .map-stone.locked{background:#d8d6cc;color:#777;font-size:15px}
 @media (max-width:700px){.chapter-map{grid-template-columns:1fr}}
-@media (prefers-reduced-motion:reduce){.chapter-warning,.chapter-float,.chapter-seed.pop,.metric.bump,.plant-seed,.plant-sprout,.chapter-trash{animation:none}.chapter-float{display:none}}
+@media (prefers-reduced-motion:reduce){.chapter-warning,.chapter-float,.chapter-seed.pop,.metric.bump,.chapter-wallet.bump,.plant-seed,.plant-sprout,.chapter-trash{animation:none}.chapter-float{display:none}}
 /* Before weather: choose how to prepare. Large stacked buttons for a tablet. */
 .chapter-prepare{flex-direction:column;align-items:stretch;justify-content:flex-start}
 .chapter-prepare button{min-height:52px;font-size:17px;font-weight:700;text-align:left}
@@ -159,35 +159,70 @@
 .chapter-mode .organism-object[data-breed^=pair]::before{content:'';width:28px;height:26px;padding:0;border-radius:0;background:center/contain no-repeat;filter:drop-shadow(0 1px 1px rgba(0,0,0,.35))}
 .chapter-mode .organism-object[data-breed=pair-left]::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3CclipPath id='c'%3E%3Crect x='0' width='12' height='24'/%3E%3C/clipPath%3E%3Cpath d='M12 21.3C7.4 18 2.6 14.1 2.6 9.1 2.6 6.2 4.8 4 7.5 4c1.9 0 3.4 1 4.5 2.6C13.1 5 14.6 4 16.5 4c2.7 0 4.9 2.2 4.9 5.1 0 5-4.8 8.9-9.4 12.2z' fill='white'/%3E%3Cpath d='M12 21.3C7.4 18 2.6 14.1 2.6 9.1 2.6 6.2 4.8 4 7.5 4c1.9 0 3.4 1 4.5 2.6C13.1 5 14.6 4 16.5 4c2.7 0 4.9 2.2 4.9 5.1 0 5-4.8 8.9-9.4 12.2z' fill='%23d63f75' clip-path='url(%23c)'/%3E%3Cpath d='M12 21.3C7.4 18 2.6 14.1 2.6 9.1 2.6 6.2 4.8 4 7.5 4c1.9 0 3.4 1 4.5 2.6C13.1 5 14.6 4 16.5 4c2.7 0 4.9 2.2 4.9 5.1 0 5-4.8 8.9-9.4 12.2z' fill='none' stroke='%23b0285a' stroke-width='1.8'/%3E%3C/svg%3E")}
 .chapter-mode .organism-object[data-breed=pair-right]::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3CclipPath id='c'%3E%3Crect x='12' width='12' height='24'/%3E%3C/clipPath%3E%3Cpath d='M12 21.3C7.4 18 2.6 14.1 2.6 9.1 2.6 6.2 4.8 4 7.5 4c1.9 0 3.4 1 4.5 2.6C13.1 5 14.6 4 16.5 4c2.7 0 4.9 2.2 4.9 5.1 0 5-4.8 8.9-9.4 12.2z' fill='white'/%3E%3Cpath d='M12 21.3C7.4 18 2.6 14.1 2.6 9.1 2.6 6.2 4.8 4 7.5 4c1.9 0 3.4 1 4.5 2.6C13.1 5 14.6 4 16.5 4c2.7 0 4.9 2.2 4.9 5.1 0 5-4.8 8.9-9.4 12.2z' fill='%23d63f75' clip-path='url(%23c)'/%3E%3Cpath d='M12 21.3C7.4 18 2.6 14.1 2.6 9.1 2.6 6.2 4.8 4 7.5 4c1.9 0 3.4 1 4.5 2.6C13.1 5 14.6 4 16.5 4c2.7 0 4.9 2.2 4.9 5.1 0 5-4.8 8.9-9.4 12.2z' fill='none' stroke='%23b0285a' stroke-width='1.8'/%3E%3C/svg%3E")}
-.chapter-mode .organism-object[data-breed-tone=other]::before{opacity:.5;filter:saturate(.45)}
 .chapter-mode .organism-object[data-breed=pending]::before{background:#fff;color:#5a4028;border:2px dashed #8a6a4a}
 .chapter-mode .organism-object[data-breed=young]::before{background:#e5f4dc;color:#2f5a22;border:2px solid #5d9a4a}
 .chapter-mode .organism-object[data-breed=young] .organism-visual{transform:scale(.72)}
-.chapter-mode .organism-object[data-need=eaten][data-breed]::before{top:32px}
 /* Fit one screen (classroom laptops and tablets, 600–800 px tall): the forest
    and the card shop are visible together, like the original's tank and shop bar.
    The footer only holds regular-forest buttons, so it goes. */
 .chapter-mode .game-footer{display:none}
 @media (min-width:801px){
  .chapter-mode .forest{flex:1 1 auto;min-height:200px}
- .chapter-mode .metric{padding-top:5px;padding-bottom:5px}
- .chapter-mode .metric h2{font-size:13px;line-height:1.3}
- .chapter-mode .metric p{font-size:18px;line-height:1.25}
- .chapter-mode .metric-icon{height:28px}
- .chapter-mode .metric-caption{display:none}
  .chapter-mode .chapter-hud{padding:6px 12px;gap:10px}
  .chapter-mode .chapter-goal{font-size:14px;line-height:1.35}
  .chapter-mode .chapter-status{font-size:14px;line-height:1.35}
 }
 /* "지금 필요해요" sits where the count line is, instead of on top of it. */
 .chapter-mode .organism-card[data-chapter-need] .card-caption{visibility:hidden}
-/* Portrait tablets: the four numbers in one row, a slightly shorter forest. */
-@media (max-width:800px) and (min-width:600px){
- .chapter-mode .dashboard{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
- .chapter-mode .metric{padding:6px 8px;gap:6px}
- .chapter-mode .metric-icon{display:none}
- .chapter-mode .metric-caption,.chapter-mode #stability-meter{display:none}
- .chapter-mode .metric h2{font-size:12px;line-height:1.3}
- .chapter-mode .metric p{font-size:16px;line-height:1.25}
- .chapter-mode .forest{height:340px;min-height:340px}
-}
+/* Portrait tablets: the forest takes the room the top row gave back. */
+@media (max-width:800px) and (min-width:600px){.chapter-mode .forest{height:max(340px,calc(100svh - 540px));min-height:340px}}
+/* Top row: the game's name, four small numbers, one menu (landscape tablets). */
+.chapter-mode .app-header{gap:10px}
+.chapter-mode .brand p{display:none}
+.chapter-mode .brand h1{font-size:18px;white-space:nowrap}
+.chapter-mode .app-header .dashboard{flex:1;min-width:0;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.chapter-mode .app-header .metric{padding:4px 10px;gap:8px;border-radius:12px}
+.chapter-mode .app-header .metric-icon{width:26px;height:26px;font-size:16px}
+.chapter-mode .app-header .metric h2{font-size:12px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chapter-mode .app-header .metric p{font-size:15px;line-height:1.25}
+.chapter-mode .app-header .metric small{font-size:12px}
+.chapter-mode .app-header .metric-caption,.chapter-mode #stability-meter{display:none}
+@media (max-width:1180px){.chapter-mode .brand h1{display:none}}
+.chapter-menu-wrap{position:relative;flex-shrink:0}
+.chapter-menu-button{min-height:44px;padding:8px 14px;border:1px solid #b8c6aa;border-radius:10px;background:#fff;color:var(--ink);font-size:16px;font-weight:700;white-space:nowrap}
+.chapter-menu-button[aria-expanded=true]{background:#244c38;border-color:#244c38;color:#fff}
+.chapter-menu{position:absolute;right:0;top:calc(100% + 6px);z-index:40;display:grid;gap:6px;width:220px;padding:10px;border:1px solid #b8c6aa;border-radius:14px;background:#fff;box-shadow:0 8px 24px #0003}
+.chapter-menu[hidden]{display:none}
+.chapter-menu .header-actions{display:contents}
+.chapter-menu button,.chapter-menu .header-actions button{width:100%;min-height:46px;margin:0;padding:8px 12px!important;border:1px solid #d5dccb;border-radius:9px;background:#fff!important;color:var(--ink);font-size:16px!important;text-align:left}
+.chapter-menu hr{width:100%;margin:2px 0;border:0;border-top:1px solid #e3e6dc}
+.chapter-menu #names-toggle{position:static}
+.chapter-menu #names-toggle[aria-pressed=true]{background:#d8e8c4!important}
+.chapter-menu #names-toggle[aria-pressed=true]::after{content:' ✓';font-weight:800}
+/* No title on the forest: the stage name is just above it. */
+.chapter-mode .forest-heading{display:none}
+/* One mark per creature: trouble first, then eggs, then hearts. */
+.chapter-mode .organism-object[data-need][data-breed]::before{display:none}
+/* Messages take the status line's place for a moment, as plain bold text. */
+.chapter-mode .chapter-progress .placement-feedback{position:static;transform:none;width:auto;max-width:none!important;margin:0;padding:0!important;background:none;box-shadow:none;border-radius:0;color:#1f5a33;font-size:15px!important;line-height:1.4!important;font-weight:800;text-align:left}
+.chapter-mode .chapter-progress .placement-feedback[data-result=error]{background:none;color:#8a3b12}
+.chapter-mode .chapter-progress:has(.placement-feedback:not([hidden])) .chapter-status{display:none}
+.chapter-mode .chapter-status,.chapter-mode .chapter-progress .placement-feedback{min-height:2.8em}
+/* Points beside the shop. */
+.chapter-wallet{padding:4px 12px;border-radius:999px;background:#244c38;color:#fff;font-size:17px;font-weight:800;white-space:nowrap}
+/* Abiotic factors: four small bars in the top row (ticks at 40% and 80%,
+   where 나쁨/보통/좋음 change). The chips over the forest go. */
+.chapter-mode .abiotic-status{display:none!important}
+.chapter-mode .app-header .dashboard{grid-template-columns:minmax(0,1fr) minmax(0,.8fr) minmax(0,.8fr) minmax(0,1.6fr)}
+.chapter-mode .chapter-env .metric-icon,.chapter-mode .chapter-env #environment-value{display:none}
+.chapter-mode .chapter-env>div{width:100%;min-width:0}
+.chapter-env-bars{display:grid;grid-template-columns:1fr 1fr;column-gap:10px;row-gap:1px}
+.env-row{display:grid;grid-template-columns:auto minmax(16px,1fr) auto;align-items:center;gap:4px;font-size:12px;line-height:1.3;white-space:nowrap}
+.env-row b{font-weight:700;min-width:2.3em}
+.env-bar{position:relative;height:7px;border-radius:999px;overflow:hidden;background:linear-gradient(90deg,transparent calc(40% - 1px),#0003 calc(40% - 1px) 40%,transparent 40% calc(80% - 1px),#0003 calc(80% - 1px) 80%,transparent 80%),#e4e2d8}
+.env-fill{position:absolute;inset:0 auto 0 0;width:0;border-radius:inherit;background:#5d9a4a;transition:width .6s ease}
+.env-row[data-quality=mid] .env-fill{background:#d9a520}
+.env-row[data-quality=bad] .env-fill{background:#c0392b}
+.env-row[data-quality=bad]{color:#a0291d}
+.env-row[data-quality=bad] b{font-weight:800}
+@media (prefers-reduced-motion:reduce){.env-fill{transition:none}}
