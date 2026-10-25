@@ -18,7 +18,9 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
  for(const viewport of [{width:1280,height:800},{width:960,height:600}]){
   const p=await browser.newPage({viewport,hasTouch:true}),errors=[];
   p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
-  await p.goto(base);await p.waitForSelector('#chapter-open');
+  // Chapter mode opens first; the regular forest is ?mode=forest.
+  await p.goto(base);await p.waitForSelector('.chapter-hud');
+  await p.goto(base+'?mode=forest');await p.waitForSelector('#chapter-open');
   assert.equal(await p.locator('.chapter-hud').count(),0,'regular forest has no stage HUD');
   await p.evaluate(()=>document.querySelectorAll('dialog[open]').forEach(d=>d.close()));
   await p.waitForTimeout(1500);
@@ -27,7 +29,7 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
   // Leaving the regular forest flushes its own save, so record it from here.
   const forestSave=await p.evaluate(()=>localStorage.getItem('eco-system:forest-save'));
   assert(forestSave,'regular forest had saved before chapter mode');
-  assert.match(p.url(),/mode=chapter/);
+  assert.doesNotMatch(p.url(),/mode=forest/);
   // Chapter 1 opens with its news card instead of the regular help dialog.
   await p.waitForSelector('.chapter-dialog[open]');
   const intro=await p.locator('.chapter-dialog[open]').textContent();

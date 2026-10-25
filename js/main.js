@@ -44,8 +44,9 @@ import {hasEnvironmentEventWork,chooseEnvironmentObservation} from './systems/en
 import {claimEnvironmentStudy,claimRecoverySupport} from './systems/point-economy.js';
 
 // Module exports support integration checks; there is no global debug API.
-// ?mode=chapter plays short stages and leaves the regular forest save untouched.
-const chapterMode=new URLSearchParams(location.search).get('mode')==='chapter';
+// Chapter mode is what opens first; ?mode=forest is the regular forest. Chapter
+// mode plays short stages and leaves the regular forest save untouched.
+const chapterMode=new URLSearchParams(location.search).get('mode')!=='forest';
 const chapterProgress=chapterMode?createChapterProgressAdapter():null;
 export const gameState = createGameState();
 export const saveService = createSaveService({adapter:chapterMode?createNoSaveAdapter():createLocalAdapter(),getState:()=>gameState,getEventMemory:()=>eventSystem.exportMemory(),onStatus:showSaveStatus});
@@ -70,10 +71,10 @@ try {
   if(chapterMode){
     document.body.classList.add('chapter-mode');
     const webView=createChapterWebView(chapterProgress,{onComplete:()=>chapterView.webDone()});
-    chapterView=createChapterView(()=>gameState,{forest,cleared:()=>chapterProgress.cleared(),openWeb:n=>webView.open(n),webComplete:n=>webView.isComplete(n),onCatch:catchStageObservation,onCollect:collectStageTrash,onStage:id=>installForest(createStageGameState(stageById[id])),onCare:careStageEnvironment,onExit:()=>{location.href=location.pathname;}});
+    chapterView=createChapterView(()=>gameState,{forest,cleared:()=>chapterProgress.cleared(),openWeb:n=>webView.open(n),webComplete:n=>webView.isComplete(n),onCatch:catchStageObservation,onCollect:collectStageTrash,onStage:id=>installForest(createStageGameState(stageById[id])),onCare:careStageEnvironment,onExit:()=>{location.search='?mode=forest';}});
   }else{
     const chapterButton=document.createElement('button');chapterButton.id='chapter-open';chapterButton.type='button';chapterButton.textContent='챕터 모드';
-    chapterButton.addEventListener('click',()=>{location.search='?mode=chapter';});document.querySelector('.header-actions').append(chapterButton);
+    chapterButton.addEventListener('click',()=>{location.href=location.pathname;});document.querySelector('.header-actions').append(chapterButton);
   }
   const populationView=createPopulationView(gameState,id=>{
     const record=removeOrganism(gameState,id,'release');if(!record)return;
