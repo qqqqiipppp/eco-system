@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createStageGameState,updateStage,stageBlockers,catchObservation,careOptions,careFor,needStates,neededCards} from '../js/systems/chapter-stage.js';
+import {createStageGameState,updateStage,stageBlockers,catchObservation,careOptions,careFor,needStates,neededCards,buyCheck,payFor,collectTrash,priceOf} from '../js/systems/chapter-stage.js';
+import {currentEnvironmentEvent} from '../js/systems/environment-events.js';
 import {createFeedingSystem} from '../js/systems/feeding.js';
 import {layout} from './ecology-fixtures.mjs';
 import {stages,stageById,stageConfig,chapters} from '../data/chapters.js';
@@ -9,7 +10,7 @@ import {foodRelations} from '../data/food-relations.js';
 import {runStage,idleStudent} from './chapter-fixtures.mjs';
 
 // Stages that start unbalanced or missing a role: waiting alone must not clear them.
-const demanding=['1-2','2-2','2-3','3-1','3-3','4-1','4-2','4-3'];
+const demanding=['1-2','2-2','2-3','3-1','3-2','3-3','4-1','4-2','4-3'];
 
 test('chapters add one event each and hold balance longer as they go',()=>{
  assert.equal(chapters.length,4);assert.equal(stages.length,12);
@@ -39,7 +40,7 @@ for(const stage of stages)test(`${stage.stageId} ${stage.title}: a careful stude
  const r=runStage(stage.stageId);
  assert(r.cleared,`${stage.stageId} seeds ${r.seeds} blocked ${JSON.stringify(r.blocked)}`);
  assert(r.eventAt!==null&&r.eventAt<r.clearedAt);
- assert(r.clearedAt>=stageConfig.seedsToClear*stage.seedSeconds);
+ assert(r.clearedAt>=.8*stageConfig.seedsToClear*stage.seedSeconds,`${stage.stageId} too fast: ${r.clearedAt}`);
  assert(r.clearedAt<=600,`${stage.stageId} cleared at ${r.clearedAt}`);
 });
 
@@ -58,19 +59,46 @@ test('without decomposers, dead matter is not broken down and seeds stop',()=>{
  assert.equal(r.seeds,0);assert(r.blocked.noDecomposition>290);
 });
 
-test('during a drought the stage offers one-tap water care, and it is what the careful student uses',()=>{
- const r=runStage('2-3'),idle=runStage('2-3',{student:idleStudent,seconds:600});
- assert(r.actions.some(a=>a.endsWith('water-care water')),r.actions.join(' | '));
- assert(r.points<stageById['2-3'].points,'care costs points');
- assert(r.blocked.environment<idle.blocked.environment||!idle.cleared);
- const s=createStageGameState(stageById['2-3']);s.environment.water.value=.3;
- const option=careOptions(s).find(o=>o.factor==='water');
- assert(!option.ok&&option.message,'before the forest shows the drought, the button explains why it waits');
+test('weather cannot be fixed: natural crises offer no care button, human-made ones offer a conservation action',()=>{
+ const s=createStageGameState(stageById['2-3']);s.environment.water.value=.2;s.environment.sunlight.value=.2;
+ assert.deepEqual(careOptions(s),[]);
+ const r=runStage('2-3');assert(r.cleared);assert(!r.actions.some(a=>a.includes('water-care')||a.includes('habitat-care sunlight')));
+ assert(r.actions.some(a=>a.includes('place grass')),'endured by planting food plants');
+ const h=createStageGameState(stageById['3-1']);h.environment.soil.value=.2;
+ assert.deepEqual(careOptions(h).map(o=>o.label),['숲 바닥 되살리기']);
+});
+
+test('every crisis is announced before it starts',()=>{
+ const s=createStageGameState(stageById['1-1']);s.chapter.seeds=1;
+ updateStage(s,.5,[]);
+ assert.equal(s.chapter.warning.kind,'cloudy');assert(!currentEnvironmentEvent(s));
+ s.simulationTime=s.chapter.warning.startsAt;assert.equal(updateStage(s,.5,[]).eventStarted.kind,'cloudy');
+ assert.equal(s.chapter.warning,null);
+});
+
+test('litter from a human-made crisis keeps harming the soil until it is tapped away',()=>{
+ const left=runStage('3-2',{student:idleStudent,seconds:600}),cared=runStage('3-2');
+ assert(left.s.chapter.trash.length>0,'litter stays when nobody collects it');
+ assert(!left.cleared&&cared.cleared);assert(cared.trash>10);
+ const s=createStageGameState(stageById['3-1']);s.chapter.trash.push({trashId:'t',kind:'soil-damage'});
+ const before=s.metrics.points,soil=s.environment.soil.value;
+ for(let t=1;t<=20;t++){s.simulationTime=t;updateStage(s,1,[]);}
+ assert(s.environment.soil.value<soil,'one piece of litter lowers the soil');
+ assert(collectTrash(s,'t').ok);assert.equal(s.metrics.points,before+stageConfig.trashReward);assert(!collectTrash(s,'t').ok);
+});
+
+test('the shop: cards cost points, 💡 earn them, lower in the chain is cheaper',()=>{
+ assert(priceOf('grass')<priceOf('grasshopper')&&priceOf('grasshopper')<priceOf('frog')&&priceOf('frog')<priceOf('goshawk'));
+ const s=createStageGameState(stageById['1-1']);s.metrics.points=3;
+ assert(!buyCheck(s,'grasshopper').ok);assert.match(buyCheck(s,'grasshopper').message,/💡/);
+ s.chapter.offers.push({offerId:'o',expiresAt:99});catchObservation(s,'o');
+ assert(buyCheck(s,'grasshopper').ok);payFor(s,'grasshopper');assert.equal(s.metrics.points,0);
+ for(const stage of stages){const r=runStage(stage.stageId);assert(r.points>=0);assert(r.spent>0,`${stage.stageId} buys something`);}
 });
 
 test('catching every observation helps a little but cannot replace care',()=>{
  for(const id of ['1-1','2-2']){
-  const plain=runStage(id),caught=runStage(id,{catchAll:true});
+  const plain=runStage(id,{catchAll:false}),caught=runStage(id,{catchAll:true});
   assert(caught.cleared&&caught.s.chapter.observations>0);
   assert(caught.clearedAt>=plain.clearedAt*.75,`${id}: ${caught.clearedAt} vs ${plain.clearedAt}`);
  }

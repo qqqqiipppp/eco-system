@@ -1,16 +1,18 @@
-import {stageBlockers,careOptions,needStates,neededCards} from '../systems/chapter-stage.js';
-import {stageConfig as config,chapters,stages,stageById} from '../../data/chapters.js';
+import {stageBlockers,careOptions,needStates,neededCards,priceOf} from '../systems/chapter-stage.js';
+import {currentEnvironmentEvent} from '../systems/environment-events.js';
+import {stageConfig as config,chapters,stages,stageById,crises,crisisForFactor} from '../../data/chapters.js';
 import {environmentFactors} from '../../data/environment-config.js';
 import {environmentEventDefinitions} from '../../data/environment-events.js';
 import {foodRelationById} from '../../data/food-relations.js';
 import {organismById} from '../../data/organisms.js';
 import {mealSentence,particle} from '../../data/student-text.js';
+import {visualAsset} from './species-visuals.js';
 
 const name=id=>organismById[id].name;
 const blockerText={
  noConsumer:()=>'아직 먹는 동물이 없어요. 동물 카드를 골라 숲에 놓아 보세요.',
  missing:b=>`${particle(name(b.species[0].id),'이','가')} 부족해요. ${b.species[0].need}마리 이상 있어야 해요.`,
- environment:b=>`${particle(b.factors.map(f=>environmentFactors[f].name).join('·'),'이','가')} 나빠요. 기다리거나 환경을 돌봐요.`,
+ environment:b=>crisisForFactor(b.factors[0])?.status||`${particle(b.factors.map(f=>environmentFactors[f].name).join('·'),'이','가')} 나빠요.`,
  starving:()=>'먹이를 찾지 못해 배고픈 동물이 있어요. 먹이가 충분한지 살펴봐요.',
  depleted:()=>'먹이 식물이 거의 다 먹혔어요. 먹는 동물에 비해 먹이가 모자라요.',
  noDecomposition:()=>'낙엽과 죽은 나무가 분해되지 않고 있어요. 분해자가 일할 수 있게 해요.',
@@ -21,29 +23,31 @@ const time=seconds=>`${Math.floor(seconds/60)}분 ${Math.round(seconds%60)}초`;
 const chapterNews=chapter=>[
  element('p',{textContent:chapter.intro}),
  element('p',{textContent:`새로 만나는 생물: ${chapter.newSpecies.map(name).join(', ')}`}),
- element('p',{textContent:`새로운 사건: ${environmentEventDefinitions[chapter.events[0]].name}`}),
+ element('p',{textContent:`새로운 사건: ${environmentEventDefinitions[chapter.events[0]].name}${crises[chapter.events[0]].human?' (사람이 만든 문제)':' (자연 현상)'}`}),
 ];
 
-// Stage HUD, observations to catch in the forest, chapter and stage dialogs.
-// Create before bindDialogPause so the dialogs pause the forest like the others.
-export function createChapterView(getState,{forest,cleared,onCatch,onStage,onCare,onExit,openWeb,webComplete}){
+// Stage HUD, things to tap in the forest (💡 and litter), crisis warnings,
+// chapter dialogs and the chapter map. Create before bindDialogPause so the
+// dialogs pause the forest like the others. No sound: motion and colour only.
+export function createChapterView(getState,{forest,cleared,onCatch,onCollect,onStage,onCare,onExit,openWeb,webComplete}){
  const seeds=Array.from({length:config.seedsToClear},()=>element('span',{className:'chapter-seed'}));
  const title=element('h2'),eyebrow=element('span',{className:'eyebrow'}),goal=element('p',{className:'chapter-goal'});
  const meter=element('progress',{value:0});meter.setAttribute('aria-label','다음 씨앗까지');
  const status=element('p',{className:'chapter-status'});status.setAttribute('aria-live','polite');
  const care=element('div',{className:'chapter-care'});
- const pickButton=element('button',{type:'button',textContent:'스테이지 고르기',onclick:()=>openPicker()});
+ const mapButton=element('button',{type:'button',textContent:'숲 지도',onclick:()=>openMap()});
  const webButton=element('button',{type:'button',textContent:'나의 먹이그물',onclick:()=>openWeb(stageById[getState().chapter.stageId].chapter.number)});
  const exitButton=element('button',{type:'button',textContent:'기존 숲으로',onclick:onExit});
  const hud=element('section',{className:'chapter-hud'},[
   element('div',{className:'chapter-title'},[eyebrow,title,goal]),
   element('div',{className:'chapter-progress'},[element('div',{className:'chapter-seeds'},seeds),meter,status,care]),
-  element('div',{className:'chapter-actions'},[webButton,pickButton,exitButton]),
+  element('div',{className:'chapter-actions'},[webButton,mapButton,exitButton]),
  ]);hud.setAttribute('aria-label','스테이지 목표');
  document.querySelector('.dashboard').after(hud);
- const layer=element('div',{className:'chapter-offers'});forest.append(layer);
+ const layer=element('div',{className:'chapter-offers'}),warning=element('p',{className:'chapter-warning',hidden:true});
+ warning.setAttribute('role','alert');forest.append(layer,warning);
  const dialog=element('dialog',{className:'chapter-dialog'});document.body.append(dialog);
- let shownClear=null,shownIntro=null,careKey='';
+ let shownClear=null,shownIntro=null,careKey='',shopKey='',lastSeeds=0;
 
  function render(){
   const s=getState(),c=s.chapter,stage=stageById[c.stageId];
@@ -52,6 +56,7 @@ export function createChapterView(getState,{forest,cleared,onCatch,onStage,onCar
   eyebrow.textContent=`챕터 ${stage.chapter.number} · ${stage.chapter.title}`;
   title.textContent=`${stage.stageId} ${stage.title}`;goal.textContent=stage.goal;
   seeds.forEach((seed,i)=>seed.classList.toggle('filled',i<c.seeds));
+  if(c.seeds>lastSeeds)pop(seeds[c.seeds-1]);lastSeeds=c.seeds;
   hud.querySelector('.chapter-seeds').setAttribute('aria-label',`씨앗 ${c.seeds}/${config.seedsToClear}`);
   meter.max=stage.seedSeconds;meter.value=c.cleared?stage.seedSeconds:c.seedProgress;
   const blockers=c.cleared?[]:stageBlockers(s),first=blockers[0];
@@ -59,9 +64,27 @@ export function createChapterView(getState,{forest,cleared,onCatch,onStage,onCar
   if(status.textContent!==text)status.textContent=text;
   status.dataset.state=c.cleared?'clear':first?'blocked':'growing';
   renderCare(c.cleared?[]:careOptions(s),s.metrics.points);
+  renderShop(s);
   renderNeeds(c.cleared?new Map():needStates(s),c.cleared?new Set():neededCards(s,blockers));
-  renderOffers(c.offers);
+  renderTaps(c);
+  renderCrisis(s);
   if(c.cleared&&shownClear!==c.stageId&&!document.querySelector('dialog[open]'))openClear();
+ }
+ // A short-lived class for a one-off animation, removed when it ends.
+ function pop(el,cls='pop'){if(!el)return;el.classList.remove(cls);void el.offsetWidth;el.classList.add(cls);el.addEventListener('animationend',()=>el.classList.remove(cls),{once:true});}
+ // "+1P" / "-4P" rising from where it happened.
+ function float(text,rect,kind){
+  const box=forest.getBoundingClientRect(),tag=element('span',{className:`chapter-float ${kind}`,textContent:text});
+  tag.setAttribute('aria-hidden','true');tag.style.left=`${rect.left-box.left+rect.width/2}px`;tag.style.top=`${rect.top-box.top}px`;
+  forest.append(tag);tag.addEventListener('animationend',()=>tag.remove(),{once:true});setTimeout(()=>tag.remove(),2000);
+  pop(document.querySelector('#points-value')?.closest('.metric'),'bump');
+ }
+ // Warning before a crisis, then the forest's colour while it lasts.
+ function renderCrisis(s){
+  const c=s.chapter,event=currentEnvironmentEvent(s),kind=c.warning?.kind||(event&&event.phase!=='ended'?event.kind:'');
+  if((forest.dataset.weather||'')!==kind){if(kind)forest.dataset.weather=kind;else delete forest.dataset.weather;}
+  const text=c.warning?`⚠ ${crises[c.warning.kind].notice} ${Math.max(1,Math.ceil(c.warning.startsAt-s.simulationTime))}`:'';
+  if(warning.textContent!==text)warning.textContent=text;warning.hidden=!text;
  }
  // Badges on the animals and plants, and the cards that would help: the same
  // rules that stall the seeds, so what the student sees is the reason.
@@ -76,30 +99,49 @@ export function createChapterView(getState,{forest,cleared,onCatch,onStage,onCar
    if(on)card.dataset.chapterNeed='true';else delete card.dataset.chapterNeed;
   }
  }
- // One button per bad factor, rebuilt only when what it would show changes.
+ // The card row is the shop: each card shows its price and dims when unaffordable.
+ function renderShop(s){
+  const cards=[...document.querySelectorAll('.organism-card[data-species-id]')],key=s.metrics.points+':'+cards.length;
+  if(key===shopKey&&cards.every(c=>c.dataset.price))return;shopKey=key;
+  for(const card of cards){const price=priceOf(card.dataset.speciesId);card.dataset.price=price+'P';card.dataset.afford=String(s.metrics.points>=price);}
+ }
+ // One button per bad factor people can act on, rebuilt only when it changes.
  function renderCare(options,points){
   const key=JSON.stringify([options,points]);if(key===careKey)return;careKey=key;
   care.replaceChildren(...options.map(o=>{
-   const button=element('button',{type:'button',disabled:!o.ok,textContent:`${environmentFactors[o.factor].name} 돌보기 ${o.cost}P`,onclick:()=>onCare(o.factor)});
+   const button=element('button',{type:'button',disabled:!o.ok,textContent:`${o.label} ${o.cost}P`,onclick:()=>onCare(o.factor)});
    if(!o.ok)button.title=o.message;return button;
   }));
  }
- function renderOffers(offers){
-  const live=new Set(offers.map(o=>o.offerId));
-  for(const button of [...layer.children])if(!live.has(button.dataset.offerId))button.remove();
+ // 💡 pinned where a meal happened, and litter or smog where it fell. Both are
+ // still targets: easy to tap on a tablet.
+ function renderTaps(c){
+  const live=new Set([...c.offers.map(o=>o.offerId),...c.trash.map(t=>t.trashId)]);
+  for(const button of [...layer.children])if(!live.has(button.dataset.tapId))button.remove();
   const box=forest.getBoundingClientRect();
-  // Pinned where the meal happened: a still target is easy to tap on a tablet.
-  for(const offer of offers){
-   if(layer.querySelector(`[data-offer-id="${offer.offerId}"]`))continue;
-   const animal=forest.querySelector(`#organism-layer [data-instance-id="${offer.consumerInstanceId}"]`);
-   if(!animal)continue;
-   const button=element('button',{type:'button',className:'chapter-offer',textContent:'💡'});
-   button.dataset.offerId=offer.offerId;button.setAttribute('aria-label','먹는 모습 관찰하기');
-   button.addEventListener('click',event=>{event.stopPropagation();onCatch(offer.offerId);});
+  for(const offer of c.offers){
+   if(layer.querySelector(`[data-tap-id="${offer.offerId}"]`))continue;
+   const animal=forest.querySelector(`#organism-layer [data-instance-id="${offer.consumerInstanceId}"]`);if(!animal)continue;
    const r=animal.getBoundingClientRect();
-   button.style.left=`${r.left-box.left+r.width/2}px`;button.style.top=`${r.top-box.top}px`;
-   layer.append(button);
+   tapButton(offer.offerId,'chapter-offer','💡','먹는 모습 관찰하기',r.left-box.left+r.width/2,r.top-box.top,button=>{
+    const rect=button.getBoundingClientRect(),result=onCatch(offer.offerId);if(result?.ok)float(`+${config.observationReward}P${result.bonus?' 🌱':''}`,rect,'gain');});
   }
+  for(const item of c.trash){
+   if(layer.querySelector(`[data-tap-id="${item.trashId}"]`))continue;
+   const crisis=crises[item.kind];
+   tapButton(item.trashId,'chapter-trash',`${crisis.icon} ${crisis.item}`,`${crisis.item} 치우기`,item.x*box.width,item.y*box.height,button=>{
+    const rect=button.getBoundingClientRect(),result=onCollect(item.trashId);if(result?.ok)float(`+${config.trashReward}P`,rect,'gain');});
+  }
+ }
+ function tapButton(id,cls,icon,label,x,y,onTap){
+  const button=element('button',{type:'button',className:cls,textContent:icon});
+  button.dataset.tapId=id;button.setAttribute('aria-label',label);button.style.left=`${x}px`;button.style.top=`${y}px`;
+  button.addEventListener('click',event=>{event.stopPropagation();onTap(button);});
+  layer.append(button);
+ }
+ function spent(price,instance){
+  const el=forest.querySelector(`#organism-layer [data-instance-id="${instance.instanceId}"]`);
+  if(el)float(`-${price}P`,el.getBoundingClientRect(),'spend');
  }
  function caughtMessage(result){
   const relation=foodRelationById[result.offer.relationId];
@@ -107,11 +149,16 @@ export function createChapterView(getState,{forest,cleared,onCatch,onStage,onCar
   return sentence+(result.bonus?'관찰 기록! 씨앗이 조금 더 자랐어요.':'관찰 기록! 지금은 숲의 균형이 맞지 않아 씨앗이 자라지 않아요.');
  }
  const actions=buttons=>element('div',{className:'chapter-actions'},buttons.map(([label,onclick])=>element('button',{type:'button',textContent:label,onclick})));
- const show=children=>{dialog.replaceChildren(...children);dialog.showModal();};
+ const show=(children,cls='')=>{dialog.className=`chapter-dialog ${cls}`;dialog.replaceChildren(...children);dialog.showModal();};
  function openIntro(stage){
   shownIntro=stage.stageId;
-  show([element('span',{className:'eyebrow',textContent:`챕터 ${stage.chapter.number}`}),element('h2',{textContent:stage.chapter.title}),...chapterNews(stage.chapter),actions([['시작하기',()=>dialog.close()]])]);
+  show([element('span',{className:'eyebrow',textContent:`챕터 ${stage.chapter.number}`}),element('h2',{textContent:stage.chapter.title}),...chapterNews(stage.chapter),
+   element('p',{className:'chapter-shop-note',textContent:'💡를 잡으면 포인트가 생겨요. 포인트로 생물 카드를 사서 숲에 놓아요.'}),actions([['시작하기',()=>dialog.close()]])]);
  }
+ // The original's pet hatching: three seeds go into the soil and sprout.
+ const planting=()=>element('div',{className:'chapter-planting'},Array.from({length:config.seedsToClear},(_,i)=>{
+  const spot=element('span',{className:'plant-spot'},[element('span',{className:'plant-seed'}),element('span',{className:'plant-sprout'})]);
+  spot.style.setProperty('--i',i);return spot;}));
  function openClear(){
   const c=getState().chapter,stage=stageById[c.stageId],index=stages.indexOf(stage),next=stages[index+1];
   const chapterDone=!next||next.chapter!==stage.chapter,number=stage.chapter.number;
@@ -119,23 +166,34 @@ export function createChapterView(getState,{forest,cleared,onCatch,onStage,onCar
   const webDue=chapterDone&&!webComplete(number);
   shownClear=c.stageId;
   show([
+   planting(),
    element('h2',{textContent:chapterDone?`챕터 ${stage.chapter.number} ${stage.chapter.title} 완료!`:`${c.stageId} 완료!`}),
-   element('p',{textContent:`씨앗 ${config.seedsToClear}개를 모았어요. 걸린 시간 ${time(c.clearedAt)} · 관찰 ${c.observations}번`}),
+   element('p',{textContent:`씨앗 ${config.seedsToClear}개를 심었어요. 걸린 시간 ${time(c.clearedAt)} · 관찰 ${c.observations}번${c.trashCollected?` · 치운 ${crises[stage.events.find(k=>crises[k].human)]?.item||'쓰레기'} ${c.trashCollected}개`:''}`}),
    ...(next?chapterDone?[element('h3',{textContent:`다음 챕터: ${next.chapter.title}`}),...chapterNews(next.chapter)]:[element('p',{textContent:`다음 스테이지: ${next.stageId} ${next.title}`})]
     :[element('p',{textContent:'모든 챕터를 마쳤어요! 숲의 먹이그물을 끝까지 지켜 냈어요.'})]),
    ...(webDue?[element('p',{className:'web-due',textContent:`이번 챕터에서 만난 생물로 나의 먹이그물을 이어 그려야 ${next?'다음 챕터가 열려요':'모든 챕터를 마쳐요'}.`})]:[]),
-   actions([...(webDue?[['나의 먹이그물 그리기',()=>{dialog.close();openWeb(number);}]]:next?[[chapterDone?'다음 챕터로':'다음 스테이지',()=>{dialog.close();onStage(next.stageId);}]]:[]),['다시 하기',()=>{dialog.close();onStage(c.stageId);}],['닫기',()=>dialog.close()]]),
+   actions([...(webDue?[['나의 먹이그물 그리기',()=>{dialog.close();openWeb(number);}]]:next?[[chapterDone?'다음 챕터로':'다음 스테이지',()=>{dialog.close();onStage(next.stageId);}]]:[]),['다시 하기',()=>{dialog.close();onStage(c.stageId);}],['숲 지도',()=>openMap()]]),
   ]);
  }
- function openPicker(){
-  const done=cleared(),open=stage=>{const i=stages.indexOf(stage);return i===0||done.includes(stages[i-1].stageId);};
-  show([element('h2',{textContent:'스테이지 고르기'}),...chapters.map(chapter=>element('section',{className:'chapter-stage-group'},[
-   element('h3',{textContent:`챕터 ${chapter.number} ${chapter.title}`}),
-   element('ul',{className:'chapter-stage-list'},chapter.stages.map(raw=>{const stage=stageById[raw.stageId],ok=open(stage);
-    return element('li',{},[element('button',{type:'button',disabled:!ok,textContent:`${done.includes(stage.stageId)?'✓ ':''}${stage.stageId} ${stage.title}${ok?'':' (앞 스테이지를 마치면 열려요)'}`,onclick:()=>{dialog.close();onStage(stage.stageId);}})]);})),
-  ])),actions([['닫기',()=>dialog.close()]])]);
+ // The original's tank select: four forest areas on a path, three stages each.
+ function openMap(){
+  const done=cleared(),current=getState().chapter.stageId,open=stage=>{const i=stages.indexOf(stage);return i===0||done.includes(stages[i-1].stageId);};
+  show([element('h2',{textContent:'숲 지도'}),element('div',{className:'chapter-map'},chapters.map(chapter=>{
+   const list=chapter.stages.map(raw=>stageById[raw.stageId]),reached=open(list[0]),crisis=crises[chapter.events[0]];
+   return element('section',{className:`map-area map-${chapter.chapterId}${reached?'':' locked'}`},[
+    element('div',{className:'map-head'},[element('span',{className:'eyebrow',textContent:`챕터 ${chapter.number}`}),element('h3',{textContent:chapter.title}),
+     ...(webComplete(chapter.number)?[element('span',{className:'map-web',textContent:'먹이그물 완성'})]:[])]),
+    element('div',{className:'map-species'},chapter.newSpecies.slice(0,4).map(id=>element('img',{src:visualAsset(id),alt:name(id),title:name(id)}))),
+    element('p',{className:'map-crisis',textContent:`${crisis.human?'사람이 만든 문제':'자연 현상'}: ${environmentEventDefinitions[chapter.events[0]].name}`}),
+    element('ol',{className:'map-stones'},list.map(stage=>{const ok=open(stage),state=done.includes(stage.stageId)?'done':stage.stageId===current?'current':ok?'open':'locked';
+     const button=element('button',{type:'button',disabled:!ok,className:`map-stone ${state}`,textContent:state==='done'?'✓':state==='locked'?'🔒':stage.stageId.split('-')[1],
+      onclick:()=>{dialog.close();onStage(stage.stageId);}});
+     button.setAttribute('aria-label',`${stage.stageId} ${stage.title}${state==='done'?' 완료':state==='locked'?' 잠김':''}`);button.title=`${stage.stageId} ${stage.title}`;
+     return element('li',{},[button,element('span',{textContent:stage.title})]);})),
+   ]);
+  })),actions([['닫기',()=>dialog.close()]])],'chapter-map-dialog');
  }
  // Back from a finished web: show the chapter's end again, now with the way on.
  const webDone=()=>{if(getState().chapter.cleared&&!document.querySelector('dialog[open]'))openClear();};
- return {render,caughtMessage,webDone,reset:()=>{shownClear=null;careKey='';layer.replaceChildren();}};
+ return {render,caughtMessage,webDone,spent,reset:()=>{shownClear=null;careKey='';shopKey='';lastSeeds=0;layer.replaceChildren();}};
 }

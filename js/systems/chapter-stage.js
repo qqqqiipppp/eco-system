@@ -1,13 +1,13 @@
 import {createGameState} from '../state/game-state.js';
 import {createOrganismInstance} from '../state/organism-instance.js';
-import {createPointEconomyState} from '../state/point-economy-state.js';
+import {createPointEconomyState,recordPointChange} from '../state/point-economy-state.js';
 import {survivalStage} from './population.js';
 import {startEnvironmentEvent,currentEnvironmentEvent} from './environment-events.js';
 import {executeManagement,validateManagement} from './management.js';
 import {foodResourceConfig} from '../../data/ecology-config.js';
 import {managementActions} from '../../data/management-actions.js';
 import {foodRelations} from '../../data/food-relations.js';
-import {stageConfig as config,stageById} from '../../data/chapters.js';
+import {stageConfig as config,stageById,crises,crisisForFactor} from '../../data/chapters.js';
 
 // A fresh stage forest. Chapter mode never writes the regular forest save.
 export function createStageGameState(stage) {
@@ -24,6 +24,7 @@ export function createStageGameState(stage) {
   s.environmentEvents.nextAt = Number.MAX_SAFE_INTEGER;
   s.chapter = {stageId: stage.stageId, seeds: 0, seedProgress: 0, lastMealAt: null,
     observations: 0, offers: [], offerSequence: 0, lastOfferAt: null, lastWork: 0, lastDecomposedAt: null,
+    warning: null, trash: [], trashSequence: 0, lastTrashAt: null, trashCollected: 0,
     eventsStarted: 0, cleared: false, clearedAt: null};
   return s;
 }
@@ -80,11 +81,43 @@ export function stageBlockers(s) {
   return list;
 }
 
-// Event i waits for seed i+1 and for the previous event to end.
+// Event i waits for seed i+1 and for the previous event to end, then is
+// announced warningSeconds before it starts.
 function startDueEvent(s) {
   const c = s.chapter, events = stageById[c.stageId].events;
+  if (c.warning) {
+    if (s.simulationTime < c.warning.startsAt) return null;
+    const kind = c.warning.kind;
+    c.warning = null; c.eventsStarted++;
+    return startEnvironmentEvent(s, kind);
+  }
   if (c.eventsStarted >= events.length || c.seeds <= c.eventsStarted || currentEnvironmentEvent(s)) return null;
-  return startEnvironmentEvent(s, events[c.eventsStarted++]);
+  c.warning = {kind: events[c.eventsStarted], startsAt: s.simulationTime + config.warningSeconds};
+  return null;
+}
+
+// Litter or smog appears while a human-made crisis is active and harms its
+// factor for as long as it lies in the forest.
+function updateTrash(s, seconds) {
+  const c = s.chapter, time = s.simulationTime, event = currentEnvironmentEvent(s), crisis = event && crises[event.kind];
+  if (crisis?.human && event.phase === 'active' && c.trash.length < config.trashMax && (c.lastTrashAt === null || time - c.lastTrashAt >= config.trashInterval)) {
+    c.lastTrashAt = time;
+    const n = ++c.trashSequence;
+    c.trash.push({trashId: `trash-${n}`, kind: event.kind, x: .12 + .74 * ((n * .618) % 1), y: .74});
+  }
+  for (const item of c.trash) {
+    const factor = s.environment[crises[item.kind].factor];
+    factor.value = Math.max(Math.min(factor.value, config.trashFloor), factor.value - config.trashDamage * seconds);
+  }
+}
+export function collectTrash(s, trashId) {
+  const c = s.chapter, item = c?.trash.find(t => t.trashId === trashId);
+  if (!item) return {ok: false};
+  c.trash = c.trash.filter(t => t !== item);
+  c.trashCollected++;
+  s.metrics.points += config.trashReward;
+  recordPointChange(s, 'study', config.trashReward, `chapter-trash:${trashId}`, trashId);
+  return {ok: true, item, message: `${crises[item.kind].item}를 치웠어요. 치우지 않으면 숲이 계속 망가져요.`};
 }
 function growSeeds(s) {
   const c = s.chapter, seedSeconds = stageById[c.stageId].seedSeconds, result = {seedGained: false, eventStarted: null, cleared: false};
@@ -119,6 +152,10 @@ export function updateStage(s, seconds, feedingEvents = []) {
     c.lastOfferAt = time;
     c.offers.push({offerId: `offer-${++c.offerSequence}`, relationId: meal.relationId, consumerInstanceId: meal.consumerInstanceId, expiresAt: time + config.observationLifetime});
   }
+  updateTrash(s, seconds);
+  // In a shop the price limits how fast animals come back, so the regular
+  // forest's wait before reintroducing an eaten species is lifted here.
+  for (const intro of Object.values(s.population.introductions)) if (intro.nextAt > time) intro.nextAt = time;
   if (!stageBlockers(s).length) c.seedProgress += seconds;
   const result = growSeeds(s);
   if (!c.cleared) result.eventStarted = startDueEvent(s) || result.eventStarted;
@@ -132,6 +169,8 @@ export function catchObservation(s, offerId) {
   if (!offer || c.cleared) return {ok: false, bonus: false, seedGained: false, eventStarted: null, cleared: false};
   c.offers = c.offers.filter(o => o !== offer);
   c.observations++;
+  s.metrics.points += config.observationReward;
+  recordPointChange(s, 'study', config.observationReward, `chapter-observation:${offer.offerId}`, offer.offerId);
   const bonus = !stageBlockers(s).length;
   if (bonus) c.seedProgress += config.observationBonusSeconds;
   return {ok: true, bonus, offer, ...growSeeds(s)};
@@ -145,14 +184,27 @@ function careTarget(s, factor) {
   return s.events.find(e => e.status === 'active' && e.sourceType === 'environment' && e.payload?.factor === factor)?.eventId ?? null;
 }
 export function careOptions(s) {
-  return Object.keys(s.environment).filter(f => s.environment[f].value < config.minimumEnvironment).map(factor => {
+  return Object.keys(s.environment).filter(f => s.environment[f].value < config.minimumEnvironment && crisisForFactor(f)?.care).map(factor => {
     const actionId = careAction[factor], target = careTarget(s, factor);
     const check = target ? validateManagement(s, actionId, target) : {ok: false, message: '환경의 변화가 생물에게 나타날 때까지 조금 기다려요.'};
     const cost = managementActions.find(action => action.actionId === actionId).cost;
-    return {factor, actionId, cost, ok: check.ok, message: check.ok ? '' : check.message};
+    return {factor, actionId, cost, label: crisisForFactor(factor).care, ok: check.ok, message: check.ok ? '' : check.message};
   });
 }
 export function careFor(s, factor) {
   const target = careTarget(s, factor);
   return target ? executeManagement(s, careAction[factor], target) : {ok: false, message: '환경의 변화가 생물에게 나타날 때까지 조금 기다려요.'};
+}
+
+// The shop. Placement itself stays the game's own rule; the stage only charges.
+export const priceOf = id => config.prices[id] ?? 5;
+export function buyCheck(s, id) {
+  const price = priceOf(id);
+  return s.metrics.points >= price ? {ok: true, price} : {ok: false, price, message: `포인트가 ${price - s.metrics.points}점 부족해요. 숲에서 💡를 잡아 포인트를 모아요.`};
+}
+export function payFor(s, id) {
+  const price = priceOf(id);
+  s.metrics.points -= price;
+  recordPointChange(s, 'management', -price, `chapter-buy:${id}:${s.nextInstanceSequence}`, id);
+  return price;
 }

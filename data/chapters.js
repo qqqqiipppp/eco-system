@@ -14,6 +14,19 @@ export const stageConfig = {
   observationInterval: 6,
   observationLifetime: 8,
   observationBonusSeconds: 2,
+  // The shop: a caught 💡 earns points, cards cost points. Lower in the food
+  // chain is cheaper. Offers are paced, so more animals never earn more.
+  observationReward: 1,
+  // Crises are announced before they start, like the original's alien warning.
+  warningSeconds: 5,
+  // Litter or smog from a human-made crisis: each piece left in the forest keeps
+  // harming its factor until a student taps it away.
+  trashInterval: 4,
+  trashMax: 5,
+  trashDamage: .006,
+  trashFloor: .15,
+  trashReward: 1,
+  prices: {grass: 3, oak: 6, grasshopper: 4, earthworm: 4, rabbit: 6, chipmunk: 6, mushroom: 5, 'litter-mold': 5, frog: 8, snake: 10, weasel: 10, goshawk: 12},
 };
 
 // Each chapter adds one food-chain step and one environment event, like a new
@@ -87,6 +100,23 @@ export const chapters = [
       organisms: [['oak', .2], ['oak', .72], ['grass', .3], ['grass', .42], ['grass', .54], ['grass', .64], ['grasshopper', .36], ['grasshopper', .5], ['rabbit', .46], ['litter-mold', .6]]},
   ]},
 ];
+
+// Natural crises cannot be fixed, only endured (more food plants) or waited
+// out. Human-made ones are where people can act: tap away what they leave and
+// use a conservation action ([4과14-03]).
+export const crises = {
+  cloudy: {human: false, factor: 'sunlight', notice: '곧 흐린 날씨가 와요!',
+    status: '흐린 날이라 햇빛이 부족해요. 날씨는 바꿀 수 없으니 먹이 식물을 더 심어 버텨요.'},
+  drought: {human: false, factor: 'water', notice: '곧 가뭄이 와요!',
+    status: '가뭄으로 물이 부족해요. 날씨는 바꿀 수 없으니 먹이 식물을 더 심어 버텨요.'},
+  'soil-damage': {human: true, factor: 'soil', notice: '사람들이 숲에 쓰레기를 버리고 있어요!', item: '쓰레기', icon: '🥤',
+    status: '사람이 버린 쓰레기와 발길로 흙이 망가지고 있어요. 쓰레기를 눌러 치워요.',
+    care: '숲 바닥 되살리기'},
+  'air-pollution': {human: true, factor: 'air', notice: '자동차와 공장의 매연이 숲으로 날아와요!', item: '매연', icon: '💨',
+    status: '자동차와 공장의 매연으로 공기가 나빠졌어요. 매연을 눌러 걷어 내요.',
+    care: '매연 줄이기 캠페인'},
+};
+export const crisisForFactor = factor => Object.values(crises).find(c => c.factor === factor);
 
 export const stages = chapters.flatMap(chapter => chapter.stages.map(stage => ({...stage, chapter, events: chapter.events, seedSeconds: chapter.seedSeconds})));
 export const stageById = Object.fromEntries(stages.map(stage => [stage.stageId, stage]));

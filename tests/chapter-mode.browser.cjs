@@ -41,20 +41,36 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
   const cards=await p.locator('.organism-card[data-species-id]').evaluateAll(cards=>cards.filter(c=>!c.disabled&&!c.classList.contains('locked')).map(c=>c.dataset.speciesId));
   assert(cards.includes('grasshopper')&&cards.includes('grass'));
 
+  // The card row is a shop: prices on the cards, paid on placement.
+  assert.equal(await p.locator('.organism-card[data-species-id="grasshopper"]').getAttribute('data-price'),'4P');
   for(const x of [.42,.5]){await p.locator('.organism-card[data-species-id="grasshopper"]').click();await tapBackground(p,x,.4);await p.waitForTimeout(400);}
   if(await p.locator('.clear-selection').count())await p.locator('.clear-selection').click();
   assert.equal((await p.evaluate(async()=>(await import('./js/main.js')).gameState.organisms.filter(o=>o.speciesId==='grasshopper').length)),2,'two grasshoppers placed');
+  assert.equal(await p.evaluate(async()=>(await import('./js/main.js')).gameState.metrics.points),4,'two grasshoppers cost 8 of 12 points');
+  await p.evaluate(async()=>{(await import('./js/main.js')).gameState.metrics.points=2;});
+  await p.waitForSelector('.organism-card[data-species-id="grasshopper"][data-afford=false]');
+  await p.locator('.organism-card[data-species-id="grasshopper"]').click();await tapBackground(p,.6,.4);
+  assert.match(await p.locator('#placement-feedback').textContent(),/포인트가 2점 부족해요/,'cannot buy without points');
+  if(await p.locator('.clear-selection').count())await p.locator('.clear-selection').click();
+  await p.evaluate(async()=>{(await import('./js/main.js')).gameState.metrics.points=4;});
 
   await p.waitForSelector('.chapter-offer',{timeout:30000});
   if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-offer.png`});
   await p.locator('.chapter-offer').first().click();
   assert.equal((await chapter(p)).observations,1,'caught observation is counted');
+  assert.equal(await p.evaluate(async()=>(await import('./js/main.js')).gameState.metrics.points),5,'a caught 💡 earns a point');
   assert.match(await p.locator('#placement-feedback').textContent(),/관찰 기록/);
 
   await forward(p,49.9);
   await seedsReach(p,1,30000);
-  const afterSeed=await chapter(p);assert.equal(afterSeed.eventsStarted,1,'cloudy day starts with the first seed');
+  // The crisis is announced first, then tints the forest.
+  await p.waitForSelector('.chapter-warning:not([hidden])');assert.match(await p.locator('.chapter-warning').textContent(),/흐린 날씨/);
+  if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-warning.png`});
+  await p.waitForSelector('.forest[data-weather=cloudy]');
+  const afterSeed=await chapter(p);assert.equal(afterSeed.seeds,1);
   assert.equal(await p.locator('.chapter-seed.filled').count(),1);
+  const started=Date.now();while((await chapter(p)).eventsStarted<1){assert(Date.now()-started<30000,'cloudy day starts after its warning');await p.waitForTimeout(250);}
+  await p.waitForSelector('.chapter-warning',{state:'hidden'});
   if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-cloudy.png`});
 
   await forward(p,49.9);await seedsReach(p,2,120000);
@@ -64,14 +80,11 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
   assert.deepEqual(JSON.parse(await p.evaluate(()=>localStorage.getItem('eco-system:chapter-progress'))).cleared,['1-1']);
 
   await p.locator('.chapter-dialog[open] button',{hasText:'다음 스테이지'}).click();
-  // One-tap care appears only for a bad factor and spends the stage's points.
+  // Weather cannot be fixed with points: no care button, the status says to hold out.
   await p.waitForFunction(()=>document.querySelector('.chapter-title h2')?.textContent.includes('1-2'));
   await p.evaluate(async()=>{(await import('./js/main.js')).gameState.environment.sunlight.value=.3;});
-  await p.waitForSelector('.chapter-care button:not([disabled])');
-  assert.match(await p.locator('.chapter-care button').textContent(),/햇빛 돌보기 8P/);
-  if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-care.png`});
-  await p.locator('.chapter-care button').click();
-  assert.equal(await p.evaluate(async()=>(await import('./js/main.js')).gameState.metrics.points),4,'care spent 8 of 12 points');
+  await p.waitForFunction(()=>document.querySelector('.chapter-status')?.textContent.includes('날씨는 바꿀 수 없으니'));
+  assert.equal(await p.locator('.chapter-care button').count(),0);
   await p.evaluate(async()=>{(await import('./js/main.js')).gameState.environment.sunlight.value=1;});
   await p.waitForFunction(()=>document.querySelector('.chapter-title h2')?.textContent.includes('1-2'));
   assert.equal((await chapter(p)).seeds,0);
@@ -116,15 +129,31 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
   await p.waitForFunction(()=>document.querySelector('.chapter-title h2')?.textContent.includes('2-1'));
   await p.waitForSelector('.chapter-dialog[open]');assert.match(await p.locator('.chapter-dialog[open]').textContent(),/물가/);
   await p.locator('.chapter-dialog[open] button',{hasText:'시작하기'}).click();
-  await p.locator('.chapter-actions button',{hasText:'스테이지 고르기'}).click();
-  assert.equal(await p.locator('.chapter-stage-group').count(),4,'picker lists 4 chapters');
+  await p.locator('.chapter-actions button',{hasText:'숲 지도'}).click();
+  assert.equal(await p.locator('.map-area').count(),4,'map shows 4 forest areas');
+  assert.equal(await p.locator('.map-area .map-web').count(),1,'chapter 1 web completed');
   await p.locator('.chapter-dialog[open] button',{hasText:'닫기'}).click();
   await p.locator('.chapter-actions button',{hasText:'나의 먹이그물'}).click();
   assert.equal(await p.locator('.chapter-web-dialog .web-node.unsorted').count(),1,'chapter 2 adds only the frog to sort');
   await p.locator('.web-close').click();
-  await p.locator('.chapter-actions button',{hasText:'스테이지 고르기'}).click();
-  assert.equal(await p.locator('.chapter-stage-list button:not([disabled])').count(),3,'1-1, 1-2 and the next stage are open');
+  await p.locator('.chapter-actions button',{hasText:'숲 지도'}).click();
+  assert.equal(await p.locator('.map-stone:not([disabled])').count(),3,'1-1, 1-2 and the next stage are open');
   if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-picker.png`});
+  await p.locator('.chapter-dialog[open] button',{hasText:'닫기'}).click();
+  // A human-made crisis drops litter that is tapped away for a point.
+  await p.evaluate(()=>localStorage.setItem('eco-system:chapter-progress',JSON.stringify({cleared:['1-1','1-2','1-3','2-1','2-2','2-3']})));
+  await p.reload();await p.waitForSelector('.chapter-hud');
+  if(await p.locator('.chapter-dialog[open]').count())await p.locator('.chapter-dialog[open] button',{hasText:'시작하기'}).click();
+  await p.evaluate(async()=>{const m=await import('./js/main.js');m.gameState.chapter.trash.push({trashId:'t1',kind:'soil-damage',x:.5,y:.74});m.gameState.environment.soil.value=.3;});
+  await p.waitForSelector('.chapter-trash');
+  await p.waitForSelector('.chapter-care button',{state:'attached'});assert.match(await p.locator('.chapter-care button').textContent(),/숲 바닥 되살리기/);
+  if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-trash.png`});
+  const before=await p.evaluate(async()=>(await import('./js/main.js')).gameState.metrics.points);
+  await p.locator('.chapter-trash').click();
+  assert.equal(await p.locator('.chapter-trash').count(),0);
+  assert.equal(await p.evaluate(async()=>(await import('./js/main.js')).gameState.metrics.points),before+1);
+  await p.locator('.chapter-actions button',{hasText:'숲 지도'}).click();await p.waitForSelector('.chapter-map-dialog[open]');
+  if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-map.png`});
   await p.locator('.chapter-dialog[open] button',{hasText:'닫기'}).click();
   await p.locator('.chapter-actions button',{hasText:'기존 숲으로'}).click();await p.waitForSelector('#chapter-open');
   assert.equal(await p.locator('.chapter-hud').count(),0);
