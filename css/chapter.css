@@ -34,3 +34,18 @@
 .chapter-stage-group h3{margin:12px 0 4px;font-size:16px}
 .chapter-dialog h3{margin:14px 0 4px;font-size:16px}
 .chapter-dialog .eyebrow{font-size:13px;color:var(--muted)}
+/* What stalls the seeds, shown on the forest itself. Animals crowd around the
+   last food plant, so their badges are small round marks and a glow on the art. */
+.chapter-mode .organism-object[data-need]::after{content:attr(data-need-label);position:absolute;left:0;top:calc(-1 * var(--sprite-height) - 26px);transform:translateX(-50%);white-space:nowrap;border-radius:999px;font-weight:800;line-height:1;pointer-events:none;z-index:4;box-shadow:0 1px 4px #0003}
+.chapter-mode .organism-object[data-need=hungry]::after,.chapter-mode .organism-object[data-need=starving]::after{min-width:22px;height:22px;padding:4px 5px;font-size:14px;text-align:center}
+.chapter-mode .organism-object[data-need=hungry]::after{background:#ffd76a;color:#5c3800;border:2px solid #c98a00}
+.chapter-mode .organism-object[data-need=hungry] .organism-art{filter:drop-shadow(0 0 4px #e0a526)}
+.chapter-mode .organism-object[data-need=starving]::after{background:#c0392b;color:#fff;border:2px solid #8e1f14;animation:chapter-need 1s ease-in-out infinite}
+.chapter-mode .organism-object[data-need=starving] .organism-art{filter:drop-shadow(0 0 6px #c0392b)}
+.chapter-mode .organism-object[data-need=eaten]::after{top:6px;padding:3px 8px;font-size:13px;background:#eceae2;color:#5a5a50;border:2px solid #a9a796;z-index:3}
+.chapter-mode .organism-object[data-need=eaten] .organism-art{filter:grayscale(.85);opacity:.55}
+@keyframes chapter-need{50%{transform:translateX(-50%) scale(1.15)}}
+.chapter-mode .organism-card[data-chapter-need]{position:relative;outline:3px solid #e0a526;outline-offset:-3px;animation:chapter-card 1.4s ease-in-out infinite}
+.chapter-mode .organism-card[data-chapter-need]::before{content:'지금 필요해요';position:absolute;right:8px;bottom:8px;padding:2px 8px;border-radius:999px;background:#e0a526;color:#3d2800;font-size:13px;font-weight:700;z-index:2}
+@keyframes chapter-card{50%{outline-color:#f6d27a}}
+@media (prefers-reduced-motion:reduce){.chapter-mode .organism-object[data-need=starving]::after,.chapter-mode .organism-card[data-chapter-need]{animation:none}}

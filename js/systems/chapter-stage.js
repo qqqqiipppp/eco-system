@@ -6,6 +6,7 @@ import {startEnvironmentEvent,currentEnvironmentEvent} from './environment-event
 import {executeManagement,validateManagement} from './management.js';
 import {foodResourceConfig} from '../../data/ecology-config.js';
 import {managementActions} from '../../data/management-actions.js';
+import {foodRelations} from '../../data/food-relations.js';
 import {stageConfig as config,stageById} from '../../data/chapters.js';
 
 // A fresh stage forest. Chapter mode never writes the regular forest save.
@@ -34,6 +35,31 @@ export function foodRatio(s) {
   return plants.length ? plants.reduce((sum, o) => sum + o.foodStock / foodResourceConfig[o.speciesId].maximum, 0) / plants.length : 0;
 }
 
+// What each organism shows in the forest: the same rules that stall seeds.
+export function needStates(s) {
+  const states = new Map();
+  for (const o of consumers(s)) {
+    const searching = o.hunger >= .6 ? o.foodShortageDuration || 0 : 0;
+    if (['severe', 'weak'].includes(survivalStage(o)) || searching >= config.hungrySeconds) states.set(o.instanceId, 'starving');
+    else if (searching >= config.hungryNoticeSeconds) states.set(o.instanceId, 'hungry');
+  }
+  for (const o of foodPlants(s)) if (o.foodStock / foodResourceConfig[o.speciesId].maximum < config.minimumFoodRatio) states.set(o.instanceId, 'eaten');
+  return states;
+}
+
+// Cards that would fix what is stalling the seeds right now.
+export function neededCards(s, blockers = stageBlockers(s)) {
+  const owned = id => s.inventory.some(c => c.speciesId === id && c.acquired), cards = new Set();
+  const foodsOf = ids => foodRelations.filter(r => ids.has(r.targetSpeciesId) && owned(r.sourceSpeciesId)).map(r => r.sourceSpeciesId);
+  for (const b of blockers) {
+    if (b.id === 'missing') b.species.forEach(m => owned(m.id) && cards.add(m.id));
+    if (b.id === 'depleted') foodsOf(new Set(consumers(s).map(o => o.speciesId))).filter(id => foodResourceConfig[id]).forEach(id => cards.add(id));
+    if (b.id === 'starving') { const needs = needStates(s); foodsOf(new Set(consumers(s).filter(o => needs.get(o.instanceId) === 'starving').map(o => o.speciesId))).forEach(id => cards.add(id)); }
+    if (b.id === 'noDecomposition') ['mushroom', 'litter-mold', 'earthworm'].filter(owned).forEach(id => cards.add(id));
+  }
+  return cards;
+}
+
 // Work done by decomposers and earthworms, not the always-on background decay.
 const decomposerWork = s => Object.values(s.learningGoalProgress?.work || {}).reduce((sum, v) => sum + v, 0) + (s.decomposition.earthwormProcessed || 0);
 
@@ -46,7 +72,8 @@ export function stageBlockers(s) {
   const bad = Object.keys(s.environment).filter(k => s.environment[k].value < config.minimumEnvironment);
   if (bad.length) list.push({id: 'environment', factors: bad});
   // Hungry and unable to find food for a while: visible long before starvation.
-  if (consumers(s).some(o => ['severe', 'weak'].includes(survivalStage(o)) || o.hunger >= .6 && o.foodShortageDuration >= config.hungrySeconds)) list.push({id: 'starving'});
+  const needs = needStates(s);
+  if ([...needs.values()].includes('starving')) list.push({id: 'starving'});
   if (foodRatio(s) < config.minimumFoodRatio) list.push({id: 'depleted'});
   if (stage.needsDecomposition && (c.lastDecomposedAt === null || s.simulationTime - c.lastDecomposedAt > config.recentMealSeconds)) list.push({id: 'noDecomposition'});
   if (consumers(s).length && (c.lastMealAt === null || s.simulationTime - c.lastMealAt > config.recentMealSeconds)) list.push({id: 'noMeal'});
