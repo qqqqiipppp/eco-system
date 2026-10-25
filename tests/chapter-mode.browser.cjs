@@ -95,12 +95,34 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
   const done=await p.locator('.chapter-dialog[open]').textContent();
   assert.match(done,/챕터 1 풀밭 완료/);assert.match(done,/다음 챕터: 물가/);assert.match(done,/참개구리/);assert.match(done,/가뭄/);
   if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-chapter-clear.png`});
+  // The next chapter opens only after the chapter's part of "나의 먹이그물".
+  assert.equal(await p.locator('.chapter-dialog[open] button',{hasText:'다음 챕터로'}).count(),0);
+  await p.locator('.chapter-dialog[open] button',{hasText:'나의 먹이그물 그리기'}).click();
+  await p.waitForSelector('.chapter-web-dialog[open]');
+  const node=id=>p.locator(`.chapter-web-dialog .web-node[data-species-id="${id}"]`),note=()=>p.locator('.web-note').textContent();
+  await node('grass').click();await p.locator('.web-roles button',{hasText:'소비자'}).click();assert.match(await note(),/햇빛/,'wrong role explained');
+  for(const [id,role] of [['grass','생산자'],['grasshopper','소비자'],['rabbit','소비자']]){await node(id).click();await p.locator('.web-roles button',{hasText:role}).click();}
+  await node('grasshopper').click();await node('grass').click();assert.match(await note(),/거꾸로/,'reversed arrow explained');
+  for(const eater of ['grasshopper','rabbit']){await node('grass').click();await node(eater).click();}
+  assert.equal(await p.locator('.web-arrow').count(),2);
+  assert.equal(await p.locator('.web-arrow.observed').count(),(await p.evaluate(()=>JSON.parse(localStorage.getItem('eco-system:chapter-progress')).observed.filter(id=>['v2_grass_to_grasshopper','v2_grass_to_rabbit'].includes(id)).length)),'observed relations drawn solid');
+  await node('grass').click();await p.locator('.web-panel button',{hasText:'확인'}).click();assert.match(await note(),/더 있어요/);
+  await node('grasshopper').click();await node('rabbit').click();await p.locator('.web-panel button',{hasText:'확인'}).click();
+  assert.match(await p.locator('.web-panel').textContent(),/생물 요소와[^.]*비생물 요소가 서로 영향을/);
+  if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-web.png`});
+  await p.locator('.web-panel button',{hasText:'완성'}).click();
+  await p.waitForSelector('.chapter-dialog[open] >> text=다음 챕터로');
   await p.locator('.chapter-dialog[open] button',{hasText:'다음 챕터로'}).click();
   await p.waitForFunction(()=>document.querySelector('.chapter-title h2')?.textContent.includes('2-1'));
   await p.waitForSelector('.chapter-dialog[open]');assert.match(await p.locator('.chapter-dialog[open]').textContent(),/물가/);
   await p.locator('.chapter-dialog[open] button',{hasText:'시작하기'}).click();
   await p.locator('.chapter-actions button',{hasText:'스테이지 고르기'}).click();
   assert.equal(await p.locator('.chapter-stage-group').count(),4,'picker lists 4 chapters');
+  await p.locator('.chapter-dialog[open] button',{hasText:'닫기'}).click();
+  await p.locator('.chapter-actions button',{hasText:'나의 먹이그물'}).click();
+  assert.equal(await p.locator('.chapter-web-dialog .web-node.unsorted').count(),1,'chapter 2 adds only the frog to sort');
+  await p.locator('.web-close').click();
+  await p.locator('.chapter-actions button',{hasText:'스테이지 고르기'}).click();
   assert.equal(await p.locator('.chapter-stage-list button:not([disabled])').count(),3,'1-1, 1-2 and the next stage are open');
   if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-picker.png`});
   await p.locator('.chapter-dialog[open] button',{hasText:'닫기'}).click();

@@ -26,18 +26,19 @@ const chapterNews=chapter=>[
 
 // Stage HUD, observations to catch in the forest, chapter and stage dialogs.
 // Create before bindDialogPause so the dialogs pause the forest like the others.
-export function createChapterView(getState,{forest,cleared,onCatch,onStage,onCare,onExit}){
+export function createChapterView(getState,{forest,cleared,onCatch,onStage,onCare,onExit,openWeb,webComplete}){
  const seeds=Array.from({length:config.seedsToClear},()=>element('span',{className:'chapter-seed'}));
  const title=element('h2'),eyebrow=element('span',{className:'eyebrow'}),goal=element('p',{className:'chapter-goal'});
  const meter=element('progress',{value:0});meter.setAttribute('aria-label','다음 씨앗까지');
  const status=element('p',{className:'chapter-status'});status.setAttribute('aria-live','polite');
  const care=element('div',{className:'chapter-care'});
  const pickButton=element('button',{type:'button',textContent:'스테이지 고르기',onclick:()=>openPicker()});
+ const webButton=element('button',{type:'button',textContent:'나의 먹이그물',onclick:()=>openWeb(stageById[getState().chapter.stageId].chapter.number)});
  const exitButton=element('button',{type:'button',textContent:'기존 숲으로',onclick:onExit});
  const hud=element('section',{className:'chapter-hud'},[
   element('div',{className:'chapter-title'},[eyebrow,title,goal]),
   element('div',{className:'chapter-progress'},[element('div',{className:'chapter-seeds'},seeds),meter,status,care]),
-  element('div',{className:'chapter-actions'},[pickButton,exitButton]),
+  element('div',{className:'chapter-actions'},[webButton,pickButton,exitButton]),
  ]);hud.setAttribute('aria-label','스테이지 목표');
  document.querySelector('.dashboard').after(hud);
  const layer=element('div',{className:'chapter-offers'});forest.append(layer);
@@ -113,14 +114,17 @@ export function createChapterView(getState,{forest,cleared,onCatch,onStage,onCar
  }
  function openClear(){
   const c=getState().chapter,stage=stageById[c.stageId],index=stages.indexOf(stage),next=stages[index+1];
-  const chapterDone=!next||next.chapter!==stage.chapter;
+  const chapterDone=!next||next.chapter!==stage.chapter,number=stage.chapter.number;
+  // A chapter ends with its part of "나의 먹이그물"; only then does the next one open.
+  const webDue=chapterDone&&!webComplete(number);
   shownClear=c.stageId;
   show([
    element('h2',{textContent:chapterDone?`챕터 ${stage.chapter.number} ${stage.chapter.title} 완료!`:`${c.stageId} 완료!`}),
    element('p',{textContent:`씨앗 ${config.seedsToClear}개를 모았어요. 걸린 시간 ${time(c.clearedAt)} · 관찰 ${c.observations}번`}),
    ...(next?chapterDone?[element('h3',{textContent:`다음 챕터: ${next.chapter.title}`}),...chapterNews(next.chapter)]:[element('p',{textContent:`다음 스테이지: ${next.stageId} ${next.title}`})]
     :[element('p',{textContent:'모든 챕터를 마쳤어요! 숲의 먹이그물을 끝까지 지켜 냈어요.'})]),
-   actions([...(next?[[chapterDone?'다음 챕터로':'다음 스테이지',()=>{dialog.close();onStage(next.stageId);}]]:[]),['다시 하기',()=>{dialog.close();onStage(c.stageId);}],['닫기',()=>dialog.close()]]),
+   ...(webDue?[element('p',{className:'web-due',textContent:`이번 챕터에서 만난 생물로 나의 먹이그물을 이어 그려야 ${next?'다음 챕터가 열려요':'모든 챕터를 마쳐요'}.`})]:[]),
+   actions([...(webDue?[['나의 먹이그물 그리기',()=>{dialog.close();openWeb(number);}]]:next?[[chapterDone?'다음 챕터로':'다음 스테이지',()=>{dialog.close();onStage(next.stageId);}]]:[]),['다시 하기',()=>{dialog.close();onStage(c.stageId);}],['닫기',()=>dialog.close()]]),
   ]);
  }
  function openPicker(){
@@ -131,5 +135,7 @@ export function createChapterView(getState,{forest,cleared,onCatch,onStage,onCar
     return element('li',{},[element('button',{type:'button',disabled:!ok,textContent:`${done.includes(stage.stageId)?'✓ ':''}${stage.stageId} ${stage.title}${ok?'':' (앞 스테이지를 마치면 열려요)'}`,onclick:()=>{dialog.close();onStage(stage.stageId);}})]);})),
   ])),actions([['닫기',()=>dialog.close()]])]);
  }
- return {render,caughtMessage,reset:()=>{shownClear=null;careKey='';layer.replaceChildren();}};
+ // Back from a finished web: show the chapter's end again, now with the way on.
+ const webDone=()=>{if(getState().chapter.cleared&&!document.querySelector('dialog[open]'))openClear();};
+ return {render,caughtMessage,webDone,reset:()=>{shownClear=null;careKey='';layer.replaceChildren();}};
 }

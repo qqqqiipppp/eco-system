@@ -5,9 +5,17 @@ export function createLocalAdapter(getStorage=()=>globalThis.localStorage) {
 }
 // Chapter mode never writes the forest save: a stage is short and restarts.
 export const createNoSaveAdapter=()=>({read:()=>null,write(){},remove(){}});
-// Only which stages were cleared. Unreadable storage simply means none yet.
+// Cleared stages and "나의 먹이그물": observed and drawn relations, roles and
+// answered system questions. Unreadable storage simply means none yet.
 export const CHAPTER_KEY='eco-system:chapter-progress';
 export function createChapterProgressAdapter(getStorage=()=>globalThis.localStorage){
- const read=()=>{try{const value=JSON.parse(getStorage().getItem(CHAPTER_KEY));return Array.isArray(value?.cleared)?value.cleared.filter(id=>typeof id==='string'):[];}catch{return [];}};
- return {cleared:read,markCleared(id){try{const list=read();if(!list.includes(id))getStorage().setItem(CHAPTER_KEY,JSON.stringify({cleared:[...list,id]}));}catch{}}};
+ const strings=value=>Array.isArray(value)?value.filter(v=>typeof v==='string'):[];
+ const read=()=>{try{const v=JSON.parse(getStorage().getItem(CHAPTER_KEY))||{};
+  return {cleared:strings(v.cleared),observed:strings(v.observed),drawn:strings(v.drawn),
+   roles:v.roles&&typeof v.roles==='object'?Object.fromEntries(Object.entries(v.roles).filter(([,r])=>typeof r==='string')):{},
+   system:Array.isArray(v.system)?v.system.filter(Number.isInteger):[]};}catch{return {cleared:[],observed:[],drawn:[],roles:{},system:[]};}};
+ const update=change=>{try{const v=read();change(v);getStorage().setItem(CHAPTER_KEY,JSON.stringify(v));}catch{}};
+ const add=(key,item)=>update(v=>{if(!v[key].includes(item))v[key].push(item);});
+ return {read,cleared:()=>read().cleared,markCleared:id=>add('cleared',id),markObserved:id=>add('observed',id),
+  markDrawn:id=>add('drawn',id),markSystem:n=>add('system',n),setRole:(id,role)=>update(v=>{v.roles[id]=role;})};
 }
