@@ -12,6 +12,7 @@ import { createSaveService } from './services/save-service.js';
 import { createLocalAdapter,createNoSaveAdapter,createChapterProgressAdapter } from './adapters/local-storage.js';
 import {createStageGameState,updateStage,catchObservation,careFor} from './systems/chapter-stage.js';
 import {createChapterView} from './ui/chapter-view.js';
+import {createChapterWebView} from './ui/chapter-web-view.js';
 import {stages,stageById} from '../data/chapters.js';
 import {environmentEventDefinitions} from '../data/environment-events.js';
 import { createForestView, showSaveStatus } from './ui/forest-view.js';
@@ -68,7 +69,8 @@ try {
   let chapterView=null;
   if(chapterMode){
     document.body.classList.add('chapter-mode');
-    chapterView=createChapterView(()=>gameState,{forest,cleared:()=>chapterProgress.cleared(),onCatch:catchStageObservation,onStage:id=>installForest(createStageGameState(stageById[id])),onCare:careStageEnvironment,onExit:()=>{location.href=location.pathname;}});
+    const webView=createChapterWebView(chapterProgress,{onComplete:()=>chapterView.webDone()});
+    chapterView=createChapterView(()=>gameState,{forest,cleared:()=>chapterProgress.cleared(),openWeb:n=>webView.open(n),webComplete:n=>webView.isComplete(n),onCatch:catchStageObservation,onStage:id=>installForest(createStageGameState(stageById[id])),onCare:careStageEnvironment,onExit:()=>{location.href=location.pathname;}});
   }else{
     const chapterButton=document.createElement('button');chapterButton.id='chapter-open';chapterButton.type='button';chapterButton.textContent='챕터 모드';
     chapterButton.addEventListener('click',()=>{location.search='?mode=chapter';});document.querySelector('.header-actions').append(chapterButton);
@@ -167,6 +169,7 @@ try {
   });
   function catchStageObservation(offerId){
     const response=catchObservation(gameState,offerId);if(!response.ok)return;
+    chapterProgress.markObserved(response.offer.relationId);
     scene.showFeedback(chapterView.caughtMessage(response),response.bonus);
     afterStageChange(response);chapterView.render();
   }

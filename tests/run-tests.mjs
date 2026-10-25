@@ -28,4 +28,4 @@ console.log('Stage15.12 original art and actual state bindings');
 if(spawnSync(process.execPath,['--test','tests/visual-assets.test.mjs'],{stdio:'inherit',cwd:new URL('../',import.meta.url)}).status!==0)process.exitCode=1;
 
 console.log('Chapter mode stages, current production ecology');
-if(spawnSync(process.execPath,['--test','tests/chapter-stage.test.mjs'],{stdio:'inherit',cwd:new URL('../',import.meta.url)}).status!==0)process.exitCode=1;
+if(spawnSync(process.execPath,['--test','tests/chapter-stage.test.mjs','tests/chapter-food-web.test.mjs'],{stdio:'inherit',cwd:new URL('../',import.meta.url)}).status!==0)process.exitCode=1;
