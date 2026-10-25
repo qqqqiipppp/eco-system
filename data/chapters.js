@@ -101,14 +101,14 @@ export const chapters = [
   ]},
 ];
 
-// Natural crises cannot be fixed, only endured (more food plants) or waited
-// out. Human-made ones are where people can act: tap away what they leave and
+// Natural crises cannot be fixed, only prepared for: the student chooses how
+// before it comes and sees the outcome. Human-made ones are where people can act: tap away what they leave and
 // use a conservation action ([4과14-03]).
 export const crises = {
   cloudy: {human: false, factor: 'sunlight', notice: '곧 흐린 날씨가 와요!',
-    status: '흐린 날이라 햇빛이 부족해요. 날씨는 바꿀 수 없으니 먹이 식물을 더 심어 버텨요.'},
+    effect: '햇빛이 줄면 식물이 천천히 자라서 먹이가 모자랄 수 있어요.'},
   drought: {human: false, factor: 'water', notice: '곧 가뭄이 와요!',
-    status: '가뭄으로 물이 부족해요. 날씨는 바꿀 수 없으니 먹이 식물을 더 심어 버텨요.'},
+    effect: '물이 줄면 식물이 천천히 자라서 먹이가 모자랄 수 있어요.'},
   'soil-damage': {human: true, factor: 'soil', notice: '사람들이 숲에 쓰레기를 버리고 있어요!', item: '쓰레기', icon: '🥤',
     status: '사람이 버린 쓰레기와 발길로 흙이 망가지고 있어요. 쓰레기를 눌러 치워요.',
     care: '숲 바닥 되살리기'},

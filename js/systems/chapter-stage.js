@@ -4,6 +4,7 @@ import {createPointEconomyState,recordPointChange} from '../state/point-economy-
 import {survivalStage} from './population.js';
 import {startEnvironmentEvent,currentEnvironmentEvent} from './environment-events.js';
 import {executeManagement,validateManagement} from './management.js';
+import {removeOrganism} from './lifecycle.js';
 import {foodResourceConfig} from '../../data/ecology-config.js';
 import {managementActions} from '../../data/management-actions.js';
 import {foodRelations} from '../../data/food-relations.js';
@@ -24,7 +25,7 @@ export function createStageGameState(stage) {
   s.environmentEvents.nextAt = Number.MAX_SAFE_INTEGER;
   s.chapter = {stageId: stage.stageId, seeds: 0, seedProgress: 0, lastMealAt: null,
     observations: 0, offers: [], offerSequence: 0, lastOfferAt: null, lastWork: 0, lastDecomposedAt: null,
-    warning: null, trash: [], trashSequence: 0, lastTrashAt: null, trashCollected: 0,
+    warning: null, trash: [], trashSequence: 0, lastTrashAt: null, trashCollected: 0, crisisLog: [],
     eventsStarted: 0, cleared: false, clearedAt: null};
   return s;
 }
@@ -70,7 +71,10 @@ export function stageBlockers(s) {
   if (!consumers(s).length) list.push({id: 'noConsumer'});
   const missing = Object.entries(stage.requiredSpecies || {}).filter(([id, n]) => s.organisms.filter(o => o.speciesId === id).length < n).map(([id, n]) => ({id, need: n}));
   if (missing.length && consumers(s).length) list.push({id: 'missing', species: missing});
-  const bad = Object.keys(s.environment).filter(k => s.environment[k].value < config.minimumEnvironment);
+  // Weather (sunlight, water) works through the ecology: plants grow slower and
+  // food runs short. A prepared forest can ride it out, so it does not stall
+  // seeds by itself. Soil and air damaged by people do, until it is cleaned up.
+  const bad = Object.keys(s.environment).filter(k => s.environment[k].value < config.minimumEnvironment && crisisForFactor(k)?.human !== false);
   if (bad.length) list.push({id: 'environment', factors: bad});
   // Hungry and unable to find food for a while: visible long before starvation.
   const needs = needStates(s);
@@ -89,10 +93,14 @@ function startDueEvent(s) {
     if (s.simulationTime < c.warning.startsAt) return null;
     const kind = c.warning.kind;
     c.warning = null; c.eventsStarted++;
+    const record = openCrisis(c);
+    if (record) record.startedAt = s.simulationTime;
     return startEnvironmentEvent(s, kind);
   }
   if (c.eventsStarted >= events.length || c.seeds <= c.eventsStarted || currentEnvironmentEvent(s)) return null;
   c.warning = {kind: events[c.eventsStarted], startsAt: s.simulationTime + config.warningSeconds};
+  // A natural crisis cannot be stopped, only prepared for: record the choice and its outcome.
+  if (!crises[c.warning.kind].human) c.crisisLog.push({kind: c.warning.kind, choice: null, stalled: 0, startedAt: null, endedAt: null});
   return null;
 }
 
@@ -129,6 +137,8 @@ function growSeeds(s) {
     if (c.seeds >= config.seedsToClear) {
       c.cleared = true;
       c.clearedAt = s.simulationTime;
+      // A crisis still under way ends with the stage; its outcome joins the clear.
+      for (const record of c.crisisLog) if (record.endedAt === null) record.endedAt = s.simulationTime;
       c.seedProgress = 0;
       result.cleared = true;
     }
@@ -156,7 +166,13 @@ export function updateStage(s, seconds, feedingEvents = []) {
   // In a shop the price limits how fast animals come back, so the regular
   // forest's wait before reintroducing an eaten species is lifted here.
   for (const intro of Object.values(s.population.introductions)) if (intro.nextAt > time) intro.nextAt = time;
-  if (!stageBlockers(s).length) c.seedProgress += seconds;
+  const stalled = stageBlockers(s).length > 0;
+  if (!stalled) c.seedProgress += seconds;
+  const crisis = openCrisis(c);
+  if (crisis?.startedAt !== null && crisis) {
+    if (stalled) crisis.stalled += seconds;
+    if (!currentEnvironmentEvent(s)) crisis.endedAt = time;
+  }
   const result = growSeeds(s);
   if (!c.cleared) result.eventStarted = startDueEvent(s) || result.eventStarted;
   return result;
@@ -208,3 +224,39 @@ export function payFor(s, id) {
   recordPointChange(s, 'management', -price, `chapter-buy:${id}:${s.nextInstanceSequence}`, id);
   return price;
 }
+
+// Preparing for weather: it cannot be changed, but the forest can be made
+// sturdier before it comes. The outcome shows in the real ecology.
+const openCrisis = c => c.crisisLog.find(r => r.endedAt === null) || null;
+const plantEaters = s => s.organisms.filter(o => 'hunger' in o && foodRelations.some(r => r.targetSpeciesId === o.speciesId && r.feedingMode === 'resource'));
+function reducible(s) {
+  const required = stageById[s.chapter.stageId].requiredSpecies || {}, groups = {};
+  for (const o of plantEaters(s)) (groups[o.speciesId] ??= []).push(o);
+  return Object.entries(groups).filter(([id, list]) => list.length > Math.max(1, required[id] || 0)).sort((a, b) => b[1].length - a[1].length)[0] || null;
+}
+export function prepareOptions(s) {
+  const c = s.chapter, record = openCrisis(c);
+  if (!record || record.choice) return [];
+  const plant = stageById[c.stageId].inventory.find(id => foodResourceConfig[id]), extra = reducible(s);
+  return [
+    {id: 'plant', speciesId: plant, ok: Boolean(plant)},
+    {id: 'reduce', speciesId: extra?.[0] ?? null, ok: Boolean(extra)},
+    {id: 'wait', ok: true},
+  ];
+}
+export function prepareFor(s, choice) {
+  const c = s.chapter, record = openCrisis(c);
+  if (!record || record.choice) return {ok: false};
+  const option = prepareOptions(s).find(o => o.id === choice);
+  if (!option?.ok) return {ok: false};
+  record.choice = choice;
+  if (choice === 'reduce') {
+    const [, list] = reducible(s), target = list.at(-1);
+    removeOrganism(s, target.instanceId, 'release');
+    return {ok: true, choice, removedId: target.instanceId, speciesId: target.speciesId};
+  }
+  return {ok: true, choice, speciesId: option.speciesId};
+}
+// The finished crisis not yet shown to the student, if any.
+export const crisisReport = s => s.chapter.crisisLog.find(r => r.endedAt !== null && !r.reported) || null;
+export const markReported = record => { record.reported = true; };

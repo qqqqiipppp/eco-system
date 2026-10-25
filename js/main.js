@@ -10,7 +10,9 @@ import { createGuideAdapter } from './adapters/guide-preference.js';
 import { updateForestGoal } from './systems/forest-progress.js';
 import { createSaveService } from './services/save-service.js';
 import { createLocalAdapter,createNoSaveAdapter,createChapterProgressAdapter } from './adapters/local-storage.js';
-import {createStageGameState,updateStage,catchObservation,careFor,buyCheck,payFor,collectTrash} from './systems/chapter-stage.js';
+import {createStageGameState,updateStage,catchObservation,careFor,buyCheck,payFor,collectTrash,prepareFor} from './systems/chapter-stage.js';
+import {organismById as speciesById} from '../data/organisms.js';
+import {particle} from '../data/student-text.js';
 import {createChapterView} from './ui/chapter-view.js';
 import {createChapterWebView} from './ui/chapter-web-view.js';
 import {stages,stageById} from '../data/chapters.js';
@@ -71,7 +73,7 @@ try {
   if(chapterMode){
     document.body.classList.add('chapter-mode');
     const webView=createChapterWebView(chapterProgress,{onComplete:()=>chapterView.webDone()});
-    chapterView=createChapterView(()=>gameState,{forest,cleared:()=>chapterProgress.cleared(),openWeb:n=>webView.open(n),webComplete:n=>webView.isComplete(n),onCatch:catchStageObservation,onCollect:collectStageTrash,onStage:id=>installForest(createStageGameState(stageById[id])),onCare:careStageEnvironment,onExit:()=>{location.search='?mode=forest';}});
+    chapterView=createChapterView(()=>gameState,{forest,cleared:()=>chapterProgress.cleared(),openWeb:n=>webView.open(n),webComplete:n=>webView.isComplete(n),onCatch:catchStageObservation,onCollect:collectStageTrash,onPrepare:prepareStage,onStage:id=>installForest(createStageGameState(stageById[id])),onCare:careStageEnvironment,onExit:()=>{location.search='?mode=forest';}});
   }else{
     const chapterButton=document.createElement('button');chapterButton.id='chapter-open';chapterButton.type='button';chapterButton.textContent='챕터 모드';
     chapterButton.addEventListener('click',()=>{location.href=location.pathname;});document.querySelector('.header-actions').append(chapterButton);
@@ -174,6 +176,17 @@ try {
     scene.showFeedback(chapterView.caughtMessage(response),response.bonus);
     afterStageChange(response);renderDashboard(gameState);chapterView.render();
     return response;
+  }
+  function prepareStage(choice){
+    const response=prepareFor(gameState,choice);if(!response.ok)return;
+    const name=response.speciesId&&speciesById[response.speciesId].name;
+    if(response.removedId){
+      feedingSystem.forget([response.removedId]);wander.forget([response.removedId]);scene.remove([response.removedId]);
+      eventSystem.refresh(gameState);stabilitySystem.update(gameState);
+      scene.showFeedback(`${particle(name,'을','를')} 한 마리 돌려보냈어요. 먹이 식물을 먹는 동물이 줄었어요.`,true);
+    }else if(choice==='plant'){selectSpecies(response.speciesId);scene.showFeedback(`숲을 눌러 ${particle(name,'을','를')} 심어요.`,true);}
+    else scene.showFeedback('날씨가 어떻게 숲을 바꾸는지 지켜봐요.',true);
+    renderDashboard(gameState);chapterView.render();loop.refresh();
   }
   function collectStageTrash(trashId){
     const response=collectTrash(gameState,trashId);if(!response.ok)return response;
