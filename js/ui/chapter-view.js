@@ -1,4 +1,4 @@
-import {stageBlockers,careOptions,needStates,neededCards,priceOf} from '../systems/chapter-stage.js';
+import {stageBlockers,careOptions,needStates,neededCards,priceOf,prepareOptions,crisisReport,markReported} from '../systems/chapter-stage.js';
 import {currentEnvironmentEvent} from '../systems/environment-events.js';
 import {stageConfig as config,chapters,stages,stageById,crises,crisisForFactor} from '../../data/chapters.js';
 import {environmentFactors} from '../../data/environment-config.js';
@@ -29,7 +29,7 @@ const chapterNews=chapter=>[
 // Stage HUD, things to tap in the forest (💡 and litter), crisis warnings,
 // chapter dialogs and the chapter map. Create before bindDialogPause so the
 // dialogs pause the forest like the others. No sound: motion and colour only.
-export function createChapterView(getState,{forest,cleared,onCatch,onCollect,onStage,onCare,onExit,openWeb,webComplete}){
+export function createChapterView(getState,{forest,cleared,onCatch,onCollect,onPrepare,onStage,onCare,onExit,openWeb,webComplete}){
  const seeds=Array.from({length:config.seedsToClear},()=>element('span',{className:'chapter-seed'}));
  const title=element('h2'),eyebrow=element('span',{className:'eyebrow'}),goal=element('p',{className:'chapter-goal'});
  const meter=element('progress',{value:0});meter.setAttribute('aria-label','다음 씨앗까지');
@@ -68,6 +68,10 @@ export function createChapterView(getState,{forest,cleared,onCatch,onCollect,onS
   renderNeeds(c.cleared?new Map():needStates(s),c.cleared?new Set():neededCards(s,blockers));
   renderTaps(c);
   renderCrisis(s);
+  const idle=!document.querySelector('dialog[open]');
+  // Weather is coming: stop and choose how to prepare. Then see how it went.
+  if(idle&&prepareOptions(s).length)openPrepare(s);
+  else if(idle&&!c.cleared&&crisisReport(s))openReport(crisisReport(s));
   if(c.cleared&&shownClear!==c.stageId&&!document.querySelector('dialog[open]'))openClear();
  }
  // A short-lived class for a one-off animation, removed when it ends.
@@ -155,6 +159,26 @@ export function createChapterView(getState,{forest,cleared,onCatch,onCollect,onS
   show([element('span',{className:'eyebrow',textContent:`챕터 ${stage.chapter.number}`}),element('h2',{textContent:stage.chapter.title}),...chapterNews(stage.chapter),
    element('p',{className:'chapter-shop-note',textContent:'💡를 잡으면 포인트가 생겨요. 포인트로 생물 카드를 사서 숲에 놓아요.'}),actions([['시작하기',()=>dialog.close()]])]);
  }
+ // Before weather: it cannot be changed, but the forest can be made sturdier.
+ const prepareLabel={plant:id=>`${name(id)} 더 심기 (${priceOf(id)}P)`,reduce:id=>`${name(id)} 한 마리 돌려보내기`,wait:()=>'그냥 기다리기'};
+ const prepareChosen={plant:'먹이 식물 더 심기',reduce:'먹는 동물 줄이기',wait:'그냥 기다리기'};
+ function openPrepare(s){
+  const kind=s.chapter.warning?.kind||s.chapter.crisisLog.at(-1).kind,crisis=crises[kind],options=prepareOptions(s);
+  show([element('span',{className:'eyebrow',textContent:'대비하기'}),element('h2',{textContent:crisis.notice}),
+   element('p',{textContent:`${crisis.effect} 날씨는 바꿀 수 없지만, 숲을 미리 튼튼하게 만들 수는 있어요. 무엇을 할까요?`}),
+   element('div',{className:'chapter-actions chapter-prepare'},options.map(o=>{
+    const button=element('button',{type:'button',disabled:!o.ok,textContent:prepareLabel[o.id](o.speciesId),onclick:()=>{dialog.close();onPrepare(o.id);}});
+    if(o.id==='reduce'&&!o.ok)button.title='더 줄일 수 있는 먹는 동물이 없어요.';return button;}))],'chapter-prepare-dialog');
+ }
+ function reportLines(record){
+  const event=environmentEventDefinitions[record.kind],stalled=Math.round(record.stalled);
+  return [element('p',{textContent:`고른 대비: ${prepareChosen[record.choice||'wait']} · ${particle(event.name,'이','가')} 오는 동안 씨앗이 멈춘 시간: ${stalled}초`}),
+   element('p',{className:'chapter-lesson',textContent:`${stalled<=5?'미리 대비한 덕분에 숲이 잘 버텼어요.':'먹이가 모자라 씨앗이 멈췄어요. 다음에는 날씨가 오기 전에 먹이 식물을 늘려 봐요.'} 날씨는 바꿀 수 없지만, 생태계를 튼튼하게 하면 더 잘 버틸 수 있어요.`})];
+ }
+ function openReport(record){
+  markReported(record);
+  show([element('h2',{textContent:`${particle(environmentEventDefinitions[record.kind].name,'이','가')} 지나갔어요`}),...reportLines(record),actions([['계속하기',()=>dialog.close()]])]);
+ }
  // The original's pet hatching: three seeds go into the soil and sprout.
  const planting=()=>element('div',{className:'chapter-planting'},Array.from({length:config.seedsToClear},(_,i)=>{
   const spot=element('span',{className:'plant-spot'},[element('span',{className:'plant-seed'}),element('span',{className:'plant-sprout'})]);
@@ -168,6 +192,7 @@ export function createChapterView(getState,{forest,cleared,onCatch,onCollect,onS
   show([
    planting(),
    element('h2',{textContent:chapterDone?`챕터 ${stage.chapter.number} ${stage.chapter.title} 완료!`:`${c.stageId} 완료!`}),
+   ...getState().chapter.crisisLog.filter(r=>!r.reported).flatMap(r=>{markReported(r);return reportLines(r);}),
    element('p',{textContent:`씨앗 ${config.seedsToClear}개를 심었어요. 걸린 시간 ${time(c.clearedAt)} · 관찰 ${c.observations}번${c.trashCollected?` · 치운 ${crises[stage.events.find(k=>crises[k].human)]?.item||'쓰레기'} ${c.trashCollected}개`:''}`}),
    ...(next?chapterDone?[element('h3',{textContent:`다음 챕터: ${next.chapter.title}`}),...chapterNews(next.chapter)]:[element('p',{textContent:`다음 스테이지: ${next.stageId} ${next.title}`})]
     :[element('p',{textContent:'모든 챕터를 마쳤어요! 숲의 먹이그물을 끝까지 지켜 냈어요.'})]),

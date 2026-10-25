@@ -65,8 +65,16 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
 
   await forward(p,49.9);
   await seedsReach(p,1,30000);
-  // The crisis is announced first, then tints the forest.
-  await p.waitForSelector('.chapter-warning:not([hidden])');assert.match(await p.locator('.chapter-warning').textContent(),/흐린 날씨/);
+  // Weather is announced, and the forest stops to ask how to prepare.
+  await p.waitForSelector('.chapter-prepare-dialog[open]');
+  assert.match(await p.locator('.chapter-prepare-dialog[open]').textContent(),/날씨는 바꿀 수 없지만/);
+  assert.equal(await p.locator('.chapter-prepare button').count(),3);
+  if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-prepare.png`});
+  await p.locator('.chapter-prepare button',{hasText:'강아지풀 더 심기'}).click();
+  assert.equal((await chapter(p)).crisisLog[0].choice,'plant');
+  await tapBackground(p,.25,.4);await p.waitForTimeout(300);
+  if(await p.locator('.clear-selection').count())await p.locator('.clear-selection').click();
+  assert.match(await p.locator('.chapter-warning').textContent(),/흐린 날씨/);
   if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-warning.png`});
   await p.waitForSelector('.forest[data-weather=cloudy]');
   const afterSeed=await chapter(p);assert.equal(afterSeed.seeds,1);
@@ -78,14 +86,15 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
   await forward(p,49.9);await seedsReach(p,2,120000);
   await forward(p,49.9);await p.waitForSelector('.chapter-dialog[open]',{timeout:120000});
   assert.match(await p.locator('.chapter-dialog[open]').textContent(),/1-1 완료/);
+  assert.match(await p.locator('.chapter-dialog[open]').textContent(),/고른 대비: 먹이 식물 더 심기/,'the weather outcome joins the clear');
   if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-clear.png`});
   assert.deepEqual(JSON.parse(await p.evaluate(()=>localStorage.getItem('eco-system:chapter-progress'))).cleared,['1-1']);
 
   await p.locator('.chapter-dialog[open] button',{hasText:'다음 스테이지'}).click();
-  // Weather cannot be fixed with points: no care button, the status says to hold out.
+  // Weather cannot be fixed with points: no care button for sunlight.
   await p.waitForFunction(()=>document.querySelector('.chapter-title h2')?.textContent.includes('1-2'));
   await p.evaluate(async()=>{(await import('./js/main.js')).gameState.environment.sunlight.value=.3;});
-  await p.waitForFunction(()=>document.querySelector('.chapter-status')?.textContent.includes('날씨는 바꿀 수 없으니'));
+  await p.waitForTimeout(500);
   assert.equal(await p.locator('.chapter-care button').count(),0);
   await p.evaluate(async()=>{(await import('./js/main.js')).gameState.environment.sunlight.value=1;});
   await p.waitForFunction(()=>document.querySelector('.chapter-title h2')?.textContent.includes('1-2'));

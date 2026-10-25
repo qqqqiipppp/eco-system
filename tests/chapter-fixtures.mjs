@@ -4,7 +4,7 @@ import {placeOrganism} from '../js/systems/placement.js';
 import {removeOrganism} from '../js/systems/lifecycle.js';
 import {evaluateStability} from '../js/systems/stability.js';
 import {createEventSystem} from '../js/systems/events.js';
-import {createStageGameState,updateStage,stageBlockers,catchObservation,careOptions,careFor,buyCheck,payFor,collectTrash} from '../js/systems/chapter-stage.js';
+import {createStageGameState,updateStage,stageBlockers,catchObservation,careOptions,careFor,buyCheck,payFor,collectTrash,prepareOptions,prepareFor} from '../js/systems/chapter-stage.js';
 import {stageById,crisisForFactor} from '../data/chapters.js';
 import {organismById} from '../data/organisms.js';
 import {foodRelations} from '../data/food-relations.js';
@@ -42,6 +42,8 @@ export function carefulStudent(s){
   }
  }
  for(const t of [...s.chapter.trash])if(collectTrash(s,t.trashId).ok)acts.push('collect '+t.kind);
+ // Before weather: plant more food plants.
+ if(prepareOptions(s).length){const r=prepareFor(s,prepareOptions(s).find(o=>o.id==='plant').ok?'plant':'wait');acts.push('prepare '+r.choice);if(r.choice==='plant'&&place(s,r.speciesId))acts.push('place '+r.speciesId);}
  return acts;
 }
 export function idleStudent(s){const acts=[];if(s.simulationTime<1)for(const [id,n] of Object.entries(stageById[s.chapter.stageId].requiredSpecies))while(count(s,id)<n&&place(s,id))acts.push('place '+id);return acts;}

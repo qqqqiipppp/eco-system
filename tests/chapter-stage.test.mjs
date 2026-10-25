@@ -1,13 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createStageGameState,updateStage,stageBlockers,catchObservation,careOptions,careFor,needStates,neededCards,buyCheck,payFor,collectTrash,priceOf} from '../js/systems/chapter-stage.js';
+import {createStageGameState,updateStage,stageBlockers,catchObservation,careOptions,careFor,needStates,neededCards,buyCheck,payFor,collectTrash,priceOf,prepareOptions,prepareFor,crisisReport} from '../js/systems/chapter-stage.js';
 import {currentEnvironmentEvent} from '../js/systems/environment-events.js';
 import {createFeedingSystem} from '../js/systems/feeding.js';
 import {layout} from './ecology-fixtures.mjs';
 import {stages,stageById,stageConfig,chapters} from '../data/chapters.js';
 import {organismById} from '../data/organisms.js';
 import {foodRelations} from '../data/food-relations.js';
-import {runStage,idleStudent} from './chapter-fixtures.mjs';
+import {runStage,idleStudent,place as placeFixture} from './chapter-fixtures.mjs';
 
 // Stages that start unbalanced or missing a role: waiting alone must not clear them.
 const demanding=['1-2','2-2','2-3','3-1','3-2','3-3','4-1','4-2','4-3'];
@@ -141,4 +141,31 @@ test('the card that would fix the stall is the one highlighted',()=>{
  assert.deepEqual([...neededCards(noDecomposer)].sort(),['litter-mold','mushroom']);
  const snake=runStage('4-1',{student:idleStudent,seconds:600}).s;
  assert(neededCards(snake).has('frog'),'frogs eaten below the minimum');
+});
+
+test('weather works through the ecology; soil and air damaged by people stall seeds directly',()=>{
+ const s=createStageGameState(stageById['3-1']);
+ s.environment.sunlight.value=.2;s.environment.water.value=.2;
+ assert(!stageBlockers(s).some(b=>b.id==='environment'));
+ s.environment.soil.value=.2;
+ assert.deepEqual(stageBlockers(s).find(b=>b.id==='environment').factors,['soil']);
+});
+
+test('before weather the student chooses how to prepare, and sees how it went',()=>{
+ const s=createStageGameState(stageById['1-3']);s.chapter.seeds=1;updateStage(s,.5,[]);
+ assert.deepEqual(prepareOptions(s).map(o=>o.id),['plant','reduce','wait']);
+ assert.equal(prepareOptions(s)[0].speciesId,'grass');
+ const before=s.organisms.filter(o=>o.speciesId==='grasshopper').length,r=prepareFor(s,'reduce');
+ assert(r.ok&&r.speciesId==='grasshopper');
+ assert.equal(s.organisms.filter(o=>o.speciesId==='grasshopper').length,before-1,'one plant eater released');
+ assert(!prepareFor(s,'wait').ok,'one choice per crisis');
+ const human=createStageGameState(stageById['3-1']);human.chapter.seeds=1;updateStage(human,.5,[]);
+ assert.equal(human.chapter.warning.kind,'soil-damage');assert.deepEqual(prepareOptions(human),[],'people-made crises are tackled, not prepared for');
+});
+
+test('planting before the weather keeps the seeds growing; waiting does not',()=>{
+ const answer=choice=>s=>{const acts=idleStudent(s);if(prepareOptions(s).length){const r=prepareFor(s,choice);if(r.choice==='plant'){for(let i=0;i<2;i++)placeFixture(s,r.speciesId);}}return acts;};
+ const stalled=choice=>{const r=runStage('1-3',{student:answer(choice),seconds:600,catchAll:true});const log=r.s.chapter.crisisLog[0];assert(log.endedAt!==null);assert(crisisReport(r.s)===log);return log.stalled;};
+ const plant=stalled('plant'),wait=stalled('wait');
+ assert(plant<wait,`plant ${plant}s vs wait ${wait}s`);assert(wait-plant>=20);
 });
