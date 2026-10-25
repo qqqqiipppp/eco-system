@@ -67,6 +67,7 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
 
   await p.waitForSelector('.chapter-offer',{timeout:30000});
   if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-offer.png`});
+  assert.equal(await p.locator('#organism-layer [data-breed^=pair]').count(),0,'1-1 does not ask for breeding: no hearts');
   await p.locator('.chapter-offer').first().click();
   assert.equal((await chapter(p)).observations,1,'caught observation is counted');
   assert.equal(await p.evaluate(async()=>(await import('./js/main.js')).gameState.metrics.points),5,'a caught 💡 earns a point');
@@ -169,8 +170,9 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
   await p.locator('.organism-card[data-species-id="rabbit"]').click();await tapBackground(p,.25,.45);await p.waitForTimeout(300);
   if(await p.locator('.clear-selection').count())await p.locator('.clear-selection').click();
   await p.waitForSelector('#organism-layer [data-breed=pair-left]',{state:'attached',timeout:30000});
-  assert.equal(await p.locator('#organism-layer [data-breed=pair-left][data-breed-tone=focus]').count(),1,'one grasshopper wears the left half');
-  assert.equal(await p.locator('#organism-layer [data-breed=pair-right][data-breed-tone=focus]').count(),1,'the other wears the right half');
+  assert.equal(await p.locator('#organism-layer [data-breed=pair-left]').count(),1,'one grasshopper wears the left half');
+  assert.equal(await p.locator('#organism-layer [data-breed=pair-right]').count(),1,'the other wears the right half');
+  assert.equal(await p.locator('#organism-layer [data-species-id=rabbit][data-breed^=pair]').count(),0,'only the stage species wears hearts');
   assert.equal(await p.locator('#organism-layer [data-breed^=pair] .organism-hit[aria-description="번식 준비 중인 짝"]').count(),2);
   await p.waitForFunction(()=>/방아깨비 짝이 번식을 준비하고 있어요 \(\d+초 남음\)/.test(document.querySelector('.chapter-status').textContent),null,{timeout:30000});
   if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-pair.png`});

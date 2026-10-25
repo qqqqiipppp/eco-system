@@ -122,26 +122,25 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   pop(document.querySelector('#points-value')?.closest('.metric'),'bump');pop(wallet,'bump');
  }
  // Breeding made visible. A pair wears two half hearts (left on one, right on
- // the other) that make one heart together; the stage's own species is bright,
- // the others pale. Then the egg or nest with its countdown, then the newborn.
+ // the other) that make one heart together. Only the species the stage asks to
+ // breed wears them, so a rabbit pair in 1-3 cannot look like the goal. Eggs,
+ // nests and newborns show for every species: they explain new arrivals.
  const pairNote='번식 준비 중인 짝';
  let pairMemory={},formedShown=new Set();
  function renderBreeding(s){
   const states=breedingState(s),focus=stageById[s.chapter.stageId].birthRequired,marks={};
   for(const [id,b] of Object.entries(states)){
    if(b.pending)marks[b.pending.parentId]={kind:'pending',label:`${b.rule.sign} ${Math.max(1,Math.ceil(b.pending.remaining))}`};
-   else b.pair.forEach((pid,i)=>{marks[pid]={kind:i?'pair-right':'pair-left',label:''};});
+   else if(id===focus)b.pair.forEach((pid,i)=>{marks[pid]={kind:i?'pair-right':'pair-left',label:''};});
    if(id===focus)watchPair(s,id,b);
   }
   for(const el of forest.querySelectorAll('#organism-layer .organism-object')){
    const o=s.organisms.find(x=>x.instanceId===el.dataset.instanceId);if(!o)continue;
    const rule=breeding.species[o.speciesId];
    const mark=marks[o.instanceId]||(rule&&isYoung(s,o)?{kind:'young',label:`새로 태어난 ${rule.young}`}:{kind:'',label:''});
-   const tone=mark.kind.startsWith('pair')?(o.speciesId===focus?'focus':'other'):'';
    if((el.dataset.breed||'')!==mark.kind)mark.kind?el.dataset.breed=mark.kind:delete el.dataset.breed;
    if((el.dataset.breedLabel||'')!==mark.label)mark.label?el.dataset.breedLabel=mark.label:delete el.dataset.breedLabel;
-   if((el.dataset.breedTone||'')!==tone)tone?el.dataset.breedTone=tone:delete el.dataset.breedTone;
-   const hit=el.querySelector('.organism-hit'),note=tone?pairNote:'';
+   const hit=el.querySelector('.organism-hit'),note=mark.kind.startsWith('pair')?pairNote:'';
    if(hit&&(hit.getAttribute('aria-description')||'')!==note)note?hit.setAttribute('aria-description',note):hit.removeAttribute('aria-description');
   }
  }
