@@ -18,8 +18,16 @@ const blockerText={
  noDecomposition:()=>'낙엽과 죽은 나무가 분해되지 않고 있어요. 분해자가 일할 수 있게 해요.',
  noMeal:()=>'아직 먹는 모습이 보이지 않아요. 동물이 먹이를 찾을 때까지 지켜봐요.',
  needBirth:(b,s)=>{const n=name(b.speciesId),count=s.organisms.filter(o=>o.speciesId===b.speciesId).length;
-  return `세 번째 숲 별은 새로 태어난 ${particle(n,'이','가')} 있어야 차올라요. `+(count<2?`${particle(n,'이','가')} 두 마리 있어야 번식해요. 한 마리를 더 놓아요.`:`${n} 두 마리가 배고프지 않게 지내면 ${breeding.species[b.speciesId].sign}이 생겨요.`);},
+  return `세 번째 숲 별은 새로 태어난 ${particle(n,'이','가')} 있어야 차올라요. `+(count<2?`${particle(n,'이','가')} 두 마리 있어야 번식해요. 한 마리를 더 놓아요.`:breedingLine(s)||`${n} 두 마리가 배고프지 않게 지내면 ${particle(breeding.species[b.speciesId].sign,'이','가')} 생겨요.`);},
 };
+// How far the stage's own species is along: "멧토끼 짝이 번식을 준비하고 있어요 (30초 남음)".
+// Rounded to 5 s so the spoken status does not change every second.
+const fiveUp=seconds=>Math.max(5,Math.ceil(seconds/5)*5);
+function breedingLine(s){
+ const id=stageById[s.chapter.stageId].birthRequired,b=id&&breedingState(s)[id];if(!b)return '';
+ if(b.pending)return `${name(id)}의 ${particle(b.rule.sign,'이','가')} 생겼어요. 약 ${fiveUp(b.pending.remaining)}초 뒤에 태어나요.`;
+ return b.pair.length?`${name(id)} 짝이 번식을 준비하고 있어요 (${fiveUp(b.rule.healthySeconds-b.healthy)}초 남음).`:'';
+}
 const element=(tag,props={},children=[])=>{const e=Object.assign(document.createElement(tag),props);e.append(...children);return e;};
 const time=seconds=>`${Math.floor(seconds/60)}분 ${Math.round(seconds%60)}초`;
 const chapterNews=chapter=>[
@@ -31,7 +39,7 @@ const chapterNews=chapter=>[
 // Stage HUD, things to tap in the forest (💡 and litter), crisis warnings,
 // chapter dialogs and the chapter map. Create before bindDialogPause so the
 // dialogs pause the forest like the others. No sound: motion and colour only.
-export function createChapterView(getState,{forest,cleared,onCatch,onCollect,onPrepare,onStage,onCare,onExit,openWeb,webComplete}){
+export function createChapterView(getState,{forest,cleared,notify,onCatch,onCollect,onPrepare,onStage,onCare,onExit,openWeb,webComplete}){
  const seeds=Array.from({length:config.seedsToClear},()=>element('span',{className:'chapter-seed'}));
  const title=element('h2'),eyebrow=element('span',{className:'eyebrow'}),goal=element('p',{className:'chapter-goal'});
  const meter=element('progress',{value:0});meter.setAttribute('aria-label','다음 숲 별까지');
@@ -62,7 +70,8 @@ export function createChapterView(getState,{forest,cleared,onCatch,onCollect,onP
   hud.querySelector('.chapter-seeds').setAttribute('aria-label',`숲 별 ${c.seeds}/${config.seedsToClear}`);
   meter.max=stage.seedSeconds;meter.value=c.cleared?stage.seedSeconds:c.seedProgress;
   const blockers=c.cleared?[]:stageBlockers(s),first=blockers[0];
-  const text=c.cleared?'숲 별 3개를 모두 모았어요!':first?blockerText[first.id](first,s):'먹이와 먹는 동물이 균형을 이뤄 숲 별이 차오르고 있어요.';
+  const birthDone=c.births.some(b=>b.speciesId===stage.birthRequired);
+  const text=c.cleared?'숲 별 3개를 모두 모았어요!':first?blockerText[first.id](first,s):'먹이와 먹는 동물이 균형을 이뤄 숲 별이 차오르고 있어요.'+(stage.birthRequired&&!birthDone&&breedingLine(s)?' '+breedingLine(s):'');
   if(status.textContent!==text)status.textContent=text;
   status.dataset.state=c.cleared?'clear':first?'blocked':'growing';
   renderCare(c.cleared?[]:careOptions(s),s.metrics.points);
@@ -86,19 +95,42 @@ export function createChapterView(getState,{forest,cleared,onCatch,onCollect,onP
   forest.append(tag);tag.addEventListener('animationend',()=>tag.remove(),{once:true});setTimeout(()=>tag.remove(),2000);
   pop(document.querySelector('#points-value')?.closest('.metric'),'bump');
  }
- // Breeding made visible: a pair, an egg or nest with its countdown, the newborn.
+ // Breeding made visible. A pair wears two half hearts (left on one, right on
+ // the other) that make one heart together; the stage's own species is bright,
+ // the others pale. Then the egg or nest with its countdown, then the newborn.
+ const pairNote='번식 준비 중인 짝';
+ let pairMemory={},formedShown=new Set();
  function renderBreeding(s){
-  // One label per pair (pairs stand close together), replaced by the egg or nest.
-  const states=breedingState(s),pairs=new Set(Object.values(states).filter(b=>!b.pending).map(b=>b.pair[0]).filter(Boolean)),pendingBy={};
-  for(const [id,b] of Object.entries(states))if(b.pending)pendingBy[b.pending.parentId]=`${b.rule.sign} ${Math.max(1,Math.ceil(b.pending.remaining))}`;
+  const states=breedingState(s),focus=stageById[s.chapter.stageId].birthRequired,marks={};
+  for(const [id,b] of Object.entries(states)){
+   if(b.pending)marks[b.pending.parentId]={kind:'pending',label:`${b.rule.sign} ${Math.max(1,Math.ceil(b.pending.remaining))}`};
+   else b.pair.forEach((pid,i)=>{marks[pid]={kind:i?'pair-right':'pair-left',label:''};});
+   if(id===focus)watchPair(s,id,b);
+  }
   for(const el of forest.querySelectorAll('#organism-layer .organism-object')){
    const o=s.organisms.find(x=>x.instanceId===el.dataset.instanceId);if(!o)continue;
    const rule=breeding.species[o.speciesId];
-   const label=pendingBy[o.instanceId]||(rule&&isYoung(s,o)?`새로 태어난 ${rule.young}`:pairs.has(o.instanceId)?'짝':'');
-   const kind=pendingBy[o.instanceId]?'pending':label.startsWith('새로')?'young':label?'pair':'';
-   if((el.dataset.breed||'')!==kind)kind?el.dataset.breed=kind:delete el.dataset.breed;
-   if((el.dataset.breedLabel||'')!==label)label?el.dataset.breedLabel=label:delete el.dataset.breedLabel;
+   const mark=marks[o.instanceId]||(rule&&isYoung(s,o)?{kind:'young',label:`새로 태어난 ${rule.young}`}:{kind:'',label:''});
+   const tone=mark.kind.startsWith('pair')?(o.speciesId===focus?'focus':'other'):'';
+   if((el.dataset.breed||'')!==mark.kind)mark.kind?el.dataset.breed=mark.kind:delete el.dataset.breed;
+   if((el.dataset.breedLabel||'')!==mark.label)mark.label?el.dataset.breedLabel=mark.label:delete el.dataset.breedLabel;
+   if((el.dataset.breedTone||'')!==tone)tone?el.dataset.breedTone=tone:delete el.dataset.breedTone;
+   const hit=el.querySelector('.organism-hit'),note=tone?pairNote:'';
+   if(hit&&(hit.getAttribute('aria-description')||'')!==note)note?hit.setAttribute('aria-description',note):hit.removeAttribute('aria-description');
   }
+ }
+ // Say once what the hearts mean, and why a pair came apart (not every flicker).
+ function watchPair(s,id,b){
+  const before=pairMemory[id]||{pair:[],at:-99},n=name(id);
+  if(b.pair.length&&!before.pair.length&&!formedShown.has(id)){formedShown.add(id);
+   notify(`${n} 두 마리가 짝을 이뤘어요. 반쪽 하트 두 개가 만나 하나가 돼요. 둘 다 배고프지 않게 지내면 ${particle(b.rule.sign,'이','가')} 생겨요.`,true);}
+  const justBorn=s.chapter.births.some(x=>x.speciesId===id&&s.simulationTime-x.at<10);
+  if(!b.pair.length&&before.pair.length&&!b.pending&&!justBorn&&s.simulationTime-before.at>=20){
+   const parents=before.pair.map(pid=>s.organisms.find(o=>o.instanceId===pid));
+   const reason=parents.some(o=>!o)?'짝 한 마리가 숲에서 사라져서':b.count>=breeding.maximum?`숲에 ${particle(n,'이','가')} 이미 많아서`:parents.some(o=>o.hunger>.8)?`${particle(n,'이','가')} 배고파서`:`${particle(n,'이','가')} 약해져서`;
+   notify(`${reason} 번식 준비가 멈췄어요.`,false);before.at=s.simulationTime;
+  }
+  pairMemory[id]={pair:b.pair,at:before.at};
  }
  // Warning before a crisis, then the forest's colour while it lasts.
  function renderCrisis(s){
@@ -237,5 +269,5 @@ export function createChapterView(getState,{forest,cleared,onCatch,onCollect,onP
  }
  // Back from a finished web: show the chapter's end again, now with the way on.
  const webDone=()=>{if(getState().chapter.cleared&&!document.querySelector('dialog[open]'))openClear();};
- return {render,caughtMessage,webDone,spent,reset:()=>{shownClear=null;careKey='';shopKey='';lastSeeds=0;layer.replaceChildren();}};
+ return {render,caughtMessage,webDone,spent,reset:()=>{shownClear=null;careKey='';shopKey='';lastSeeds=0;pairMemory={};formedShown=new Set();layer.replaceChildren();}};
 }

@@ -73,7 +73,7 @@ try {
   if(chapterMode){
     document.body.classList.add('chapter-mode');
     const webView=createChapterWebView(chapterProgress,{onComplete:()=>chapterView.webDone()});
-    chapterView=createChapterView(()=>gameState,{forest,cleared:()=>chapterProgress.cleared(),openWeb:n=>webView.open(n),webComplete:n=>webView.isComplete(n),onCatch:catchStageObservation,onCollect:collectStageTrash,onPrepare:prepareStage,onStage:id=>installForest(createStageGameState(stageById[id])),onCare:careStageEnvironment,onExit:()=>{location.search='?mode=forest';}});
+    chapterView=createChapterView(()=>gameState,{forest,notify:(text,ok)=>important(text,ok),cleared:()=>chapterProgress.cleared(),openWeb:n=>webView.open(n),webComplete:n=>webView.isComplete(n),onCatch:catchStageObservation,onCollect:collectStageTrash,onPrepare:prepareStage,onStage:id=>installForest(createStageGameState(stageById[id])),onCare:careStageEnvironment,onExit:()=>{location.search='?mode=forest';}});
   }else{
     const chapterButton=document.createElement('button');chapterButton.id='chapter-open';chapterButton.type='button';chapterButton.textContent='챕터 모드';
     chapterButton.addEventListener('click',()=>{location.href=location.pathname;});document.querySelector('.header-actions').append(chapterButton);
@@ -166,10 +166,14 @@ try {
       let notice;
       if(gameState.population.sequence>lastPopulationSequence)for(const record of gameState.population.history)if(record.sequence>lastPopulationSequence&&record.mode!=='chapter-pair'&&['starvation','reproduction','natural_lifespan','life_stage_exit','colony_decline','replenishment'].includes(record.cause))notice=record;
       if(notice)scene.showFeedback(studentChange(notice)||populationMessage(notice),!['starvation','colony_decline'].includes(notice.cause));
-      else if (result.feedingEvents.length) scene.showFeedback(feedingFeedback(result.feedingEvents), true);
+      else if (result.feedingEvents.length&&performance.now()>=holdFeedbackUntil) scene.showFeedback(feedingFeedback(result.feedingEvents), true);
       lastPopulationSequence=gameState.population.sequence;
     },
   });
+  // Births and pair news stay readable for a few seconds instead of being
+  // replaced by the next "…을 먹었어요".
+  let holdFeedbackUntil=0;
+  function important(text,ok){scene.showFeedback(text,ok);holdFeedbackUntil=performance.now()+5000;}
   function catchStageObservation(offerId){
     const response=catchObservation(gameState,offerId);if(!response.ok)return response;
     chapterProgress.markObserved(response.offer.relationId);
@@ -206,7 +210,7 @@ try {
     }
     for(const child of response.born||[]){
       const rule=breeding.species[child.speciesId];
-      scene.showFeedback(`${speciesById[child.speciesId].name} ${particle(rule.young,'이','가')} 태어났어요! ${rule.cycle} (게임에서는 실제보다 시간을 짧게 줄였어요.)`,true);
+      important(`${speciesById[child.speciesId].name} ${particle(rule.young,'이','가')} 태어났어요! ${rule.cycle} (게임에서는 실제보다 시간을 짧게 줄였어요.)`,true);
     }
     if(response.cleared)chapterProgress.markCleared(gameState.chapter.stageId);
   }
