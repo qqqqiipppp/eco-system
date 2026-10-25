@@ -1,4 +1,4 @@
-import {stageBlockers,careOptions} from '../systems/chapter-stage.js';
+import {stageBlockers,careOptions,needStates,neededCards} from '../systems/chapter-stage.js';
 import {stageConfig as config,chapters,stages,stageById} from '../../data/chapters.js';
 import {environmentFactors} from '../../data/environment-config.js';
 import {environmentEventDefinitions} from '../../data/environment-events.js';
@@ -58,8 +58,22 @@ export function createChapterView(getState,{forest,cleared,onCatch,onStage,onCar
   if(status.textContent!==text)status.textContent=text;
   status.dataset.state=c.cleared?'clear':first?'blocked':'growing';
   renderCare(c.cleared?[]:careOptions(s),s.metrics.points);
+  renderNeeds(c.cleared?new Map():needStates(s),c.cleared?new Set():neededCards(s,blockers));
   renderOffers(c.offers);
   if(c.cleared&&shownClear!==c.stageId&&!document.querySelector('dialog[open]'))openClear();
+ }
+ // Badges on the animals and plants, and the cards that would help: the same
+ // rules that stall the seeds, so what the student sees is the reason.
+ const needLabel={hungry:'!',starving:'!!',eaten:'다 먹혔어요'};
+ function renderNeeds(states,cards){
+  for(const el of forest.querySelectorAll('#organism-layer .organism-object')){
+   const state=states.get(el.dataset.instanceId)||'';if((el.dataset.need||'')===state)continue;
+   if(state){el.dataset.need=state;el.dataset.needLabel=needLabel[state];}else{delete el.dataset.need;delete el.dataset.needLabel;}
+  }
+  for(const card of document.querySelectorAll('.organism-card[data-species-id]')){
+   const on=cards.has(card.dataset.speciesId);if((card.dataset.chapterNeed==='true')===on)continue;
+   if(on)card.dataset.chapterNeed='true';else delete card.dataset.chapterNeed;
+  }
  }
  // One button per bad factor, rebuilt only when what it would show changes.
  function renderCare(options,points){

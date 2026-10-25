@@ -5,6 +5,8 @@ export const stageConfig = {
   seedsToClear: 3,
   recentMealSeconds: 20,
   hungrySeconds: 20,
+  // Shown on the animal before it stalls seeds, like a fish changing colour.
+  hungryNoticeSeconds: 8,
   minimumFoodRatio: .3,
   minimumEnvironment: .4,
   // At most one observation every 6 s however many animals eat, so more

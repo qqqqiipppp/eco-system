@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createStageGameState,updateStage,stageBlockers,catchObservation,careOptions,careFor} from '../js/systems/chapter-stage.js';
+import {createStageGameState,updateStage,stageBlockers,catchObservation,careOptions,careFor,needStates,neededCards} from '../js/systems/chapter-stage.js';
+import {createFeedingSystem} from '../js/systems/feeding.js';
+import {layout} from './ecology-fixtures.mjs';
 import {stages,stageById,stageConfig,chapters} from '../data/chapters.js';
 import {organismById} from '../data/organisms.js';
 import {foodRelations} from '../data/food-relations.js';
@@ -91,4 +93,24 @@ test('an observation helps seeds only in a balanced forest, and only once',()=>{
  assert(r.ok&&!r.bonus);assert.equal(s.chapter.seedProgress,0);assert.equal(s.chapter.observations,1);
  assert(!catchObservation(s,'test').ok);
  assert(stageBlockers(s).some(b=>b.id==='depleted'));
+});
+
+test('a hungry animal shows it before it stalls seeds, and an eaten plant shows it too',()=>{
+ const s=createStageGameState(stageById['1-2']),f=createFeedingSystem(0),firstSeen={};
+ for(let t=0;t<3000;t++){const r=f.update(s,.1,layout);if(!r.ticked)continue;
+  for(const [id,state] of needStates(s)){firstSeen[id+':'+state]??=s.simulationTime;}
+  if([...needStates(s).values()].includes('starving'))assert(stageBlockers(s).some(b=>b.id==='starving'),'badge and seeds agree');}
+ const animals=Object.keys(firstSeen).filter(k=>k.endsWith(':starving')).map(k=>k.split(':')[0]);
+ assert(animals.length,'some grasshopper starves in the crowded meadow');
+ for(const id of animals)assert(firstSeen[id+':hungry']<firstSeen[id+':starving'],`${id} warned first`);
+ assert(Object.keys(firstSeen).some(k=>k.endsWith(':eaten')),'the grass shows it was eaten');
+});
+
+test('the card that would fix the stall is the one highlighted',()=>{
+ const crowded=createStageGameState(stageById['1-2']);crowded.organisms.filter(o=>o.speciesId==='grass').forEach(o=>o.foodStock=0);
+ assert.deepEqual([...neededCards(crowded)],['grass']);
+ const noDecomposer=runStage('3-1',{student:idleStudent,seconds:60}).s;
+ assert.deepEqual([...neededCards(noDecomposer)].sort(),['litter-mold','mushroom']);
+ const snake=runStage('4-1',{student:idleStudent,seconds:600}).s;
+ assert(neededCards(snake).has('frog'),'frogs eaten below the minimum');
 });

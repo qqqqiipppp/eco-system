@@ -76,6 +76,11 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
   await p.waitForFunction(()=>document.querySelector('.chapter-title h2')?.textContent.includes('1-2'));
   assert.equal((await chapter(p)).seeds,0);
   assert.equal((await p.evaluate(async()=>(await import('./js/main.js')).gameState.organisms.filter(o=>o.speciesId==='grasshopper').length)),5,'1-2 starts crowded');
+  // The crowded meadow shows its problem on the forest: eaten grass, hungry animals, the grass card.
+  await p.waitForSelector('#organism-layer [data-need=eaten]',{state:'attached',timeout:60000});
+  await p.waitForSelector('.organism-card[data-species-id=grass][data-chapter-need]',{timeout:5000});
+  await p.waitForSelector('#organism-layer [data-need=hungry], #organism-layer [data-need=starving]',{state:'attached',timeout:60000});
+  if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-needs.png`});
 
   await p.reload();await p.waitForSelector('.chapter-hud');
   assert.match(await p.locator('.chapter-title h2').textContent(),/1-2/,'reload resumes at the first uncleared stage');
