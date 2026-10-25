@@ -9,7 +9,11 @@ import { createHelpView } from './ui/help-view.js';
 import { createGuideAdapter } from './adapters/guide-preference.js';
 import { updateForestGoal } from './systems/forest-progress.js';
 import { createSaveService } from './services/save-service.js';
-import { createLocalAdapter } from './adapters/local-storage.js';
+import { createLocalAdapter,createNoSaveAdapter,createChapterProgressAdapter } from './adapters/local-storage.js';
+import {createStageGameState,updateStage,catchObservation,careFor} from './systems/chapter-stage.js';
+import {createChapterView} from './ui/chapter-view.js';
+import {stages,stageById} from '../data/chapters.js';
+import {environmentEventDefinitions} from '../data/environment-events.js';
 import { createForestView, showSaveStatus } from './ui/forest-view.js';
 import { createGameState, createUIState } from './state/game-state.js';
 import { renderDashboard, renderCards, renderSelection, feedingFeedback } from './ui/render.js';
@@ -39,10 +43,14 @@ import {hasEnvironmentEventWork,chooseEnvironmentObservation} from './systems/en
 import {claimEnvironmentStudy,claimRecoverySupport} from './systems/point-economy.js';
 
 // Module exports support integration checks; there is no global debug API.
+// ?mode=chapter plays short stages and leaves the regular forest save untouched.
+const chapterMode=new URLSearchParams(location.search).get('mode')==='chapter';
+const chapterProgress=chapterMode?createChapterProgressAdapter():null;
 export const gameState = createGameState();
-export const saveService = createSaveService({adapter:createLocalAdapter(),getState:()=>gameState,getEventMemory:()=>eventSystem.exportMemory(),onStatus:showSaveStatus});
+export const saveService = createSaveService({adapter:chapterMode?createNoSaveAdapter():createLocalAdapter(),getState:()=>gameState,getEventMemory:()=>eventSystem.exportMemory(),onStatus:showSaveStatus});
 const restored = saveService.load();
 Object.assign(gameState,restored.state);
+if(chapterMode)Object.assign(gameState,createStageGameState(stages.find(s=>!chapterProgress.cleared().includes(s.stageId))||stages[0]));
 export let feedingSystem = createFeedingSystem(gameState.simulationTime);
 export let eventSystem = createEventSystem(gameState.simulationTime,restored.eventMemory);
 const uiState = createUIState();
@@ -57,6 +65,14 @@ try {
   let lastCheckpoint = gameState.simulationTime;
   let lastPopulationSequence=gameState.population.sequence;
   const populationButton=document.createElement('button');populationButton.id='population-open';populationButton.type='button';populationButton.textContent='생물 살펴보기';document.querySelector('.header-actions').append(populationButton);
+  let chapterView=null;
+  if(chapterMode){
+    document.body.classList.add('chapter-mode');
+    chapterView=createChapterView(()=>gameState,{forest,cleared:()=>chapterProgress.cleared(),onCatch:catchStageObservation,onStage:id=>installForest(createStageGameState(stageById[id])),onCare:careStageEnvironment,onExit:()=>{location.href=location.pathname;}});
+  }else{
+    const chapterButton=document.createElement('button');chapterButton.id='chapter-open';chapterButton.type='button';chapterButton.textContent='챕터 모드';
+    chapterButton.addEventListener('click',()=>{location.search='?mode=chapter';});document.querySelector('.header-actions').append(chapterButton);
+  }
   const populationView=createPopulationView(gameState,id=>{
     const record=removeOrganism(gameState,id,'release');if(!record)return;
     feedingSystem.forget([id]);wander.forget([id]);scene.remove([id]);scene.showFeedback(studentChange(record)||populationMessage(record),true);
@@ -69,7 +85,7 @@ try {
   const collectionView=createCollectionView(gameState,{onActivity:openLockedActivity,onReplay:startNextForest,onPlace:selectSpecies,onReturn:source=>{const id=source.instanceId,live=id&&gameState.organisms.some(o=>o.instanceId===id);scene.setFocused(live?id:null);if(live)document.querySelector('[data-inspect-instance="'+id+'"]')?.focus({preventScroll:true});}});
   for(const [id,open]of [['population-guide','openGuide'],['population-web','openWeb']])document.querySelector('#'+id).addEventListener('click',()=>{const dialog=document.querySelector('#population-dialog'),source={instanceId:dialog.dataset.selectedInstanceId||null},speciesId=document.querySelector('#population-species').value;dialog.close();collectionView[open](speciesId,source);});
   function refreshProgress(seconds=0) {
-    const cleared=updateForestGoal(gameState,seconds);
+    const cleared=!chapterMode&&updateForestGoal(gameState,seconds);
     forestView.render();collectionView.renderClear();flowView?.render();
     if(cleared&&!document.querySelector('dialog[open]'))document.querySelector('#goal-dialog').showModal();
     if(cleared)saveService.schedule();
@@ -123,6 +139,7 @@ try {
       result.moved.push(...wander.update(gameState.organisms, dt, scene.getLayout(), animalActivity(gameState.environment)));
       if (result.ticked) stabilitySystem.update(gameState, ecologyConfig.tickSeconds);
       result.eventTicked = result.ticked && eventSystem.update(gameState, ecologyConfig.tickSeconds, result.feedingEvents);
+      if(chapterMode&&result.ticked)afterStageChange(updateStage(gameState,ecologyConfig.tickSeconds,result.feedingEvents));
       if(result.removedIds.length||result.added.length||result.developmentChanges.length){eventSystem.refresh(gameState);result.eventTicked=true;}
       if(result.ticked) {
         refreshProgress(ecologyConfig.tickSeconds);
@@ -138,6 +155,7 @@ try {
       scene.paintChanges(result.moved);
       if (result.ticked) scene.showStates(result.updated);
       scene.paintVisuals(gameState,result.visualDelta,result.visualWork);
+      chapterView?.render();
       if (result.ticked) { renderDashboard(gameState); activityView.render(); environmentPanel.render();populationView.render(); }
       if (result.eventTicked || result.removedIds.length) eventView.render();
       let notice;
@@ -147,6 +165,24 @@ try {
       lastPopulationSequence=gameState.population.sequence;
     },
   });
+  function catchStageObservation(offerId){
+    const response=catchObservation(gameState,offerId);if(!response.ok)return;
+    scene.showFeedback(chapterView.caughtMessage(response),response.bonus);
+    afterStageChange(response);chapterView.render();
+  }
+  function careStageEnvironment(factor){
+    const response=careFor(gameState,factor);scene.showFeedback(response.message,response.ok);
+    if(response.ok){eventSystem.refresh(gameState);stabilitySystem.update(gameState);refreshProgress();renderDashboard(gameState);eventView.render();environmentPanel.render();loop.refresh();}
+    chapterView.render();
+  }
+  function afterStageChange(response){
+    if(response.eventStarted){
+      const d=environmentEventDefinitions[response.eventStarted.kind];
+      eventSystem.refresh(gameState);environmentPanel.render();renderDashboard(gameState);
+      scene.showFeedback(`${d.name}: ${d.cause}`,false);
+    }
+    if(response.cleared)chapterProgress.markCleared(gameState.chapter.stageId);
+  }
   function clearSelection() {
     const previousId = uiState.selectedSpeciesId;
     uiState.selectedSpeciesId = null;
@@ -239,14 +275,15 @@ try {
     feedingSystem=createFeedingSystem();eventSystem=createEventSystem();stabilitySystem=createStabilitySystem();wander=createWanderSystem();
     lastCheckpoint=0;lastPopulationSequence=0;selectionPlaced=false;uiState.selectedSpeciesId=null;populationView.reset();
     document.querySelectorAll('dialog[open]').forEach(dialog=>dialog.close());
-    scene.reset();activityView.reset();eventView.reset();collectionView.reset();
+    scene.reset();activityView.reset();eventView.reset();collectionView.reset();chapterView?.reset();
     stabilitySystem.update(gameState);refreshProgress();
     syncCollection(gameState);renderCards(gameState,selectSpecies,openLockedActivity);renderSelection(uiState,clearSelection);renderDashboard(gameState);
     gameState.organisms.forEach(instance=>scene.add(instance));eventSystem.refresh(gameState);eventView.render();loop.refresh();
     return true;
   }
+  chapterView?.render();
   loop.refresh();
-  helpView.showForNewGame(restored.status === 'new');
+  helpView.showForNewGame(!chapterMode&&restored.status === 'new');
 } catch (error) {
   document.querySelector('#load-error').hidden = false;
   console.error('Forest screen initialization failed.', error);

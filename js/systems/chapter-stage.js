@@ -1,0 +1,131 @@
+import {createGameState} from '../state/game-state.js';
+import {createOrganismInstance} from '../state/organism-instance.js';
+import {createPointEconomyState} from '../state/point-economy-state.js';
+import {survivalStage} from './population.js';
+import {startEnvironmentEvent,currentEnvironmentEvent} from './environment-events.js';
+import {executeManagement,validateManagement} from './management.js';
+import {foodResourceConfig} from '../../data/ecology-config.js';
+import {managementActions} from '../../data/management-actions.js';
+import {stageConfig as config,stageById} from '../../data/chapters.js';
+
+// A fresh stage forest. Chapter mode never writes the regular forest save.
+export function createStageGameState(stage) {
+  const s = createGameState();
+  s.organisms = stage.organisms.map(([id, x], i) => createOrganismInstance(id, `${stage.stageId}-${id}-${i + 1}`, {x, y: .72}));
+  s.nextInstanceSequence = s.organisms.length + 1;
+  s.inventory.forEach(card => card.acquired = stage.inventory.includes(card.speciesId));
+  const ids = [...new Set(s.organisms.map(o => o.speciesId))];
+  s.population.introductions = Object.fromEntries(ids.map(id => [id, {count: s.organisms.filter(o => o.speciesId === id).length, nextAt: 0}]));
+  for (const [factor, value] of Object.entries(stage.environment || {})) s.environment[factor].value = value;
+  s.metrics.points = stage.points;
+  s.pointEconomy = createPointEconomyState(stage.points);
+  // The stage starts its own event when the first seed grows.
+  s.environmentEvents.nextAt = Number.MAX_SAFE_INTEGER;
+  s.chapter = {stageId: stage.stageId, seeds: 0, seedProgress: 0, lastMealAt: null,
+    observations: 0, offers: [], offerSequence: 0, lastOfferAt: null, lastWork: 0, lastDecomposedAt: null,
+    eventsStarted: 0, cleared: false, clearedAt: null};
+  return s;
+}
+
+const consumers = s => s.organisms.filter(o => 'hunger' in o);
+const foodPlants = s => s.organisms.filter(o => 'foodStock' in o && foodResourceConfig[o.speciesId]);
+export function foodRatio(s) {
+  const plants = foodPlants(s);
+  return plants.length ? plants.reduce((sum, o) => sum + o.foodStock / foodResourceConfig[o.speciesId].maximum, 0) / plants.length : 0;
+}
+
+// Work done by decomposers and earthworms, not the always-on background decay.
+const decomposerWork = s => Object.values(s.learningGoalProgress?.work || {}).reduce((sum, v) => sum + v, 0) + (s.decomposition.earthwormProcessed || 0);
+
+// Why seeds are not growing right now, most actionable first. Empty = balanced.
+export function stageBlockers(s) {
+  const c = s.chapter, stage = stageById[c.stageId], list = [];
+  if (!consumers(s).length) list.push({id: 'noConsumer'});
+  const missing = Object.entries(stage.requiredSpecies || {}).filter(([id, n]) => s.organisms.filter(o => o.speciesId === id).length < n).map(([id, n]) => ({id, need: n}));
+  if (missing.length && consumers(s).length) list.push({id: 'missing', species: missing});
+  const bad = Object.keys(s.environment).filter(k => s.environment[k].value < config.minimumEnvironment);
+  if (bad.length) list.push({id: 'environment', factors: bad});
+  // Hungry and unable to find food for a while: visible long before starvation.
+  if (consumers(s).some(o => ['severe', 'weak'].includes(survivalStage(o)) || o.hunger >= .6 && o.foodShortageDuration >= config.hungrySeconds)) list.push({id: 'starving'});
+  if (foodRatio(s) < config.minimumFoodRatio) list.push({id: 'depleted'});
+  if (stage.needsDecomposition && (c.lastDecomposedAt === null || s.simulationTime - c.lastDecomposedAt > config.recentMealSeconds)) list.push({id: 'noDecomposition'});
+  if (consumers(s).length && (c.lastMealAt === null || s.simulationTime - c.lastMealAt > config.recentMealSeconds)) list.push({id: 'noMeal'});
+  return list;
+}
+
+// Event i waits for seed i+1 and for the previous event to end.
+function startDueEvent(s) {
+  const c = s.chapter, events = stageById[c.stageId].events;
+  if (c.eventsStarted >= events.length || c.seeds <= c.eventsStarted || currentEnvironmentEvent(s)) return null;
+  return startEnvironmentEvent(s, events[c.eventsStarted++]);
+}
+function growSeeds(s) {
+  const c = s.chapter, seedSeconds = stageById[c.stageId].seedSeconds, result = {seedGained: false, eventStarted: null, cleared: false};
+  while (!c.cleared && c.seedProgress >= seedSeconds) {
+    c.seedProgress -= seedSeconds;
+    c.seeds++;
+    result.seedGained = true;
+    result.eventStarted = startDueEvent(s) || result.eventStarted;
+    if (c.seeds >= config.seedsToClear) {
+      c.cleared = true;
+      c.clearedAt = s.simulationTime;
+      c.seedProgress = 0;
+      result.cleared = true;
+    }
+  }
+  return result;
+}
+
+// Called once per ecology tick, after feeding. Offers expire on the game clock,
+// so they also wait while a reading dialog pauses the forest.
+export function updateStage(s, seconds, feedingEvents = []) {
+  const c = s.chapter;
+  if (!c || c.cleared) return {seedGained: false, eventStarted: null, cleared: false};
+  const time = s.simulationTime;
+  if (feedingEvents.length) c.lastMealAt = time;
+  const work = decomposerWork(s);
+  if (work > c.lastWork + 1e-9) c.lastDecomposedAt = time;
+  c.lastWork = work;
+  c.offers = c.offers.filter(o => o.expiresAt > time);
+  const meal = feedingEvents.at(-1);
+  if (meal && (c.lastOfferAt === null || time - c.lastOfferAt >= config.observationInterval)) {
+    c.lastOfferAt = time;
+    c.offers.push({offerId: `offer-${++c.offerSequence}`, relationId: meal.relationId, consumerInstanceId: meal.consumerInstanceId, expiresAt: time + config.observationLifetime});
+  }
+  if (!stageBlockers(s).length) c.seedProgress += seconds;
+  const result = growSeeds(s);
+  if (!c.cleared) result.eventStarted = startDueEvent(s) || result.eventStarted;
+  return result;
+}
+
+// A caught observation always counts; it helps seeds only in a balanced forest,
+// so crowding a forest with hungry animals cannot farm seeds.
+export function catchObservation(s, offerId) {
+  const c = s.chapter, offer = c?.offers.find(o => o.offerId === offerId);
+  if (!offer || c.cleared) return {ok: false, bonus: false, seedGained: false, eventStarted: null, cleared: false};
+  c.offers = c.offers.filter(o => o !== offer);
+  c.observations++;
+  const bonus = !stageBlockers(s).length;
+  if (bonus) c.seedProgress += config.observationBonusSeconds;
+  return {ok: true, bonus, offer, ...growSeeds(s)};
+}
+
+// One-tap care for each bad environment factor, using the game's own actions
+// and costs. Water and soil care need the forest's active environment alert.
+const careAction = {water: 'water-care', soil: 'soil-care', sunlight: 'habitat-care', air: 'habitat-care'};
+function careTarget(s, factor) {
+  if (careAction[factor] === 'habitat-care') return {sourceType: 'environment', sourceId: factor};
+  return s.events.find(e => e.status === 'active' && e.sourceType === 'environment' && e.payload?.factor === factor)?.eventId ?? null;
+}
+export function careOptions(s) {
+  return Object.keys(s.environment).filter(f => s.environment[f].value < config.minimumEnvironment).map(factor => {
+    const actionId = careAction[factor], target = careTarget(s, factor);
+    const check = target ? validateManagement(s, actionId, target) : {ok: false, message: '환경의 변화가 생물에게 나타날 때까지 조금 기다려요.'};
+    const cost = managementActions.find(action => action.actionId === actionId).cost;
+    return {factor, actionId, cost, ok: check.ok, message: check.ok ? '' : check.message};
+  });
+}
+export function careFor(s, factor) {
+  const target = careTarget(s, factor);
+  return target ? executeManagement(s, careAction[factor], target) : {ok: false, message: '환경의 변화가 생물에게 나타날 때까지 조금 기다려요.'};
+}
