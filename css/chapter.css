@@ -178,3 +178,13 @@
 }
 /* "지금 필요해요" sits where the count line is, instead of on top of it. */
 .chapter-mode .organism-card[data-chapter-need] .card-caption{visibility:hidden}
+/* Portrait tablets: the four numbers in one row, a slightly shorter forest. */
+@media (max-width:800px) and (min-width:600px){
+ .chapter-mode .dashboard{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+ .chapter-mode .metric{padding:6px 8px;gap:6px}
+ .chapter-mode .metric-icon{display:none}
+ .chapter-mode .metric-caption,.chapter-mode #stability-meter{display:none}
+ .chapter-mode .metric h2{font-size:12px;line-height:1.3}
+ .chapter-mode .metric p{font-size:16px;line-height:1.25}
+ .chapter-mode .forest{height:340px;min-height:340px}
+}
