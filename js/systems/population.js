@@ -76,6 +76,8 @@ export function recordIntroduction(state,id){
 export function updateReproduction(state,seconds,layout){
  const added=[];
  for(const [id,rule]of Object.entries(reproductionRules)){
+  // Chapter stages run their own animal breeding (js/systems/chapter-stage.js).
+  if(state.chapter&&rule.mode==='animal')continue;
   const parents=state.organisms.filter(o=>o.speciesId===id);
   const memory=state.population.breeding[id]||{healthySeconds:0,nextAt:state.simulationTime+rule.healthySeconds};
   state.population.breeding[id]=memory;
@@ -130,6 +132,8 @@ export function updateReproduction(state,seconds,layout){
 // arrivals from surrounding habitat, not spontaneous birth from one parent.
 export function updateReplenishment(state,seconds,layout){
  const added=[];
+ // In chapter stages a new animal only comes from two parents.
+ if(state.chapter)return added;
  for(const [id,rule]of Object.entries(replenishmentRules)){
   const count=countSpecies(state,id),memory=state.population.replenishment[id]||{healthySeconds:0,nextAt:state.simulationTime+rule.healthySeconds,...(rule.seedBank?{reserve:0}:{})};
   state.population.replenishment[id]=memory;

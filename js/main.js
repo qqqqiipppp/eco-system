@@ -15,7 +15,7 @@ import {organismById as speciesById} from '../data/organisms.js';
 import {particle} from '../data/student-text.js';
 import {createChapterView} from './ui/chapter-view.js';
 import {createChapterWebView} from './ui/chapter-web-view.js';
-import {stages,stageById} from '../data/chapters.js';
+import {stages,stageById,breeding} from '../data/chapters.js';
 import {environmentEventDefinitions} from '../data/environment-events.js';
 import { createForestView, showSaveStatus } from './ui/forest-view.js';
 import { createGameState, createUIState } from './state/game-state.js';
@@ -144,7 +144,7 @@ try {
       result.moved.push(...wander.update(gameState.organisms, dt, scene.getLayout(), animalActivity(gameState.environment)));
       if (result.ticked) stabilitySystem.update(gameState, ecologyConfig.tickSeconds);
       result.eventTicked = result.ticked && eventSystem.update(gameState, ecologyConfig.tickSeconds, result.feedingEvents);
-      if(chapterMode&&result.ticked)afterStageChange(updateStage(gameState,ecologyConfig.tickSeconds,result.feedingEvents));
+      if(chapterMode&&result.ticked){const stage=updateStage(gameState,ecologyConfig.tickSeconds,result.feedingEvents);result.added.push(...stage.born);afterStageChange(stage);}
       if(result.removedIds.length||result.added.length||result.developmentChanges.length){eventSystem.refresh(gameState);result.eventTicked=true;}
       if(result.ticked) {
         refreshProgress(ecologyConfig.tickSeconds);
@@ -164,7 +164,7 @@ try {
       if (result.ticked) { renderDashboard(gameState); activityView.render(); environmentPanel.render();populationView.render(); }
       if (result.eventTicked || result.removedIds.length) eventView.render();
       let notice;
-      if(gameState.population.sequence>lastPopulationSequence)for(const record of gameState.population.history)if(record.sequence>lastPopulationSequence&&['starvation','reproduction','natural_lifespan','life_stage_exit','colony_decline','replenishment'].includes(record.cause))notice=record;
+      if(gameState.population.sequence>lastPopulationSequence)for(const record of gameState.population.history)if(record.sequence>lastPopulationSequence&&record.mode!=='chapter-pair'&&['starvation','reproduction','natural_lifespan','life_stage_exit','colony_decline','replenishment'].includes(record.cause))notice=record;
       if(notice)scene.showFeedback(studentChange(notice)||populationMessage(notice),!['starvation','colony_decline'].includes(notice.cause));
       else if (result.feedingEvents.length) scene.showFeedback(feedingFeedback(result.feedingEvents), true);
       lastPopulationSequence=gameState.population.sequence;
@@ -203,6 +203,10 @@ try {
       const d=environmentEventDefinitions[response.eventStarted.kind];
       eventSystem.refresh(gameState);environmentPanel.render();renderDashboard(gameState);
       scene.showFeedback(`${d.name}: ${d.cause}`,false);
+    }
+    for(const child of response.born||[]){
+      const rule=breeding.species[child.speciesId];
+      scene.showFeedback(`${speciesById[child.speciesId].name} ${particle(rule.young,'이','가')} 태어났어요! ${rule.cycle} (게임에서는 실제보다 시간을 짧게 줄였어요.)`,true);
     }
     if(response.cleared)chapterProgress.markCleared(gameState.chapter.stageId);
   }

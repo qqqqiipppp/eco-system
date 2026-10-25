@@ -87,7 +87,7 @@
 .web-abiotic .web-legend{margin-left:auto;font-size:12px;color:#6b5a3a}
 .web-close{min-height:40px;border:1px solid #b8c6aa;background:#fff;border-radius:9px;padding:6px 12px;font-size:15px}
 .web-due{padding:6px 10px;border-radius:8px;background:#fff1cc}
-@media (max-width:1000px){.web-node{min-width:92px;font-size:13px}.web-node img{width:24px;height:24px}}
+@media (max-width:1000px){.web-node{min-width:0;gap:3px;padding:3px 6px 3px 4px;font-size:12px}.web-node img{width:20px;height:20px}.web-node small{font-size:10px;padding:0 4px}}
 .web-abiotic-line{stroke:#a08a5f;stroke-width:2;stroke-dasharray:3 4}
 /* Shop: the card row shows prices; cards the student cannot afford dim. */
 .chapter-mode .organism-card[data-price]::after{content:attr(data-price);position:absolute;right:8px;top:8px;padding:2px 8px;border-radius:999px;background:#244c38;color:#fff;font-size:13px;font-weight:800}
@@ -150,3 +150,14 @@
 .chapter-prepare-dialog .chapter-prepare button:first-child{background:#fff;border-color:#b8c6aa;color:inherit}
 .chapter-prepare button:disabled{opacity:.5}
 .chapter-lesson{padding:8px 10px;border-left:4px solid #2f7a3c;background:#eef6ea;font-weight:700}
+/* 숲 별: the stage's progress tokens, shaped as stars (not plant seeds). */
+.chapter-seed{border-radius:0;clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);border:none;background:#d9d4bd;width:30px;height:30px}
+.chapter-seed.filled{border:none;background:#e0a526}
+.plant-seed{border-radius:0;clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);border:none;background:#e0a526}
+/* Breeding: a pair, an egg or nest counting down, a newborn growing up. */
+.chapter-mode .organism-object[data-breed]::before{content:attr(data-breed-label);position:absolute;left:0;top:8px;transform:translateX(-50%);white-space:nowrap;padding:2px 8px;border-radius:999px;font-size:13px;font-weight:800;pointer-events:none;z-index:4}
+.chapter-mode .organism-object[data-breed=pair]::before{background:#fde2ec;color:#8a2048;border:2px solid #d9668f}
+.chapter-mode .organism-object[data-breed=pending]::before{background:#fff;color:#5a4028;border:2px dashed #8a6a4a}
+.chapter-mode .organism-object[data-breed=young]::before{background:#e5f4dc;color:#2f5a22;border:2px solid #5d9a4a}
+.chapter-mode .organism-object[data-breed=young] .organism-visual{transform:scale(.72)}
+.chapter-mode .organism-object[data-need=eaten][data-breed]::before{top:32px}

@@ -4,11 +4,11 @@ import {createPointEconomyState,recordPointChange} from '../state/point-economy-
 import {survivalStage} from './population.js';
 import {startEnvironmentEvent,currentEnvironmentEvent} from './environment-events.js';
 import {executeManagement,validateManagement} from './management.js';
-import {removeOrganism} from './lifecycle.js';
+import {removeOrganism,addOrganism} from './lifecycle.js';
 import {foodResourceConfig} from '../../data/ecology-config.js';
 import {managementActions} from '../../data/management-actions.js';
 import {foodRelations} from '../../data/food-relations.js';
-import {stageConfig as config,stageById,crises,crisisForFactor} from '../../data/chapters.js';
+import {stageConfig as config,stageById,crises,crisisForFactor,breeding} from '../../data/chapters.js';
 
 // A fresh stage forest. Chapter mode never writes the regular forest save.
 export function createStageGameState(stage) {
@@ -25,7 +25,7 @@ export function createStageGameState(stage) {
   s.environmentEvents.nextAt = Number.MAX_SAFE_INTEGER;
   s.chapter = {stageId: stage.stageId, seeds: 0, seedProgress: 0, lastMealAt: null,
     observations: 0, offers: [], offerSequence: 0, lastOfferAt: null, lastWork: 0, lastDecomposedAt: null,
-    warning: null, trash: [], trashSequence: 0, lastTrashAt: null, trashCollected: 0, crisisLog: [],
+    warning: null, trash: [], trashSequence: 0, lastTrashAt: null, trashCollected: 0, crisisLog: [], breeding: {}, births: [],
     eventsStarted: 0, cleared: false, clearedAt: null};
   return s;
 }
@@ -58,6 +58,7 @@ export function neededCards(s, blockers = stageBlockers(s)) {
     if (b.id === 'depleted') foodsOf(new Set(consumers(s).map(o => o.speciesId))).filter(id => foodResourceConfig[id]).forEach(id => cards.add(id));
     if (b.id === 'starving') { const needs = needStates(s); foodsOf(new Set(consumers(s).filter(o => needs.get(o.instanceId) === 'starving').map(o => o.speciesId))).forEach(id => cards.add(id)); }
     if (b.id === 'noDecomposition') ['mushroom', 'litter-mold', 'earthworm'].filter(owned).forEach(id => cards.add(id));
+    if (b.id === 'needBirth' && owned(b.speciesId) && s.organisms.filter(o => o.speciesId === b.speciesId).length < 2) cards.add(b.speciesId);
   }
   return cards;
 }
@@ -82,6 +83,8 @@ export function stageBlockers(s) {
   if (foodRatio(s) < config.minimumFoodRatio) list.push({id: 'depleted'});
   if (stage.needsDecomposition && (c.lastDecomposedAt === null || s.simulationTime - c.lastDecomposedAt > config.recentMealSeconds)) list.push({id: 'noDecomposition'});
   if (consumers(s).length && (c.lastMealAt === null || s.simulationTime - c.lastMealAt > config.recentMealSeconds)) list.push({id: 'noMeal'});
+  // The third star needs a young one born here from two parents.
+  if (stage.birthRequired && c.seeds >= config.seedsToClear - 1 && !c.births.some(b => b.speciesId === stage.birthRequired)) list.push({id: 'needBirth', speciesId: stage.birthRequired});
   return list;
 }
 
@@ -163,6 +166,7 @@ export function updateStage(s, seconds, feedingEvents = []) {
     c.offers.push({offerId: `offer-${++c.offerSequence}`, relationId: meal.relationId, consumerInstanceId: meal.consumerInstanceId, expiresAt: time + config.observationLifetime});
   }
   updateTrash(s, seconds);
+  const born = updateBreeding(s, seconds);
   // In a shop the price limits how fast animals come back, so the regular
   // forest's wait before reintroducing an eaten species is lifted here.
   for (const intro of Object.values(s.population.introductions)) if (intro.nextAt > time) intro.nextAt = time;
@@ -175,6 +179,7 @@ export function updateStage(s, seconds, feedingEvents = []) {
   }
   const result = growSeeds(s);
   if (!c.cleared) result.eventStarted = startDueEvent(s) || result.eventStarted;
+  result.born = born;
   return result;
 }
 
@@ -260,3 +265,42 @@ export function prepareFor(s, choice) {
 // The finished crisis not yet shown to the student, if any.
 export const crisisReport = s => s.chapter.crisisLog.find(r => r.endedAt !== null && !r.reported) || null;
 export const markReported = record => { record.reported = true; };
+
+// Breeding: two grown animals of one species, both fed and well, become a pair;
+// after healthySeconds a young one is on its way (egg or nest) and is born
+// waitSeconds later. Only parents in the forest make young.
+export const isYoung = (s, o) => o.chapterBornAt !== undefined && s.simulationTime - o.chapterBornAt < breeding.youngSeconds;
+function wellParent(s, o) {
+  return !isYoung(s, o) && o.hunger <= .8 && !['severe', 'weak'].includes(survivalStage(o));
+}
+export function breedingState(s) {
+  const out = {};
+  for (const [id, rule] of Object.entries(breeding.species)) {
+    const all = s.organisms.filter(o => o.speciesId === id), well = all.filter(o => wellParent(s, o)), memory = s.chapter.breeding[id];
+    if (!all.length && !memory?.pending) continue;
+    out[id] = {count: all.length, pair: well.length >= 2 ? well.slice(0, 2).map(o => o.instanceId) : [], healthy: memory?.healthy || 0, pending: memory?.pending || null, rule};
+  }
+  return out;
+}
+function updateBreeding(s, seconds) {
+  const c = s.chapter, time = s.simulationTime, born = [];
+  for (const [id, rule] of Object.entries(breeding.species)) {
+    const memory = c.breeding[id] ??= {healthy: 0, pending: null};
+    const all = s.organisms.filter(o => o.speciesId === id), well = all.filter(o => wellParent(s, o));
+    if (memory.pending) {
+      memory.pending.remaining -= seconds;
+      if (memory.pending.remaining > 0) continue;
+      const child = all.length < breeding.maximum ? addOrganism(s, id, {...memory.pending.position}, 'reproduction', {mode: 'chapter-pair'}) : null;
+      if (child) { child.chapterBornAt = time; c.births.push({speciesId: id, instanceId: child.instanceId, at: time}); born.push(child); }
+      memory.pending = null; memory.healthy = 0;
+      continue;
+    }
+    memory.healthy = well.length >= 2 && all.length < breeding.maximum ? memory.healthy + seconds : 0;
+    if (memory.healthy >= rule.healthySeconds) {
+      const parent = well[0];
+      memory.pending = {remaining: rule.waitSeconds, total: rule.waitSeconds, parentId: parent.instanceId,
+        position: {x: Math.min(.92, Math.max(.08, parent.position.x + (parent.position.x > .5 ? -.05 : .05))), y: parent.position.y}};
+    }
+  }
+  return born;
+}

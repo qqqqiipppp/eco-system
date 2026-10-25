@@ -13,7 +13,7 @@ import {runStage,idleStudent,place as placeFixture} from './chapter-fixtures.mjs
 const demanding=['1-2','2-2','2-3','3-1','3-2','3-3','4-1','4-2','4-3'];
 
 test('chapters add one event each and hold balance longer as they go',()=>{
- assert.equal(chapters.length,4);assert.equal(stages.length,12);
+ assert.equal(chapters.length,4);assert.equal(stages.length,14);
  assert.deepEqual(chapters.map(c=>c.events[0]),['cloudy','drought','soil-damage','air-pollution']);
  for(let i=1;i<chapters.length;i++){
   assert.equal(chapters[i].events[1],chapters[i-1].events[0],'the previous crisis returns');
@@ -152,7 +152,7 @@ test('weather works through the ecology; soil and air damaged by people stall se
 });
 
 test('before weather the student chooses how to prepare, and sees how it went',()=>{
- const s=createStageGameState(stageById['1-3']);s.chapter.seeds=1;updateStage(s,.5,[]);
+ const s=createStageGameState(stageById['1-3']);placeFixture(s,'grasshopper');s.chapter.seeds=1;updateStage(s,.5,[]);
  assert.deepEqual(prepareOptions(s).map(o=>o.id),['plant','reduce','wait']);
  assert.equal(prepareOptions(s)[0].speciesId,'grass');
  const before=s.organisms.filter(o=>o.speciesId==='grasshopper').length,r=prepareFor(s,'reduce');
@@ -164,8 +164,36 @@ test('before weather the student chooses how to prepare, and sees how it went',(
 });
 
 test('planting before the weather keeps the seeds growing; waiting does not',()=>{
- const answer=choice=>s=>{const acts=idleStudent(s);if(prepareOptions(s).length){const r=prepareFor(s,choice);if(r.choice==='plant'){for(let i=0;i<2;i++)placeFixture(s,r.speciesId);}}return acts;};
+ const answer=choice=>s=>{const acts=idleStudent(s);if(s.organisms.filter(o=>o.speciesId==='grasshopper').length<2)placeFixture(s,'grasshopper');if(prepareOptions(s).length){const r=prepareFor(s,choice);if(r.choice==='plant'){for(let i=0;i<2;i++)placeFixture(s,r.speciesId);}}return acts;};
  const stalled=choice=>{const r=runStage('1-3',{student:answer(choice),seconds:600,catchAll:true});const log=r.s.chapter.crisisLog[0];assert(log.endedAt!==null);assert(crisisReport(r.s)===log);return log.stalled;};
  const plant=stalled('plant'),wait=stalled('wait');
  assert(plant<wait,`plant ${plant}s vs wait ${wait}s`);assert(wait-plant>=20);
+});
+
+test('breeding needs two of a species: one alone never has young, and the third star waits',()=>{
+ const alone=runStage('1-3',{student:idleStudent,seconds:400});
+ assert.equal(alone.s.chapter.births.filter(b=>b.speciesId==='grasshopper').length,0);
+ assert.equal(alone.seeds,2);assert(alone.blocked.needBirth>100);
+ assert(stageBlockers(alone.s).some(b=>b.id==='needBirth'&&b.speciesId==='grasshopper'));
+});
+
+test('a pair has young within the stage; placed animals do not count as born',()=>{
+ for(const [stage,id] of [['1-3','grasshopper'],['2-4','aphid'],['3-3','chipmunk'],['3-4','bulbul'],['4-3','rabbit']]){
+  const r=runStage(stage);
+  const birth=r.s.chapter.births.find(b=>b.speciesId===id);
+  assert(birth,`${stage}: a ${id} is born`);assert(birth.at<r.clearedAt);
+  assert(r.actions.some(a=>a.endsWith('place '+id))||stageById[stage].organisms.filter(([sp])=>sp===id).length>=2,`${stage}: the student made a pair`);
+  for(const b of r.s.chapter.births){const o=r.s.organisms.find(x=>x.instanceId===b.instanceId);if(o)assert.equal(o.chapterBornAt,b.at);}
+  assert(!r.s.chapter.births.some(b=>b.instanceId.startsWith(stage)),'starting animals are not births');
+ }
+});
+
+test('in chapter stages new animals only come from parents: no hatching from leftover eggs',async()=>{
+ const {updateReplenishment,updateReproduction}=await import('../js/systems/population.js');
+ const s=createStageGameState(stageById['1-1']);
+ s.population.replenishment.grasshopper={reserve:6,healthySeconds:999,nextAt:0};
+ assert.deepEqual(updateReplenishment(s,1,layout),[]);
+ const before=s.organisms.length;for(let i=0;i<400;i++){s.simulationTime=i;updateReproduction(s,1,layout);}
+ assert.equal(s.organisms.filter(o=>o.speciesId==='grasshopper').length,0,'no animal appears without parents');
+ assert(s.organisms.length>=before,'plants still spread their own seeds');
 });
