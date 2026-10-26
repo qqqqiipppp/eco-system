@@ -1,6 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
 import {organisms} from '../data/organisms.js';
-import {visualStates,visualAsset,createVisualTracker} from '../js/ui/species-visuals.js';
+import {visualStates,visualAsset,createVisualTracker,stillSpecies} from '../js/ui/species-visuals.js';
 import {world,emptyMemory} from './ecology-fixtures.mjs';
 import {createFeedingSystem} from '../js/systems/feeding.js';
 import {updateDecomposition} from '../js/systems/decomposition.js';
@@ -25,7 +25,7 @@ test('worm120/3 and real litter allocation distinguish all four views',()=>{
  s.simulationTime=119.5;assert.equal(t.sample(s)[0].motion,'surface');s.simulationTime=120;assert.equal(t.sample(s)[0].motion,'covered');
 });
 for(const id of organisms.filter(o=>o.role==='producer').map(o=>o.id))test(id+': mature leaf variation and actual growth, read only',()=>{
- const s=world([[id,1,.8]]),t=createVisualTracker();s.organisms[0].growth=.6;t.sample(s);const f=createFeedingSystem(0,{environmentEventsEnabled:false});for(let n=0;n<5;n++)f.update(s,.1);assert(s.organisms[0].growth>.6);const before=structuredClone(s);assert.equal(t.sample(s)[0].motion,'growth');assert.deepEqual(s,before);s.simulationTime=9;assert.equal(t.sample(s)[0].motion,'leaf-turn');
+ const s=world([[id,1,.8]]),t=createVisualTracker();s.organisms[0].growth=.6;t.sample(s);const f=createFeedingSystem(0,{environmentEventsEnabled:false});for(let n=0;n<5;n++)f.update(s,.1);assert(s.organisms[0].growth>.6);const before=structuredClone(s);assert.equal(t.sample(s)[0].motion,'growth');assert.deepEqual(s,before);s.simulationTime=9;assert.equal(t.sample(s)[0].motion,stillSpecies.has(id)?'idle':'leaf-turn');
 });
 test('visuals preserve saved schema/rights and restored cumulative work starts idle',()=>{
  // Canonicalize the explicit all-card QA fixture's cumulative collection once.
@@ -33,4 +33,9 @@ test('visuals preserve saved schema/rights and restored cumulative work starts i
 });
 test('restored eating faces its actual target without changing saved direction',()=>{
  const s=world([['grasshopper',1,.8],['grass',1,.7]]),e=s.organisms[0];e.behaviorState='eat';e.targetInstanceId=s.organisms[1].instanceId;e.direction=1;const before=structuredClone(s);const row=createVisualTracker().sample(s)[0];assert.equal(row.motion,'eat');assert.equal(row.facing,-1);assert.deepEqual(s,before);
+});
+for(const id of stillSpecies)test(id+': stands still, one frame per state, while time passes',()=>{
+ const s=world([[id,1,.8]]),t=createVisualTracker(),seen=new Set();
+ for(let i=0;i<200;i++){s.simulationTime=i*.1;const row=t.sample(s,.1)[0];seen.add(row.motion+'-'+row.frame);}
+ assert.deepEqual([...seen],['idle-0']);
 });
