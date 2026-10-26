@@ -11,6 +11,10 @@ export const visualAsset=(id,state=id==='earthworm'?'surface':visualStates[id][0
  return `./assets/images/species/${id}.svg#${variant}${state}-${frame}`;
 };
 
+// No idle sway or flicker for these: a tree or a mushroom shows it is alive by
+// its state (growing, decomposing), drawn as one still pose, not by shaking.
+export const stillSpecies=new Set(['oak','pine','hazel','raspberry','mushroom','litter-mold','soil-bacteria']);
+
 /** Reads actual work deltas and actual model movement. All memory is temporary;
  * loading a cumulative work total never pretends decomposition just occurred.
  * Shared decomposition work can only identify a species, not a spatial patch.
@@ -36,14 +40,15 @@ export function createVisualTracker(){
     const active=(activeUntil.get(o.instanceId)||-1)>=time;
     let motion;
     if(o.speciesId==='earthworm'){const surface=earthwormAtSurface(o,time);motion=active?(surface?'eat':'covered-eat'):(surface?'surface':'covered');}
-    // Mature plants also have a second visible leaf-turn pose. It is an idle
-    // variation of this drawing, never a claim of measured growth or wind.
-    else if(species.role==='producer')motion=active?'growth':Math.floor(time/9)%2?'leaf-turn':'idle';
+    // Grass also has a second visible leaf-turn pose. It is an idle variation
+    // of this drawing, never a claim of measured growth or wind. Trees, shrubs
+    // and fungi stand still: they do not move like animals.
+    else if(species.role==='producer')motion=active?'growth':!stillSpecies.has(o.speciesId)&&Math.floor(time/9)%2?'leaf-turn':'idle';
     else if(species.role==='decomposer')motion=active?'active':'idle';
     else motion=o.behaviorState==='eat'?'eat':moved||(o.speciesId==='spider'&&o.behaviorState==='moveToFood')?'move':'idle';
     const started=p?.motion===motion?p.started:visualTime;
     const period=motion==='idle'&&species.role==='consumer'?.32:['idle','covered','leaf-turn','surface'].includes(motion)?1.2:.22;
-    const frame=Math.floor((visualTime-started)/period)%2;
+    const frame=stillSpecies.has(o.speciesId)?0:Math.floor((visualTime-started)/period)%2;
     previous.set(o.instanceId,{x:o.position.x,y:o.position.y,growth:o.growth,work,litter:o.litterConsumed,motion,started});
     const target=state.organisms.find(n=>n.instanceId===o.targetInstanceId),dx=target?target.position.x-o.position.x:0;
     const facing=Math.abs(dx)>1e-7?Math.sign(dx):o.direction||1;
