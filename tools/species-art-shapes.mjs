@@ -14,21 +14,23 @@ export const accuratePacks={};
 // Pilot species: a long head and narrow pronotum precede broad, long elytra.
 // Dorsal oblique view makes all three thoracic leg pairs explicit.
 accuratePacks.ladybird={
- body:group('elytra',path('M9 44Q14 31 42 30Q65 29 76 43L73 60Q54 75 23 69Q6 64 9 44Z','#947344')+path('M12 44Q18 33 43 33T73 44L70 59Q52 71 25 67Q10 62 12 44Z','#b88a4f')+line('M18 36Q39 50 70 62','#42533c',1.5)+[0,1,2].flatMap(r=>Array.from({length:8},(_,i)=>ellipse(21+i*6,39+r*8+Math.sin(i)*2,1.6,2.1,'#4d4a37','stroke="none"'))).join('')+line('M10 45Q5 62 25 69m24-38q18 2 25 13','#567758',2))+
- group('pronotum',path('M72 42Q84 37 95 44L98 57Q89 67 74 61Q78 51 72 42Z','#a26a50')+line('M75 43q12-6 20 3m-18 14q12 3 19-3','#c7a56a',1.2)),
+ body:group('elytra',path('M9 44Q15 32 43 32Q66 31 77 44L74 58Q54 71 23 65Q7 61 9 44Z','#a35442')+path('M14 44Q21 36 43 36Q63 35 72 45L69 56Q52 65 26 61Q13 58 14 44Z','#667450')+line('M19 37Q41 48 70 57','#344837',1.8)+line('M19 42Q39 51 63 56m-43-9q17 9 32 11','#a39b68',1.3)+group('red-elytral-rim',line('M12 43Q15 34 39 33m14 0q17 1 22 11M12 55q5 10 19 11m22-1 19-7','#ca8260',1.6)))+
+ group('pronotum',path('M72 42Q84 37 95 44L98 57Q89 67 74 61Q78 51 72 42Z','#9d5743')+line('M76 43q11-5 18 3','#c49667',1.6)),
  head:group('head',path('M95 45Q103 41 112 45L116 50 111 58Q102 60 96 56Z','#485349')+path('M110 46q10-8 11-2l-6 7m-5 5q10 6 12 0l-7-4','#463c32')+eye(106,46,1.2))+
- group('antennae',line('M106 44 105 32 95 21 88 20m23 25 8-11-3-11','#393f34',1.2)),
- legs:f=>limbs([`M79 44 69 24 ${f?'43 20':'47 12'}`,`M82 46 88 24 ${f?'106 11':'111 19'}`,`M81 51 65 58 ${f?'40 64':'43 72'}`,`M88 51 102 62 ${f?'119 71':'121 61'}`,`M78 58 66 77 ${f?'43 83':'48 88'}`,`M90 57 99 78 ${f?'119 82':'116 90'}`]),pivot:'99 52',
+ group('antennae',line('M106 44 105 32 95 21 88 20m23 25 8-11-3-11','#303b30',1.8)),
+ legs:f=>limbs([`M79 44 69 24 ${f?'43 20':'47 12'}`,`M82 46 88 24 ${f?'106 11':'111 19'}`,`M81 51 65 58 ${f?'40 64':'43 72'}`,`M88 51 102 62 ${f?'119 71':'121 61'}`,`M78 58 66 77 ${f?'43 83':'48 88'}`,`M90 57 99 78 ${f?'119 82':'116 90'}`],'#343c30',2.2),pivot:'99 52',
 };
 
-accuratePacks.aphid={body:group('elytra',path('M21 41Q29 24 55 28Q77 29 84 45L81 66Q60 83 34 73Q18 67 21 41Z','#738943')+path('M26 42Q33 30 53 32T79 46L76 64Q57 76 36 69Z','#8fa34b')+line('M27 38Q48 52 78 65','#506b3f')+[0,1,2,3].map(i=>line(`M${31+i*8} 35Q${40+i*8} 49 ${60+i*5} 68`,'#afba63',.75)).join(''))+group('pronotum',path('M81 40Q88 32 99 39L103 51 94 61 81 60Q86 49 81 40Z','#698347')),
- head:group('head',path('M99 39Q110 40 111 50L104 55 99 51Z','#4e703e')+eye(106,43,1.1))+group('antennae',line('M108 43l5-8m-5 10 10-5','#766346',1.3)+line('M112 35l-3-5m4 5v-6m1 6 3-5','#9a874e',1.4)),
- legs:f=>limbs([`M86 42 86 25 ${f?'73 19':'78 16'}`,`M94 45 105 30 ${f?'120 31':'118 21'}`,`M85 50 66 55 ${f?'57 71':'51 68'}`,`M93 51 108 60 ${f?'119 57':'119 69'}`,`M85 58 75 77 ${f?'59 84':'62 88'}`,`M94 57 101 77 ${f?'117 87':'121 79'}`],'#6a6545',2),pivot:'103 49'};
+accuratePacks.aphid={body:group('elytra',path('M21 41Q28 23 54 27Q78 28 84 45L81 66Q60 83 34 73Q18 67 21 41Z','#355c4c')+path('M26 42Q33 30 53 32T79 46L76 64Q57 76 36 69Z','#669678')+group('metallic-highlight',path('M28 42Q34 30 51 33Q40 44 45 64L36 65Q27 60 28 42Z','#b4b78a','stroke="none"')+path('M57 34Q70 36 77 46L73 61 65 67Q71 48 57 34Z','#9e9364','stroke="none"'))+line('M27 38Q48 52 78 65','#304c3b',2)+line('M47 35Q50 50 67 68','#bcd2a2',1.5))+group('pronotum',path('M81 40Q88 32 99 39L103 51 94 61 81 60Q86 49 81 40Z','#486e54')),
+ head:group('head',path('M99 39Q110 40 111 50L104 55 99 51Z','#355441')+eye(106,43,1.5))+group('antennae',line('M108 43l5-8m-5 10 10-5','#584a32',1.8)+line('M112 35l-3-5m4 5v-6m1 6 3-5','#8c7646',1.8)),
+ legs:f=>limbs([`M86 42 86 25 ${f?'73 19':'78 16'}`,`M94 45 105 30 ${f?'120 31':'118 21'}`,`M85 50 66 55 ${f?'57 71':'51 68'}`,`M93 51 108 60 ${f?'119 57':'119 69'}`,`M85 58 75 77 ${f?'59 84':'62 88'}`,`M94 57 101 77 ${f?'117 87':'121 79'}`],'#3d4934',2.2),pivot:'103 49'};
 
-accuratePacks.grasshopper={body:group('abdomen',path('M13 63 66 41 87 48 33 69Z','#8ba75a')+path('M14 62 78 42 88 47 31 65Z','#b2bf7b')+line('M29 61 77 46m-33 8 27 1','#6e8b49',1))+group('thorax',path('M76 43 89 38 100 46 87 53Z','#8fa95e')),
- head:group('head',path('M89 41 104 15 109 18 107 41 100 49Z','#9cb56b')+ellipse(103,31,2.1,5,'#6c793c','transform="rotate(18 103 31)"')+eye(103,30,1.2))+group('antennae',path('M105 18 104 6 107 15m1 6 8-12-3 14','#a6b875','stroke-width=".9"')),
- legs:f=>limbs([`M79 48 50 39 ${f?'35 77 23 81':'37 70 22 74'}`,`M83 45 58 34 ${f?'47 73 38 79':'42 69 28 73'}`,`M89 48 84 65 ${f?'69 77':'74 80'}`,`M92 45 101 57 ${f?'117 62':'116 57'}`,`M96 48 102 68 ${f?'118 74':'120 70'}`,`M87 48 70 63 ${f?'54 69':'61 75'}`],'#5c7940',1.8),
- youngBody:path('M37 63 73 45 88 49 64 65Z','#9bb96b')+path('M75 46 85 42 94 50 82 55Z','#88a85a'),pivot:'100 44'};
+accuratePacks.grasshopper={body:group('abdomen',path('M14 63 64 41 88 48 32 72Z','#396b50')+group('full-length-wings',path('M12 63Q43 46 78 42L89 48 29 69Z','#80a580')+line('M24 62 78 46','#304e39',1.5)))+group('thorax',path('M76 43 89 38 100 46 87 55Z','#5e8b61')),
+ head:group('head',path('M89 41 104 15 109 18 107 41 100 49Z','#b6cd8a')+ellipse(103,31,2.1,5,'#5b743e','transform="rotate(18 103 31)"')+eye(103,30,1.5))+group('antennae',line('M105 18 104 7m4 14 8-12','#354e36',1.8)),
+ legs:f=>limbs([`M79 48 50 39 ${f?'35 79 23 84':'37 78 22 85'}`,`M83 45 58 34 ${f?'47 75 38 81':'42 75 28 81'}`,`M89 48 84 69 ${f?'69 81':'74 85'}`,`M92 45 101 61 ${f?'117 67':'116 63'}`,`M96 48 102 77 ${f?'118 81':'120 84'}`,`M87 48 70 66 ${f?'54 75':'61 80'}`],'#294b38',2.2)+group('jumping-thighs',path('M79 48 51 38 47 42 75 54Z','#6c965f')+path('M83 45 59 33 55 37 79 51Z','#98b77d')),
+ // Short, rounded abdomen and small wing pads; the shared long head is
+ // proportionally larger here. No extra life stage or view is introduced.
+ youngBody:group('nymph-abdomen',path('M38 61Q39 51 59 46Q77 42 88 49L91 58Q75 72 49 71Q38 69 38 61Z','#78a878')+line('M50 56q0 7 5 12m7-17q0 8 5 14','#426e4e',1.6))+group('nymph-wing-pads',path('M71 47Q80 44 88 49L83 58 73 57Z','#396b50'))+group('thorax',path('M83 45 89 40 98 47 89 56Z','#83ae77')),pivot:'100 44'};
 
 accuratePacks.frog={body:group('torso',path('M22 65Q27 43 57 43L85 52Q98 69 74 78L39 78Z','#889269')+path('M43 71Q66 58 85 64L85 76H40Z','#d7d5ab')+line('M32 49Q57 43 80 54','#c8cc8b',2.7)+line('M35 55 72 61','#bdc58b',1.4)+[[34,58],[46,51],[55,58],[65,52],[42,65],[70,67]].map(([x,y])=>ellipse(x,y,3.2,2.1,'#464d3a','stroke="none"')).join('')),
  head:group('head',path('M73 50Q78 35 93 37L115 57 96 63 76 59Z','#9caa79')+ellipse(93,42,6,6,'#a9b888')+ellipse(95,42,3.4,3.8,'#c8aa5c')+eye(95,42,2)+ellipse(82,53,3.6,4.2,'#736f4a')+line('M91 57 112 57','#595743',1)+line('M79 44 103 50','#d5d79e',1.6)),
@@ -51,19 +53,19 @@ accuratePacks.weasel={body:group('tail',path('M34 62Q17 59 9 46Q6 39 9 36Q15 34 
  head:group('head',path('M87 51Q88 38 99 37L109 43 120 50 116 57 106 60 93 60Z','#b08a4a')+ellipse(92,40,4.5,5.5,'#9e783d')+ellipse(93,40,2.5,3,'#d3b17a')+path('M103 42 110 44l5 8-8 1Z','#5e4b35')+path('M107 54l12-3-4 8-9 2Z','#e8d8aa')+eye(108,46,1.5)+ellipse(119,50,2,1.8,'#47392f')),
  legs:f=>group('legs',path(`M40 68 36 ${f?83:80}h13l-3-6 5-7m31-6-4 ${f?20:17}h13l-4-5 4-14`,'#9d773e')+path('M53 70v10h8v-10m32-7 2 15h8l-3-16','#b18c4a'),'data-count="4"'),pivot:'99 53'};
 
-accuratePacks.caterpillar={body:group('segments',Array.from({length:11},(_,i)=>ellipse(17+i*7.5,66-Math.sin(i/3)*4,5.5,9,i%2?'#735b42':'#a17a49')).join('')+Array.from({length:10},(_,i)=>path(`M${14+i*7.5} 57l4-2 3 6-4 2Z`,'#bf8c49')).join('')+Array.from({length:31},(_,i)=>{const x=13+i*2.8;return line(`M${x} 62l-3-10m4 17 2 9`,'#4c4136',.9);}).join('')+line('M80 53l-2-9m4 10v-10m5 10 2-9m4 10 3-9','#e7dfbc',1.6)),
- head:group('head',ellipse(106,65,7.5,8,'#9b633f')+path('M101 59 105 64l-1 7m5-12-2 6 4 6','none','stroke="#5b4537"')+eye(110,63,1)),
- legs:f=>group('legs',group('thoracic-legs',[88,94,100].flatMap(x=>[line(`M${x} 70l2 ${f?6:4}`,'#554432',1.2),line(`M${x-2} 70l-1 4`,'#7c6747',1)]).join(''),'data-count="6"')+group('prolegs',[18,40,48,56,64].flatMap(x=>[path(`M${x} 71v${f?8:6}h4l1-5Z`,'#9a8058'),line(`M${x-2} 72v5`,'#796348',2)]).join(''),'data-count="10"')),
- pivot:'102 65'};
+accuratePacks.caterpillar={body:group('segments',Array.from({length:8},(_,i)=>ellipse(17+i*11.5,72-Math.sin(i/2.5)*3,8,10,i%2?'#654932':'#a27445')).join('')+group('dorsal-tufts',[19,34,49,64,79,94].map(x=>line(`M${x} 61l-3-8m5 8 2-9`,'#3e3329',1.8)).join(''))+group('back-markings',[31,56,81].map(x=>path(`M${x} 60l6-2 3 6-6 2Z`,'#dfbc78')).join(''))),
+ head:group('head',ellipse(106,71,8.5,9,'#995a35')+line('M103 64l2 7-2 5','#4a3529',1.7)+eye(110,69,1.5)),
+ legs:f=>group('legs',group('thoracic-legs',[88,94,100].flatMap(x=>[line(`M${x} 78l2 ${f?7:6}`,'#49382b',2.2),line(`M${x-2} 78l-1 5`,'#6f5236',1.8)]).join(''),'data-count="6"')+group('prolegs',[18,40,48,56,64].flatMap(x=>[path(`M${x} 78v${f?8:7}h4l1-5Z`,'#a57f4d'),line(`M${x-2} 79v5`,'#725231',2.2)]).join(''),'data-count="10"')),
+ pivot:'102 71'};
 
 accuratePacks.snail={body:group('foot',path('M12 78Q29 67 63 70L98 55Q107 53 111 68L116 77Q73 88 12 82Z','#b9ad83')+line('M20 78Q60 79 106 75','#d8ccaa',2)),
  shell:group('shell',path('M26 66Q19 51 35 44Q30 35 43 32Q43 25 52 26Q63 24 69 39Q87 41 85 62Q75 80 48 76Z','#bb9d70')+path('M34 43Q49 34 68 40M27 53Q48 42 79 50M29 64Q48 53 82 60','none','stroke="#8e795b"')+ellipse(76,61,10,13,'#736951','transform="rotate(15 76 61)"')+ellipse(75,60,6,10,'#c4b493','stroke="none"')+line('M45 30l5 5m-9 10 4 5m-9 7 3 6m11-20 3 6m5-8 3 5m-9 13 2 9','#d9c39a',.85)),
  head:group('head',path('M91 61q8-11 16-3l4 14-13 4Z','#b5ac88')+group('tentacles',line('M101 60 102 38m5 23 10-19m-10 27 8-4m-13 5 7 1','#958e6b',2)+eye(102,38,1.5)+eye(117,42,1.5),'data-count="4"')),
  legs:f=>line(f?'M20 81q38 3 84-2':'M16 82q47-2 92-2','#a3956c',2),pivot:'103 66'};
 
-accuratePacks.spider={body:group('abdomen',path('M48 14Q68 18 68 44L61 59 42 57Q31 45 34 30Z','#cfc571')+path('M36 27q17 9 29 0v6q-14 7-30 0m0 11q17 8 31-1v6q-17 7-29 0Z','#637c6d')+line('M39 20 52 19m-14 18 27 1m-22 14 16 1','#f0db69',2))+group('cephalothorax',ellipse(59,63,9,10,'#7c857c')+path('M56 59h6v11h-6Z','#303a31')),
+accuratePacks.spider={body:group('abdomen',path('M48 14Q68 18 68 44L61 59 42 57Q31 45 34 30Z','#dfbd53')+path('M35 27q17 9 30 0v8q-14 7-30 0m0 9q17 8 31-1v8q-17 7-29 0Z','#344b45')+line('M40 20 52 20','#f3d98a',1.8))+group('cephalothorax',ellipse(59,63,9,10,'#52655b')+path('M56 59h6v11h-6Z','#28382e')),
  head:group('mouthparts',ellipse(63,74,4,4,'#3f4034')+eye(61,69,1)+eye(65,69,1)),
- legs:f=>limbs([`M55 58 31 31 ${f?'11 9':'9 13'}`,`M58 58 44 21 ${f?'39 5':'32 6'}`,`M64 59 83 28 ${f?'99 7':'105 10'}`,`M66 61 99 47 ${f?'120 21':'118 25'}`,`M53 64 23 54 ${f?'6 68':'7 73'}`,`M55 68 32 76 ${f?'19 90':'14 89'}`,`M65 68 88 77 ${f?'111 89':'116 86'}`,`M67 64 106 62 ${f?'121 75':'119 81'}`],'#3e4438',1.4)+group('leg-bands',line('M29 28l4 6m10-15 2 6m40 1-3 5m19 14-6 3m-74 7 7 2m6 18 6-3m48 1 7 3m17-14-8 1','#d8b85a',2.3)),pivot:'60 67'};
+ legs:f=>limbs([`M55 58 31 31 ${f?'11 9':'9 13'}`,`M58 58 44 21 ${f?'39 5':'32 6'}`,`M64 59 83 28 ${f?'99 7':'105 10'}`,`M66 61 99 47 ${f?'120 21':'118 25'}`,`M53 64 23 54 ${f?'6 68':'7 73'}`,`M55 68 32 76 ${f?'19 90':'14 89'}`,`M65 68 88 77 ${f?'111 89':'116 86'}`,`M67 64 106 62 ${f?'121 75':'119 81'}`],'#2e3b30',2.2)+group('leg-bands',line('M29 28l4 6m10-15 2 6m40 1-3 5m19 14-6 3m-74 7 7 2m6 18 6-3m48 1 7 3m17-14-8 1','#e0be65',2.8)),pivot:'60 67'};
 
 accuratePacks.snake={body:group('trunk',path('M11 76C-3 45 64 39 64 60c0 15-35 6-29 17 7 12 48 4 56-24','none','stroke="#586453" stroke-width="12"')+path('M12 79C3 51 58 46 59 59c0 9-32 7-31 17 2 11 26 14 45 3','none','stroke="#c3c09a" stroke-width="2"')+[0,1,2,3,4,5,6,7].map((_,i)=>{const x=18+i*5.5,y=57-Math.sin(i/3)*6;return line(`M${x} ${y}l2 6`,'#29372f',3);}).join('')+line('M80 68 85 59 88 50','#d99643',9)+line('M82 65l6 2m-2-10 5 1m-3-10 6 2','#28392f',3)),
  head:group('head',path('M86 50Q89 39 102 40L116 48 114 55 100 59 89 56Z','#82906c')+path('M98 53 115 52 110 58 99 59Z','#dbd4b1')+eye(107,46,2)+line('M104 49l2 6m-8-5 3 6','#303d34',2)+ellipse(114,47,.7,.7,'#384436','stroke="none"')),
@@ -87,14 +89,14 @@ accuratePacks.goshawk={body:group('tail',path('M44 57 8 69 10 83 55 72Z','#89908
  legs:f=>limbs([`M62 75 62 84 ${f?'48 86':'49 83'}`,`M80 72 85 83 ${f?'102 86':'101 81'}`],'#c4a85c',2.5)+line('M49 83v4m7-3v4m38-6 1 4','#464937',1),pivot:'89 43'};
 
 const acorn=(x,y)=>`<g transform="translate(${x} ${y})">${ellipse(0,4,5,7,'#bd9155')}${path('M-7 1q0-9 14 0l-1 4H-6Z','#8a8054')}${line('M-6 1-9-2m5 1-2-5m5 5v-6m3 5 3-4m0 6 4-2','#b4a168',1.1)}</g>`;
-accuratePacks.oak={plant:true,body:group('trunk',path('M51 87 55 46 68 39 75 86 64 84Z','#86765b')+line('M60 76 45 52 30 43m34 23 22-21m-24 9 1-26','#77684e',4)+line('M58 57 59 80m8-30 2 13m-7 3 2 15','#b4a386',1.3)),
+accuratePacks.oak={plant:true,body:group('trunk',path('M43 87Q51 81 53 69L55 46 68 39 73 67Q74 79 84 87L73 86 65 82 56 87Z','#8a7352')+line('M60 76 45 52 30 43m34 23 22-21m-24 9 1-26','#77684e',4)+line('M58 57 59 78m8-28 2 13m-7 3 2 12','#b9a384',1.5)+group('root-flare',line('M60 76 55 82 47 86m17-10 2 6 9 4m-13-3-1 3','#68513b',2.2))),
  head:group('crown',path('M13 39Q6 22 31 20Q33 6 53 13Q74 3 88 18Q111 16 116 33Q122 53 94 59L39 60Q14 59 13 39Z','#628b4d')+[[25,48,-55],[44,43,-24],[63,46,4],[82,48,34],[101,45,54]].map(a=>`<g transform="translate(${a[0]} ${a[1]}) scale(.72)">${leaf(0,0,a[2],a[0]%2?'#84a45c':'#90af64','lance')}</g>`).join('')+acorn(38,59)+acorn(83,59)),legs:()=>'',pivot:'63 81'};
 
 function needles(x,y,scale=1){return `<g transform="translate(${x} ${y}) scale(${scale})" data-part="paired-needles">${[-54,-27,0,27,54].map(a=>`<g transform="rotate(${a})">${line('M0 0-3-18M0 0 2-20','#4f8045',1.15)}${line('M0 0v-3','#93794c',1.4)}</g>`).join('')}</g>`;}
-accuratePacks.pine={plant:true,body:group('trunk',path('M48 87Q63 65 58 43L66 28 73 35Q69 58 75 75l10 12-18-3Z','#b07c53')+line('M63 65 28 50m37 0 29-17m-30 5-24-16','#9d6b45',4)+line('M61 69l5 9m-3-28 5 7m-5-18 4-5','#d6a579',1.8)),
+accuratePacks.pine={plant:true,body:group('trunk',path('M43 87Q57 80 59 65Q62 55 58 43L66 28 73 35Q69 58 75 74Q78 82 90 87L78 87 67 83 55 87Z','#b07c53')+line('M63 65 28 50m37 0 29-17m-30 5-24-16','#9d6b45',4)+line('M61 69l5 9m-3-28 5 7m-5-18 4-5','#d6a579',1.8)+group('root-flare',line('M64 73 58 81 48 86m19-9 4 5 13 4m-20-3-2 3','#795134',2.2))),
  head:group('open-crown',ellipse(25,45,16,5.5,'#65874d','stroke="#65874d"')+ellipse(45,44,17,5.5,'#65874d','stroke="#65874d"')+ellipse(64,23,18,6,'#65874d','stroke="#65874d"')+ellipse(86,38,18,6,'#65874d','stroke="#65874d"')+ellipse(106,38,12,5,'#65874d','stroke="#65874d"')+needles(23,45,.75)+needles(43,45,.8)+needles(64,23,.85)+needles(85,38,.8)+needles(106,38,.65)+ellipse(85,56,4,6,'#a88958','transform="rotate(25 85 56)"')+line('M82 52l7 3m-8 0 8 3m-8 0 6 2','#6f6644',.9)),legs:()=>'',pivot:'65 82'};
 
-accuratePacks.hazel={plant:true,body:group('trunk',path('M54 87 58 52 51 36 60 36 66 55 72 85Z','#9c9880')+line('M61 65 40 47 22 41m40 17 25-17 17 1m-45 5 6-29','#827e69',3)+line('M60 67v12m4-24 2 9','#c6c1a1',1.3)),
+accuratePacks.hazel={plant:true,body:group('trunk',path('M45 87Q53 81 55 72L58 52 51 36 60 36 66 55 70 73Q73 81 82 87L72 86 64 83 55 87Z','#9c9880')+line('M61 65 40 47 22 41m40 17 25-17 17 1m-45 5 6-29','#827e69',3)+line('M60 67v10m4-22 2 9','#c6c1a1',1.5)+group('root-flare',line('M60 75 55 82 49 86m14-10 4 6 10 4m-14-3-1 3','#6d6852',2.2))),
  head:group('spreading-crown',path('M9 42Q12 20 39 27Q55 8 79 20Q105 15 119 34L111 53Q89 68 65 58 37 69 16 54Z','#7e9c5a')+[[26,50,-53],[48,43,-24],[70,42,9],[96,50,42]].map(a=>`<g transform="translate(${a[0]} ${a[1]}) scale(.86)">${leaf(0,0,a[2],'#a0b771','hack')}${line('M0-2-9-16m9 14 8-15','#567e44',.7)}</g>`).join('')+line('M40 48 34 66m54-15 7 16','#82794c',1)+ellipse(34,68,3.7,3.7,'#ba8a4e')+ellipse(96,69,3.7,3.7,'#c79653')),legs:()=>'',pivot:'62 82'};
 
 const berry=(x,y)=>`<g transform="translate(${x} ${y})" data-part="aggregate-fruit">${[[0,-4],[-4,-1],[4,-1],[-3,4],[3,4],[0,1]].map(([a,b])=>ellipse(a,b,3,3,'#b75f4f','stroke="#874c3c" stroke-width=".75"')).join('')}${path('M-5-6 0-3 5-6 2-1-2-1Z','#6c8548')}</g>`;
@@ -126,3 +128,12 @@ accuratePacks.bulbul.head=`<g transform="translate(-3 0)">${accuratePacks.bulbul
 // Leave room for the outline stroke as the head turns toward food.
 accuratePacks.grasshopper.head=`<g transform="translate(-2 0)">${accuratePacks.grasshopper.head}</g>`;
 accuratePacks.snail.head=`<g transform="translate(-2 0)">${accuratePacks.snail.head}</g>`;
+
+// Dark, slightly stronger silhouettes survive 32–52px tablet rendering.
+// Detail strokes keep their explicit widths; all view names remain generated
+// by the unchanged builder. A nymph shares the same anatomy, not a new stage.
+for(const id of ['grasshopper','aphid','ladybird','spider','caterpillar']){
+ const p=accuratePacks[id],outline=body=>`<g stroke="#303c2e" stroke-width="2.2">${body}</g>`;
+ p.body=outline(p.body);p.head=outline(p.head);
+ if(p.youngBody)p.youngBody=outline(p.youngBody);
+}
