@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100"><title>웅덩이 (임시 그림)</title>
+<defs><radialGradient id="w" cx=".45" cy=".4" r=".7"><stop offset="0" stop-color="#9fd3ea"/><stop offset=".6" stop-color="#5a9ec4"/><stop offset="1" stop-color="#3f7fa6"/></radialGradient></defs>
+<ellipse cx="150" cy="58" rx="146" ry="38" fill="#8a6a3e"/>
+<ellipse cx="150" cy="55" rx="136" ry="32" fill="#a07b48"/>
+<ellipse cx="150" cy="56" rx="126" ry="27" fill="url(#w)"/>
+<path d="M70 50q40-10 80-3" fill="none" stroke="#d8f0fa" stroke-width="4" stroke-linecap="round" opacity=".8"/>
+<path d="M175 64q25 4 45-2" fill="none" stroke="#d8f0fa" stroke-width="3" stroke-linecap="round" opacity=".6"/>
+<ellipse cx="205" cy="52" rx="16" ry="6" fill="#5f9a3e"/><path d="M205 52l14-3" stroke="#4a7d2e" stroke-width="2"/>
+<g fill="none" stroke="#5f8a34" stroke-width="4" stroke-linecap="round"><path d="M22 60q-2-30 6-48"/><path d="M32 62q2-26-4-44"/><path d="M276 60q4-28-4-46"/><path d="M266 62q-1-22 5-38"/></g>
+<g fill="#7a5a2e"><rect x="24" y="8" width="6" height="16" rx="3"/><rect x="270" y="12" width="6" height="15" rx="3"/></g>
+</svg>

@@ -98,6 +98,7 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   renderShop(s);
   const coins=`✦ ${s.metrics.points}P`;if(wallet.textContent!==coins){wallet.textContent=coins;wallet.setAttribute('aria-label',`가진 포인트 ${s.metrics.points}`);}
   renderAbiotic(s);
+  renderPond(s);
   renderNeeds(c.cleared?new Map():needStates(s),c.cleared?new Set():neededCards(s,blockers));
   renderTaps(c);
   renderBreeding(s);
@@ -107,6 +108,16 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   if(idle&&prepareOptions(s).length)openPrepare(s);
   else if(idle&&!c.cleared&&crisisReport(s))openReport(crisisReport(s));
   if(c.cleared&&shownClear!==c.stageId&&!document.querySelector('dialog[open]'))openClear();
+ }
+ // The pond (chapter 2 on): it shrinks and dulls as water runs low, so a
+ // drought is seen in the forest itself. Drawn under the organisms.
+ const pond=element('img',{className:'forest-pond',src:'./assets/images/backgrounds/pond.svg',alt:'웅덩이',hidden:true});
+ forest.querySelector('.forest-art')?.after(pond);
+ function renderPond(s){
+  const show=stageById[s.chapter.stageId].chapter.number>=2;if(pond.hidden===show)pond.hidden=!show;if(!show)return;
+  const water=factorValue(s.environment,'water'),scale=(.4+.6*water).toFixed(2);
+  if(pond.style.getPropertyValue('--pond')!==scale)pond.style.setProperty('--pond',scale);
+  const dry=String(water<.4);if(pond.dataset.dry!==dry)pond.dataset.dry=dry;
  }
  // The abiotic factors as four small bars in the top row, replacing the single
  // average word (one bad factor hid inside it) and the chips over the forest.
