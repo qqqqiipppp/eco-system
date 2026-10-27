@@ -1,22 +1,25 @@
-// Coordinates describe existing forest.svg (viewBox 1200 x 470), not food,
-// living trees or newly drawn branches. Stage16 may replace this provider data.
-export const forestArtwork={width:1200,height:470,source:'assets/images/forest.svg'};
-// Approximate contact points sampled from the existing green soil-surface path.
-// This bends the view's planting baseline only; model.position is untouched.
+// Coordinates describe the forest picture (assets/images/backgrounds/forest-b.webp,
+// 2400 x 940, drawn at the same 1200 x 470 logical size as the old forest.svg),
+// not food, living trees or newly drawn branches. They only place pictures;
+// model.position, food distances and habitat rules are untouched.
+export const forestArtwork={width:1200,height:470,source:'assets/images/backgrounds/forest-b.webp'};
+// Planting baseline: on the light earth band of the picture (y 292-350),
+// above the dark soil. Unchanged from the old art; checked against the new one.
 const groundContour=[[0,340],[.275,321],[.532,306],[.788,318],[1,325]];
 export function forestGroundHeight(x){
  for(let i=1;i<groundContour.length;i++)if(x<=groundContour[i][0]){const [ax,ay]=groundContour[i-1],[bx,by]=groundContour[i];return (ay+(by-ay)*(x-ax)/(bx-ax))/forestArtwork.height;}
  return groundContour.at(-1)[1]/forestArtwork.height;
 }
 export const backgroundHabitatSpaces=[
- {id:'left-crown',object:'tree-292-325',zone:'canopy',x:292,y:190,rx:64,ry:36,capacity:2,priority:5},
- {id:'middle-crown',object:'tree-673-310',zone:'canopy',x:673,y:215,rx:52,ry:30,capacity:2,priority:5},
- // Existing right silhouette: path starts M1138 257 V139, crown near y110.
- {id:'right-crown',object:'tree-1138-257',zone:'canopy',x:1162,y:142,rx:30,ry:28,capacity:2,priority:5},
- {id:'left-trunk',object:'tree-292-325',zone:'trunk',x:292,y:282,rx:19,ry:30,capacity:2,priority:5},
- {id:'middle-trunk',object:'tree-673-310',zone:'trunk',x:673,y:278,rx:17,ry:23,capacity:2,priority:5},
- {id:'right-trunk',object:'tree-1138-257',zone:'trunk',x:1161,y:221,rx:17,ry:26,capacity:2,priority:5},
- // The SVG has soil and roots, but no dead log, visible web or pond.
+ // The three foreground trees of the picture: a forked crown and the visible
+ // trunk below the fork, measured on the 1200 x 470 grid.
+ {id:'left-crown',object:'tree-b-left',zone:'canopy',x:300,y:172,rx:50,ry:22,capacity:2,priority:5},
+ {id:'middle-crown',object:'tree-b-middle',zone:'canopy',x:690,y:200,rx:36,ry:18,capacity:2,priority:5},
+ {id:'right-crown',object:'tree-b-right',zone:'canopy',x:1135,y:168,rx:28,ry:22,capacity:2,priority:5},
+ {id:'left-trunk',object:'tree-b-left',zone:'trunk',x:318,y:222,rx:10,ry:14,capacity:2,priority:5},
+ {id:'middle-trunk',object:'tree-b-middle',zone:'trunk',x:690,y:232,rx:9,ry:14,capacity:2,priority:5},
+ {id:'right-trunk',object:'tree-b-right',zone:'trunk',x:1148,y:220,rx:9,ry:14,capacity:2,priority:5},
+ // The picture has earth, soil and roots, but no dead log, visible web or pond.
  {id:'grass-band',object:'grass-484-521-551-1075',zone:'understory',x:600,y:329,rx:550,ry:18,capacity:8,priority:1},
  {id:'ground-band',object:'soil-surface',zone:'ground',x:600,y:344,rx:550,ry:23,capacity:30,priority:0},
  {id:'surface-litter',object:'soil-surface',zone:'leaf_litter',x:600,y:347,rx:550,ry:12,capacity:8,priority:2},

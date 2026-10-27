@@ -44,6 +44,7 @@ import {populationMessage} from './systems/population.js';
 import {hasDevelopmentWork} from './systems/development.js';
 import {hasEnvironmentEventWork,chooseEnvironmentObservation} from './systems/environment-events.js';
 import {claimEnvironmentStudy,claimRecoverySupport} from './systems/point-economy.js';
+import {capForestAspect} from './ui/forest-aspect.js';
 
 // Module exports support integration checks; there is no global debug API.
 // Chapter mode is what opens first; ?mode=forest is the regular forest. Chapter
@@ -64,6 +65,7 @@ let stabilitySystem = createStabilitySystem();
 try {
   let flowView=null,learningGoalView=null;
   const forest = document.querySelector('.forest');
+  if(chapterMode)capForestAspect(forest);
   const scene = createOrganismLayer(forest, () => gameState.organisms);
   let wander = createWanderSystem();
   let lastCheckpoint = gameState.simulationTime;
