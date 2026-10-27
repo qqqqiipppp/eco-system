@@ -232,3 +232,7 @@
 .chapter-verdict.strong{background:#eaf5e2;border-color:#4f8a3a;color:#24501a}
 .chapter-verdict.held{background:#fbf6e3;border-color:#c9a640;color:#5a4612}
 .chapter-verdict.tired{background:#fbeae6;border-color:#c0392b;color:#7a1f15}
+/* The pond sits on the picture's earth band (x 190, y 334 of 1200 x 470). */
+.forest-pond{position:absolute;left:calc(190 / 1200 * 100%);top:calc(334 / 470 * 100%);width:calc(160 / 1200 * 100%);min-width:84px;aspect-ratio:3/1;transform:translate(-50%,-50%) scale(var(--pond,1));transition:transform 1.5s,filter 1.5s;pointer-events:none}
+.forest-pond[data-dry=true]{filter:saturate(.4) brightness(1.08)}
+@media (prefers-reduced-motion:reduce){.forest-pond{transition:none}}
