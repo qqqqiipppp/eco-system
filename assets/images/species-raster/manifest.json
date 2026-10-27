@@ -1,0 +1,541 @@
+{
+ "frame": [
+  256,
+  192
+ ],
+ "logicalFrame": [
+  128,
+  96
+ ],
+ "groundY": 174,
+ "species": {
+  "bulbul": {
+   "file": "bulbul.webp",
+   "source": "forest-sprites-8-v3-final/bulbul.png",
+   "sourceSha256": "3a7e76dfe8829eb438e0eddbe918907d9adac5047a66dcc941d8c3c5fe2451ca",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    46,
+    142,
+    1420,
+    962
+   ],
+   "placedBox": [
+    8,
+    31,
+    248,
+    174
+   ],
+   "bytes": 7354
+  },
+  "tit": {
+   "file": "tit.webp",
+   "source": "forest-sprites-8-v3-final/tit.png",
+   "sourceSha256": "1aad3de77d904a5bc70064e66276bd6adc967a3f322bfd60ee5a3b1974cc6418",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    182,
+    139,
+    1369,
+    992
+   ],
+   "placedBox": [
+    12,
+    8,
+    243,
+    174
+   ],
+   "bytes": 8378
+  },
+  "chipmunk": {
+   "file": "chipmunk.webp",
+   "source": "forest-sprites-8-v3-final/chipmunk.png",
+   "sourceSha256": "22c7813d5881146c74e1b09be9ac2d261275549dbe9b4c470499efd567e91f4d",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    26,
+    240,
+    1426,
+    916
+   ],
+   "placedBox": [
+    8,
+    58,
+    248,
+    174
+   ],
+   "bytes": 9308
+  },
+  "rabbit": {
+   "file": "rabbit.webp",
+   "source": "forest-sprites-8-v3-final/rabbit.png",
+   "sourceSha256": "8da4126c5e5e38d2c9f8eb3d71e2ad16df1205e1f016e0e42ce4ee4e259d3ff8",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    285,
+    15,
+    1362,
+    1074
+   ],
+   "placedBox": [
+    43,
+    8,
+    212,
+    174
+   ],
+   "bytes": 10452
+  },
+  "frog": {
+   "file": "frog.webp",
+   "source": "forest-sprites-8-v3-final/frog.png",
+   "sourceSha256": "9e0fc3193a38b1f0c95f6dea5be67edbce1f18a1720fba22ae040bfde0318807",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    64,
+    160,
+    1404,
+    1008
+   ],
+   "placedBox": [
+    8,
+    22,
+    248,
+    174
+   ],
+   "bytes": 13594
+  },
+  "grasshopper": {
+   "file": "grasshopper.webp",
+   "source": "forest-sprites-8-v3-final/grasshopper.png",
+   "sourceSha256": "c27cfbc0143b68c0d59a971b8758882d38af4ecbb2f49d8e53fadbf6751e9260",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    28,
+    222,
+    1428,
+    939
+   ],
+   "placedBox": [
+    8,
+    51,
+    248,
+    174
+   ],
+   "bytes": 10686
+  },
+  "grass": {
+   "file": "grass.webp",
+   "source": "forest-sprites-8-v3-final/grass.png",
+   "sourceSha256": "a2bf441df3001ee6a7fb9b4bdaf7c491bf5d1c0589cf00014eb72fe7717de7fe",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    184,
+    37,
+    1294,
+    1069
+   ],
+   "placedBox": [
+    38,
+    8,
+    217,
+    174
+   ],
+   "bytes": 13942
+  },
+  "mushroom": {
+   "file": "mushroom.webp",
+   "source": "forest-sprites-8-v3-final/mushroom.png",
+   "sourceSha256": "8607c9f2f419eff4fdbfbb0ac740a38c1e7681621d94a6aff29e4427c22329d1",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    20,
+    121,
+    1436,
+    1006
+   ],
+   "placedBox": [
+    8,
+    24,
+    248,
+    174
+   ],
+   "bytes": 9794
+  },
+  "field-mouse": {
+   "file": "field-mouse.webp",
+   "source": "forest-sprites-animals-10-v1/field-mouse.png",
+   "sourceSha256": "a5e76426ad7a65efab521135803b0584b31903aea2c9b041d0a505041f94352a",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    115,
+    172,
+    1415,
+    982
+   ],
+   "placedBox": [
+    8,
+    24,
+    248,
+    174
+   ],
+   "bytes": 13444
+  },
+  "caterpillar": {
+   "file": "caterpillar.webp",
+   "source": "forest-sprites-animals-10-v1/caterpillar.png",
+   "sourceSha256": "d02f8e9b456c1184492ee53c0f93f1f35a5cf72b9501d35be1f4e5dbd8f7893d",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    44,
+    342,
+    1418,
+    815
+   ],
+   "placedBox": [
+    8,
+    91,
+    248,
+    174
+   ],
+   "bytes": 10276
+  },
+  "aphid": {
+   "file": "aphid.webp",
+   "source": "forest-sprites-animals-10-v1/aphid.png",
+   "sourceSha256": "2ee1ef5281f04ed6fd175f346e35e6e2f807d6c4fed3bc0491559c0e7964368b",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    79,
+    256,
+    1407,
+    963
+   ],
+   "placedBox": [
+    8,
+    46,
+    248,
+    174
+   ],
+   "bytes": 11244
+  },
+  "snail": {
+   "file": "snail.webp",
+   "source": "forest-sprites-animals-10-v1/snail.png",
+   "sourceSha256": "d27986f9c927092d38d9a54fb1b4086984e02693e54426f26d487419cb75041b",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    55,
+    250,
+    1428,
+    917
+   ],
+   "placedBox": [
+    8,
+    57,
+    248,
+    174
+   ],
+   "bytes": 8396
+  },
+  "spider": {
+   "file": "spider.webp",
+   "source": "forest-sprites-animals-10-v1/spider.png",
+   "sourceSha256": "99fe0b2105c196f28865b62632cafe97282e9d6f999481cfe95e0f01d1245769",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    38,
+    114,
+    1418,
+    992
+   ],
+   "placedBox": [
+    8,
+    21,
+    248,
+    174
+   ],
+   "bytes": 15774
+  },
+  "ladybird": {
+   "file": "ladybird.webp",
+   "source": "forest-sprites-animals-10-v1/ladybird.png",
+   "sourceSha256": "c0fecd8f25fd09f9d6c0123f3ced3fbd501600bce7d114ed48fca318e00d7793",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    23,
+    127,
+    1440,
+    1002
+   ],
+   "placedBox": [
+    8,
+    26,
+    248,
+    174
+   ],
+   "bytes": 11456
+  },
+  "snake": {
+   "file": "snake.webp",
+   "source": "forest-sprites-animals-10-v1/snake.png",
+   "sourceSha256": "bd8275ce2f28181023a3d2349a648514774b8162ed671be7631eb4e384957dde",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    32,
+    270,
+    1432,
+    838
+   ],
+   "placedBox": [
+    8,
+    77,
+    248,
+    174
+   ],
+   "bytes": 7720
+  },
+  "weasel": {
+   "file": "weasel.webp",
+   "source": "forest-sprites-animals-10-v1/weasel.png",
+   "sourceSha256": "40b23f013b960532a129cb28a295329378bd9a1a3de4bf053d167e89170c6d11",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    17,
+    258,
+    1432,
+    869
+   ],
+   "placedBox": [
+    8,
+    70,
+    248,
+    174
+   ],
+   "bytes": 7100
+  },
+  "goshawk": {
+   "file": "goshawk.webp",
+   "source": "forest-sprites-animals-10-v1/goshawk.png",
+   "sourceSha256": "d4d08aa0b29818542f80aee2a16687c7c73d0c37f36fc8c5147fed713fd2beff",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    49,
+    126,
+    1410,
+    1033
+   ],
+   "placedBox": [
+    8,
+    14,
+    248,
+    174
+   ],
+   "bytes": 9710
+  },
+  "earthworm": {
+   "file": "earthworm.webp",
+   "source": "forest-sprites-animals-10-v1/earthworm.png",
+   "sourceSha256": "dc9c21f5b8b20751bd43e3e0a498f4d9430c1c183a3ce20bbc7b5abc490177f4",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    28,
+    384,
+    1431,
+    782
+   ],
+   "placedBox": [
+    8,
+    106,
+    248,
+    174
+   ],
+   "bytes": 4908
+  },
+  "oak": {
+   "file": "oak.webp",
+   "source": "forest-sprites-batch3-plants-decomposers/oak.png",
+   "sourceSha256": "67491d98b9bf6e2ba3d2f864c8ba4dc1dd2a6fbc8151c7c0302fbc0a60ab7f05",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    62,
+    12,
+    1400,
+    1079
+   ],
+   "placedBox": [
+    24,
+    8,
+    232,
+    174
+   ],
+   "bytes": 13904
+  },
+  "pine": {
+   "file": "pine.webp",
+   "source": "forest-sprites-batch3-plants-decomposers/pine.png",
+   "sourceSha256": "f9cf54f453fb0e75c74955fa6fa3898712663dc3643142c3d13be8ff4664b1c9",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    24,
+    25,
+    1435,
+    1079
+   ],
+   "placedBox": [
+    17,
+    8,
+    239,
+    174
+   ],
+   "bytes": 16196
+  },
+  "hazel": {
+   "file": "hazel.webp",
+   "source": "forest-sprites-batch3-plants-decomposers/hazel.png",
+   "sourceSha256": "0b95475064106275833014a52e53949406beb544300fa358eef60d29c6ee9551",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    85,
+    92,
+    1361,
+    1008
+   ],
+   "placedBox": [
+    12,
+    8,
+    243,
+    174
+   ],
+   "bytes": 13932
+  },
+  "raspberry": {
+   "file": "raspberry.webp",
+   "source": "forest-sprites-batch3-plants-decomposers/raspberry.png",
+   "sourceSha256": "7622f5332d28e530438204d0640354b3f6d63f27580814e37cb66c5d5815994d",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    50,
+    28,
+    1393,
+    1067
+   ],
+   "placedBox": [
+    20,
+    8,
+    235,
+    174
+   ],
+   "bytes": 20768
+  },
+  "litter-mold": {
+   "file": "litter-mold.webp",
+   "source": "forest-sprites-batch3-plants-decomposers/litter-mold.png",
+   "sourceSha256": "d5b240da16183a3ff32d7457381ebf313c173df490089f2c28e3f44dbe57abfa",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    32,
+    151,
+    1423,
+    975
+   ],
+   "placedBox": [
+    8,
+    32,
+    248,
+    174
+   ],
+   "bytes": 12170
+  },
+  "soil-bacteria": {
+   "file": "soil-bacteria.webp",
+   "source": "forest-sprites-batch3-plants-decomposers/soil-bacteria.png",
+   "sourceSha256": "bc5fb9fa4faf34d3f0794dd54ca988bc7a6eb3a0aa41a49f0b6032a949fa20e4",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    102,
+    116,
+    1360,
+    1030
+   ],
+   "placedBox": [
+    14,
+    8,
+    242,
+    174
+   ],
+   "bytes": 11964
+  }
+ }
+}

@@ -212,7 +212,7 @@ export function createOrganismLayer(forest, getOrganisms) {
     setInspectHandler:handler=>{inspectHandler=handler;},setFocused,
     getPresentation:instance=>habitat.position(instance),getHabitatDiagnostics:()=>habitat.diagnostics(),
     reset() { visuals.reset();focusedId=null;membership='';remove([...nodes.keys()]); clearTimeout(feedbackTimer); feedback.hidden=true; keyboardPosition={x:0.4,y:0.72}; namesToggle.setAttribute('aria-pressed','false');layer.classList.remove('show-names');showSelection(null); },
-    paintVisuals: (state,delta,work)=>{for(const frame of visuals.sample(state,delta,work)){const entry=nodes.get(frame.instanceId);if(!entry)continue;if(entry.facing!==frame.facing){entry.image.style.setProperty('--facing',frame.facing);entry.facing=frame.facing;}if(entry.visualKey!==frame.src){entry.visualKey=frame.src;entry.anchor.dataset.visualState=frame.motion;entry.anchor.dataset.visualFrame=frame.frame;entry.image.src=frame.src;}}},
+    paintVisuals: (state,delta,work)=>{for(const frame of visuals.sample(state,delta,work)){const entry=nodes.get(frame.instanceId);if(!entry)continue;if(entry.facing!==frame.facing){entry.image.style.setProperty('--facing',frame.facing);entry.facing=frame.facing;}const key=frame.src+'|'+frame.motion+'|'+frame.frame;if(entry.visualKey!==key){entry.visualKey=key;entry.anchor.dataset.visualState=frame.motion;entry.anchor.dataset.visualFrame=frame.frame;if(entry.image.getAttribute('src')!==frame.src)entry.image.src=frame.src;}}},
     showStates: instances => {
       const nextTargets=new Set(instances.filter(o=>feedingConfig[o.speciesId]?.huntMode==='ambush'&&['moveToFood','eat'].includes(o.behaviorState)).map(o=>o.targetInstanceId).filter(Boolean));
       for (const instance of instances) {

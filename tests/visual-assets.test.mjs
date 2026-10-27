@@ -1,6 +1,8 @@
 import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
 import {organisms} from '../data/organisms.js';
-import {visualStates,visualAsset,createVisualTracker,stillSpecies} from '../js/ui/species-visuals.js';
+import {visualStates,visualAsset,svgAsset,createVisualTracker,stillSpecies} from '../js/ui/species-visuals.js';
+import {rasterSpecies} from '../js/ui/species-raster.js';
+import {existsSync} from 'node:fs';
 import {world,emptyMemory} from './ecology-fixtures.mjs';
 import {createFeedingSystem} from '../js/systems/feeding.js';
 import {updateDecomposition} from '../js/systems/decomposition.js';
@@ -9,7 +11,7 @@ import {consumerMotion,movingSpecies} from './visual-fixtures.mjs';
 for(const species of organisms)test(species.id+': two authored local SVG views per declared state',()=>{
  const raw=readFileSync(new URL('../assets/images/species/'+species.id+'.svg',import.meta.url),'utf8');
  assert(!/https?:|<script|<filter|<animate|<image|foreignObject/.test(raw.replace('http://www.w3.org/2000/svg','')));assert(raw.length<45000);
- const crops=[];for(const state of visualStates[species.id])for(let f=0;f<2;f++){const match=raw.match(new RegExp('<view id="'+state+'-'+f+'" viewBox="([^"]+)"'));assert(match,visualAsset(species.id,state,f));crops.push(match[1]);}assert.equal(new Set(crops).size,crops.length);
+ const crops=[];for(const state of visualStates[species.id])for(let f=0;f<2;f++){const match=raw.match(new RegExp('<view id="'+state+'-'+f+'" viewBox="([^"]+)"'));assert(match,svgAsset(species.id,state,f));crops.push(match[1]);}assert.equal(new Set(crops).size,crops.length);
 });
 for(const species of movingSpecies)test(species.id+': real FSM yields both frames of idle/move/eat',()=>{
  const r=consumerMotion(species.id);assert(r.meals>0,r.id+' actual meal');for(const state of ['idle','move','eat'])for(let frame=0;frame<2;frame++)assert(r.seen.has(state+'-'+frame),r.id+' '+state+'-'+frame+' saw '+[...r.seen.keys()]);
@@ -38,4 +40,11 @@ for(const id of stillSpecies)test(id+': stands still, one frame per state, while
  const s=world([[id,1,.8]]),t=createVisualTracker(),seen=new Set();
  for(let i=0;i<200;i++){s.simulationTime=i*.1;const row=t.sample(s,.1)[0];seen.add(row.motion+'-'+row.frame);}
  assert.deepEqual([...seen],['idle-0']);
+});
+test('painted sprites: every species has one; growth variants without one keep the SVG',()=>{
+ assert.equal(rasterSpecies.size,24);
+ for(const id of rasterSpecies){assert(existsSync(new URL('../assets/images/species-raster/'+id+'.webp',import.meta.url)),id);assert.equal(visualAsset(id,'idle',1),'./assets/images/species-raster/'+id+'.webp');}
+ assert.equal(visualAsset('rabbit','idle',0,'baby'),'./assets/images/species-raster/rabbit.webp','baby rabbit: same picture, scaled by CSS');
+ for(const [id,stage] of [['grass','sprout'],['grasshopper','nymph'],['mushroom','mycelium']])assert.equal(visualAsset(id,'idle',0,stage),svgAsset(id,'idle',0,stage));
+ assert.equal(svgAsset('grasshopper','eat',1,'nymph'),'./assets/images/species/grasshopper.svg#nymph-eat-1');
 });

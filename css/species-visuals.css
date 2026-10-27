@@ -14,3 +14,19 @@
 .guide-detail-heading>img{width:92px;height:76px;object-fit:contain}.guide-card>img{width:62px;height:48px;object-fit:contain}
 @media(max-width:800px){.forest-memo{height:auto;min-height:64px;flex-wrap:wrap;gap:4px 8px}.now-task{flex:1 1 calc(100% - 132px)}#now-action{margin-left:auto}#memo-toggle{font-size:15px}.forest-memo .now-task{order:-1;flex-basis:100%}.forest-memo .mission-preview{font-size:17px}.selected-art{display:none}}
 @media(prefers-reduced-motion:reduce){.organism-enter{animation:none}}
+/* Painted sprites (one still picture per species, see js/ui/species-raster.js).
+   Until motion sprites exist, the model's state is hinted with CSS only:
+   a small hop while walking, a nod while eating, a soft glow while a
+   decomposer works. Trees and fungi stay still. `translate`/`rotate` combine
+   with the facing/growth `transform` above instead of replacing it. */
+.organism-object[data-visual-state=move] img.organism-art[src*="/species-raster/"]{animation:raster-hop .32s ease-in-out infinite alternate}
+.organism-object[data-visual-state=eat] img.organism-art[src*="/species-raster/"],.organism-object[data-visual-state=covered-eat] img.organism-art[src*="/species-raster/"]{animation:raster-nod .45s ease-in-out infinite alternate}
+.organism-object[data-visual-state=active]:not([data-need]) img.organism-art[src*="/species-raster/"]{animation:raster-glow 1.6s ease-in-out infinite alternate}
+@keyframes raster-hop{to{translate:0 -3px}}
+@keyframes raster-nod{to{rotate:calc(var(--facing,1) * 7deg)}}
+@keyframes raster-glow{from{filter:drop-shadow(0 0 0 #f6e9a6)}to{filter:drop-shadow(0 0 5px #f6e9a6)}}
+/* The earthworm spends most of its time in the soil: only its head shows
+   above a small heap of earth. The clip follows the facing flip. */
+.organism-object[data-species-id=earthworm][data-visual-state^=covered] img.organism-art[src*="/species-raster/"]{clip-path:inset(0 0 0 70%)}
+.organism-object[data-species-id=earthworm][data-visual-state^=covered]:has(img[src*="/species-raster/"]) .organism-visual::before{content:'';position:absolute;left:18%;right:18%;top:calc(var(--sprite-height) * .72);height:calc(var(--sprite-height) * .22);border-radius:50% 50% 6px 6px;background:#6f5434;box-shadow:inset 0 3px 0 #94744c;z-index:1;pointer-events:none}
+@media(prefers-reduced-motion:reduce){img.organism-art[src*="/species-raster/"]{animation:none!important}}
