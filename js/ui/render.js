@@ -25,7 +25,7 @@ export function renderDashboard(state) {
   document.querySelectorAll('.abiotic-status b').forEach((node, index) => { const label = qualityLabel(factorValue(state.environment, labels[index])); if (node.textContent !== label) node.textContent = label; });
 }
 
-export function renderCards(state, onSelect, onLocked = () => {}) {
+export function renderCards(state, onSelect, onLocked = () => {}, onDeselect = null) {
   const list = document.querySelector('#card-list');
   list.replaceChildren();
   state.inventory.forEach(({ speciesId, acquired }) => {
@@ -43,7 +43,8 @@ export function renderCards(state, onSelect, onLocked = () => {}) {
     // Only trusted, local species definitions are used in this template.
     const visual = `<img class="card-art" src="${visualAsset(species.id)}" alt="" draggable="false">`;
     button.innerHTML = `${visual}<span><span class="card-role ${species.role}">${roleLabels[species.role]}</span><span class="card-name">${species.name}</span><span class="card-caption">${acquired ? species.caption : '🔒 ' + (unlock?.unlockHint||'추후 해금 예정')}</span></span><span class="card-selected" aria-hidden="true" hidden>✓ 선택</span>`;
-    button.addEventListener('click', () => acquired ? onSelect(speciesId) : onLocked(unlock?.activityId));
+    // Tapping the chosen card again puts it back.
+    button.addEventListener('click', () => !acquired ? onLocked(unlock?.activityId) : onDeselect && button.getAttribute('aria-pressed') === 'true' ? onDeselect() : onSelect(speciesId));
     list.append(button);
   });
   document.querySelector('#card-count').textContent = `${state.inventory.filter(item=>item.acquired).length} / ${state.inventory.length}`;
@@ -68,10 +69,19 @@ export function renderSelection(uiState, onClear) {
   });
   const panel = document.querySelector('#selection-panel');
   const species = organismById[uiState.selectedSpeciesId];
+  // While a card is chosen, a band on the forest's soil says so and holds the
+  // way out, where the student is looking. Its text lets taps through.
+  const forest = document.querySelector('.forest');
+  let band = forest?.querySelector('.placing-band');
   if (!species) {
     panel.innerHTML = '<p>생물 카드를 고르면 숲에 놓을 수 있어요. 생물을 누르면 살펴봐요.</p>';
+    band?.remove();
     return;
   }
-  panel.innerHTML = `<div class="selection-topline"><img class="selected-art" src="${visualAsset(species.id)}" alt=""><h3><small>선택한 생물</small>${species.name} · 원하는 곳을 누르면 가까운 자리에 놓아요.</h3><button class="clear-selection" type="button">고르기 취소</button></div>`;
-  panel.querySelector('button').addEventListener('click', onClear);
+  panel.innerHTML = `<div class="selection-topline"><img class="selected-art" src="${visualAsset(species.id)}" alt=""><h3><small>선택한 생물</small>${species.name} · 원하는 곳을 누르면 가까운 자리에 놓아요.</h3></div>`;
+  if (forest) {
+    if (!band) { band = document.createElement('div'); band.className = 'placing-band'; band.setAttribute('role', 'status'); forest.append(band); }
+    band.innerHTML = `<img src="${visualAsset(species.id)}" alt=""><span><b>${species.name}</b> 놓는 중 · 숲을 눌러요</span><button class="clear-selection" type="button">✕ 그만 놓기</button>`;
+    band.querySelector('button').addEventListener('click', event => { event.stopPropagation(); onClear(); });
+  }
 }
