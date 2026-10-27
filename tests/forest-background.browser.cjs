@@ -8,7 +8,7 @@ const sizes=[[1280,800],[1138,712],[960,600],[1366,768],[412,915]];
 (async()=>{
  const {world,emptyMemory}=await import('./ecology-fixtures.mjs'),{organisms}=await import('../data/organisms.js');
  const {createGameState}=await import('../js/state/game-state.js'),{createSaveSnapshot}=await import('../js/services/save-format.js');
- const {backgroundHabitatSpaces}=await import('../data/forest-spaces.js');
+ const {backgroundHabitatSpaces,forestArtwork}=await import('../data/forest-spaces.js');
  const scene=(groups,id)=>world(groups,'background-'+id);
  const initial=scene([['oak',1,.21],['grass',1,.45],['grasshopper',1,.47],['mushroom',1,.7],['soil-bacteria',1,.84]],'B');initial.inventory=createGameState().inventory;
  const dense=scene(organisms.map((o,i)=>[o.id,1,.09+(i%8)*.11]),'G');
@@ -42,7 +42,7 @@ const sizes=[[1280,800],[1138,712],[960,600],[1366,768],[412,915]];
       rendered:[...document.querySelectorAll('.organism-object')].map(n=>{const m=new DOMMatrix(getComputedStyle(n).transform),hit=n.querySelector('.organism-hit').getBoundingClientRect();return {id:n.dataset.instanceId,anchor:n.dataset.anchorId,x:m.m41,y:m.m42,hit:{width:hit.width,height:hit.height}};})};
     });
     assert(!v.horizontalOverflow);assert.equal(v.models.length,s.organisms.length);assert(v.rendered.every(n=>n.hit.width>=43.99&&n.hit.height>=43.99));
-    assert.equal(v.background.src,'./assets/images/forest.svg');assert.equal(v.background.fit,'fill');
+    assert.equal(v.background.src,'./'+forestArtwork.source);assert.equal(v.background.fit,'fill');
     await p.locator('.forest').screenshot({path:path.join(shots,phase+'-'+name+'-'+width+'.jpg'),type:'jpeg',quality:88});
     if(name==='G-dense')await p.screenshot({path:path.join(shots,phase+'-full-'+width+'.png'),fullPage:true});
     row.views.push(v);
