@@ -26,6 +26,16 @@ export const stageConfig = {
   trashDamage: .006,
   trashFloor: .15,
   trashReward: 1,
+  // Every crisis starts and ends inside the stage (about 1 minute), and is
+  // judged by how long the stars stalled while it lasted.
+  crisisSeconds: 30,
+  crisisRecoverySeconds: 20,
+  // Cloud or drought: food plants grow back this much slower (less light or
+  // water for photosynthesis), so an unprepared forest runs out of food.
+  crisisFoodRecovery: .1,
+  crisisStrongMaxStall: 5,
+  crisisStrongReward: 5,
+  crisisTiredMinStall: 20,
   prices: {grass: 3, raspberry: 3, oak: 6, hazel: 6, grasshopper: 4, earthworm: 4, aphid: 5, rabbit: 6, chipmunk: 6, mushroom: 5, 'litter-mold': 5, frog: 8, bulbul: 8, snake: 10, weasel: 10, goshawk: 12},
 };
 
@@ -114,9 +124,9 @@ export const chapters = [
 // use a conservation action ([4과14-03]).
 export const crises = {
   cloudy: {human: false, factor: 'sunlight', notice: '곧 흐린 날씨가 와요!',
-    effect: '햇빛이 줄면 식물이 천천히 자라서 먹이가 모자랄 수 있어요.'},
+    effect: '햇빛이 줄면 식물이 광합성을 거의 못 해서, 먹힌 잎과 열매가 다시 자라지 않아요. 먹이가 모자라면 숲 별이 멈춰요.'},
   drought: {human: false, factor: 'water', notice: '곧 가뭄이 와요!',
-    effect: '물이 줄면 식물이 천천히 자라서 먹이가 모자랄 수 있어요.'},
+    effect: '물이 줄면 식물이 거의 자라지 못해서, 먹힌 잎과 열매가 다시 자라지 않아요. 먹이가 모자라면 숲 별이 멈춰요.'},
   'soil-damage': {human: true, factor: 'soil', notice: '사람들이 숲에 쓰레기를 버리고 있어요!', item: '쓰레기', icon: '🥤',
     status: '사람이 버린 쓰레기와 발길로 흙이 망가지고 있어요. 쓰레기를 눌러 치워요.',
     care: '숲 바닥 되살리기'},
@@ -135,7 +145,7 @@ export const breeding = {
     aphid: {healthySeconds: 45, waitSeconds: 25, sign: '흙 속 알', young: '갓 나온 어른벌레', cycle: '알 → 애벌레 → 번데기 → 어른벌레 (완전탈바꿈). 애벌레와 번데기는 흙 속에서 자라요.'},
     chipmunk: {healthySeconds: 50, waitSeconds: 25, sign: '둥지', young: '새끼', cycle: '둥지에서 새끼가 태어나 젖을 먹고 자라요.'},
     bulbul: {healthySeconds: 50, waitSeconds: 25, sign: '둥지 속 알', young: '새끼 새', cycle: '둥지에 알을 낳고 품으면 새끼 새가 깨어나요.'},
-    rabbit: {healthySeconds: 50, waitSeconds: 25, sign: '둥지', young: '새끼', cycle: '털이 나고 눈을 뜬 새끼가 태어나 금방 풀을 먹어요.'},
+    rabbit: {healthySeconds: 50, waitSeconds: 25, sign: '곧 태어나요', soon: true, young: '새끼', cycle: '털이 나고 눈을 뜬 새끼가 태어나 금방 풀을 먹어요.'},
   },
 };
 

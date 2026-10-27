@@ -19,14 +19,16 @@ const blockerText={
  noDecomposition:()=>'낙엽과 죽은 나무가 분해되지 않고 있어요. 분해자가 일할 수 있게 해요.',
  noMeal:()=>'아직 먹는 모습이 보이지 않아요. 동물이 먹이를 찾을 때까지 지켜봐요.',
  needBirth:(b,s)=>{const n=name(b.speciesId),count=s.organisms.filter(o=>o.speciesId===b.speciesId).length;
-  return `세 번째 숲 별은 새로 태어난 ${particle(n,'이','가')} 있어야 차올라요. `+(count<2?`${particle(n,'이','가')} 두 마리 있어야 번식해요. 한 마리를 더 놓아요.`:breedingLine(s)||`${n} 두 마리가 배고프지 않게 지내면 ${particle(breeding.species[b.speciesId].sign,'이','가')} 생겨요.`);},
+  return `세 번째 숲 별은 새로 태어난 ${particle(n,'이','가')} 있어야 차올라요. `+(count<2?`${particle(n,'이','가')} 두 마리 있어야 번식해요. 한 마리를 더 놓아요.`:breedingLine(s)||`${n} 두 마리가 배고프지 않게 지내면 ${promise(breeding.species[b.speciesId])}.`);},
 };
 // How far the stage's own species is along: "멧토끼 짝이 번식을 준비하고 있어요 (30초 남음)".
 // Rounded to 5 s so the spoken status does not change every second.
+// What a pair will bring: "알이 생겨요", or for the hare "새끼가 태어나요".
+const promise=rule=>rule.soon?`${particle(rule.young,'이','가')} 태어나요`:`${particle(rule.sign,'이','가')} 생겨요`;
 const fiveUp=seconds=>Math.max(5,Math.ceil(seconds/5)*5);
 function breedingLine(s){
  const id=stageById[s.chapter.stageId].birthRequired,b=id&&breedingState(s)[id];if(!b)return '';
- if(b.pending)return `${name(id)}의 ${particle(b.rule.sign,'이','가')} 생겼어요. 약 ${fiveUp(b.pending.remaining)}초 뒤에 태어나요.`;
+ if(b.pending)return b.rule.soon?`${name(id)} ${particle(b.rule.young,'이','가')} 곧 태어나요. 약 ${fiveUp(b.pending.remaining)}초 뒤에 만날 수 있어요.`:`${name(id)}의 ${particle(b.rule.sign,'이','가')} 생겼어요. 약 ${fiveUp(b.pending.remaining)}초 뒤에 태어나요.`;
  return b.pair.length?`${name(id)} 짝이 번식을 준비하고 있어요 (${fiveUp(b.rule.healthySeconds-b.healthy)}초 남음).`:'';
 }
 const element=(tag,props={},children=[])=>{const e=Object.assign(document.createElement(tag),props);e.append(...children);return e;};
@@ -142,8 +144,6 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
  // breed wears them, so a rabbit pair in 1-3 cannot look like the goal. Eggs,
  // nests and newborns show for every species: they explain new arrivals.
  const pairNote='번식 준비 중인 짝';
- // The newborn's name tag shows only at birth; it then stays small for a while.
- const youngLabelSeconds=5;
  let pairMemory={},formedShown=new Set();
  function renderBreeding(s){
   const states=breedingState(s),focus=stageById[s.chapter.stageId].birthRequired,marks={};
@@ -155,7 +155,7 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   for(const el of forest.querySelectorAll('#organism-layer .organism-object')){
    const o=s.organisms.find(x=>x.instanceId===el.dataset.instanceId);if(!o)continue;
    const rule=breeding.species[o.speciesId];
-   const mark=marks[o.instanceId]||(rule&&isYoung(s,o)?{kind:'young',label:s.simulationTime-o.chapterBornAt<youngLabelSeconds?`새로 태어난 ${rule.young}`:''}:{kind:'',label:''});
+   const mark=marks[o.instanceId]||(rule&&isYoung(s,o)?{kind:'young',label:`새로 태어난 ${rule.young}`}:{kind:'',label:''});
    if((el.dataset.breed||'')!==mark.kind)mark.kind?el.dataset.breed=mark.kind:delete el.dataset.breed;
    if((el.dataset.breedLabel||'')!==mark.label)mark.label?el.dataset.breedLabel=mark.label:delete el.dataset.breedLabel;
    const hit=el.querySelector('.organism-hit'),note=mark.kind.startsWith('pair')?pairNote:'';
@@ -166,7 +166,7 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
  function watchPair(s,id,b){
   const before=pairMemory[id]||{pair:[],at:-99},n=name(id);
   if(b.pair.length&&!before.pair.length&&!formedShown.has(id)){formedShown.add(id);
-   notify(`${n} 두 마리가 짝을 이뤘어요. 반쪽 하트 두 개가 만나 하나가 돼요. 둘 다 배고프지 않게 지내면 ${particle(b.rule.sign,'이','가')} 생겨요.`,true);}
+   notify(`${n} 두 마리가 짝을 이뤘어요. 반쪽 하트 두 개가 만나 하나가 돼요. 둘 다 배고프지 않게 지내면 ${promise(b.rule)}.`,true);}
   const justBorn=s.chapter.births.some(x=>x.speciesId===id&&s.simulationTime-x.at<10);
   if(!b.pair.length&&before.pair.length&&!b.pending&&!justBorn&&s.simulationTime-before.at>=20){
    const parents=before.pair.map(pid=>s.organisms.find(o=>o.instanceId===pid));
@@ -260,14 +260,27 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   const kind=s.chapter.warning?.kind||s.chapter.crisisLog.at(-1).kind,crisis=crises[kind],options=prepareOptions(s);
   show([element('span',{className:'eyebrow',textContent:'대비하기'}),element('h2',{textContent:crisis.notice}),
    element('p',{textContent:`${crisis.effect} 날씨는 바꿀 수 없지만, 숲을 미리 튼튼하게 만들 수는 있어요. 무엇을 할까요?`}),
+   element('p',{className:'chapter-shop-note',textContent:`약 1분 뒤 날씨가 지나가면 판정해요. 숲 별이 거의 멈추지 않으면 튼튼한 숲 +${config.crisisStrongReward}P, 오래 멈추면 차오르던 숲 별 게이지가 절반 줄어요.`}),
    element('div',{className:'chapter-actions chapter-prepare'},options.map(o=>{
     const button=element('button',{type:'button',disabled:!o.ok,textContent:prepareLabel[o.id](o.speciesId),onclick:()=>{dialog.close();onPrepare(o.id);}});
     if(o.id==='reduce'&&!o.ok)button.title='더 줄일 수 있는 먹는 동물이 없어요.';return button;}))],'chapter-prepare-dialog');
  }
+ // The verdict at the end of a crisis: what was done, how long the stars
+ // stalled, and the reward or the cost.
+ const verdict={
+  strong:()=>({cls:'strong',title:'튼튼한 숲!',text:`숲 별이 거의 멈추지 않았어요. 보상 +${config.crisisStrongReward}P`}),
+  held:()=>({cls:'held',title:'겨우 버텼어요',text:'숲 별이 잠깐 멈췄지만 잘 견뎠어요.'}),
+  tired:()=>({cls:'tired',title:'숲이 지쳤어요',text:'숲 별이 오래 멈췄어요. 차오르던 숲 별 게이지가 절반 줄었어요.'}),
+ };
  function reportLines(record){
-  const event=environmentEventDefinitions[record.kind],stalled=Math.round(record.stalled);
-  return [element('p',{textContent:`고른 대비: ${prepareChosen[record.choice||'wait']} · ${particle(event.name,'이','가')} 오는 동안 숲 별이 멈춘 시간: ${stalled}초`}),
-   element('p',{className:'chapter-lesson',textContent:`${stalled<=5?'미리 대비한 덕분에 숲이 잘 버텼어요.':'먹이가 모자라 숲 별이 멈췄어요. 다음에는 날씨가 오기 전에 먹이 식물을 늘려 봐요.'} 날씨는 바꿀 수 없지만, 생태계를 튼튼하게 하면 더 잘 버틸 수 있어요.`})];
+  const event=environmentEventDefinitions[record.kind],stalled=Math.round(record.stalled),v=(verdict[record.outcome]||verdict.held)(record);
+  const done=record.human?`${record.kind==='air-pollution'?'걷어 낸':'치운'} ${crises[record.kind].item}: ${getState().chapter.trashCollected}개`:`고른 대비: ${prepareChosen[record.choice||'wait']}`;
+  const lesson=record.human
+   ?(record.outcome==='strong'?'바로 치우고 돌봐서 숲이 덜 망가졌어요.':`${crises[record.kind].item}를 빨리 치우고 숲을 돌볼수록 숲이 덜 지쳐요.`)+' 사람이 만든 문제는 사람이 줄일 수 있어요.'
+   :(record.outcome==='strong'?'먹이 식물이 넉넉해서 숲이 잘 버텼어요.':'먹이가 모자라 숲 별이 멈췄어요. 다음에는 날씨가 오기 전에 먹이 식물을 늘려 봐요.')+' 날씨는 바꿀 수 없지만, 생태계를 튼튼하게 하면 더 잘 버틸 수 있어요.';
+  return [element('p',{className:`chapter-verdict ${v.cls}`},[element('strong',{textContent:v.title}),element('span',{textContent:v.text})]),
+   element('p',{textContent:`${done} · ${particle(event.name,'이','가')} 오는 동안 숲 별이 멈춘 시간: ${stalled}초`}),
+   element('p',{className:'chapter-lesson',textContent:lesson})];
  }
  function openReport(record){
   markReported(record);

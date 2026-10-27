@@ -7,7 +7,7 @@ import {layout} from './ecology-fixtures.mjs';
 import {stages,stageById,stageConfig,chapters} from '../data/chapters.js';
 import {organismById} from '../data/organisms.js';
 import {foodRelations} from '../data/food-relations.js';
-import {runStage,idleStudent,place as placeFixture} from './chapter-fixtures.mjs';
+import {runStage,idleStudent,carefulStudent,place as placeFixture} from './chapter-fixtures.mjs';
 
 // Stages that start unbalanced or missing a role: waiting alone must not clear them.
 const demanding=['1-2','2-2','2-3','3-1','3-2','3-3','4-1','4-2','4-3'];
@@ -79,7 +79,7 @@ test('every crisis is announced before it starts',()=>{
 test('litter from a human-made crisis keeps harming the soil until it is tapped away',()=>{
  const left=runStage('3-2',{student:idleStudent,seconds:600}),cared=runStage('3-2');
  assert(left.s.chapter.trash.length>0,'litter stays when nobody collects it');
- assert(!left.cleared&&cared.cleared);assert(cared.trash>10);
+ assert(!left.cleared&&cared.cleared);assert(cared.trash>=5,'the careful student taps the litter away');
  const s=createStageGameState(stageById['3-1']);s.chapter.trash.push({trashId:'t',kind:'soil-damage'});
  const before=s.metrics.points,soil=s.environment.soil.value;
  for(let t=1;t<=20;t++){s.simulationTime=t;updateStage(s,1,[]);}
@@ -196,4 +196,26 @@ test('in chapter stages new animals only come from parents: no hatching from lef
  const before=s.organisms.length;for(let i=0;i<400;i++){s.simulationTime=i;updateReproduction(s,1,layout);}
  assert.equal(s.organisms.filter(o=>o.speciesId==='grasshopper').length,0,'no animal appears without parents');
  assert(s.organisms.length>=before,'plants still spread their own seeds');
+});
+
+test('a crisis starts and ends inside the stage, then is judged: sturdy forests earn points, worn-out ones lose star progress',()=>{
+ const r=runStage('1-3',{catchAll:true}),log=r.s.chapter.crisisLog[0];
+ assert(log.startedAt!==null&&log.endedAt-log.startedAt<=stageConfig.crisisSeconds+stageConfig.crisisRecoverySeconds+1,`ended ${log.endedAt-log.startedAt}s after it started`);
+ assert(log.endedAt<r.clearedAt,'the student sees the crisis end before the stage clears');
+ const judge=stalled=>{const s=createStageGameState(stageById['1-3']);s.chapter.seeds=1;updateStage(s,.5,[]);
+  const rec=s.chapter.crisisLog[0];rec.startedAt=1;rec.stalled=stalled;s.chapter.seedProgress=20;const before=s.metrics.points;
+  s.environmentEvents.activeId=null;s.chapter.warning=null;updateStage(s,.5,[]);return {rec,s,gain:s.metrics.points-before};};
+ const strong=judge(2),held=judge(10),tired=judge(30);
+ assert.equal(strong.rec.outcome,'strong');assert.equal(strong.gain,stageConfig.crisisStrongReward);
+ assert.equal(held.rec.outcome,'held');assert.equal(held.gain,0);
+ assert.equal(tired.rec.outcome,'tired');assert.equal(tired.gain,0);assert(tired.s.chapter.seedProgress<15,'half of the next star is lost');
+ const human=runStage('3-1',{catchAll:true}).s.chapter.crisisLog.find(l=>l.human);
+ assert(human&&human.outcome,'people-made crises are judged too');assert.equal(human.choice,null);
+});
+
+test('cloud and drought stop food plants growing back, so an unprepared forest stalls',()=>{
+ const run=prepare=>runStage('1-3',{catchAll:true,student:s=>{if(prepareOptions(s).length){const r=prepareFor(s,prepare?'plant':'wait');if(r.choice==='plant'){placeFixture(s,'grass');placeFixture(s,'grass');}}
+  return currentEnvironmentEvent(s)&&!prepare?[]:carefulStudent(s);}}).s.chapter.crisisLog[0];
+ const ready=run(true),idle=run(false);
+ assert(ready.stalled+15<=idle.stalled,`prepared ${ready.stalled}s vs waited ${idle.stalled}s`);assert.notEqual(ready.outcome,'tired');assert.equal(idle.outcome,'tired');
 });

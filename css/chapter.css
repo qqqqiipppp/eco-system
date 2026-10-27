@@ -162,7 +162,6 @@
 .chapter-mode .organism-object[data-breed=pending]::before{background:#fff;color:#5a4028;border:2px dashed #8a6a4a}
 .chapter-mode .organism-object[data-breed=young]::before{background:#e5f4dc;color:#2f5a22;border:2px solid #5d9a4a}
 .chapter-mode .organism-object[data-breed=young] .organism-visual{transform:scale(.72)}
-.chapter-mode .organism-object[data-breed=young]:not([data-breed-label])::before{display:none}
 /* Fit one screen (classroom laptops and tablets, 600–800 px tall): the forest
    and the card shop are visible together, like the original's tank and shop bar.
    The footer only holds regular-forest buttons, so it goes. */
@@ -227,3 +226,8 @@
 .env-row[data-quality=bad]{color:#a0291d}
 .env-row[data-quality=bad] b{font-weight:800}
 @media (prefers-reduced-motion:reduce){.env-fill{transition:none}}
+.chapter-verdict{display:grid;gap:2px;padding:10px 12px;border-radius:10px;border:2px solid}
+.chapter-verdict strong{font-size:20px}
+.chapter-verdict.strong{background:#eaf5e2;border-color:#4f8a3a;color:#24501a}
+.chapter-verdict.held{background:#fbf6e3;border-color:#c9a640;color:#5a4612}
+.chapter-verdict.tired{background:#fbeae6;border-color:#c0392b;color:#7a1f15}

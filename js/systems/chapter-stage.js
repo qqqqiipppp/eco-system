@@ -98,12 +98,15 @@ function startDueEvent(s) {
     c.warning = null; c.eventsStarted++;
     const record = openCrisis(c);
     if (record) record.startedAt = s.simulationTime;
-    return startEnvironmentEvent(s, kind);
+    const event = startEnvironmentEvent(s, kind);
+    if (event) { event.duration = config.crisisSeconds; event.recoverySeconds = config.crisisRecoverySeconds; }
+    return event;
   }
   if (c.eventsStarted >= events.length || c.seeds <= c.eventsStarted || currentEnvironmentEvent(s)) return null;
   c.warning = {kind: events[c.eventsStarted], startsAt: s.simulationTime + config.warningSeconds};
-  // A natural crisis cannot be stopped, only prepared for: record the choice and its outcome.
-  if (!crises[c.warning.kind].human) c.crisisLog.push({kind: c.warning.kind, choice: null, stalled: 0, startedAt: null, endedAt: null});
+  // Every crisis is recorded and judged. A natural one cannot be stopped, only
+  // prepared for (the choice is kept); a people-made one is tackled as it comes.
+  c.crisisLog.push({kind: c.warning.kind, human: Boolean(crises[c.warning.kind].human), choice: null, stalled: 0, startedAt: null, endedAt: null, outcome: null});
   return null;
 }
 
@@ -141,7 +144,7 @@ function growSeeds(s) {
       c.cleared = true;
       c.clearedAt = s.simulationTime;
       // A crisis still under way ends with the stage; its outcome joins the clear.
-      for (const record of c.crisisLog) if (record.endedAt === null) record.endedAt = s.simulationTime;
+      for (const record of c.crisisLog) if (record.endedAt === null) settleCrisis(s, record);
       c.seedProgress = 0;
       result.cleared = true;
     }
@@ -175,8 +178,11 @@ export function updateStage(s, seconds, feedingEvents = []) {
   const crisis = openCrisis(c);
   if (crisis?.startedAt !== null && crisis) {
     if (stalled) crisis.stalled += seconds;
-    if (!currentEnvironmentEvent(s)) crisis.endedAt = time;
+    if (!currentEnvironmentEvent(s)) settleCrisis(s, crisis);
   }
+  // Read by the feeding system: food plants regrow slowly while cloud or drought lasts.
+  const event = currentEnvironmentEvent(s);
+  c.foodRecovery = event?.phase === 'active' && !crises[event.kind]?.human ? config.crisisFoodRecovery : 1;
   const result = growSeeds(s);
   if (!c.cleared) result.eventStarted = startDueEvent(s) || result.eventStarted;
   result.born = born;
@@ -241,7 +247,7 @@ function reducible(s) {
 }
 export function prepareOptions(s) {
   const c = s.chapter, record = openCrisis(c);
-  if (!record || record.choice) return [];
+  if (!record || record.choice || record.human) return [];
   const plant = stageById[c.stageId].inventory.find(id => foodResourceConfig[id]), extra = reducible(s);
   return [
     {id: 'plant', speciesId: plant, ok: Boolean(plant)},
@@ -261,6 +267,21 @@ export function prepareFor(s, choice) {
     return {ok: true, choice, removedId: target.instanceId, speciesId: target.speciesId};
   }
   return {ok: true, choice, speciesId: option.speciesId};
+}
+// A crisis ends with a verdict from the stars' stall time: a sturdy forest
+// earns points, a worn-out one loses half of the next star's progress.
+function settleCrisis(s, record) {
+  const c = s.chapter;
+  record.endedAt = s.simulationTime;
+  if (record.stalled <= config.crisisStrongMaxStall) {
+    record.outcome = 'strong';
+    s.metrics.points += config.crisisStrongReward;
+    recordPointChange(s, 'study', config.crisisStrongReward, `chapter-crisis:${record.kind}:${Math.round(record.startedAt ?? 0)}`, record.kind);
+  } else if (record.stalled >= config.crisisTiredMinStall) {
+    record.outcome = 'tired';
+    record.lostProgress = c.cleared ? 0 : c.seedProgress / 2;
+    c.seedProgress -= record.lostProgress;
+  } else record.outcome = 'held';
 }
 // The finished crisis not yet shown to the student, if any.
 export const crisisReport = s => s.chapter.crisisLog.find(r => r.endedAt !== null && !r.reported) || null;

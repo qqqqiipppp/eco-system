@@ -173,7 +173,7 @@ export function createFeedingSystem(initialTime = 0,{environmentEventsEnabled=tr
     const environmentSample=environmentEventsEnabled&&(currentEnvironmentEvent(state)||state.simulationTime>=state.environmentEvents.nextAt)?captureEnvironmentImpact(state):null;
     if(environmentEventsEnabled)updateEnvironmentEvents(state);
     updateDecomposition(state,ecologyConfig.tickSeconds,result.visualWork);
-    const recoveryMultiplier = producerRecoveryMultiplier(state)*decompositionMultiplier(state);
+    const recoveryMultiplier = producerRecoveryMultiplier(state)*decompositionMultiplier(state)*(state.chapter?.foodRecovery??1);
     rebuildIndex(state);
     for (const instance of state.organisms) {
       updateProducerGrowth(instance, ecologyConfig.tickSeconds, state.environment, recoveryMultiplier);
