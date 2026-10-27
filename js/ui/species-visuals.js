@@ -1,7 +1,7 @@
 import {organismById} from '../../data/organisms.js';
 import {earthwormAtSurface} from '../systems/prey-access.js';
 import {colonyActivity} from '../systems/lifespan.js';
-import {rasterSpecies,rasterAsset} from './species-raster.js';
+import {rasterSpecies,rasterAsset,rasterStandIns} from './species-raster.js';
 
 // Presentation contract: two authored SVG views for every explicit state.
 // These paths do not participate in organism creation, physics or persistence.
@@ -12,7 +12,7 @@ export const svgAsset=(id,state=id==='earthworm'?'surface':visualStates[id][0],f
 // The painted sprite when there is one for this species and growth variant;
 // otherwise, or once it failed to load in this browser, the SVG view.
 const rasterFailed=new Set();
-export const visualAsset=(id,state,frame,stage)=>rasterSpecies.has(id)&&!variantOf(id,stage)&&!rasterFailed.has(id)?rasterAsset(id):svgAsset(id,state,frame,stage);
+export const visualAsset=(id,state,frame,stage)=>rasterSpecies.has(id)&&(!variantOf(id,stage)||rasterStandIns.has(id+':'+stage))&&!rasterFailed.has(id)?rasterAsset(id):svgAsset(id,state,frame,stage);
 if(typeof document!=='undefined')document.addEventListener('error',event=>{
  const img=event.target,match=img?.tagName==='IMG'&&/\/species-raster\/([\w-]+)\.webp/.exec(img.getAttribute('src')||'');
  if(match){rasterFailed.add(match[1]);img.src=svgAsset(match[1]);}

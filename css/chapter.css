@@ -162,6 +162,7 @@
 .chapter-mode .organism-object[data-breed=pending]::before{background:#fff;color:#5a4028;border:2px dashed #8a6a4a}
 .chapter-mode .organism-object[data-breed=young]::before{background:#e5f4dc;color:#2f5a22;border:2px solid #5d9a4a}
 .chapter-mode .organism-object[data-breed=young] .organism-visual{transform:scale(.72)}
+.chapter-mode .organism-object[data-breed=young]:not([data-breed-label])::before{display:none}
 /* Fit one screen (classroom laptops and tablets, 600–800 px tall): the forest
    and the card shop are visible together, like the original's tank and shop bar.
    The footer only holds regular-forest buttons, so it goes. */

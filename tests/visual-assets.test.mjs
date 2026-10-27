@@ -45,6 +45,7 @@ test('painted sprites: every species has one; growth variants without one keep t
  assert.equal(rasterSpecies.size,24);
  for(const id of rasterSpecies){assert(existsSync(new URL('../assets/images/species-raster/'+id+'.webp',import.meta.url)),id);assert.equal(visualAsset(id,'idle',1),'./assets/images/species-raster/'+id+'.webp');}
  assert.equal(visualAsset('rabbit','idle',0,'baby'),'./assets/images/species-raster/rabbit.webp','baby rabbit: same picture, scaled by CSS');
- for(const [id,stage] of [['grass','sprout'],['grasshopper','nymph'],['mushroom','mycelium']])assert.equal(visualAsset(id,'idle',0,stage),svgAsset(id,'idle',0,stage));
+ for(const [id,stage] of [['grass','sprout'],['mushroom','mycelium']])assert.equal(visualAsset(id,'idle',0,stage),svgAsset(id,'idle',0,stage));
+ assert.equal(visualAsset('grasshopper','idle',0,'nymph'),'./assets/images/species-raster/grasshopper.webp','nymph: adult picture until the nymph is painted');
  assert.equal(svgAsset('grasshopper','eat',1,'nymph'),'./assets/images/species/grasshopper.svg#nymph-eat-1');
 });
