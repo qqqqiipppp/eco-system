@@ -184,6 +184,8 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
   await p.waitForSelector('#organism-layer [data-breed=young]',{state:'attached',timeout:10000});
   assert.equal(await p.locator('#organism-layer [data-breed=young]').getAttribute('data-breed-label'),'새로 태어난 약충');
   await p.evaluate(async()=>{const g=(await import('./js/main.js')).gameState,b=g.organisms.find(o=>o.chapterBornAt!==undefined);b.chapterBornAt=g.simulationTime-6;});
+  // A weather report may open meanwhile (crises now end within the stage) and pause the forest.
+  await p.evaluate(()=>document.querySelectorAll('dialog[open]').forEach(d=>d.close()));
   await p.waitForFunction(()=>{const n=document.querySelector('#organism-layer [data-breed=young]');return n&&!n.dataset.breedLabel;},null,{timeout:10000});
   assert.equal(await p.locator('#organism-layer [data-breed=young]').evaluate(n=>getComputedStyle(n,'::before').display),'none','name tag gone after 5 s, newborn still small');
   assert.match(await p.locator('#placement-feedback').textContent(),/약충이 태어났어요!.*불완전탈바꿈/);

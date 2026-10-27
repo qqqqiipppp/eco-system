@@ -144,6 +144,8 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
  // breed wears them, so a rabbit pair in 1-3 cannot look like the goal. Eggs,
  // nests and newborns show for every species: they explain new arrivals.
  const pairNote='번식 준비 중인 짝';
+ // The newborn's name tag shows only at birth; it then stays small for a while.
+ const youngLabelSeconds=5;
  let pairMemory={},formedShown=new Set();
  function renderBreeding(s){
   const states=breedingState(s),focus=stageById[s.chapter.stageId].birthRequired,marks={};
@@ -155,7 +157,7 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   for(const el of forest.querySelectorAll('#organism-layer .organism-object')){
    const o=s.organisms.find(x=>x.instanceId===el.dataset.instanceId);if(!o)continue;
    const rule=breeding.species[o.speciesId];
-   const mark=marks[o.instanceId]||(rule&&isYoung(s,o)?{kind:'young',label:`새로 태어난 ${rule.young}`}:{kind:'',label:''});
+   const mark=marks[o.instanceId]||(rule&&isYoung(s,o)?{kind:'young',label:s.simulationTime-o.chapterBornAt<youngLabelSeconds?`새로 태어난 ${rule.young}`:''}:{kind:'',label:''});
    if((el.dataset.breed||'')!==mark.kind)mark.kind?el.dataset.breed=mark.kind:delete el.dataset.breed;
    if((el.dataset.breedLabel||'')!==mark.label)mark.label?el.dataset.breedLabel=mark.label:delete el.dataset.breedLabel;
    const hit=el.querySelector('.organism-hit'),note=mark.kind.startsWith('pair')?pairNote:'';

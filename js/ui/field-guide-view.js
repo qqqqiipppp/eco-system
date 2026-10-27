@@ -18,7 +18,8 @@ export function createFieldGuideView(state,{onWeb,onActivity,onPlace}){
   const o=organismById[selected],status=speciesStatus(state,selected);detail.replaceChildren();
   const back=button('목록 보기',()=>{selected=null;render();list.querySelector('[data-guide-species="'+o.id+'"]')?.focus({preventScroll:true});});
   const top=node('div');top.className='guide-detail-heading';top.append(speciesVisual(o),node('h3',o.name),back);detail.append(top);
-  if(o.id==='soil-bacteria')detail.append(node('p','고초균은 아주 작아서 맨눈으로 보기 어려워요. 그림은 여러 세균을 크게 나타냈어요.'));
+  if(o.id==='soil-bacteria')detail.append(node('p','고초균은 아주 작아서 맨눈으로 보기 어려워요. 그림은 여러 세균을 크게 나타냈어요.'))
+  else detail.append(node('p','게임 속 크기는 화면에서 보기 쉽게 조절했어요. 실제 생물끼리의 크기 비율과는 달라요.'));
   detail.append(node('p',roleLabels[o.role]+' · '+(status.acquired?'카드를 가지고 있어요.':'🔒 아직 얻지 못한 생물이에요.')));
   detail.append(node('p',status.current?'✓ 이번 숲에서 살펴봤어요!':status.observed?'↶ 지난 숲에서 살펴봤어요.':status.acquired?'카드는 있지만 아직 살펴보지 않았어요.':'아직 살펴보지 않은 생물이에요.'));
   detail.append(node('p',status.living?'지금 숲에 '+status.living+'개체가 있어요.':'지금 숲에는 없어요.'));
