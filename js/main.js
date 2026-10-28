@@ -143,6 +143,7 @@ try {
   const reading=bindDialogPause(()=>loop.refresh());
   const loop = createUpdateLoop({
     isPaused:reading.isPaused,
+    pauseForReducedMotion:!chapterMode,
     hasWork: () => gameState.organisms.length>0 || hasDevelopmentWork(gameState) || hasEnvironmentEventWork(gameState) || Object.values(gameState.decomposition.organicMatter).some(v=>v>0) || Object.values(gameState.population.introductions).some(v=>v.nextAt>gameState.simulationTime) || eventSystem.needsTick(),
     update: dt => {
       const result = feedingSystem.update(gameState, dt, scene.getLayout());
