@@ -269,3 +269,21 @@
  .chapter-mode .organism-card .card-selected{font-size:12px;top:2px}
  .chapter-mode .organism-card[data-chapter-need]::before{content:'필요';top:auto;bottom:4px;left:5px;right:auto;font-size:11px;padding:1px 5px}
 }
+/* 나의 먹이그물 guidance: what to tap glows, a hand points where to start,
+   mistakes flash red and shake, a pause after three in a row. */
+.web-node.candidate{animation:web-glow 1.3s ease-in-out infinite}
+@keyframes web-glow{50%{box-shadow:0 0 0 5px #f2c14e99,0 0 14px #f2c14e}}
+.candidate-buttons button{animation:web-glow 1.3s ease-in-out infinite}
+.web-hand{position:absolute;z-index:6;font-size:30px;line-height:1;transform:translate(-30%,0);pointer-events:none;opacity:0;transition:opacity .3s}
+.web-hand.show{opacity:1;animation:web-hand 1s ease-in-out infinite}
+@keyframes web-hand{50%{transform:translate(-30%,-8px)}}
+.web-node.wrong{animation:web-shake .45s ease-in-out 2;border-color:#c0392b!important;background:#fbe3df!important}
+.chapter-actions.wrong{animation:web-shake .45s ease-in-out 2}
+@keyframes web-shake{20%{translate:-6px 0}40%{translate:6px 0}60%{translate:-4px 0}80%{translate:4px 0}}
+.web-note.wrong{background:#fbe3df;border-left:4px solid #c0392b;color:#7a1f15;padding:6px 10px;border-radius:6px}
+.web-note .web-guide-hint{margin-left:8px;min-height:40px;padding:4px 12px;border:2px solid #244c38;border-radius:999px;background:#fff;font-weight:700}
+.web-lines .web-wrong{stroke:#c0392b;stroke-dasharray:6 5;stroke-width:3;animation:web-fade 1.5s forwards}
+@keyframes web-fade{to{opacity:0}}
+.web-board.locked .web-node{opacity:.55;pointer-events:none}
+.web-board.locked{cursor:wait}
+@media (prefers-reduced-motion:reduce){.web-node.candidate,.candidate-buttons button,.web-hand.show,.web-node.wrong,.chapter-actions.wrong{animation:none}}
