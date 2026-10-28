@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="./css/student-ux.css">
   <link rel="stylesheet" href="./css/species-visuals.css">
   <link rel="stylesheet" href="./css/chapter.css">
+  <link rel="stylesheet" href="./css/species-card.css">
   <script type="module" src="./js/main.js"></script>
 </head>
 <body>
@@ -167,8 +168,9 @@
     <h2 id="population-title">생물 살펴보기</h2><img id="population-art" alt="">
     <p id="population-individual" hidden></p><div id="population-nearby" role="group" aria-label="겹친 생물 중 살펴볼 개체" hidden></div>
     <label>살펴볼 생물 <select id="population-species"></select></label>
-    <p id="population-role"></p><p id="population-state" role="status"></p><p id="population-food"></p><div class="population-collection-links"><button id="population-guide" type="button">이 생물 도감</button><button id="population-web" type="button">관련 먹이그물</button></div><section id="population-inquiry" aria-label="이 숲의 탐구" hidden></section><p id="population-introduction"></p><button id="population-place" type="button">이 생물 더 놓기</button>
-    <details id="population-more"><summary>성장·환경·돌려보내기</summary><p id="population-lifespan"></p>
+    <section id="population-card" aria-live="polite"></section>
+    <p id="population-role"></p><p id="population-state" role="status"></p><div class="population-collection-links"><button id="population-guide" type="button">이 생물 도감</button><button id="population-web" type="button">관련 먹이그물</button></div><section id="population-inquiry" aria-label="이 숲의 탐구" hidden></section><button id="population-place" type="button">이 생물 더 놓기</button><p id="population-introduction"></p>
+    <details id="population-more"><summary>숲 속 상태 더 보기</summary><p id="population-food"></p><p id="population-lifespan"></p>
     <p id="population-breeding"></p>
     <section id="population-development" aria-labelledby="population-development-title" hidden>
       <h3 id="population-development-title">성장과 세대교체</h3>

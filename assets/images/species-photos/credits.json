@@ -1,0 +1,650 @@
+{
+ "oak-1.webp": {
+  "species": "oak",
+  "source": "https://commons.wikimedia.org/wiki/File:Quercus_acutissima-IMG_20181012_171519.jpg",
+  "license": "CC BY 4.0",
+  "author": "Sun Jiao (Interaccoonale)",
+  "title": "File:Quercus acutissima-IMG 20181012 171519.jpg",
+  "width": 800,
+  "height": 600
+ },
+ "oak-2.webp": {
+  "species": "oak",
+  "source": "https://commons.wikimedia.org/wiki/File:Quercus_acutissima_10zz.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Photo by David J. Stang",
+  "title": "File:Quercus acutissima 10zz.jpg",
+  "width": 800,
+  "height": 533
+ },
+ "oak-3.webp": {
+  "species": "oak",
+  "source": "https://commons.wikimedia.org/wiki/File:Quercus_acutissima_11zz.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Photo by David J. Stang",
+  "title": "File:Quercus acutissima 11zz.jpg",
+  "width": 533,
+  "height": 800
+ },
+ "grass-1.webp": {
+  "species": "grass",
+  "source": "https://commons.wikimedia.org/wiki/File:Green_foxtail_(19037227476).jpg",
+  "license": "CC BY 2.0",
+  "author": "NY State IPM Program at Cornell University from New York, USA",
+  "title": "File:Green foxtail (19037227476).jpg",
+  "width": 800,
+  "height": 532
+ },
+ "grass-2.webp": {
+  "species": "grass",
+  "source": "https://commons.wikimedia.org/wiki/File:Green_foxtail_(19063444315).jpg",
+  "license": "CC BY 2.0",
+  "author": "NY State IPM Program at Cornell University from New York, USA",
+  "title": "File:Green foxtail (19063444315).jpg",
+  "width": 800,
+  "height": 533
+ },
+ "grass-3.webp": {
+  "species": "grass",
+  "source": "https://commons.wikimedia.org/wiki/File:Green_bristle_grass_(Setaria_viridis)_(21837925595).jpg",
+  "license": "CC BY-SA 2.0",
+  "author": "harum.koh from Kobe city, Japan",
+  "title": "File:Green bristle grass (Setaria viridis) (21837925595).jpg",
+  "width": 800,
+  "height": 533
+ },
+ "grasshopper-1.webp": {
+  "species": "grasshopper",
+  "source": "https://commons.wikimedia.org/wiki/File:Acrida_cinerea(Female,Japan,2017.09.19).jpg",
+  "license": "CC0",
+  "author": "TekuraDF",
+  "title": "File:Acrida cinerea(Female,Japan,2017.09.19).jpg",
+  "width": 800,
+  "height": 600
+ },
+ "grasshopper-2.webp": {
+  "species": "grasshopper",
+  "source": "https://commons.wikimedia.org/wiki/File:Female_Acrida_cinerea_carrying_a_male_on_her_back_like_Atractomorpha_lata.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "KKPCW",
+  "title": "File:Female Acrida cinerea carrying a male on her back like Atractomorpha lata.jpg",
+  "width": 800,
+  "height": 600
+ },
+ "grasshopper-3.webp": {
+  "species": "grasshopper",
+  "source": "https://commons.wikimedia.org/wiki/File:Brown_Acrida_cinerea.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Kyu3a",
+  "title": "File:Brown Acrida cinerea.jpg",
+  "width": 800,
+  "height": 450
+ },
+ "frog-1.webp": {
+  "species": "frog",
+  "source": "https://commons.wikimedia.org/wiki/File:Pelophylax_nigromaculatus_s1.JPG",
+  "license": "CC BY-SA 3.0",
+  "author": "Alpsdake",
+  "title": "File:Pelophylax nigromaculatus s1.JPG",
+  "width": 800,
+  "height": 600
+ },
+ "frog-2.webp": {
+  "species": "frog",
+  "source": "https://commons.wikimedia.org/wiki/File:Pelophylax_nigromaculatus_s2.JPG",
+  "license": "CC BY-SA 3.0",
+  "author": "Alpsdake",
+  "title": "File:Pelophylax nigromaculatus s2.JPG",
+  "width": 800,
+  "height": 655
+ },
+ "frog-3.webp": {
+  "species": "frog",
+  "source": "https://commons.wikimedia.org/wiki/File:Dark-spotted_Frog_(Pelophylax_nigromaculatus).jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "DrewHeath",
+  "title": "File:Dark-spotted Frog (Pelophylax nigromaculatus).jpg",
+  "width": 800,
+  "height": 530
+ },
+ "rabbit-1.webp": {
+  "species": "rabbit",
+  "source": "https://commons.wikimedia.org/wiki/File:Lepus_coreanus.jpg",
+  "license": "CC BY 2.0 kr",
+  "author": "솔바람",
+  "title": "File:Lepus coreanus.jpg",
+  "width": 800,
+  "height": 531
+ },
+ "rabbit-2.webp": {
+  "species": "rabbit",
+  "source": "https://commons.wikimedia.org/wiki/File:Lepus_coreanus_2.jpg",
+  "license": "CC BY 2.0 kr",
+  "author": "솔바람",
+  "title": "File:Lepus coreanus 2.jpg",
+  "width": 800,
+  "height": 525
+ },
+ "rabbit-3.webp": {
+  "species": "rabbit",
+  "source": "https://commons.wikimedia.org/wiki/File:Korean_hare_1.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Melsj",
+  "title": "File:Korean hare 1.jpg",
+  "width": 800,
+  "height": 800
+ },
+ "mushroom-1.webp": {
+  "species": "mushroom",
+  "source": "https://commons.wikimedia.org/wiki/File:Coriolus_versicolor_111.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "ElDule",
+  "title": "File:Coriolus versicolor 111.jpg",
+  "width": 800,
+  "height": 533
+ },
+ "mushroom-2.webp": {
+  "species": "mushroom",
+  "source": "https://commons.wikimedia.org/wiki/File:Broget_l%C3%A6derporesvamp_2026.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Hjart",
+  "title": "File:Broget læderporesvamp 2026.jpg",
+  "width": 800,
+  "height": 530
+ },
+ "mushroom-3.webp": {
+  "species": "mushroom",
+  "source": "https://commons.wikimedia.org/wiki/File:Fungi_in_Otava.jpg",
+  "license": "CC BY-SA 3.0",
+  "author": "Tiia Monto",
+  "title": "File:Fungi in Otava.jpg",
+  "width": 800,
+  "height": 607
+ },
+ "pine-1.webp": {
+  "species": "pine",
+  "source": "https://commons.wikimedia.org/wiki/File:Pinus_densiflora_01.JPG",
+  "license": "CC BY-SA 3.0",
+  "author": "Dalgial",
+  "title": "File:Pinus densiflora 01.JPG",
+  "width": 533,
+  "height": 800
+ },
+ "pine-2.webp": {
+  "species": "pine",
+  "source": "https://commons.wikimedia.org/wiki/File:North_Korea(49).jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Vladimir Lysenko (I.)",
+  "title": "File:North Korea(49).jpg",
+  "width": 500,
+  "height": 667
+ },
+ "pine-3.webp": {
+  "species": "pine",
+  "source": "https://commons.wikimedia.org/wiki/File:Korea-Seoul-Inwangsan-18.jpg",
+  "license": "CC BY-SA 2.0",
+  "author": "Gaël Chardon",
+  "title": "File:Korea-Seoul-Inwangsan-18.jpg",
+  "width": 500,
+  "height": 375
+ },
+ "raspberry-1.webp": {
+  "species": "raspberry",
+  "source": "https://commons.wikimedia.org/wiki/File:Rubus_crataegifolius_(fruits).JPG",
+  "license": "CC BY-SA 3.0",
+  "author": "Alpsdake",
+  "title": "File:Rubus crataegifolius (fruits).JPG",
+  "width": 500,
+  "height": 381
+ },
+ "raspberry-2.webp": {
+  "species": "raspberry",
+  "source": "https://commons.wikimedia.org/wiki/File:Rubus_crataegifolius_02.JPG",
+  "license": "Public domain",
+  "author": "Qwert1234",
+  "title": "File:Rubus crataegifolius 02.JPG",
+  "width": 500,
+  "height": 375
+ },
+ "raspberry-3.webp": {
+  "species": "raspberry",
+  "source": "https://commons.wikimedia.org/wiki/File:Rubus_crataegifolius_4.JPG",
+  "license": "CC BY-SA 3.0",
+  "author": "Dalgial",
+  "title": "File:Rubus crataegifolius 4.JPG",
+  "width": 500,
+  "height": 667
+ },
+ "hazel-1.webp": {
+  "species": "hazel",
+  "source": "https://commons.wikimedia.org/wiki/File:Celtis_sinensis.JPG",
+  "license": "CC BY-SA 3.0",
+  "author": "Dalgial",
+  "title": "File:Celtis sinensis.JPG",
+  "width": 500,
+  "height": 667
+ },
+ "hazel-2.webp": {
+  "species": "hazel",
+  "source": "https://commons.wikimedia.org/wiki/File:Celtis_sinensis,_loof_en_vrugte,_Queenswood,_b.jpg",
+  "license": "CC BY-SA 3.0",
+  "author": "JMK",
+  "title": "File:Celtis sinensis, loof en vrugte, Queenswood, b.jpg",
+  "width": 500,
+  "height": 375
+ },
+ "hazel-3.webp": {
+  "species": "hazel",
+  "source": "https://commons.wikimedia.org/wiki/File:Celtis_sinensis_enoki01.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Keisotyo",
+  "title": "File:Celtis sinensis enoki01.jpg",
+  "width": 500,
+  "height": 375
+ },
+ "chipmunk-1.webp": {
+  "species": "chipmunk",
+  "source": "https://commons.wikimedia.org/wiki/File:0340_-_Nordkorea_2015_-_Kumgang_Gebirge_(22340275304)_(cropped).jpg",
+  "license": "CC BY-SA 2.0",
+  "author": "Uwe Brodrecht",
+  "title": "File:0340 - Nordkorea 2015 - Kumgang Gebirge (22340275304) (cropped).jpg",
+  "width": 500,
+  "height": 405
+ },
+ "chipmunk-2.webp": {
+  "species": "chipmunk",
+  "source": "https://commons.wikimedia.org/wiki/File:Streifenhoernchen.jpg",
+  "license": "Public domain",
+  "author": "AndiW 10:51:45, 2005-09-04 (UTC)",
+  "title": "File:Streifenhoernchen.jpg",
+  "width": 500,
+  "height": 534
+ },
+ "chipmunk-3.webp": {
+  "species": "chipmunk",
+  "source": "https://commons.wikimedia.org/wiki/File:Asiatisches_Streifenhoernchen_(cropped).jpg",
+  "license": "CC BY-SA 3.0",
+  "author": "J. Patrick Fischer",
+  "title": "File:Asiatisches Streifenhoernchen (cropped).jpg",
+  "width": 500,
+  "height": 311
+ },
+ "field-mouse-1.webp": {
+  "species": "field-mouse",
+  "source": "http://www.inaturalist.org/observations/336371",
+  "license": "CC BY",
+  "author": "(c) Kim, Hyun-tae, some rights reserved (CC BY)",
+  "title": "iNat obs 336371",
+  "width": 500,
+  "height": 281
+ },
+ "field-mouse-2.webp": {
+  "species": "field-mouse",
+  "source": "https://www.inaturalist.org/observations/225427315",
+  "license": "CC BY",
+  "author": "(c) Jiao Sun (孙娇), some rights reserved (CC BY)",
+  "title": "iNat obs 225427315",
+  "width": 500,
+  "height": 333
+ },
+ "field-mouse-3.webp": {
+  "species": "field-mouse",
+  "source": "https://commons.wikimedia.org/wiki/File:Erinaceus_amurensis_314652180.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Zinogre",
+  "title": "File:Erinaceus amurensis 314652180.jpg",
+  "width": 500,
+  "height": 351
+ },
+ "caterpillar-1.webp": {
+  "species": "caterpillar",
+  "source": "https://www.inaturalist.org/observations/31040681",
+  "license": "CC BY",
+  "author": "(c) Takaaki Hattori, some rights reserved (CC BY)",
+  "title": "iNat obs 31040681",
+  "width": 500,
+  "height": 333
+ },
+ "caterpillar-2.webp": {
+  "species": "caterpillar",
+  "source": "https://www.inaturalist.org/observations/389973424",
+  "license": "CC BY",
+  "author": "(c) Saryu Mae 前 朝琉, some rights reserved (CC BY)",
+  "title": "iNat obs 389973424",
+  "width": 500,
+  "height": 333
+ },
+ "aphid-1.webp": {
+  "species": "aphid",
+  "source": "https://commons.wikimedia.org/wiki/File:Anomala_albopilosa_fom_Tama_City,_Tokyo.jpg",
+  "license": "CC0",
+  "author": "PD files",
+  "title": "File:Anomala albopilosa fom Tama City, Tokyo.jpg",
+  "width": 500,
+  "height": 375
+ },
+ "aphid-2.webp": {
+  "species": "aphid",
+  "source": "https://commons.wikimedia.org/wiki/File:Anomala_albopilosa_44187763.jpg",
+  "license": "CC BY 4.0",
+  "author": "Se Lena",
+  "title": "File:Anomala albopilosa 44187763.jpg",
+  "width": 500,
+  "height": 324
+ },
+ "aphid-3.webp": {
+  "species": "aphid",
+  "source": "https://commons.wikimedia.org/wiki/File:Anomala_albopilosa_on_stem_of_plant_-_2.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "KKPCW",
+  "title": "File:Anomala albopilosa on stem of plant - 2.jpg",
+  "width": 500,
+  "height": 375
+ },
+ "snail-1.webp": {
+  "species": "snail",
+  "source": "http://www.inaturalist.org/observations/2442985",
+  "license": "CC BY",
+  "author": "(c) Kim, Hyun-tae, some rights reserved (CC BY)",
+  "title": "iNat obs 2442985",
+  "width": 500,
+  "height": 326
+ },
+ "snail-2.webp": {
+  "species": "snail",
+  "source": "http://www.inaturalist.org/observations/2483477",
+  "license": "CC BY",
+  "author": "(c) Kim, Hyun-tae, some rights reserved (CC BY)",
+  "title": "iNat obs 2483477",
+  "width": 500,
+  "height": 334
+ },
+ "snail-3.webp": {
+  "species": "snail",
+  "source": "https://www.inaturalist.org/observations/64349414",
+  "license": "CC BY",
+  "author": "(c) mister_bumble, some rights reserved (CC BY)",
+  "title": "iNat obs 64349414",
+  "width": 375,
+  "height": 500
+ },
+ "spider-1.webp": {
+  "species": "spider",
+  "source": "https://commons.wikimedia.org/wiki/File:Joro_Spider_(6854706540).jpg",
+  "license": "CC BY-SA 2.0",
+  "author": "pamsai, 200K views, thank you",
+  "title": "File:Joro Spider (6854706540).jpg",
+  "width": 500,
+  "height": 694
+ },
+ "spider-2.webp": {
+  "species": "spider",
+  "source": "https://commons.wikimedia.org/wiki/File:Joro_Spider,_%E4%B8%AD%E5%9B%BD%E6%B2%B3%E5%8D%97%E7%9C%81%E6%B4%9B%E9%98%B3%E5%B8%82%E6%B4%9B%E5%AE%81%E5%8E%BF_imported_from_iNaturalist_photo_439328972.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "(c) Zinogre, some rights reserved (CC BY-SA)",
+  "title": "File:Joro Spider, 中国河南省洛阳市洛宁县 imported from iNaturalist photo 439328972.jpg",
+  "width": 500,
+  "height": 345
+ },
+ "spider-3.webp": {
+  "species": "spider",
+  "source": "https://commons.wikimedia.org/wiki/File:Nephila_clavata(Female,Japan,2017.10.08).jpg",
+  "license": "CC0",
+  "author": "TekuraDF",
+  "title": "File:Nephila clavata(Female,Japan,2017.10.08).jpg",
+  "width": 500,
+  "height": 500
+ },
+ "ladybird-1.webp": {
+  "species": "ladybird",
+  "source": "https://www.inaturalist.org/observations/54159286",
+  "license": "CC BY",
+  "author": "(c) Jonghyun Park, some rights reserved (CC BY)",
+  "title": "iNat obs 54159286",
+  "width": 500,
+  "height": 333
+ },
+ "ladybird-2.webp": {
+  "species": "ladybird",
+  "source": "https://www.inaturalist.org/observations/54159286",
+  "license": "CC BY",
+  "author": "(c) Jonghyun Park, some rights reserved (CC BY)",
+  "title": "iNat obs 54159286",
+  "width": 500,
+  "height": 333
+ },
+ "ladybird-3.webp": {
+  "species": "ladybird",
+  "source": "http://www.inaturalist.org/observations/2469080",
+  "license": "CC BY",
+  "author": "(c) Kim, Hyun-tae, some rights reserved (CC BY)",
+  "title": "iNat obs 2469080",
+  "width": 500,
+  "height": 333
+ },
+ "tit-1.webp": {
+  "species": "tit",
+  "source": "https://commons.wikimedia.org/wiki/File:Japanese_tit_in_Suita,_Osaka,_November_2016_-_683.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Laitche",
+  "title": "File:Japanese tit in Suita, Osaka, November 2016 - 683.jpg",
+  "width": 500,
+  "height": 336
+ },
+ "tit-2.webp": {
+  "species": "tit",
+  "source": "https://commons.wikimedia.org/wiki/File:Japanese_tit_in_Suita,_Osaka,_November_2016_-_609.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Laitche",
+  "title": "File:Japanese tit in Suita, Osaka, November 2016 - 609.jpg",
+  "width": 500,
+  "height": 295
+ },
+ "tit-3.webp": {
+  "species": "tit",
+  "source": "https://commons.wikimedia.org/wiki/File:Parus_minor_(side).JPG",
+  "license": "CC BY-SA 3.0",
+  "author": "Alpsdake",
+  "title": "File:Parus minor (side).JPG",
+  "width": 500,
+  "height": 396
+ },
+ "bulbul-1.webp": {
+  "species": "bulbul",
+  "source": "https://commons.wikimedia.org/wiki/File:Bulbul_Brown-eared_(%E3%83%92%E3%83%A8%E3%83%89%E3%83%AA).jpg",
+  "license": "CC BY 2.0",
+  "author": "Toshihiro Gamo",
+  "title": "File:Bulbul Brown-eared (ヒヨドリ).jpg",
+  "width": 500,
+  "height": 333
+ },
+ "bulbul-2.webp": {
+  "species": "bulbul",
+  "source": "https://commons.wikimedia.org/wiki/File:Brown_Eared_Bulbul_%E3%83%92%E3%83%A8%E3%83%89%E3%83%AA_(193235499).jpeg",
+  "license": "CC BY-SA 3.0",
+  "author": "Greg Peterson",
+  "title": "File:Brown Eared Bulbul ヒヨドリ (193235499).jpeg",
+  "width": 500,
+  "height": 375
+ },
+ "bulbul-3.webp": {
+  "species": "bulbul",
+  "source": "https://commons.wikimedia.org/wiki/File:Brown-eared_Bulbul_Sakura_(cropped).jpg",
+  "license": "CC BY 2.0",
+  "author": "Jason Thompson",
+  "title": "File:Brown-eared Bulbul Sakura (cropped).jpg",
+  "width": 500,
+  "height": 259
+ },
+ "snake-1.webp": {
+  "species": "snake",
+  "source": "https://commons.wikimedia.org/wiki/File:Rhabdophis_tigrinus_5771005.jpg",
+  "license": "CC BY 4.0",
+  "author": "Kim, Hyun-tae",
+  "title": "File:Rhabdophis tigrinus 5771005.jpg",
+  "width": 500,
+  "height": 281
+ },
+ "snake-2.webp": {
+  "species": "snake",
+  "source": "https://commons.wikimedia.org/wiki/File:Rhabdophis_tigrinus_Gamova_(2).jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Alexander A. Fomichev",
+  "title": "File:Rhabdophis tigrinus Gamova (2).jpg",
+  "width": 500,
+  "height": 375
+ },
+ "snake-3.webp": {
+  "species": "snake",
+  "source": "https://commons.wikimedia.org/wiki/File:Rhabdophis_tigrinus_(head_s3).jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Alpsdake",
+  "title": "File:Rhabdophis tigrinus (head s3).jpg",
+  "width": 500,
+  "height": 333
+ },
+ "weasel-1.webp": {
+  "species": "weasel",
+  "source": "https://commons.wikimedia.org/wiki/File:Mustela_sibirica_695773921.jpg",
+  "license": "CC BY 4.0",
+  "author": "夏仲归",
+  "title": "File:Mustela sibirica 695773921.jpg",
+  "width": 500,
+  "height": 333
+ },
+ "weasel-2.webp": {
+  "species": "weasel",
+  "source": "https://commons.wikimedia.org/wiki/File:Mustela_sibirica_fontanierii_China2.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Zinogre",
+  "title": "File:Mustela sibirica fontanierii China2.jpg",
+  "width": 500,
+  "height": 355
+ },
+ "weasel-3.webp": {
+  "species": "weasel",
+  "source": "https://commons.wikimedia.org/wiki/File:Mustela_sibirica,_China.jpg",
+  "license": "CC BY 4.0",
+  "author": "Robyn Perkins",
+  "title": "File:Mustela sibirica, China.jpg",
+  "width": 500,
+  "height": 333
+ },
+ "goshawk-1.webp": {
+  "species": "goshawk",
+  "source": "https://commons.wikimedia.org/wiki/File:Goshawk_(20120569249).jpg",
+  "license": "CC BY 2.0",
+  "author": "Andy Morffew from Itchen Abbas, Hampshire, UK",
+  "title": "File:Goshawk (20120569249).jpg",
+  "width": 500,
+  "height": 625
+ },
+ "goshawk-2.webp": {
+  "species": "goshawk",
+  "source": "https://commons.wikimedia.org/wiki/File:Accipiter_gentilis,_Kronvalda_Park,_Riga,_Latvia.jpg",
+  "license": "CC BY 2.0",
+  "author": "Jevgenijs Slihto from Riga, Latvia",
+  "title": "File:Accipiter gentilis, Kronvalda Park, Riga, Latvia.jpg",
+  "width": 500,
+  "height": 375
+ },
+ "goshawk-3.webp": {
+  "species": "goshawk",
+  "source": "https://commons.wikimedia.org/wiki/File:En_duvh%C3%B6k_i_Marieberg,_Stockholm,_Nov_2018.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Holger.Ellgaard",
+  "title": "File:En duvhök i Marieberg, Stockholm, Nov 2018.jpg",
+  "width": 500,
+  "height": 640
+ },
+ "earthworm-1.webp": {
+  "species": "earthworm",
+  "source": "http://www.inaturalist.org/observations/2512069",
+  "license": "CC BY",
+  "author": "(c) Kim, Hyun-tae, some rights reserved (CC BY)",
+  "title": "iNat obs 2512069",
+  "width": 500,
+  "height": 281
+ },
+ "earthworm-2.webp": {
+  "species": "earthworm",
+  "source": "https://www.inaturalist.org/observations/379882067",
+  "license": "CC BY",
+  "author": "(c) Jerome Ko, some rights reserved (CC BY)",
+  "title": "iNat obs 379882067",
+  "width": 375,
+  "height": 500
+ },
+ "earthworm-3.webp": {
+  "species": "earthworm",
+  "source": "https://www.inaturalist.org/observations/390480866",
+  "license": "CC0",
+  "author": "no rights reserved",
+  "title": "iNat obs 390480866",
+  "width": 375,
+  "height": 500
+ },
+ "soil-bacteria-1.webp": {
+  "species": "soil-bacteria",
+  "source": "https://commons.wikimedia.org/wiki/File:Bacillus_subtilis_CLA_colonies_102.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "A doubt",
+  "title": "File:Bacillus subtilis CLA colonies 102.jpg",
+  "width": 500,
+  "height": 500
+ },
+ "soil-bacteria-2.webp": {
+  "species": "soil-bacteria",
+  "source": "https://commons.wikimedia.org/wiki/File:Beautiful_bacterial_growth_under_the_microscope.jpg",
+  "license": "CC BY 4.0",
+  "author": "Korinna",
+  "title": "File:Beautiful bacterial growth under the microscope.jpg",
+  "width": 500,
+  "height": 375
+ },
+ "soil-bacteria-3.webp": {
+  "species": "soil-bacteria",
+  "source": "https://commons.wikimedia.org/wiki/File:2015%EB%85%84_2%EC%9B%94_11%EC%9D%BC_%ED%9A%A8%EC%86%8C%EC%9B%90_%EC%B2%AD%EA%B5%AD%EC%9E%A5.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "최광모",
+  "title": "File:2015년 2월 11일 효소원 청국장.jpg",
+  "width": 500,
+  "height": 333
+ },
+ "soil-bacteria-4.webp": {
+  "species": "soil-bacteria",
+  "source": "https://commons.wikimedia.org/wiki/File:Inagi2005-9.jpg",
+  "license": "Public domain",
+  "author": "No machine-readable author provided. Kinori assumed (based on copyright claims).",
+  "title": "File:Inagi2005-9.jpg",
+  "width": 500,
+  "height": 375
+ },
+ "litter-mold-1.webp": {
+  "species": "litter-mold",
+  "source": "https://www.inaturalist.org/observations/400727968",
+  "license": "CC BY",
+  "author": "(c) ewasiukb, some rights reserved (CC BY)",
+  "title": "iNat obs 400727968",
+  "width": 375,
+  "height": 500
+ },
+ "litter-mold-2.webp": {
+  "species": "litter-mold",
+  "source": "https://commons.wikimedia.org/wiki/File:Laetiporus_sulphureus_mycelium.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Panek",
+  "title": "File:Laetiporus sulphureus mycelium.jpg",
+  "width": 500,
+  "height": 385
+ },
+ "litter-mold-3.webp": {
+  "species": "litter-mold",
+  "source": "https://commons.wikimedia.org/wiki/File:Conidia,_Strigma,_Vesicle,_and_Conidiophores_of_Aspergillus_in_LPCB_Tease_Mount_Microscopy.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Ajay Kumar Chaurasiya",
+  "title": "File:Conidia, Strigma, Vesicle, and Conidiophores of Aspergillus in LPCB Tease Mount Microscopy.jpg",
+  "width": 500,
+  "height": 281
+ }
+}
