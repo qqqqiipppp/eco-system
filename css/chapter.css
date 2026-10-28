@@ -243,3 +243,29 @@
 /* Chapter 4 air pollution: a distant chimney on the horizon (objects only, no people). */
 .forest-chimney{left:calc(985 / 1200 * 100%);top:calc(150 / 470 * 100%);width:calc(70 / 1200 * 100%);min-width:40px;aspect-ratio:1;transform:translate(-50%,-50%);opacity:.75}
 @media (prefers-reduced-motion:reduce){.forest-litter{transition:none}}
+/* Bigger forest on tablets (browser bars leave ~620-720 px): the stage panel
+   is two short lines, cards are one low row, the hint line under them goes
+   (the "놓는 중" band on the forest does that job). */
+@media (min-width:801px){
+ .chapter-mode .chapter-hud{padding:5px 12px;gap:4px 14px;align-items:start}
+ .chapter-mode .chapter-title{cursor:pointer;min-width:0}
+ .chapter-mode .chapter-title .eyebrow{display:inline;font-size:12px;margin-right:6px}
+ .chapter-mode .chapter-title h2{display:inline;font-size:17px}
+ .chapter-mode .chapter-goal{margin:2px 0 0;font-size:14px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .chapter-mode .chapter-hud.show-goal .chapter-goal{white-space:normal}
+ .chapter-mode .chapter-progress{grid-template-columns:auto minmax(80px,1fr);align-items:center;column-gap:10px;row-gap:2px}
+ .chapter-mode .chapter-seed{width:22px;height:22px}
+ .chapter-mode .chapter-progress>:not(.chapter-seeds):not(progress){grid-column:1/-1}
+ .chapter-mode .chapter-status,.chapter-mode .chapter-progress .placement-feedback{min-height:2.7em;max-height:2.7em;overflow:hidden;font-size:14px;line-height:1.35}
+ .chapter-mode #selection-panel{display:none}
+ .chapter-mode .inventory-heading{margin-bottom:4px}
+ .chapter-mode .inventory-heading p{display:none}
+ .chapter-mode .organism-card{min-height:0;max-height:70px;height:70px;flex-basis:178px;padding:4px 8px;gap:6px;grid-template-columns:34px minmax(0,1fr)}
+ .chapter-mode .organism-card .card-art{width:34px;height:40px}
+ .chapter-mode .organism-card .card-caption{display:none}
+ .chapter-mode .organism-card .card-role{font-size:12px;padding:0 4px;line-height:1.3}
+ .chapter-mode .organism-card .card-name{font-size:15px;margin:1px 0 0;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+ .chapter-mode .organism-card[data-price]::after{top:5px;right:6px;font-size:12px;padding:1px 6px}
+ .chapter-mode .organism-card .card-selected{font-size:12px;top:2px}
+ .chapter-mode .organism-card[data-chapter-need]::before{content:'필요';top:auto;bottom:4px;left:5px;right:auto;font-size:11px;padding:1px 5px}
+}

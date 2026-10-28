@@ -56,6 +56,10 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   element('div',{className:'chapter-progress'},[element('div',{className:'chapter-seeds'},seeds),meter,status,care]),
  ]);hud.setAttribute('aria-label','스테이지 목표');
  document.querySelector('.dashboard').after(hud);
+ // The goal shows as one line; tapping the title shows all of it.
+ const titleBox=hud.querySelector('.chapter-title');titleBox.tabIndex=0;titleBox.setAttribute('role','button');titleBox.setAttribute('aria-expanded','false');
+ const toggleGoal=()=>{const open=hud.classList.toggle('show-goal');titleBox.setAttribute('aria-expanded',String(open));};
+ titleBox.addEventListener('click',toggleGoal);titleBox.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleGoal();}});
  // One top row like the original's: the game, the four small numbers, a menu.
  // The menu holds every other button (they keep their own handlers).
  const header=document.querySelector('.app-header'),namesToggle=forest.querySelector('#names-toggle');
