@@ -78,7 +78,7 @@ try {
   let chapterView=null;
   if(chapterMode){
     document.body.classList.add('chapter-mode');
-    const webView=createChapterWebView(chapterProgress,{onComplete:()=>chapterView.webDone()});
+    const webView=createChapterWebView(chapterProgress,{onComplete:()=>chapterView.webDone(),onGuide:id=>collectionView.openGuide(id,null)});
     chapterView=createChapterView(()=>gameState,{forest,notify:(text,ok)=>important(text,ok),cleared:()=>chapterProgress.cleared(),openWeb:n=>webView.open(n),webComplete:n=>webView.isComplete(n),onCatch:catchStageObservation,onCollect:collectStageTrash,onPrepare:prepareStage,onStage:id=>installForest(createStageGameState(stageById[id])),onCare:careStageEnvironment,onExit:()=>{location.search='?mode=forest';}});
   }else{
     const chapterButton=document.createElement('button');chapterButton.id='chapter-open';chapterButton.type='button';chapterButton.textContent='챕터 모드';
