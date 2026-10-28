@@ -145,6 +145,8 @@ function growSeeds(s) {
       c.clearedAt = s.simulationTime;
       // A crisis still under way ends with the stage; its outcome joins the clear.
       for (const record of c.crisisLog) if (record.endedAt === null) settleCrisis(s, record);
+      // A crisis only announced when the stage clears never comes.
+      c.warning = null;
       c.seedProgress = 0;
       result.cleared = true;
     }

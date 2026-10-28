@@ -232,3 +232,9 @@ test('the fallen log is dead wood: a cloud mushroom rests on it only while the l
  const anchor=on=>{sceneSpaces.log=on;const p=createHabitatPresentation();p.rebuild(s.organisms,geometry());return p.descriptor(m.instanceId).anchorId;};
  assert.equal(anchor(true),'background:fallen-log');assert.notEqual(anchor(false),'background:fallen-log');
 });
+
+test('a crisis announced as the stage clears is dropped, not left counting down',()=>{
+ const s=createStageGameState(stageById['1-3']);placeFixture(s,'grasshopper');
+ s.chapter.seeds=2;s.chapter.eventsStarted=0;s.chapter.seedProgress=stageById['1-3'].seedSeconds+1;s.chapter.births.push({speciesId:'grasshopper'});
+ updateStage(s,.5,[]);assert(s.chapter.cleared);assert.equal(s.chapter.warning,null);
+});
