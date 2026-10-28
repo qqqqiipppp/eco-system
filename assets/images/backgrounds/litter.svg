@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100"><title>낙엽 더미 (임시 그림)</title>
+<ellipse cx="150" cy="86" rx="138" ry="12" fill="#5a3e22" opacity=".3"/>
+<path d="M20 88q40-70 130-72q90 2 130 72z" fill="#8a5a2b"/>
+<g stroke="#5e3a18" stroke-width="2">
+<path d="M60 70q20-22 46-10q-22 18-46 10z" fill="#c4772f"/><path d="M110 46q24-16 44 2q-24 12-44-2z" fill="#d9a03a"/>
+<path d="M160 58q24-20 50-4q-24 16-50 4z" fill="#a8582a"/><path d="M200 74q22-14 44 0q-22 12-44 0z" fill="#c98a3a"/>
+<path d="M90 80q18-12 36 0q-18 10-36 0z" fill="#b5652b"/><path d="M140 30q16-12 32 0q-16 10-32 0z" fill="#e0b04a"/>
+<path d="M40 82q14-10 30 0q-14 8-30 0z" fill="#d18a35"/><path d="M230 84q14-10 30 0q-14 8-30 0z" fill="#9c5226"/>
+</g></svg>

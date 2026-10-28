@@ -25,3 +25,8 @@ export const backgroundHabitatSpaces=[
  {id:'surface-litter',object:'soil-surface',zone:'leaf_litter',x:600,y:347,rx:550,ry:12,capacity:8,priority:2},
  {id:'low-ground',object:'soil-cutaway',zone:'leaf_litter',x:600,y:387,rx:550,ry:20,capacity:10,priority:2},
 ];
+// Objects drawn on the earth band in chapter mode from chapter 3 (나무 아래) on.
+// The fallen log is dead wood: cloud mushrooms rest on it (display only; their
+// shared decomposition work is not tied to a place).
+export const logSpace={id:'fallen-log',object:'log-b',zone:'dead_wood',x:880,y:322,rx:40,ry:4,capacity:3,priority:6};
+export const sceneSpaces={log:false};

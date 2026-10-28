@@ -23,6 +23,7 @@ export function isHabitatAnchorEligible(speciesId,a){
   if(a.id==='background:surface-litter'&&speciesId==='earthworm')return false;
   return a.zone==='ground'||[rule.primary,...rule.additional].includes(a.zone);
  }
+ if(a.zone==='dead_wood')return rule.primary==='dead_wood'&&Boolean(a.sourceObjectId);
  if(rule.movement==='perching')return a.zone==='branch'&&a.precise===true||a.zone==='canopy'&&Boolean(a.sourceObjectId);
  if(rule.movement==='tree-affinity')return a.zone==='trunk'&&(Boolean(a.sourceObjectId)||rule.preferredPlants.includes(a.sourceSpeciesId));
  if(rule.movement==='plant-surface'||speciesId==='grasshopper')return rule.preferredPlants.includes(a.sourceSpeciesId);

@@ -1,5 +1,5 @@
 import {organismById} from '../../data/organisms.js';
-import {forestArtwork,backgroundHabitatSpaces} from '../../data/forest-spaces.js';
+import {forestArtwork,backgroundHabitatSpaces,logSpace,sceneSpaces} from '../../data/forest-spaces.js';
 // Provider boundary for stage16: only explicit objects/regions may supply real
 // branches, wood or web anchors. Current background is one unsegmented SVG.
 export function provideHabitatAnchors(organisms,layout,producerPositions=new Map()){
@@ -14,6 +14,6 @@ export function provideHabitatAnchors(organisms,layout,producerPositions=new Map
  }
  // Explicitly mapped visible crowns/trunks and the existing soil cutaway.
  // Background objects are visual support only; they never create food stock.
- for(const s of backgroundHabitatSpaces)anchors.push({id:'background:'+s.id,zone:s.zone,kind:['canopy','trunk'].includes(s.zone)?'attachment':'activity-area',sourceInstanceId:null,sourceObjectId:s.object,position:{x:s.x/forestArtwork.width,y:s.y/forestArtwork.height},range:{x:s.rx/forestArtwork.width,y:s.ry/forestArtwork.height},capacity:s.capacity,priority:s.priority,temporary:true,precise:false});
+ for(const s of sceneSpaces.log?[...backgroundHabitatSpaces,logSpace]:backgroundHabitatSpaces)anchors.push({id:'background:'+s.id,zone:s.zone,kind:['canopy','trunk','dead_wood'].includes(s.zone)?'attachment':'activity-area',sourceInstanceId:null,sourceObjectId:s.object,position:{x:s.x/forestArtwork.width,y:s.y/forestArtwork.height},range:{x:s.rx/forestArtwork.width,y:s.ry/forestArtwork.height},capacity:s.capacity,priority:s.priority,temporary:true,precise:false});
  return anchors;
 }

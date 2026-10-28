@@ -236,3 +236,10 @@
 .forest-pond{position:absolute;left:calc(190 / 1200 * 100%);top:calc(334 / 470 * 100%);width:calc(160 / 1200 * 100%);min-width:84px;aspect-ratio:3/1;transform:translate(-50%,-50%) scale(var(--pond,1));transition:transform 1.5s,filter 1.5s;pointer-events:none}
 .forest-pond[data-dry=true]{filter:saturate(.4) brightness(1.08)}
 @media (prefers-reduced-motion:reduce){.forest-pond{transition:none}}
+/* Chapter 3 on: fallen log (x 880) and leaf-litter pile (x 1040) on the earth band. */
+.forest-log,.forest-litter,.forest-chimney{position:absolute;pointer-events:none}
+.forest-log{left:calc(880 / 1200 * 100%);top:calc(336 / 470 * 100%);width:calc(130 / 1200 * 100%);min-width:70px;aspect-ratio:3/1;transform:translate(-50%,-50%)}
+.forest-litter{left:calc(1040 / 1200 * 100%);top:calc(346 / 470 * 100%);width:calc(120 / 1200 * 100%);min-width:64px;aspect-ratio:3/1;transform:translate(-50%,-100%) scale(var(--pile,1));transform-origin:50% 100%;transition:transform 2s}
+/* Chapter 4 air pollution: a distant chimney on the horizon (objects only, no people). */
+.forest-chimney{left:calc(985 / 1200 * 100%);top:calc(150 / 470 * 100%);width:calc(70 / 1200 * 100%);min-width:40px;aspect-ratio:1;transform:translate(-50%,-50%);opacity:.75}
+@media (prefers-reduced-motion:reduce){.forest-litter{transition:none}}

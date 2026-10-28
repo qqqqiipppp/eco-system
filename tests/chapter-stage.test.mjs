@@ -219,3 +219,16 @@ test('cloud and drought stop food plants growing back, so an unprepared forest s
  const ready=run(true),idle=run(false);
  assert(ready.stalled+15<=idle.stalled,`prepared ${ready.stalled}s vs waited ${idle.stalled}s`);assert.notEqual(ready.outcome,'tired');assert.equal(idle.outcome,'tired');
 });
+
+test('chapter 3 on: decomposers clear the litter pile, and without them it piles up',()=>{
+ const withThem=runStage('3-2'),without=runStage('3-2',{student:idleStudent,seconds:240});
+ assert(withThem.s.decomposition.organicMatter.litter<2,`with decomposers ${withThem.s.decomposition.organicMatter.litter}`);
+ assert(without.s.decomposition.organicMatter.litter>5,`without ${without.s.decomposition.organicMatter.litter}`);
+});
+
+test('the fallen log is dead wood: a cloud mushroom rests on it only while the log is in the scene',async()=>{
+ const {sceneSpaces}=await import('../data/forest-spaces.js'),{createHabitatPresentation}=await import('../js/systems/habitat-presentation.js'),{geometry}=await import('./spatial-fixtures.mjs');
+ const s=createStageGameState(stageById['3-1']);placeFixture(s,'mushroom');const m=s.organisms.find(o=>o.speciesId==='mushroom');
+ const anchor=on=>{sceneSpaces.log=on;const p=createHabitatPresentation();p.rebuild(s.organisms,geometry());return p.descriptor(m.instanceId).anchorId;};
+ assert.equal(anchor(true),'background:fallen-log');assert.notEqual(anchor(false),'background:fallen-log');
+});

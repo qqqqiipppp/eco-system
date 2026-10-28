@@ -99,6 +99,7 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   const coins=`✦ ${s.metrics.points}P`;if(wallet.textContent!==coins){wallet.textContent=coins;wallet.setAttribute('aria-label',`가진 포인트 ${s.metrics.points}`);}
   renderAbiotic(s);
   renderPond(s);
+  renderScene(s);
   renderNeeds(c.cleared?new Map():needStates(s),c.cleared?new Set():neededCards(s,blockers));
   renderTaps(c);
   renderBreeding(s);
@@ -112,12 +113,30 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
  // The pond (chapter 2 on): it shrinks and dulls as water runs low, so a
  // drought is seen in the forest itself. Drawn under the organisms.
  const pond=element('img',{className:'forest-pond',src:'./assets/images/backgrounds/pond.svg',alt:'웅덩이',hidden:true});
- forest.querySelector('.forest-art')?.after(pond);
+ // Chapter 3 on: a fallen log (where cloud mushrooms live) and a leaf-litter pile
+ // that grows with the plants and shrinks as decomposers work. Chapter 4's
+ // air-pollution crisis shows a distant smoking chimney on the horizon.
+ const log=element('img',{className:'forest-log',src:'./assets/images/backgrounds/log.svg',alt:'쓰러진 통나무',hidden:true});
+ const litter=element('img',{className:'forest-litter',src:'./assets/images/backgrounds/litter.svg',alt:'낙엽 더미',hidden:true});
+ const chimney=element('img',{className:'forest-chimney',src:'./assets/images/backgrounds/chimney.svg',alt:'멀리 보이는 공장 굴뚝',hidden:true});
+ forest.querySelector('.forest-art')?.after(chimney,pond,log,litter);
  function renderPond(s){
   const show=stageById[s.chapter.stageId].chapter.number>=2;if(pond.hidden===show)pond.hidden=!show;if(!show)return;
   const water=factorValue(s.environment,'water'),scale=(.4+.6*water).toFixed(2);
   if(pond.style.getPropertyValue('--pond')!==scale)pond.style.setProperty('--pond',scale);
   const dry=String(water<.4);if(pond.dataset.dry!==dry)pond.dataset.dry=dry;
+ }
+ function renderScene(s){
+  const number=stageById[s.chapter.stageId].chapter.number,c=s.chapter,event=currentEnvironmentEvent(s);
+  if(log.hidden!==(number<3))log.hidden=number<3;
+  if(litter.hidden!==(number<3))litter.hidden=number<3;
+  if(number>=3){
+   const amount=s.decomposition.organicMatter.litter,size=(.25+.75*Math.min(1,amount/8)).toFixed(2);
+   if(litter.style.getPropertyValue('--pile')!==size)litter.style.setProperty('--pile',size);
+   const label=`낙엽 더미: ${amount<1?'거의 없어요':amount<4?'조금 쌓였어요':'많이 쌓였어요'}`;if(litter.alt!==label)litter.alt=label;
+  }
+  const smoke=(c.warning?.kind||(event&&event.phase!=='ended'?event.kind:''))==='air-pollution';
+  if(chimney.hidden===smoke)chimney.hidden=!smoke;
  }
  // The abiotic factors as four small bars in the top row, replacing the single
  // average word (one bad factor hid inside it) and the chips over the forest.
