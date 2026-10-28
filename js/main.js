@@ -107,7 +107,7 @@ try {
     refreshProgress();
     saveService.schedule();
     if(response.unlocked) {
-      renderCards(gameState,selectSpecies,openLockedActivity);
+      renderCards(gameState,selectSpecies,openLockedActivity,putCardBack);
       renderSelection(uiState,clearSelection);
       flowView?.render();
     }
@@ -229,6 +229,11 @@ try {
     flowView?.render();
     document.querySelector(`[data-species-id="${previousId}"]`)?.focus();
   }
+  // Tapping the chosen card again puts it back, but only before anything was
+  // placed with it: after a placement the tap means "one more".
+  function putCardBack(){if(!selectionPlaced)clearSelection();}
+  // Esc puts a chosen card back, unless a dialog is open (it closes first).
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&uiState.selectedSpeciesId&&!document.querySelector('dialog[open]'))clearSelection();});
   function selectSpecies(speciesId) {
     uiState.selectedSpeciesId = speciesId;
     selectionPlaced=false;
@@ -291,7 +296,7 @@ try {
   // Development harness installs its environment controls at this explicit boundary.
   flowView=createForestFlow(gameState,{getSelection:()=>uiState.selectedSpeciesId,getPlacementConfirmed:()=>selectionPlaced,onActivity:openLockedActivity,onEvent:id=>eventView.open(id),onPlace:selectSpecies,onPopulation:()=>document.querySelector('#population-open').click(),onGoalInspect:action=>{clearSelection();if(action.id&&gameState.organisms.some(o=>o.instanceId===action.id))populationView.inspect([action.id]);else{document.querySelector('#population-open').click();populationView.select(action.speciesId||'grass');}}});
   renderDashboard(gameState);
-  renderCards(gameState, selectSpecies, openLockedActivity);
+  renderCards(gameState, selectSpecies, openLockedActivity, putCardBack);
   renderSelection(uiState, clearSelection);
   gameState.organisms.forEach(instance => scene.add(instance));
   scene.paintVisuals(gameState,0);
@@ -319,7 +324,7 @@ try {
     document.querySelectorAll('dialog[open]').forEach(dialog=>dialog.close());
     scene.reset();activityView.reset();eventView.reset();collectionView.reset();chapterView?.reset();
     stabilitySystem.update(gameState);refreshProgress();
-    syncCollection(gameState);renderCards(gameState,selectSpecies,openLockedActivity);renderSelection(uiState,clearSelection);renderDashboard(gameState);
+    syncCollection(gameState);renderCards(gameState,selectSpecies,openLockedActivity,putCardBack);renderSelection(uiState,clearSelection);renderDashboard(gameState);
     gameState.organisms.forEach(instance=>scene.add(instance));eventSystem.refresh(gameState);eventView.render();loop.refresh();
     return true;
   }

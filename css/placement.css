@@ -36,3 +36,10 @@
 #environment-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}#environment-fields label{font-size:14px;font-weight:700}#environment-fields select{display:block;width:100%;min-height:44px;margin-top:6px;padding:8px;border:1px solid #b8c6aa;border-radius:8px;background:white;color:var(--ink);font:inherit}
 #stability-hint{padding:10px;background:#edf3df;border-radius:8px}
 @media(max-width:1050px){.stability p{font-size:15px}}
+/* Placing a card: a band on the soil with the way out. Only the button takes taps. */
+.placing-band{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);z-index:7;display:flex;align-items:center;gap:10px;max-width:calc(100% - 24px);padding:4px 6px 4px 10px;border-radius:999px;background:#fffdf0;border:2px solid #244c38;box-shadow:0 2px 8px #0003;font-size:16px;color:#244c38;pointer-events:none;white-space:nowrap}
+.placing-band img{width:32px;height:24px;object-fit:contain}
+.placing-band span{overflow:hidden;text-overflow:ellipsis}
+.placing-band .clear-selection{pointer-events:auto;min-height:44px;padding:6px 14px;border-radius:999px;border:2px solid #8a3b12;background:#fff;color:#8a3b12;font-size:16px;font-weight:800;text-decoration:none;cursor:pointer}
+@media(max-width:600px){.placing-band span{display:none}}
+.forest:has(.placing-band) .placement-feedback{bottom:66px}
