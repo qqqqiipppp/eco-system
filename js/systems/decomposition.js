@@ -12,14 +12,17 @@ export function updateDecomposition(state,seconds,visualWork){
  let processed=0,wormProcessed=0;
  const worms=state.organisms.filter(o=>o.speciesId==='earthworm').slice(0,worm.activeLimit);
  const wormActivity=Math.min(...['water','soil','air'].map(f=>state.environment[f].value));
+ // Chapter mode speeds decomposers up so a forest with them clears its litter
+ // and one without them piles it up (see stageConfig.decompositionBoost).
+ const boost=state.chapter?.decompositionBoost??1;
  for(const part of Object.keys(d.organicMatter)){
   let rate=config.backgroundRate;
   const contributions=[];
   for(const [id,parts]of Object.entries(config.rates)){
-   const contribution=(parts[part]||0)*state.organisms.filter(o=>o.speciesId===id).slice(0,3).reduce((sum,o)=>sum+colonyActivity(o,state.environment),0);
+   const contribution=(parts[part]||0)*state.organisms.filter(o=>o.speciesId===id).slice(0,3).reduce((sum,o)=>sum+colonyActivity(o,state.environment),0)*boost;
    rate+=contribution;contributions.push([id,contribution]);
   }
-  const wormRate=part==='litter'?worms.length*worm.rate*wormActivity:0,totalRate=rate+wormRate;
+  const wormRate=part==='litter'?worms.length*worm.rate*wormActivity*boost:0,totalRate=rate+wormRate;
   const amount=Math.min(d.organicMatter[part],totalRate*seconds);d.organicMatter[part]-=amount;processed+=amount;
   for(const [id,contribution]of contributions){
    const allocated=amount*contribution/totalRate;

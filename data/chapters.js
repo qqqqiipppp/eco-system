@@ -28,6 +28,9 @@ export const stageConfig = {
   trashReward: 1,
   // Every crisis starts and ends inside the stage (about 1 minute), and is
   // judged by how long the stars stalled while it lasted.
+  // Decomposers work this much faster in chapter mode, so their effect on the
+  // litter pile is visible within a stage (the regular forest is unchanged).
+  decompositionBoost: 3,
   crisisSeconds: 30,
   crisisRecoverySeconds: 20,
   // Cloud or drought: food plants grow back this much slower (less light or

@@ -16,6 +16,7 @@ import {particle} from '../data/student-text.js';
 import {createChapterView} from './ui/chapter-view.js';
 import {createChapterWebView} from './ui/chapter-web-view.js';
 import {stages,stageById,breeding} from '../data/chapters.js';
+import {sceneSpaces} from '../data/forest-spaces.js';
 import {environmentEventDefinitions} from '../data/environment-events.js';
 import { createForestView, showSaveStatus } from './ui/forest-view.js';
 import { createGameState, createUIState } from './state/game-state.js';
@@ -56,6 +57,9 @@ export const saveService = createSaveService({adapter:chapterMode?createNoSaveAd
 const restored = saveService.load();
 Object.assign(gameState,restored.state);
 if(chapterMode)Object.assign(gameState,createStageGameState(stages.find(s=>!chapterProgress.cleared().includes(s.stageId))||stages[0]));
+// The fallen log is part of the scene from chapter 3 on; set before organisms are placed.
+const setScene=s=>{sceneSpaces.log=Boolean(s.chapter&&stageById[s.chapter.stageId].chapter.number>=3);};
+setScene(gameState);
 export let feedingSystem = createFeedingSystem(gameState.simulationTime);
 export let eventSystem = createEventSystem(gameState.simulationTime,restored.eventMemory);
 const uiState = createUIState();
@@ -314,6 +318,7 @@ try {
     loop.stop();
     for(const key of Object.keys(gameState))delete gameState[key];
     Object.assign(gameState,nextState);
+    setScene(gameState);
     feedingSystem=createFeedingSystem();eventSystem=createEventSystem();stabilitySystem=createStabilitySystem();wander=createWanderSystem();
     lastCheckpoint=0;lastPopulationSequence=0;selectionPlaced=false;uiState.selectedSpeciesId=null;populationView.reset();
     document.querySelectorAll('dialog[open]').forEach(dialog=>dialog.close());
