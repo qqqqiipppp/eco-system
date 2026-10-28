@@ -1,0 +1,37 @@
+/* Real-world species card (inspector and field guide): big type, few lines, real photos. */
+.species-card{display:grid;gap:12px 18px;margin:4px 0 14px;color:#203126}
+.species-card-media,.species-card-text{display:grid;gap:8px;align-content:start;min-width:0}
+.species-card-photos{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;border-radius:12px;background:#e6ecda;scrollbar-width:none}
+.species-card-photos::-webkit-scrollbar{display:none}
+.species-card-photos figure{flex:0 0 100%;margin:0;scroll-snap-align:start;position:relative;aspect-ratio:4/3;max-width:100%}
+.species-card-photos img{width:100%;height:100%;object-fit:cover;display:block}
+.species-card-photos figcaption{position:absolute;left:8px;bottom:8px;padding:3px 8px;border-radius:6px;background:#203126cc;color:#fff;font-size:14px}
+.species-card-dots{display:flex;justify-content:center;gap:4px;margin-top:-4px}
+.species-card-dots button{min-width:32px!important;min-height:32px!important;padding:0!important;border:0!important;background:none!important;display:grid;place-items:center}
+.species-card-dots button::before{content:"";width:12px;height:12px;border-radius:50%;background:#b8c6aa}
+.species-card-dots button[aria-current=true]::before{background:#3d6b3a}
+.species-card p.species-card-credit{margin:0!important;font-size:12px!important;line-height:1.4!important;color:#5d6b55;overflow-wrap:anywhere}
+.species-card-credit a{color:inherit}
+.species-card-head{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px}
+.species-card .species-card-head h3{margin:0;font-size:26px!important;line-height:1.25}
+.species-card-role{padding:4px 12px;border-radius:999px;font-size:17px;font-weight:700;color:#fff}
+.species-card-role.role-producer{background:#3f7d3a}.species-card-role.role-consumer{background:#b0621c}.species-card-role.role-decomposer{background:#6b4f8a}
+.species-card p.species-card-intro{margin:0!important;font-size:20px!important;line-height:1.55!important;font-weight:600}
+.species-card-facts{display:grid;gap:8px;margin:0}
+.species-card-facts>div{display:grid;grid-template-columns:7.4em 1fr;gap:4px 10px;align-items:baseline;padding:8px 10px;border-radius:10px;background:#f3f6e9}
+.species-card-facts dt{font-size:16px;font-weight:700;color:#3d5236}
+.species-card-facts dd{margin:0;font-size:19px;line-height:1.5;min-width:0;overflow-wrap:anywhere}
+@media (max-width:520px){.species-card-facts>div{grid-template-columns:1fr}.species-card .species-card-head h3{font-size:23px!important}}
+#population-art{display:none!important}
+#population-role{font-size:15px!important;font-weight:700;margin:6px 0!important}
+#population-card{display:block}
+/* Landscape tablets: photo beside the facts so both fit without scrolling. */
+@media (min-width:760px){
+ #population-dialog{width:min(980px,calc(100% - 28px))!important}
+ .species-card{grid-template-columns:minmax(0,42%) minmax(0,1fr)}
+ .species-card-media{position:sticky;top:0}
+}
+/* Field guide detail pane is narrow: stack the card and skip the repeated name. */
+#guide-detail .species-card{grid-template-columns:1fr}
+#guide-detail .species-card-media{position:static}
+#guide-detail .species-card-head h3{display:none}

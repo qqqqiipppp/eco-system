@@ -7,17 +7,19 @@ import {studentDescription} from './student-guidance.js';
 import {studentFood} from './student-status.js';
 import {speciesStatus,guideSpecies,speciesRelations,relationStatus,relationStatusLabels,relationName,foodPartName,decompositionParts,organicPartNames} from './collection-model.js';
 import {node,button,speciesVisual} from './collection-dom.js';
+import {speciesCardElement} from './species-card.js';
 
 export function createFieldGuideView(state,{onWeb,onActivity,onPlace}){
  const list=document.querySelector('#guide-list'),detail=document.querySelector('#guide-detail'),layout=document.querySelector('#guide-layout');
  const filter=document.querySelector('#guide-filter'),search=document.querySelector('#guide-search'),empty=document.querySelector('#guide-empty');
- let selected=null,signature='';
+ let selected=null,signature='';const cards={};
  const roleButtons=[...document.querySelectorAll('[data-guide-role-filter]')];
  function renderDetail(){
   detail.hidden=!selected;layout.classList.toggle('has-detail',Boolean(selected));if(!selected)return;
   const o=organismById[selected],status=speciesStatus(state,selected);detail.replaceChildren();
   const back=button('목록 보기',()=>{selected=null;render();list.querySelector('[data-guide-species="'+o.id+'"]')?.focus({preventScroll:true});});
   const top=node('div');top.className='guide-detail-heading';top.append(speciesVisual(o),node('h3',o.name),back);detail.append(top);
+  if(status.acquired)detail.append(cards[selected]??=speciesCardElement(selected));
   if(o.id==='soil-bacteria')detail.append(node('p','고초균은 아주 작아서 맨눈으로 보기 어려워요. 그림은 여러 세균을 크게 나타냈어요.'))
   else detail.append(node('p','게임 속 크기는 화면에서 보기 쉽게 조절했어요. 실제 생물끼리의 크기 비율과는 달라요.'));
   detail.append(node('p',roleLabels[o.role]+' · '+(status.acquired?'카드를 가지고 있어요.':'🔒 아직 얻지 못한 생물이에요.')));
