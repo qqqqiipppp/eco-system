@@ -30,3 +30,10 @@
 .organism-object[data-species-id=earthworm][data-visual-state^=covered] img.organism-art[src*="/species-raster/"]{clip-path:inset(0 0 0 70%)}
 .organism-object[data-species-id=earthworm][data-visual-state^=covered]:has(img[src*="/species-raster/"]) .organism-visual::before{content:'';position:absolute;left:18%;right:18%;top:calc(var(--sprite-height) * .72);height:calc(var(--sprite-height) * .22);border-radius:50% 50% 6px 6px;background:#6f5434;box-shadow:inset 0 3px 0 #94744c;z-index:1;pointer-events:none}
 @media(prefers-reduced-motion:reduce){img.organism-art[src*="/species-raster/"]{animation:none!important}}
+/* Adult grasshopper: painted hop frames replace the CSS hint. The picture's
+   view-only rise and catch-up come from organism-layer.js (--hop-*); the
+   name and the touch target stay on the ground. Kept under reduced motion:
+   in chapter mode the hop is how the animal moves, not decoration. */
+.organism-object[data-visual-state=move] img.organism-art[src*="/species-raster/grasshopper-move-"]{animation:none!important}
+img.organism-art{translate:var(--hop-x,0px) calc(var(--hop-y,0px) - var(--hop-lift,0) * var(--sprite-height,0px))}
+img.organism-art[src*="/species-raster/grasshopper-move-"]{transition:translate 33ms linear}

@@ -12,3 +12,8 @@ export const rasterAsset=id=>`./assets/images/species-raster/${id}.webp`;
 // Stand-in until the nymph is painted: the adult picture (the newborn is
 // already drawn smaller). Remove once grasshopper-nymph art exists.
 export const rasterStandIns=new Set(['grasshopper:nymph']);
+// Painted motion frames (tools/build_species_raster.py --motion). A state listed
+// here swaps pictures; any other state keeps the base picture and its CSS hint.
+// Only the adult grasshopper's hop so far (artwork forest-sprites-motion-02).
+export const rasterFrames={grasshopper:{move:2}};
+export const rasterFrameAsset=(id,state,frame)=>`./assets/images/species-raster/${id}-${state}-${frame}.webp`;

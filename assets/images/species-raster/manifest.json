@@ -139,7 +139,21 @@
     248,
     174
    ],
-   "bytes": 10686
+   "bytes": 10686,
+   "frames": {
+    "move-0": {
+     "file": "grasshopper-move-0.webp",
+     "source": "grasshopper-move-0.png",
+     "sourceSha256": "8e577b3c0c2c5e3a429a3cc6a0bde4a029a93be6585199dcbd2ce0cf8e4a1771",
+     "bytes": 10826
+    },
+    "move-1": {
+     "file": "grasshopper-move-1.webp",
+     "source": "grasshopper-move-1.png",
+     "sourceSha256": "c7eb4d1e54638f3e453104519a51463980e813044b29ba6b419ad1845558385e",
+     "bytes": 10446
+    }
+   }
   },
   "grass": {
    "file": "grass.webp",

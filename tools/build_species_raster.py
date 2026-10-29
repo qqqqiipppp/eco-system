@@ -49,7 +49,37 @@ def build(art: Path, out: Path):
     (out / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
     return manifest
 
+def build_motion(frames: Path, sid: str, names, out: Path):
+    """Motion frames (python tools/build_species_raster.py --motion <folder> <id> move-0 move-1).
+
+    Every frame of a species reuses the crop box and scale of its approved base
+    picture, so the body stays put and only the drawn pose changes. The whole
+    canvas is mapped (not re-cropped), so a leg reaching past the base outline
+    is kept as long as it fits in the 256x192 frame.
+    """
+    manifest = json.loads((out / 'manifest.json').read_text(encoding='utf-8'))
+    base = manifest['species'][sid]
+    (x0, y0, x1, y1), (left, top, right, _) = base['visibleBox'], base['placedBox']
+    scale = (right - left) / (x1 - x0)
+    motion = base.setdefault('frames', {})
+    for name in names:
+        src = frames / f'{sid}-{name}.png'
+        raw = src.read_bytes()
+        im = Image.open(src).convert('RGBA')
+        assert list(im.size) == base['sourceSize'], f'{src.name}: canvas must match the base picture'
+        whole = im.resize((round(im.width * scale), round(im.height * scale)), Image.LANCZOS)
+        canvas = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+        canvas.alpha_composite(whole, (round(left - x0 * scale), round(top - y0 * scale)))
+        target = out / f'{sid}-{name}.webp'
+        canvas.save(target, 'WEBP', quality=86, alpha_quality=90, method=6)
+        motion[name] = {'file': target.name, 'source': src.name, 'sourceSha256': hashlib.sha256(raw).hexdigest(), 'bytes': target.stat().st_size}
+    (out / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
+    return motion
+
 if __name__ == '__main__':
+    if len(sys.argv) >= 4 and sys.argv[1] == '--motion':
+        print(build_motion(Path(sys.argv[2]), sys.argv[3], sys.argv[4:], Path(__file__).resolve().parent.parent / 'assets/images/species-raster'))
+        sys.exit()
     if len(sys.argv) < 2: sys.exit(__doc__)
     m = build(Path(sys.argv[1]), Path(__file__).resolve().parent.parent / 'assets/images/species-raster')
     print(len(m['species']), 'sprites,', sum(s['bytes'] for s in m['species'].values()) // 1024, 'KB')
