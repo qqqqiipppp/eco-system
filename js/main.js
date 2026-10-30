@@ -2,6 +2,7 @@ import {createCollectionView} from './ui/collection-view.js';
 import {createForestFlow} from './ui/forest-flow.js';
 import {createLearningGoalView} from './ui/learning-goal-view.js';
 import {bindDialogPause} from './ui/dialog-pause.js';
+import {recordError,watchErrors} from './ui/error-log.js';
 import {studentChange} from './ui/student-status.js';
 import {recordSpeciesObservation,syncCollection} from './state/collection-state.js';
 import {createNextForest} from './systems/replay.js';
@@ -66,6 +67,7 @@ const uiState = createUIState();
 let selectionPlaced=false;
 let stabilitySystem = createStabilitySystem();
 
+watchErrors();
 try {
   let flowView=null,learningGoalView=null;
   const forest = document.querySelector('.forest');
@@ -142,6 +144,7 @@ try {
   }, {onActivity:openLockedActivity,onWeb:id=>collectionView.openWeb(id)});
   const reading=bindDialogPause(()=>loop.refresh());
   const loop = createUpdateLoop({
+    onError:recordError,
     isPaused:reading.isPaused,
     pauseForReducedMotion:!chapterMode,
     hasWork: () => gameState.organisms.length>0 || hasDevelopmentWork(gameState) || hasEnvironmentEventWork(gameState) || Object.values(gameState.decomposition.organicMatter).some(v=>v>0) || Object.values(gameState.population.introductions).some(v=>v.nextAt>gameState.simulationTime) || eventSystem.needsTick(),
@@ -334,5 +337,5 @@ try {
   helpView.showForNewGame(!chapterMode&&restored.status === 'new');
 } catch (error) {
   document.querySelector('#load-error').hidden = false;
-  console.error('Forest screen initialization failed.', error);
+  console.error('Forest screen initialization failed.', error);recordError(error,'start');
 }

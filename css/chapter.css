@@ -287,3 +287,4 @@
 .web-board.locked .web-node{opacity:.55;pointer-events:none}
 .web-board.locked{cursor:wait}
 @media (prefers-reduced-motion:reduce){.web-node.candidate,.candidate-buttons button,.web-hand.show,.web-node.wrong,.chapter-actions.wrong{animation:none}}
+.chapter-prepare-timer{margin:10px 0 0;font-size:15px;color:var(--muted)}
