@@ -297,7 +297,9 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
  }
  // Before weather: it cannot be changed, but the forest can be made sturdier.
  let prepareTimer=null,promptedCrisis=null;
- const prepareLabel={plant:id=>`${name(id)} 더 심기 (${priceOf(id)}P)`,reduce:id=>`${name(id)} 한 마리 돌려보내기`,wait:()=>'그냥 기다리기'};
+ // An option that cannot be used has no species: its label must still build
+ // (a missing name here threw, and the forest froze at the warning).
+ const prepareLabel={plant:id=>id?`${name(id)} 더 심기 (${priceOf(id)}P)`:'먹이 식물 더 심기',reduce:id=>id?`${name(id)} 한 마리 돌려보내기`:'먹는 동물 한 마리 돌려보내기',wait:()=>'그냥 기다리기'};
  const prepareChosen={plant:'먹이 식물 더 심기',reduce:'먹는 동물 줄이기',wait:'그냥 기다리기'};
  function openPrepare(s){
   const kind=s.chapter.warning?.kind||s.chapter.crisisLog.at(-1).kind,crisis=crises[kind],options=prepareOptions(s);

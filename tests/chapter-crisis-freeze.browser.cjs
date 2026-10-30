@@ -35,7 +35,22 @@ const state=p=>p.evaluate(async()=>{const g=(await import('./js/main.js')).gameS
  // 3. A choice still works at once.
  p=await warnedForest(b);await p.locator('.chapter-prepare button',{hasText:'그냥 기다리기'}).tap();
  assert.equal((await state(p)).choice,'wait');await p.close();
- // 4. One failing frame does not end the loop.
+ // 4. The actual classroom freeze: with nothing to send back (one grasshopper),
+ // building the "send one back" label threw and the forest stopped at "5".
+ p=await b.newPage({viewport:{width:1280,height:620},hasTouch:true});
+ const errors=[];p.on('pageerror',e=>errors.push(e.message));
+ await p.goto(base);await p.waitForSelector('.chapter-hud');await p.evaluate(()=>document.querySelectorAll('dialog[open]').forEach(d=>d.close()));
+ await p.locator('.organism-card[data-species-id="grasshopper"]').click();await tapBackground(p,.45,.4);await p.waitForTimeout(300);
+ if(await p.locator('.clear-selection').count())await p.locator('.clear-selection').click();
+ await p.evaluate(()=>{localStorage.removeItem('eco-system:errors');document.querySelectorAll('dialog[open]').forEach(d=>d.close());});
+ await p.evaluate(async()=>{(await import('./js/main.js')).gameState.chapter.seedProgress=49.9;});
+ await p.waitForSelector('.chapter-prepare-dialog[open]',{timeout:8000});
+ assert.equal(await p.locator('.chapter-prepare button',{hasText:'먹는 동물 한 마리 돌려보내기'}).isDisabled(),true,'an unusable option is shown disabled');
+ await p.locator('.chapter-prepare button',{hasText:'그냥 기다리기'}).tap();
+ const t2=(await state(p)).t;await p.waitForTimeout(1500);assert.ok((await state(p)).t>t2+1,'the forest goes on');
+ assert.equal(await p.evaluate(()=>localStorage.getItem('eco-system:errors')),null,'no frame error');
+ assert.deepEqual(errors,[]);await p.close();
+ // 5. One failing frame does not end the loop.
  p=await b.newPage();await p.goto(base);await p.waitForSelector('.chapter-hud');
  const frames=await p.evaluate(async()=>{const {createUpdateLoop}=await import('./js/systems/update-loop.js');let n=0,errors=0;
   const loop=createUpdateLoop({update:()=>{n++;if(n===2)throw new Error('boom');return {};},render:()=>{},hasWork:()=>true,onError:()=>errors++,pauseForReducedMotion:false});
