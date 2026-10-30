@@ -110,7 +110,13 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   renderCrisis(s);
   const idle=!document.querySelector('dialog[open]');
   // Weather is coming: stop and choose how to prepare. Then see how it went.
-  if(idle&&prepareOptions(s).length)openPrepare(s);
+  if(idle&&prepareOptions(s).length){
+   // One question per crisis. If it closed without a choice taking effect,
+   // go on with "wait" instead of asking again (asking again and again kept
+   // the paused forest frozen behind the same window).
+   const record=s.chapter.crisisLog.find(r=>r.endedAt===null);
+   if(record===promptedCrisis)onPrepare('wait');else{promptedCrisis=record;openPrepare(s);}
+  }
   else if(idle&&!c.cleared&&crisisReport(s))openReport(crisisReport(s));
   if(c.cleared&&shownClear!==c.stageId&&!document.querySelector('dialog[open]'))openClear();
  }
@@ -290,16 +296,25 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
    element('p',{className:'chapter-shop-note',textContent:'💡를 잡으면 포인트가 생겨요. 포인트로 생물 카드를 사서 숲에 놓아요.'}),actions([['시작하기',()=>dialog.close()]])]);
  }
  // Before weather: it cannot be changed, but the forest can be made sturdier.
+ let prepareTimer=null,promptedCrisis=null;
  const prepareLabel={plant:id=>`${name(id)} 더 심기 (${priceOf(id)}P)`,reduce:id=>`${name(id)} 한 마리 돌려보내기`,wait:()=>'그냥 기다리기'};
  const prepareChosen={plant:'먹이 식물 더 심기',reduce:'먹는 동물 줄이기',wait:'그냥 기다리기'};
  function openPrepare(s){
   const kind=s.chapter.warning?.kind||s.chapter.crisisLog.at(-1).kind,crisis=crises[kind],options=prepareOptions(s);
+  // The forest waits while the window is open, so the window cannot wait
+  // forever: without a choice it goes on with "wait" after a short countdown,
+  // and closing it any other way (back button, Esc) also means "wait".
+  let chosen=false,left=config.prepareAutoSeconds;
+  const timer=element('p',{className:'chapter-prepare-timer'}),tick=()=>{timer.textContent=`${left}초 안에 고르지 않으면 '그냥 기다리기'로 넘어가요.`;};
+  const choose=id=>{if(chosen)return;chosen=true;clearInterval(prepareTimer);if(dialog.open)dialog.close();onPrepare(id);};
+  clearInterval(prepareTimer);tick();prepareTimer=setInterval(()=>{left--;tick();if(left<=0)choose('wait');},1000);
+  dialog.addEventListener('close',()=>choose('wait'),{once:true});
   show([element('span',{className:'eyebrow',textContent:'대비하기'}),element('h2',{textContent:crisis.notice}),
    element('p',{textContent:`${crisis.effect} 날씨는 바꿀 수 없지만, 숲을 미리 튼튼하게 만들 수는 있어요. 무엇을 할까요?`}),
    element('p',{className:'chapter-shop-note',textContent:`약 1분 뒤 날씨가 지나가면 판정해요. 숲 별이 거의 멈추지 않으면 튼튼한 숲 +${config.crisisStrongReward}P, 오래 멈추면 차오르던 숲 별 게이지가 절반 줄어요.`}),
    element('div',{className:'chapter-actions chapter-prepare'},options.map(o=>{
-    const button=element('button',{type:'button',disabled:!o.ok,textContent:prepareLabel[o.id](o.speciesId),onclick:()=>{dialog.close();onPrepare(o.id);}});
-    if(o.id==='reduce'&&!o.ok)button.title='더 줄일 수 있는 먹는 동물이 없어요.';return button;}))],'chapter-prepare-dialog');
+    const button=element('button',{type:'button',disabled:!o.ok,textContent:prepareLabel[o.id](o.speciesId),onclick:()=>choose(o.id)});
+    if(o.id==='reduce'&&!o.ok)button.title='더 줄일 수 있는 먹는 동물이 없어요.';return button;})),timer],'chapter-prepare-dialog');
  }
  // The verdict at the end of a crisis: what was done, how long the stars
  // stalled, and the reward or the cost.
