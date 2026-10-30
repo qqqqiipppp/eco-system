@@ -38,6 +38,8 @@ export const stageConfig = {
   crisisFoodRecovery: .1,
   crisisStrongMaxStall: 5,
   crisisStrongReward: 5,
+  // The prepare window pauses the forest: without a choice it goes on with "wait".
+  prepareAutoSeconds: 20,
   crisisTiredMinStall: 20,
   prices: {grass: 3, raspberry: 3, oak: 6, hazel: 6, grasshopper: 4, earthworm: 4, aphid: 5, rabbit: 6, chipmunk: 6, mushroom: 5, 'litter-mold': 5, frog: 8, bulbul: 8, snake: 10, weasel: 10, goshawk: 12},
 };

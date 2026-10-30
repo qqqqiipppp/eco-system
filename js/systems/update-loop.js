@@ -6,7 +6,9 @@ import { wanderConfig } from '../../data/interaction-config.js';
 // pauseForReducedMotion: the regular forest stops when the device asks for less
 // motion; chapter mode keeps its clock running (stars, crises, breeding depend on
 // it) and only drops decorative CSS animation.
-export function createUpdateLoop({ update, render, hasWork, isPaused = () => false, pauseForReducedMotion = true }) {
+// onError: one failed frame must not end the loop. Without this, an exception
+// in update or render left the forest frozen until the page was reloaded.
+export function createUpdateLoop({ update, render, hasWork, isPaused = () => false, pauseForReducedMotion = true, onError = error => console.error(error) }) {
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let frameId = null;
   let previousTime = null;
@@ -24,9 +26,8 @@ export function createUpdateLoop({ update, render, hasWork, isPaused = () => fal
     if (previousTime === null) previousTime = time;
     const elapsed = time - previousTime;
     if (elapsed >= 1000 / wanderConfig.framesPerSecond) {
-      const changed = update(Math.min(elapsed / 1000, 0.1));
-      render(changed);
       previousTime = time;
+      try { render(update(Math.min(elapsed / 1000, 0.1))); } catch (error) { onError(error); }
     }
     frameId = requestAnimationFrame(frame);
   }
