@@ -26,13 +26,14 @@ if(typeof Image!=='undefined')for(const [id,states] of Object.entries(rasterFram
 export const stillSpecies=new Set(['oak','pine','hazel','raspberry','mushroom','litter-mold','soil-bacteria']);
 
 // One hop, in seconds of screen time (a starting point to tune by eye, not a
-// measured grasshopper speed). Frame 0 is the crouch, frame 1 the push and
-// flight. lift is the height above the ground as a share of the sprite height.
-export const hopTiming=Object.freeze({cycle:.8,launch:.16,land:.56,height:.38});
+// measured grasshopper speed). Frames: 0 crouch, 1 push off, 2 legs drawn in
+// while flying, 3 legs reaching down to land, then 0 again on the ground.
+// lift is the height above the ground as a share of the sprite height.
+export const hopTiming=Object.freeze({cycle:.8,launch:.16,tuck:.26,reach:.48,land:.56,height:.38});
 export function hopPose(t){
- const {launch,land,height}=hopTiming;
+ const {launch,tuck,reach,land,height}=hopTiming;
  if(t<launch)return {frame:0,phase:'crouch',lift:0,air:0};
- if(t<land){const u=(t-launch)/(land-launch);return {frame:1,phase:'air',lift:height*4*u*(1-u),air:u};}
+ if(t<land){const u=(t-launch)/(land-launch);return {frame:t<tuck?1:t<reach?2:3,phase:'air',lift:height*4*u*(1-u),air:u};}
  return {frame:0,phase:'rest',lift:0,air:1};
 }
 

@@ -152,6 +152,18 @@
      "source": "grasshopper-move-1.png",
      "sourceSha256": "c7eb4d1e54638f3e453104519a51463980e813044b29ba6b419ad1845558385e",
      "bytes": 10446
+    },
+    "move-2": {
+     "file": "grasshopper-move-2.webp",
+     "source": "grasshopper-move-2.png",
+     "sourceSha256": "d325b122bcd2821639d21bc462b0b7c5781c28b85c75b454ca04c46e075e9e55",
+     "bytes": 10502
+    },
+    "move-3": {
+     "file": "grasshopper-move-3.webp",
+     "source": "grasshopper-move-3.png",
+     "sourceSha256": "61d5df71f8f2e1169024dd2caf9511ab1002f1f74c893e0dfc0ce9869d324081",
+     "bytes": 11374
     }
    }
   },
