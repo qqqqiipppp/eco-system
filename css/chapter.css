@@ -291,3 +291,30 @@
 /* New version bar (js/ui/update-check.js). Open dialogs stay on top; the bar waits beneath them. */
 .update-bar{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:1000;display:flex;align-items:center;gap:14px;max-width:calc(100% - 32px);padding:10px 12px 10px 18px;border-radius:14px;background:#203126;color:#fff;font-size:18px;box-shadow:0 6px 24px #0004}
 .update-bar button{min-height:48px;padding:0 18px;border:0;border-radius:10px;background:#f4d35e;color:#203126;font-size:18px;font-weight:700;white-space:nowrap}
+/* Thinking back after a crisis: one question, three big choices, the answer explained. */
+.chapter-reflect{display:grid;gap:8px;margin-top:6px;padding:12px;border-radius:12px;background:#f3f6e9}
+.chapter-reflect .chapter-reflect-question{margin:0;font-size:20px;font-weight:700}
+.chapter-reflect-choices{display:grid;gap:8px}
+.chapter-reflect-choices button{min-height:52px;padding:8px 14px;border:2px solid #b8c6aa;border-radius:10px;background:#fff;color:inherit;font-size:18px;text-align:left}
+.chapter-reflect-choices button:disabled{opacity:1;cursor:default}
+.chapter-reflect-choices button.right{border-color:#4f8a3a;background:#eaf5e2;font-weight:700}
+.chapter-reflect-choices button.right::before{content:"✓ "}
+.chapter-reflect-choices button.chosen-wrong{border-color:#c0392b;background:#fbeae6}
+.chapter-reflect-choices button.chosen-wrong::before{content:"✗ "}
+.chapter-reflect-feedback{margin:0;font-size:18px;line-height:1.5}
+.chapter-reflect-feedback:empty{display:none}
+.chapter-reflect-feedback.right strong{color:#24501a}.chapter-reflect-feedback.wrong strong{color:#7a1f15}
+/* 나의 기록: one block per chapter reached. */
+.chapter-record-dialog{width:min(860px,calc(100% - 28px))}
+.record-chapter{display:grid;gap:8px;margin:0 0 14px;padding:12px 14px;border-radius:12px;background:#f3f6e9}
+.record-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.record-head h3{margin:0;font-size:21px}
+.record-rows{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:6px;margin:0}
+.record-rows div{padding:6px 10px;border-radius:8px;background:#fff}
+.record-rows dt{font-size:14px;font-weight:700;color:var(--muted)}
+.record-rows dd{margin:0;font-size:17px}
+.record-chapter h4{margin:4px 0 0;font-size:17px}
+.record-answers{display:grid;gap:4px;margin:0;padding:0;list-style:none;font-size:16px}
+.record-answers li.right strong{color:#24501a}.record-answers li.wrong strong{color:#7a1f15}
+.record-empty{margin:0;color:var(--muted)}
+.chapter-report-dialog h2:focus{outline:none}
