@@ -10,7 +10,7 @@ import { createHelpView } from './ui/help-view.js';
 import { createGuideAdapter } from './adapters/guide-preference.js';
 import { updateForestGoal } from './systems/forest-progress.js';
 import { createSaveService } from './services/save-service.js';
-import { createLocalAdapter,createNoSaveAdapter,createChapterProgressAdapter } from './adapters/local-storage.js';
+import { createLocalAdapter,createNoSaveAdapter,createChapterProgressAdapter,createChapterStageAdapter } from './adapters/local-storage.js';
 import {createStageGameState,updateStage,catchObservation,careFor,buyCheck,payFor,collectTrash,prepareFor} from './systems/chapter-stage.js';
 import {organismById as speciesById} from '../data/organisms.js';
 import {particle} from '../data/student-text.js';
@@ -57,12 +57,16 @@ export const gameState = createGameState();
 export const saveService = createSaveService({adapter:chapterMode?createNoSaveAdapter():createLocalAdapter(),getState:()=>gameState,getEventMemory:()=>eventSystem.exportMemory(),onStatus:showSaveStatus});
 const restored = saveService.load();
 Object.assign(gameState,restored.state);
-if(chapterMode)Object.assign(gameState,createStageGameState(stages.find(s=>!chapterProgress.cleared().includes(s.stageId))||stages[0]));
+// A stage left half-played (reload, closed tab, sleeping tablet) comes back as
+// it was; the student is then asked whether to go on or start it again.
+const stageSave=chapterMode?createChapterStageAdapter():null;
+const resumable=stageSave?.read(id=>Boolean(stageById[id])&&!chapterProgress.cleared().includes(id))||null;
+if(chapterMode)Object.assign(gameState,resumable?resumable.state:createStageGameState(stages.find(s=>!chapterProgress.cleared().includes(s.stageId))||stages[0]));
 // The fallen log is part of the scene from chapter 3 on; set before organisms are placed.
 const setScene=s=>{sceneSpaces.log=Boolean(s.chapter&&stageById[s.chapter.stageId].chapter.number>=3);};
 setScene(gameState);
 export let feedingSystem = createFeedingSystem(gameState.simulationTime);
-export let eventSystem = createEventSystem(gameState.simulationTime,restored.eventMemory);
+export let eventSystem = createEventSystem(gameState.simulationTime,resumable?.eventMemory??restored.eventMemory);
 const uiState = createUIState();
 let selectionPlaced=false;
 let stabilitySystem = createStabilitySystem();
@@ -74,14 +78,23 @@ try {
   if(chapterMode)capForestAspect(forest);
   const scene = createOrganismLayer(forest, () => gameState.organisms);
   let wander = createWanderSystem();
-  let lastCheckpoint = gameState.simulationTime;
+  let lastCheckpoint = gameState.simulationTime,lastStageSave=gameState.simulationTime;
+  // Chapter mode keeps the stage being played: every few seconds of play and
+  // whenever the page is hidden or closed. A cleared stage is not kept.
+  function saveStage(){
+    if(!chapterMode)return;
+    if(gameState.chapter.cleared){stageSave.remove();return;}
+    if(gameState.simulationTime<=0)return;
+    lastStageSave=gameState.simulationTime;stageSave.write(gameState,eventSystem.exportMemory());
+  }
+  if(chapterMode){addEventListener('pagehide',saveStage);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')saveStage();});}
   let lastPopulationSequence=gameState.population.sequence;
   const populationButton=document.createElement('button');populationButton.id='population-open';populationButton.type='button';populationButton.textContent='생물 살펴보기';document.querySelector('.header-actions').append(populationButton);
   let chapterView=null;
   if(chapterMode){
     document.body.classList.add('chapter-mode');
     const webView=createChapterWebView(chapterProgress,{onComplete:()=>chapterView.webDone(),onGuide:id=>collectionView.openGuide(id,null)});
-    chapterView=createChapterView(()=>gameState,{forest,notify:(text,ok)=>important(text,ok),cleared:()=>chapterProgress.cleared(),openWeb:n=>webView.open(n),webComplete:n=>webView.isComplete(n),onCatch:catchStageObservation,onCollect:collectStageTrash,onPrepare:prepareStage,onStage:id=>installForest(createStageGameState(stageById[id])),onCare:careStageEnvironment,onExit:()=>{location.search='?mode=forest';}});
+    chapterView=createChapterView(()=>gameState,{forest,notify:(text,ok)=>important(text,ok),cleared:()=>chapterProgress.cleared(),openWeb:n=>webView.open(n),webComplete:n=>webView.isComplete(n),onCatch:catchStageObservation,onCollect:collectStageTrash,onPrepare:prepareStage,onStage:id=>{stageSave.remove();installForest(createStageGameState(stageById[id]));},onRestart:()=>{stageSave.remove();installForest(createStageGameState(stageById[gameState.chapter.stageId]));},onCare:careStageEnvironment,onExit:()=>{location.search='?mode=forest';}});
   }else{
     const chapterButton=document.createElement('button');chapterButton.id='chapter-open';chapterButton.type='button';chapterButton.textContent='챕터 모드';
     chapterButton.addEventListener('click',()=>{location.href=location.pathname;});document.querySelector('.header-actions').append(chapterButton);
@@ -154,7 +167,7 @@ try {
       result.moved.push(...wander.update(gameState.organisms, dt, scene.getLayout(), animalActivity(gameState.environment)));
       if (result.ticked) stabilitySystem.update(gameState, ecologyConfig.tickSeconds);
       result.eventTicked = result.ticked && eventSystem.update(gameState, ecologyConfig.tickSeconds, result.feedingEvents);
-      if(chapterMode&&result.ticked){const stage=updateStage(gameState,ecologyConfig.tickSeconds,result.feedingEvents);result.added.push(...stage.born);afterStageChange(stage);}
+      if(chapterMode&&result.ticked){const stage=updateStage(gameState,ecologyConfig.tickSeconds,result.feedingEvents);result.added.push(...stage.born);afterStageChange(stage);if(gameState.simulationTime-lastStageSave>=5)saveStage();}
       if(result.removedIds.length||result.added.length||result.developmentChanges.length){eventSystem.refresh(gameState);result.eventTicked=true;}
       if(result.ticked) {
         refreshProgress(ecologyConfig.tickSeconds);
@@ -222,7 +235,7 @@ try {
       const rule=breeding.species[child.speciesId];
       important(`${speciesById[child.speciesId].name} ${particle(rule.young,'이','가')} 태어났어요! ${rule.cycle} (게임에서는 실제보다 시간을 짧게 줄였어요.)`,true);
     }
-    if(response.cleared)chapterProgress.markCleared(gameState.chapter.stageId);
+    if(response.cleared){chapterProgress.markCleared(gameState.chapter.stageId);stageSave.remove();}
   }
   function clearSelection() {
     const previousId = uiState.selectedSpeciesId;
@@ -318,13 +331,13 @@ try {
     if(!saveService.reset())return false;
     installForest(createGameState());return true;
   }
-  function installForest(nextState) {
+  function installForest(nextState,eventMemory) {
     loop.stop();
     for(const key of Object.keys(gameState))delete gameState[key];
     Object.assign(gameState,nextState);
     setScene(gameState);
-    feedingSystem=createFeedingSystem();eventSystem=createEventSystem();stabilitySystem=createStabilitySystem();wander=createWanderSystem();
-    lastCheckpoint=0;lastPopulationSequence=0;selectionPlaced=false;uiState.selectedSpeciesId=null;populationView.reset();
+    feedingSystem=createFeedingSystem();eventSystem=eventMemory?createEventSystem(gameState.simulationTime,eventMemory):createEventSystem();stabilitySystem=createStabilitySystem();wander=createWanderSystem();
+    lastCheckpoint=0;lastStageSave=gameState.simulationTime;lastPopulationSequence=0;selectionPlaced=false;uiState.selectedSpeciesId=null;populationView.reset();
     document.querySelectorAll('dialog[open]').forEach(dialog=>dialog.close());
     scene.reset();activityView.reset();eventView.reset();collectionView.reset();chapterView?.reset();
     stabilitySystem.update(gameState);refreshProgress();
@@ -332,6 +345,7 @@ try {
     gameState.organisms.forEach(instance=>scene.add(instance));eventSystem.refresh(gameState);eventView.render();loop.refresh();
     return true;
   }
+  if(resumable)chapterView.resume(resumable);
   chapterView?.render();
   loop.refresh();
   helpView.showForNewGame(!chapterMode&&restored.status === 'new');
