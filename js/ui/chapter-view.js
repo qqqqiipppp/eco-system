@@ -1,3 +1,4 @@
+import {fullscreenButton} from './fullscreen.js';
 import {stageBlockers,careOptions,needStates,neededCards,priceOf,prepareOptions,crisisReport,markReported,breedingState,isYoung} from '../systems/chapter-stage.js';
 import {currentEnvironmentEvent} from '../systems/environment-events.js';
 import {factorValue,qualityLabel} from '../systems/environment.js';
@@ -42,7 +43,7 @@ const chapterNews=chapter=>[
 // Stage HUD, things to tap in the forest (💡 and litter), crisis warnings,
 // chapter dialogs and the chapter map. Create before bindDialogPause so the
 // dialogs pause the forest like the others. No sound: motion and colour only.
-export function createChapterView(getState,{forest,cleared,notify,onCatch,onCollect,onPrepare,onStage,onCare,onExit,openWeb,webComplete}){
+export function createChapterView(getState,{forest,cleared,notify,onCatch,onCollect,onPrepare,onStage,onRestart,onCare,onExit,openWeb,webComplete}){
  const seeds=Array.from({length:config.seedsToClear},()=>element('span',{className:'chapter-seed'}));
  const title=element('h2'),eyebrow=element('span',{className:'eyebrow'}),goal=element('p',{className:'chapter-goal'});
  const meter=element('progress',{value:0});meter.setAttribute('aria-label','다음 숲 별까지');
@@ -51,6 +52,7 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
  const mapButton=element('button',{type:'button',textContent:'숲 지도',onclick:()=>openMap()});
  const webButton=element('button',{type:'button',textContent:'나의 먹이그물',onclick:()=>openWeb(stageById[getState().chapter.stageId].chapter.number)});
  const exitButton=element('button',{type:'button',textContent:'기존 숲으로',onclick:onExit});
+ const restartButton=element('button',{type:'button',textContent:'이 스테이지 처음부터',onclick:()=>openRestart()});
  const hud=element('section',{className:'chapter-hud'},[
   element('div',{className:'chapter-title'},[eyebrow,title,goal]),
   element('div',{className:'chapter-progress'},[element('div',{className:'chapter-seeds'},seeds),meter,status,care]),
@@ -64,7 +66,8 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
  // The menu holds every other button (they keep their own handlers).
  const header=document.querySelector('.app-header'),namesToggle=forest.querySelector('#names-toggle');
  const menuButton=element('button',{type:'button',className:'chapter-menu-button',textContent:'☰ 메뉴'});
- const menu=element('div',{className:'chapter-menu',id:'chapter-menu',hidden:true},[mapButton,webButton,element('hr'),header.querySelector('.header-actions'),...(namesToggle?[namesToggle]:[]),element('hr'),exitButton]);
+ const fullscreen=fullscreenButton();
+ const menu=element('div',{className:'chapter-menu',id:'chapter-menu',hidden:true},[mapButton,webButton,restartButton,element('hr'),...(fullscreen?[fullscreen]:[]),header.querySelector('.header-actions'),...(namesToggle?[namesToggle]:[]),element('hr'),exitButton]);
  menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-controls','chapter-menu');
  const setMenu=open=>{menu.hidden=!open;menuButton.setAttribute('aria-expanded',String(open));};
  menuButton.addEventListener('click',()=>setMenu(menu.hidden));
@@ -295,6 +298,22 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   show([element('span',{className:'eyebrow',textContent:`챕터 ${stage.chapter.number}`}),element('h2',{textContent:stage.chapter.title}),...chapterNews(stage.chapter),
    element('p',{className:'chapter-shop-note',textContent:'💡를 잡으면 포인트가 생겨요. 포인트로 생물 카드를 사서 숲에 놓아요.'}),actions([['시작하기',()=>dialog.close()]])]);
  }
+ // A half-played stage came back after a reload: go on, or start it again
+ // (a tablet passed to the next class should not hand over someone's forest).
+ const ago=ms=>{const m=Math.round(ms/60000);return m<1?'방금':m<60?`${m}분 전`:m<1440?`${Math.round(m/60)}시간 전`:`${Math.round(m/1440)}일 전`;};
+ function resume(save){
+  const s=getState(),stage=stageById[s.chapter.stageId];shownIntro=stage.stageId;
+  show([element('span',{className:'eyebrow',textContent:'이어서 하기'}),element('h2',{textContent:`${stage.stageId} ${stage.title}`}),
+   element('p',{textContent:`하던 숲이 남아 있어요. 숲 별 ${s.chapter.seeds}개 · 생물 ${s.organisms.length}개체 · ${s.metrics.points}P · ${ago(Date.now()-save.savedAt)}에 저장했어요.`}),
+   element('p',{className:'chapter-shop-note',textContent:'다른 친구가 하던 숲이라면 처음부터 시작해요.'}),
+   actions([['이어서 하기',()=>dialog.close()],['처음부터',()=>{dialog.close();onRestart();}]])],'chapter-resume-dialog');
+ }
+ function openRestart(){
+  const stage=stageById[getState().chapter.stageId];
+  show([element('h2',{textContent:`${stage.stageId} 처음부터 할까요?`}),
+   element('p',{textContent:'이 스테이지의 숲, 숲 별, 포인트가 처음으로 돌아가요. 이미 깬 스테이지와 나의 먹이그물 기록은 그대로예요.'}),
+   actions([['계속하기',()=>dialog.close()],['처음부터 하기',()=>{dialog.close();onRestart();}]])]);
+ }
  // Before weather: it cannot be changed, but the forest can be made sturdier.
  let prepareTimer=null,promptedCrisis=null;
  const prepareLabel={plant:id=>`${name(id)} 더 심기 (${priceOf(id)}P)`,reduce:id=>`${name(id)} 한 마리 돌려보내기`,wait:()=>'그냥 기다리기'};
@@ -378,5 +397,5 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
  }
  // Back from a finished web: show the chapter's end again, now with the way on.
  const webDone=()=>{if(getState().chapter.cleared&&!document.querySelector('dialog[open]'))openClear();};
- return {render,caughtMessage,webDone,spent,reset:()=>{shownClear=null;careKey='';shopKey='';lastSeeds=0;pairMemory={};formedShown=new Set();layer.replaceChildren();}};
+ return {render,resume,caughtMessage,webDone,spent,reset:()=>{shownClear=null;careKey='';shopKey='';lastSeeds=0;pairMemory={};formedShown=new Set();layer.replaceChildren();}};
 }
