@@ -19,3 +19,15 @@ export function createChapterProgressAdapter(getStorage=()=>globalThis.localStor
  return {read,cleared:()=>read().cleared,markCleared:id=>add('cleared',id),markObserved:id=>add('observed',id),
   markDrawn:id=>add('drawn',id),markSystem:n=>add('system',n),setRole:(id,role)=>update(v=>{v.roles[id]=role;})};
 }
+// The stage being played, so a reload, a closed tab or a sleeping tablet does
+// not throw away the forest. Only one stage at a time; unreadable or foreign
+// data is ignored (the stage then simply starts fresh).
+export const STAGE_KEY='eco-system:chapter-stage';
+export function createChapterStageAdapter(getStorage=()=>globalThis.localStorage){
+ return {
+  read(isValidStage=()=>true){try{const v=JSON.parse(getStorage().getItem(STAGE_KEY));
+   return v&&v.version===1&&typeof v.stageId==='string'&&isValidStage(v.stageId)&&v.state?.chapter?.stageId===v.stageId&&Array.isArray(v.state.organisms)&&Number.isFinite(v.state.simulationTime)&&Number.isFinite(v.savedAt)?v:null;}catch{return null;}},
+  write(state,eventMemory,now=Date.now()){try{getStorage().setItem(STAGE_KEY,JSON.stringify({version:1,stageId:state.chapter.stageId,savedAt:now,state,eventMemory}));return true;}catch{return false;}},
+  remove(){try{getStorage().removeItem(STAGE_KEY);}catch{}},
+ };
+}
