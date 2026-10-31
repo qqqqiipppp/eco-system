@@ -3,6 +3,7 @@ import {createForestFlow} from './ui/forest-flow.js';
 import {createLearningGoalView} from './ui/learning-goal-view.js';
 import {bindDialogPause} from './ui/dialog-pause.js';
 import {recordError,watchErrors} from './ui/error-log.js';
+import {watchForUpdates} from './ui/update-check.js';
 import {studentChange} from './ui/student-status.js';
 import {recordSpeciesObservation,syncCollection} from './state/collection-state.js';
 import {createNextForest} from './systems/replay.js';
@@ -72,6 +73,7 @@ let selectionPlaced=false;
 let stabilitySystem = createStabilitySystem();
 
 watchErrors();
+watchForUpdates();
 try {
   let flowView=null,learningGoalView=null;
   const forest = document.querySelector('.forest');
