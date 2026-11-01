@@ -33,6 +33,7 @@ export function createChapterWebView(progress,{onComplete=()=>{},onGuide=null}={
  const hintIdleMs=6000,lockMs=5000,lockAfter=3;
  function nudge(){clearTimeout(idleTimer);handShown=false;dialog.querySelector('.web-hand')?.classList.remove('show');idleTimer=setTimeout(()=>{handShown=true;dialog.querySelector('.web-hand')?.classList.add('show');},hintIdleMs);}
  function missed(key,ids,arrow=null){
+  progress.addMistake?.(chapterNumber,key.split(':')[0]);
   wrong={ids,at:Date.now()};wrongArrow=arrow;streak++;misses[key]=(misses[key]||0)+1;
   if(streak>=lockAfter){streak=0;lockedUntil=Date.now()+lockMs;clearTimeout(lockTimer);lockTimer=setTimeout(()=>{lockedUntil=0;if(dialog.open)render();},lockMs);}
   return misses[key]>=2;
@@ -126,7 +127,7 @@ export function createChapterWebView(progress,{onComplete=()=>{},onGuide=null}={
  function checkSystem(nodes,factor){
   const steps=spreadOfChange(nodes,factor),missed=nodes.filter(id=>!picks.has(id));
   if(lockedUntil>Date.now())return;nudge();
-  if(!missed.length){right();progress.markSystem(chapterNumber);stepNote=`맞아요. 모든 생물이 영향을 받아요. ${[...steps.values()].slice(0,3).join(' ')}`;}
+  if(!missed.length){right();progress.markSystem(chapterNumber);progress.markWebDone?.(chapterNumber);stepNote=`맞아요. 모든 생물이 영향을 받아요. ${[...steps.values()].slice(0,3).join(' ')}`;}
   else{stepNote=`아직 영향을 받는 생물이 더 있어요. 힌트: ${steps.get(missed[0])}`;noteMiss('system',['system']);}
   render();
  }

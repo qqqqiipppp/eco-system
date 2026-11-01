@@ -1,4 +1,5 @@
 import {fullscreenButton} from './fullscreen.js';
+import {crisisQuestions} from '../../data/crisis-reflection.js';
 import {stageBlockers,careOptions,needStates,neededCards,priceOf,prepareOptions,crisisReport,markReported,breedingState,isYoung} from '../systems/chapter-stage.js';
 import {currentEnvironmentEvent} from '../systems/environment-events.js';
 import {factorValue,qualityLabel} from '../systems/environment.js';
@@ -43,7 +44,7 @@ const chapterNews=chapter=>[
 // Stage HUD, things to tap in the forest (💡 and litter), crisis warnings,
 // chapter dialogs and the chapter map. Create before bindDialogPause so the
 // dialogs pause the forest like the others. No sound: motion and colour only.
-export function createChapterView(getState,{forest,cleared,notify,onCatch,onCollect,onPrepare,onStage,onRestart,onCare,onExit,openWeb,webComplete}){
+export function createChapterView(getState,{forest,cleared,notify,onCatch,onCollect,onPrepare,onStage,onRestart,onCare,onExit,openWeb,webComplete,openRecord,reflections=()=>[],onReflect=()=>{}}){
  const seeds=Array.from({length:config.seedsToClear},()=>element('span',{className:'chapter-seed'}));
  const title=element('h2'),eyebrow=element('span',{className:'eyebrow'}),goal=element('p',{className:'chapter-goal'});
  const meter=element('progress',{value:0});meter.setAttribute('aria-label','다음 숲 별까지');
@@ -53,6 +54,7 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
  const webButton=element('button',{type:'button',textContent:'나의 먹이그물',onclick:()=>openWeb(stageById[getState().chapter.stageId].chapter.number)});
  const exitButton=element('button',{type:'button',textContent:'기존 숲으로',onclick:onExit});
  const restartButton=element('button',{type:'button',textContent:'이 스테이지 처음부터',onclick:()=>openRestart()});
+ const recordButton=element('button',{type:'button',textContent:'나의 기록',onclick:()=>openRecord()});
  const hud=element('section',{className:'chapter-hud'},[
   element('div',{className:'chapter-title'},[eyebrow,title,goal]),
   element('div',{className:'chapter-progress'},[element('div',{className:'chapter-seeds'},seeds),meter,status,care]),
@@ -67,7 +69,7 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
  const header=document.querySelector('.app-header'),namesToggle=forest.querySelector('#names-toggle');
  const menuButton=element('button',{type:'button',className:'chapter-menu-button',textContent:'☰ 메뉴'});
  const fullscreen=fullscreenButton();
- const menu=element('div',{className:'chapter-menu',id:'chapter-menu',hidden:true},[mapButton,webButton,restartButton,element('hr'),...(fullscreen?[fullscreen]:[]),header.querySelector('.header-actions'),...(namesToggle?[namesToggle]:[]),element('hr'),exitButton]);
+ const menu=element('div',{className:'chapter-menu',id:'chapter-menu',hidden:true},[mapButton,webButton,recordButton,restartButton,element('hr'),...(fullscreen?[fullscreen]:[]),header.querySelector('.header-actions'),...(namesToggle?[namesToggle]:[]),element('hr'),exitButton]);
  menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-controls','chapter-menu');
  const setMenu=open=>{menu.hidden=!open;menuButton.setAttribute('aria-expanded',String(open));};
  menuButton.addEventListener('click',()=>setMenu(menu.hidden));
@@ -352,9 +354,28 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
    element('p',{textContent:`${done} · ${particle(event.name,'이','가')} 오는 동안 숲 별이 멈춘 시간: ${stalled}초`}),
    element('p',{className:'chapter-lesson',textContent:lesson})];
  }
+ // One question to think back: why it happened or what people can do. The
+ // answer shows right away with a short explanation and the report's lesson
+ // (kept back until then, since it gives the answer away); then the forest goes on.
+ function reflection(record,lesson){
+  const kind=record.kind,asked=reflections().filter(r=>r.kind===kind).length,set=crisisQuestions[kind];
+  const index=asked%set.length,q=set[index],next=actions([['계속하기',()=>dialog.close()]]);next.hidden=true;
+  const feedback=element('p',{className:'chapter-reflect-feedback'});feedback.setAttribute('aria-live','polite');
+  const buttons=q.choices.map((text,i)=>element('button',{type:'button',textContent:text,onclick:()=>{
+   const correct=i===q.answer;
+   buttons.forEach((b,k)=>{b.disabled=true;b.classList.toggle('right',k===q.answer);b.classList.toggle('chosen-wrong',k===i&&!correct);});
+   feedback.replaceChildren(element('strong',{textContent:correct?'맞아요! ':'다시 생각해 봐요. '}),q.explanation);feedback.className=`chapter-reflect-feedback ${correct?'right':'wrong'}`;
+   onReflect({stageId:getState().chapter.stageId,kind,question:index,correct,at:new Date().toISOString()});
+   lesson.hidden=false;next.hidden=false;next.querySelector('button').focus();
+  }}));
+  return [element('div',{className:'chapter-reflect'},[element('span',{className:'eyebrow',textContent:'생각해 봐요'}),element('p',{className:'chapter-reflect-question',textContent:q.question}),
+   element('div',{className:'chapter-reflect-choices'},buttons),feedback]),lesson,next];
+ }
  function openReport(record){
   markReported(record);
-  show([element('h2',{textContent:`${particle(environmentEventDefinitions[record.kind].name,'이','가')} 지나갔어요`}),...reportLines(record),actions([['계속하기',()=>dialog.close()]])]);
+  const [verdictLine,doneLine,lesson]=reportLines(record);lesson.hidden=true;
+  // The title takes the focus, so no choice looks picked before the student taps.
+  show([element('h2',{textContent:`${particle(environmentEventDefinitions[record.kind].name,'이','가')} 지나갔어요`,tabIndex:-1,autofocus:true}),verdictLine,doneLine,...reflection(record,lesson)],'chapter-report-dialog');
  }
  // The original's pet hatching: three seeds go into the soil and sprout.
  const planting=()=>element('div',{className:'chapter-planting'},Array.from({length:config.seedsToClear},(_,i)=>{
