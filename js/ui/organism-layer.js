@@ -73,12 +73,14 @@ export function createOrganismLayer(forest, getOrganisms) {
       paint(instance);
     }
   }
-  // View-only hop (adult grasshopper): the picture rises and falls above the
+  // View-only hop (hopping animals): the picture rises and falls above the
   // model's point and, on the ground, waits while the model point moves on,
-  // then catches up in the air. The model position, the name and the touch
-  // target never move; the offset is bounded and returns to zero on landing.
-  function paintHop(entry,hop){
+  // then catches up in the air. A flying bird only rises: it moves with its
+  // point. The model position, the name and the touch target never move; the
+  // offset is bounded and returns to zero on landing.
+  function paintHop(entry,frameHop){
     const point=entry.point;if(!point)return;
+    const hop=frameHop?.fly?null:frameHop;
     const last=entry.hopPoint||point,dx=point.x-last.x,dy=point.y-last.y;entry.hopPoint={x:point.x,y:point.y};
     let off=entry.hopOffset||{x:0,y:0};
     if(hop?.phase==='air'){entry.hopLaunch??={x:off.x-dx,y:off.y-dy};off={x:entry.hopLaunch.x*(1-hop.air),y:entry.hopLaunch.y*(1-hop.air)};}
@@ -87,11 +89,11 @@ export function createOrganismLayer(forest, getOrganisms) {
     if(size>limit)off={x:off.x*limit/size,y:off.y*limit/size};
     if(!hop&&size<.3)off=null;
     entry.hopOffset=off;
-    const style=entry.image.style,x=(off?.x||0).toFixed(1)+'px',y=(off?.y||0).toFixed(1)+'px',lift=(hop?.lift||0).toFixed(3);
+    const style=entry.image.style,x=(off?.x||0).toFixed(1)+'px',y=(off?.y||0).toFixed(1)+'px',lift=(frameHop?.lift||0).toFixed(3);entry.hopLift=frameHop?.lift||0;
     if(style.getPropertyValue('--hop-x')!==x)style.setProperty('--hop-x',x);
     if(style.getPropertyValue('--hop-y')!==y)style.setProperty('--hop-y',y);
     if(style.getPropertyValue('--hop-lift')!==lift)style.setProperty('--hop-lift',lift);
-    entry.anchor.classList.toggle('is-hopping',Boolean(hop&&hop.lift>0));
+    entry.anchor.classList.toggle('is-hopping',Boolean(frameHop&&frameHop.lift>0));
   }
   function sizeObject(anchor, speciesId) {
     const size = layout.sizes[speciesId];
@@ -232,7 +234,7 @@ export function createOrganismLayer(forest, getOrganisms) {
     setInspectHandler:handler=>{inspectHandler=handler;},setFocused,
     getPresentation:instance=>habitat.position(instance),getHabitatDiagnostics:()=>habitat.diagnostics(),
     reset() { visuals.reset();focusedId=null;membership='';remove([...nodes.keys()]); clearTimeout(feedbackTimer); feedback.hidden=true; keyboardPosition={x:0.4,y:0.72}; namesToggle.setAttribute('aria-pressed','false');layer.classList.remove('show-names');showSelection(null); },
-    paintVisuals: (state,delta,work)=>{for(const frame of visuals.sample(state,delta,work)){const entry=nodes.get(frame.instanceId);if(!entry)continue;if(entry.facing!==frame.facing){entry.image.style.setProperty('--facing',frame.facing);entry.facing=frame.facing;}const key=frame.src+'|'+frame.motion+'|'+frame.frame;if(entry.visualKey!==key){entry.visualKey=key;entry.anchor.dataset.visualState=frame.motion;entry.anchor.dataset.visualFrame=frame.frame;if(entry.image.getAttribute('src')!==frame.src)entry.image.src=frame.src;}if(frame.hop||entry.hopOffset)paintHop(entry,frame.hop);}},
+    paintVisuals: (state,delta,work)=>{for(const frame of visuals.sample(state,delta,work)){const entry=nodes.get(frame.instanceId);if(!entry)continue;if(entry.facing!==frame.facing){entry.image.style.setProperty('--facing',frame.facing);entry.facing=frame.facing;}const key=frame.src+'|'+frame.motion+'|'+frame.frame;if(entry.visualKey!==key){entry.visualKey=key;entry.anchor.dataset.visualState=frame.motion;entry.anchor.dataset.visualFrame=frame.frame;if(entry.image.getAttribute('src')!==frame.src)entry.image.src=frame.src;}if(frame.hop||entry.hopOffset||entry.hopLift)paintHop(entry,frame.hop);}},
     showStates: instances => {
       const nextTargets=new Set(instances.filter(o=>feedingConfig[o.speciesId]?.huntMode==='ambush'&&['moveToFood','eat'].includes(o.behaviorState)).map(o=>o.targetInstanceId).filter(Boolean));
       for (const instance of instances) {
