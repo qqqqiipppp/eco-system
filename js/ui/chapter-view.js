@@ -1,3 +1,4 @@
+import {fullscreenButton} from './fullscreen.js';
 import {stageBlockers,careOptions,needStates,neededCards,priceOf,prepareOptions,crisisReport,markReported,breedingState,isYoung} from '../systems/chapter-stage.js';
 import {currentEnvironmentEvent} from '../systems/environment-events.js';
 import {factorValue,qualityLabel} from '../systems/environment.js';
@@ -65,7 +66,8 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
  // The menu holds every other button (they keep their own handlers).
  const header=document.querySelector('.app-header'),namesToggle=forest.querySelector('#names-toggle');
  const menuButton=element('button',{type:'button',className:'chapter-menu-button',textContent:'☰ 메뉴'});
- const menu=element('div',{className:'chapter-menu',id:'chapter-menu',hidden:true},[mapButton,webButton,restartButton,element('hr'),header.querySelector('.header-actions'),...(namesToggle?[namesToggle]:[]),element('hr'),exitButton]);
+ const fullscreen=fullscreenButton();
+ const menu=element('div',{className:'chapter-menu',id:'chapter-menu',hidden:true},[mapButton,webButton,restartButton,element('hr'),...(fullscreen?[fullscreen]:[]),header.querySelector('.header-actions'),...(namesToggle?[namesToggle]:[]),element('hr'),exitButton]);
  menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-controls','chapter-menu');
  const setMenu=open=>{menu.hidden=!open;menuButton.setAttribute('aria-expanded',String(open));};
  menuButton.addEventListener('click',()=>setMenu(menu.hidden));
