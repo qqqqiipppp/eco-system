@@ -40,10 +40,11 @@ if(typeof Image!=='undefined'){for(const [key,states] of Object.entries(rasterFr
 export const stillSpecies=new Set(['oak','pine','hazel','raspberry','mushroom','litter-mold','soil-bacteria']);
 
 // How an animal moves once its move frames are painted: "hop" (4 frames:
-// grasshopper, frog, rabbit) leaps from the ground and lands; "fly" (2 or more
-// wing frames: birds) rises a little while moving and settles when it stops.
-// Any other animal, or one without enough frames yet, loops its frames in place.
-export const moveStyles=Object.freeze({grasshopper:'hop',frog:'hop',rabbit:'hop',tit:'fly',bulbul:'fly',goshawk:'fly'});
+// grasshopper, frog, rabbit leap; chipmunk and weasel bound, low and quick)
+// leaves the ground and lands; "fly" (2 or more wing frames: birds) rises a
+// little while moving and settles when it stops. Any other animal, or one
+// without enough frames yet, loops its frames in place (a walk cycle).
+export const moveStyles=Object.freeze({grasshopper:'hop',frog:'hop',rabbit:'hop',chipmunk:'hop',weasel:'hop',tit:'fly',bulbul:'fly',goshawk:'fly'});
 export const moveStyle=(id,stage)=>{const style=moveStyles[id],count=rasterFrames[frameKey(id,stage)]?.move||0;
  return style==='hop'&&count>=4?'hop':style==='fly'&&count>=2?'fly':'loop';};
 // One hop, in seconds of screen time (a starting point to tune by eye, not a
@@ -51,15 +52,27 @@ export const moveStyle=(id,stage)=>{const style=moveStyles[id],count=rasterFrame
 // while flying, 3 legs reaching down to land, then 0 again on the ground.
 // lift is the height above the ground as a share of the sprite height.
 export const hopTiming=Object.freeze({cycle:.8,launch:.16,tuck:.26,reach:.48,land:.56,height:.38});
-export function hopPose(t){
- const {launch,tuck,reach,land,height}=hopTiming;
+// Bounding mammals: the same four frames (0 gathered, 1 push off, 2 stretched
+// in the air, 3 front legs reaching down), one bound after another, lower.
+export const hopTimings=Object.freeze({
+ chipmunk:Object.freeze({cycle:.42,launch:.06,tuck:.12,reach:.24,land:.32,height:.2}),
+ weasel:Object.freeze({cycle:.48,launch:.06,tuck:.14,reach:.28,land:.36,height:.16}),
+});
+export const hopTimingOf=id=>hopTimings[id]||hopTiming;
+export function hopPose(t,timing=hopTiming){
+ const {launch,tuck,reach,land,height}=timing;
  if(t<launch)return {frame:0,phase:'crouch',lift:0,air:0};
  if(t<land){const u=(t-launch)/(land-launch);return {frame:t<tuck?1:t<reach?2:3,phase:'air',lift:height*4*u*(1-u),air:u};}
  return {frame:0,phase:'rest',lift:0,air:1};
 }
 // Flight: seconds to take off and to settle, the height reached as a share of
-// the sprite height, and seconds per wing frame (a starting point to tune by eye).
-export const flyTiming=Object.freeze({rise:.35,fall:.45,height:.45,flap:.12});
+// the sprite height, and seconds for one wingbeat over all its frames (a
+// starting point to tune by eye).
+export const flyTiming=Object.freeze({rise:.35,fall:.45,height:.45,flap:.32});
+// Painted walk and eat loops: one cycle takes the same time however many
+// frames are drawn (more frames only make it smoother). Slow animals take longer.
+export const loopTiming=Object.freeze({move:.44,eat:.6});
+export const slowerLoops=Object.freeze({snail:2.5});
 
 /** Reads actual work deltas and actual model movement. All memory is temporary;
  * loading a cumulative work total never pretends decomposition just occurred.
@@ -102,17 +115,19 @@ export function createVisualTracker(){
     // A tick without a position change between steps is not a stop.
     if(style!=='loop'&&motion==='idle'&&movedAt!==null&&visualTime-movedAt<.3)motion='move';
     if(style==='hop'){
-     if(hopStart!==null&&(visualTime-hopStart>=hopTiming.cycle||motion!=='move'&&hopPose(visualTime-hopStart).phase!=='air'))hopStart=null;
+     const timing=hopTimingOf(o.speciesId);
+     if(hopStart!==null&&(visualTime-hopStart>=timing.cycle||motion!=='move'&&hopPose(visualTime-hopStart,timing).phase!=='air'))hopStart=null;
      if(hopStart===null&&motion==='move')hopStart=visualTime;
-     if(hopStart!==null){motion='move';hop=hopPose(visualTime-hopStart);}
+     if(hopStart!==null){motion='move';hop=hopPose(visualTime-hopStart,timing);}
     }else hopStart=null;
     if(style==='fly'){
      air=motion==='move'?Math.min(1,air+dt/flyTiming.rise):Math.max(0,air-dt/flyTiming.fall);
-     if(air>0){motion='move';hop={fly:true,phase:'air',lift:flyTiming.height*air*(2-air),frame:Math.floor(visualTime/flyTiming.flap)%rasterFrames[key].move};}
+     if(air>0){motion='move';hop={fly:true,phase:'air',lift:flyTiming.height*air*(2-air),frame:Math.floor(visualTime/(flyTiming.flap/rasterFrames[key].move))%rasterFrames[key].move};}
     }else air=0;
     const started=p?.motion===motion?p.started:visualTime;
-    const period=motion==='idle'&&species.role==='consumer'?.32:['idle','covered','leaf-turn','surface'].includes(motion)?1.2:.22;
-    const frame=stillSpecies.has(o.speciesId)?0:hop?hop.frame:Math.floor((visualTime-started)/period)%(rasterFrames[key]?.[motion]||2);
+    const painted=rasterFrames[key]?.[motion];
+    const period=painted&&loopTiming[motion]?loopTiming[motion]*(slowerLoops[o.speciesId]||1)/painted:motion==='idle'&&species.role==='consumer'?.32:['idle','covered','leaf-turn','surface'].includes(motion)?1.2:.22;
+    const frame=stillSpecies.has(o.speciesId)?0:hop?hop.frame:Math.floor((visualTime-started)/period)%(painted||2);
     previous.set(o.instanceId,{x:o.position.x,y:o.position.y,growth:o.growth,work,litter:o.litterConsumed,motion,started,hopStart,movedAt,air,at:visualTime});
     const target=state.organisms.find(n=>n.instanceId===o.targetInstanceId),dx=target?target.position.x-o.position.x:0;
     const facing=Math.abs(dx)>1e-7?Math.sign(dx):o.direction||1;

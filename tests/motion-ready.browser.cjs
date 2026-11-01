@@ -1,9 +1,10 @@
 // Stand-in art goes in through the import tool, and the real game uses it at
-// once: frogs hop on 4 frames, a bulbul lifts off flapping and lands to eat, a
+// once: frogs hop and a weasel bounds on 4 frames, a bulbul lifts off flapping and lands to eat, a
 // grasshopper nymph shows its own picture, and painted states drop the CSS hint.
 const assert=require('node:assert/strict');
 const http=require('node:http'),fs=require('node:fs'),path=require('node:path'),os=require('node:os'),{execFileSync}=require('node:child_process');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
+const {tapBackground}=require('./ux-browser-helpers.cjs');
 const launch=process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH,headless:true,args:['--no-sandbox']}:{channel:'msedge',headless:true};
 const root=path.resolve(__dirname,'..'),site=fs.mkdtempSync(path.join(os.tmpdir(),'motion-site-')),art=path.join(site,'..',path.basename(site)+'-art');
 fs.cpSync(root,site,{recursive:true,filter:s=>!['.git','tests','node_modules','_site'].includes(path.relative(root,s).split(path.sep)[0])});
@@ -41,10 +42,21 @@ let base;
  const nymph=await watch(p,'grasshopper',1200);
  assert.ok(nymph.some(s=>/^grasshopper-nymph(-eat-\d)?\.webp$/.test(s.src)),'nymph picture: '+[...new Set(nymph.map(s=>s.src))]);
  assert.deepEqual(p.errors,[]);await p.close();
+ // A weasel bounds: the same four frames, one low quick bound after another.
+ p=await open(b,'4-2');
+ await p.locator('.organism-card[data-species-id="weasel"]').click();await tapBackground(p,.5,.4);await p.waitForTimeout(300);
+ if(await p.locator('.clear-selection').count())await p.locator('.clear-selection').click();
+ await p.evaluate(()=>document.querySelectorAll('dialog[open]').forEach(d=>d.close()));
+ const weasel=await watch(p,'weasel',9000),bounds=weasel.filter(s=>/^weasel-move-\d/.test(s.src));
+ assert.ok(bounds.length>20,'the weasel bounds: '+[...new Set(weasel.map(s=>s.src+'/'+s.state))]);
+ for(const f of [0,1,2,3])assert.ok(bounds.some(s=>s.src===`weasel-move-${f}.webp`),'frame '+f);
+ const top=Math.max(...bounds.map(s=>s.lift));assert.ok(top>=.1&&top<=.17,'low bound: '+top);
+ report.push(`weasel: ${bounds.length} bound samples, top ${top.toFixed(2)} of its height`);
+ assert.deepEqual(p.errors,[]);await p.close();
  // A bulbul flies: wing frames while moving, up off the ground; it settles to eat on painted eat frames.
  p=await open(b,'3-4');
  const birds=await watch(p,'bulbul',12000),flying=birds.filter(s=>/^bulbul-move-\d/.test(s.src)),eating=birds.filter(s=>/^bulbul-eat-\d/.test(s.src));
- assert.ok(flying.length>10,'the bulbul flies');assert.ok(new Set(flying.map(s=>s.src)).size===2,'two wing frames');
+ assert.ok(flying.length>10,'the bulbul flies');assert.equal(new Set(flying.map(s=>s.src)).size,4,'four wing frames');assert.equal(new Set(eating.map(s=>s.src)).size,3,'three eating frames');
  assert.ok(Math.max(...flying.map(s=>s.lift))>.2,'up off the ground');
  assert.ok(eating.length>0&&eating.every(s=>s.lift<.05),'eats on the ground');
  assert.ok([...flying,...eating].every(s=>s.anim==='none'),'painted states: no CSS hint');

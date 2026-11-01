@@ -32,14 +32,15 @@ def save(im, name):
     im.save(folder / name)
 
 for n, dy in enumerate([0, -10, -60, -30]): save(source_like('frog', dy), f'frog-move-{n}.png')          # hop: leaves the ground
-for n in range(2): save(source_like('bulbul', -40 * n), f'bulbul-move-{n}.png')                          # wings
-for n in range(2): save(source_like('bulbul'), f'bulbul-eat-{n}.png')
+for n in range(4): save(source_like('bulbul', -20 * n), f'bulbul-move-{n}.png')                          # wingbeat
+for n, dy in enumerate([0, -10, -40, -20]): save(source_like('weasel', dy), f'weasel-move-{n}.png')     # bound
+for n in range(3): save(source_like('bulbul'), f'bulbul-eat-{n}.png')
 nymph = source_like('grasshopper').resize((900, 675))                                                    # its own canvas
 save(nymph, 'grasshopper-nymph.png')
 for n in range(2): save(nymph, f'grasshopper-nymph-eat-{n}.png')
 save(source_like('rabbit', tint=True), 'rabbit-eat-0.png')                                               # wrong colour
 save(source_like('rabbit', scale_by=.5), 'rabbit-eat-1.png')                                             # wrong size
 save(source_like('chipmunk', dy=120), 'chipmunk-eat-0.png')                                              # feet below the ground line
-save(Image.new('RGBA', (1024, 1024)), 'weasel-move-0.png')                                               # wrong canvas
+save(Image.new('RGBA', (1024, 1024)), 'snake-move-0.png')                                                # wrong canvas
 save(source_like('frog'), 'frog-move-0-draft.png')                                                       # not a final name
 print(out)

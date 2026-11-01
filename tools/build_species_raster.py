@@ -47,7 +47,7 @@ STAGES = ('nymph', 'sprout', 'mycelium')
 STATES = ('move', 'eat', 'leaf-turn')
 # Animals whose move frames leave the ground (hop or flight; see moveStyles in
 # js/ui/species-visuals.js): their move frames are not held to the ground line.
-AIRBORNE = {'grasshopper', 'frog', 'rabbit', 'tit', 'bulbul', 'goshawk'}
+AIRBORNE = {'grasshopper', 'frog', 'rabbit', 'chipmunk', 'weasel', 'tit', 'bulbul', 'goshawk'}
 ROOT = Path(__file__).resolve().parent.parent
 REGISTRY = ROOT / 'js/ui/species-frames.js'
 

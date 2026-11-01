@@ -19,14 +19,14 @@ const registered=async file=>import(file+'?'+Math.random());
 test('frames and growth stages are converted and registered', async () => {
  const d=delivery(),report=d.import();
  const {paintedFrames,paintedStages}=await registered(d.registry);
- assert.deepEqual(paintedFrames.frog,{move:4});assert.deepEqual(paintedFrames.bulbul,{move:2,eat:2});
+ assert.deepEqual(paintedFrames.frog,{move:4});assert.deepEqual(paintedFrames.bulbul,{move:4,eat:3});assert.deepEqual(paintedFrames.weasel,{move:4});
  assert.deepEqual(paintedFrames['grasshopper:nymph'],{eat:2});assert.deepEqual(paintedStages,['grasshopper:nymph']);
  assert.deepEqual(paintedFrames.grasshopper,{move:4},'frames already in keep their place');
  for(const f of ['frog-move-3.webp','bulbul-eat-1.webp','grasshopper-nymph.webp','grasshopper-nymph-eat-0.webp'])assert.ok(existsSync(join(d.out,f)),f);
  const manifest=JSON.parse(readFileSync(join(d.out,'manifest.json'),'utf8'));
  assert.equal(manifest.stages['grasshopper:nymph'].frames['eat-1'].file,'grasshopper-nymph-eat-1.webp');
  assert.match(manifest.species.frog.frames['move-2'].sourceSha256,/^[0-9a-f]{64}$/);
- assert.match(report,/넣은 그림 14장/);
+ assert.match(report,/넣은 그림 21장/);
 });
 
 test('drifting or misnamed art is flagged, not silently used', () => {
@@ -34,8 +34,8 @@ test('drifting or misnamed art is flagged, not silently used', () => {
  assert.match(report,/확인 필요 rabbit-eat-0\.png: 색이 기본 그림과 달라 보여요/);
  assert.match(report,/확인 필요 rabbit-eat-1\.png: .*몸 크기가 기본 그림의 \d+%예요/);
  assert.match(report,/확인 필요 chipmunk-eat-0\.png: 발 높이가 기본 그림과 \+\d+px 달라요/);
- assert.doesNotMatch(report,/확인 필요 (frog|bulbul)-move/,'a hop or a flight may leave the ground');
- assert.match(report,/건너뜀 weasel-move-0\.png: 캔버스가/);assert.match(report,/건너뜀 frog-move-0-draft\.png: 이름 규칙/);
+ assert.doesNotMatch(report,/확인 필요 (frog|bulbul|weasel)-move/,'a hop or a flight may leave the ground');
+ assert.match(report,/건너뜀 snake-move-0\.png: 캔버스가/);assert.match(report,/건너뜀 frog-move-0-draft\.png: 이름 규칙/);
 });
 
 test('an asset-manifest.json picks the final files out of drafts', async () => {
