@@ -288,3 +288,6 @@
 .web-board.locked{cursor:wait}
 @media (prefers-reduced-motion:reduce){.web-node.candidate,.candidate-buttons button,.web-hand.show,.web-node.wrong,.chapter-actions.wrong{animation:none}}
 .chapter-prepare-timer{margin:10px 0 0;font-size:15px;color:var(--muted)}
+/* New version bar (js/ui/update-check.js). Open dialogs stay on top; the bar waits beneath them. */
+.update-bar{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:1000;display:flex;align-items:center;gap:14px;max-width:calc(100% - 32px);padding:10px 12px 10px 18px;border-radius:14px;background:#203126;color:#fff;font-size:18px;box-shadow:0 6px 24px #0004}
+.update-bar button{min-height:48px;padding:0 18px;border:0;border-radius:10px;background:#f4d35e;color:#203126;font-size:18px;font-weight:700;white-space:nowrap}
