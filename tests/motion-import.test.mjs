@@ -12,6 +12,10 @@ const run=(...args)=>execFileSync('python3',args,{encoding:'utf8',stdio:['ignore
 function delivery(){
  const dir=mkdtempSync(join(tmpdir(),'motion-')),art=join(dir,'art'),out=join(dir,'raster'),registry=join(dir,'species-frames.js');
  cpSync(raster,out,{recursive:true});run('tests/fixtures/make_motion_art.py',raster,art);
+ // Start from the base pictures and the grasshopper's hop only, whatever art the repository has by now.
+ const m=JSON.parse(readFileSync(join(out,'manifest.json'),'utf8'));delete m.stages;
+ for(const [id,s] of Object.entries(m.species))if(id!=='grasshopper')delete s.frames;
+ writeFileSync(join(out,'manifest.json'),JSON.stringify(m));
  return {dir,art,out,registry,import:()=>run('tools/build_species_raster.py','--import',art,out,registry)};
 }
 const registered=async file=>import(file+'?'+Math.random());
@@ -20,13 +24,13 @@ test('frames and growth stages are converted and registered', async () => {
  const d=delivery(),report=d.import();
  const {paintedFrames,paintedStages}=await registered(d.registry);
  assert.deepEqual(paintedFrames.frog,{move:4});assert.deepEqual(paintedFrames.bulbul,{move:4,eat:3});assert.deepEqual(paintedFrames.weasel,{move:4});
- assert.deepEqual(paintedFrames['grasshopper:nymph'],{eat:2});assert.deepEqual(paintedStages,['grasshopper:nymph']);
+ assert.deepEqual(paintedFrames['grasshopper:nymph'],{eat:2});assert.deepEqual(paintedFrames.snake,{sense:2});assert.deepEqual(paintedStages,['grasshopper:nymph']);
  assert.deepEqual(paintedFrames.grasshopper,{move:4},'frames already in keep their place');
  for(const f of ['frog-move-3.webp','bulbul-eat-1.webp','grasshopper-nymph.webp','grasshopper-nymph-eat-0.webp'])assert.ok(existsSync(join(d.out,f)),f);
  const manifest=JSON.parse(readFileSync(join(d.out,'manifest.json'),'utf8'));
  assert.equal(manifest.stages['grasshopper:nymph'].frames['eat-1'].file,'grasshopper-nymph-eat-1.webp');
  assert.match(manifest.species.frog.frames['move-2'].sourceSha256,/^[0-9a-f]{64}$/);
- assert.match(report,/넣은 그림 21장/);
+ assert.match(report,/넣은 그림 23장/);
 });
 
 test('drifting or misnamed art is flagged, not silently used', () => {

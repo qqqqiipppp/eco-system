@@ -44,7 +44,7 @@ def build(art: Path, out: Path):
 
 # Growth stages painted as their own base picture (game stage names).
 STAGES = ('nymph', 'sprout', 'mycelium')
-STATES = ('move', 'eat', 'leaf-turn')
+STATES = ('move', 'eat', 'sense', 'leaf-turn')
 # Animals whose move frames leave the ground (hop or flight; see moveStyles in
 # js/ui/species-visuals.js): their move frames are not held to the ground line.
 AIRBORNE = {'grasshopper', 'frog', 'rabbit', 'chipmunk', 'weasel', 'tit', 'bulbul', 'goshawk'}
@@ -91,7 +91,7 @@ def compare(frame: Image.Image, base: Image.Image, airborne: bool):
     if not airborne and abs(f['bottom'] - b['bottom']) > 4:
         notes.append(f"발 높이가 기본 그림과 {f['bottom'] - b['bottom']:+d}px 달라요")
     ratio = f['area'] / max(b['area'], 1)
-    if not .75 <= ratio <= 1.33:
+    if not (.6 <= ratio <= 1.8 if airborne else .75 <= ratio <= 1.33):  # spread wings and stretched legs take room
         notes.append(f'몸 크기가 기본 그림의 {ratio:.0%}예요')
     hue = sum(abs(x - y) for x, y in zip(f['hues'], b['hues'])) / 2
     tint = sum((x - y) ** 2 for x, y in zip(f['rgb'], b['rgb'])) ** .5
@@ -102,17 +102,18 @@ def compare(frame: Image.Image, base: Image.Image, airborne: bool):
 NAME = re.compile(r'^(?P<id>[a-z-]+?)(?:-(?P<stage>' + '|'.join(STAGES) + r'))?(?:-(?P<state>' + '|'.join(STATES) + r')-(?P<n>\d+))?\.png$')
 
 def approved(folder: Path):
-    """Every PNG under the folder, or only those named in its asset-manifest.json
-    (which marks the final files apart from drafts) when it lists any."""
+    """Every PNG under the folder, or only the final files its asset-manifest.json
+    names (its "assets" list when there is one, so drafts listed elsewhere in
+    it stay out; otherwise any PNG name in it)."""
     files = sorted(folder.rglob('*.png'))
     listed = folder / 'asset-manifest.json'
     if listed.exists():
-        names = set()
+        data, names = json.loads(listed.read_text(encoding='utf-8')), set()
         def walk(v):
             if isinstance(v, str) and v.lower().endswith('.png'): names.add(Path(v).name)
             elif isinstance(v, dict): [walk(x) for x in v.values()]
             elif isinstance(v, list): [walk(x) for x in v]
-        walk(json.loads(listed.read_text(encoding='utf-8')))
+        walk([a.get('file') for a in data['assets']] if isinstance(data, dict) and isinstance(data.get('assets'), list) else data)
         if names: files = [f for f in files if f.name in names]
     return files
 
@@ -120,8 +121,10 @@ def import_art(folder: Path, out: Path, registry: Path = REGISTRY):
     """Bring a whole delivery in (python tools/build_species_raster.py --import <folder>).
 
     Names: <id>-<state>-<n>.png (frame), <id>-<stage>.png (growth-stage base),
-    <id>-<stage>-<state>-<n>.png (that stage's frame). Stage bases go first so
-    their frames can share their crop. Writes the WebP files, records them in
+    <id>-<stage>-<state>-<n>.png (that stage's frame). A growth stage is drawn
+    on the same canvas as the grown picture, at its own size and on the same
+    ground, so it takes the grown picture's crop and scale too (a sprout stays
+    smaller than the grown grass); its frames share that. Writes the WebP files, records them in
     manifest.json and regenerates js/ui/species-frames.js. Returns a report.
     """
     manifest = json.loads((out / 'manifest.json').read_text(encoding='utf-8'))
@@ -140,10 +143,12 @@ def import_art(folder: Path, out: Path, registry: Path = REGISTRY):
         im = Image.open(src).convert('RGBA')
         key = f'{sid}:{stage}' if stage else sid
         if stage and not state:
-            canvas, box, placed = place(im)
-            name = f'{sid}-{stage}.webp'
+            grown = species[sid]
+            if list(im.size) != grown['sourceSize']:
+                report['skipped'][src.name] = f"캔버스가 기본 그림({grown['sourceSize'][0]}x{grown['sourceSize'][1]})과 달라요"; continue
+            canvas, name = place_like(im, grown), f'{sid}-{stage}.webp'
             stages[key] = {**stages.get(key, {}), 'file': name, 'source': src.name, 'sourceSha256': hashlib.sha256(raw).hexdigest(),
-                           'sourceSize': list(im.size), 'visibleBox': box, 'placedBox': placed}
+                           'sourceSize': list(im.size), 'visibleBox': grown['visibleBox'], 'placedBox': grown['placedBox']}
             entry = stages[key]
         else:
             base = stages.get(key) if stage else species[sid]

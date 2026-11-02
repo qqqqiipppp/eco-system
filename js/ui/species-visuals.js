@@ -39,14 +39,17 @@ if(typeof Image!=='undefined'){for(const [key,states] of Object.entries(rasterFr
 // its state (growing, decomposing), drawn as one still pose, not by shaking.
 export const stillSpecies=new Set(['oak','pine','hazel','raspberry','mushroom','litter-mold','soil-bacteria']);
 
-// How an animal moves once its move frames are painted: "hop" (4 frames:
-// grasshopper, frog, rabbit leap; chipmunk and weasel bound, low and quick)
-// leaves the ground and lands; "fly" (2 or more wing frames: birds) rises a
-// little while moving and settles when it stops. Any other animal, or one
-// without enough frames yet, loops its frames in place (a walk cycle).
+// How an animal moves once its move frames are painted: "hop" (grasshopper,
+// frog, rabbit leap; chipmunk and weasel bound, low and quick) leaves the
+// ground and lands; "fly" (2 or more wing frames: birds) rises a little while
+// moving and settles when it stops. Any other animal, or one without enough
+// frames yet, loops its frames in place (a walk cycle). A hop takes 4 frames
+// (crouch, push off, in the air, reaching down) or 2 (on the ground, in the
+// air); the chipmunk's 2 painted frames are a walk, so it bounds only on 4.
 export const moveStyles=Object.freeze({grasshopper:'hop',frog:'hop',rabbit:'hop',chipmunk:'hop',weasel:'hop',tit:'fly',bulbul:'fly',goshawk:'fly'});
+const hopFrom=Object.freeze({chipmunk:4});
 export const moveStyle=(id,stage)=>{const style=moveStyles[id],count=rasterFrames[frameKey(id,stage)]?.move||0;
- return style==='hop'&&count>=4?'hop':style==='fly'&&count>=2?'fly':'loop';};
+ return style==='hop'&&count>=(hopFrom[id]||2)?'hop':style==='fly'&&count>=2?'fly':'loop';};
 // One hop, in seconds of screen time (a starting point to tune by eye, not a
 // measured grasshopper speed). Shared by every hopping animal. Frames: 0 crouch, 1 push off, 2 legs drawn in
 // while flying, 3 legs reaching down to land, then 0 again on the ground.
@@ -73,6 +76,10 @@ export const flyTiming=Object.freeze({rise:.35,fall:.45,height:.45,flap:.32});
 // frames are drawn (more frames only make it smoother). Slow animals take longer.
 export const loopTiming=Object.freeze({move:.44,eat:.6});
 export const slowerLoops=Object.freeze({snail:2.5});
+// Now and then while resting: the snake flicks its tongue to smell (painted
+// "sense" frames). It is how a snake finds prey, not how it eats, so it never
+// plays while eating. Every `every` seconds of rest, for `length` seconds.
+export const restingMotions=Object.freeze({snake:Object.freeze({state:'sense',every:3.2,length:.8,frame:.2})});
 
 /** Reads actual work deltas and actual model movement. All memory is temporary;
  * loading a cumulative work total never pretends decomposition just occurred.
@@ -118,7 +125,7 @@ export function createVisualTracker(){
      const timing=hopTimingOf(o.speciesId);
      if(hopStart!==null&&(visualTime-hopStart>=timing.cycle||motion!=='move'&&hopPose(visualTime-hopStart,timing).phase!=='air'))hopStart=null;
      if(hopStart===null&&motion==='move')hopStart=visualTime;
-     if(hopStart!==null){motion='move';hop=hopPose(visualTime-hopStart,timing);}
+     if(hopStart!==null){motion='move';hop=hopPose(visualTime-hopStart,timing);if(rasterFrames[key].move<4)hop.frame=hop.phase==='air'?1:0;}
     }else hopStart=null;
     if(style==='fly'){
      air=motion==='move'?Math.min(1,air+dt/flyTiming.rise):Math.max(0,air-dt/flyTiming.fall);
@@ -127,11 +134,14 @@ export function createVisualTracker(){
     const started=p?.motion===motion?p.started:visualTime;
     const painted=rasterFrames[key]?.[motion];
     const period=painted&&loopTiming[motion]?loopTiming[motion]*(slowerLoops[o.speciesId]||1)/painted:motion==='idle'&&species.role==='consumer'?.32:['idle','covered','leaf-turn','surface'].includes(motion)?1.2:.22;
-    const frame=stillSpecies.has(o.speciesId)?0:hop?hop.frame:Math.floor((visualTime-started)/period)%(painted||2);
+    let shown=motion,frame=stillSpecies.has(o.speciesId)?0:hop?hop.frame:Math.floor((visualTime-started)/period)%(painted||2);
+    // The resting extra plays at the end of each stretch of rest; the rest itself goes on.
+    const rest=restingMotions[o.speciesId],resting=motion==='idle'&&rest&&rasterFrames[key]?.[rest.state]?(visualTime-started)%rest.every-(rest.every-rest.length):-1;
+    if(resting>=0){shown=rest.state;frame=Math.floor(resting/rest.frame)%rasterFrames[key][rest.state];}
     previous.set(o.instanceId,{x:o.position.x,y:o.position.y,growth:o.growth,work,litter:o.litterConsumed,motion,started,hopStart,movedAt,air,at:visualTime});
     const target=state.organisms.find(n=>n.instanceId===o.targetInstanceId),dx=target?target.position.x-o.position.x:0;
     const facing=Math.abs(dx)>1e-7?Math.sign(dx):o.direction||1;
-    return {instanceId:o.instanceId,motion,frame,facing,hop,src:visualAsset(o.speciesId,motion,frame,o.development?.stage)};
+    return {instanceId:o.instanceId,motion:shown,frame,facing,hop,src:visualAsset(o.speciesId,shown,frame,o.development?.stage)};
    });
   },
  };
