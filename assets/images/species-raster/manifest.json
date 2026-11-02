@@ -34,16 +34,16 @@
     "eat-0": {
      "file": "bulbul-eat-0.webp",
      "source": "bulbul-eat-0.png",
-     "sourceSha256": "01e2ac26bc4875bb1107f14d81c90703407fe8bc271e702604c30e69c71d2a61",
+     "sourceSha256": "10e6952076fc6e54c6c1d5a4186ecf7855a46cfbf9dc80ff07b810f21b888797",
      "checks": [],
-     "bytes": 7698
+     "bytes": 7582
     },
     "eat-1": {
      "file": "bulbul-eat-1.webp",
      "source": "bulbul-eat-1.png",
-     "sourceSha256": "1130edcbaf708ea5af4c03d38a85c82b69c3ec415ca38b2510d6ffd19b16cad6",
+     "sourceSha256": "01e2ac26bc4875bb1107f14d81c90703407fe8bc271e702604c30e69c71d2a61",
      "checks": [],
-     "bytes": 7336
+     "bytes": 7698
     },
     "move-0": {
      "file": "bulbul-move-0.webp",
@@ -58,6 +58,13 @@
      "sourceSha256": "9c86fa07ed9cd0975d23fa8cd49e905eef7718af16978e04f1d0106e092044bc",
      "checks": [],
      "bytes": 8790
+    },
+    "eat-2": {
+     "file": "bulbul-eat-2.webp",
+     "source": "bulbul-eat-2.png",
+     "sourceSha256": "1130edcbaf708ea5af4c03d38a85c82b69c3ec415ca38b2510d6ffd19b16cad6",
+     "checks": [],
+     "bytes": 7336
     }
    }
   },
@@ -86,16 +93,16 @@
     "eat-0": {
      "file": "tit-eat-0.webp",
      "source": "tit-eat-0.png",
-     "sourceSha256": "848ca44a4c60069b10b378bbce84ae46035bb6d09e9063b649ea3a3bfad121a5",
+     "sourceSha256": "62745576bf13be11d61ff31c2b31afbfa6fcdb48a2e5a9ba3a3cb37b0acaef94",
      "checks": [],
-     "bytes": 8584
+     "bytes": 8588
     },
     "eat-1": {
      "file": "tit-eat-1.webp",
      "source": "tit-eat-1.png",
-     "sourceSha256": "16680ea6aa8fe7042061213cb450ddac79d52aaaec327f2aaa412587801e58f2",
+     "sourceSha256": "848ca44a4c60069b10b378bbce84ae46035bb6d09e9063b649ea3a3bfad121a5",
      "checks": [],
-     "bytes": 8524
+     "bytes": 8584
     },
     "move-0": {
      "file": "tit-move-0.webp",
@@ -110,6 +117,13 @@
      "sourceSha256": "fb8c56a6fcbf71a33110b7e8ec44a1b1e4e16153e5f78b29f2761d43728c8ea4",
      "checks": [],
      "bytes": 9452
+    },
+    "eat-2": {
+     "file": "tit-eat-2.webp",
+     "source": "tit-eat-2.png",
+     "sourceSha256": "16680ea6aa8fe7042061213cb450ddac79d52aaaec327f2aaa412587801e58f2",
+     "checks": [],
+     "bytes": 8524
     }
    }
   },
@@ -145,9 +159,9 @@
     "eat-1": {
      "file": "chipmunk-eat-1.webp",
      "source": "chipmunk-eat-1.png",
-     "sourceSha256": "9bd00174de1843bf260a4e441bfc7aa256e5a7b9d5dc26609eee37c3c1e01087",
+     "sourceSha256": "1d06da3db6dd92c9d3142778c35ec79914bedf5050659c51beb70cdc720e103e",
      "checks": [],
-     "bytes": 8590
+     "bytes": 8656
     },
     "move-0": {
      "file": "chipmunk-move-0.webp",
@@ -162,6 +176,13 @@
      "sourceSha256": "6f12d3ac23c866d1e6d3a9ee9c72ed2e6a5c0e029b20a9daba56d111965a8a73",
      "checks": [],
      "bytes": 9426
+    },
+    "eat-2": {
+     "file": "chipmunk-eat-2.webp",
+     "source": "chipmunk-eat-2.png",
+     "sourceSha256": "b719ee385eeb7aae136395066c2433387addee03c5b518d57e4c3238658ff21a",
+     "checks": [],
+     "bytes": 8726
     }
    }
   },
@@ -197,9 +218,9 @@
     "eat-1": {
      "file": "rabbit-eat-1.webp",
      "source": "rabbit-eat-1.png",
-     "sourceSha256": "fa7ccad209c8f82c8ff4bc4e2158beb517da97726c5d25b2cf9e8692e9854b4b",
+     "sourceSha256": "d48aef838399e905c547112fb992995d08ac44e1e52e8ed0dc0c0cc8e0e42a73",
      "checks": [],
-     "bytes": 9634
+     "bytes": 9408
     },
     "move-0": {
      "file": "rabbit-move-0.webp",
@@ -214,6 +235,13 @@
      "sourceSha256": "2b3614de57accfa065150b952f8bc4b7d57422a302256d21d727a1e711a0e2d3",
      "checks": [],
      "bytes": 10828
+    },
+    "eat-2": {
+     "file": "rabbit-eat-2.webp",
+     "source": "rabbit-eat-2.png",
+     "sourceSha256": "fa7ccad209c8f82c8ff4bc4e2158beb517da97726c5d25b2cf9e8692e9854b4b",
+     "checks": [],
+     "bytes": 9634
     }
    }
   },
@@ -249,9 +277,9 @@
     "eat-1": {
      "file": "frog-eat-1.webp",
      "source": "frog-eat-1.png",
-     "sourceSha256": "9e0fc3193a38b1f0c95f6dea5be67edbce1f18a1720fba22ae040bfde0318807",
+     "sourceSha256": "262ad4ed546614fce06103ac4d8ba79fd405fbd9dc5ef24af76557bcbc7d3d7b",
      "checks": [],
-     "bytes": 13892
+     "bytes": 14088
     },
     "move-0": {
      "file": "frog-move-0.webp",
@@ -266,6 +294,13 @@
      "sourceSha256": "3c193c115323806d08d3eabeceb8fae4f822017351904133880e17bb360b54af",
      "checks": [],
      "bytes": 14240
+    },
+    "eat-2": {
+     "file": "frog-eat-2.webp",
+     "source": "frog-eat-2.png",
+     "sourceSha256": "93a9eac9c0545652def031b5ceb0311804fca37e1b937865621b52660c72c1b0",
+     "checks": [],
+     "bytes": 13830
     }
    }
   },
@@ -314,6 +349,20 @@
      "source": "grasshopper-move-3.png",
      "sourceSha256": "61d5df71f8f2e1169024dd2caf9511ab1002f1f74c893e0dfc0ce9869d324081",
      "bytes": 11374
+    },
+    "eat-0": {
+     "file": "grasshopper-eat-0.webp",
+     "source": "grasshopper-eat-0.png",
+     "sourceSha256": "d7ca5cb99bc56b882230f4c8cc55f6c2ef0047d35546aa60858f53995b3cffbc",
+     "checks": [],
+     "bytes": 10408
+    },
+    "eat-1": {
+     "file": "grasshopper-eat-1.webp",
+     "source": "grasshopper-eat-1.png",
+     "sourceSha256": "cf6545a3aac0e6d8f72eca061dd81375b9e80f78eb49d8ea42409394655eb8ac",
+     "checks": [],
+     "bytes": 10188
     }
    }
   },
@@ -393,9 +442,9 @@
     "eat-1": {
      "file": "field-mouse-eat-1.webp",
      "source": "field-mouse-eat-1.png",
-     "sourceSha256": "501c40cfff0bc6da11d6abf29d4efbad80d5c77a4ef87fc71273b443dc9eace1",
+     "sourceSha256": "23cc7dba5fb80e7d10aa778f3614f8b4a7163fa4594c47da86f930818f566a81",
      "checks": [],
-     "bytes": 13506
+     "bytes": 13978
     },
     "move-0": {
      "file": "field-mouse-move-0.webp",
@@ -410,6 +459,13 @@
      "sourceSha256": "740166724103a11efed59b41178043ffcbbb4e5ca7f5d23564e68899f427f754",
      "checks": [],
      "bytes": 13528
+    },
+    "eat-2": {
+     "file": "field-mouse-eat-2.webp",
+     "source": "field-mouse-eat-2.png",
+     "sourceSha256": "501c40cfff0bc6da11d6abf29d4efbad80d5c77a4ef87fc71273b443dc9eace1",
+     "checks": [],
+     "bytes": 13506
     }
    }
   },
@@ -438,16 +494,16 @@
     "eat-0": {
      "file": "caterpillar-eat-0.webp",
      "source": "caterpillar-eat-0.png",
-     "sourceSha256": "52a94ab5528a06425da2f8bf8c80e59d5d26e1f8ac21bee50f3b83b05f7d3e0d",
+     "sourceSha256": "2fe6b4dae2318d9a235a81410b5ba6aa71a6ff52bfd23d942e01c9f5db202484",
      "checks": [],
-     "bytes": 10580
+     "bytes": 10756
     },
     "eat-1": {
      "file": "caterpillar-eat-1.webp",
      "source": "caterpillar-eat-1.png",
-     "sourceSha256": "135f6fb0ce0f2867c97450bdfe5b961703a3bd51a4087cc8e70ccf543edeea4c",
+     "sourceSha256": "524dbe653b5f27070ad766775609c745332c13b102393233e5805c52d84d0a35",
      "checks": [],
-     "bytes": 10538
+     "bytes": 10530
     },
     "move-0": {
      "file": "caterpillar-move-0.webp",
@@ -594,16 +650,16 @@
     "eat-0": {
      "file": "spider-eat-0.webp",
      "source": "spider-eat-0.png",
-     "sourceSha256": "24c8974226ec5b5771d543673011500b7a4e48ef1e74defeb73a5f08fe13c088",
+     "sourceSha256": "201ae2c52b212af2b27081389a8e12e6c12dba58b98de5e7c3e5b008e5aa35aa",
      "checks": [],
-     "bytes": 15202
+     "bytes": 14656
     },
     "eat-1": {
      "file": "spider-eat-1.webp",
      "source": "spider-eat-1.png",
-     "sourceSha256": "50bb3e3daf3cd1913d16d1e6a25f124e061fad442ecfba5da12a22423c56877b",
+     "sourceSha256": "ba4e905ae300e4bc93834a5734b0bf9890a6580664e81e3874cee69b0e2e5f05",
      "checks": [],
-     "bytes": 15140
+     "bytes": 14268
     },
     "move-0": {
      "file": "spider-move-0.webp",
@@ -646,16 +702,16 @@
     "eat-0": {
      "file": "ladybird-eat-0.webp",
      "source": "ladybird-eat-0.png",
-     "sourceSha256": "12d0706cc4d4a09d5567b414b83cc17be97f1a9b1f3189457e5871aa6a033f80",
+     "sourceSha256": "2c5046968b887254422f66eef7aa497eabb14ee084ebe566973027bbe513badf",
      "checks": [],
-     "bytes": 11500
+     "bytes": 11554
     },
     "eat-1": {
      "file": "ladybird-eat-1.webp",
      "source": "ladybird-eat-1.png",
-     "sourceSha256": "d58434a189257a48e4e89c26c8e4fb4244cbcfcb94dca58529bc5fe4d33d9f27",
+     "sourceSha256": "f0f0e39fe5f19a0d052d23b34a0025af0eb61551b0d442c2c50dd3172d280800",
      "checks": [],
-     "bytes": 11444
+     "bytes": 11274
     },
     "move-0": {
      "file": "ladybird-move-0.webp",
@@ -722,6 +778,27 @@
      "sourceSha256": "24701ad9623e1cabcc2b16bdbae40c219ea70a9741e4a19bfe3e35264df3e771",
      "checks": [],
      "bytes": 7816
+    },
+    "eat-0": {
+     "file": "snake-eat-0.webp",
+     "source": "snake-eat-0.png",
+     "sourceSha256": "55a1b1783f6c78f9da8c24304afddfc193cd686b262f32d5b7457b0f7c22cec0",
+     "checks": [],
+     "bytes": 7976
+    },
+    "eat-1": {
+     "file": "snake-eat-1.webp",
+     "source": "snake-eat-1.png",
+     "sourceSha256": "aabaeaf22d152f146418a501fbeca6196ac91fa3203bd1b2aa3b7bc2d206a573",
+     "checks": [],
+     "bytes": 7842
+    },
+    "eat-2": {
+     "file": "snake-eat-2.webp",
+     "source": "snake-eat-2.png",
+     "sourceSha256": "f38f6297428c367daa724112d044e788a93128f6d509c6174c5a67e89b961fdf",
+     "checks": [],
+     "bytes": 7994
     }
    }
   },
@@ -750,16 +827,16 @@
     "eat-0": {
      "file": "weasel-eat-0.webp",
      "source": "weasel-eat-0.png",
-     "sourceSha256": "d56fe752c895db530ff714369a3204e5eb7a46889577c23b963c63f3a1b85cb7",
+     "sourceSha256": "903d419a12f63562135457260f51bb6d0b16e222a2a34f10f957eb959436902e",
      "checks": [],
-     "bytes": 7142
+     "bytes": 7174
     },
     "eat-1": {
      "file": "weasel-eat-1.webp",
      "source": "weasel-eat-1.png",
-     "sourceSha256": "24207d7603d707c27cefa6cd8e92840227cf84e84636cddf4ea2bd3c99f63528",
+     "sourceSha256": "d56fe752c895db530ff714369a3204e5eb7a46889577c23b963c63f3a1b85cb7",
      "checks": [],
-     "bytes": 7228
+     "bytes": 7142
     },
     "move-0": {
      "file": "weasel-move-0.webp",
@@ -774,6 +851,13 @@
      "sourceSha256": "62e116adb40b36f3eb01b8af9ab20732aa4767456e14db15ae8b1c84f267dc5a",
      "checks": [],
      "bytes": 7320
+    },
+    "eat-2": {
+     "file": "weasel-eat-2.webp",
+     "source": "weasel-eat-2.png",
+     "sourceSha256": "24207d7603d707c27cefa6cd8e92840227cf84e84636cddf4ea2bd3c99f63528",
+     "checks": [],
+     "bytes": 7228
     }
    }
   },
@@ -802,16 +886,16 @@
     "eat-0": {
      "file": "goshawk-eat-0.webp",
      "source": "goshawk-eat-0.png",
-     "sourceSha256": "f0e5bc40304a4a5e4775e3936d8923540dbaa951ed2f0fa1bcb205bfacce69bc",
+     "sourceSha256": "d0969da55945b1505e3f02a830b20b6e78c0599078953429d75b8f29c41d67b8",
      "checks": [],
-     "bytes": 9766
+     "bytes": 9728
     },
     "eat-1": {
      "file": "goshawk-eat-1.webp",
      "source": "goshawk-eat-1.png",
-     "sourceSha256": "80ca34730355b44e1b858f73ea4ab696df9e8783bc61f3b27d621eb2ce04f17d",
+     "sourceSha256": "f0e5bc40304a4a5e4775e3936d8923540dbaa951ed2f0fa1bcb205bfacce69bc",
      "checks": [],
-     "bytes": 9722
+     "bytes": 9766
     },
     "move-0": {
      "file": "goshawk-move-0.webp",
@@ -830,6 +914,13 @@
       "색이 기본 그림과 달라 보여요 (색 섞임 차이 0.22, 평균 색 차이 3)"
      ],
      "bytes": 11104
+    },
+    "eat-2": {
+     "file": "goshawk-eat-2.webp",
+     "source": "goshawk-eat-2.png",
+     "sourceSha256": "80ca34730355b44e1b858f73ea4ab696df9e8783bc61f3b27d621eb2ce04f17d",
+     "checks": [],
+     "bytes": 9722
     }
    }
   },
@@ -1048,6 +1139,72 @@
     174
    ],
    "bytes": 6648
+  },
+  "grasshopper:nymph": {
+   "file": "grasshopper-nymph.webp",
+   "source": "grasshopper-nymph.png",
+   "sourceSha256": "f510c9bab0254f9a7a76d22158ec8cc550e13d6626cd7ea27c9741ccbf405335",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    28,
+    222,
+    1428,
+    939
+   ],
+   "placedBox": [
+    8,
+    51,
+    248,
+    174
+   ],
+   "bytes": 5588,
+   "frames": {
+    "eat-0": {
+     "file": "grasshopper-nymph-eat-0.webp",
+     "source": "grasshopper-nymph-eat-0.png",
+     "sourceSha256": "2625757604b862835b6ed549980148da236664f38ede103164449a81abadd3cf",
+     "checks": [],
+     "bytes": 5602
+    },
+    "eat-1": {
+     "file": "grasshopper-nymph-eat-1.webp",
+     "source": "grasshopper-nymph-eat-1.png",
+     "sourceSha256": "3a02cf88541a168a52cabdee82bca9202fdf0895b445c92aefe9762335268955",
+     "checks": [],
+     "bytes": 5580
+    },
+    "move-0": {
+     "file": "grasshopper-nymph-move-0.webp",
+     "source": "grasshopper-nymph-move-0.png",
+     "sourceSha256": "2573898c4c9ea547c270a664e600a7eb4ae6dc8265bcc44dcd0ba16091c99f9a",
+     "checks": [],
+     "bytes": 5590
+    },
+    "move-1": {
+     "file": "grasshopper-nymph-move-1.webp",
+     "source": "grasshopper-nymph-move-1.png",
+     "sourceSha256": "828764980da308f291125872394f26caa335060c2462582d4d4597373667bfdb",
+     "checks": [],
+     "bytes": 5878
+    },
+    "move-2": {
+     "file": "grasshopper-nymph-move-2.webp",
+     "source": "grasshopper-nymph-move-2.png",
+     "sourceSha256": "6075cf9c14e65cc9bf2d369f7852091fe474ec621f2e092a34fa2daac1f32741",
+     "checks": [],
+     "bytes": 4718
+    },
+    "move-3": {
+     "file": "grasshopper-nymph-move-3.webp",
+     "source": "grasshopper-nymph-move-3.png",
+     "sourceSha256": "d00fd5c91146a7d22bf98cc1011e249bdd22b57e3f4063cff00fd9f7329e60a9",
+     "checks": [],
+     "bytes": 5724
+    }
+   }
   }
  }
 }

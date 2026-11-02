@@ -29,13 +29,13 @@ test('every painted eater shows its own eat frames while eating, in turn', () =>
 });
 
 test('the snake flicks its tongue only while resting, never while eating', () => {
- const rest=restingMotions.snake;assert.equal(paintedFrames.snake?.sense,2);assert.equal(paintedFrames.snake?.eat,undefined,'no tongue flick as eating');
+ const rest=restingMotions.snake;assert.equal(paintedFrames.snake?.sense,2);
  const resting=run('snake',frames(Math.round(rest.every*2*30),{state:'wander'}));
  const flicks=resting.filter(f=>f.motion==='sense');
  assert.ok(flicks.length>=Math.round(rest.length*2*30)-2&&flicks.length<=Math.round(rest.length*2*30)+2,'two short flicks in two rests: '+flicks.length);
  assert.ok(flicks.every(f=>/snake-sense-[01]\.webp$/.test(f.src)));assert.deepEqual([...new Set(flicks.map(f=>f.frame))].sort(),[0,1]);
  assert.ok(resting.filter(f=>f.motion!=='sense').every(f=>/snake\.webp$/.test(f.src)),'otherwise its usual picture');
- const eating=run('snake',frames(200,{state:'eat'}));assert.ok(eating.every(f=>f.motion==='eat'&&!/-sense-/.test(f.src)),'eating: no flick');
+ const eating=run('snake',frames(200,{state:'eat'}));assert.ok(eating.every(f=>f.motion==='eat'&&/snake-eat-\d\.webp$/.test(f.src)),'eating: its own swallowing frames, no flick');
 });
 
 const moving=(id,n=90)=>run(id,frames(n,{move:true}));
@@ -69,4 +69,13 @@ test('a grass sprout and a fungus mycelium show their own painted pictures', asy
  assert.equal(visualAsset('grass','idle',0,'grown'),'./assets/images/species-raster/grass.webp');
  assert.equal(visualAsset('mushroom','active',0,'mycelium'),'./assets/images/species-raster/mushroom-mycelium.webp');
  assert.equal(visualAsset('mushroom','idle',0,'fruiting'),'./assets/images/species-raster/mushroom.webp');
+});
+
+test('the grasshopper nymph has its own picture, hops on its 4 frames and eats on 2', () => {
+ assert.deepEqual(paintedFrames['grasshopper:nymph'],{move:4,eat:2});assert.equal(moveStyle('grasshopper','nymph'),'hop');
+ const rest=run('grasshopper',frames(5,{state:'wander'}),'nymph');assert.ok(rest.every(f=>/grasshopper-nymph\.webp$/.test(f.src)));
+ const hop=run('grasshopper',frames(30,{move:true}),'nymph').map(f=>f.frame).filter((f,i,a)=>f!==a[i-1]);
+ assert.deepEqual(hop.slice(0,5),[0,1,2,3,0],'crouch, push, air, reach, crouch');
+ assert.ok(run('grasshopper',frames(30,{move:true}),'nymph').slice(1).every(f=>/grasshopper-nymph-move-\d\.webp$/.test(f.src)),'from its first step');
+ const eat=run('grasshopper',frames(40,{state:'eat'}),'nymph');assert.deepEqual([...new Set(eat.map(f=>f.src.split('/').pop()))].sort(),['grasshopper-nymph-eat-0.webp','grasshopper-nymph-eat-1.webp']);
 });

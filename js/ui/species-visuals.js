@@ -1,7 +1,7 @@
 import {organismById} from '../../data/organisms.js';
 import {earthwormAtSurface} from '../systems/prey-access.js';
 import {colonyActivity} from '../systems/lifespan.js';
-import {rasterSpecies,rasterAsset,rasterStandIns,rasterFrames,rasterFrameAsset,rasterStages,rasterStageAsset} from './species-raster.js';
+import {rasterSpecies,rasterAsset,rasterFrames,rasterFrameAsset,rasterStages,rasterStageAsset} from './species-raster.js';
 
 // Presentation contract: two authored SVG views for every explicit state.
 // These paths do not participate in organism creation, physics or persistence.
@@ -19,7 +19,7 @@ const rasterFailed=new Set();
 export const visualAsset=(id,state,frame,stage)=>{
  if(!rasterSpecies.has(id)||rasterFailed.has(id))return svgAsset(id,state,frame,stage);
  const key=frameKey(id,stage),variant=key!==id;
- if(variant&&!rasterStages.has(key))return rasterStandIns.has(key)?rasterAsset(id):svgAsset(id,state,frame,stage);
+ if(variant&&!rasterStages.has(key))return svgAsset(id,state,frame,stage);
  const count=rasterFrames[key]?.[state];
  return count?rasterFrameAsset(key,state,(frame||0)%count):variant?rasterStageAsset(key):rasterAsset(id);
 };
