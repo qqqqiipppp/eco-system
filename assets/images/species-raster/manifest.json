@@ -1004,5 +1004,50 @@
    "bytes": 11964
   }
  },
- "stages": {}
+ "stages": {
+  "grass:sprout": {
+   "file": "grass-sprout.webp",
+   "source": "grass-sprout.png",
+   "sourceSha256": "6fb02eba2928d9149d9fdd3ae47413aa8a4a8162a8140bb10566f9d90dd10c67",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    184,
+    37,
+    1294,
+    1069
+   ],
+   "placedBox": [
+    38,
+    8,
+    217,
+    174
+   ],
+   "bytes": 5446
+  },
+  "mushroom:mycelium": {
+   "file": "mushroom-mycelium.webp",
+   "source": "mushroom-mycelium.png",
+   "sourceSha256": "b9737bae6f1dce923d1be714b70f5d98072aa5a21c9af1b88ad89ea99e2c0c45",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    20,
+    121,
+    1436,
+    1006
+   ],
+   "placedBox": [
+    8,
+    24,
+    248,
+    174
+   ],
+   "bytes": 6648
+  }
+ }
 }

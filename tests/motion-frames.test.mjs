@@ -61,3 +61,12 @@ test('birds fly on their wing frames; walkers and the chipmunk walk on the groun
  const switches=id=>{const out=moving(id,90);return out.filter((f,i)=>i&&f.frame!==out[i-1].frame).length;};
  assert.ok(switches('snail')<switches('aphid')/2,'the snail glides slowly');
 });
+
+test('a grass sprout and a fungus mycelium show their own painted pictures', async () => {
+ const {visualAsset}=await import('../js/ui/species-visuals.js');
+ assert.equal(visualAsset('grass','idle',0,'sprout'),'./assets/images/species-raster/grass-sprout.webp');
+ assert.equal(visualAsset('grass','leaf-turn',1,'sprout'),'./assets/images/species-raster/grass-sprout.webp','no leaf-turn frame for the sprout');
+ assert.equal(visualAsset('grass','idle',0,'grown'),'./assets/images/species-raster/grass.webp');
+ assert.equal(visualAsset('mushroom','active',0,'mycelium'),'./assets/images/species-raster/mushroom-mycelium.webp');
+ assert.equal(visualAsset('mushroom','idle',0,'fruiting'),'./assets/images/species-raster/mushroom.webp');
+});

@@ -41,11 +41,11 @@ for(const id of stillSpecies)test(id+': stands still, one frame per state, while
  for(let i=0;i<200;i++){s.simulationTime=i*.1;const row=t.sample(s,.1)[0];seen.add(row.motion+'-'+row.frame);}
  assert.deepEqual([...seen],['idle-0']);
 });
-test('painted sprites: every species has one; growth variants without one keep the SVG',()=>{
+test('painted sprites: every species has one; growth stages use their painted picture',()=>{
  assert.equal(rasterSpecies.size,24);
  for(const id of rasterSpecies){assert(existsSync(new URL('../assets/images/species-raster/'+id+'.webp',import.meta.url)),id);assert.equal(visualAsset(id,'idle',1),'./assets/images/species-raster/'+id+'.webp');}
  assert.equal(visualAsset('rabbit','idle',0,'baby'),'./assets/images/species-raster/rabbit.webp','baby rabbit: same picture, scaled by CSS');
- for(const [id,stage] of [['grass','sprout'],['mushroom','mycelium']])assert.equal(visualAsset(id,'idle',0,stage),svgAsset(id,'idle',0,stage));
+ for(const [id,stage] of [['grass','sprout'],['mushroom','mycelium']])assert.equal(visualAsset(id,'idle',0,stage),`./assets/images/species-raster/${id}-${stage}.webp`,`${id} ${stage}: painted since motion-04`);
  assert.equal(visualAsset('grasshopper','idle',0,'nymph'),'./assets/images/species-raster/grasshopper.webp','nymph: adult picture until the nymph is painted');
  assert.equal(svgAsset('grasshopper','eat',1,'nymph'),'./assets/images/species/grasshopper.svg#nymph-eat-1');
 });
