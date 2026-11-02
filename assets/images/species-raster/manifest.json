@@ -29,7 +29,37 @@
     248,
     174
    ],
-   "bytes": 7354
+   "bytes": 7354,
+   "frames": {
+    "eat-0": {
+     "file": "bulbul-eat-0.webp",
+     "source": "bulbul-eat-0.png",
+     "sourceSha256": "01e2ac26bc4875bb1107f14d81c90703407fe8bc271e702604c30e69c71d2a61",
+     "checks": [],
+     "bytes": 7698
+    },
+    "eat-1": {
+     "file": "bulbul-eat-1.webp",
+     "source": "bulbul-eat-1.png",
+     "sourceSha256": "1130edcbaf708ea5af4c03d38a85c82b69c3ec415ca38b2510d6ffd19b16cad6",
+     "checks": [],
+     "bytes": 7336
+    },
+    "move-0": {
+     "file": "bulbul-move-0.webp",
+     "source": "bulbul-move-0.png",
+     "sourceSha256": "a7917fe3ed0a368360fbc845f298eb6e99d91412910cd622b446faa6f3000e53",
+     "checks": [],
+     "bytes": 10610
+    },
+    "move-1": {
+     "file": "bulbul-move-1.webp",
+     "source": "bulbul-move-1.png",
+     "sourceSha256": "9c86fa07ed9cd0975d23fa8cd49e905eef7718af16978e04f1d0106e092044bc",
+     "checks": [],
+     "bytes": 8790
+    }
+   }
   },
   "tit": {
    "file": "tit.webp",
@@ -51,7 +81,37 @@
     243,
     174
    ],
-   "bytes": 8378
+   "bytes": 8378,
+   "frames": {
+    "eat-0": {
+     "file": "tit-eat-0.webp",
+     "source": "tit-eat-0.png",
+     "sourceSha256": "848ca44a4c60069b10b378bbce84ae46035bb6d09e9063b649ea3a3bfad121a5",
+     "checks": [],
+     "bytes": 8584
+    },
+    "eat-1": {
+     "file": "tit-eat-1.webp",
+     "source": "tit-eat-1.png",
+     "sourceSha256": "16680ea6aa8fe7042061213cb450ddac79d52aaaec327f2aaa412587801e58f2",
+     "checks": [],
+     "bytes": 8524
+    },
+    "move-0": {
+     "file": "tit-move-0.webp",
+     "source": "tit-move-0.png",
+     "sourceSha256": "76279d929a3b2af734e419dab4a5909ea66fd5eab4291347e692c5139a77160a",
+     "checks": [],
+     "bytes": 11180
+    },
+    "move-1": {
+     "file": "tit-move-1.webp",
+     "source": "tit-move-1.png",
+     "sourceSha256": "fb8c56a6fcbf71a33110b7e8ec44a1b1e4e16153e5f78b29f2761d43728c8ea4",
+     "checks": [],
+     "bytes": 9452
+    }
+   }
   },
   "chipmunk": {
    "file": "chipmunk.webp",
@@ -73,7 +133,37 @@
     248,
     174
    ],
-   "bytes": 9308
+   "bytes": 9308,
+   "frames": {
+    "eat-0": {
+     "file": "chipmunk-eat-0.webp",
+     "source": "chipmunk-eat-0.png",
+     "sourceSha256": "a4e7f3fce2722a43dfcfaaac8cd5a9cbc5cad4f93e1a4f4c5eb9dad99bedcc26",
+     "checks": [],
+     "bytes": 8632
+    },
+    "eat-1": {
+     "file": "chipmunk-eat-1.webp",
+     "source": "chipmunk-eat-1.png",
+     "sourceSha256": "9bd00174de1843bf260a4e441bfc7aa256e5a7b9d5dc26609eee37c3c1e01087",
+     "checks": [],
+     "bytes": 8590
+    },
+    "move-0": {
+     "file": "chipmunk-move-0.webp",
+     "source": "chipmunk-move-0.png",
+     "sourceSha256": "aa7c7635e921b330d7b7089920b5e20145805fc6256e84d97efe251ee3eceeaf",
+     "checks": [],
+     "bytes": 9228
+    },
+    "move-1": {
+     "file": "chipmunk-move-1.webp",
+     "source": "chipmunk-move-1.png",
+     "sourceSha256": "6f12d3ac23c866d1e6d3a9ee9c72ed2e6a5c0e029b20a9daba56d111965a8a73",
+     "checks": [],
+     "bytes": 9426
+    }
+   }
   },
   "rabbit": {
    "file": "rabbit.webp",
@@ -95,7 +185,37 @@
     212,
     174
    ],
-   "bytes": 10452
+   "bytes": 10452,
+   "frames": {
+    "eat-0": {
+     "file": "rabbit-eat-0.webp",
+     "source": "rabbit-eat-0.png",
+     "sourceSha256": "c1b125021b7f4a30932d4412898d3c75972932ed93b7e04be11174819a21ac86",
+     "checks": [],
+     "bytes": 9376
+    },
+    "eat-1": {
+     "file": "rabbit-eat-1.webp",
+     "source": "rabbit-eat-1.png",
+     "sourceSha256": "fa7ccad209c8f82c8ff4bc4e2158beb517da97726c5d25b2cf9e8692e9854b4b",
+     "checks": [],
+     "bytes": 9634
+    },
+    "move-0": {
+     "file": "rabbit-move-0.webp",
+     "source": "rabbit-move-0.png",
+     "sourceSha256": "13623b070c6e1cd3b54446de4ae4c192a2970055e25432d05ce094f9ce677422",
+     "checks": [],
+     "bytes": 10328
+    },
+    "move-1": {
+     "file": "rabbit-move-1.webp",
+     "source": "rabbit-move-1.png",
+     "sourceSha256": "2b3614de57accfa065150b952f8bc4b7d57422a302256d21d727a1e711a0e2d3",
+     "checks": [],
+     "bytes": 10828
+    }
+   }
   },
   "frog": {
    "file": "frog.webp",
@@ -117,7 +237,37 @@
     248,
     174
    ],
-   "bytes": 13594
+   "bytes": 13594,
+   "frames": {
+    "eat-0": {
+     "file": "frog-eat-0.webp",
+     "source": "frog-eat-0.png",
+     "sourceSha256": "6b5e1756d573ce7da39294634cdd8dfcbac03ab081fcc756f5299519a939fb10",
+     "checks": [],
+     "bytes": 14708
+    },
+    "eat-1": {
+     "file": "frog-eat-1.webp",
+     "source": "frog-eat-1.png",
+     "sourceSha256": "9e0fc3193a38b1f0c95f6dea5be67edbce1f18a1720fba22ae040bfde0318807",
+     "checks": [],
+     "bytes": 13892
+    },
+    "move-0": {
+     "file": "frog-move-0.webp",
+     "source": "frog-move-0.png",
+     "sourceSha256": "9e0fc3193a38b1f0c95f6dea5be67edbce1f18a1720fba22ae040bfde0318807",
+     "checks": [],
+     "bytes": 13892
+    },
+    "move-1": {
+     "file": "frog-move-1.webp",
+     "source": "frog-move-1.png",
+     "sourceSha256": "3c193c115323806d08d3eabeceb8fae4f822017351904133880e17bb360b54af",
+     "checks": [],
+     "bytes": 14240
+    }
+   }
   },
   "grasshopper": {
    "file": "grasshopper.webp",
@@ -231,7 +381,37 @@
     248,
     174
    ],
-   "bytes": 13444
+   "bytes": 13444,
+   "frames": {
+    "eat-0": {
+     "file": "field-mouse-eat-0.webp",
+     "source": "field-mouse-eat-0.png",
+     "sourceSha256": "6eb56036f01f013e1e59aa42c3677f962d89818e1b86c3215a75257a9ec501b2",
+     "checks": [],
+     "bytes": 13630
+    },
+    "eat-1": {
+     "file": "field-mouse-eat-1.webp",
+     "source": "field-mouse-eat-1.png",
+     "sourceSha256": "501c40cfff0bc6da11d6abf29d4efbad80d5c77a4ef87fc71273b443dc9eace1",
+     "checks": [],
+     "bytes": 13506
+    },
+    "move-0": {
+     "file": "field-mouse-move-0.webp",
+     "source": "field-mouse-move-0.png",
+     "sourceSha256": "a05a7b36e90787a6549e4123d4f32620fa481f5a117d43803394484546f19881",
+     "checks": [],
+     "bytes": 13656
+    },
+    "move-1": {
+     "file": "field-mouse-move-1.webp",
+     "source": "field-mouse-move-1.png",
+     "sourceSha256": "740166724103a11efed59b41178043ffcbbb4e5ca7f5d23564e68899f427f754",
+     "checks": [],
+     "bytes": 13528
+    }
+   }
   },
   "caterpillar": {
    "file": "caterpillar.webp",
@@ -253,7 +433,37 @@
     248,
     174
    ],
-   "bytes": 10276
+   "bytes": 10276,
+   "frames": {
+    "eat-0": {
+     "file": "caterpillar-eat-0.webp",
+     "source": "caterpillar-eat-0.png",
+     "sourceSha256": "52a94ab5528a06425da2f8bf8c80e59d5d26e1f8ac21bee50f3b83b05f7d3e0d",
+     "checks": [],
+     "bytes": 10580
+    },
+    "eat-1": {
+     "file": "caterpillar-eat-1.webp",
+     "source": "caterpillar-eat-1.png",
+     "sourceSha256": "135f6fb0ce0f2867c97450bdfe5b961703a3bd51a4087cc8e70ccf543edeea4c",
+     "checks": [],
+     "bytes": 10538
+    },
+    "move-0": {
+     "file": "caterpillar-move-0.webp",
+     "source": "caterpillar-move-0.png",
+     "sourceSha256": "70f1785f24d9f8f2e7913d6678b5942c41c6454043dba7635af3ae0440c576b1",
+     "checks": [],
+     "bytes": 10578
+    },
+    "move-1": {
+     "file": "caterpillar-move-1.webp",
+     "source": "caterpillar-move-1.png",
+     "sourceSha256": "79c89b5e038b980c35fb97591429faad4d64d169d2d9f2746529dae4aaaf8f5f",
+     "checks": [],
+     "bytes": 9808
+    }
+   }
   },
   "aphid": {
    "file": "aphid.webp",
@@ -275,7 +485,37 @@
     248,
     174
    ],
-   "bytes": 11244
+   "bytes": 11244,
+   "frames": {
+    "eat-0": {
+     "file": "aphid-eat-0.webp",
+     "source": "aphid-eat-0.png",
+     "sourceSha256": "b9d5b855c9637c9c613a597d405151d6f0a4c455d270903e4ff478afbe5428ad",
+     "checks": [],
+     "bytes": 11616
+    },
+    "eat-1": {
+     "file": "aphid-eat-1.webp",
+     "source": "aphid-eat-1.png",
+     "sourceSha256": "7d50111452ecff1260e4755b4a4c1301f0cbd6dd7b33f29291e63e4eef61515d",
+     "checks": [],
+     "bytes": 11552
+    },
+    "move-0": {
+     "file": "aphid-move-0.webp",
+     "source": "aphid-move-0.png",
+     "sourceSha256": "0380d37ed754aca0666987809c44f399af8a359aae7a5274d8c6b95fc783a7c1",
+     "checks": [],
+     "bytes": 11412
+    },
+    "move-1": {
+     "file": "aphid-move-1.webp",
+     "source": "aphid-move-1.png",
+     "sourceSha256": "7ca707d2b05c894595d5f14fb95d5cdd47e8747c674585a4e9b3f8b9158bfc90",
+     "checks": [],
+     "bytes": 11486
+    }
+   }
   },
   "snail": {
    "file": "snail.webp",
@@ -297,7 +537,37 @@
     248,
     174
    ],
-   "bytes": 8396
+   "bytes": 8396,
+   "frames": {
+    "eat-0": {
+     "file": "snail-eat-0.webp",
+     "source": "snail-eat-0.png",
+     "sourceSha256": "d8ed2690f238fbc592110f9712224335658e6af985ecedda02372d5eb2490f2d",
+     "checks": [],
+     "bytes": 8556
+    },
+    "eat-1": {
+     "file": "snail-eat-1.webp",
+     "source": "snail-eat-1.png",
+     "sourceSha256": "eb0f97d12fc50d1262ab01ab41000f1ee0350d788a37f6d46cb70403c82b47d5",
+     "checks": [],
+     "bytes": 8502
+    },
+    "move-0": {
+     "file": "snail-move-0.webp",
+     "source": "snail-move-0.png",
+     "sourceSha256": "42786502ee450f01f8e8ac5b0b4b950faac81c7b73c692d5b5b14bcfcd30814d",
+     "checks": [],
+     "bytes": 8590
+    },
+    "move-1": {
+     "file": "snail-move-1.webp",
+     "source": "snail-move-1.png",
+     "sourceSha256": "89af912b3497ea9c72546c20ee2ee514adc967d91f8a1bc49c41d8176e1588be",
+     "checks": [],
+     "bytes": 8388
+    }
+   }
   },
   "spider": {
    "file": "spider.webp",
@@ -319,7 +589,37 @@
     248,
     174
    ],
-   "bytes": 15774
+   "bytes": 15774,
+   "frames": {
+    "eat-0": {
+     "file": "spider-eat-0.webp",
+     "source": "spider-eat-0.png",
+     "sourceSha256": "24c8974226ec5b5771d543673011500b7a4e48ef1e74defeb73a5f08fe13c088",
+     "checks": [],
+     "bytes": 15202
+    },
+    "eat-1": {
+     "file": "spider-eat-1.webp",
+     "source": "spider-eat-1.png",
+     "sourceSha256": "50bb3e3daf3cd1913d16d1e6a25f124e061fad442ecfba5da12a22423c56877b",
+     "checks": [],
+     "bytes": 15140
+    },
+    "move-0": {
+     "file": "spider-move-0.webp",
+     "source": "spider-move-0.png",
+     "sourceSha256": "95fbb971470c4e4a243f3efcd74e4b0b7e13133b2504d7ce7219b589ec3e1bdf",
+     "checks": [],
+     "bytes": 15574
+    },
+    "move-1": {
+     "file": "spider-move-1.webp",
+     "source": "spider-move-1.png",
+     "sourceSha256": "fd63684564f1aff8980c1b750a86497da98847c3c72f7e8a179243bcf92ac403",
+     "checks": [],
+     "bytes": 16102
+    }
+   }
   },
   "ladybird": {
    "file": "ladybird.webp",
@@ -341,7 +641,37 @@
     248,
     174
    ],
-   "bytes": 11456
+   "bytes": 11456,
+   "frames": {
+    "eat-0": {
+     "file": "ladybird-eat-0.webp",
+     "source": "ladybird-eat-0.png",
+     "sourceSha256": "12d0706cc4d4a09d5567b414b83cc17be97f1a9b1f3189457e5871aa6a033f80",
+     "checks": [],
+     "bytes": 11500
+    },
+    "eat-1": {
+     "file": "ladybird-eat-1.webp",
+     "source": "ladybird-eat-1.png",
+     "sourceSha256": "d58434a189257a48e4e89c26c8e4fb4244cbcfcb94dca58529bc5fe4d33d9f27",
+     "checks": [],
+     "bytes": 11444
+    },
+    "move-0": {
+     "file": "ladybird-move-0.webp",
+     "source": "ladybird-move-0.png",
+     "sourceSha256": "f50102dccf60ebe9f9d4b0d38d6013957caf19f0fedb80c426a4daad9311aa25",
+     "checks": [],
+     "bytes": 11342
+    },
+    "move-1": {
+     "file": "ladybird-move-1.webp",
+     "source": "ladybird-move-1.png",
+     "sourceSha256": "67426d017a6ddfffbbe0e49873ca0bf18c2b850cc6e60e7bcfcaa01aa0279eeb",
+     "checks": [],
+     "bytes": 11712
+    }
+   }
   },
   "snake": {
    "file": "snake.webp",
@@ -363,7 +693,37 @@
     248,
     174
    ],
-   "bytes": 7720
+   "bytes": 7720,
+   "frames": {
+    "sense-0": {
+     "file": "snake-sense-0.webp",
+     "source": "snake-sense-0.png",
+     "sourceSha256": "12554d205c74288ededaa022bb3cddaf047509aad677bee554af0ae02398f40a",
+     "checks": [],
+     "bytes": 7928
+    },
+    "sense-1": {
+     "file": "snake-sense-1.webp",
+     "source": "snake-sense-1.png",
+     "sourceSha256": "8a0ed3f409e7149a039cbc85974f291ef626ed3ebaee37902189a73b97c1c5ae",
+     "checks": [],
+     "bytes": 7678
+    },
+    "move-0": {
+     "file": "snake-move-0.webp",
+     "source": "snake-move-0.png",
+     "sourceSha256": "5343b944326f71b566723552da2869170efe1eec86f5eba9d621145b5e197405",
+     "checks": [],
+     "bytes": 7926
+    },
+    "move-1": {
+     "file": "snake-move-1.webp",
+     "source": "snake-move-1.png",
+     "sourceSha256": "24701ad9623e1cabcc2b16bdbae40c219ea70a9741e4a19bfe3e35264df3e771",
+     "checks": [],
+     "bytes": 7816
+    }
+   }
   },
   "weasel": {
    "file": "weasel.webp",
@@ -385,7 +745,37 @@
     248,
     174
    ],
-   "bytes": 7100
+   "bytes": 7100,
+   "frames": {
+    "eat-0": {
+     "file": "weasel-eat-0.webp",
+     "source": "weasel-eat-0.png",
+     "sourceSha256": "d56fe752c895db530ff714369a3204e5eb7a46889577c23b963c63f3a1b85cb7",
+     "checks": [],
+     "bytes": 7142
+    },
+    "eat-1": {
+     "file": "weasel-eat-1.webp",
+     "source": "weasel-eat-1.png",
+     "sourceSha256": "24207d7603d707c27cefa6cd8e92840227cf84e84636cddf4ea2bd3c99f63528",
+     "checks": [],
+     "bytes": 7228
+    },
+    "move-0": {
+     "file": "weasel-move-0.webp",
+     "source": "weasel-move-0.png",
+     "sourceSha256": "91719132beb17bc6afb9f3acc5aaab13863f53b5ae556f79c41a41fd4564a96c",
+     "checks": [],
+     "bytes": 7320
+    },
+    "move-1": {
+     "file": "weasel-move-1.webp",
+     "source": "weasel-move-1.png",
+     "sourceSha256": "62e116adb40b36f3eb01b8af9ab20732aa4767456e14db15ae8b1c84f267dc5a",
+     "checks": [],
+     "bytes": 7320
+    }
+   }
   },
   "goshawk": {
    "file": "goshawk.webp",
@@ -407,7 +797,41 @@
     248,
     174
    ],
-   "bytes": 9710
+   "bytes": 9710,
+   "frames": {
+    "eat-0": {
+     "file": "goshawk-eat-0.webp",
+     "source": "goshawk-eat-0.png",
+     "sourceSha256": "f0e5bc40304a4a5e4775e3936d8923540dbaa951ed2f0fa1bcb205bfacce69bc",
+     "checks": [],
+     "bytes": 9766
+    },
+    "eat-1": {
+     "file": "goshawk-eat-1.webp",
+     "source": "goshawk-eat-1.png",
+     "sourceSha256": "80ca34730355b44e1b858f73ea4ab696df9e8783bc61f3b27d621eb2ce04f17d",
+     "checks": [],
+     "bytes": 9722
+    },
+    "move-0": {
+     "file": "goshawk-move-0.webp",
+     "source": "goshawk-move-0.png",
+     "sourceSha256": "6fe0fdd0f5e06e1a79a8379a70fffeab179c3a3ad0c55b7a81278123623bfbdd",
+     "checks": [
+      "색이 기본 그림과 달라 보여요 (색 섞임 차이 0.26, 평균 색 차이 12)"
+     ],
+     "bytes": 12672
+    },
+    "move-1": {
+     "file": "goshawk-move-1.webp",
+     "source": "goshawk-move-1.png",
+     "sourceSha256": "0fd0b427541098e58e91954ea1c78be1fb667db784fffc477c3cbe11a8ee4964",
+     "checks": [
+      "색이 기본 그림과 달라 보여요 (색 섞임 차이 0.22, 평균 색 차이 3)"
+     ],
+     "bytes": 11104
+    }
+   }
   },
   "earthworm": {
    "file": "earthworm.webp",
@@ -429,7 +853,23 @@
     248,
     174
    ],
-   "bytes": 4908
+   "bytes": 4908,
+   "frames": {
+    "eat-0": {
+     "file": "earthworm-eat-0.webp",
+     "source": "earthworm-eat-0.png",
+     "sourceSha256": "0a1662f35f497a390e6709798ec0d94b9e6fdd95f9bc530813e928dad2d5ab84",
+     "checks": [],
+     "bytes": 5144
+    },
+    "eat-1": {
+     "file": "earthworm-eat-1.webp",
+     "source": "earthworm-eat-1.png",
+     "sourceSha256": "142511dff7ddd06970d9da777255c3cb3d6d82a52cdcbdeac06df5950d986d1a",
+     "checks": [],
+     "bytes": 4976
+    }
+   }
   },
   "oak": {
    "file": "oak.webp",
@@ -562,6 +1002,52 @@
     174
    ],
    "bytes": 11964
+  }
+ },
+ "stages": {
+  "grass:sprout": {
+   "file": "grass-sprout.webp",
+   "source": "grass-sprout.png",
+   "sourceSha256": "6fb02eba2928d9149d9fdd3ae47413aa8a4a8162a8140bb10566f9d90dd10c67",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    184,
+    37,
+    1294,
+    1069
+   ],
+   "placedBox": [
+    38,
+    8,
+    217,
+    174
+   ],
+   "bytes": 5446
+  },
+  "mushroom:mycelium": {
+   "file": "mushroom-mycelium.webp",
+   "source": "mushroom-mycelium.png",
+   "sourceSha256": "b9737bae6f1dce923d1be714b70f5d98072aa5a21c9af1b88ad89ea99e2c0c45",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    20,
+    121,
+    1436,
+    1006
+   ],
+   "placedBox": [
+    8,
+    24,
+    248,
+    174
+   ],
+   "bytes": 6648
   }
  }
 }

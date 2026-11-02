@@ -1,7 +1,7 @@
 import {organismById} from '../../data/organisms.js';
 import {earthwormAtSurface} from '../systems/prey-access.js';
 import {colonyActivity} from '../systems/lifespan.js';
-import {rasterSpecies,rasterAsset,rasterStandIns,rasterFrames,rasterFrameAsset} from './species-raster.js';
+import {rasterSpecies,rasterAsset,rasterStandIns,rasterFrames,rasterFrameAsset,rasterStages,rasterStageAsset} from './species-raster.js';
 
 // Presentation contract: two authored SVG views for every explicit state.
 // These paths do not participate in organism creation, physics or persistence.
@@ -9,33 +9,82 @@ export const visualStates=Object.freeze(Object.fromEntries(Object.values(organis
  s.role==='producer'?['idle','growth','leaf-turn']:s.role==='decomposer'?['idle','active']:s.id==='earthworm'?['covered','surface','covered-eat','eat']:['idle','move','eat']])));
 const variantOf=(id,stage)=>id==='grass'&&stage==='sprout'?'sprout-':id==='grasshopper'&&stage==='nymph'?'nymph-':id==='mushroom'&&stage==='mycelium'?'mycelium-':'';
 export const svgAsset=(id,state=id==='earthworm'?'surface':visualStates[id][0],frame=0,stage)=>`./assets/images/species/${id}.svg#${variantOf(id,stage)}${state}-${frame}`;
-// The painted sprite when there is one for this species and growth variant;
-// otherwise, or once it failed to load in this browser, the SVG view.
+// Which painted set a picture comes from: the species, or "id:stage" for a
+// growth stage that has its own drawing (otherwise the stage is CSS-scaled).
+export const frameKey=(id,stage)=>variantOf(id,stage)?id+':'+stage:id;
+// The painted sprite when there is one for this species and growth variant:
+// that state's frame if painted, else the base picture. Otherwise, or once it
+// failed to load in this browser, the SVG view.
 const rasterFailed=new Set();
-export const visualAsset=(id,state,frame,stage)=>rasterSpecies.has(id)&&(!variantOf(id,stage)||rasterStandIns.has(id+':'+stage))&&!rasterFailed.has(id)?(rasterFrames[id]?.[state]&&!variantOf(id,stage)?rasterFrameAsset(id,state,frame||0):rasterAsset(id)):svgAsset(id,state,frame,stage);
+export const visualAsset=(id,state,frame,stage)=>{
+ if(!rasterSpecies.has(id)||rasterFailed.has(id))return svgAsset(id,state,frame,stage);
+ const key=frameKey(id,stage),variant=key!==id;
+ if(variant&&!rasterStages.has(key))return rasterStandIns.has(key)?rasterAsset(id):svgAsset(id,state,frame,stage);
+ const count=rasterFrames[key]?.[state];
+ return count?rasterFrameAsset(key,state,(frame||0)%count):variant?rasterStageAsset(key):rasterAsset(id);
+};
+// The species of a painted file: the longest id its file name starts with.
+const speciesOfFile=src=>{const name=/\/species-raster\/([a-z0-9-]+)\.webp/.exec(src)?.[1]||'';
+ return [...rasterSpecies].filter(id=>name===id||name.startsWith(id+'-')).sort((a,b)=>b.length-a.length)[0];};
 if(typeof document!=='undefined')document.addEventListener('error',event=>{
- const img=event.target,match=img?.tagName==='IMG'&&/\/species-raster\/([a-z-]+?)(?:-(?:move|eat)-\d)?\.webp/.exec(img.getAttribute('src')||'');
- if(match){rasterFailed.add(match[1]);img.src=svgAsset(match[1]);}
+ const img=event.target,id=img?.tagName==='IMG'&&speciesOfFile(img.getAttribute('src')||'');
+ if(id){rasterFailed.add(id);img.src=svgAsset(id);}
 },true);
 
 // Load frame pictures up front so the first swap does not blink.
-if(typeof Image!=='undefined')for(const [id,states] of Object.entries(rasterFrames))for(const [state,count] of Object.entries(states))for(let f=0;f<count;f++)new Image().src=rasterFrameAsset(id,state,f);
+if(typeof Image!=='undefined'){for(const [key,states] of Object.entries(rasterFrames))for(const [state,count] of Object.entries(states))for(let f=0;f<count;f++)new Image().src=rasterFrameAsset(key,state,f);
+ for(const key of rasterStages)new Image().src=rasterStageAsset(key);}
 
 // No idle sway or flicker for these: a tree or a mushroom shows it is alive by
 // its state (growing, decomposing), drawn as one still pose, not by shaking.
 export const stillSpecies=new Set(['oak','pine','hazel','raspberry','mushroom','litter-mold','soil-bacteria']);
 
+// How an animal moves once its move frames are painted: "hop" (grasshopper,
+// frog, rabbit leap; chipmunk and weasel bound, low and quick) leaves the
+// ground and lands; "fly" (2 or more wing frames: birds) rises a little while
+// moving and settles when it stops. Any other animal, or one without enough
+// frames yet, loops its frames in place (a walk cycle). A hop takes 4 frames
+// (crouch, push off, in the air, reaching down) or 2 (on the ground, in the
+// air); the chipmunk's 2 painted frames are a walk, so it bounds only on 4.
+export const moveStyles=Object.freeze({grasshopper:'hop',frog:'hop',rabbit:'hop',chipmunk:'hop',weasel:'hop',tit:'fly',bulbul:'fly',goshawk:'fly'});
+const hopFrom=Object.freeze({chipmunk:4});
+export const moveStyle=(id,stage)=>{const style=moveStyles[id],count=rasterFrames[frameKey(id,stage)]?.move||0;
+ return style==='hop'&&count>=(hopFrom[id]||2)?'hop':style==='fly'&&count>=2?'fly':'loop';};
 // One hop, in seconds of screen time (a starting point to tune by eye, not a
-// measured grasshopper speed). Frames: 0 crouch, 1 push off, 2 legs drawn in
+// measured grasshopper speed). Shared by every hopping animal. Frames: 0 crouch, 1 push off, 2 legs drawn in
 // while flying, 3 legs reaching down to land, then 0 again on the ground.
 // lift is the height above the ground as a share of the sprite height.
 export const hopTiming=Object.freeze({cycle:.8,launch:.16,tuck:.26,reach:.48,land:.56,height:.38});
-export function hopPose(t){
- const {launch,tuck,reach,land,height}=hopTiming;
+// Each hopper's own timing (starting points to tune by eye, not measurements):
+// the frog crouches, leaps long and high, and pauses; the rabbit runs in quick,
+// flatter bounds with little time on the ground; the bounding mammals use the
+// same four frames (0 gathered, 1 push off, 2 stretched in the air, 3 front
+// legs reaching down), one bound after another, lower still.
+export const hopTimings=Object.freeze({
+ frog:Object.freeze({cycle:.9,launch:.12,tuck:.2,reach:.45,land:.58,height:.42}),
+ rabbit:Object.freeze({cycle:.56,launch:.06,tuck:.14,reach:.32,land:.42,height:.3}),
+ chipmunk:Object.freeze({cycle:.42,launch:.06,tuck:.12,reach:.24,land:.32,height:.2}),
+ weasel:Object.freeze({cycle:.48,launch:.06,tuck:.14,reach:.28,land:.36,height:.16}),
+});
+export const hopTimingOf=id=>hopTimings[id]||hopTiming;
+export function hopPose(t,timing=hopTiming){
+ const {launch,tuck,reach,land,height}=timing;
  if(t<launch)return {frame:0,phase:'crouch',lift:0,air:0};
  if(t<land){const u=(t-launch)/(land-launch);return {frame:t<tuck?1:t<reach?2:3,phase:'air',lift:height*4*u*(1-u),air:u};}
  return {frame:0,phase:'rest',lift:0,air:1};
 }
+// Flight: seconds to take off and to settle, the height reached as a share of
+// the sprite height, and seconds for one wingbeat over all its frames (a
+// starting point to tune by eye).
+export const flyTiming=Object.freeze({rise:.35,fall:.45,height:.45,flap:.32});
+// Painted walk and eat loops: one cycle takes the same time however many
+// frames are drawn (more frames only make it smoother). Slow animals take longer.
+export const loopTiming=Object.freeze({move:.44,eat:.6});
+export const slowerLoops=Object.freeze({snail:2.5});
+// Now and then while resting: the snake flicks its tongue to smell (painted
+// "sense" frames). It is how a snake finds prey, not how it eats, so it never
+// plays while eating. Every `every` seconds of rest, for `length` seconds.
+export const restingMotions=Object.freeze({snake:Object.freeze({state:'sense',every:3.2,length:.8,frame:.2})});
 
 /** Reads actual work deltas and actual model movement. All memory is temporary;
  * loading a cumulative work total never pretends decomposition just occurred.
@@ -68,24 +117,36 @@ export function createVisualTracker(){
     else if(species.role==='producer')motion=active?'growth':!stillSpecies.has(o.speciesId)&&Math.floor(time/9)%2?'leaf-turn':'idle';
     else if(species.role==='decomposer')motion=active?'active':'idle';
     else motion=o.behaviorState==='eat'?'eat':moved||(o.speciesId==='spider'&&o.behaviorState==='moveToFood')?'move':'idle';
-    // The adult grasshopper hops instead of shuffling: crouch, push off, fly,
-    // land, rest. A hop that has left the ground always lands, even if the
-    // model stopped or started eating meanwhile; on the ground it just ends.
-    let hop=null,hopStart=p?.hopStart??null;const movedAt=moved?visualTime:p?.movedAt??null;
-    if(o.speciesId==='grasshopper'&&o.development?.stage!=='nymph'){
-     // A tick without a position change between steps is not a stop.
-     if(motion==='idle'&&movedAt!==null&&visualTime-movedAt<.3)motion='move';
-     if(hopStart!==null&&(visualTime-hopStart>=hopTiming.cycle||motion!=='move'&&hopPose(visualTime-hopStart).phase!=='air'))hopStart=null;
+    // A hopper (painted hop frames) leaps instead of shuffling: crouch, push
+    // off, fly, land, rest. A hop that has left the ground always lands, even if
+    // the model stopped or started eating meanwhile; on the ground it just ends.
+    // A bird (painted wing frames) lifts off while moving and keeps flapping
+    // until it has settled again, then eats or rests on the ground.
+    const key=frameKey(o.speciesId,o.development?.stage),style=species.role==='consumer'?moveStyle(o.speciesId,o.development?.stage):'loop',dt=p?Math.max(0,visualTime-p.at):0;
+    let hop=null,hopStart=p?.hopStart??null,air=p?.air??0;const movedAt=moved?visualTime:p?.movedAt??null;
+    // A tick without a position change between steps is not a stop.
+    if(style!=='loop'&&motion==='idle'&&movedAt!==null&&visualTime-movedAt<.3)motion='move';
+    if(style==='hop'){
+     const timing=hopTimingOf(o.speciesId);
+     if(hopStart!==null&&(visualTime-hopStart>=timing.cycle||motion!=='move'&&hopPose(visualTime-hopStart,timing).phase!=='air'))hopStart=null;
      if(hopStart===null&&motion==='move')hopStart=visualTime;
-     if(hopStart!==null){motion='move';hop=hopPose(visualTime-hopStart);}
+     if(hopStart!==null){motion='move';hop=hopPose(visualTime-hopStart,timing);if(rasterFrames[key].move<4)hop.frame=hop.phase==='air'?1:0;}
     }else hopStart=null;
+    if(style==='fly'){
+     air=motion==='move'?Math.min(1,air+dt/flyTiming.rise):Math.max(0,air-dt/flyTiming.fall);
+     if(air>0){motion='move';hop={fly:true,phase:'air',lift:flyTiming.height*air*(2-air),frame:Math.floor(visualTime/(flyTiming.flap/rasterFrames[key].move))%rasterFrames[key].move};}
+    }else air=0;
     const started=p?.motion===motion?p.started:visualTime;
-    const period=motion==='idle'&&species.role==='consumer'?.32:['idle','covered','leaf-turn','surface'].includes(motion)?1.2:.22;
-    const frame=stillSpecies.has(o.speciesId)?0:hop?hop.frame:Math.floor((visualTime-started)/period)%2;
-    previous.set(o.instanceId,{x:o.position.x,y:o.position.y,growth:o.growth,work,litter:o.litterConsumed,motion,started,hopStart,movedAt});
+    const painted=rasterFrames[key]?.[motion];
+    const period=painted&&loopTiming[motion]?loopTiming[motion]*(slowerLoops[o.speciesId]||1)/painted:motion==='idle'&&species.role==='consumer'?.32:['idle','covered','leaf-turn','surface'].includes(motion)?1.2:.22;
+    let shown=motion,frame=stillSpecies.has(o.speciesId)?0:hop?hop.frame:Math.floor((visualTime-started)/period)%(painted||2);
+    // The resting extra plays at the end of each stretch of rest; the rest itself goes on.
+    const rest=restingMotions[o.speciesId],resting=motion==='idle'&&rest&&rasterFrames[key]?.[rest.state]?(visualTime-started)%rest.every-(rest.every-rest.length):-1;
+    if(resting>=0){shown=rest.state;frame=Math.floor(resting/rest.frame)%rasterFrames[key][rest.state];}
+    previous.set(o.instanceId,{x:o.position.x,y:o.position.y,growth:o.growth,work,litter:o.litterConsumed,motion,started,hopStart,movedAt,air,at:visualTime});
     const target=state.organisms.find(n=>n.instanceId===o.targetInstanceId),dx=target?target.position.x-o.position.x:0;
     const facing=Math.abs(dx)>1e-7?Math.sign(dx):o.direction||1;
-    return {instanceId:o.instanceId,motion,frame,facing,hop,src:visualAsset(o.speciesId,motion,frame,o.development?.stage)};
+    return {instanceId:o.instanceId,motion:shown,frame,facing,hop,src:visualAsset(o.speciesId,shown,frame,o.development?.stage)};
    });
   },
  };

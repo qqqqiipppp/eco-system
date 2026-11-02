@@ -1,3 +1,4 @@
+import {paintedFrames,paintedStages} from './species-frames.js';
 // Approved painted sprites (WebP, built by tools/build_species_raster.py from
 // the final PNGs; see assets/images/species-raster/manifest.json). One still
 // picture per species for now: every state and frame uses it, and motion is a
@@ -10,11 +11,14 @@ export const rasterSpecies=new Set([
 ]);
 export const rasterAsset=id=>`./assets/images/species-raster/${id}.webp`;
 // Stand-in until the nymph is painted: the adult picture (the newborn is
-// already drawn smaller). Remove once grasshopper-nymph art exists.
+// already drawn smaller). A painted stage picture, once imported, wins.
 export const rasterStandIns=new Set(['grasshopper:nymph']);
-// Painted motion frames (tools/build_species_raster.py --motion). A state listed
-// here swaps pictures; any other state keeps the base picture and its CSS hint.
-// Only the adult grasshopper's hop so far (artwork forest-sprites-motion-02:
-// move-0/1, forest-sprites-motion-03-grasshopper-flight: move-2/3).
-export const rasterFrames={grasshopper:{move:4}};
-export const rasterFrameAsset=(id,state,frame)=>`./assets/images/species-raster/${id}-${state}-${frame}.webp`;
+// Painted motion frames and growth-stage pictures come from the generated
+// species-frames.js (tools/build_species_raster.py --import). A key is a
+// species id, or "id:stage" for a growth stage painted on its own (nymph,
+// sprout, mycelium). A state without frames keeps the base picture and its CSS hint.
+export const rasterFrames=paintedFrames;
+export const rasterStages=new Set(paintedStages);
+const file=key=>key.replace(':','-');
+export const rasterFrameAsset=(key,state,frame)=>`./assets/images/species-raster/${file(key)}-${state}-${frame}.webp`;
+export const rasterStageAsset=key=>`./assets/images/species-raster/${file(key)}.webp`;
