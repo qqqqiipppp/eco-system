@@ -33,8 +33,9 @@ const ground=new Set(['grass','raspberry','hazel','oak','pine','litter-mold','ea
   all.counts.push(await p.locator('.organism-object').count());
   // Every animation frame for 40 s: picture, state, lift, facing, CSS animation, frame time.
   const samples=await p.evaluate(ms=>new Promise(done=>{const out=[],gaps=[];let last=performance.now();const t0=last;(function tick(now){gaps.push(now-last);last=now;
-   for(const a of document.querySelectorAll('.organism-object')){const img=a.querySelector('img.organism-art');if(!img)continue;const s=getComputedStyle(img);
-    out.push({id:a.dataset.instanceId,sp:a.dataset.speciesId,state:a.dataset.visualState,src:img.getAttribute('src').split('/').pop(),lift:parseFloat(s.getPropertyValue('--hop-lift'))||0,facing:s.getPropertyValue('--facing').trim()||'1',anim:s.animationName});}
+   const top=document.querySelector('#placement-surface').getBoundingClientRect().top;
+   for(const a of document.querySelectorAll('.organism-object')){const img=a.querySelector('img.organism-art');if(!img)continue;const s=getComputedStyle(img),box=img.getBoundingClientRect();
+    out.push({id:a.dataset.instanceId,sp:a.dataset.speciesId,state:a.dataset.visualState,src:img.getAttribute('src').split('/').pop(),lift:parseFloat(s.getPropertyValue('--hop-lift'))||0,facing:s.getPropertyValue('--facing').trim()||'1',anim:s.animationName,cut:box.top<top-1&&(parseFloat(s.getPropertyValue('--hop-lift'))||0)>0});}
    if(now-t0<ms)requestAnimationFrame(tick);else done({out,gaps:gaps.slice(5)});})(t0);}),40000);
   all.out.push(...samples.out);all.gaps.push(...samples.gaps);
   if(zoo!==zoos.at(-1))await p.close();
@@ -63,6 +64,8 @@ const ground=new Set(['grass','raspberry','hazel','oak','pine','litter-mold','ea
    report.push(`${sp} move style ${style}, top ${top.toFixed(2)}`);}
   if(sp==='snake')assert.ok(mine.filter(s=>s.state==='eat').every(s=>!/-sense-/.test(s.src)),'snake: no tongue flick while eating');
  }
+ // A lifted picture is never cut off at the top of the forest.
+ assert.deepEqual([...new Set(samples.out.filter(s=>s.cut).map(s=>s.sp))],[],'no hop or flight goes past the top edge');
  // Facing follows the way an animal goes.
  const turned=Object.entries(bySpecies).filter(([,m])=>m.some(s=>s.facing==='-1')&&m.some(s=>s.facing==='1')).map(([sp])=>sp);
  assert.ok(turned.length>=4,'animals face both ways: '+turned);

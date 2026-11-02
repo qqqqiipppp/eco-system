@@ -89,11 +89,14 @@ export function createOrganismLayer(forest, getOrganisms) {
     if(size>limit)off={x:off.x*limit/size,y:off.y*limit/size};
     if(!hop&&size<.3)off=null;
     entry.hopOffset=off;
-    const style=entry.image.style,x=(off?.x||0).toFixed(1)+'px',y=(off?.y||0).toFixed(1)+'px',lift=(frameHop?.lift||0).toFixed(3);entry.hopLift=frameHop?.lift||0;
+    // A bird or hopper near the top of the forest rises only as far as the
+    // forest's top edge, so the picture is never cut off there.
+    const height=layout?.sizes[entry.anchor.dataset.speciesId]?.height||40,room=Math.max(0,(point.y+(off?.y||0)-height-2)/height);
+    const rise=Math.min(frameHop?.lift||0,room),style=entry.image.style,x=(off?.x||0).toFixed(1)+'px',y=(off?.y||0).toFixed(1)+'px',lift=rise.toFixed(3);entry.hopLift=rise;
     if(style.getPropertyValue('--hop-x')!==x)style.setProperty('--hop-x',x);
     if(style.getPropertyValue('--hop-y')!==y)style.setProperty('--hop-y',y);
     if(style.getPropertyValue('--hop-lift')!==lift)style.setProperty('--hop-lift',lift);
-    entry.anchor.classList.toggle('is-hopping',Boolean(frameHop&&frameHop.lift>0));
+    entry.anchor.classList.toggle('is-hopping',rise>0);
   }
   function sizeObject(anchor, speciesId) {
     const size = layout.sizes[speciesId];

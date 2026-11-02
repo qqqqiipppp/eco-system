@@ -55,9 +55,14 @@ export const moveStyle=(id,stage)=>{const style=moveStyles[id],count=rasterFrame
 // while flying, 3 legs reaching down to land, then 0 again on the ground.
 // lift is the height above the ground as a share of the sprite height.
 export const hopTiming=Object.freeze({cycle:.8,launch:.16,tuck:.26,reach:.48,land:.56,height:.38});
-// Bounding mammals: the same four frames (0 gathered, 1 push off, 2 stretched
-// in the air, 3 front legs reaching down), one bound after another, lower.
+// Each hopper's own timing (starting points to tune by eye, not measurements):
+// the frog crouches, leaps long and high, and pauses; the rabbit runs in quick,
+// flatter bounds with little time on the ground; the bounding mammals use the
+// same four frames (0 gathered, 1 push off, 2 stretched in the air, 3 front
+// legs reaching down), one bound after another, lower still.
 export const hopTimings=Object.freeze({
+ frog:Object.freeze({cycle:.9,launch:.12,tuck:.2,reach:.45,land:.58,height:.42}),
+ rabbit:Object.freeze({cycle:.56,launch:.06,tuck:.14,reach:.32,land:.42,height:.3}),
  chipmunk:Object.freeze({cycle:.42,launch:.06,tuck:.12,reach:.24,land:.32,height:.2}),
  weasel:Object.freeze({cycle:.48,launch:.06,tuck:.14,reach:.28,land:.36,height:.16}),
 });

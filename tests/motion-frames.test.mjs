@@ -37,3 +37,27 @@ test('the snake flicks its tongue only while resting, never while eating', () =>
  assert.ok(resting.filter(f=>f.motion!=='sense').every(f=>/snake\.webp$/.test(f.src)),'otherwise its usual picture');
  const eating=run('snake',frames(200,{state:'eat'}));assert.ok(eating.every(f=>f.motion==='eat'&&!/-sense-/.test(f.src)),'eating: no flick');
 });
+
+const moving=(id,n=90)=>run(id,frames(n,{move:true}));
+test('frog, rabbit and weasel leap on their two frames: on the ground 0, in the air 1', () => {
+ for(const id of ['frog','rabbit','weasel']){
+  assert.equal(paintedFrames[id].move,2);assert.equal(moveStyle(id),'hop',id);
+  const out=moving(id),air=out.filter(f=>f.hop?.phase==='air'),ground=out.filter(f=>f.hop&&f.hop.phase!=='air');
+  assert.ok(air.length&&ground.length,id+' leaves and lands');
+  assert.ok(air.every(f=>f.frame===1&&f.src.endsWith(`${id}-move-1.webp`)&&f.hop.lift>=0),id+': in the air on frame 1');
+  assert.ok(ground.every(f=>f.frame===0&&f.src.endsWith(`${id}-move-0.webp`)&&f.hop.lift===0),id+': on the ground on frame 0');
+ }
+ const top=id=>Math.max(...moving(id).map(f=>f.hop?.lift||0));
+ assert.ok(top('frog')>top('rabbit')&&top('rabbit')>top('weasel'),'frog highest, then rabbit, weasel lowest');
+});
+test('birds fly on their wing frames; walkers and the chipmunk walk on the ground', () => {
+ for(const id of ['tit','bulbul','goshawk']){const out=moving(id,60);assert.equal(moveStyle(id),'fly');
+  assert.ok(out.some(f=>f.hop?.fly&&f.hop.lift>.3),id+' up in the air');assert.deepEqual([...new Set(out.filter(f=>f.hop).map(f=>f.frame))].sort(),[0,1],id+' flaps');}
+ for(const id of ['chipmunk','field-mouse','caterpillar','aphid','snail','spider','ladybird','snake']){
+  assert.equal(moveStyle(id),'loop',id);const out=moving(id,60).filter(f=>f.motion==='move');
+  assert.ok(out.every(f=>f.hop===null),id+' stays on the ground');
+  assert.deepEqual([...new Set(out.map(f=>f.src.split('/').pop()))].sort(),[`${id}-move-0.webp`,`${id}-move-1.webp`],id+' walks on its frames');
+ }
+ const switches=id=>{const out=moving(id,90);return out.filter((f,i)=>i&&f.frame!==out[i-1].frame).length;};
+ assert.ok(switches('snail')<switches('aphid')/2,'the snail glides slowly');
+});
