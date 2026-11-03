@@ -11,7 +11,7 @@ import { createHelpView } from './ui/help-view.js';
 import { createGuideAdapter } from './adapters/guide-preference.js';
 import { updateForestGoal } from './systems/forest-progress.js';
 import { createSaveService } from './services/save-service.js';
-import { createLocalAdapter,createNoSaveAdapter,createChapterProgressAdapter,createChapterStageAdapter } from './adapters/local-storage.js';
+import { createLocalAdapter,createNoSaveAdapter,createChapterProgressAdapter,createChapterStageAdapter,createAdminAdapter } from './adapters/local-storage.js';
 import {createStageGameState,updateStage,catchObservation,careFor,buyCheck,payFor,collectTrash,prepareFor} from './systems/chapter-stage.js';
 import {organismById as speciesById} from '../data/organisms.js';
 import {particle,mealSentence} from '../data/student-text.js';
@@ -101,7 +101,7 @@ try {
     document.body.classList.add('chapter-mode');
     const webView=createChapterWebView(chapterProgress,{onComplete:()=>chapterView.webDone(),onGuide:id=>collectionView.openGuide(id,null)});
     const recordView=createChapterRecordView(chapterProgress,{currentStageId:()=>gameState.chapter.stageId,openWeb:n=>webView.open(n)});
-    chapterView=createChapterView(()=>gameState,{forest,notify:(text,ok)=>important(text,ok),cleared:()=>chapterProgress.cleared(),openWeb:n=>webView.open(n),webComplete:n=>webView.isComplete(n),openRecord:()=>recordView.open(),reflections:()=>chapterProgress.read().reflections,onReflect:entry=>chapterProgress.addReflection(entry),onCatch:catchStageObservation,onCollect:collectStageTrash,onPrepare:prepareStage,onStage:id=>{stageSave.remove();installForest(createStageGameState(stageById[id]));},onRestart:()=>{stageSave.remove();installForest(createStageGameState(stageById[gameState.chapter.stageId]));},onCare:careStageEnvironment,onExit:()=>{location.search='?mode=forest';}});
+    chapterView=createChapterView(()=>gameState,{forest,admin:createAdminAdapter(),notify:(text,ok)=>important(text,ok),cleared:()=>chapterProgress.cleared(),openWeb:n=>webView.open(n),webComplete:n=>webView.isComplete(n),openRecord:()=>recordView.open(),reflections:()=>chapterProgress.read().reflections,onReflect:entry=>chapterProgress.addReflection(entry),onCatch:catchStageObservation,onCollect:collectStageTrash,onPrepare:prepareStage,onStage:id=>{stageSave.remove();installForest(createStageGameState(stageById[id]));},onRestart:()=>{stageSave.remove();installForest(createStageGameState(stageById[gameState.chapter.stageId]));},onCare:careStageEnvironment,onExit:()=>{location.search='?mode=forest';}});
   }else{
     const chapterButton=document.createElement('button');chapterButton.id='chapter-open';chapterButton.type='button';chapterButton.textContent='챕터 모드';
     chapterButton.addEventListener('click',()=>{location.href=location.pathname;});document.querySelector('.header-actions').append(chapterButton);

@@ -150,14 +150,14 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
   await p.waitForFunction(()=>document.querySelector('.chapter-title h2')?.textContent.includes('2-1'));
   await p.waitForSelector('.chapter-dialog[open]');assert.match(await p.locator('.chapter-dialog[open]').textContent(),/물가/);
   await p.locator('.chapter-dialog[open] button',{hasText:'시작하기'}).click();
-  await menu(p,'숲 지도');
+  await menu(p,'탐험 지도');
   assert.equal(await p.locator('.map-area').count(),4,'map shows 4 forest areas');
   assert.equal(await p.locator('.map-area .map-web').count(),1,'chapter 1 web completed');
   await p.locator('.chapter-dialog[open] button',{hasText:'닫기'}).click();
   await menu(p,'나의 먹이그물');
   assert.equal(await p.locator('.chapter-web-dialog .web-node.unsorted').count(),3,'chapter 2 adds the frog, the hackberry and the beetle to sort');
   await p.locator('.web-close').click();
-  await menu(p,'숲 지도');
+  await menu(p,'탐험 지도');
   assert.equal(await p.locator('.map-stone:not([disabled])').count(),3,'1-1, 1-2 and the next stage are open');
   if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-picker.png`});
   await p.locator('.chapter-dialog[open] button',{hasText:'닫기'}).click();
@@ -207,7 +207,7 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
   await p.locator('.chapter-trash').click();
   assert.equal(await p.locator('.chapter-trash').count(),0);
   assert.equal(await p.evaluate(async()=>(await import('./js/main.js')).gameState.metrics.points),before+1);
-  await menu(p,'숲 지도');await p.waitForSelector('.chapter-map-dialog[open]');
+  await menu(p,'탐험 지도');await p.waitForSelector('.chapter-map-dialog[open]');
   if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-map.png`});
   await p.locator('.chapter-dialog[open] button',{hasText:'닫기'}).click();
   await menu(p,'기존 숲으로');await p.waitForSelector('#chapter-open');
