@@ -162,7 +162,7 @@ export const crises = {
     effect: '햇빛이 줄면 생산자인 식물이 광합성을 거의 못 해서, 먹힌 잎과 열매가 다시 자라지 않아요. 먹이가 모자라면 숲 별이 멈춰요.'},
   drought: {human: false, factor: 'water', notice: '곧 가뭄이 와요!',
     effect: '물이 줄면 생산자인 식물이 거의 자라지 못해서, 먹힌 잎과 열매가 다시 자라지 않아요. 먹이가 모자라면 숲 별이 멈춰요.'},
-  'soil-damage': {human: true, factor: 'soil', notice: '사람들이 숲에 쓰레기를 버리고 있어요!', item: '쓰레기', icon: '🥤', pieces: ['bag', 'bottle', 'peel'],
+  'soil-damage': {human: true, factor: 'soil', notice: '사람들이 숲에 쓰레기를 버리고 있어요!', item: '쓰레기', icon: '🥤', pieces: ['bag', 'bottle', 'can'],
     status: '사람이 버린 쓰레기와 발길로 흙이 망가지고 있어요. 쓰레기를 눌러 치워요.',
     care: '숲 바닥 되살리기'},
   'air-pollution': {human: true, factor: 'air', notice: '자동차와 공장의 매연이 숲으로 날아와요!', item: '매연', icon: '💨',
@@ -184,7 +184,7 @@ export const breeding = {
     // Only in a stage that asks for it (2-5): frogs elsewhere would multiply.
     // The egg grows in the pond through its stages (share of waitSeconds).
     frog: {healthySeconds: 40, waitSeconds: 60, sign: '개구리알', young: '새끼 개구리', onlyWhenAsked: true,
-      pond: [{until: .3, name: '개구리알', image: 'egg'}, {until: .6, name: '올챙이', image: 'tadpole'}, {until: 1, name: '꼬리 달린 새끼 개구리', image: 'froglet'}],
+      pond: [{until: .3, name: '개구리알', image: 'egg', size: 22}, {until: .6, name: '올챙이', image: 'tadpole', size: 36}, {until: 1, name: '꼬리 달린 새끼 개구리', image: 'froglet', size: 46}],
       cycle: '알 → 올챙이 → 꼬리 달린 새끼 개구리 → 새끼 개구리 (탈바꿈). 실제로는 알을 한 번에 아주 많이 낳지만, 게임에서는 한 개로 줄였어요.'},
   },
 };

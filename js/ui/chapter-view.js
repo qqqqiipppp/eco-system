@@ -203,9 +203,9 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
    else if(id===focus)b.pair.forEach((pid,i)=>{marks[pid]={kind:i?'pair-right':'pair-left',label:''};});
    if(id===focus)watchPair(s,id,b);
   }
-  const stage=pondStage(s),src=stage?`./assets/images/frog-life/${stage.image}.svg`:'';
+  const stage=pondStage(s),src=stage?`./assets/images/frog-life/${stage.image}.webp`:'';
   if(nursery.hidden===Boolean(stage))nursery.hidden=!stage;
-  if(stage&&nursery.firstChild.getAttribute('src')!==src){nursery.firstChild.src=src;nursery.lastChild.textContent=stage.name;nursery.setAttribute('aria-label',`연못: ${stage.name}`);}
+  if(stage&&nursery.firstChild.getAttribute('src')!==src){nursery.firstChild.src=src;nursery.style.setProperty('--size',`${stage.size}px`);nursery.lastChild.textContent=stage.name;nursery.setAttribute('aria-label',`연못: ${stage.name}`);}
   for(const el of forest.querySelectorAll('#organism-layer .organism-object')){
    const o=s.organisms.find(x=>x.instanceId===el.dataset.instanceId);if(!o)continue;
    const rule=breeding.species[o.speciesId];
@@ -305,8 +305,8 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
    const crisis=crises[item.kind];
    const button=tapButton(item.trashId,'chapter-trash',`${crisis.icon} ${crisis.item}`,`${crisis.item} 치우기`,item.x*box.width,item.y*box.height,button=>{
     const rect=button.getBoundingClientRect(),result=onCollect(item.trashId);if(result?.ok)float(`+${config.trashReward}P`,rect,'gain');});
-   // Litter shows as the piece itself (black bag, bottle, banana peel), no label.
-   if(item.piece){button.classList.add('is-piece');button.replaceChildren(element('img',{src:`./assets/images/trash/${item.piece}.svg`,alt:''}));}
+   // Litter shows as the piece itself (black bag, bottle, can), no label.
+   if(item.piece){button.classList.add('is-piece');button.replaceChildren(element('img',{src:`./assets/images/trash/${item.piece}.webp`,alt:''}));}
    button.classList.toggle('is-old',old);
   }
  }

@@ -314,11 +314,11 @@ test('in a stage a predator is full only briefly, so hunting is seen; a hunt alw
 
 // Playtest: litter shows as a piece of litter (no "쓰레기" label), three kinds,
 // and remembers when it fell so a piece left too long can call for help.
-test('litter falls as a black bag, a bottle or a banana peel, and remembers when',()=>{
+test('litter falls as a black bag, a bottle or a can, and remembers when',()=>{
  const s=createStageGameState(stageById['3-1']);placeFixture(s,'grasshopper');s.chapter.seeds=1;
  for(let i=0;i<40&&s.chapter.trash.length<3;i++){s.simulationTime+=.5;updateStage(s,.5,[]);}
  assert.equal(s.chapter.trash.length,3);
- assert.deepEqual(s.chapter.trash.map(t=>t.piece).sort(),['bag','bottle','peel']);
+ assert.deepEqual(s.chapter.trash.map(t=>t.piece).sort(),['bag','bottle','can']);
  for(const t of s.chapter.trash)assert(t.at>0&&t.at<=s.simulationTime);
  assert(stageConfig.trashAlertSeconds>0);
 });

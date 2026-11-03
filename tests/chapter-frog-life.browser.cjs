@@ -17,7 +17,7 @@ const launch=process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH
   await p.waitForFunction(n=>document.querySelector('.pond-nursery span')?.textContent&&!document.querySelector('.pond-nursery').hidden,null);await p.waitForTimeout(300);
   seen.push([await p.locator('.pond-nursery span').textContent(),(await p.locator('.pond-nursery img').getAttribute('src')).split('/').pop()]);
  }
- assert.deepEqual(seen,[['개구리알','egg.svg'],['올챙이','tadpole.svg'],['꼬리 달린 새끼 개구리','froglet.svg']]);
+ assert.deepEqual(seen,[['개구리알','egg.webp'],['올챙이','tadpole.webp'],['꼬리 달린 새끼 개구리','froglet.webp']]);
  await p.evaluate(async()=>{(await import('./js/main.js')).gameState.chapter.breeding.frog.pending.remaining=.1;});
  await p.waitForFunction(async()=>(await import('./js/main.js')).gameState.chapter.births.some(x=>x.speciesId==='frog'));
  await p.waitForSelector('.pond-nursery',{state:'hidden'});
