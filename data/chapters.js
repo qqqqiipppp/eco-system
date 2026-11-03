@@ -164,10 +164,10 @@ export const crises = {
     effect: '물이 줄면 생산자인 식물이 거의 자라지 못해서, 먹힌 잎과 열매가 다시 자라지 않아요. 먹이가 모자라면 숲 별이 멈춰요.'},
   'soil-damage': {human: true, factor: 'soil', notice: '사람들이 숲에 쓰레기를 버리고 있어요!', item: '쓰레기', icon: '🥤', pieces: ['bag', 'bottle', 'peel'],
     status: '사람이 버린 쓰레기와 발길로 흙이 망가지고 있어요. 쓰레기를 눌러 치워요.',
-    care: '숲 바닥 되살리기'},
+    gone: '쓰레기는 다 치웠어요.', care: '숲 바닥 되살리기'},
   'air-pollution': {human: true, factor: 'air', notice: '자동차와 공장의 매연이 숲으로 날아와요!', item: '매연', icon: '💨',
     status: '자동차와 공장의 매연으로 공기가 나빠졌어요. 매연을 눌러 걷어 내요.',
-    care: '매연 줄이기 캠페인'},
+    gone: '매연은 다 걷어 냈어요.', care: '매연 줄이기 캠페인'},
 };
 // Breeding in chapter stages: two of the same species, both fed and well for
 // healthySeconds, then a young one after waitSeconds. Same-species pairs, no
