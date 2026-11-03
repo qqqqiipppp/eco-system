@@ -238,6 +238,18 @@ export function payFor(s, id) {
   return price;
 }
 
+// Nothing can change any more: no card is affordable, and nothing can earn a
+// point (no 💡 or litter to tap, no animal with something to eat). Only
+// starting the stage again helps.
+export function isStuck(s) {
+  const c = s.chapter;
+  if (!c || c.cleared || c.offers.length || c.trash.length) return false;
+  const cards = s.inventory.filter(card => card.acquired);
+  if (cards.some(card => buyCheck(s, card.speciesId).ok)) return false;
+  const here = new Set(s.organisms.map(o => o.speciesId));
+  return !consumers(s).some(o => foodRelations.some(r => r.targetSpeciesId === o.speciesId && here.has(r.sourceSpeciesId)));
+}
+
 // Preparing for weather: it cannot be changed, but the forest can be made
 // sturdier before it comes. The outcome shows in the real ecology.
 const openCrisis = c => c.crisisLog.find(r => r.endedAt === null) || null;
@@ -262,6 +274,8 @@ export function prepareFor(s, choice) {
   if (!record || record.choice) return {ok: false};
   const option = prepareOptions(s).find(o => o.id === choice);
   if (!option?.ok) return {ok: false};
+  // Planting is bought like any card: short of points, nothing is chosen yet.
+  if (choice === 'plant' && !buyCheck(s, option.speciesId).ok) return {ok: false, reason: 'points', message: buyCheck(s, option.speciesId).message};
   record.choice = choice;
   if (choice === 'reduce') {
     const [, list] = reducible(s), target = list.at(-1);
