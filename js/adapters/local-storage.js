@@ -42,3 +42,12 @@ export function createChapterStageAdapter(getStorage=()=>globalThis.localStorage
   remove(){try{getStorage().removeItem(STAGE_KEY);}catch{}},
  };
 }
+// 관리자 모드 (the teacher): every stage may be started from the 탐험 지도.
+// Kept on this device until turned off; it never changes cleared stages.
+export const ADMIN_KEY='eco-system:admin';
+export function createAdminAdapter(getStorage=()=>globalThis.localStorage){
+ return {
+  isOn(){try{return getStorage().getItem(ADMIN_KEY)==='on';}catch{return false;}},
+  set(on){try{if(on)getStorage().setItem(ADMIN_KEY,'on');else getStorage().removeItem(ADMIN_KEY);}catch{}},
+ };
+}

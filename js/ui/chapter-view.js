@@ -49,13 +49,14 @@ const chapterNews=chapter=>[
 // Stage HUD, things to tap in the forest (💡 and litter), crisis warnings,
 // chapter dialogs and the chapter map. Create before bindDialogPause so the
 // dialogs pause the forest like the others. No sound: motion and colour only.
-export function createChapterView(getState,{forest,cleared,notify,onCatch,onCollect,onPrepare,onStage,onRestart,onCare,onExit,openWeb,webComplete,openRecord,reflections=()=>[],onReflect=()=>{}}){
+export function createChapterView(getState,{forest,admin={isOn:()=>false,set(){}},cleared,notify,onCatch,onCollect,onPrepare,onStage,onRestart,onCare,onExit,openWeb,webComplete,openRecord,reflections=()=>[],onReflect=()=>{}}){
  const seeds=Array.from({length:config.seedsToClear},()=>element('span',{className:'chapter-seed'}));
  const title=element('h2'),eyebrow=element('span',{className:'eyebrow'}),goal=element('p',{className:'chapter-goal'}),tasks=element('ul',{className:'chapter-tasks'});
  const meter=element('progress',{value:0});meter.setAttribute('aria-label','다음 숲 별까지');
  const status=element('p',{className:'chapter-status'});status.setAttribute('aria-live','polite');
  const care=element('div',{className:'chapter-care'});
- const mapButton=element('button',{type:'button',textContent:'숲 지도',onclick:()=>openMap()});
+ const mapButton=element('button',{type:'button',textContent:'탐험 지도',onclick:()=>openMap()});
+ const adminButton=element('button',{type:'button',onclick:()=>{if(admin.isOn()){admin.set(false);renderAdmin();notify('관리자 모드를 껐어요.',true);}else openAdmin();}});
  const webButton=element('button',{type:'button',textContent:'나의 먹이그물',onclick:()=>openWeb(stageById[getState().chapter.stageId].chapter.number)});
  const exitButton=element('button',{type:'button',textContent:'기존 숲으로',onclick:onExit});
  const restartButton=element('button',{type:'button',textContent:'이 스테이지 처음부터',onclick:()=>openRestart()});
@@ -74,7 +75,7 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
  const header=document.querySelector('.app-header'),namesToggle=forest.querySelector('#names-toggle');
  const menuButton=element('button',{type:'button',className:'chapter-menu-button',textContent:'☰ 메뉴'});
  const fullscreen=fullscreenButton();
- const menu=element('div',{className:'chapter-menu',id:'chapter-menu',hidden:true},[mapButton,webButton,recordButton,restartButton,element('hr'),...(fullscreen?[fullscreen]:[]),header.querySelector('.header-actions'),...(namesToggle?[namesToggle]:[]),element('hr'),exitButton]);
+ const menu=element('div',{className:'chapter-menu',id:'chapter-menu',hidden:true},[mapButton,webButton,recordButton,restartButton,element('hr'),...(fullscreen?[fullscreen]:[]),header.querySelector('.header-actions'),...(namesToggle?[namesToggle]:[]),element('hr'),adminButton,exitButton]);
  menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-controls','chapter-menu');
  const setMenu=open=>{menu.hidden=!open;menuButton.setAttribute('aria-expanded',String(open));};
  menuButton.addEventListener('click',()=>setMenu(menu.hidden));
@@ -441,16 +442,22 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
    ...(next?chapterDone?[element('h3',{textContent:`다음 챕터: ${next.chapter.title}`}),...chapterNews(next.chapter)]:[element('p',{textContent:`다음 스테이지: ${next.stageId} ${next.title}`})]
     :[element('p',{textContent:'모든 챕터를 마쳤어요! 숲의 먹이그물을 끝까지 지켜 냈어요.'})]),
    ...(webDue?[element('p',{className:'web-due',textContent:`이번 챕터에서 만난 생물로 나의 먹이그물을 이어 그려야 ${next?'다음 챕터가 열려요':'모든 챕터를 마쳐요'}.`})]:[]),
-   actions([...(webDue?[['나의 먹이그물 그리기',()=>{dialog.close();openWeb(number);}]]:next?[[chapterDone?'다음 챕터로':'다음 스테이지',()=>{dialog.close();onStage(next.stageId);}]]:[]),['다시 하기',()=>{dialog.close();onStage(c.stageId);}],['숲 지도',()=>openMap()]]),
+   actions([...(webDue?[['나의 먹이그물 그리기',()=>{dialog.close();openWeb(number);}]]:next?[[chapterDone?'다음 챕터로':'다음 스테이지',()=>{dialog.close();onStage(next.stageId);}]]:[]),['다시 하기',()=>{dialog.close();onStage(c.stageId);}],['탐험 지도',()=>openMap()]]),
   ]);
  }
  // The original's tank select: four forest areas on a path, three stages each.
  function openMap(){
-  const done=cleared(),current=getState().chapter.stageId,open=stage=>{const i=stages.indexOf(stage);return i===0||done.includes(stages[i-1].stageId);};
-  show([element('h2',{textContent:'숲 지도'}),element('div',{className:'chapter-map'},chapters.map(chapter=>{
-   const list=chapter.stages.map(raw=>stageById[raw.stageId]),reached=open(list[0]),crisis=crises[chapter.events[0]];
+  // How far the student is and how much is left; a cleared stage can be
+  // played again. In 관리자 모드 every stage is open.
+  const done=cleared(),current=getState().chapter.stageId,managing=admin.isOn(),open=stage=>{const i=stages.indexOf(stage);return managing||i===0||done.includes(stages[i-1].stageId);};
+  const count=stages.filter(s=>done.includes(s.stageId)).length,bar=element('progress',{max:stages.length,value:count});bar.setAttribute('aria-label','깬 스테이지');
+  show([element('h2',{textContent:`탐험 지도${managing?' · 관리자 모드':''}`}),
+   element('p',{className:'map-progress'},[`전체 스테이지 ${stages.length}개 중 ${count}개를 깼어요 · ${stages.length-count}개 남았어요`,bar]),
+   element('p',{className:'map-hint',textContent:managing?'관리자 모드: 모든 스테이지를 골라 시작할 수 있어요. 깬 기록은 바뀌지 않아요.':'✓ 표시한 스테이지를 누르면 다시 할 수 있어요.'}),
+   element('div',{className:'chapter-map'},chapters.map(chapter=>{
+   const list=chapter.stages.map(raw=>stageById[raw.stageId]),reached=open(list[0]),crisis=crises[chapter.events[0]],n=list.filter(s=>done.includes(s.stageId)).length;
    return element('section',{className:`map-area map-${chapter.chapterId}${reached?'':' locked'}`},[
-    element('div',{className:'map-head'},[element('span',{className:'eyebrow',textContent:`챕터 ${chapter.number}`}),element('h3',{textContent:chapter.title}),
+    element('div',{className:'map-head'},[element('span',{className:'eyebrow',textContent:`챕터 ${chapter.number}`}),element('h3',{textContent:chapter.title}),element('span',{className:'map-count',textContent:`${n}/${list.length}`}),
      ...(webComplete(chapter.number)?[element('span',{className:'map-web',textContent:'먹이그물 완성'})]:[])]),
     element('div',{className:'map-species'},chapter.newSpecies.slice(0,4).map(id=>element('img',{src:visualAsset(id),alt:name(id),title:name(id)}))),
     element('p',{className:'map-crisis',textContent:`${crisis.human?'사람이 만든 문제':'자연 현상'}: ${environmentEventDefinitions[chapter.events[0]].name}`}),
@@ -462,6 +469,18 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
    ]);
   })),actions([['닫기',()=>dialog.close()]])],'chapter-map-dialog');
  }
+ // 관리자 모드 (the teacher's number) opens every stage on the 탐험 지도.
+ function openAdmin(){
+  const input=element('input',{className:'admin-code',type:'password',inputMode:'numeric',maxLength:8,autocomplete:'off'}),note=element('p',{className:'admin-note'});
+  input.setAttribute('aria-label','관리자 번호');
+  const check=()=>{if(input.value==='4828'){admin.set(true);renderAdmin();openMap();}else{note.textContent='번호가 맞지 않아요.';input.select();}};
+  input.addEventListener('keydown',e=>{if(e.key==='Enter')check();});
+  show([element('h2',{textContent:'관리자 모드'}),element('p',{textContent:'관리자 번호를 넣으면 모든 챕터와 스테이지를 골라 시작할 수 있어요.'}),input,note,actions([['확인',check],['닫기',()=>dialog.close()]])]);
+  input.focus();
+ }
+ const adminBadge=element('span',{className:'admin-badge',textContent:'관리자'});
+ function renderAdmin(){const on=admin.isOn();adminButton.textContent=on?'관리자 모드 끄기':'관리자 모드';if(on)titleBox.prepend(adminBadge);else adminBadge.remove();}
+ renderAdmin();
  // Back from a finished web: show the chapter's end again, now with the way on.
  const webDone=()=>{if(getState().chapter.cleared&&!document.querySelector('dialog[open]'))openClear();};
  return {render,resume,caughtMessage,webDone,spent,reset:()=>{shownClear=null;careKey='';shopKey='';lastSeeds=0;pairMemory={};formedShown=new Set();layer.replaceChildren();}};
