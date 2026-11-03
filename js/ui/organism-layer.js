@@ -46,7 +46,10 @@ export function createOrganismLayer(forest, getOrganisms) {
     entry.anchor.dataset.movement=speciesHabitats[instance.speciesId].movement;
     entry.anchor.dataset.anchorId=descriptor?.anchorId||'';
     entry.anchor.dataset.anchorFallback=String(descriptor?.fallback??false);
-    entry.anchor.style.zIndex=String(2+Math.round(point.y/layout.height*12));
+    // On a tree (a chipmunk on its trunk) the animal is drawn in front of
+    // that tree, not hidden behind it as its higher point would place it.
+    const tree=descriptor?.attached&&descriptor.sourceInstanceId&&nodes.get(descriptor.sourceInstanceId);
+    entry.anchor.style.zIndex=String(Math.max(2+Math.round(point.y/layout.height*12),tree?Number(tree.anchor.style.zIndex)+1:0));
     if (direction) entry.image.style.setProperty('--facing',direction);
   }
   function measure() {

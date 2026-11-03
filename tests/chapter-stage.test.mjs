@@ -256,6 +256,12 @@ test('the fallen log is dead wood: a cloud mushroom rests on it only while the l
  const s=createStageGameState(stageById['3-1']);placeFixture(s,'mushroom');const m=s.organisms.find(o=>o.speciesId==='mushroom');
  const anchor=on=>{sceneSpaces.log=on;const p=createHabitatPresentation();p.rebuild(s.organisms,geometry());return p.descriptor(m.instanceId).anchorId;};
  assert.equal(anchor(true),'background:fallen-log');assert.notEqual(anchor(false),'background:fallen-log');
+ // Playtest: more mushrooms than the log's top holds grow at its foot, not away from it.
+ sceneSpaces.log=true;for(let i=0;i<4;i++)s.organisms.push({...m,instanceId:`mushroom-${i}`,position:{x:.15+.2*i,y:.72}});
+ const p=createHabitatPresentation();p.rebuild(s.organisms,geometry());
+ const anchors=s.organisms.filter(o=>o.speciesId==='mushroom').map(o=>p.descriptor(o.instanceId).anchorId);
+ assert.equal(anchors.length,5);assert(anchors.every(a=>['background:fallen-log','background:fallen-log-foot'].includes(a)),anchors.join());
+ sceneSpaces.log=false;
 });
 
 test('a crisis announced as the stage clears is dropped, not left counting down',()=>{

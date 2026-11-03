@@ -27,6 +27,12 @@ export const backgroundHabitatSpaces=[
 ];
 // Objects drawn on the earth band in chapter mode from chapter 3 (나무 아래) on.
 // The fallen log is dead wood: cloud mushrooms rest on it (display only; their
-// shared decomposition work is not tied to a place).
-export const logSpace={id:'fallen-log',object:'log-b',zone:'dead_wood',x:880,y:322,rx:40,ry:4,capacity:3,priority:6};
-export const sceneSpaces={log:false};
+// shared decomposition work is not tied to a place). Measured on the drawn log
+// (.forest-log, log.svg): its top at y 331, its body x 828-930. More mushrooms
+// than the top holds grow at its foot, never away from it.
+export const logSpace={id:'fallen-log',object:'log-b',zone:'dead_wood',x:876,y:334,rx:34,ry:2,capacity:3,priority:6};
+export const logFootSpace={id:'fallen-log-foot',object:'log-b',zone:'dead_wood',x:880,y:354,rx:56,ry:3,capacity:4,priority:5};
+// grownTrees: chapter mode draws its trees grown, in front. An animal on a
+// tree then keeps to its trunk, and the far painted trunks hold none (one
+// there looked like it was flying).
+export const sceneSpaces={log:false,grownTrees:false};
