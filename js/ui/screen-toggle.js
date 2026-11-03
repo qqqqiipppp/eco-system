@@ -1,3 +1,5 @@
+// Not named fullscreen.js: ad blockers in the students' Chrome refuse that name,
+// and then the whole game fails to start (tests/blocked-name.browser.cjs).
 // "전체 화면" for a tablet that opens the game in a Chrome tab: hides the
 // address bar. Not shown when the game already runs full screen from the home
 // screen (manifest.webmanifest) or when the browser cannot do it.
