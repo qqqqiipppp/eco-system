@@ -44,11 +44,18 @@ for(const r of foodRelations){const list=relationsByConsumer.get(r.targetSpecies
 export const relationFor=(foodSpeciesId,consumerSpeciesId)=>relationByPair.get(`${foodSpeciesId}:${consumerSpeciesId}`);
 // Chapter mode only (useChapterFoodRelations, forest mode keeps the audited
 // web above): meals the teacher asked for to make the chapter webs richer.
-// A frog eats many moving insects; a chipmunk is an omnivore that eats insects.
+// A frog eats many moving insects; a chipmunk is an omnivore that eats insects
+// and fruit; a bulbul eats insects besides fruit. The rest the teacher saw.
 export const chapterFoodRelations=[
  edge('aphid','frog','animal','C1'),
  edge('grasshopper','chipmunk','animal','C2'),
  edge('aphid','chipmunk','animal','C2'),
+ edge('raspberry','chipmunk','fruit','C2'),
+ edge('grasshopper','bulbul','animal','C3'),
+ edge('aphid','bulbul','animal','C3'),
+ edge('earthworm','bulbul','animal','C4'),
+ edge('earthworm','frog','animal','C4'),
+ edge('raspberry','rabbit','fruit','C4'),
 ];
 export function useChapterFoodRelations(){
  for(const r of chapterFoodRelations){

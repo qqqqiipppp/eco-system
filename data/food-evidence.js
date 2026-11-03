@@ -27,5 +27,7 @@ export const foodEvidence={
  // Chapter mode only (chapterFoodRelations).
  C1:{url:'https://www.honda.co.jp/outdoor/adventure/tonosamagaeru.html',location:'생きもの図鑑 トノサマガエル > 食べもの',note:'참개구리(トノサマガエル)는 움직이는 여러 곤충과 거미를 잡아먹어요. 청동풍뎅이 특정 쌍 기록은 아님.'},
  C2:{url:'https://animaldiversity.org/accounts/Tamias_sibiricus/',location:'Food Habits',note:'다람쥐(Tamias sibiricus)는 잡식성으로 씨앗·열매와 함께 곤충도 먹어요. 방아깨비·청동풍뎅이 특정 쌍 기록은 아님.'},
+ C3:{url:'https://kotobank.jp/word/%E3%83%92%E3%83%A8%E3%83%89%E3%83%AA-3165618',location:'世界大百科事典·ブリタニカ > ヒヨドリ',note:'직박구리(ヒヨドリ)는 열매를 주로 먹고 곤충도 먹어요. 방아깨비·청동풍뎅이 특정 쌍 기록은 아님.'},
+ C4:{url:'',location:'2026-11 담임 선생님 현장 관찰',note:'선생님이 직접 본 먹이 관계(직박구리·참개구리가 참지렁이, 멧토끼가 산딸기를 먹음). 문헌으로 확인한 특정 쌍은 아님.'},
 };
 export const evidenceText=level=>level==='A'?'이 먹이 관계는 자료에서 확인했어요.':'먹이 종류 자료를 바탕으로 단순화한 관계예요. 이 두 종이 먹고 먹히는 모습을 직접 조사한 기록은 아직 확인하지 못했어요.';

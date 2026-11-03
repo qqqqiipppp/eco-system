@@ -9,8 +9,9 @@ import {sceneSpaces} from './forest-spaces.js';
 export function useChapterEcology(){
   useChapterFoodRelations();
   for(const r of chapterFoodRelations)if(!discoveryEvents[r.relationId])addDiscoveryEvent(r);
-  // A chipmunk that caught an insect is full for a while, like a frog.
+  // A chipmunk or bulbul that caught an animal is full for a while, like a frog.
   satietySeconds.chipmunk ??= satietySeconds.frog;
+  satietySeconds.bulbul ??= satietySeconds.frog;
   useGrownTrees();
   sceneSpaces.grownTrees = true;
 }
