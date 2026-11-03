@@ -1,6 +1,7 @@
 // Teacher ask: students see how far they are and how much is left, and replay
-// any cleared stage ("탐험 지도"). A teacher with the number 4828 can start any
-// stage (관리자 모드), until it is turned off.
+// any cleared stage ("탐험 지도"). A teacher with the number can start any stage
+// (관리자 모드), until it is turned off. The number is not in the repository:
+// give it as ADMIN_CODE to test typing it; without it the mode is turned on directly.
 const assert=require('node:assert/strict');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const base=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/';
@@ -20,10 +21,11 @@ const menu=async(p,text)=>{await p.locator('.chapter-menu-button').click();await
  await p.locator('.map-stone.done').first().click();
  await p.waitForFunction(()=>document.querySelector('.chapter-title h2')?.textContent.startsWith('1-1'));
  await p.evaluate(()=>document.querySelectorAll('dialog[open]').forEach(d=>d.close()));
- // 관리자 모드: a wrong number does nothing, 4828 opens every stage.
+ // 관리자 모드: a wrong number does nothing, the right one opens every stage.
  await menu(p,'관리자 모드');await p.locator('.admin-code').fill('1234');await p.locator('.chapter-dialog[open] button',{hasText:'확인'}).click();
- assert.match(await p.locator('.admin-note').textContent(),/맞지 않아요/);
- await p.locator('.admin-code').fill('4828');await p.locator('.chapter-dialog[open] button',{hasText:'확인'}).click();
+ await p.waitForFunction(()=>/맞지 않아요/.test(document.querySelector('.admin-note')?.textContent||''));
+ if(process.env.ADMIN_CODE){await p.locator('.admin-code').fill(process.env.ADMIN_CODE);await p.locator('.chapter-dialog[open] button',{hasText:'확인'}).click();}
+ else{console.log(' (ADMIN_CODE not set: 관리자 모드 turned on directly)');await p.evaluate(()=>{localStorage.setItem('eco-system:admin','on');document.querySelector('dialog[open]').close();});await p.reload();await p.waitForSelector('.chapter-hud');await p.evaluate(()=>document.querySelectorAll('dialog[open]').forEach(d=>d.close()));await menu(p,'탐험 지도');}
  await p.waitForSelector('.chapter-map-dialog[open]');
  assert.equal(await p.locator('.map-stone[disabled]').count(),0,'every stage open');
  assert.match(await p.locator('.chapter-map-dialog h2').textContent(),/관리자/);

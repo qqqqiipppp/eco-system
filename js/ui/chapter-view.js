@@ -469,11 +469,15 @@ export function createChapterView(getState,{forest,admin={isOn:()=>false,set(){}
    ]);
   })),actions([['닫기',()=>dialog.close()]])],'chapter-map-dialog');
  }
- // 관리자 모드 (the teacher's number) opens every stage on the 탐험 지도.
+ // 관리자 모드 (the teacher's number) opens every stage on the 탐험 지도. The
+ // source is public: only the number's SHA-256 is kept here, never the number.
+ // (Four digits can still be guessed by trying them all; a convenience, not a lock.)
+ const ADMIN_HASH='f658e746131f2576cdf61f4a674e435179e0b6388b483faacd471a2df70cc19d';
+ const sha256=async text=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text)))].map(n=>n.toString(16).padStart(2,'0')).join('');
  function openAdmin(){
   const input=element('input',{className:'admin-code',type:'password',inputMode:'numeric',maxLength:8,autocomplete:'off'}),note=element('p',{className:'admin-note'});
   input.setAttribute('aria-label','관리자 번호');
-  const check=()=>{if(input.value==='4828'){admin.set(true);renderAdmin();openMap();}else{note.textContent='번호가 맞지 않아요.';input.select();}};
+  const check=async()=>{if(await sha256(input.value)===ADMIN_HASH){admin.set(true);renderAdmin();openMap();}else{note.textContent='번호가 맞지 않아요.';input.select();}};
   input.addEventListener('keydown',e=>{if(e.key==='Enter')check();});
   show([element('h2',{textContent:'관리자 모드'}),element('p',{textContent:'관리자 번호를 넣으면 모든 챕터와 스테이지를 골라 시작할 수 있어요.'}),input,note,actions([['확인',check],['닫기',()=>dialog.close()]])]);
   input.focus();
