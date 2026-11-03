@@ -57,9 +57,9 @@ export const stageConfig = {
 // decomposed (a decomposer or earthworm has broken down dead matter).
 export const chapters = [
   {chapterId: 'meadow', number: 1, title: '풀밭', events: ['cloudy'], seedSeconds: 50, newSpecies: ['grass', 'grasshopper', 'rabbit'],
-    intro: '생산자인 강아지풀과 그것을 먹는 동물을 만나요.', stages: [
+    intro: '생산자인 강아지풀과 그것을 먹는 소비자를 만나요.', stages: [
     {stageId: '1-1', title: '풀밭의 시작', points: 12,
-      goal: '강아지풀을 먹는 방아깨비를 놓고, 먹이와 먹는 동물이 균형을 이루게 해 숲 별 3개를 모아요.',
+      goal: '생산자 강아지풀을 먹는 소비자 방아깨비를 놓고, 생산자와 소비자가 균형을 이루게 해 숲 별 3개를 모아요.',
       tasks: [{text: '방아깨비 놓기', have: 'grasshopper'}, {text: '생산자·소비자 균형 잡기', balance: true}],
       inventory: ['grass', 'grasshopper'], requiredSpecies: {grasshopper: 1},
       organisms: [['grass', .38], ['grass', .52]]},
@@ -99,7 +99,7 @@ export const chapters = [
       organisms: [['hazel', .3], ['hazel', .62], ['grass', .44], ['grass', .76], ['grasshopper', .5], ['aphid', .34]]},
   ]},
   {chapterId: 'understory', number: 3, title: '나무 아래', events: ['soil-damage', 'drought'], seedSeconds: 70, newSpecies: ['oak', 'mushroom', 'litter-mold', 'earthworm', 'chipmunk', 'raspberry', 'bulbul'],
-    intro: '낙엽과 쓰러진 나무를 분해하는 생물이 흙으로 양분을 돌려보내요.', stages: [
+    intro: '분해자가 낙엽과 쓰러진 나무를 분해해 흙으로 양분을 돌려보내요.', stages: [
     {stageId: '3-1', title: '쌓이는 낙엽', points: 15,
       goal: '낙엽과 죽은 나무가 쌓이고 있어요. 분해자를 놓아 숲 바닥을 순환시켜요.',
       tasks: [{text: '분해자 놓기', decomposer: true}, {text: '낙엽 분해하기', decomposed: true}],
@@ -123,7 +123,7 @@ export const chapters = [
       organisms: [['oak', .2], ['raspberry', .36], ['raspberry', .5], ['hazel', .7], ['grass', .44], ['grasshopper', .4], ['bulbul', .56], ['litter-mold', .82]]},
   ]},
   {chapterId: 'deep-forest', number: 4, title: '큰 숲', events: ['air-pollution', 'soil-damage'], seedSeconds: 80, newSpecies: ['snake', 'weasel', 'goshawk'],
-    intro: '먹이사슬의 꼭대기에 있는 동물은 아래 단계가 모두 건강해야 살 수 있어요.', stages: [
+    intro: '먹이사슬의 꼭대기에 있는 소비자는 아래 단계가 모두 건강해야 살 수 있어요.', stages: [
     {stageId: '4-1', title: '개구리를 먹는 뱀', points: 18,
       goal: '유혈목이는 참개구리를 먹어요. 네 단계로 이어지는 먹이사슬을 지켜요.',
       tasks: [{text: '유혈목이 놓기', have: 'snake'}, {text: '먹이사슬 4단계 지키기', balance: true}],
@@ -147,9 +147,9 @@ export const chapters = [
 // use a conservation action ([4과14-03]).
 export const crises = {
   cloudy: {human: false, factor: 'sunlight', notice: '곧 흐린 날씨가 와요!',
-    effect: '햇빛이 줄면 식물이 광합성을 거의 못 해서, 먹힌 잎과 열매가 다시 자라지 않아요. 먹이가 모자라면 숲 별이 멈춰요.'},
+    effect: '햇빛이 줄면 생산자인 식물이 광합성을 거의 못 해서, 먹힌 잎과 열매가 다시 자라지 않아요. 먹이가 모자라면 숲 별이 멈춰요.'},
   drought: {human: false, factor: 'water', notice: '곧 가뭄이 와요!',
-    effect: '물이 줄면 식물이 거의 자라지 못해서, 먹힌 잎과 열매가 다시 자라지 않아요. 먹이가 모자라면 숲 별이 멈춰요.'},
+    effect: '물이 줄면 생산자인 식물이 거의 자라지 못해서, 먹힌 잎과 열매가 다시 자라지 않아요. 먹이가 모자라면 숲 별이 멈춰요.'},
   'soil-damage': {human: true, factor: 'soil', notice: '사람들이 숲에 쓰레기를 버리고 있어요!', item: '쓰레기', icon: '🥤',
     status: '사람이 버린 쓰레기와 발길로 흙이 망가지고 있어요. 쓰레기를 눌러 치워요.',
     care: '숲 바닥 되살리기'},

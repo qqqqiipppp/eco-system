@@ -24,7 +24,7 @@ const clock=p=>p.evaluate(async()=>(await import('./js/main.js')).gameState.simu
  assert.ok(await report.locator('.chapter-reflect-choices button').last().evaluate(b=>{const r=b.getBoundingClientRect();return r.bottom<=innerHeight;}),'the question fits without scrolling');
  const paused=await clock(p);
  await report.locator('.chapter-reflect-choices button',{hasText:'동물들이 추워서'}).click();
- assert.match(await report.locator('.chapter-reflect-feedback').textContent(),/다시 생각해 봐요.*햇빛을 받아 양분을/);
+ assert.match(await report.locator('.chapter-reflect-feedback').textContent(),/다시 생각해 봐요.*햇빛을 받아 스스로 양분을/);
  assert.equal(await report.locator('.chapter-reflect-choices button.right').textContent(),'햇빛이 줄어 식물이 잘 자라지 못하고, 먹이가 모자랐기 때문','the right answer is shown');
  assert.equal(await report.locator('.chapter-reflect-choices button:not([disabled])').count(),0,'one answer only');
  assert.equal(await report.locator('.chapter-lesson').isVisible(),true,'then the lesson');
@@ -35,7 +35,7 @@ const clock=p=>p.evaluate(async()=>(await import('./js/main.js')).gameState.simu
  // 2. The same crisis again asks the other question.
  await crisisOver(p,'cloudy');await p.waitForSelector('.chapter-report-dialog[open]');
  assert.match(await report.locator('.chapter-reflect-question').textContent(),/오기 전에 숲을 튼튼하게/);
- await report.locator('.chapter-reflect-choices button',{hasText:'먹이 식물을 넉넉히'}).click();
+ await report.locator('.chapter-reflect-choices button',{hasText:'생산자를 넉넉히'}).click();
  assert.match(await report.locator('.chapter-reflect-feedback').textContent(),/^맞아요!/);
  if(shots)await p.screenshot({path:`${shots}/reflect-right.png`});
  await report.locator('button',{hasText:'계속하기'}).click();
