@@ -14,7 +14,7 @@ function delivery(){
  cpSync(raster,out,{recursive:true});run('tests/fixtures/make_motion_art.py',raster,art);
  // Start from the base pictures and the grasshopper's hop only, whatever art the repository has by now.
  const m=JSON.parse(readFileSync(join(out,'manifest.json'),'utf8'));delete m.stages;
- for(const [id,s] of Object.entries(m.species))if(id!=='grasshopper')delete s.frames;
+ for(const [id,s] of Object.entries(m.species))if(id!=='grasshopper')delete s.frames;else for(const k of Object.keys(s.frames))if(!k.startsWith('move-'))delete s.frames[k];
  writeFileSync(join(out,'manifest.json'),JSON.stringify(m));
  return {dir,art,out,registry,import:()=>run('tools/build_species_raster.py','--import',art,out,registry)};
 }

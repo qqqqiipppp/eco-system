@@ -33,6 +33,6 @@ test('after landing it hops again while still moving',()=>{
  const starts=run(frames(60)).filter((f,i,a)=>f.hop?.phase==='crouch'&&a[i-1]?.hop?.phase!=='crouch').length;
  assert.ok(starts>=2,'two hops in two seconds');
 });
-test('the nymph keeps its old look (no hop frames)',()=>{
- const out=run(frames(20,{stage:'nymph'}));assert.ok(out.every(f=>f.hop===null&&/grasshopper\.webp$/.test(f.src)));
+test('the nymph hops on its own painted frames, not the adult\'s',()=>{
+ const out=run(frames(20,{stage:'nymph'})).slice(1);assert.ok(out.every(f=>/grasshopper-nymph-move-\d\.webp$/.test(f.src)));
 });

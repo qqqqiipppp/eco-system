@@ -10,9 +10,6 @@ export const rasterSpecies=new Set([
  'oak','pine','hazel','raspberry','litter-mold','soil-bacteria',
 ]);
 export const rasterAsset=id=>`./assets/images/species-raster/${id}.webp`;
-// Stand-in until the nymph is painted: the adult picture (the newborn is
-// already drawn smaller). A painted stage picture, once imported, wins.
-export const rasterStandIns=new Set(['grasshopper:nymph']);
 // Painted motion frames and growth-stage pictures come from the generated
 // species-frames.js (tools/build_species_raster.py --import). A key is a
 // species id, or "id:stage" for a growth stage painted on its own (nymph,
