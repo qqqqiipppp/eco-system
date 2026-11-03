@@ -39,24 +39,28 @@ test('the snake flicks its tongue only while resting, never while eating', () =>
 });
 
 const moving=(id,n=90)=>run(id,frames(n,{move:true}));
-test('frog, rabbit and weasel leap on their two frames: on the ground 0, in the air 1', () => {
- for(const id of ['frog','rabbit','weasel']){
-  assert.equal(paintedFrames[id].move,2);assert.equal(moveStyle(id),'hop',id);
-  const out=moving(id),air=out.filter(f=>f.hop?.phase==='air'),ground=out.filter(f=>f.hop&&f.hop.phase!=='air');
+// Which frame shows in each part of a hop: 4 frames crouch, push, air, reach; 2 frames ground, air.
+const hopFrame=(f,count)=>count>=4?f.hop.frame:f.hop.phase==='air'?1:0;
+test('frog, rabbit, weasel and chipmunk leap on their frames, each at its own pace', () => {
+ for(const id of ['frog','rabbit','weasel','chipmunk']){
+  const count=paintedFrames[id].move;assert.equal(moveStyle(id),'hop',id);
+  const out=moving(id).filter(f=>f.hop),air=out.filter(f=>f.hop.phase==='air'),ground=out.filter(f=>f.hop.phase!=='air');
   assert.ok(air.length&&ground.length,id+' leaves and lands');
-  assert.ok(air.every(f=>f.frame===1&&f.src.endsWith(`${id}-move-1.webp`)&&f.hop.lift>=0),id+': in the air on frame 1');
-  assert.ok(ground.every(f=>f.frame===0&&f.src.endsWith(`${id}-move-0.webp`)&&f.hop.lift===0),id+': on the ground on frame 0');
+  assert.ok(out.every(f=>f.frame===hopFrame(f,count)&&f.src.endsWith(`${id}-move-${f.frame}.webp`)),id+': the frame for each part of the hop');
+  assert.ok(ground.every(f=>f.hop.lift===0),id+': crouching and resting on the ground');
+  if(count>=4)assert.deepEqual(moving(id).map(f=>f.frame).filter((f,i,a)=>f!==a[i-1]).slice(0,5),[0,1,2,3,0],id+': crouch, push, air, reach, crouch');
  }
  const top=id=>Math.max(...moving(id).map(f=>f.hop?.lift||0));
- assert.ok(top('frog')>top('rabbit')&&top('rabbit')>top('weasel'),'frog highest, then rabbit, weasel lowest');
+ assert.ok(top('frog')>top('rabbit')&&top('rabbit')>top('chipmunk')&&top('chipmunk')>top('weasel'),'frog highest, then rabbit, chipmunk, weasel lowest');
 });
-test('birds fly on their wing frames; walkers and the chipmunk walk on the ground', () => {
+test('birds fly on their wing frames; walkers and crawlers stay on the ground', () => {
  for(const id of ['tit','bulbul','goshawk']){const out=moving(id,60);assert.equal(moveStyle(id),'fly');
-  assert.ok(out.some(f=>f.hop?.fly&&f.hop.lift>.3),id+' up in the air');assert.deepEqual([...new Set(out.filter(f=>f.hop).map(f=>f.frame))].sort(),[0,1],id+' flaps');}
- for(const id of ['chipmunk','field-mouse','caterpillar','aphid','snail','spider','ladybird','snake']){
-  assert.equal(moveStyle(id),'loop',id);const out=moving(id,60).filter(f=>f.motion==='move');
+  assert.ok(out.some(f=>f.hop?.fly&&f.hop.lift>.3),id+' up in the air');
+  assert.deepEqual([...new Set(out.filter(f=>f.hop).map(f=>f.frame))].sort(),Array.from({length:paintedFrames[id].move},(_,n)=>n),id+' flaps through every wing frame');}
+ for(const id of ['field-mouse','caterpillar','aphid','snail','spider','ladybird','snake']){
+  assert.equal(moveStyle(id),'loop',id);const out=moving(id,90).filter(f=>f.motion==='move');
   assert.ok(out.every(f=>f.hop===null),id+' stays on the ground');
-  assert.deepEqual([...new Set(out.map(f=>f.src.split('/').pop()))].sort(),[`${id}-move-0.webp`,`${id}-move-1.webp`],id+' walks on its frames');
+  assert.deepEqual([...new Set(out.map(f=>f.src.split('/').pop()))].sort(),Array.from({length:paintedFrames[id].move},(_,n)=>`${id}-move-${n}.webp`),id+' walks through all its frames');
  }
  const switches=id=>{const out=moving(id,90);return out.filter((f,i)=>i&&f.frame!==out[i-1].frame).length;};
  assert.ok(switches('snail')<switches('aphid')/2,'the snail glides slowly');
