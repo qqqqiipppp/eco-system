@@ -15,7 +15,11 @@ const name=id=>organismById[id].name;
 const blockerText={
  noConsumer:()=>'아직 소비자가 없어요. 생산자를 먹을 동물 카드를 골라 숲에 놓아 보세요.',
  missing:b=>`${particle(name(b.species[0].id),'이','가')} 부족해요. ${b.species[0].need}마리 이상 있어야 해요.`,
- environment:b=>crisisForFactor(b.factors[0])?.status||`${particle(b.factors.map(f=>environmentFactors[f].name).join('·'),'이','가')} 나빠요.`,
+ // Litter still lying: tap it. All picked up but the soil (or air) still bad:
+ // nothing left to tap, so name the care button instead.
+ environment:(b,s)=>{const crisis=crisisForFactor(b.factors[0]),name=environmentFactors[b.factors[0]].name;
+  if(crisis?.human&&!s.chapter.trash.length)return `${crisis.gone} ${particle(name,'이','가')} 아직 나빠요. '${crisis.care}' 버튼으로 되살려요.`;
+  return crisis?.status||`${particle(b.factors.map(f=>environmentFactors[f].name).join('·'),'이','가')} 나빠요.`;},
  starving:()=>'먹이를 찾지 못해 배고픈 소비자가 있어요. 먹이가 충분한지 살펴봐요.',
  depleted:()=>'생산자가 거의 다 먹혔어요. 소비자에 비해 먹이가 모자라요.',
  noDecomposition:()=>'낙엽과 죽은 나무가 분해되지 않고 있어요. 분해자가 일할 수 있게 해요.',
