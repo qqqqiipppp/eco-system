@@ -318,3 +318,9 @@
 .record-answers li.right strong{color:#24501a}.record-answers li.wrong strong{color:#7a1f15}
 .record-empty{margin:0;color:var(--muted)}
 .chapter-report-dialog h2:focus{outline:none}
+/* A button that costs more points than the student has flashes red. */
+.chapter-care button[aria-disabled=true]{border-color:#d4c5b5;color:var(--muted);background:#f6f3ee;font-weight:400}
+.chapter-mode button.is-short{border-color:#c0392b;color:#8b1a10;animation:chapter-short .3s ease-in-out 3}
+@keyframes chapter-short{50%{background:#f8cfc8;box-shadow:0 0 0 4px #c0392b55}}
+@media (prefers-reduced-motion:reduce){.chapter-mode button.is-short{animation:none;background:#f8cfc8}}
+.chapter-short-note{margin:8px 0 0;color:#a12a1b;font-weight:700}

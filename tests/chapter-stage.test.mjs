@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createStageGameState,updateStage,stageBlockers,catchObservation,careOptions,careFor,needStates,neededCards,buyCheck,payFor,collectTrash,priceOf,prepareOptions,prepareFor,crisisReport} from '../js/systems/chapter-stage.js';
+import {createStageGameState,updateStage,stageBlockers,catchObservation,careOptions,careFor,needStates,neededCards,buyCheck,payFor,collectTrash,priceOf,prepareOptions,prepareFor,crisisReport,isStuck} from '../js/systems/chapter-stage.js';
 import {currentEnvironmentEvent} from '../js/systems/environment-events.js';
 import {createFeedingSystem} from '../js/systems/feeding.js';
 import {layout} from './ecology-fixtures.mjs';
@@ -96,6 +96,20 @@ test('the shop: cards cost points, 💡 earn them, lower in the chain is cheaper
  for(const stage of stages){const r=runStage(stage.stageId);assert(r.points>=0);assert(r.spent>0,`${stage.stageId} buys something`);}
 });
 
+// Playtest: a student spent every point on grass, so no animal ate, no 💡
+// came, and no card could be bought. Nothing in the stage could change again.
+test('a stage that can no longer earn points or buy a card is stuck',()=>{
+ const s=createStageGameState(stageById['1-1']);
+ assert(!isStuck(s),'a fresh stage can buy an animal');
+ while(buyCheck(s,'grass').ok)assert(placeFixture(s,'grass'));
+ assert(s.metrics.points<priceOf('grasshopper')&&!s.organisms.some(o=>o.speciesId==='grasshopper'));
+ assert(isStuck(s),'only grass and no points left');
+ s.chapter.offers.push({offerId:'o',expiresAt:99});assert(!isStuck(s),'a 💡 waiting to be caught still earns a point');s.chapter.offers=[];
+ s.metrics.points=priceOf('grasshopper');assert(!isStuck(s),'enough for an animal');s.metrics.points=0;
+ s.organisms.push({...s.organisms[0],instanceId:'gh',speciesId:'grasshopper',hunger:.5});assert(!isStuck(s),'an animal with food can still eat and make 💡');
+ s.organisms=s.organisms.filter(o=>o.speciesId!=='grass');assert(isStuck(s),'an animal with nothing to eat cannot');
+});
+
 test('catching every observation helps a little but cannot replace care',()=>{
  for(const id of ['1-1','2-2']){
   const plain=runStage(id,{catchAll:false}),caught=runStage(id,{catchAll:true});
@@ -161,6 +175,17 @@ test('before weather the student chooses how to prepare, and sees how it went',(
  assert(!prepareFor(s,'wait').ok,'one choice per crisis');
  const human=createStageGameState(stageById['3-1']);human.chapter.seeds=1;updateStage(human,.5,[]);
  assert.equal(human.chapter.warning.kind,'soil-damage');assert.deepEqual(prepareOptions(human),[],'people-made crises are tackled, not prepared for');
+});
+
+// Playtest: "강아지풀 더 심기" without the points was taken as the choice, and
+// then nothing could be planted.
+test('planting before the weather needs the points for the plant; short of them, nothing is chosen',()=>{
+ const s=createStageGameState(stageById['1-3']);placeFixture(s,'grasshopper');s.chapter.seeds=1;updateStage(s,.5,[]);
+ s.metrics.points=priceOf('grass')-1;
+ const r=prepareFor(s,'plant');
+ assert(!r.ok);assert.match(r.message,/포인트가 1점 부족/);
+ assert.equal(s.chapter.crisisLog.at(-1).choice??null,null,'still free to choose');
+ s.metrics.points=priceOf('grass');assert(prepareFor(s,'plant').ok);
 });
 
 test('planting before the weather keeps the seeds growing; waiting does not',()=>{

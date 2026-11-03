@@ -1,6 +1,6 @@
 import {fullscreenButton} from './screen-toggle.js';
 import {crisisQuestions} from '../../data/crisis-reflection.js';
-import {stageBlockers,careOptions,needStates,neededCards,priceOf,prepareOptions,crisisReport,markReported,breedingState,isYoung} from '../systems/chapter-stage.js';
+import {stageBlockers,isStuck,careOptions,needStates,neededCards,priceOf,buyCheck,prepareOptions,crisisReport,markReported,breedingState,isYoung} from '../systems/chapter-stage.js';
 import {currentEnvironmentEvent} from '../systems/environment-events.js';
 import {factorValue,qualityLabel} from '../systems/environment.js';
 import {stageConfig as config,chapters,stages,stageById,crises,crisisForFactor,breeding} from '../../data/chapters.js';
@@ -99,11 +99,11 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   hud.querySelector('.chapter-seeds').setAttribute('aria-label',`숲 별 ${c.seeds}/${config.seedsToClear}`);
   meter.max=stage.seedSeconds;meter.value=c.cleared?stage.seedSeconds:c.seedProgress;
   const blockers=c.cleared?[]:stageBlockers(s),first=blockers[0];
-  const birthDone=c.births.some(b=>b.speciesId===stage.birthRequired);
-  const text=c.cleared?'숲 별 3개를 모두 모았어요!':first?blockerText[first.id](first,s):'먹이와 먹는 동물이 균형을 이뤄 숲 별이 차오르고 있어요.'+(stage.birthRequired&&!birthDone&&breedingLine(s)?' '+breedingLine(s):'');
+  const birthDone=c.births.some(b=>b.speciesId===stage.birthRequired),stuck=!c.cleared&&isStuck(s);
+  const text=c.cleared?'숲 별 3개를 모두 모았어요!':stuck?'포인트가 모자라 카드를 살 수 없고, 먹이를 먹는 소비자가 없어서 💡도 생기지 않아요. 이 스테이지를 처음부터 다시 해 봐요.':first?blockerText[first.id](first,s):'먹이와 먹는 동물이 균형을 이뤄 숲 별이 차오르고 있어요.'+(stage.birthRequired&&!birthDone&&breedingLine(s)?' '+breedingLine(s):'');
   if(status.textContent!==text)status.textContent=text;
-  status.dataset.state=c.cleared?'clear':first?'blocked':'growing';
-  renderCare(c.cleared?[]:careOptions(s),s.metrics.points);
+  status.dataset.state=c.cleared?'clear':first||stuck?'blocked':'growing';
+  renderCare(c.cleared?[]:careOptions(s),s.metrics.points,stuck);
   renderShop(s);
   const coins=`✦ ${s.metrics.points}P`;if(wallet.textContent!==coins){wallet.textContent=coins;wallet.setAttribute('aria-label',`가진 포인트 ${s.metrics.points}`);}
   renderAbiotic(s);
@@ -249,12 +249,16 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   for(const card of cards){const price=priceOf(card.dataset.speciesId);card.dataset.price=price+'P';card.dataset.afford=String(s.metrics.points>=price);}
  }
  // One button per bad factor people can act on, rebuilt only when it changes.
- function renderCare(options,points){
-  const key=JSON.stringify([options,points]);if(key===careKey)return;careKey=key;
+ function renderCare(options,points,stuck){
+  const key=JSON.stringify([options,points,stuck]);if(key===careKey)return;careKey=key;
   care.replaceChildren(...options.map(o=>{
-   const button=element('button',{type:'button',disabled:!o.ok,textContent:`${o.label} ${o.cost}P`,onclick:()=>onCare(o.factor)});
-   if(!o.ok)button.title=o.message;return button;
-  }));
+   // Short of points: still tappable, so the student is told why (red flash).
+   // (The forest's own message points to its activities, not shown here.)
+   const short=!o.ok&&/포인트가 부족/.test(o.message),message=short?'포인트가 부족해서 할 수 없어요. 숲에서 💡를 잡아 포인트를 모아요.':o.message;
+   const button=element('button',{type:'button',disabled:!o.ok&&!short,textContent:`${o.label} ${o.cost}P`,onclick:()=>short?refuse(button,message):onCare(o.factor)});
+   if(short)button.setAttribute('aria-disabled','true');
+   if(!o.ok)button.title=message;return button;
+  }),...(stuck?[element('button',{type:'button',className:'chapter-restart',textContent:'이 스테이지 처음부터',onclick:()=>openRestart()})]:[]));
  }
  // 💡 pinned where a meal happened, and litter or smog where it fell. Both are
  // still targets: easy to tap on a tablet.
@@ -316,9 +320,15 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
    element('p',{textContent:'이 스테이지의 숲, 숲 별, 포인트가 처음으로 돌아가요. 이미 깬 스테이지와 나의 먹이그물 기록은 그대로예요.'}),
    actions([['계속하기',()=>dialog.close()],['처음부터 하기',()=>{dialog.close();onRestart();}]])]);
  }
+ // A button that costs more points than the student has: it flashes red and
+ // says so, in the open window or else where messages show.
+ function refuse(button,message,note){
+  button.classList.remove('is-short');void button.offsetWidth;button.classList.add('is-short');
+  if(note){note.textContent=message;note.hidden=false;}else notify(message,false);
+ }
  // Before weather: it cannot be changed, but the forest can be made sturdier.
  let prepareTimer=null,promptedCrisis=null;
- const prepareLabel={plant:id=>`${name(id)} 더 심기 (${priceOf(id)}P)`,reduce:id=>`${name(id)} 한 마리 돌려보내기`,wait:()=>'그냥 기다리기'};
+ const prepareLabel={plant:id=>`${name(id)} 더 심기 (${priceOf(id)}P)`,reduce:id=>`${id?name(id):'먹는 동물'} 한 마리 돌려보내기`,wait:()=>'그냥 기다리기'};
  const prepareChosen={plant:'먹이 식물 더 심기',reduce:'먹는 동물 줄이기',wait:'그냥 기다리기'};
  function openPrepare(s){
   const kind=s.chapter.warning?.kind||s.chapter.crisisLog.at(-1).kind,crisis=crises[kind],options=prepareOptions(s);
@@ -326,6 +336,7 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   // forever: without a choice it goes on with "wait" after a short countdown,
   // and closing it any other way (back button, Esc) also means "wait".
   let chosen=false,left=config.prepareAutoSeconds;
+  const note=element('p',{className:'chapter-short-note',hidden:true});note.setAttribute('role','alert');
   const timer=element('p',{className:'chapter-prepare-timer'}),tick=()=>{timer.textContent=`${left}초 안에 고르지 않으면 '그냥 기다리기'로 넘어가요.`;};
   const choose=id=>{if(chosen)return;chosen=true;clearInterval(prepareTimer);if(dialog.open)dialog.close();onPrepare(id);};
   clearInterval(prepareTimer);tick();prepareTimer=setInterval(()=>{left--;tick();if(left<=0)choose('wait');},1000);
@@ -334,8 +345,10 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
    element('p',{textContent:`${crisis.effect} 날씨는 바꿀 수 없지만, 숲을 미리 튼튼하게 만들 수는 있어요. 무엇을 할까요?`}),
    element('p',{className:'chapter-shop-note',textContent:`약 1분 뒤 날씨가 지나가면 판정해요. 숲 별이 거의 멈추지 않으면 튼튼한 숲 +${config.crisisStrongReward}P, 오래 멈추면 차오르던 숲 별 게이지가 절반 줄어요.`}),
    element('div',{className:'chapter-actions chapter-prepare'},options.map(o=>{
-    const button=element('button',{type:'button',disabled:!o.ok,textContent:prepareLabel[o.id](o.speciesId),onclick:()=>choose(o.id)});
-    if(o.id==='reduce'&&!o.ok)button.title='더 줄일 수 있는 먹는 동물이 없어요.';return button;})),timer],'chapter-prepare-dialog');
+    const button=element('button',{type:'button',disabled:!o.ok,textContent:prepareLabel[o.id](o.speciesId),onclick:()=>{
+     const price=o.id==='plant'?buyCheck(getState(),o.speciesId):{ok:true};
+     if(price.ok)choose(o.id);else refuse(button,`${price.message.split('.')[0]}. 다른 방법을 골라요.`,note);}});
+    if(o.id==='reduce'&&!o.ok)button.title='더 줄일 수 있는 먹는 동물이 없어요.';return button;})),note,timer],'chapter-prepare-dialog');
  }
  // The verdict at the end of a crisis: what was done, how long the stars
  // stalled, and the reward or the cost.
