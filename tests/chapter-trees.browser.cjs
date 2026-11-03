@@ -12,9 +12,11 @@ const launch=process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH
  await p.reload();await p.waitForSelector('.organism-object[data-species-id="hazel"]',{state:'attached'});
  const height=()=>p.evaluate(id=>parseFloat(document.querySelector(`.organism-object[data-species-id="${id}"]`).style.getPropertyValue('--sprite-height')),'hazel');
  await p.waitForFunction(()=>document.querySelector('.organism-object[data-species-id="hazel"]').style.getPropertyValue('--sprite-height'));
- assert.equal(await height(),198,'a grown 팽나무 in chapter mode');
+ assert.equal(await height(),208,'a grown 팽나무 in chapter mode');
+ const foot=await p.evaluate(()=>{const a=document.querySelector('.organism-object[data-species-id="hazel"]'),img=a.querySelector('img').getBoundingClientRect(),base=a.getBoundingClientRect().top;return (img.bottom-img.height*18/192)-base;});
+ assert.ok(Math.abs(foot)<=2,`the tree stands on its foot point (${foot.toFixed(1)} px off)`);
  const tooClose=await p.evaluate(async()=>{const m=await import('./js/main.js'),{placeOrganism}=await import('./js/systems/placement.js');const g=m.gameState,h=g.organisms.find(o=>o.speciesId==='hazel');
-  return placeOrganism(g,'hazel',{position:{x:h.position.x+.12,y:h.position.y},isPlayArea:true,isUI:false},{footprints:{},blockedRects:[]}).ok;});
+  return placeOrganism(g,'hazel',{position:{x:h.position.x+.17,y:h.position.y},isPlayArea:true,isUI:false},{footprints:{},blockedRects:[]}).ok;});
  assert.equal(tooClose,false,'trees keep apart');
  // "다람쥐가 날아다니는 것처럼 보이잖아": a chipmunk keeps to the grown oak's
  // trunk, drawn in front of it, never on a far painted trunk.

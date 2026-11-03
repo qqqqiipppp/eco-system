@@ -44,9 +44,11 @@ export const wanderConfig = {
   walkSeconds: [1.8, 3.2], pauseSeconds: [0.7, 1.5],
 };
 
-// Chapter mode shows trees grown (성목): about 3x the forest mode's small
-// trees, spaced so their crowns barely overlap. Forest mode keeps its sizes.
+// Chapter mode shows trees grown (성목), 208 px tall: the box has the
+// picture's 4:3 shape, so the picture fills it down to its foot (a square box
+// centred it and the tree floated). Spaced so crowns barely overlap. Forest
+// mode keeps its sizes.
 export function useGrownTrees(){
-  for(const id of ['oak','pine','hazel'])Object.assign(speciesProfiles[id],{width:198,height:198});
-  placementConfig.largePlantSpacing={x:.16,y:.07};
+  for(const id of ['oak','pine','hazel'])Object.assign(speciesProfiles[id],{width:277,height:208});
+  placementConfig.largePlantSpacing={x:.2,y:.07};
 }
