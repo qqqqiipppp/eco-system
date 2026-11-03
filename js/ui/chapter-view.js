@@ -1,4 +1,4 @@
-import {fullscreenButton} from './fullscreen.js';
+import {fullscreenButton} from './screen-toggle.js';
 import {crisisQuestions} from '../../data/crisis-reflection.js';
 import {stageBlockers,careOptions,needStates,neededCards,priceOf,prepareOptions,crisisReport,markReported,breedingState,isYoung} from '../systems/chapter-stage.js';
 import {currentEnvironmentEvent} from '../systems/environment-events.js';
