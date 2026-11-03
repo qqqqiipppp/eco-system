@@ -18,7 +18,7 @@ const launch=process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH
  assert.equal(tooClose,false,'trees keep apart');
  // "다람쥐가 날아다니는 것처럼 보이잖아": a chipmunk keeps to the grown oak's
  // trunk, drawn in front of it, never on a far painted trunk.
- await p.evaluate(()=>{localStorage.clear();localStorage.setItem('eco-system:chapter-progress',JSON.stringify({cleared:['1-1','1-2','1-3','2-1','2-2','2-3','2-4','3-1','3-2']}));});
+ await p.evaluate(()=>{localStorage.clear();localStorage.setItem('eco-system:chapter-progress',JSON.stringify({cleared:['1-1','1-2','1-3','2-1','2-2','2-3','2-4','2-5','3-1','3-2']}));});
  await p.reload();await p.waitForSelector('.chapter-hud');await p.evaluate(()=>document.querySelectorAll('dialog[open]').forEach(d=>d.close()));
  const oakX=await p.evaluate(async()=>(await import('./js/main.js')).gameState.organisms.find(o=>o.speciesId==='oak').position.x);
  await p.locator('.organism-card[data-species-id="chipmunk"]').click();await tapBackground(p,.6,.45);

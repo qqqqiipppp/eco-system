@@ -335,15 +335,26 @@ function wellParent(s, o) {
 export function breedingState(s) {
   const out = {};
   for (const [id, rule] of Object.entries(breeding.species)) {
+    if (!breedsHere(s, id)) continue;
     const all = s.organisms.filter(o => o.speciesId === id), well = all.filter(o => wellParent(s, o)), memory = s.chapter.breeding[id];
     if (!all.length && !memory?.pending) continue;
     out[id] = {count: all.length, pair: well.length >= 2 && all.length < breeding.maximum ? well.slice(0, 2).map(o => o.instanceId) : [], healthy: memory?.healthy || 0, pending: memory?.pending || null, rule};
   }
   return out;
 }
+const breedsHere = (s, id) => !breeding.species[id].onlyWhenAsked || stageById[s.chapter.stageId].birthRequired === id;
+// The pond stage of a frog egg growing now (egg, tadpole, froglet), or null.
+export function pondStage(s) {
+  for (const [id, rule] of Object.entries(breeding.species)) {
+    const pending = rule.pond && s.chapter.breeding[id]?.pending;
+    if (pending) return rule.pond.find(p => 1 - pending.remaining / pending.total < p.until) || rule.pond.at(-1);
+  }
+  return null;
+}
 function updateBreeding(s, seconds) {
   const c = s.chapter, time = s.simulationTime, born = [];
   for (const [id, rule] of Object.entries(breeding.species)) {
+    if (!breedsHere(s, id)) continue;
     const memory = c.breeding[id] ??= {healthy: 0, pending: null};
     const all = s.organisms.filter(o => o.speciesId === id), well = all.filter(o => wellParent(s, o));
     if (memory.pending) {
@@ -358,7 +369,8 @@ function updateBreeding(s, seconds) {
     if (memory.healthy >= rule.healthySeconds) {
       const parent = well[0];
       memory.pending = {remaining: rule.waitSeconds, total: rule.waitSeconds, parentId: parent.instanceId,
-        position: {x: Math.min(.92, Math.max(.08, parent.position.x + (parent.position.x > .5 ? -.05 : .05))), y: parent.position.y}};
+        // A frog's egg is laid in the pond; the young frog comes out at its edge.
+        position: rule.pond ? {x: .21, y: .72} : {x: Math.min(.92, Math.max(.08, parent.position.x + (parent.position.x > .5 ? -.05 : .05))), y: parent.position.y}};
     }
   }
   return born;

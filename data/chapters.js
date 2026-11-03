@@ -104,6 +104,11 @@ export const chapters = [
       tasks: [{text: '청동풍뎅이 번식하기', birth: 'aphid'}, {text: '풍뎅이 먹는 개구리 관찰', observe: 'v2_aphid_to_frog', icon: 'frog'}],
       inventory: ['hazel', 'aphid', 'frog'], requiredSpecies: {aphid: 1, frog: 1}, birthRequired: 'aphid', observeRequired: 'v2_aphid_to_frog',
       organisms: [['hazel', .3], ['hazel', .62], ['aphid', .34], ['aphid', .58], ['frog', .46]]},
+    {stageId: '2-5', title: '연못의 개구리알', points: 18,
+      goal: '참개구리 두 마리가 배고프지 않게 지내면 연못에 알을 낳아요. 알이 올챙이, 꼬리 달린 새끼 개구리를 거쳐 어린 개구리가 되는 모습을 지켜봐요.',
+      tasks: [{text: '참개구리 두 마리 기르기', have: 'frog'}, {text: '올챙이가 개구리로', birth: 'frog'}],
+      inventory: ['grass', 'grasshopper', 'frog'], requiredSpecies: {grasshopper: 2, frog: 2}, birthRequired: 'frog',
+      organisms: [['grass', .3], ['grass', .4], ['grass', .5], ['grass', .6], ['grass', .7], ['grasshopper', .34], ['grasshopper', .44], ['grasshopper', .54], ['grasshopper', .64], ['grasshopper', .74], ['frog', .4]]},
   ]},
   {chapterId: 'understory', number: 3, title: '나무 아래', events: ['soil-damage', 'drought'], seedSeconds: 70, newSpecies: ['oak', 'mushroom', 'litter-mold', 'earthworm', 'chipmunk', 'raspberry', 'bulbul'],
     intro: '분해자가 낙엽과 쓰러진 나무를 분해해 흙으로 양분을 돌려보내요.', stages: [
@@ -176,6 +181,11 @@ export const breeding = {
     chipmunk: {healthySeconds: 50, waitSeconds: 25, sign: '둥지', young: '새끼', cycle: '둥지에서 새끼가 태어나 젖을 먹고 자라요.'},
     bulbul: {healthySeconds: 50, waitSeconds: 25, sign: '둥지 속 알', young: '새끼 새', cycle: '둥지에 알을 낳고 품으면 새끼 새가 깨어나요.'},
     rabbit: {healthySeconds: 50, waitSeconds: 25, sign: '곧 태어나요', soon: true, young: '새끼', cycle: '털이 나고 눈을 뜬 새끼가 태어나 금방 풀을 먹어요.'},
+    // Only in a stage that asks for it (2-5): frogs elsewhere would multiply.
+    // The egg grows in the pond through its stages (share of waitSeconds).
+    frog: {healthySeconds: 40, waitSeconds: 60, sign: '개구리알', young: '새끼 개구리', onlyWhenAsked: true,
+      pond: [{until: .3, name: '개구리알', image: 'egg'}, {until: .6, name: '올챙이', image: 'tadpole'}, {until: 1, name: '꼬리 달린 새끼 개구리', image: 'froglet'}],
+      cycle: '알 → 올챙이 → 꼬리 달린 새끼 개구리 → 새끼 개구리 (탈바꿈). 실제로는 알을 한 번에 아주 많이 낳지만, 게임에서는 한 개로 줄였어요.'},
   },
 };
 

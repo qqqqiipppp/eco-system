@@ -1,6 +1,6 @@
 import {fullscreenButton} from './screen-toggle.js';
 import {crisisQuestions} from '../../data/crisis-reflection.js';
-import {stageBlockers,isStuck,taskDone,careOptions,needStates,neededCards,priceOf,buyCheck,prepareOptions,crisisReport,markReported,breedingState,isYoung} from '../systems/chapter-stage.js';
+import {stageBlockers,isStuck,taskDone,pondStage,careOptions,needStates,neededCards,priceOf,buyCheck,prepareOptions,crisisReport,markReported,breedingState,isYoung} from '../systems/chapter-stage.js';
 import {currentEnvironmentEvent} from '../systems/environment-events.js';
 import {factorValue,qualityLabel} from '../systems/environment.js';
 import {stageConfig as config,chapters,stages,stageById,crises,crisisForFactor,breeding} from '../../data/chapters.js';
@@ -130,13 +130,15 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
  // The pond (chapter 2 on): it shrinks and dulls as water runs low, so a
  // drought is seen in the forest itself. Drawn under the organisms.
  const pond=element('img',{className:'forest-pond',src:'./assets/images/backgrounds/pond.svg',alt:'웅덩이',hidden:true});
+ // A frog egg growing in the pond: its picture and the stage's name.
+ const nursery=element('div',{className:'pond-nursery',hidden:true},[element('img',{alt:''}),element('span')]);
  // Chapter 3 on: a fallen log (where cloud mushrooms live) and a leaf-litter pile
  // that grows with the plants and shrinks as decomposers work. Chapter 4's
  // air-pollution crisis shows a distant smoking chimney on the horizon.
  const log=element('img',{className:'forest-log',src:'./assets/images/backgrounds/log.svg',alt:'쓰러진 통나무',hidden:true});
  const litter=element('img',{className:'forest-litter',src:'./assets/images/backgrounds/litter.svg',alt:'낙엽 더미',hidden:true});
  const chimney=element('img',{className:'forest-chimney',src:'./assets/images/backgrounds/chimney.svg',alt:'멀리 보이는 공장 굴뚝',hidden:true});
- forest.querySelector('.forest-art')?.after(chimney,pond,log,litter);
+ forest.querySelector('.forest-art')?.after(chimney,pond,nursery,log,litter);
  function renderPond(s){
   const show=stageById[s.chapter.stageId].chapter.number>=2;if(pond.hidden===show)pond.hidden=!show;if(!show)return;
   const water=factorValue(s.environment,'water'),scale=(.4+.6*water).toFixed(2);
@@ -197,10 +199,13 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
  function renderBreeding(s){
   const states=breedingState(s),focus=stageById[s.chapter.stageId].birthRequired,marks={};
   for(const [id,b] of Object.entries(states)){
-   if(b.pending)marks[b.pending.parentId]={kind:'pending',label:`${b.rule.sign} ${Math.max(1,Math.ceil(b.pending.remaining))}`};
+   if(b.pending&&!b.rule.pond)marks[b.pending.parentId]={kind:'pending',label:`${b.rule.sign} ${Math.max(1,Math.ceil(b.pending.remaining))}`};
    else if(id===focus)b.pair.forEach((pid,i)=>{marks[pid]={kind:i?'pair-right':'pair-left',label:''};});
    if(id===focus)watchPair(s,id,b);
   }
+  const stage=pondStage(s),src=stage?`./assets/images/frog-life/${stage.image}.svg`:'';
+  if(nursery.hidden===Boolean(stage))nursery.hidden=!stage;
+  if(stage&&nursery.firstChild.getAttribute('src')!==src){nursery.firstChild.src=src;nursery.lastChild.textContent=stage.name;nursery.setAttribute('aria-label',`연못: ${stage.name}`);}
   for(const el of forest.querySelectorAll('#organism-layer .organism-object')){
    const o=s.organisms.find(x=>x.instanceId===el.dataset.instanceId);if(!o)continue;
    const rule=breeding.species[o.speciesId];

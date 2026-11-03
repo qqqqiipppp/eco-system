@@ -4,7 +4,7 @@ import {createStageGameState,updateStage,stageBlockers,catchObservation,careOpti
 import {currentEnvironmentEvent} from '../js/systems/environment-events.js';
 import {createFeedingSystem} from '../js/systems/feeding.js';
 import {layout} from './ecology-fixtures.mjs';
-import {stages,stageById,stageConfig,chapters} from '../data/chapters.js';
+import {stages,stageById,stageConfig,chapters,breeding} from '../data/chapters.js';
 import {organismById} from '../data/organisms.js';
 import {foodRelations} from '../data/food-relations.js';
 import {runStage,idleStudent,carefulStudent,place as placeFixture} from './chapter-fixtures.mjs';
@@ -13,7 +13,7 @@ import {runStage,idleStudent,carefulStudent,place as placeFixture} from './chapt
 const demanding=['1-2','2-2','2-3','3-1','3-2','3-3','4-1','4-2','4-3'];
 
 test('chapters add one event each and hold balance longer as they go',()=>{
- assert.equal(chapters.length,4);assert.equal(stages.length,14);
+ assert.equal(chapters.length,4);assert.equal(stages.length,15);
  assert.deepEqual(chapters.map(c=>c.events[0]),['cloudy','drought','soil-damage','air-pollution']);
  for(let i=1;i<chapters.length;i++){
   assert.equal(chapters[i].events[1],chapters[i-1].events[0],'the previous crisis returns');
@@ -321,4 +321,26 @@ test('litter falls as a black bag, a bottle or a banana peel, and remembers when
  assert.deepEqual(s.chapter.trash.map(t=>t.piece).sort(),['bag','bottle','peel']);
  for(const t of s.chapter.trash)assert(t.at>0&&t.at<=s.simulationTime);
  assert(stageConfig.trashAlertSeconds>0);
+});
+
+// Teacher ask: a frog breeding stage where egg → tadpole → froglet → young frog
+// can be watched in the pond; one egg per breeding.
+test('2-5: a frog pair lays one egg in the pond; it grows through the pond stages into a young frog',async()=>{
+ const {pondStage}=await import('../js/systems/chapter-stage.js');
+ const s=createStageGameState(stageById['2-5']);
+ assert.equal(stageById['2-5'].birthRequired,'frog');
+ placeFixture(s,'frog');assert(s.organisms.filter(o=>o.speciesId==='frog').length>=2);
+ for(const f of s.organisms.filter(o=>o.speciesId==='frog'))f.hunger=.2;
+ const rule=breeding.species.frog,seen=[];
+ for(let t=0;t<(rule.healthySeconds+rule.waitSeconds+5)*2;t++){
+  s.simulationTime+=.5;for(const o of s.organisms)if('hunger'in o)o.hunger=.2;
+  const out=updateStage(s,.5,[]);const st=pondStage(s);if(st&&seen.at(-1)!==st.name)seen.push(st.name);
+  const frogs=(out.born||[]).filter(o=>o.speciesId==='frog');
+  if(frogs.length){assert.equal(frogs.length,1,'one egg, one young frog');assert(frogs[0].position.x<.3,'born at the pond');break;}
+ }
+ assert.deepEqual(seen,['개구리알','올챙이','꼬리 달린 새끼 개구리']);
+ assert(s.chapter.births.some(b=>b.speciesId==='frog'));
+ // Frogs breed only where the stage asks for it (2-1 has two frogs too).
+ const other=createStageGameState(stageById['2-2']);for(let t=0;t<400;t++){other.simulationTime+=.5;for(const o of other.organisms)if('hunger'in o)o.hunger=.2;updateStage(other,.5,[]);}
+ assert(!other.chapter.births.some(b=>b.speciesId==='frog'));
 });

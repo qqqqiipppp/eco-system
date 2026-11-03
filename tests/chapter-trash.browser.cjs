@@ -8,7 +8,7 @@ const launch=process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH
 (async()=>{
  const b=await chromium.launch(launch),p=await b.newPage({viewport:{width:1280,height:800},hasTouch:true}),errors=[];
  p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
- await p.goto(base);await p.evaluate(()=>{localStorage.clear();localStorage.setItem('eco-system:chapter-progress',JSON.stringify({cleared:['1-1','1-2','1-3','2-1','2-2','2-3','2-4']}));});
+ await p.goto(base);await p.evaluate(()=>{localStorage.clear();localStorage.setItem('eco-system:chapter-progress',JSON.stringify({cleared:['1-1','1-2','1-3','2-1','2-2','2-3','2-4','2-5']}));});
  await p.reload();await p.waitForSelector('.chapter-hud');await p.evaluate(()=>document.querySelectorAll('dialog[open]').forEach(d=>d.close()));
  await p.evaluate(async()=>{const g=(await import('./js/main.js')).gameState,t=g.simulationTime;
   g.chapter.trash.push({trashId:'trash-a',kind:'soil-damage',x:.3,y:.74,piece:'bag',at:t},{trashId:'trash-b',kind:'soil-damage',x:.5,y:.74,piece:'bottle',at:t-30},{trashId:'trash-c',kind:'soil-damage',x:.7,y:.74,piece:'peel',at:t});});
