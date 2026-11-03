@@ -26,7 +26,7 @@ export function createStageGameState(stage) {
   s.environmentEvents.nextAt = Number.MAX_SAFE_INTEGER;
   s.chapter = {stageId: stage.stageId, seeds: 0, seedProgress: 0, lastMealAt: null,
     observations: 0, offers: [], offerSequence: 0, lastOfferAt: null, lastWork: 0, lastDecomposedAt: null,
-    decompositionBoost: config.decompositionBoost, warning: null, trash: [], trashSequence: 0, lastTrashAt: null, trashCollected: 0, crisisLog: [], breeding: {}, births: [],
+    decompositionBoost: config.decompositionBoost, predatorSatiety: config.predatorSatiety, warning: null, trash: [], trashSequence: 0, lastTrashAt: null, trashCollected: 0, crisisLog: [], breeding: {}, births: [],
     eventsStarted: 0, cleared: false, clearedAt: null};
   return s;
 }
@@ -166,8 +166,10 @@ export function updateStage(s, seconds, feedingEvents = []) {
   if (work > c.lastWork + 1e-9) c.lastDecomposedAt = time;
   c.lastWork = work;
   c.offers = c.offers.filter(o => o.expiresAt > time);
-  const meal = feedingEvents.at(-1);
-  if (meal && (c.lastOfferAt === null || time - c.lastOfferAt >= config.observationInterval)) {
+  // A hunt is rarer than grazing: it always shows a 💡, grazing at most every 6 s.
+  const hunt = feedingEvents.find(e => foodRelations.find(r => r.relationId === e.relationId)?.feedingMode === 'predation');
+  const meal = hunt || feedingEvents.at(-1);
+  if (meal && (hunt || c.lastOfferAt === null || time - c.lastOfferAt >= config.observationInterval)) {
     c.lastOfferAt = time;
     c.offers.push({offerId: `offer-${++c.offerSequence}`, relationId: meal.relationId, consumerInstanceId: meal.consumerInstanceId, expiresAt: time + config.observationLifetime});
   }

@@ -43,3 +43,10 @@ export const wanderConfig = {
   speedX: 0.028, speedY: 0.009,
   walkSeconds: [1.8, 3.2], pauseSeconds: [0.7, 1.5],
 };
+
+// Chapter mode shows trees grown (성목): about 3x the forest mode's small
+// trees, spaced so their crowns barely overlap. Forest mode keeps its sizes.
+export function useGrownTrees(){
+  for(const id of ['oak','pine','hazel'])Object.assign(speciesProfiles[id],{width:198,height:198});
+  placementConfig.largePlantSpacing={x:.16,y:.07};
+}
