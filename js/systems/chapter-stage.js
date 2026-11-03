@@ -8,6 +8,7 @@ import {removeOrganism,addOrganism} from './lifecycle.js';
 import {foodResourceConfig} from '../../data/ecology-config.js';
 import {managementActions} from '../../data/management-actions.js';
 import {foodRelations} from '../../data/food-relations.js';
+import {organismById} from '../../data/organisms.js';
 import {stageConfig as config,stageById,crises,crisisForFactor,breeding} from '../../data/chapters.js';
 
 // A fresh stage forest. Chapter mode never writes the regular forest save.
@@ -236,6 +237,18 @@ export function payFor(s, id) {
   s.metrics.points -= price;
   recordPointChange(s, 'management', -price, `chapter-buy:${id}:${s.nextInstanceSequence}`, id);
   return price;
+}
+
+// A short stage goal (data/chapters.js tasks), ticked from the stage state.
+export function taskDone(s, task) {
+  const c = s.chapter, count = id => s.organisms.filter(o => o.speciesId === id).length;
+  if (task.have) return count(task.have) >= (stageById[c.stageId].requiredSpecies?.[task.have] || 1);
+  if (task.birth) return c.births.some(b => b.speciesId === task.birth);
+  if (task.balance) return c.seeds > 0;
+  if (task.crisis) return c.crisisLog.some(r => r.kind === task.crisis && r.endedAt !== null);
+  if (task.decomposer) return s.organisms.some(o => organismById[o.speciesId]?.role === 'decomposer');
+  if (task.decomposed) return c.lastDecomposedAt !== null;
+  return false;
 }
 
 // Nothing can change any more: no card is affordable, and nothing can earn a
