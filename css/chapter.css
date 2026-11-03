@@ -354,3 +354,6 @@
 .pond-nursery span{padding:1px 8px;border-radius:999px;background:#fffdf0e6;color:#1f4f6b;font-size:12px;font-weight:800;white-space:nowrap;box-shadow:0 1px 3px #0003}
 @keyframes pond-bob{50%{transform:translateY(-2px)}}
 @media (prefers-reduced-motion:reduce){.pond-nursery img{animation:none}}
+/* Grown trees stand on the ground: their pictures (like every species
+   picture) end 18 of 192 px above the frame's bottom. */
+.chapter-mode .organism-object:is([data-species-id=oak],[data-species-id=pine],[data-species-id=hazel]) img.organism-art{translate:0 calc(var(--sprite-height) * 18 / 192)}
