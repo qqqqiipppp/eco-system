@@ -40,7 +40,7 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
   await p.locator('.chapter-dialog[open] button',{hasText:'시작하기'}).click();
   assert.equal(await p.locator('dialog[open]').count(),0);
   assert.match(await p.locator('.chapter-title h2').textContent(),/1-1 풀밭의 시작/);
-  assert.match(await p.locator('.chapter-status').textContent(),/먹는 동물이 없어요/);
+  assert.match(await p.locator('.chapter-status').textContent(),/소비자가 없어요/);
   assert(!(await p.locator('.forest-memo').isVisible()),'mission memo hidden');
   assert.equal(await p.locator('.app-header .dashboard').count(),1,'the four numbers sit in the top row');
   assert(!(await p.locator('.chapter-menu').isVisible()),'menu starts closed');
@@ -96,7 +96,7 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
   await forward(p,49.9);await seedsReach(p,2,120000);
   await forward(p,49.9);await p.waitForSelector('.chapter-dialog[open]',{timeout:120000});
   assert.match(await p.locator('.chapter-dialog[open]').textContent(),/1-1 완료/);
-  assert.match(await p.locator('.chapter-dialog[open]').textContent(),/고른 대비: 먹이 식물 더 심기/,'the weather outcome joins the clear');
+  assert.match(await p.locator('.chapter-dialog[open]').textContent(),/고른 대비: 생산자 더 심기/,'the weather outcome joins the clear');
   if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-clear.png`});
   assert.deepEqual(JSON.parse(await p.evaluate(()=>localStorage.getItem('eco-system:chapter-progress'))).cleared,['1-1']);
 
