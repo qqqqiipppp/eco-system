@@ -351,11 +351,9 @@
     "move-1": {
      "file": "frog-move-1.webp",
      "source": "frog-move-1.png",
-     "sourceSha256": "edd5c6222ccb61ef192f1ad21f491154d21f1df64ad5a1fe7ba20a17ba4e37d4",
-     "checks": [
-      "몸 크기가 기본 그림의 40%예요"
-     ],
-     "bytes": 11008
+     "sourceSha256": "3c193c115323806d08d3eabeceb8fae4f822017351904133880e17bb360b54af",
+     "checks": [],
+     "bytes": 14240
     },
     "eat-2": {
      "file": "frog-eat-2.webp",
@@ -367,11 +365,9 @@
     "move-2": {
      "file": "frog-move-2.webp",
      "source": "frog-move-2.png",
-     "sourceSha256": "9a703bea6e3aa923f207385bfd7717e50cafcd297be5aeed91d929666062f980",
-     "checks": [
-      "몸 크기가 기본 그림의 39%예요"
-     ],
-     "bytes": 10546
+     "sourceSha256": "01da49814b319e6c4e2e330bd407d5badd0b8958143f444238da1e1426a04322",
+     "checks": [],
+     "bytes": 11910
     },
     "move-3": {
      "file": "frog-move-3.webp",
