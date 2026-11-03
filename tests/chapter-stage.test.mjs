@@ -290,3 +290,15 @@ test('goals tick from the stage state',()=>{
  const d=createStageGameState(stageById['3-1']);assert(!taskDone(d,{decomposer:true}));placeFixture(d,'mushroom');assert(taskDone(d,{decomposer:true}));
  assert(!taskDone(d,{decomposed:true}));d.chapter.lastDecomposedAt=3;assert(taskDone(d,{decomposed:true}));
 });
+
+// Playtest: in 5 minutes a frog ate a grasshopper 1-3 times (grasshoppers ate
+// grass 70+ times): a frog stayed full for 5 minutes, longer than a stage.
+test('in a stage a predator is full only briefly, so hunting is seen; a hunt always shows a 💡',()=>{
+ const r=runStage('2-2',{seconds:300,student:carefulStudent});
+ const frogMeals=r.s.population.history.filter(h=>h.cause==='predation'&&h.consumerSpeciesId==='frog').length;
+ assert(r.cleared&&frogMeals>=5,`frogs ate ${frogMeals} grasshoppers in 2-2 (3 when a frog stayed full 5 minutes)`);
+ const s=createStageGameState(stageById['2-1']);s.simulationTime=10;s.chapter.lastOfferAt=9;
+ const graze={relationId:'v2_grass_to_grasshopper',consumerInstanceId:'g'},hunt={relationId:'v2_grasshopper_to_frog',consumerInstanceId:'f'};
+ updateStage(s,.5,[graze]);assert.equal(s.chapter.offers.length,0,'grazing waits for the 6 s pace');
+ updateStage(s,.5,[graze,hunt]);assert.equal(s.chapter.offers.at(-1)?.relationId,'v2_grasshopper_to_frog','a hunt shows at once');
+});

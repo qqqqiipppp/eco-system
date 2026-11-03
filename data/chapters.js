@@ -41,6 +41,10 @@ export const stageConfig = {
   // The prepare window pauses the forest: without a choice it goes on with "wait".
   prepareAutoSeconds: 20,
   crisisTiredMinStall: 20,
+  // A predator stays full this share of the regular forest's time (a frog 5
+  // minutes there, 2 here), so hunting is seen within a stage. Shorter empties
+  // the forest of prey, which does not breed in most stages (bots: 2-2, 4-1).
+  predatorSatiety: {frog: .4, snake: .5, weasel: .5, goshawk: .5},
   prices: {grass: 3, raspberry: 3, oak: 6, hazel: 6, grasshopper: 4, earthworm: 4, aphid: 5, rabbit: 6, chipmunk: 6, mushroom: 5, 'litter-mold': 5, frog: 8, bulbul: 8, snake: 10, weasel: 10, goshawk: 12},
 };
 

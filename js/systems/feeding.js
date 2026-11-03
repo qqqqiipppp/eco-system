@@ -159,7 +159,9 @@ export function createFeedingSystem(initialTime = 0,{environmentEventsEnabled=tr
       context.result.feedingEvents.push({ relationId:relation.relationId,foodPart:relation.foodPart,consumerSpeciesId: instance.speciesId, foodSpeciesId: target.speciesId, consumerInstanceId: instance.instanceId, foodInstanceId: target.instanceId });
       instance.hunger = Math.max(0, instance.hunger - feedingConfig[instance.speciesId].mealRelief);
       instance.lastSuccessfulFeedingAt = simulationTime;
-      if(relation.feedingMode==='predation')instance.satietyUntil=simulationTime+(satietySeconds[instance.speciesId]||0);
+      // A chapter stage is a few minutes long: its predators stay full for a
+      // shorter time (chapter.predatorSatiety), so a hunt is seen in a stage.
+      if(relation.feedingMode==='predation')instance.satietyUntil=simulationTime+(satietySeconds[instance.speciesId]||0)*(context.state.chapter?.predatorSatiety?.[instance.speciesId]??1);
       instance.foodShortageDuration = 0;
       recoverSurvival(instance);
       returnToWander(instance, clock);

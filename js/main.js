@@ -14,7 +14,8 @@ import { createSaveService } from './services/save-service.js';
 import { createLocalAdapter,createNoSaveAdapter,createChapterProgressAdapter,createChapterStageAdapter } from './adapters/local-storage.js';
 import {createStageGameState,updateStage,catchObservation,careFor,buyCheck,payFor,collectTrash,prepareFor} from './systems/chapter-stage.js';
 import {organismById as speciesById} from '../data/organisms.js';
-import {particle} from '../data/student-text.js';
+import {particle,mealSentence} from '../data/student-text.js';
+import {foodRelationById} from '../data/food-relations.js';
 import {createChapterView} from './ui/chapter-view.js';
 import {createChapterWebView} from './ui/chapter-web-view.js';
 import {createChapterRecordView} from './ui/chapter-record-view.js';
@@ -29,7 +30,7 @@ import {studentPlacementMessage} from './ui/student-guidance.js';
 import {placeNearestOrganism} from './systems/placement-target.js';
 import { createWanderSystem } from './systems/wander.js';
 import { createUpdateLoop } from './systems/update-loop.js';
-import { speciesProfiles } from '../data/interaction-config.js';
+import { speciesProfiles, useGrownTrees } from '../data/interaction-config.js';
 import { createFeedingSystem } from './systems/feeding.js';
 import { foodResourceConfig } from '../data/ecology-config.js';
 import { growthSuitability, animalActivity } from './systems/environment.js';
@@ -54,6 +55,7 @@ import {capForestAspect} from './ui/forest-aspect.js';
 // Chapter mode is what opens first; ?mode=forest is the regular forest. Chapter
 // mode plays short stages and leaves the regular forest save untouched.
 const chapterMode=new URLSearchParams(location.search).get('mode')!=='forest';
+if(chapterMode)useGrownTrees();
 const chapterProgress=chapterMode?createChapterProgressAdapter():null;
 export const gameState = createGameState();
 export const saveService = createSaveService({adapter:chapterMode?createNoSaveAdapter():createLocalAdapter(),getState:()=>gameState,getEventMemory:()=>eventSystem.exportMemory(),onStatus:showSaveStatus});
@@ -194,6 +196,8 @@ try {
       if(gameState.population.sequence>lastPopulationSequence)for(const record of gameState.population.history)if(record.sequence>lastPopulationSequence&&record.mode!=='chapter-pair'&&['starvation','reproduction','natural_lifespan','life_stage_exit','colony_decline','replenishment'].includes(record.cause))notice=record;
       if(notice)scene.showFeedback(studentChange(notice)||populationMessage(notice),!['starvation','colony_decline'].includes(notice.cause));
       else if (result.feedingEvents.length&&!chapterMode&&performance.now()>=holdFeedbackUntil) scene.showFeedback(feedingFeedback(result.feedingEvents), true);
+      // A hunt is rarer than grazing: chapter mode says it where the student looks.
+      else if(chapterMode&&performance.now()>=holdFeedbackUntil){const hunt=result.feedingEvents.find(e=>foodRelationById[e.relationId]?.feedingMode==='predation');if(hunt)scene.showFeedback(`${mealSentence(foodRelationById[hunt.relationId])} 💡를 눌러 관찰해요.`,true);}
       lastPopulationSequence=gameState.population.sequence;
     },
   });
