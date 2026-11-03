@@ -26,6 +26,8 @@ export const stageConfig = {
   trashDamage: .006,
   trashFloor: .15,
   trashReward: 1,
+  // A piece of litter left this long calls for help (a sign above it).
+  trashAlertSeconds: 10,
   // Every crisis starts and ends inside the stage (about 1 minute), and is
   // judged by how long the stars stalled while it lasted.
   // Decomposers work this much faster in chapter mode, so their effect on the
@@ -154,7 +156,7 @@ export const crises = {
     effect: '햇빛이 줄면 생산자인 식물이 광합성을 거의 못 해서, 먹힌 잎과 열매가 다시 자라지 않아요. 먹이가 모자라면 숲 별이 멈춰요.'},
   drought: {human: false, factor: 'water', notice: '곧 가뭄이 와요!',
     effect: '물이 줄면 생산자인 식물이 거의 자라지 못해서, 먹힌 잎과 열매가 다시 자라지 않아요. 먹이가 모자라면 숲 별이 멈춰요.'},
-  'soil-damage': {human: true, factor: 'soil', notice: '사람들이 숲에 쓰레기를 버리고 있어요!', item: '쓰레기', icon: '🥤',
+  'soil-damage': {human: true, factor: 'soil', notice: '사람들이 숲에 쓰레기를 버리고 있어요!', item: '쓰레기', icon: '🥤', pieces: ['bag', 'bottle', 'peel'],
     status: '사람이 버린 쓰레기와 발길로 흙이 망가지고 있어요. 쓰레기를 눌러 치워요.',
     care: '숲 바닥 되살리기'},
   'air-pollution': {human: true, factor: 'air', notice: '자동차와 공장의 매연이 숲으로 날아와요!', item: '매연', icon: '💨',

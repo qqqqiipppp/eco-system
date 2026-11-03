@@ -118,7 +118,9 @@ function updateTrash(s, seconds) {
   if (crisis?.human && event.phase === 'active' && c.trash.length < config.trashMax && (c.lastTrashAt === null || time - c.lastTrashAt >= config.trashInterval)) {
     c.lastTrashAt = time;
     const n = ++c.trashSequence;
-    c.trash.push({trashId: `trash-${n}`, kind: event.kind, x: .12 + .74 * ((n * .618) % 1), y: .74});
+    // Litter comes as one of its pieces in turn; at is when it fell.
+    const pieces = crisis.pieces, piece = pieces ? pieces[(n - 1) % pieces.length] : null;
+    c.trash.push({trashId: `trash-${n}`, kind: event.kind, x: .12 + .74 * ((n * .618) % 1), y: .74, ...(piece && {piece}), at: time});
   }
   for (const item of c.trash) {
     const factor = s.environment[crises[item.kind].factor];

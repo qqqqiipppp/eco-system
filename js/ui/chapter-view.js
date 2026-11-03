@@ -111,7 +111,7 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   renderPond(s);
   renderScene(s);
   renderNeeds(c.cleared?new Map():needStates(s),c.cleared?new Set():neededCards(s,blockers));
-  renderTaps(c);
+  renderTaps(c,s.simulationTime);
   renderBreeding(s);
   renderCrisis(s);
   const idle=!document.querySelector('dialog[open]');
@@ -279,7 +279,7 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
  }
  // 💡 pinned where a meal happened, and litter or smog where it fell. Both are
  // still targets: easy to tap on a tablet.
- function renderTaps(c){
+ function renderTaps(c,time){
   const live=new Set([...c.offers.map(o=>o.offerId),...c.trash.map(t=>t.trashId)]);
   for(const button of [...layer.children])if(!live.has(button.dataset.tapId))button.remove();
   const box=forest.getBoundingClientRect();
@@ -293,10 +293,15 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
     const rect=button.getBoundingClientRect(),result=onCatch(offer.offerId);if(result?.ok)float(`+${config.observationReward}P${result.bonus?' ★':''}`,rect,'gain');});
   }
   for(const item of c.trash){
-   if(layer.querySelector(`[data-tap-id="${item.trashId}"]`))continue;
+   // A piece left too long calls for help with a sign above it.
+   const old=time-(item.at??0)>=config.trashAlertSeconds,placed=layer.querySelector(`[data-tap-id="${item.trashId}"]`);
+   if(placed){placed.classList.toggle('is-old',old);continue;}
    const crisis=crises[item.kind];
-   tapButton(item.trashId,'chapter-trash',`${crisis.icon} ${crisis.item}`,`${crisis.item} 치우기`,item.x*box.width,item.y*box.height,button=>{
+   const button=tapButton(item.trashId,'chapter-trash',`${crisis.icon} ${crisis.item}`,`${crisis.item} 치우기`,item.x*box.width,item.y*box.height,button=>{
     const rect=button.getBoundingClientRect(),result=onCollect(item.trashId);if(result?.ok)float(`+${config.trashReward}P`,rect,'gain');});
+   // Litter shows as the piece itself (black bag, bottle, banana peel), no label.
+   if(item.piece){button.classList.add('is-piece');button.replaceChildren(element('img',{src:`./assets/images/trash/${item.piece}.svg`,alt:''}));}
+   button.classList.toggle('is-old',old);
   }
  }
  function tapButton(id,cls,icon,label,x,y,onTap){
@@ -304,6 +309,7 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   button.dataset.tapId=id;button.setAttribute('aria-label',label);button.style.left=`${x}px`;button.style.top=`${y}px`;
   button.addEventListener('click',event=>{event.stopPropagation();onTap(button);});
   layer.append(button);
+  return button;
  }
  function spent(price,instance){
   const el=forest.querySelector(`#organism-layer [data-instance-id="${instance.instanceId}"]`);
