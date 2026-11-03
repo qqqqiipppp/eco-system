@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createStageGameState,updateStage,stageBlockers,catchObservation,careOptions,careFor,needStates,neededCards,buyCheck,payFor,collectTrash,priceOf,prepareOptions,prepareFor,crisisReport,isStuck} from '../js/systems/chapter-stage.js';
+import {createStageGameState,updateStage,stageBlockers,catchObservation,careOptions,careFor,needStates,neededCards,buyCheck,payFor,collectTrash,priceOf,prepareOptions,prepareFor,crisisReport,isStuck,taskDone} from '../js/systems/chapter-stage.js';
 import {currentEnvironmentEvent} from '../js/systems/environment-events.js';
 import {createFeedingSystem} from '../js/systems/feeding.js';
 import {layout} from './ecology-fixtures.mjs';
@@ -262,4 +262,31 @@ test('a crisis announced as the stage clears is dropped, not left counting down'
  const s=createStageGameState(stageById['1-3']);placeFixture(s,'grasshopper');
  s.chapter.seeds=2;s.chapter.eventsStarted=0;s.chapter.seedProgress=stageById['1-3'].seedSeconds+1;s.chapter.births.push({speciesId:'grasshopper'});
  updateStage(s,.5,[]);assert(s.chapter.cleared);assert.equal(s.chapter.warning,null);
+});
+
+// Short goals the student reads at a glance ("멧토끼 기르기 · 방아깨비 번식하기"),
+// each ticked from the stage's own state.
+test('every stage has two short goals the forest can tick',()=>{
+ const kinds=['have','birth','balance','crisis','decomposer','decomposed'];
+ for(const stage of stages){
+  assert.equal(stage.tasks?.length,2,stage.stageId);
+  for(const task of stage.tasks){
+   assert(task.text.length<=13,`${stage.stageId} "${task.text}" is short`);
+   assert.equal(kinds.filter(k=>k in task).length,1,`${stage.stageId} "${task.text}" has one kind`);
+   if(task.have||task.birth)assert(stage.inventory.includes(task.have||task.birth),`${stage.stageId} ${task.have||task.birth} is a card here`);
+   if(task.birth)assert.equal(task.birth,stage.birthRequired);
+   if(task.crisis)assert(stage.events.includes(task.crisis),`${stage.stageId} ${task.crisis} comes here`);
+   assert(!taskDone(createStageGameState(stage),task)||task.have,`${stage.stageId} "${task.text}" is not done at the start`);
+  }
+ }
+});
+test('goals tick from the stage state',()=>{
+ const s=createStageGameState(stageById['1-3']),[rabbit,birth]=stageById['1-3'].tasks;
+ assert(!taskDone(s,rabbit));placeFixture(s,'rabbit');assert(taskDone(s,rabbit),'a rabbit in the forest');
+ s.organisms=s.organisms.filter(o=>o.speciesId!=='rabbit');assert(!taskDone(s,rabbit),'and unticked when it is gone');
+ assert(!taskDone(s,birth));s.chapter.births.push({speciesId:'grasshopper',at:1});assert(taskDone(s,birth));
+ const balance={balance:true};assert(!taskDone(s,balance));s.chapter.seeds=1;assert(taskDone(s,balance),'the first star means balance was reached');
+ const weather={crisis:'cloudy'};s.chapter.crisisLog.push({kind:'cloudy',endedAt:null});assert(!taskDone(s,weather));s.chapter.crisisLog[0].endedAt=9;assert(taskDone(s,weather));
+ const d=createStageGameState(stageById['3-1']);assert(!taskDone(d,{decomposer:true}));placeFixture(d,'mushroom');assert(taskDone(d,{decomposer:true}));
+ assert(!taskDone(d,{decomposed:true}));d.chapter.lastDecomposedAt=3;assert(taskDone(d,{decomposed:true}));
 });

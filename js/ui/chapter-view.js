@@ -1,6 +1,6 @@
 import {fullscreenButton} from './screen-toggle.js';
 import {crisisQuestions} from '../../data/crisis-reflection.js';
-import {stageBlockers,isStuck,careOptions,needStates,neededCards,priceOf,buyCheck,prepareOptions,crisisReport,markReported,breedingState,isYoung} from '../systems/chapter-stage.js';
+import {stageBlockers,isStuck,taskDone,careOptions,needStates,neededCards,priceOf,buyCheck,prepareOptions,crisisReport,markReported,breedingState,isYoung} from '../systems/chapter-stage.js';
 import {currentEnvironmentEvent} from '../systems/environment-events.js';
 import {factorValue,qualityLabel} from '../systems/environment.js';
 import {stageConfig as config,chapters,stages,stageById,crises,crisisForFactor,breeding} from '../../data/chapters.js';
@@ -46,7 +46,7 @@ const chapterNews=chapter=>[
 // dialogs pause the forest like the others. No sound: motion and colour only.
 export function createChapterView(getState,{forest,cleared,notify,onCatch,onCollect,onPrepare,onStage,onRestart,onCare,onExit,openWeb,webComplete,openRecord,reflections=()=>[],onReflect=()=>{}}){
  const seeds=Array.from({length:config.seedsToClear},()=>element('span',{className:'chapter-seed'}));
- const title=element('h2'),eyebrow=element('span',{className:'eyebrow'}),goal=element('p',{className:'chapter-goal'});
+ const title=element('h2'),eyebrow=element('span',{className:'eyebrow'}),goal=element('p',{className:'chapter-goal'}),tasks=element('ul',{className:'chapter-tasks'});
  const meter=element('progress',{value:0});meter.setAttribute('aria-label','다음 숲 별까지');
  const status=element('p',{className:'chapter-status'});status.setAttribute('aria-live','polite');
  const care=element('div',{className:'chapter-care'});
@@ -56,11 +56,11 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
  const restartButton=element('button',{type:'button',textContent:'이 스테이지 처음부터',onclick:()=>openRestart()});
  const recordButton=element('button',{type:'button',textContent:'나의 기록',onclick:()=>openRecord()});
  const hud=element('section',{className:'chapter-hud'},[
-  element('div',{className:'chapter-title'},[eyebrow,title,goal]),
+  element('div',{className:'chapter-title'},[eyebrow,title,tasks,goal]),
   element('div',{className:'chapter-progress'},[element('div',{className:'chapter-seeds'},seeds),meter,status,care]),
  ]);hud.setAttribute('aria-label','스테이지 목표');
  document.querySelector('.dashboard').after(hud);
- // The goal shows as one line; tapping the title shows all of it.
+ // The two short goals show; tapping the title shows the stage's whole story.
  const titleBox=hud.querySelector('.chapter-title');titleBox.tabIndex=0;titleBox.setAttribute('role','button');titleBox.setAttribute('aria-expanded','false');
  const toggleGoal=()=>{const open=hud.classList.toggle('show-goal');titleBox.setAttribute('aria-expanded',String(open));};
  titleBox.addEventListener('click',toggleGoal);titleBox.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleGoal();}});
@@ -94,6 +94,7 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   if(shownIntro!==c.stageId&&stage.chapter.stages[0].stageId===c.stageId&&!document.querySelector('dialog[open]'))openIntro(stage);
   eyebrow.textContent=`챕터 ${stage.chapter.number} · ${stage.chapter.title}`;
   title.textContent=`${stage.stageId} ${stage.title}`;goal.textContent=stage.goal;
+  renderTasks(s,stage);
   seeds.forEach((seed,i)=>seed.classList.toggle('filled',i<c.seeds));
   if(c.seeds>lastSeeds)pop(seeds[c.seeds-1]);lastSeeds=c.seeds;
   hud.querySelector('.chapter-seeds').setAttribute('aria-label',`숲 별 ${c.seeds}/${config.seedsToClear}`);
@@ -249,6 +250,22 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   for(const card of cards){const price=priceOf(card.dataset.speciesId);card.dataset.price=price+'P';card.dataset.afford=String(s.metrics.points>=price);}
  }
  // One button per bad factor people can act on, rebuilt only when it changes.
+ // The stage's two short goals, each ticked as the forest reaches it.
+ const taskIcon={balance:'⚖️',decomposer:'🍄',decomposed:'🍂'};
+ let tasksStage=null;
+ function renderTasks(s,stage){
+  if(tasksStage!==stage.stageId){
+   tasksStage=stage.stageId;
+   tasks.replaceChildren(...stage.tasks.map(task=>{
+    const id=task.have||task.birth,icon=id?element('img',{src:visualAsset(id),alt:''}):document.createTextNode(task.crisis?crises[task.crisis].icon||{cloudy:'☁️',drought:'💧'}[task.crisis]:taskIcon[Object.keys(taskIcon).find(k=>task[k])]);
+    return element('li',{},[element('span',{className:'task-icon'},[icon]),element('span',{textContent:task.text}),element('span',{className:'task-check',textContent:'✓'})]);
+   }));
+  }
+  stage.tasks.forEach((task,i)=>{
+   const li=tasks.children[i],done=taskDone(s,task);
+   if(li.dataset.done!==String(done)){li.dataset.done=String(done);li.setAttribute('aria-label',`${task.text}${done?' (이룸)':''}`);}
+  });
+ }
  function renderCare(options,points,stuck){
   const key=JSON.stringify([options,points,stuck]);if(key===careKey)return;careKey=key;
   care.replaceChildren(...options.map(o=>{
