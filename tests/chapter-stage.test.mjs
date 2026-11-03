@@ -4,7 +4,7 @@ import {createStageGameState,updateStage,stageBlockers,catchObservation,careOpti
 import {currentEnvironmentEvent} from '../js/systems/environment-events.js';
 import {createFeedingSystem} from '../js/systems/feeding.js';
 import {layout} from './ecology-fixtures.mjs';
-import {stages,stageById,stageConfig,chapters} from '../data/chapters.js';
+import {stages,stageById,stageConfig,chapters,breeding} from '../data/chapters.js';
 import {organismById} from '../data/organisms.js';
 import {foodRelations} from '../data/food-relations.js';
 import {runStage,idleStudent,carefulStudent,place as placeFixture} from './chapter-fixtures.mjs';
@@ -13,7 +13,7 @@ import {runStage,idleStudent,carefulStudent,place as placeFixture} from './chapt
 const demanding=['1-2','2-2','2-3','3-1','3-2','3-3','4-1','4-2','4-3'];
 
 test('chapters add one event each and hold balance longer as they go',()=>{
- assert.equal(chapters.length,4);assert.equal(stages.length,14);
+ assert.equal(chapters.length,4);assert.equal(stages.length,15);
  assert.deepEqual(chapters.map(c=>c.events[0]),['cloudy','drought','soil-damage','air-pollution']);
  for(let i=1;i<chapters.length;i++){
   assert.equal(chapters[i].events[1],chapters[i-1].events[0],'the previous crisis returns');
@@ -256,6 +256,12 @@ test('the fallen log is dead wood: a cloud mushroom rests on it only while the l
  const s=createStageGameState(stageById['3-1']);placeFixture(s,'mushroom');const m=s.organisms.find(o=>o.speciesId==='mushroom');
  const anchor=on=>{sceneSpaces.log=on;const p=createHabitatPresentation();p.rebuild(s.organisms,geometry());return p.descriptor(m.instanceId).anchorId;};
  assert.equal(anchor(true),'background:fallen-log');assert.notEqual(anchor(false),'background:fallen-log');
+ // Playtest: more mushrooms than the log's top holds grow at its foot, not away from it.
+ sceneSpaces.log=true;for(let i=0;i<4;i++)s.organisms.push({...m,instanceId:`mushroom-${i}`,position:{x:.15+.2*i,y:.72}});
+ const p=createHabitatPresentation();p.rebuild(s.organisms,geometry());
+ const anchors=s.organisms.filter(o=>o.speciesId==='mushroom').map(o=>p.descriptor(o.instanceId).anchorId);
+ assert.equal(anchors.length,5);assert(anchors.every(a=>['background:fallen-log','background:fallen-log-foot'].includes(a)),anchors.join());
+ sceneSpaces.log=false;
 });
 
 test('a crisis announced as the stage clears is dropped, not left counting down',()=>{
@@ -267,7 +273,7 @@ test('a crisis announced as the stage clears is dropped, not left counting down'
 // Short goals the student reads at a glance ("멧토끼 기르기 · 방아깨비 번식하기"),
 // each ticked from the stage's own state.
 test('every stage has two short goals the forest can tick',()=>{
- const kinds=['have','birth','balance','crisis','decomposer','decomposed'];
+ const kinds=['have','birth','balance','crisis','decomposer','decomposed','observe'];
  for(const stage of stages){
   assert.equal(stage.tasks?.length,2,stage.stageId);
   for(const task of stage.tasks){
@@ -276,6 +282,7 @@ test('every stage has two short goals the forest can tick',()=>{
    if(task.have||task.birth)assert(stage.inventory.includes(task.have||task.birth),`${stage.stageId} ${task.have||task.birth} is a card here`);
    if(task.birth)assert.equal(task.birth,stage.birthRequired);
    if(task.crisis)assert(stage.events.includes(task.crisis),`${stage.stageId} ${task.crisis} comes here`);
+   if(task.observe){const r=foodRelations.find(x=>x.relationId===task.observe);assert(r&&stage.inventory.includes(r.sourceSpeciesId)&&stage.inventory.includes(r.targetSpeciesId),`${stage.stageId} ${task.observe} can happen here`);}
    assert(!taskDone(createStageGameState(stage),task)||task.have,`${stage.stageId} "${task.text}" is not done at the start`);
   }
  }
@@ -287,6 +294,8 @@ test('goals tick from the stage state',()=>{
  assert(!taskDone(s,birth));s.chapter.births.push({speciesId:'grasshopper',at:1});assert(taskDone(s,birth));
  const balance={balance:true};assert(!taskDone(s,balance));s.chapter.seeds=1;assert(taskDone(s,balance),'the first star means balance was reached');
  const weather={crisis:'cloudy'};s.chapter.crisisLog.push({kind:'cloudy',endedAt:null});assert(!taskDone(s,weather));s.chapter.crisisLog[0].endedAt=9;assert(taskDone(s,weather));
+ const o=createStageGameState(stageById['2-4']),[,hunt]=stageById['2-4'].tasks;
+ assert(!taskDone(o,hunt));o.chapter.offers.push({offerId:'x',relationId:'v2_aphid_to_frog',expiresAt:99});catchObservation(o,'x');assert(taskDone(o,hunt),'caught the 💡 of the frog eating a beetle');
  const d=createStageGameState(stageById['3-1']);assert(!taskDone(d,{decomposer:true}));placeFixture(d,'mushroom');assert(taskDone(d,{decomposer:true}));
  assert(!taskDone(d,{decomposed:true}));d.chapter.lastDecomposedAt=3;assert(taskDone(d,{decomposed:true}));
 });
@@ -301,4 +310,37 @@ test('in a stage a predator is full only briefly, so hunting is seen; a hunt alw
  const graze={relationId:'v2_grass_to_grasshopper',consumerInstanceId:'g'},hunt={relationId:'v2_grasshopper_to_frog',consumerInstanceId:'f'};
  updateStage(s,.5,[graze]);assert.equal(s.chapter.offers.length,0,'grazing waits for the 6 s pace');
  updateStage(s,.5,[graze,hunt]);assert.equal(s.chapter.offers.at(-1)?.relationId,'v2_grasshopper_to_frog','a hunt shows at once');
+});
+
+// Playtest: litter shows as a piece of litter (no "쓰레기" label), three kinds,
+// and remembers when it fell so a piece left too long can call for help.
+test('litter falls as a black bag, a bottle or a banana peel, and remembers when',()=>{
+ const s=createStageGameState(stageById['3-1']);placeFixture(s,'grasshopper');s.chapter.seeds=1;
+ for(let i=0;i<40&&s.chapter.trash.length<3;i++){s.simulationTime+=.5;updateStage(s,.5,[]);}
+ assert.equal(s.chapter.trash.length,3);
+ assert.deepEqual(s.chapter.trash.map(t=>t.piece).sort(),['bag','bottle','peel']);
+ for(const t of s.chapter.trash)assert(t.at>0&&t.at<=s.simulationTime);
+ assert(stageConfig.trashAlertSeconds>0);
+});
+
+// Teacher ask: a frog breeding stage where egg → tadpole → froglet → young frog
+// can be watched in the pond; one egg per breeding.
+test('2-5: a frog pair lays one egg in the pond; it grows through the pond stages into a young frog',async()=>{
+ const {pondStage}=await import('../js/systems/chapter-stage.js');
+ const s=createStageGameState(stageById['2-5']);
+ assert.equal(stageById['2-5'].birthRequired,'frog');
+ placeFixture(s,'frog');assert(s.organisms.filter(o=>o.speciesId==='frog').length>=2);
+ for(const f of s.organisms.filter(o=>o.speciesId==='frog'))f.hunger=.2;
+ const rule=breeding.species.frog,seen=[];
+ for(let t=0;t<(rule.healthySeconds+rule.waitSeconds+5)*2;t++){
+  s.simulationTime+=.5;for(const o of s.organisms)if('hunger'in o)o.hunger=.2;
+  const out=updateStage(s,.5,[]);const st=pondStage(s);if(st&&seen.at(-1)!==st.name)seen.push(st.name);
+  const frogs=(out.born||[]).filter(o=>o.speciesId==='frog');
+  if(frogs.length){assert.equal(frogs.length,1,'one egg, one young frog');assert(frogs[0].position.x<.3,'born at the pond');break;}
+ }
+ assert.deepEqual(seen,['개구리알','올챙이','꼬리 달린 새끼 개구리']);
+ assert(s.chapter.births.some(b=>b.speciesId==='frog'));
+ // Frogs breed only where the stage asks for it (2-1 has two frogs too).
+ const other=createStageGameState(stageById['2-2']);for(let t=0;t<400;t++){other.simulationTime+=.5;for(const o of other.organisms)if('hunger'in o)o.hunger=.2;updateStage(other,.5,[]);}
+ assert(!other.chapter.births.some(b=>b.speciesId==='frog'));
 });

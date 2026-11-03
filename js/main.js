@@ -30,7 +30,8 @@ import {studentPlacementMessage} from './ui/student-guidance.js';
 import {placeNearestOrganism} from './systems/placement-target.js';
 import { createWanderSystem } from './systems/wander.js';
 import { createUpdateLoop } from './systems/update-loop.js';
-import { speciesProfiles, useGrownTrees } from '../data/interaction-config.js';
+import { speciesProfiles } from '../data/interaction-config.js';
+import {useChapterEcology} from '../data/chapter-ecology.js';
 import { createFeedingSystem } from './systems/feeding.js';
 import { foodResourceConfig } from '../data/ecology-config.js';
 import { growthSuitability, animalActivity } from './systems/environment.js';
@@ -55,7 +56,7 @@ import {capForestAspect} from './ui/forest-aspect.js';
 // Chapter mode is what opens first; ?mode=forest is the regular forest. Chapter
 // mode plays short stages and leaves the regular forest save untouched.
 const chapterMode=new URLSearchParams(location.search).get('mode')!=='forest';
-if(chapterMode)useGrownTrees();
+if(chapterMode)useChapterEcology();
 const chapterProgress=chapterMode?createChapterProgressAdapter():null;
 export const gameState = createGameState();
 export const saveService = createSaveService({adapter:chapterMode?createNoSaveAdapter():createLocalAdapter(),getState:()=>gameState,getEventMemory:()=>eventSystem.exportMemory(),onStatus:showSaveStatus});
@@ -275,7 +276,7 @@ try {
     const price=chapterMode&&uiState.selectedSpeciesId?buyCheck(gameState,uiState.selectedSpeciesId):null;
     if(price&&!price.ok){scene.showFeedback(price.message,false);return;}
     const result = placeNearestOrganism(gameState, uiState.selectedSpeciesId, input, scene.getLayout());
-    scene.showFeedback(studentPlacementMessage(result), result.ok);
+    scene.showFeedback(studentPlacementMessage(result,uiState.selectedSpeciesId), result.ok);
     if (!result.ok) return;
     if(price){payFor(gameState,uiState.selectedSpeciesId);chapterView.spent(price.price,result.instance);}
     selectionPlaced=true;

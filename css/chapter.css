@@ -340,3 +340,17 @@
 @media (prefers-reduced-motion:reduce){.chapter-tasks li{transition:none}}
 .chapter-mode .chapter-hud:not(.show-goal) .chapter-goal{display:none}
 .chapter-mode .chapter-hud.show-goal .chapter-goal{white-space:normal;margin-top:6px}
+/* Litter as the piece itself, about half the old labelled box; the tap area
+   stays 44 px for small fingers. Left too long, a sign asks to pick it up. */
+.chapter-trash.is-piece{min-width:44px;min-height:44px;padding:0;border:0;background:none;box-shadow:none;display:grid;place-items:end center}
+.chapter-trash.is-piece img{width:34px;height:34px;filter:drop-shadow(0 1px 1px #0004)}
+.chapter-trash.is-old::before{content:'치워 주세요!';position:absolute;left:50%;bottom:100%;transform:translateX(-50%);margin-bottom:2px;padding:2px 8px;border-radius:999px;background:#c0392b;color:#fff;font-size:13px;font-weight:800;white-space:nowrap;animation:chapter-trash-alert 1s ease-in-out infinite}
+@keyframes chapter-trash-alert{50%{transform:translateX(-50%) translateY(-4px)}}
+@media (prefers-reduced-motion:reduce){.chapter-trash.is-old::before{animation:none}}
+/* A frog egg growing in the pond (2-5): egg, tadpole, froglet, with its name. */
+.pond-nursery{position:absolute;left:calc(196 / 1200 * 100%);top:calc(334 / 470 * 100%);transform:translate(-50%,-62%);display:flex;flex-direction:column;align-items:center;gap:1px;pointer-events:none;z-index:1}
+.pond-nursery[hidden]{display:none}
+.pond-nursery img{width:34px;height:34px;filter:drop-shadow(0 1px 1px #0005);animation:pond-bob 2.4s ease-in-out infinite}
+.pond-nursery span{padding:1px 8px;border-radius:999px;background:#fffdf0e6;color:#1f4f6b;font-size:12px;font-weight:800;white-space:nowrap;box-shadow:0 1px 3px #0003}
+@keyframes pond-bob{50%{transform:translateY(-2px)}}
+@media (prefers-reduced-motion:reduce){.pond-nursery img{animation:none}}

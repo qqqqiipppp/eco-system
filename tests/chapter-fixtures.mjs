@@ -9,6 +9,8 @@ import {stageById,crisisForFactor} from '../data/chapters.js';
 import {organismById} from '../data/organisms.js';
 import {foodRelations} from '../data/food-relations.js';
 import {layout} from './ecology-fixtures.mjs';
+import {useChapterEcology} from '../data/chapter-ecology.js';
+useChapterEcology();
 
 const xs=[.18,.26,.34,.42,.5,.58,.66,.74,.82,.22,.3,.38,.46,.54,.62,.7,.78];
 // Chapter stages are a shop: a placement is paid for, like a tap in the game.

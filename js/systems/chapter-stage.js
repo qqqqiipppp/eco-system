@@ -60,6 +60,7 @@ export function neededCards(s, blockers = stageBlockers(s)) {
     if (b.id === 'starving') { const needs = needStates(s); foodsOf(new Set(consumers(s).filter(o => needs.get(o.instanceId) === 'starving').map(o => o.speciesId))).forEach(id => cards.add(id)); }
     if (b.id === 'noDecomposition') ['mushroom', 'litter-mold', 'earthworm'].filter(owned).forEach(id => cards.add(id));
     if (b.id === 'needBirth' && owned(b.speciesId) && s.organisms.filter(o => o.speciesId === b.speciesId).length < 2) cards.add(b.speciesId);
+    if (b.id === 'needObserve') { const r = foodRelations.find(x => x.relationId === b.relationId); for (const id of [r.sourceSpeciesId, r.targetSpeciesId]) if (owned(id) && !s.organisms.some(o => o.speciesId === id)) cards.add(id); }
   }
   return cards;
 }
@@ -86,6 +87,8 @@ export function stageBlockers(s) {
   if (consumers(s).length && (c.lastMealAt === null || s.simulationTime - c.lastMealAt > config.recentMealSeconds)) list.push({id: 'noMeal'});
   // The third star needs a young one born here from two parents.
   if (stage.birthRequired && c.seeds >= config.seedsToClear - 1 && !c.births.some(b => b.speciesId === stage.birthRequired)) list.push({id: 'needBirth', speciesId: stage.birthRequired});
+  // A stage that asks to watch one meal: the third star waits for its 💡.
+  if (stage.observeRequired && c.seeds >= config.seedsToClear - 1 && !(c.caught || []).includes(stage.observeRequired)) list.push({id: 'needObserve', relationId: stage.observeRequired});
   return list;
 }
 
@@ -118,7 +121,9 @@ function updateTrash(s, seconds) {
   if (crisis?.human && event.phase === 'active' && c.trash.length < config.trashMax && (c.lastTrashAt === null || time - c.lastTrashAt >= config.trashInterval)) {
     c.lastTrashAt = time;
     const n = ++c.trashSequence;
-    c.trash.push({trashId: `trash-${n}`, kind: event.kind, x: .12 + .74 * ((n * .618) % 1), y: .74});
+    // Litter comes as one of its pieces in turn; at is when it fell.
+    const pieces = crisis.pieces, piece = pieces ? pieces[(n - 1) % pieces.length] : null;
+    c.trash.push({trashId: `trash-${n}`, kind: event.kind, x: .12 + .74 * ((n * .618) % 1), y: .74, ...(piece && {piece}), at: time});
   }
   for (const item of c.trash) {
     const factor = s.environment[crises[item.kind].factor];
@@ -201,6 +206,7 @@ export function catchObservation(s, offerId) {
   if (!offer || c.cleared) return {ok: false, bonus: false, seedGained: false, eventStarted: null, cleared: false};
   c.offers = c.offers.filter(o => o !== offer);
   c.observations++;
+  (c.caught ??= []).includes(offer.relationId) || c.caught.push(offer.relationId);
   s.metrics.points += config.observationReward;
   recordPointChange(s, 'study', config.observationReward, `chapter-observation:${offer.offerId}`, offer.offerId);
   const bonus = !stageBlockers(s).length;
@@ -250,6 +256,7 @@ export function taskDone(s, task) {
   if (task.crisis) return c.crisisLog.some(r => r.kind === task.crisis && r.endedAt !== null);
   if (task.decomposer) return s.organisms.some(o => organismById[o.speciesId]?.role === 'decomposer');
   if (task.decomposed) return c.lastDecomposedAt !== null;
+  if (task.observe) return (c.caught || []).includes(task.observe);
   return false;
 }
 
@@ -328,15 +335,26 @@ function wellParent(s, o) {
 export function breedingState(s) {
   const out = {};
   for (const [id, rule] of Object.entries(breeding.species)) {
+    if (!breedsHere(s, id)) continue;
     const all = s.organisms.filter(o => o.speciesId === id), well = all.filter(o => wellParent(s, o)), memory = s.chapter.breeding[id];
     if (!all.length && !memory?.pending) continue;
     out[id] = {count: all.length, pair: well.length >= 2 && all.length < breeding.maximum ? well.slice(0, 2).map(o => o.instanceId) : [], healthy: memory?.healthy || 0, pending: memory?.pending || null, rule};
   }
   return out;
 }
+const breedsHere = (s, id) => !breeding.species[id].onlyWhenAsked || stageById[s.chapter.stageId].birthRequired === id;
+// The pond stage of a frog egg growing now (egg, tadpole, froglet), or null.
+export function pondStage(s) {
+  for (const [id, rule] of Object.entries(breeding.species)) {
+    const pending = rule.pond && s.chapter.breeding[id]?.pending;
+    if (pending) return rule.pond.find(p => 1 - pending.remaining / pending.total < p.until) || rule.pond.at(-1);
+  }
+  return null;
+}
 function updateBreeding(s, seconds) {
   const c = s.chapter, time = s.simulationTime, born = [];
   for (const [id, rule] of Object.entries(breeding.species)) {
+    if (!breedsHere(s, id)) continue;
     const memory = c.breeding[id] ??= {healthy: 0, pending: null};
     const all = s.organisms.filter(o => o.speciesId === id), well = all.filter(o => wellParent(s, o));
     if (memory.pending) {
@@ -351,7 +369,8 @@ function updateBreeding(s, seconds) {
     if (memory.healthy >= rule.healthySeconds) {
       const parent = well[0];
       memory.pending = {remaining: rule.waitSeconds, total: rule.waitSeconds, parentId: parent.instanceId,
-        position: {x: Math.min(.92, Math.max(.08, parent.position.x + (parent.position.x > .5 ? -.05 : .05))), y: parent.position.y}};
+        // A frog's egg is laid in the pond; the young frog comes out at its edge.
+        position: rule.pond ? {x: .21, y: .72} : {x: Math.min(.92, Math.max(.08, parent.position.x + (parent.position.x > .5 ? -.05 : .05))), y: parent.position.y}};
     }
   }
   return born;

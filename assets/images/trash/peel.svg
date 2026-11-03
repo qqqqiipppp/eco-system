@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><title>바나나 껍질 (임시 그림)</title>
+<ellipse cx="32" cy="57" rx="24" ry="4" fill="#3a2a1a" opacity=".25"/>
+<path d="M30 46q-14-4-22 6q8 2 14-1q6-2 10-3z" fill="#f2cf3b" stroke="#a87d16" stroke-width="2" stroke-linejoin="round"/>
+<path d="M34 46q14-4 22 6q-8 2-14-1q-6-2-10-3z" fill="#f2cf3b" stroke="#a87d16" stroke-width="2" stroke-linejoin="round"/>
+<path d="M31 46q-6-16 0-30q8 14 4 30z" fill="#f6dc5a" stroke="#a87d16" stroke-width="2" stroke-linejoin="round"/>
+<path d="M28 48q4 6 8 0q-1-4-4-4q-3 0-4 4z" fill="#e8b92a" stroke="#a87d16" stroke-width="2"/>
+<path d="M31 16q1-4 3-5" fill="none" stroke="#5b3d16" stroke-width="3" stroke-linecap="round"/>
+<path d="M9 52l-2 1M55 52l2 1" stroke="#6b4a1a" stroke-width="3" stroke-linecap="round"/>
+</svg>

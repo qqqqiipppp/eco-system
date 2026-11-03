@@ -26,6 +26,8 @@ export const stageConfig = {
   trashDamage: .006,
   trashFloor: .15,
   trashReward: 1,
+  // A piece of litter left this long calls for help (a sign above it).
+  trashAlertSeconds: 10,
   // Every crisis starts and ends inside the stage (about 1 minute), and is
   // judged by how long the stars stalled while it lasted.
   // Decomposers work this much faster in chapter mode, so their effect on the
@@ -44,7 +46,7 @@ export const stageConfig = {
   // A predator stays full this share of the regular forest's time (a frog 5
   // minutes there, 2 here), so hunting is seen within a stage. Shorter empties
   // the forest of prey, which does not breed in most stages (bots: 2-2, 4-1).
-  predatorSatiety: {frog: .4, snake: .5, weasel: .5, goshawk: .5},
+  predatorSatiety: {frog: .4, chipmunk: .4, snake: .5, weasel: .5, goshawk: .5},
   prices: {grass: 3, raspberry: 3, oak: 6, hazel: 6, grasshopper: 4, earthworm: 4, aphid: 5, rabbit: 6, chipmunk: 6, mushroom: 5, 'litter-mold': 5, frog: 8, bulbul: 8, snake: 10, weasel: 10, goshawk: 12},
 };
 
@@ -58,7 +60,8 @@ export const stageConfig = {
 // tasks: the stage's two short goals, ticked as the forest reaches them:
 // have (that animal is in the forest), birth (one was born), balance (the first
 // star grew), crisis (that crisis is over), decomposer (one is placed),
-// decomposed (a decomposer or earthworm has broken down dead matter).
+// decomposed (a decomposer or earthworm has broken down dead matter), observe
+// (the student caught that meal's 💡 in this stage; icon: the picture shown).
 export const chapters = [
   {chapterId: 'meadow', number: 1, title: '풀밭', events: ['cloudy'], seedSeconds: 50, newSpecies: ['grass', 'grasshopper', 'rabbit'],
     intro: '생산자인 강아지풀과 그것을 먹는 소비자를 만나요.', stages: [
@@ -97,10 +100,15 @@ export const chapters = [
       environment: {water: .6},
       organisms: [['grass', .3], ['grass', .44], ['grass', .58], ['grasshopper', .38], ['grasshopper', .54], ['frog', .46]]},
     {stageId: '2-4', title: '팽나무의 청동풍뎅이', points: 15,
-      goal: '청동풍뎅이는 팽나무 잎을 먹어요. 두 마리가 건강하게 지내 흙 속에 알을 낳고, 새 어른벌레가 나오게 해요.',
-      tasks: [{text: '청동풍뎅이 번식하기', birth: 'aphid'}, {text: '가뭄 견디기', crisis: 'drought'}],
-      inventory: ['grass', 'grasshopper', 'hazel', 'aphid'], requiredSpecies: {grasshopper: 1, aphid: 1}, birthRequired: 'aphid',
-      organisms: [['hazel', .3], ['hazel', .62], ['grass', .44], ['grass', .76], ['grasshopper', .5], ['aphid', .34]]},
+      goal: '청동풍뎅이는 팽나무 잎을 먹고, 참개구리는 청동풍뎅이도 잡아먹어요. 청동풍뎅이 두 마리가 건강하게 지내 흙 속에 알을 낳게 하고, 개구리가 청동풍뎅이를 먹는 모습도 관찰해요.',
+      tasks: [{text: '청동풍뎅이 번식하기', birth: 'aphid'}, {text: '풍뎅이 먹는 개구리 관찰', observe: 'v2_aphid_to_frog', icon: 'frog'}],
+      inventory: ['hazel', 'aphid', 'frog'], requiredSpecies: {aphid: 1, frog: 1}, birthRequired: 'aphid', observeRequired: 'v2_aphid_to_frog',
+      organisms: [['hazel', .3], ['hazel', .62], ['aphid', .34], ['aphid', .58], ['frog', .46]]},
+    {stageId: '2-5', title: '연못의 개구리알', points: 18,
+      goal: '참개구리 두 마리가 배고프지 않게 지내면 연못에 알을 낳아요. 알이 올챙이, 꼬리 달린 새끼 개구리를 거쳐 어린 개구리가 되는 모습을 지켜봐요.',
+      tasks: [{text: '참개구리 두 마리 기르기', have: 'frog'}, {text: '올챙이가 개구리로', birth: 'frog'}],
+      inventory: ['grass', 'grasshopper', 'frog'], requiredSpecies: {grasshopper: 2, frog: 2}, birthRequired: 'frog',
+      organisms: [['grass', .3], ['grass', .4], ['grass', .5], ['grass', .6], ['grass', .7], ['grasshopper', .34], ['grasshopper', .44], ['grasshopper', .54], ['grasshopper', .64], ['grasshopper', .74], ['frog', .4]]},
   ]},
   {chapterId: 'understory', number: 3, title: '나무 아래', events: ['soil-damage', 'drought'], seedSeconds: 70, newSpecies: ['oak', 'mushroom', 'litter-mold', 'earthworm', 'chipmunk', 'raspberry', 'bulbul'],
     intro: '분해자가 낙엽과 쓰러진 나무를 분해해 흙으로 양분을 돌려보내요.', stages: [
@@ -154,7 +162,7 @@ export const crises = {
     effect: '햇빛이 줄면 생산자인 식물이 광합성을 거의 못 해서, 먹힌 잎과 열매가 다시 자라지 않아요. 먹이가 모자라면 숲 별이 멈춰요.'},
   drought: {human: false, factor: 'water', notice: '곧 가뭄이 와요!',
     effect: '물이 줄면 생산자인 식물이 거의 자라지 못해서, 먹힌 잎과 열매가 다시 자라지 않아요. 먹이가 모자라면 숲 별이 멈춰요.'},
-  'soil-damage': {human: true, factor: 'soil', notice: '사람들이 숲에 쓰레기를 버리고 있어요!', item: '쓰레기', icon: '🥤',
+  'soil-damage': {human: true, factor: 'soil', notice: '사람들이 숲에 쓰레기를 버리고 있어요!', item: '쓰레기', icon: '🥤', pieces: ['bag', 'bottle', 'peel'],
     status: '사람이 버린 쓰레기와 발길로 흙이 망가지고 있어요. 쓰레기를 눌러 치워요.',
     care: '숲 바닥 되살리기'},
   'air-pollution': {human: true, factor: 'air', notice: '자동차와 공장의 매연이 숲으로 날아와요!', item: '매연', icon: '💨',
@@ -173,6 +181,11 @@ export const breeding = {
     chipmunk: {healthySeconds: 50, waitSeconds: 25, sign: '둥지', young: '새끼', cycle: '둥지에서 새끼가 태어나 젖을 먹고 자라요.'},
     bulbul: {healthySeconds: 50, waitSeconds: 25, sign: '둥지 속 알', young: '새끼 새', cycle: '둥지에 알을 낳고 품으면 새끼 새가 깨어나요.'},
     rabbit: {healthySeconds: 50, waitSeconds: 25, sign: '곧 태어나요', soon: true, young: '새끼', cycle: '털이 나고 눈을 뜬 새끼가 태어나 금방 풀을 먹어요.'},
+    // Only in a stage that asks for it (2-5): frogs elsewhere would multiply.
+    // The egg grows in the pond through its stages (share of waitSeconds).
+    frog: {healthySeconds: 40, waitSeconds: 60, sign: '개구리알', young: '새끼 개구리', onlyWhenAsked: true,
+      pond: [{until: .3, name: '개구리알', image: 'egg'}, {until: .6, name: '올챙이', image: 'tadpole'}, {until: 1, name: '꼬리 달린 새끼 개구리', image: 'froglet'}],
+      cycle: '알 → 올챙이 → 꼬리 달린 새끼 개구리 → 새끼 개구리 (탈바꿈). 실제로는 알을 한 번에 아주 많이 낳지만, 게임에서는 한 개로 줄였어요.'},
   },
 };
 

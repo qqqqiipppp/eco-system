@@ -65,7 +65,11 @@ export function placementHint(speciesId){
  if(organismById[speciesId].role==='producer')return particle(organismById[speciesId].name,'은','는')+' 땅에 뿌리를 내려요.';
  return '빈 숲을 누르면 놓고, 이미 있는 생물을 누르면 살펴봐요.';
 }
-export function studentPlacementMessage(result){
+export function studentPlacementMessage(result,speciesId){
  if(result.ok)return particle(organismById[result.instance.speciesId].name,'을','를')+' 놓았어요. '+placementHint(result.instance.speciesId);
+ // A chipmunk lives on tree trunks: far from a tree there is no place for it.
+ if(result.reason==='space'&&speciesId&&speciesHabitats[speciesId]?.movement==='tree-affinity')return particle(organismById[speciesId].name,'은','는')+' 나무줄기에서 지내요. 나무 가까이를 눌러 보세요.';
+ // A cloud mushroom grows on the fallen log, or at its foot.
+ if(result.reason==='space'&&speciesId&&speciesHabitats[speciesId]?.primary==='dead_wood')return particle(organismById[speciesId].name,'은','는')+' 쓰러진 통나무에서 자라요. 통나무 가까이를 눌러 보세요.';
  return {space:'이 근처에는 자리가 부족해요. 다른 곳을 눌러 보세요.',food:'이 생물은 가까이에 먹이가 필요해요. 먹이그물에서 먹는 것을 살펴봐요.',cooldown:result.message,inventory:'아직 얻지 못한 카드예요.',selection:'먼저 아래에서 생물 카드를 골라 주세요.',limit:'숲에 30개체가 살고 있어요. 생물 살펴보기에서 자리를 마련해요.',overlap:'나무끼리 너무 가까워요. 조금 떨어진 곳을 눌러 보세요.',area:'생물을 놓으려면 빈 숲을 눌러 주세요.'}[result.reason]||result.message;
 }

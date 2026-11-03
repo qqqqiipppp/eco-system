@@ -1,6 +1,6 @@
 import {fullscreenButton} from './screen-toggle.js';
 import {crisisQuestions} from '../../data/crisis-reflection.js';
-import {stageBlockers,isStuck,taskDone,careOptions,needStates,neededCards,priceOf,buyCheck,prepareOptions,crisisReport,markReported,breedingState,isYoung} from '../systems/chapter-stage.js';
+import {stageBlockers,isStuck,taskDone,pondStage,careOptions,needStates,neededCards,priceOf,buyCheck,prepareOptions,crisisReport,markReported,breedingState,isYoung} from '../systems/chapter-stage.js';
 import {currentEnvironmentEvent} from '../systems/environment-events.js';
 import {factorValue,qualityLabel} from '../systems/environment.js';
 import {stageConfig as config,chapters,stages,stageById,crises,crisisForFactor,breeding} from '../../data/chapters.js';
@@ -20,6 +20,7 @@ const blockerText={
  depleted:()=>'생산자가 거의 다 먹혔어요. 소비자에 비해 먹이가 모자라요.',
  noDecomposition:()=>'낙엽과 죽은 나무가 분해되지 않고 있어요. 분해자가 일할 수 있게 해요.',
  noMeal:()=>'아직 먹는 모습이 보이지 않아요. 소비자가 먹이를 찾을 때까지 지켜봐요.',
+ needObserve:b=>{const r=foodRelationById[b.relationId];return `세 번째 숲 별은 ${particle(name(r.targetSpeciesId),'이','가')} ${particle(name(r.sourceSpeciesId),'을','를')} 먹는 모습을 관찰해야 차올라요. 사냥하면 뜨는 💡를 눌러요.`;},
  needBirth:(b,s)=>{const n=name(b.speciesId),count=s.organisms.filter(o=>o.speciesId===b.speciesId).length;
   return `세 번째 숲 별은 새로 태어난 ${particle(n,'이','가')} 있어야 차올라요. `+(count<2?`${particle(n,'이','가')} 두 마리 있어야 번식해요. 한 마리를 더 놓아요.`:breedingLine(s)||`${n} 두 마리가 배고프지 않게 지내면 ${promise(breeding.species[b.speciesId])}.`);},
 };
@@ -111,7 +112,7 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   renderPond(s);
   renderScene(s);
   renderNeeds(c.cleared?new Map():needStates(s),c.cleared?new Set():neededCards(s,blockers));
-  renderTaps(c);
+  renderTaps(c,s.simulationTime);
   renderBreeding(s);
   renderCrisis(s);
   const idle=!document.querySelector('dialog[open]');
@@ -129,13 +130,15 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
  // The pond (chapter 2 on): it shrinks and dulls as water runs low, so a
  // drought is seen in the forest itself. Drawn under the organisms.
  const pond=element('img',{className:'forest-pond',src:'./assets/images/backgrounds/pond.svg',alt:'웅덩이',hidden:true});
+ // A frog egg growing in the pond: its picture and the stage's name.
+ const nursery=element('div',{className:'pond-nursery',hidden:true},[element('img',{alt:''}),element('span')]);
  // Chapter 3 on: a fallen log (where cloud mushrooms live) and a leaf-litter pile
  // that grows with the plants and shrinks as decomposers work. Chapter 4's
  // air-pollution crisis shows a distant smoking chimney on the horizon.
  const log=element('img',{className:'forest-log',src:'./assets/images/backgrounds/log.svg',alt:'쓰러진 통나무',hidden:true});
  const litter=element('img',{className:'forest-litter',src:'./assets/images/backgrounds/litter.svg',alt:'낙엽 더미',hidden:true});
  const chimney=element('img',{className:'forest-chimney',src:'./assets/images/backgrounds/chimney.svg',alt:'멀리 보이는 공장 굴뚝',hidden:true});
- forest.querySelector('.forest-art')?.after(chimney,pond,log,litter);
+ forest.querySelector('.forest-art')?.after(chimney,pond,nursery,log,litter);
  function renderPond(s){
   const show=stageById[s.chapter.stageId].chapter.number>=2;if(pond.hidden===show)pond.hidden=!show;if(!show)return;
   const water=factorValue(s.environment,'water'),scale=(.4+.6*water).toFixed(2);
@@ -196,10 +199,13 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
  function renderBreeding(s){
   const states=breedingState(s),focus=stageById[s.chapter.stageId].birthRequired,marks={};
   for(const [id,b] of Object.entries(states)){
-   if(b.pending)marks[b.pending.parentId]={kind:'pending',label:`${b.rule.sign} ${Math.max(1,Math.ceil(b.pending.remaining))}`};
+   if(b.pending&&!b.rule.pond)marks[b.pending.parentId]={kind:'pending',label:`${b.rule.sign} ${Math.max(1,Math.ceil(b.pending.remaining))}`};
    else if(id===focus)b.pair.forEach((pid,i)=>{marks[pid]={kind:i?'pair-right':'pair-left',label:''};});
    if(id===focus)watchPair(s,id,b);
   }
+  const stage=pondStage(s),src=stage?`./assets/images/frog-life/${stage.image}.svg`:'';
+  if(nursery.hidden===Boolean(stage))nursery.hidden=!stage;
+  if(stage&&nursery.firstChild.getAttribute('src')!==src){nursery.firstChild.src=src;nursery.lastChild.textContent=stage.name;nursery.setAttribute('aria-label',`연못: ${stage.name}`);}
   for(const el of forest.querySelectorAll('#organism-layer .organism-object')){
    const o=s.organisms.find(x=>x.instanceId===el.dataset.instanceId);if(!o)continue;
    const rule=breeding.species[o.speciesId];
@@ -257,7 +263,7 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   if(tasksStage!==stage.stageId){
    tasksStage=stage.stageId;
    tasks.replaceChildren(...stage.tasks.map(task=>{
-    const id=task.have||task.birth,icon=id?element('img',{src:visualAsset(id),alt:''}):document.createTextNode(task.crisis?crises[task.crisis].icon||{cloudy:'☁️',drought:'💧'}[task.crisis]:taskIcon[Object.keys(taskIcon).find(k=>task[k])]);
+    const id=task.have||task.birth||task.icon,icon=id?element('img',{src:visualAsset(id),alt:''}):document.createTextNode(task.crisis?crises[task.crisis].icon||{cloudy:'☁️',drought:'💧'}[task.crisis]:taskIcon[Object.keys(taskIcon).find(k=>task[k])]);
     return element('li',{},[element('span',{className:'task-icon'},[icon]),element('span',{textContent:task.text}),element('span',{className:'task-check',textContent:'✓'})]);
    }));
   }
@@ -279,7 +285,7 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
  }
  // 💡 pinned where a meal happened, and litter or smog where it fell. Both are
  // still targets: easy to tap on a tablet.
- function renderTaps(c){
+ function renderTaps(c,time){
   const live=new Set([...c.offers.map(o=>o.offerId),...c.trash.map(t=>t.trashId)]);
   for(const button of [...layer.children])if(!live.has(button.dataset.tapId))button.remove();
   const box=forest.getBoundingClientRect();
@@ -293,10 +299,15 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
     const rect=button.getBoundingClientRect(),result=onCatch(offer.offerId);if(result?.ok)float(`+${config.observationReward}P${result.bonus?' ★':''}`,rect,'gain');});
   }
   for(const item of c.trash){
-   if(layer.querySelector(`[data-tap-id="${item.trashId}"]`))continue;
+   // A piece left too long calls for help with a sign above it.
+   const old=time-(item.at??0)>=config.trashAlertSeconds,placed=layer.querySelector(`[data-tap-id="${item.trashId}"]`);
+   if(placed){placed.classList.toggle('is-old',old);continue;}
    const crisis=crises[item.kind];
-   tapButton(item.trashId,'chapter-trash',`${crisis.icon} ${crisis.item}`,`${crisis.item} 치우기`,item.x*box.width,item.y*box.height,button=>{
+   const button=tapButton(item.trashId,'chapter-trash',`${crisis.icon} ${crisis.item}`,`${crisis.item} 치우기`,item.x*box.width,item.y*box.height,button=>{
     const rect=button.getBoundingClientRect(),result=onCollect(item.trashId);if(result?.ok)float(`+${config.trashReward}P`,rect,'gain');});
+   // Litter shows as the piece itself (black bag, bottle, banana peel), no label.
+   if(item.piece){button.classList.add('is-piece');button.replaceChildren(element('img',{src:`./assets/images/trash/${item.piece}.svg`,alt:''}));}
+   button.classList.toggle('is-old',old);
   }
  }
  function tapButton(id,cls,icon,label,x,y,onTap){
@@ -304,6 +315,7 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   button.dataset.tapId=id;button.setAttribute('aria-label',label);button.style.left=`${x}px`;button.style.top=`${y}px`;
   button.addEventListener('click',event=>{event.stopPropagation();onTap(button);});
   layer.append(button);
+  return button;
  }
  function spent(price,instance){
   const el=forest.querySelector(`#organism-layer [data-instance-id="${instance.instanceId}"]`);

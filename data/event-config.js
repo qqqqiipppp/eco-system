@@ -12,7 +12,8 @@ export const eventConfig = {
 };
 export const shortageEvents = {};
 export const discoveryEvents = {};
-for(const relation of foodRelations){
+// One discovery card per food relation (chapter mode adds a few at start).
+export function addDiscoveryEvent(relation){
 
   const food=organismById[relation.sourceSpeciesId],consumer=organismById[relation.targetSpeciesId];
   const meal=relation.feedingMode==='resource'?`${food.name}의 ${foodPartLabels[relation.foodPart]}`:food.name;
@@ -20,6 +21,7 @@ for(const relation of foodRelations){
     title:`${consumer.name}의 먹이 발견: ${meal}${relation.evidenceLevel==='B'?' (단순화)':''}`,message:mealSentence(relation),
     explanation:`${evidenceText(relation.evidenceLevel)} 먹이 → 먹는 생물: ${food.name} → ${consumer.name}. ${relation.feedingMode==='resource'?'식물은 그대로 있고 '+foodPartLabels[relation.foodPart]+' 먹이가 줄었어요.':'동물 한 마리가 먹혀 숲의 개체 수가 줄었어요.'}`};
 }
+for(const relation of foodRelations)addDiscoveryEvent(relation);
 for(const speciesId of Object.keys(feedingConfig)){
   if(shortageEvents[speciesId])continue;
   const species=organismById[speciesId];
