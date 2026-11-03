@@ -351,9 +351,9 @@
     "move-1": {
      "file": "frog-move-1.webp",
      "source": "frog-move-1.png",
-     "sourceSha256": "3c193c115323806d08d3eabeceb8fae4f822017351904133880e17bb360b54af",
+     "sourceSha256": "ae1e486101fc8403c9256d291b005df77186fa512106ac67333093d3119ec067",
      "checks": [],
-     "bytes": 14240
+     "bytes": 13628
     },
     "eat-2": {
      "file": "frog-eat-2.webp",
@@ -365,9 +365,9 @@
     "move-2": {
      "file": "frog-move-2.webp",
      "source": "frog-move-2.png",
-     "sourceSha256": "01da49814b319e6c4e2e330bd407d5badd0b8958143f444238da1e1426a04322",
+     "sourceSha256": "a81b29a170ca8f25fbdf91b217a372195b64453d673d03eeb0642fb6727a02fc",
      "checks": [],
-     "bytes": 11910
+     "bytes": 13166
     },
     "move-3": {
      "file": "frog-move-3.webp",
