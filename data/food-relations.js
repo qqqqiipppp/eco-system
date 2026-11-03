@@ -42,3 +42,18 @@ export const coreRelationIds=foodRelations.filter(r=>r.core).map(r=>r.relationId
 export const relationsByConsumer=new Map(),relationByPair=new Map();
 for(const r of foodRelations){const list=relationsByConsumer.get(r.targetSpeciesId)||[];list.push(r);relationsByConsumer.set(r.targetSpeciesId,list);relationByPair.set(`${r.sourceSpeciesId}:${r.targetSpeciesId}`,r);}
 export const relationFor=(foodSpeciesId,consumerSpeciesId)=>relationByPair.get(`${foodSpeciesId}:${consumerSpeciesId}`);
+// Chapter mode only (useChapterFoodRelations, forest mode keeps the audited
+// web above): meals the teacher asked for to make the chapter webs richer.
+// A frog eats many moving insects; a chipmunk is an omnivore that eats insects.
+export const chapterFoodRelations=[
+ edge('aphid','frog','animal','C1'),
+ edge('grasshopper','chipmunk','animal','C2'),
+ edge('aphid','chipmunk','animal','C2'),
+];
+export function useChapterFoodRelations(){
+ for(const r of chapterFoodRelations){
+  if(foodRelationById[r.relationId])continue;
+  foodRelations.push(r);foodRelationById[r.relationId]=r;relationByPair.set(`${r.sourceSpeciesId}:${r.targetSpeciesId}`,r);
+  const list=relationsByConsumer.get(r.targetSpeciesId)||[];list.push(r);relationsByConsumer.set(r.targetSpeciesId,list);
+ }
+}

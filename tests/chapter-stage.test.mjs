@@ -273,7 +273,7 @@ test('a crisis announced as the stage clears is dropped, not left counting down'
 // Short goals the student reads at a glance ("멧토끼 기르기 · 방아깨비 번식하기"),
 // each ticked from the stage's own state.
 test('every stage has two short goals the forest can tick',()=>{
- const kinds=['have','birth','balance','crisis','decomposer','decomposed'];
+ const kinds=['have','birth','balance','crisis','decomposer','decomposed','observe'];
  for(const stage of stages){
   assert.equal(stage.tasks?.length,2,stage.stageId);
   for(const task of stage.tasks){
@@ -282,6 +282,7 @@ test('every stage has two short goals the forest can tick',()=>{
    if(task.have||task.birth)assert(stage.inventory.includes(task.have||task.birth),`${stage.stageId} ${task.have||task.birth} is a card here`);
    if(task.birth)assert.equal(task.birth,stage.birthRequired);
    if(task.crisis)assert(stage.events.includes(task.crisis),`${stage.stageId} ${task.crisis} comes here`);
+   if(task.observe){const r=foodRelations.find(x=>x.relationId===task.observe);assert(r&&stage.inventory.includes(r.sourceSpeciesId)&&stage.inventory.includes(r.targetSpeciesId),`${stage.stageId} ${task.observe} can happen here`);}
    assert(!taskDone(createStageGameState(stage),task)||task.have,`${stage.stageId} "${task.text}" is not done at the start`);
   }
  }
@@ -293,6 +294,8 @@ test('goals tick from the stage state',()=>{
  assert(!taskDone(s,birth));s.chapter.births.push({speciesId:'grasshopper',at:1});assert(taskDone(s,birth));
  const balance={balance:true};assert(!taskDone(s,balance));s.chapter.seeds=1;assert(taskDone(s,balance),'the first star means balance was reached');
  const weather={crisis:'cloudy'};s.chapter.crisisLog.push({kind:'cloudy',endedAt:null});assert(!taskDone(s,weather));s.chapter.crisisLog[0].endedAt=9;assert(taskDone(s,weather));
+ const o=createStageGameState(stageById['2-4']),[,hunt]=stageById['2-4'].tasks;
+ assert(!taskDone(o,hunt));o.chapter.offers.push({offerId:'x',relationId:'v2_aphid_to_frog',expiresAt:99});catchObservation(o,'x');assert(taskDone(o,hunt),'caught the 💡 of the frog eating a beetle');
  const d=createStageGameState(stageById['3-1']);assert(!taskDone(d,{decomposer:true}));placeFixture(d,'mushroom');assert(taskDone(d,{decomposer:true}));
  assert(!taskDone(d,{decomposed:true}));d.chapter.lastDecomposedAt=3;assert(taskDone(d,{decomposed:true}));
 });

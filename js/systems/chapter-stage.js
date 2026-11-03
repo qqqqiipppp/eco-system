@@ -60,6 +60,7 @@ export function neededCards(s, blockers = stageBlockers(s)) {
     if (b.id === 'starving') { const needs = needStates(s); foodsOf(new Set(consumers(s).filter(o => needs.get(o.instanceId) === 'starving').map(o => o.speciesId))).forEach(id => cards.add(id)); }
     if (b.id === 'noDecomposition') ['mushroom', 'litter-mold', 'earthworm'].filter(owned).forEach(id => cards.add(id));
     if (b.id === 'needBirth' && owned(b.speciesId) && s.organisms.filter(o => o.speciesId === b.speciesId).length < 2) cards.add(b.speciesId);
+    if (b.id === 'needObserve') { const r = foodRelations.find(x => x.relationId === b.relationId); for (const id of [r.sourceSpeciesId, r.targetSpeciesId]) if (owned(id) && !s.organisms.some(o => o.speciesId === id)) cards.add(id); }
   }
   return cards;
 }
@@ -86,6 +87,8 @@ export function stageBlockers(s) {
   if (consumers(s).length && (c.lastMealAt === null || s.simulationTime - c.lastMealAt > config.recentMealSeconds)) list.push({id: 'noMeal'});
   // The third star needs a young one born here from two parents.
   if (stage.birthRequired && c.seeds >= config.seedsToClear - 1 && !c.births.some(b => b.speciesId === stage.birthRequired)) list.push({id: 'needBirth', speciesId: stage.birthRequired});
+  // A stage that asks to watch one meal: the third star waits for its 💡.
+  if (stage.observeRequired && c.seeds >= config.seedsToClear - 1 && !(c.caught || []).includes(stage.observeRequired)) list.push({id: 'needObserve', relationId: stage.observeRequired});
   return list;
 }
 
@@ -203,6 +206,7 @@ export function catchObservation(s, offerId) {
   if (!offer || c.cleared) return {ok: false, bonus: false, seedGained: false, eventStarted: null, cleared: false};
   c.offers = c.offers.filter(o => o !== offer);
   c.observations++;
+  (c.caught ??= []).includes(offer.relationId) || c.caught.push(offer.relationId);
   s.metrics.points += config.observationReward;
   recordPointChange(s, 'study', config.observationReward, `chapter-observation:${offer.offerId}`, offer.offerId);
   const bonus = !stageBlockers(s).length;
@@ -252,6 +256,7 @@ export function taskDone(s, task) {
   if (task.crisis) return c.crisisLog.some(r => r.kind === task.crisis && r.endedAt !== null);
   if (task.decomposer) return s.organisms.some(o => organismById[o.speciesId]?.role === 'decomposer');
   if (task.decomposed) return c.lastDecomposedAt !== null;
+  if (task.observe) return (c.caught || []).includes(task.observe);
   return false;
 }
 

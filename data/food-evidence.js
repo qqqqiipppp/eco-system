@@ -24,5 +24,8 @@ export const foodEvidence={
  F22:{url:'https://www.jstage.jst.go.jp/article/jjwrs/43/0/43_19/_pdf/-char/ja',location:'2018,43권 p21 본문·p22 표2',note:'일본 이토의 Erinaceus amurensis 113개체 위 내용물에서 지렁이류(Oligochaeta) 확인. 국내 현장 또는 Amynthas koreanus 정확쌍 자료는 아닌 B 단순화.'},
  F23:{url:'https://www.jstage.jst.go.jp/article/jjwrs/43/0/43_19/_pdf/-char/ja',location:'2018,43권 p22 표2, 성충과 유충 구분',note:'같은 고슴도치 종의 위 내용물에 풍뎅이과 먹이군 확인. 유충은 별도 행이며 Anomala albopilosa 성충 정확쌍·크기는 미확인. 성충 카드를 이용하는 B 단순화.'},
  F24:{url:'https://encykorea.aks.ac.kr/Article/E0031100',location:'송충이 > 내용 > 방제법① 천적; 임경빈 집필',note:'한국학중앙연구원 전문가 항목이 솔나방 유충의 천적에 직박구리를 명시. 원 관찰 자료와 영별 포획은 미확인하므로 직접 종쌍 실험 A로 격상하지 않은 B 단순화.'},
+ // Chapter mode only (chapterFoodRelations).
+ C1:{url:'https://www.honda.co.jp/outdoor/adventure/tonosamagaeru.html',location:'생きもの図鑑 トノサマガエル > 食べもの',note:'참개구리(トノサマガエル)는 움직이는 여러 곤충과 거미를 잡아먹어요. 청동풍뎅이 특정 쌍 기록은 아님.'},
+ C2:{url:'https://animaldiversity.org/accounts/Tamias_sibiricus/',location:'Food Habits',note:'다람쥐(Tamias sibiricus)는 잡식성으로 씨앗·열매와 함께 곤충도 먹어요. 방아깨비·청동풍뎅이 특정 쌍 기록은 아님.'},
 };
 export const evidenceText=level=>level==='A'?'이 먹이 관계는 자료에서 확인했어요.':'먹이 종류 자료를 바탕으로 단순화한 관계예요. 이 두 종이 먹고 먹히는 모습을 직접 조사한 기록은 아직 확인하지 못했어요.';

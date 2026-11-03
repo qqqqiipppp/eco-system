@@ -20,6 +20,7 @@ const blockerText={
  depleted:()=>'생산자가 거의 다 먹혔어요. 소비자에 비해 먹이가 모자라요.',
  noDecomposition:()=>'낙엽과 죽은 나무가 분해되지 않고 있어요. 분해자가 일할 수 있게 해요.',
  noMeal:()=>'아직 먹는 모습이 보이지 않아요. 소비자가 먹이를 찾을 때까지 지켜봐요.',
+ needObserve:b=>{const r=foodRelationById[b.relationId];return `세 번째 숲 별은 ${particle(name(r.targetSpeciesId),'이','가')} ${particle(name(r.sourceSpeciesId),'을','를')} 먹는 모습을 관찰해야 차올라요. 사냥하면 뜨는 💡를 눌러요.`;},
  needBirth:(b,s)=>{const n=name(b.speciesId),count=s.organisms.filter(o=>o.speciesId===b.speciesId).length;
   return `세 번째 숲 별은 새로 태어난 ${particle(n,'이','가')} 있어야 차올라요. `+(count<2?`${particle(n,'이','가')} 두 마리 있어야 번식해요. 한 마리를 더 놓아요.`:breedingLine(s)||`${n} 두 마리가 배고프지 않게 지내면 ${promise(breeding.species[b.speciesId])}.`);},
 };
@@ -257,7 +258,7 @@ export function createChapterView(getState,{forest,cleared,notify,onCatch,onColl
   if(tasksStage!==stage.stageId){
    tasksStage=stage.stageId;
    tasks.replaceChildren(...stage.tasks.map(task=>{
-    const id=task.have||task.birth,icon=id?element('img',{src:visualAsset(id),alt:''}):document.createTextNode(task.crisis?crises[task.crisis].icon||{cloudy:'☁️',drought:'💧'}[task.crisis]:taskIcon[Object.keys(taskIcon).find(k=>task[k])]);
+    const id=task.have||task.birth||task.icon,icon=id?element('img',{src:visualAsset(id),alt:''}):document.createTextNode(task.crisis?crises[task.crisis].icon||{cloudy:'☁️',drought:'💧'}[task.crisis]:taskIcon[Object.keys(taskIcon).find(k=>task[k])]);
     return element('li',{},[element('span',{className:'task-icon'},[icon]),element('span',{textContent:task.text}),element('span',{className:'task-check',textContent:'✓'})]);
    }));
   }

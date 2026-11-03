@@ -46,7 +46,7 @@ export const stageConfig = {
   // A predator stays full this share of the regular forest's time (a frog 5
   // minutes there, 2 here), so hunting is seen within a stage. Shorter empties
   // the forest of prey, which does not breed in most stages (bots: 2-2, 4-1).
-  predatorSatiety: {frog: .4, snake: .5, weasel: .5, goshawk: .5},
+  predatorSatiety: {frog: .4, chipmunk: .4, snake: .5, weasel: .5, goshawk: .5},
   prices: {grass: 3, raspberry: 3, oak: 6, hazel: 6, grasshopper: 4, earthworm: 4, aphid: 5, rabbit: 6, chipmunk: 6, mushroom: 5, 'litter-mold': 5, frog: 8, bulbul: 8, snake: 10, weasel: 10, goshawk: 12},
 };
 
@@ -60,7 +60,8 @@ export const stageConfig = {
 // tasks: the stage's two short goals, ticked as the forest reaches them:
 // have (that animal is in the forest), birth (one was born), balance (the first
 // star grew), crisis (that crisis is over), decomposer (one is placed),
-// decomposed (a decomposer or earthworm has broken down dead matter).
+// decomposed (a decomposer or earthworm has broken down dead matter), observe
+// (the student caught that meal's 💡 in this stage; icon: the picture shown).
 export const chapters = [
   {chapterId: 'meadow', number: 1, title: '풀밭', events: ['cloudy'], seedSeconds: 50, newSpecies: ['grass', 'grasshopper', 'rabbit'],
     intro: '생산자인 강아지풀과 그것을 먹는 소비자를 만나요.', stages: [
@@ -99,10 +100,10 @@ export const chapters = [
       environment: {water: .6},
       organisms: [['grass', .3], ['grass', .44], ['grass', .58], ['grasshopper', .38], ['grasshopper', .54], ['frog', .46]]},
     {stageId: '2-4', title: '팽나무의 청동풍뎅이', points: 15,
-      goal: '청동풍뎅이는 팽나무 잎을 먹어요. 두 마리가 건강하게 지내 흙 속에 알을 낳고, 새 어른벌레가 나오게 해요.',
-      tasks: [{text: '청동풍뎅이 번식하기', birth: 'aphid'}, {text: '가뭄 견디기', crisis: 'drought'}],
-      inventory: ['grass', 'grasshopper', 'hazel', 'aphid'], requiredSpecies: {grasshopper: 1, aphid: 1}, birthRequired: 'aphid',
-      organisms: [['hazel', .3], ['hazel', .62], ['grass', .44], ['grass', .76], ['grasshopper', .5], ['aphid', .34]]},
+      goal: '청동풍뎅이는 팽나무 잎을 먹고, 참개구리는 청동풍뎅이도 잡아먹어요. 청동풍뎅이 두 마리가 건강하게 지내 흙 속에 알을 낳게 하고, 개구리가 청동풍뎅이를 먹는 모습도 관찰해요.',
+      tasks: [{text: '청동풍뎅이 번식하기', birth: 'aphid'}, {text: '풍뎅이 먹는 개구리 관찰', observe: 'v2_aphid_to_frog', icon: 'frog'}],
+      inventory: ['hazel', 'aphid', 'frog'], requiredSpecies: {aphid: 1, frog: 1}, birthRequired: 'aphid', observeRequired: 'v2_aphid_to_frog',
+      organisms: [['hazel', .3], ['hazel', .62], ['aphid', .34], ['aphid', .58], ['frog', .46]]},
   ]},
   {chapterId: 'understory', number: 3, title: '나무 아래', events: ['soil-damage', 'drought'], seedSeconds: 70, newSpecies: ['oak', 'mushroom', 'litter-mold', 'earthworm', 'chipmunk', 'raspberry', 'bulbul'],
     intro: '분해자가 낙엽과 쓰러진 나무를 분해해 흙으로 양분을 돌려보내요.', stages: [
