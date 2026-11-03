@@ -2,8 +2,8 @@
 // stylesheet and script address, so a new deploy never mixes with files a
 // browser still holds from the last one (GitHub Pages caches each for 10 min).
 // Usage: node tools/stamp_version.mjs <version> [out=_site]
-import {cpSync,readFileSync,writeFileSync,readdirSync,statSync,rmSync} from 'node:fs';
-import {join,relative} from 'node:path';
+import {cpSync,readFileSync,writeFileSync,readdirSync,statSync,rmSync,mkdirSync} from 'node:fs';
+import {join,resolve} from 'node:path';
 
 const skip=new Set(['.git','.github','node_modules','_site','tests']);
 export function stampModule(code,v){
@@ -17,7 +17,10 @@ const files=dir=>readdirSync(dir).flatMap(n=>{const p=join(dir,n);return statSyn
 export function build(root,out,v){
  if(!/^[\w.-]+$/.test(v))throw new Error('version must be letters, digits, . _ -');
  rmSync(out,{recursive:true,force:true});
- cpSync(root,out,{recursive:true,filter:src=>!skip.has(relative(root,src).split(/[\\/]/)[0])});
+ // Entry by entry: the output may sit inside the root (_site in the Pages
+ // workflow), and copying a folder into itself is refused.
+ mkdirSync(out,{recursive:true});
+ for(const name of readdirSync(root))if(!skip.has(name)&&resolve(root,name)!==resolve(out))cpSync(join(root,name),join(out,name),{recursive:true});
  for(const f of files(out))if(f.endsWith('.js'))writeFileSync(f,stampModule(readFileSync(f,'utf8'),v));
  const index=join(out,'index.html');writeFileSync(index,stampPage(readFileSync(index,'utf8'),v));
  writeFileSync(join(out,'version.json'),JSON.stringify({version:v})+'\n');

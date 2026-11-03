@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {mkdtempSync,readFileSync,readdirSync,statSync,existsSync} from 'node:fs';
+import {mkdtempSync,readFileSync,readdirSync,statSync,existsSync,rmSync} from 'node:fs';
 import {join} from 'node:path';
 import {tmpdir} from 'node:os';
 import {stampModule,stampPage,build} from '../tools/stamp_version.mjs';
@@ -31,4 +31,13 @@ test('the real site builds with no unstamped module address left', () => {
   assert.deepEqual(JSON.parse(readFileSync(join(out, 'version.json'), 'utf8')), {version: 'abc1234'});
   assert.ok(!existsSync(join(out, 'tests')) && !existsSync(join(out, '.git')));
   assert.throws(() => build(process.cwd(), out, 'bad version'));
+});
+
+test('the site builds into _site inside the repository, as the Pages workflow does', () => {
+  const out = join(process.cwd(), '_site');
+  try {
+    build(process.cwd(), out, 'inside1');
+    assert.ok(existsSync(join(out, 'index.html')) && existsSync(join(out, 'js/main.js')));
+    assert.ok(!existsSync(join(out, '_site')), 'the output is not copied into itself');
+  } finally { rmSync(out, {recursive: true, force: true}); }
 });
