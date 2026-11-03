@@ -26,7 +26,10 @@ export function createOrganismLayer(forest, getOrganisms) {
   const habitat=createHabitatPresentation();
   let membership='',inspectHandler=()=>{},focusedId=null,placingSpeciesId=null;
   let ambushTargets=new Set();
+  // Until the forest has a size (a hidden or not yet laid-out window) nothing
+  // is placed or sized; measure() does both once the size is known.
   function refreshHabitats(force=false){
+    if(!layout)return;
     const items=getOrganisms(),signature=items.map(o=>o.instanceId).sort().join('|');
     if(force||signature!==membership){membership=signature;habitat.rebuild(items,layout);for(const o of items)paint(o);}
   }
@@ -99,6 +102,7 @@ export function createOrganismLayer(forest, getOrganisms) {
     entry.anchor.classList.toggle('is-hopping',rise>0);
   }
   function sizeObject(anchor, speciesId) {
+    if (!layout) return;
     const size = layout.sizes[speciesId];
     anchor.style.setProperty('--sprite-width', `${size.width}px`);
     anchor.style.setProperty('--sprite-height', `${size.height}px`);
