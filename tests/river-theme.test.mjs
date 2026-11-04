@@ -9,6 +9,7 @@ import {placementConfig,speciesProfiles} from '../data/interaction-config.js';
 import {foodRelations} from '../data/food-relations.js';
 import {discoveryEvents} from '../data/event-config.js';
 import {mealSentence} from '../data/student-text.js';
+import {crisisQuestions} from '../data/crisis-reflection.js';
 import {isPositionAllowed} from '../js/systems/placement-rules.js';
 import {placeOrganism} from '../js/systems/placement.js';
 import {createFeedingSystem} from '../js/systems/feeding.js';
@@ -69,4 +70,16 @@ test('a careful student clears the pond stages; waiting alone does not',()=>{
   assert.ok(stageById[id].tasks.every(t=>taskDone(s,t)),`${id} tasks`);
  }
  assert.equal(play('1-1',()=>{}).chapter.cleared,false,'no medaka, no chain');
+});
+
+test('the question after a river crisis is about the river, not the forest',()=>{
+ const forest=Object.values(organismById).filter(o=>!riverSpecies.some(s=>s.id===o.id)).map(o=>o.name);
+ for(const kind of new Set(chapters.flatMap(c=>c.events))){
+  assert.ok(crisisQuestions[kind]?.length,kind);
+  for(const q of crisisQuestions[kind]){
+   const text=[q.question,...q.choices,q.explanation].join(' ');
+   assert.ok(!forest.some(name=>text.includes(name)),`${kind}: ${text}`);
+   assert.ok(!text.includes('숲'),`${kind}: ${text}`);
+  }
+ }
 });
