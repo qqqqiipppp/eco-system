@@ -50,7 +50,7 @@ const chapterNews=chapter=>[
 // Stage HUD, things to tap in the forest (💡 and litter), crisis warnings,
 // chapter dialogs and the chapter map. Create before bindDialogPause so the
 // dialogs pause the forest like the others. No sound: motion and colour only.
-export function createChapterView(getState,{forest,theme='forest',themeStore={read:()=>'forest',set(){}},admin={isOn:()=>false,set(){}},cleared,notify,onCatch,onCollect,onPrepare,onStage,onRestart,onCare,onExit,openWeb,webComplete,openRecord,reflections=()=>[],onReflect=()=>{}}){
+export function createChapterView(getState,{forest,theme='forest',themeStore={read:()=>'forest',set(){}},admin={isOn:()=>false,set(){}},cleared,notify,onCatch,onCollect,onPrepare,onStage,onRestart,onCare,openWeb,webComplete,openRecord,reflections=()=>[],onReflect=()=>{}}){
  const seeds=Array.from({length:config.seedsToClear},()=>element('span',{className:'chapter-seed'}));
  const title=element('h2'),eyebrow=element('span',{className:'eyebrow'}),goal=element('p',{className:'chapter-goal'}),tasks=element('ul',{className:'chapter-tasks'});
  const meter=element('progress',{value:0});meter.setAttribute('aria-label','다음 숲 별까지');
@@ -60,7 +60,6 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
  const themeButton=element('button',{type:'button',textContent:'생태계 바꾸기',onclick:()=>openThemes()});
  const adminButton=element('button',{type:'button',onclick:()=>{if(admin.isOn()){admin.set(false);renderAdmin();notify('관리자 모드를 껐어요.',true);}else openAdmin();}});
  const webButton=element('button',{type:'button',textContent:'나의 먹이그물',onclick:()=>openWeb(stageById[getState().chapter.stageId].chapter.number)});
- const exitButton=element('button',{type:'button',textContent:'기존 숲으로',onclick:onExit});
  const restartButton=element('button',{type:'button',textContent:'이 스테이지 처음부터',onclick:()=>openRestart()});
  const recordButton=element('button',{type:'button',textContent:'나의 기록',onclick:()=>openRecord()});
  const hud=element('section',{className:'chapter-hud'},[
@@ -77,7 +76,7 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
  const header=document.querySelector('.app-header'),namesToggle=forest.querySelector('#names-toggle');
  const menuButton=element('button',{type:'button',className:'chapter-menu-button',textContent:'☰ 메뉴'});
  const fullscreen=fullscreenButton();
- const menu=element('div',{className:'chapter-menu',id:'chapter-menu',hidden:true},[mapButton,themeButton,webButton,recordButton,restartButton,element('hr'),...(fullscreen?[fullscreen]:[]),header.querySelector('.header-actions'),...(namesToggle?[namesToggle]:[]),element('hr'),adminButton,exitButton]);
+ const menu=element('div',{className:'chapter-menu',id:'chapter-menu',hidden:true},[mapButton,themeButton,webButton,recordButton,restartButton,element('hr'),...(fullscreen?[fullscreen]:[]),header.querySelector('.header-actions'),...(namesToggle?[namesToggle]:[]),element('hr'),adminButton]);
  menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-controls','chapter-menu');
  const setMenu=open=>{menu.hidden=!open;menuButton.setAttribute('aria-expanded',String(open));};
  menuButton.addEventListener('click',()=>setMenu(menu.hidden));
@@ -489,8 +488,7 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
   input.focus();
  }
  const adminBadge=element('span',{className:'admin-badge',textContent:'관리자'});
- // The old free forest (기존 숲으로) is for the teacher: shown only in 관리자 모드.
- function renderAdmin(){const on=admin.isOn();adminButton.textContent=on?'관리자 모드 끄기':'관리자 모드';exitButton.hidden=!on;if(on)titleBox.prepend(adminBadge);else adminBadge.remove();}
+ function renderAdmin(){const on=admin.isOn();adminButton.textContent=on?'관리자 모드 끄기':'관리자 모드';if(on)titleBox.prepend(adminBadge);else adminBadge.remove();}
  renderAdmin();
  // 생태계 연구소: choose the ecosystem to explore. Each keeps its own progress;
  // switching starts the page again in the chosen one. Asked once at the start

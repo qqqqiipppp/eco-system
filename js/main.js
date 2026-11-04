@@ -55,9 +55,9 @@ import {claimEnvironmentStudy,claimRecoverySupport} from './systems/point-econom
 import {capForestAspect} from './ui/forest-aspect.js';
 
 // Module exports support integration checks; there is no global debug API.
-// Chapter mode is what opens first; ?mode=forest is the regular forest. Chapter
-// mode plays short stages and leaves the regular forest save untouched.
-const chapterMode=new URLSearchParams(location.search).get('mode')!=='forest';
+// Chapter mode is the game. The old free forest (?mode=forest, 2026-11-05) is
+// retired: its code below (chapterMode false) is no longer reached.
+const chapterMode=true;
 // The ecosystem being explored (숲 or 강); the forest until another is ready and
 // chosen. 관리자 모드 can already open one still being made, to try it.
 const admin=createAdminAdapter(),themeStore=createThemeAdapter(),stored=themeById[themeStore.read()];
@@ -107,7 +107,7 @@ try {
     document.body.classList.add('chapter-mode');
     const webView=createChapterWebView(chapterProgress,{onComplete:()=>chapterView.webDone(),onGuide:id=>collectionView.openGuide(id,null)});
     const recordView=createChapterRecordView(chapterProgress,{currentStageId:()=>gameState.chapter.stageId,openWeb:n=>webView.open(n)});
-    chapterView=createChapterView(()=>gameState,{forest,theme,themeStore,admin,notify:(text,ok)=>important(text,ok),cleared:()=>chapterProgress.cleared(),openWeb:n=>webView.open(n),webComplete:n=>webView.isComplete(n),openRecord:()=>recordView.open(),reflections:()=>chapterProgress.read().reflections,onReflect:entry=>chapterProgress.addReflection(entry),onCatch:catchStageObservation,onCollect:collectStageTrash,onPrepare:prepareStage,onStage:id=>{stageSave.remove();installForest(createStageGameState(stageById[id]));},onRestart:()=>{stageSave.remove();installForest(createStageGameState(stageById[gameState.chapter.stageId]));},onCare:careStageEnvironment,onExit:()=>{location.search='?mode=forest';}});
+    chapterView=createChapterView(()=>gameState,{forest,theme,themeStore,admin,notify:(text,ok)=>important(text,ok),cleared:()=>chapterProgress.cleared(),openWeb:n=>webView.open(n),webComplete:n=>webView.isComplete(n),openRecord:()=>recordView.open(),reflections:()=>chapterProgress.read().reflections,onReflect:entry=>chapterProgress.addReflection(entry),onCatch:catchStageObservation,onCollect:collectStageTrash,onPrepare:prepareStage,onStage:id=>{stageSave.remove();installForest(createStageGameState(stageById[id]));},onRestart:()=>{stageSave.remove();installForest(createStageGameState(stageById[gameState.chapter.stageId]));},onCare:careStageEnvironment});
   }else{
     const chapterButton=document.createElement('button');chapterButton.id='chapter-open';chapterButton.type='button';chapterButton.textContent='챕터 모드';
     chapterButton.addEventListener('click',()=>{location.href=location.pathname;});document.querySelector('.header-actions').append(chapterButton);
