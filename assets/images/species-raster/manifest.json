@@ -1291,6 +1291,292 @@
     174
    ],
    "bytes": 11964
+  },
+  "algae": {
+   "file": "algae.webp",
+   "source": "river-pond-wetland-batch1/algae-filament.png",
+   "sourceSha256": "ab1e15ee4331a647e46063a622697527ce0a1bca5f7fe5b1d04c841d63b9a32b",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    89,
+    295,
+    1358,
+    994
+   ],
+   "placedBox": [
+    8,
+    42,
+    248,
+    174
+   ],
+   "bytes": 13604
+  },
+  "duckweed": {
+   "file": "duckweed.webp",
+   "source": "river-pond-wetland-batch1/duckweed.png",
+   "sourceSha256": "3da014ceb90bbb93a7fa837f0fcb35678beefbfee1f25cd183c79bc95719ff61",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    127,
+    126,
+    1322,
+    994
+   ],
+   "placedBox": [
+    13,
+    8,
+    242,
+    174
+   ],
+   "bytes": 12120
+  },
+  "water-lily": {
+   "file": "water-lily.webp",
+   "source": "river-pond-wetland-batch1/water-lily.png",
+   "sourceSha256": "ae7855a0032464bddae67ba1986d235930fe8ef1e06e337dd2df9d4c401ad038",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    123,
+    126,
+    1325,
+    994
+   ],
+   "placedBox": [
+    13,
+    8,
+    243,
+    174
+   ],
+   "bytes": 11746
+  },
+  "cattail": {
+   "file": "cattail.webp",
+   "source": "river-pond-wetland-batch1/cattail.png",
+   "sourceSha256": "e4939904be7e7a26e5eb96db27a476172759aa21604fc4f91e7d00cf557fe247",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    314,
+    124,
+    1135,
+    995
+   ],
+   "placedBox": [
+    50,
+    8,
+    206,
+    174
+   ],
+   "bytes": 11366
+  },
+  "daphnia": {
+   "file": "daphnia.webp",
+   "source": "river-pond-wetland-batch1/water-flea.png",
+   "sourceSha256": "4eda1daba84faffa3ee1780faaa9fc767e8a6d8f11df54db858f722dde3399b4",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    159,
+    125,
+    1289,
+    995
+   ],
+   "placedBox": [
+    20,
+    8,
+    236,
+    174
+   ],
+   "bytes": 13048
+  },
+  "medaka": {
+   "file": "medaka.webp",
+   "source": "river-pond-wetland-batch1/killifish.png",
+   "sourceSha256": "f39e899d5365916b884ccbeb7fcbd7387f013e3ae7c788258a7760dc521239b9",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    89,
+    632,
+    1358,
+    994
+   ],
+   "placedBox": [
+    8,
+    106,
+    248,
+    174
+   ],
+   "bytes": 6184
+  },
+  "pond-snail": {
+   "file": "pond-snail.webp",
+   "source": "river-pond-wetland-batch1/snail-pond.png",
+   "sourceSha256": "e3afe575cd89eb9b9dd9b7421dcee5602305c5f55ab4ea8fe1a32a211bac7946",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    145,
+    126,
+    1303,
+    995
+   ],
+   "placedBox": [
+    17,
+    8,
+    238,
+    174
+   ],
+   "bytes": 8528
+  },
+  "water-strider": {
+   "file": "water-strider.webp",
+   "source": "river-pond-wetland-batch1/water-strider.png",
+   "sourceSha256": "86d5b8ff8525c4bc206700256014a95caebce4e5f9f53e274729776b3471d064",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    89,
+    375,
+    1359,
+    995
+   ],
+   "placedBox": [
+    8,
+    57,
+    248,
+    174
+   ],
+   "bytes": 11016
+  },
+  "diving-beetle": {
+   "file": "diving-beetle.webp",
+   "source": "river-pond-wetland-batch1/diving-beetle.png",
+   "sourceSha256": "8997d6bf43f1cb398e32d66c2dbbe89d69216c89c90bd265576bd2ba6b46f6c8",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    88,
+    441,
+    1359,
+    994
+   ],
+   "placedBox": [
+    8,
+    70,
+    248,
+    174
+   ],
+   "bytes": 10594
+  },
+  "catfish": {
+   "file": "catfish.webp",
+   "source": "river-pond-wetland-batch1/catfish.png",
+   "sourceSha256": "377f77b7153d27621b0c5792944b08c6dbb681f13adeeda1bf64b70755735603",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    89,
+    617,
+    1359,
+    995
+   ],
+   "placedBox": [
+    8,
+    103,
+    248,
+    174
+   ],
+   "bytes": 7366
+  },
+  "frog-tadpole": {
+   "file": "frog-tadpole.webp",
+   "source": "river-pond-wetland-batch1/tadpole.png",
+   "sourceSha256": "ee434ec1fff6d51e566d9e2ef2de80861814aaafcdc124062ed5df18bc2f2f2a",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    107,
+    665,
+    1341,
+    994
+   ],
+   "placedBox": [
+    8,
+    110,
+    248,
+    174
+   ],
+   "bytes": 5976
+  },
+  "bullfrog": {
+   "file": "bullfrog.webp",
+   "source": "river-pond-wetland-batch1/bullfrog.png",
+   "sourceSha256": "0182d4c59632cd53fe698be0e21e78204a8cdf74670730a2649ac4b3ef24e27d",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    90,
+    160,
+    1359,
+    995
+   ],
+   "placedBox": [
+    8,
+    16,
+    248,
+    174
+   ],
+   "bytes": 11694
+  },
+  "red-swamp-crayfish": {
+   "file": "red-swamp-crayfish.webp",
+   "source": "river-pond-wetland-batch1/crayfish-invasive.png",
+   "sourceSha256": "115ff760d9546ede72fce06221da3aa115c239faeb5ae5da82063dde3c7e36a0",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    89,
+    293,
+    1359,
+    995
+   ],
+   "placedBox": [
+    8,
+    41,
+    248,
+    174
+   ],
+   "bytes": 14752
   }
  },
  "stages": {

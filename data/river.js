@@ -100,7 +100,7 @@ export const riverChapters = [
   {chapterId: 'river-pond', number: 1, title: '연못·습지', events: ['drought'], seedSeconds: 50,
     newSpecies: ['algae', 'daphnia', 'medaka', 'duckweed', 'water-lily', 'pond-snail', 'water-strider'],
     intro: '고인 물에 사는 생산자와 소비자를 만나요.',
-    art: {src: './assets/images/backgrounds/river-pond.svg', alt: '연못을 비스듬히 내려다본 수면과 물속 단면, 진흙 바닥, 오른쪽의 물가 비탈과 흙 단면.'}, stages: [
+    art: {src: './assets/images/backgrounds/river-pond.webp', alt: '연못을 비스듬히 내려다본 수면과 물속 단면, 진흙 바닥, 오른쪽의 물가 비탈과 흙 단면.'}, stages: [
     {stageId: '1-1', title: '연못의 시작', points: 12,
       goal: '생산자인 작은 조류를 물벼룩이 먹고, 물벼룩을 송사리가 먹어요. 송사리를 놓아 먹이사슬을 이어 강 별 3개를 모아요.',
       tasks: [{text: '송사리 놓기', have: 'medaka'}, {text: '먹이사슬 3단계 잇기', observe: relation('daphnia', 'medaka'), icon: 'medaka'}],
