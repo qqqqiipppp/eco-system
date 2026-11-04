@@ -210,6 +210,9 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
   await menu(p,'탐험 지도');await p.waitForSelector('.chapter-map-dialog[open]');
   if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-map.png`});
   await p.locator('.chapter-dialog[open] button',{hasText:'닫기'}).click();
+  // The old free forest is for the teacher (관리자 모드) only.
+  assert.ok(await p.locator('#chapter-menu button',{hasText:'기존 숲으로'}).isHidden());
+  await p.evaluate(()=>localStorage.setItem('eco-system:admin','on'));await p.reload();await p.waitForSelector('.chapter-hud');await p.evaluate(()=>document.querySelectorAll('dialog[open]').forEach(d=>d.close()));
   await menu(p,'기존 숲으로');await p.waitForSelector('#chapter-open');
   assert.equal(await p.locator('.chapter-hud').count(),0);
   assert.deepEqual(errors,[],errors.join('\n'));

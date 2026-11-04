@@ -366,3 +366,11 @@
 .admin-badge{display:inline-block;margin-right:6px;padding:1px 8px;border-radius:999px;background:#7a1f15;color:#fff;font-size:12px;font-weight:800;vertical-align:middle}
 .admin-code{width:100%;max-width:220px;min-height:48px;margin:8px 0 2px;padding:6px 12px;border:2px solid #b8c6aa;border-radius:10px;font-size:24px;letter-spacing:.3em}
 .admin-note{min-height:1.4em;margin:0;color:#a12a1b;font-weight:700}
+/* 생태계 바꾸기: one card per ecosystem; one not ready yet is shown greyed. */
+.theme-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:10px 0}
+.theme-card{display:grid;justify-items:start;gap:4px;min-height:120px;padding:14px;border:2px solid #b8c6aa;border-radius:14px;background:#fffdf0;text-align:left;font-size:15px}
+.theme-card strong{font-family:'Jua',"Malgun Gothic",sans-serif;font-size:24px;font-weight:400;color:#244c38}
+.theme-card .theme-icon{font-size:30px}
+.theme-card .theme-note{color:var(--muted);font-size:14px}
+.theme-card.current{border-color:#2f7a3c;box-shadow:inset 0 0 0 2px #2f7a3c}
+.theme-card:disabled{filter:grayscale(.8);opacity:.6;cursor:not-allowed}
