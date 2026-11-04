@@ -1819,6 +1819,226 @@
     174
    ],
    "bytes": 9522
+  },
+  "hornwort": {
+   "file": "hornwort.webp",
+   "source": "river-midstream-batch3/hornwort.png",
+   "sourceSha256": "e907cab03b583e09ea6439db3cbfa4142facd37e0c5a2207374221f5f709ffd6",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    446,
+    124,
+    1001,
+    994
+   ],
+   "placedBox": [
+    75,
+    8,
+    181,
+    174
+   ],
+   "bytes": 12606
+  },
+  "tape-grass": {
+   "file": "tape-grass.webp",
+   "source": "river-midstream-batch3/tape-grass.png",
+   "sourceSha256": "1708bd6670b17fe561af77582c375dc13ce92c53afa91038ef3bde8bb4fe1468",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    292,
+    126,
+    1156,
+    994
+   ],
+   "placedBox": [
+    45,
+    8,
+    210,
+    174
+   ],
+   "bytes": 12570
+  },
+  "pale-chub": {
+   "file": "pale-chub.webp",
+   "source": "river-midstream-batch3/pale-chub.png",
+   "sourceSha256": "44927c42439c354904bacc383aaf2ae989b10a10197590c5e8accce05de613cd",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    95,
+    595,
+    1353,
+    994
+   ],
+   "placedBox": [
+    8,
+    98,
+    248,
+    174
+   ],
+   "bytes": 6864
+  },
+  "crucian-carp": {
+   "file": "crucian-carp.webp",
+   "source": "river-midstream-batch3/crucian-carp.png",
+   "sourceSha256": "cb5622a4722a5b6f504d8a09c475b00f1fff50c27e0d6b1886df22125367d722",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    111,
+    352,
+    1337,
+    994
+   ],
+   "placedBox": [
+    8,
+    48,
+    248,
+    174
+   ],
+   "bytes": 8968
+  },
+  "sand-gudgeon": {
+   "file": "sand-gudgeon.webp",
+   "source": "river-midstream-batch3/sand-gudgeon.png",
+   "sourceSha256": "6e60e5e327d37d4066bfae3e3824ab71fda39827a7b9ba616b9542f01a89356e",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    102,
+    679,
+    1346,
+    994
+   ],
+   "placedBox": [
+    8,
+    113,
+    248,
+    174
+   ],
+   "bytes": 6514
+  },
+  "dark-sleeper": {
+   "file": "dark-sleeper.webp",
+   "source": "river-midstream-batch3/dark-sleeper.png",
+   "sourceSha256": "9899ce465ac77517ea3d5806c75ca2a9b74125abf3048f69afb6a607b9049a68",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    102,
+    586,
+    1346,
+    994
+   ],
+   "placedBox": [
+    8,
+    95,
+    248,
+    174
+   ],
+   "bytes": 7740
+  },
+  "mandarin-fish": {
+   "file": "mandarin-fish.webp",
+   "source": "river-midstream-batch3/mandarin-fish.png",
+   "sourceSha256": "3214a6f741f7b26b6c01a5c2cad0cbccd599ccc50bdc0c15c7827b8c031f96a5",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    89,
+    534,
+    1358,
+    994
+   ],
+   "placedBox": [
+    8,
+    87,
+    248,
+    174
+   ],
+   "bytes": 9566
+  },
+  "otter": {
+   "file": "otter.webp",
+   "source": "river-midstream-batch3/otter.png",
+   "sourceSha256": "622578200db7bb5928e66cfaaa8db0b703176c8874e976f2455d3b6ee11b813f",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    89,
+    699,
+    1359,
+    995
+   ],
+   "placedBox": [
+    8,
+    118,
+    248,
+    174
+   ],
+   "bytes": 5048
+  },
+  "largemouth-bass": {
+   "file": "largemouth-bass.webp",
+   "source": "river-midstream-batch3/largemouth-bass.png",
+   "sourceSha256": "5bb8b01c07febd55cef8ce1b4235cbb57546c9594ea613ec5ae60a54ddf5e8e8",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    90,
+    526,
+    1359,
+    994
+   ],
+   "placedBox": [
+    8,
+    85,
+    248,
+    174
+   ],
+   "bytes": 8210
+  },
+  "bluegill": {
+   "file": "bluegill.webp",
+   "source": "river-midstream-batch3/bluegill.png",
+   "sourceSha256": "befc09430bdb9283bf553be483bf62cfac580062331a034448badcb147521bb4",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    181,
+    353,
+    1267,
+    994
+   ],
+   "placedBox": [
+    8,
+    32,
+    248,
+    174
+   ],
+   "bytes": 10680
   }
  },
  "stages": {

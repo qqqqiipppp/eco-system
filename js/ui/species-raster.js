@@ -14,6 +14,9 @@ export const rasterSpecies=new Set([
  // The river upstream, and the water decomposer shared by every river chapter.
  'stone-diatom','water-dropwort','pussy-willow','caddisfly-larva','melania-snail','amphipod',
  'minnow','native-crayfish','korean-catfish','aucha-perch','water-decomposer',
+ // The river midstream.
+ 'hornwort','tape-grass','pale-chub','crucian-carp','sand-gudgeon','dark-sleeper',
+ 'mandarin-fish','otter','largemouth-bass','bluegill',
 ]);
 export const rasterAsset=id=>`./assets/images/species-raster/${id}.webp`;
 // Painted motion frames and growth-stage pictures come from the generated
