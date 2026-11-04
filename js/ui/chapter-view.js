@@ -4,6 +4,7 @@ import {stageBlockers,isStuck,taskDone,pondStage,careOptions,needStates,neededCa
 import {currentEnvironmentEvent} from '../systems/environment-events.js';
 import {factorValue,qualityLabel} from '../systems/environment.js';
 import {stageConfig as config,chapters,stages,stageById,crises,crisisForFactor,breeding} from '../../data/chapters.js';
+import {themes,themeById} from '../../data/themes.js';
 import {environmentFactors} from '../../data/environment-config.js';
 import {environmentEventDefinitions} from '../../data/environment-events.js';
 import {foodRelationById} from '../../data/food-relations.js';
@@ -49,13 +50,14 @@ const chapterNews=chapter=>[
 // Stage HUD, things to tap in the forest (💡 and litter), crisis warnings,
 // chapter dialogs and the chapter map. Create before bindDialogPause so the
 // dialogs pause the forest like the others. No sound: motion and colour only.
-export function createChapterView(getState,{forest,admin={isOn:()=>false,set(){}},cleared,notify,onCatch,onCollect,onPrepare,onStage,onRestart,onCare,onExit,openWeb,webComplete,openRecord,reflections=()=>[],onReflect=()=>{}}){
+export function createChapterView(getState,{forest,theme='forest',themeStore={read:()=>'forest',set(){}},admin={isOn:()=>false,set(){}},cleared,notify,onCatch,onCollect,onPrepare,onStage,onRestart,onCare,onExit,openWeb,webComplete,openRecord,reflections=()=>[],onReflect=()=>{}}){
  const seeds=Array.from({length:config.seedsToClear},()=>element('span',{className:'chapter-seed'}));
  const title=element('h2'),eyebrow=element('span',{className:'eyebrow'}),goal=element('p',{className:'chapter-goal'}),tasks=element('ul',{className:'chapter-tasks'});
  const meter=element('progress',{value:0});meter.setAttribute('aria-label','다음 숲 별까지');
  const status=element('p',{className:'chapter-status'});status.setAttribute('aria-live','polite');
  const care=element('div',{className:'chapter-care'});
  const mapButton=element('button',{type:'button',textContent:'탐험 지도',onclick:()=>openMap()});
+ const themeButton=element('button',{type:'button',textContent:'생태계 바꾸기',onclick:()=>openThemes()});
  const adminButton=element('button',{type:'button',onclick:()=>{if(admin.isOn()){admin.set(false);renderAdmin();notify('관리자 모드를 껐어요.',true);}else openAdmin();}});
  const webButton=element('button',{type:'button',textContent:'나의 먹이그물',onclick:()=>openWeb(stageById[getState().chapter.stageId].chapter.number)});
  const exitButton=element('button',{type:'button',textContent:'기존 숲으로',onclick:onExit});
@@ -75,7 +77,7 @@ export function createChapterView(getState,{forest,admin={isOn:()=>false,set(){}
  const header=document.querySelector('.app-header'),namesToggle=forest.querySelector('#names-toggle');
  const menuButton=element('button',{type:'button',className:'chapter-menu-button',textContent:'☰ 메뉴'});
  const fullscreen=fullscreenButton();
- const menu=element('div',{className:'chapter-menu',id:'chapter-menu',hidden:true},[mapButton,webButton,recordButton,restartButton,element('hr'),...(fullscreen?[fullscreen]:[]),header.querySelector('.header-actions'),...(namesToggle?[namesToggle]:[]),element('hr'),adminButton,exitButton]);
+ const menu=element('div',{className:'chapter-menu',id:'chapter-menu',hidden:true},[mapButton,themeButton,webButton,recordButton,restartButton,element('hr'),...(fullscreen?[fullscreen]:[]),header.querySelector('.header-actions'),...(namesToggle?[namesToggle]:[]),element('hr'),adminButton,exitButton]);
  menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-controls','chapter-menu');
  const setMenu=open=>{menu.hidden=!open;menuButton.setAttribute('aria-expanded',String(open));};
  menuButton.addEventListener('click',()=>setMenu(menu.hidden));
@@ -451,7 +453,7 @@ export function createChapterView(getState,{forest,admin={isOn:()=>false,set(){}
   // played again. In 관리자 모드 every stage is open.
   const done=cleared(),current=getState().chapter.stageId,managing=admin.isOn(),open=stage=>{const i=stages.indexOf(stage);return managing||i===0||done.includes(stages[i-1].stageId);};
   const count=stages.filter(s=>done.includes(s.stageId)).length,bar=element('progress',{max:stages.length,value:count});bar.setAttribute('aria-label','깬 스테이지');
-  show([element('h2',{textContent:`탐험 지도${managing?' · 관리자 모드':''}`}),
+  show([element('h2',{textContent:`${themeById[theme].name} 탐험 지도${managing?' · 관리자 모드':''}`}),
    element('p',{className:'map-progress'},[`전체 스테이지 ${stages.length}개 중 ${count}개를 깼어요 · ${stages.length-count}개 남았어요`,bar]),
    element('p',{className:'map-hint',textContent:managing?'관리자 모드: 모든 스테이지를 골라 시작할 수 있어요. 깬 기록은 바뀌지 않아요.':'✓ 표시한 스테이지를 누르면 다시 할 수 있어요.'}),
    element('div',{className:'chapter-map'},chapters.map(chapter=>{
@@ -483,8 +485,22 @@ export function createChapterView(getState,{forest,admin={isOn:()=>false,set(){}
   input.focus();
  }
  const adminBadge=element('span',{className:'admin-badge',textContent:'관리자'});
- function renderAdmin(){const on=admin.isOn();adminButton.textContent=on?'관리자 모드 끄기':'관리자 모드';if(on)titleBox.prepend(adminBadge);else adminBadge.remove();}
+ // The old free forest (기존 숲으로) is for the teacher: shown only in 관리자 모드.
+ function renderAdmin(){const on=admin.isOn();adminButton.textContent=on?'관리자 모드 끄기':'관리자 모드';exitButton.hidden=!on;if(on)titleBox.prepend(adminBadge);else adminBadge.remove();}
  renderAdmin();
+ // 생태계 연구소: choose the ecosystem to explore. Each keeps its own progress;
+ // switching starts the page again in the chosen one. Asked once at the start
+ // when more than one is ready.
+ function openThemes(){
+  const current=theme;
+  show([element('h2',{textContent:'어떤 생태계를 탐험할까요?'}),element('p',{textContent:'생태계마다 깬 스테이지가 따로 남아요.'}),
+   element('div',{className:'theme-list'},themes.map(t=>{
+    const button=element('button',{type:'button',className:`theme-card${t.id===current?' current':''}`,disabled:!t.ready,onclick:()=>{themeStore.set(t.id);dialog.close();if(t.id!==current)location.reload();}},
+     [element('span',{className:'theme-icon',textContent:t.icon}),element('strong',{textContent:t.name}),element('span',{className:'theme-note',textContent:t.ready?t.description:'준비 중이에요.'})]);
+    button.setAttribute('aria-label',`${t.name}${t.ready?'':' (준비 중)'}${t.id===current?' (지금 탐험 중)':''}`);return button;})),
+   actions([['닫기',()=>dialog.close()]])],'chapter-theme-dialog');
+ }
+ if(!themeStore.read()&&themes.filter(t=>t.ready).length>1)openThemes();
  // Back from a finished web: show the chapter's end again, now with the way on.
  const webDone=()=>{if(getState().chapter.cleared&&!document.querySelector('dialog[open]'))openClear();};
  return {render,resume,caughtMessage,webDone,spent,reset:()=>{shownClear=null;careKey='';shopKey='';lastSeeds=0;pairMemory={};formedShown=new Set();layer.replaceChildren();}};

@@ -11,7 +11,7 @@ const launch=process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH
  const manifest=await p.evaluate(async()=>{const link=document.querySelector('link[rel=manifest]');const m=await (await fetch(link.href)).json();
   const icons=await Promise.all(m.icons.map(i=>new Promise(done=>{const img=new Image();img.onload=()=>done({...i,w:img.naturalWidth,h:img.naturalHeight});img.onerror=()=>done({...i,w:0});img.src=new URL(i.src,link.href);})));
   return {...m,icons,start:new URL(m.start_url,link.href).href};});
- assert.equal(manifest.name,'작은 숲 연구소');assert.equal(manifest.display,'fullscreen');assert.equal(manifest.orientation,'landscape');
+ assert.equal(manifest.name,'생태계 연구소');assert.equal(manifest.display,'fullscreen');assert.equal(manifest.orientation,'landscape');
  assert.equal(manifest.start,base,'opens the chapter game');
  for(const i of manifest.icons)assert.equal(`${i.w}x${i.h}`,i.sizes,i.src+' loads at its size');
  assert.ok(manifest.icons.some(i=>i.purpose==='maskable'&&i.sizes==='512x512')&&manifest.icons.some(i=>i.sizes==='192x192'&&!i.purpose));
