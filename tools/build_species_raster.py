@@ -21,6 +21,9 @@ SOURCES = {
     # 2026-11-04 river pond batch (artwork/2026-11-04/river-pond-wetland-batch1).
     'river-pond-wetland-batch1': ['algae', 'duckweed', 'water-lily', 'cattail', 'daphnia', 'medaka', 'pond-snail', 'water-strider',
                                   'diving-beetle', 'catfish', 'frog-tadpole', 'bullfrog', 'red-swamp-crayfish'],
+    # 2026-11-04 river upstream batch (artwork/2026-11-04/river-upstream-batch2), named by species id.
+    'river-upstream-batch2': ['stone-diatom', 'water-dropwort', 'pussy-willow', 'caddisfly-larva', 'melania-snail', 'amphipod',
+                              'minnow', 'native-crayfish', 'korean-catfish', 'aucha-perch', 'water-decomposer'],
 }
 # A delivered file named other than its species id (the river batch's names).
 FILES = {'algae': 'algae-filament', 'daphnia': 'water-flea', 'medaka': 'killifish', 'pond-snail': 'snail-pond',

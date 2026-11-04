@@ -1577,6 +1577,248 @@
     174
    ],
    "bytes": 14752
+  },
+  "stone-diatom": {
+   "file": "stone-diatom.webp",
+   "source": "river-upstream-batch2/stone-diatom.png",
+   "sourceSha256": "aca7ebb62418efaa228706cfea71a1c81d8a7c667fe36da635a72513f0e7e84c",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    236,
+    230,
+    1212,
+    994
+   ],
+   "placedBox": [
+    22,
+    8,
+    234,
+    174
+   ],
+   "bytes": 12286
+  },
+  "water-dropwort": {
+   "file": "water-dropwort.webp",
+   "source": "river-upstream-batch2/water-dropwort.png",
+   "sourceSha256": "d34a50235fc2f0f22207a6c02564b5a13479ef49add5b9aa7ad8f7d7d24ab941",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    411,
+    124,
+    1038,
+    994
+   ],
+   "placedBox": [
+    68,
+    8,
+    188,
+    174
+   ],
+   "bytes": 12084
+  },
+  "pussy-willow": {
+   "file": "pussy-willow.webp",
+   "source": "river-upstream-batch2/pussy-willow.png",
+   "sourceSha256": "bcc36926d2765d11201f55ea319a435c8b569a19b49d8aacbadc28f7ca44ef2e",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    121,
+    204,
+    1327,
+    994
+   ],
+   "placedBox": [
+    8,
+    17,
+    248,
+    174
+   ],
+   "bytes": 17382
+  },
+  "caddisfly-larva": {
+   "file": "caddisfly-larva.webp",
+   "source": "river-upstream-batch2/caddisfly-larva.png",
+   "sourceSha256": "007faf4259fe0208d93406dfe73e92362abc9450ffd40829f5d5a331e8a34394",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    135,
+    638,
+    1313,
+    994
+   ],
+   "placedBox": [
+    8,
+    101,
+    248,
+    174
+   ],
+   "bytes": 7896
+  },
+  "melania-snail": {
+   "file": "melania-snail.webp",
+   "source": "river-upstream-batch2/melania-snail.png",
+   "sourceSha256": "e1bc787050d0d3cb85badbf04ed474fd5695dc8966010a9d8f9ca28fccc85af2",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    419,
+    126,
+    1030,
+    995
+   ],
+   "placedBox": [
+    69,
+    8,
+    186,
+    174
+   ],
+   "bytes": 5552
+  },
+  "amphipod": {
+   "file": "amphipod.webp",
+   "source": "river-upstream-batch2/amphipod.png",
+   "sourceSha256": "3539156a1f0ae412f2751e7c95c40ab1c4fcd440a517d71b3d6387b6d31bb792",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    160,
+    408,
+    1289,
+    994
+   ],
+   "placedBox": [
+    8,
+    49,
+    248,
+    174
+   ],
+   "bytes": 12000
+  },
+  "minnow": {
+   "file": "minnow.webp",
+   "source": "river-upstream-batch2/minnow.png",
+   "sourceSha256": "f943877e4231236828aa8e6964a2dd4533064e37acf1c3478ee121e2e046f111",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    81,
+    668,
+    1367,
+    994
+   ],
+   "placedBox": [
+    8,
+    113,
+    248,
+    174
+   ],
+   "bytes": 5950
+  },
+  "native-crayfish": {
+   "file": "native-crayfish.webp",
+   "source": "river-upstream-batch2/native-crayfish.png",
+   "sourceSha256": "49c524b9ed49a66789d7f1bd450097857d4035e8e5671e846ed66716e3c8b67a",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    90,
+    395,
+    1358,
+    995
+   ],
+   "placedBox": [
+    8,
+    60,
+    248,
+    174
+   ],
+   "bytes": 11268
+  },
+  "korean-catfish": {
+   "file": "korean-catfish.webp",
+   "source": "river-upstream-batch2/korean-catfish.png",
+   "sourceSha256": "5a2a73b9b53f10806ebc84108b780bab86b10d67ce2114dd87836ab91fbe325d",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    179,
+    814,
+    1269,
+    995
+   ],
+   "placedBox": [
+    8,
+    134,
+    248,
+    174
+   ],
+   "bytes": 5216
+  },
+  "aucha-perch": {
+   "file": "aucha-perch.webp",
+   "source": "river-upstream-batch2/aucha-perch.png",
+   "sourceSha256": "98a0f9cf32f20e1b3cc3b9321178ff6e3aa2441960f4c003fde6b53b591fd2c0",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    90,
+    407,
+    1359,
+    995
+   ],
+   "placedBox": [
+    8,
+    63,
+    248,
+    174
+   ],
+   "bytes": 8668
+  },
+  "water-decomposer": {
+   "file": "water-decomposer.webp",
+   "source": "river-upstream-batch2/water-decomposer.png",
+   "sourceSha256": "3e3a3f006accfe8355613973d871e3f4ff989dbf4b7f022a82d70935fee79e18",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    90,
+    413,
+    1358,
+    994
+   ],
+   "placedBox": [
+    8,
+    64,
+    248,
+    174
+   ],
+   "bytes": 9522
   }
  },
  "stages": {

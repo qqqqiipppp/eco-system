@@ -11,6 +11,9 @@ export const rasterSpecies=new Set([
  // The river pond (data/river.js), 2026-11-04.
  'algae','duckweed','water-lily','cattail','daphnia','medaka','pond-snail','water-strider',
  'diving-beetle','catfish','frog-tadpole','bullfrog','red-swamp-crayfish',
+ // The river upstream, and the water decomposer shared by every river chapter.
+ 'stone-diatom','water-dropwort','pussy-willow','caddisfly-larva','melania-snail','amphipod',
+ 'minnow','native-crayfish','korean-catfish','aucha-perch','water-decomposer',
 ]);
 export const rasterAsset=id=>`./assets/images/species-raster/${id}.webp`;
 // Painted motion frames and growth-stage pictures come from the generated
