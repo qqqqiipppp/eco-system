@@ -57,7 +57,6 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
  const status=element('p',{className:'chapter-status'});status.setAttribute('aria-live','polite');
  const care=element('div',{className:'chapter-care'});
  const mapButton=element('button',{type:'button',textContent:'탐험 지도',onclick:()=>openMap()});
- const themeButton=element('button',{type:'button',textContent:'생태계 바꾸기',onclick:()=>openThemes()});
  const adminButton=element('button',{type:'button',onclick:()=>{if(admin.isOn()){admin.set(false);renderAdmin();notify('관리자 모드를 껐어요.',true);}else openAdmin();}});
  const webButton=element('button',{type:'button',textContent:'나의 먹이그물',onclick:()=>openWeb(stageById[getState().chapter.stageId].chapter.number)});
  const restartButton=element('button',{type:'button',textContent:'이 스테이지 처음부터',onclick:()=>openRestart()});
@@ -75,8 +74,11 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
  // The menu holds every other button (they keep their own handlers).
  const header=document.querySelector('.app-header'),namesToggle=forest.querySelector('#names-toggle');
  const menuButton=element('button',{type:'button',className:'chapter-menu-button',textContent:'☰ 메뉴'});
- const fullscreen=fullscreenButton();
- const menu=element('div',{className:'chapter-menu',id:'chapter-menu',hidden:true},[mapButton,themeButton,webButton,recordButton,restartButton,element('hr'),...(fullscreen?[fullscreen]:[]),header.querySelector('.header-actions'),...(namesToggle?[namesToggle]:[]),element('hr'),adminButton]);
+ // 전체 화면 sits outside the menu, next to it. 생태계 바꾸기 is on the 탐험 지도
+ // and the reference 먹이그물 inside 나의 먹이그물, so neither is in the menu.
+ const fullscreen=fullscreenButton();fullscreen?.classList.add('chapter-screen-button');
+ for(const id of ['web-open','population-open'])header.querySelector('#'+id)?.setAttribute('hidden','');
+ const menu=element('div',{className:'chapter-menu',id:'chapter-menu',hidden:true},[mapButton,webButton,recordButton,restartButton,element('hr'),header.querySelector('.header-actions'),...(namesToggle?[namesToggle]:[]),element('hr'),adminButton]);
  menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-controls','chapter-menu');
  const setMenu=open=>{menu.hidden=!open;menuButton.setAttribute('aria-expanded',String(open));};
  menuButton.addEventListener('click',()=>setMenu(menu.hidden));
@@ -84,7 +86,7 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
  document.addEventListener('click',event=>{if(!menu.hidden&&!event.target.closest('.chapter-menu-wrap'))setMenu(false);});
  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!menu.hidden){setMenu(false);menuButton.focus();}});
  header.querySelector('.brand').after(document.querySelector('.dashboard'));
- header.append(element('div',{className:'chapter-menu-wrap'},[menuButton,menu]));
+ header.append(...(fullscreen?[fullscreen]:[]),element('div',{className:'chapter-menu-wrap'},[menuButton,menu]));
  // Messages read where the student already looks: in place of the status line.
  const feedback=document.querySelector('#placement-feedback');if(feedback)status.after(feedback);
  // Points next to the shop, so "what can I buy" is one glance.
@@ -472,7 +474,7 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
      button.setAttribute('aria-label',`${stage.stageId} ${stage.title}${state==='done'?' 완료':state==='locked'?' 잠김':''}`);button.title=`${stage.stageId} ${stage.title}`;
      return element('li',{},[button,element('span',{textContent:stage.title})]);})),
    ]);
-  })),actions([['닫기',()=>dialog.close()]])],'chapter-map-dialog');
+  })),actions([['생태계 바꾸기',()=>openThemes()],['닫기',()=>dialog.close()]])],'chapter-map-dialog');
  }
  // 관리자 모드 (the teacher's number) opens every stage on the 탐험 지도. The
  // source is public: only the number's SHA-256 is kept here, never the number.

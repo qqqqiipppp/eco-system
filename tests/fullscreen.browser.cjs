@@ -15,16 +15,16 @@ const launch=process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH
  assert.equal(manifest.start,base,'opens the chapter game');
  for(const i of manifest.icons)assert.equal(`${i.w}x${i.h}`,i.sizes,i.src+' loads at its size');
  assert.ok(manifest.icons.some(i=>i.purpose==='maskable'&&i.sizes==='512x512')&&manifest.icons.some(i=>i.sizes==='192x192'&&!i.purpose));
- // In a tab: the menu button goes full screen and back.
+ // In a tab: the button next to the menu goes full screen and back.
  await p.evaluate(()=>document.querySelectorAll('dialog[open]').forEach(d=>d.close()));
- await p.locator('.chapter-menu-button').click();
- const button=p.locator('.chapter-menu button',{hasText:/^전체 화면$/});assert.equal(await button.count(),1);
+ assert.equal(await p.locator('.chapter-menu button',{hasText:'전체 화면'}).count(),0,'not inside the menu');
+ const button=p.locator('.app-header > .chapter-screen-button');assert.equal(await button.textContent(),'전체 화면');
  await button.click();await p.waitForFunction(()=>Boolean(document.fullscreenElement));
- await p.locator('.chapter-menu-button').click();await p.locator('.chapter-menu button',{hasText:'전체 화면 끝내기'}).click();
- await p.waitForFunction(()=>!document.fullscreenElement);
+ assert.equal(await button.textContent(),'전체 화면 끝내기');
+ await button.click();await p.waitForFunction(()=>!document.fullscreenElement);await p.waitForFunction(()=>document.querySelector('.chapter-screen-button').textContent==='전체 화면');
  // Opened from the home screen (already full screen): no button.
  const app=await b.newPage();await app.addInitScript(()=>{const real=matchMedia.bind(window);window.matchMedia=q=>q==='(display-mode: fullscreen)'?{matches:true,media:q,addEventListener(){},removeEventListener(){}}:real(q);});
  await app.goto(base);await app.waitForSelector('.chapter-hud');
- assert.equal(await app.locator('.chapter-menu button',{hasText:'전체 화면'}).count(),0);
+ assert.equal(await app.locator('.chapter-screen-button').count(),0);
  assert.deepEqual(errors,[]);await b.close();console.log('PASS fullscreen');
 })().catch(e=>{console.error(e);process.exit(1);});

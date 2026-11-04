@@ -12,7 +12,7 @@ const closeDialogs=p=>p.evaluate(()=>document.querySelectorAll('dialog[open]').f
  p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
  await p.goto(base);await p.evaluate(()=>{localStorage.clear();localStorage.setItem('eco-system:admin','on');});
  await p.reload();await p.waitForSelector('.chapter-hud');await closeDialogs(p);
- await menu(p,'생태계 바꾸기');await p.waitForSelector('.chapter-theme-dialog[open]');
+ await menu(p,'탐험 지도');await p.locator('.chapter-map-dialog button',{hasText:'생태계 바꾸기'}).click();await p.waitForSelector('.chapter-theme-dialog[open]');
  const river=p.locator('.theme-card',{hasText:'강'});
  assert.equal(await river.isDisabled(),false,'관리자 모드 can try the river');assert.match(await river.textContent(),/관리자 모드/);
  await Promise.all([p.waitForEvent('load'),river.click()]);
