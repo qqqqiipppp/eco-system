@@ -19,15 +19,17 @@ import {ecologySeconds,ecologyRate,scaleFields} from './pacing-config.js';
 import {survivalConfig} from './survival-config.js';
 
 // Living spaces on the river picture (2400 x 940, assets/images/backgrounds):
-// the waterline at y 423 (.45), the riverbed band from y 799 (.85), the bank
-// slope from x 1776 (.74). A position is where the organism's feet or base is.
+// the waterline at y 423 (.45), the riverbed band from y 799 (.85). The bank
+// slopes from the waterline at x 1776 (.74) down-left to x 1500 (.63) at the
+// bottom, so the land widens with depth; underwater spaces stay left of it.
+// A position is where the organism's feet or base is.
 // Spaces overlap where an animal meets its food: small algae grow low in the
 // water just above the bed, where both water animals and bed animals reach them.
 export const riverZones = {
   surface: {left: .2, right: .72, top: .22, bottom: .43},
-  water: {left: .04, right: .72, top: .56, bottom: .88},
-  algae: {left: .04, right: .72, top: .83, bottom: .88},
-  bottom: {left: .04, right: .72, top: .83, bottom: .95},
+  water: {left: .04, right: .6, top: .56, bottom: .88},
+  algae: {left: .04, right: .6, top: .83, bottom: .88},
+  bottom: {left: .04, right: .6, top: .83, bottom: .95},
   shore: {left: .74, right: .96, top: .3, bottom: .6},
 };
 const riverHabitatZones = {surface: '수면', water: '물속', algae: '물 바닥 가까운 물속', bottom: '물 바닥', shore: '물가'};
@@ -108,8 +110,8 @@ export const riverChapters = [
       goal: '물 위에는 개구리밥과 수련, 소금쟁이가 살고 물 바닥에는 논우렁이가 살아요. 논우렁이를 길러 강 별 3개를 모아요.',
       tasks: [{text: '논우렁이 기르기', have: 'pond-snail'}, {text: '소금쟁이 놓기', have: 'water-strider'}],
       inventory: ['algae', 'duckweed', 'water-lily', 'daphnia', 'medaka', 'pond-snail', 'water-strider'], requiredSpecies: {daphnia: 2, medaka: 1, 'pond-snail': 1},
-      organisms: [['algae', .14, .85], ['algae', .3, .86], ['algae', .5, .85], ['algae', .64, .86], ['duckweed', .3, .3], ['water-lily', .5, .36],
-        ['daphnia', .24, .66], ['daphnia', .36, .74], ['daphnia', .48, .7], ['medaka', .6, .64]]},
+      organisms: [['algae', .14, .85], ['algae', .3, .86], ['algae', .5, .85], ['algae', .58, .86], ['duckweed', .3, .3], ['water-lily', .5, .36],
+        ['daphnia', .24, .66], ['daphnia', .36, .74], ['daphnia', .48, .7], ['medaka', .54, .62]]},
   ]},
 ];
 
