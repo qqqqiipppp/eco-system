@@ -8,7 +8,7 @@ import {rasterSpecies,rasterAsset,rasterFrames,rasterFrameAsset,rasterStages,ras
 export const visualStates=Object.freeze(Object.fromEntries(Object.values(organismById).map(s=>[s.id,
  s.role==='producer'?['idle','growth','leaf-turn']:s.role==='decomposer'?['idle','active']:s.id==='earthworm'?['covered','surface','covered-eat','eat']:['idle','move','eat']])));
 const variantOf=(id,stage)=>id==='grass'&&stage==='sprout'?'sprout-':id==='grasshopper'&&stage==='nymph'?'nymph-':id==='mushroom'&&stage==='mycelium'?'mycelium-':'';
-export const svgAsset=(id,state=id==='earthworm'?'surface':visualStates[id][0],frame=0,stage)=>`./assets/images/species/${id}.svg#${variantOf(id,stage)}${state}-${frame}`;
+export const svgAsset=(id,state=id==='earthworm'?'surface':visualStates[id]?.[0]??'idle',frame=0,stage)=>`./assets/images/species/${id}.svg#${variantOf(id,stage)}${state}-${frame}`;
 // Which painted set a picture comes from: the species, or "id:stage" for a
 // growth stage that has its own drawing (otherwise the stage is CSS-scaled).
 export const frameKey=(id,stage)=>variantOf(id,stage)?id+':'+stage:id;

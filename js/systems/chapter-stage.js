@@ -14,7 +14,7 @@ import {stageConfig as config,stageById,crises,crisisForFactor,breeding} from '.
 // A fresh stage forest. Chapter mode never writes the regular forest save.
 export function createStageGameState(stage) {
   const s = createGameState();
-  s.organisms = stage.organisms.map(([id, x], i) => createOrganismInstance(id, `${stage.stageId}-${id}-${i + 1}`, {x, y: .72}));
+  s.organisms = stage.organisms.map(([id, x, y = .72], i) => createOrganismInstance(id, `${stage.stageId}-${id}-${i + 1}`, {x, y}));
   s.nextInstanceSequence = s.organisms.length + 1;
   s.inventory.forEach(card => card.acquired = stage.inventory.includes(card.speciesId));
   const ids = [...new Set(s.organisms.map(o => o.speciesId))];

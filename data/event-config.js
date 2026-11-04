@@ -16,14 +16,15 @@ export const discoveryEvents = {};
 export function addDiscoveryEvent(relation){
 
   const food=organismById[relation.sourceSpeciesId],consumer=organismById[relation.targetSpeciesId];
-  const meal=relation.feedingMode==='resource'?`${food.name}의 ${foodPartLabels[relation.foodPart]}`:food.name;
+  const part=relation.feedingMode==='resource'&&foodPartLabels[relation.foodPart],meal=part?`${food.name}의 ${part}`:food.name;
   discoveryEvents[relation.relationId]={foodSpeciesId:food.id,consumerSpeciesId:consumer.id,
     title:`${consumer.name}의 먹이 발견: ${meal}${relation.evidenceLevel==='B'?' (단순화)':''}`,message:mealSentence(relation),
-    explanation:`${evidenceText(relation.evidenceLevel)} 먹이 → 먹는 생물: ${food.name} → ${consumer.name}. ${relation.feedingMode==='resource'?'식물은 그대로 있고 '+foodPartLabels[relation.foodPart]+' 먹이가 줄었어요.':'동물 한 마리가 먹혀 숲의 개체 수가 줄었어요.'}`};
+    explanation:`${evidenceText(relation.evidenceLevel)} 먹이 → 먹는 생물: ${food.name} → ${consumer.name}. ${part?'식물은 그대로 있고 '+part+' 먹이가 줄었어요.':relation.feedingMode==='resource'?food.name+'의 양이 줄었어요.':'동물 한 마리가 먹혀 숲의 개체 수가 줄었어요.'}`};
 }
 for(const relation of foodRelations)addDiscoveryEvent(relation);
-for(const speciesId of Object.keys(feedingConfig)){
-  if(shortageEvents[speciesId])continue;
+for(const speciesId of Object.keys(feedingConfig))addShortageEvent(speciesId);
+export function addShortageEvent(speciesId){
+  if(shortageEvents[speciesId])return;
   const species=organismById[speciesId];
   const foods=foodRelations.filter(edge=>edge.targetSpeciesId===speciesId).map(edge=>organismById[edge.sourceSpeciesId].name);
   shortageEvents[speciesId]={title:`${species.name}가 먹이를 찾기 어려워해요`,message:'한동안 이용할 수 있는 먹이를 찾지 못했어요.',explanation:`${foods.length?'먹이는 '+foods.join('·')+'예요.':'먹이그물에서 먹는 것을 확인해요.'} 숲에 먹이가 있는지, 먹을 만큼 남았는지 살펴봐요. 먹이와의 거리도 중요해요.`};

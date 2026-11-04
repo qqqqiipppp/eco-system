@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 940" width="2400" height="940"><title>연못·습지 임시 배경 (강-배치-가이드와 같은 선)</title>
+<defs><linearGradient id="w" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7fb3a4"/><stop offset="1" stop-color="#4f8a7a"/></linearGradient>
+<linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe6e0"/><stop offset="1" stop-color="#9fcac0"/></linearGradient></defs>
+<rect width="2400" height="940" fill="#9fcac0"/>
+<polygon points="0,0 1980,0 1776,423 0,423" fill="url(#s)"/>
+<polygon points="0,0 720,0 0,423" fill="#e3f1f7"/>
+<polygon points="1980,0 2400,0 2400,423 1776,423" fill="#b9c48a"/>
+<rect y="423" width="2400" height="517" fill="url(#w)"/>
+<rect y="799" width="2400" height="141" fill="#6b5a3f"/>
+<polygon points="1776,423 2400,423 2400,940 2112,940" fill="#8a6f4b"/>
+<polygon points="1840,423 2400,423 2400,480 1875,480" fill="#a08158"/>
+<g fill="none" stroke="#ffffff" stroke-opacity=".45" stroke-width="4"><path d="M300 330q40-8 80 0M900 250q50-10 100 0M1300 360q40-8 80 0M600 180q30-6 60 0"/></g>
+<g fill="#5a4a33" opacity=".7"><ellipse cx="380" cy="880" rx="60" ry="18"/><ellipse cx="1150" cy="900" rx="80" ry="20"/><ellipse cx="1600" cy="870" rx="50" ry="14"/></g>
+<g fill="#7e6c4c" opacity=".8"><path d="M700 850l40-12 30 14-36 10z"/><path d="M1400 880l36-10 26 12-30 8z"/></g>
+<line x1="0" y1="423" x2="1776" y2="423" stroke="#e8f6f2" stroke-width="5"/>
+</svg>

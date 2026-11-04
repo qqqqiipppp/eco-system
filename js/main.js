@@ -33,6 +33,7 @@ import { createWanderSystem } from './systems/wander.js';
 import { createUpdateLoop } from './systems/update-loop.js';
 import { speciesProfiles } from '../data/interaction-config.js';
 import {useChapterEcology} from '../data/chapter-ecology.js';
+import {useRiverTheme} from '../data/river.js';
 import { createFeedingSystem } from './systems/feeding.js';
 import { foodResourceConfig } from '../data/ecology-config.js';
 import { growthSuitability, animalActivity } from './systems/environment.js';
@@ -57,9 +58,11 @@ import {capForestAspect} from './ui/forest-aspect.js';
 // Chapter mode is what opens first; ?mode=forest is the regular forest. Chapter
 // mode plays short stages and leaves the regular forest save untouched.
 const chapterMode=new URLSearchParams(location.search).get('mode')!=='forest';
-if(chapterMode)useChapterEcology();
-// The ecosystem being explored (숲 or 강); the forest until another is ready and chosen.
-const themeStore=createThemeAdapter(),theme=themeById[themeStore.read()]?.ready?themeStore.read():'forest';
+// The ecosystem being explored (숲 or 강); the forest until another is ready and
+// chosen. 관리자 모드 can already open one still being made, to try it.
+const admin=createAdminAdapter(),themeStore=createThemeAdapter(),stored=themeById[themeStore.read()];
+const theme=stored&&(stored.ready||admin.isOn())?stored.id:'forest';
+if(chapterMode){if(theme==='river')useRiverTheme();else useChapterEcology();}
 const chapterProgress=chapterMode?createChapterProgressAdapter(undefined,theme):null;
 export const gameState = createGameState();
 export const saveService = createSaveService({adapter:chapterMode?createNoSaveAdapter():createLocalAdapter(),getState:()=>gameState,getEventMemory:()=>eventSystem.exportMemory(),onStatus:showSaveStatus});
@@ -71,7 +74,7 @@ const stageSave=chapterMode?createChapterStageAdapter(undefined,theme):null;
 const resumable=stageSave?.read(id=>Boolean(stageById[id])&&!chapterProgress.cleared().includes(id))||null;
 if(chapterMode)Object.assign(gameState,resumable?resumable.state:createStageGameState(stages.find(s=>!chapterProgress.cleared().includes(s.stageId))||stages[0]));
 // The fallen log is part of the scene from chapter 3 on; set before organisms are placed.
-const setScene=s=>{sceneSpaces.log=Boolean(s.chapter&&stageById[s.chapter.stageId].chapter.number>=3);};
+const setScene=s=>{sceneSpaces.log=Boolean(theme==='forest'&&s.chapter&&stageById[s.chapter.stageId].chapter.number>=3);};
 setScene(gameState);
 export let feedingSystem = createFeedingSystem(gameState.simulationTime);
 export let eventSystem = createEventSystem(gameState.simulationTime,resumable?.eventMemory??restored.eventMemory);
@@ -104,7 +107,7 @@ try {
     document.body.classList.add('chapter-mode');
     const webView=createChapterWebView(chapterProgress,{onComplete:()=>chapterView.webDone(),onGuide:id=>collectionView.openGuide(id,null)});
     const recordView=createChapterRecordView(chapterProgress,{currentStageId:()=>gameState.chapter.stageId,openWeb:n=>webView.open(n)});
-    chapterView=createChapterView(()=>gameState,{forest,theme,themeStore,admin:createAdminAdapter(),notify:(text,ok)=>important(text,ok),cleared:()=>chapterProgress.cleared(),openWeb:n=>webView.open(n),webComplete:n=>webView.isComplete(n),openRecord:()=>recordView.open(),reflections:()=>chapterProgress.read().reflections,onReflect:entry=>chapterProgress.addReflection(entry),onCatch:catchStageObservation,onCollect:collectStageTrash,onPrepare:prepareStage,onStage:id=>{stageSave.remove();installForest(createStageGameState(stageById[id]));},onRestart:()=>{stageSave.remove();installForest(createStageGameState(stageById[gameState.chapter.stageId]));},onCare:careStageEnvironment,onExit:()=>{location.search='?mode=forest';}});
+    chapterView=createChapterView(()=>gameState,{forest,theme,themeStore,admin,notify:(text,ok)=>important(text,ok),cleared:()=>chapterProgress.cleared(),openWeb:n=>webView.open(n),webComplete:n=>webView.isComplete(n),openRecord:()=>recordView.open(),reflections:()=>chapterProgress.read().reflections,onReflect:entry=>chapterProgress.addReflection(entry),onCatch:catchStageObservation,onCollect:collectStageTrash,onPrepare:prepareStage,onStage:id=>{stageSave.remove();installForest(createStageGameState(stageById[id]));},onRestart:()=>{stageSave.remove();installForest(createStageGameState(stageById[gameState.chapter.stageId]));},onCare:careStageEnvironment,onExit:()=>{location.search='?mode=forest';}});
   }else{
     const chapterButton=document.createElement('button');chapterButton.id='chapter-open';chapterButton.type='button';chapterButton.textContent='챕터 모드';
     chapterButton.addEventListener('click',()=>{location.href=location.pathname;});document.querySelector('.header-actions').append(chapterButton);

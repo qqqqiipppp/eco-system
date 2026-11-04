@@ -8,7 +8,7 @@ export function particle(word,withFinal,withoutFinal){
 }
 export function mealName(relation){
  const food=organismById[relation.sourceSpeciesId].name;
- if(relation.feedingMode!=='resource')return food;
+ if(relation.feedingMode!=='resource'||!foodPartLabels[relation.foodPart])return food;
  return food+(relation.foodPart==='acorn'?'의 ':' ')+foodPartLabels[relation.foodPart];
 }
 export function mealSentence(relation){
