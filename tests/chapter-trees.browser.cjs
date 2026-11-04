@@ -29,7 +29,5 @@ const launch=process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH
  const chip=await p.evaluate(()=>{const c=document.querySelector('.organism-object[data-species-id="chipmunk"]'),oak=document.querySelector('.organism-object[data-species-id="oak"]'),r=c.querySelector('img').getBoundingClientRect(),o=oak.querySelector('img').getBoundingClientRect();
   return {anchor:c.dataset.anchorId,front:Number(c.style.zIndex)>Number(oak.style.zIndex),dx:Math.abs((r.left+r.right)/2-(o.left+o.right)/2)/o.width};});
  assert.match(chip.anchor,/^producer:.*oak/);assert.ok(chip.front,'in front of its tree');assert.ok(chip.dx<.2,`on the trunk (${chip.dx.toFixed(2)} of the tree's width off)`);
- const f=await b.newPage({viewport:{width:1280,height:800}});await f.goto(base+'?mode=forest');
- assert.equal(await f.evaluate(async()=>(await import('./data/interaction-config.js')).speciesProfiles.hazel.height),60,'forest mode keeps its sizes');
  assert.deepEqual(errors,[]);await b.close();console.log('PASS grown trees');
 })().catch(e=>{console.error(e.message);process.exit(1);});

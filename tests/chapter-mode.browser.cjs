@@ -20,18 +20,10 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
  for(const viewport of [{width:1280,height:800},{width:960,height:600}]){
   const p=await browser.newPage({viewport,hasTouch:true}),errors=[];
   p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
-  // Chapter mode opens first; the regular forest is ?mode=forest.
+  // Chapter mode is the game: the old free forest (?mode=forest) is retired.
+  await p.goto(base+'?mode=forest');await p.waitForSelector('.chapter-hud');
+  assert.equal(await p.locator('#chapter-open').count(),0,'no way into the old forest');
   await p.goto(base);await p.waitForSelector('.chapter-hud');
-  await p.goto(base+'?mode=forest');await p.waitForSelector('#chapter-open');
-  assert.equal(await p.locator('.chapter-hud').count(),0,'regular forest has no stage HUD');
-  await p.evaluate(()=>document.querySelectorAll('dialog[open]').forEach(d=>d.close()));
-  await p.waitForTimeout(1500);
-
-  await p.locator('#chapter-open').click();await p.waitForSelector('.chapter-hud');
-  // Leaving the regular forest flushes its own save, so record it from here.
-  const forestSave=await p.evaluate(()=>localStorage.getItem('eco-system:forest-save'));
-  assert(forestSave,'regular forest had saved before chapter mode');
-  assert.doesNotMatch(p.url(),/mode=forest/);
   // Chapter 1 opens with its news card instead of the regular help dialog.
   await p.waitForSelector('.chapter-dialog[open]');
   const intro=await p.locator('.chapter-dialog[open]').textContent();
@@ -118,7 +110,7 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
 
   await p.reload();await p.waitForSelector('.chapter-hud');
   assert.match(await p.locator('.chapter-title h2').textContent(),/1-2/,'reload resumes at the first uncleared stage');
-  assert.equal(await p.evaluate(()=>localStorage.getItem('eco-system:forest-save')),forestSave,'regular forest save untouched');
+  assert.equal(await p.evaluate(()=>localStorage.getItem('eco-system:forest-save')),null,'chapter mode never writes the old forest save');
 
   // Finishing a chapter announces the next chapter's animals and crisis.
   await p.evaluate(()=>localStorage.setItem('eco-system:chapter-progress',JSON.stringify({cleared:['1-1','1-2']})));
@@ -210,11 +202,9 @@ async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p
   await menu(p,'탐험 지도');await p.waitForSelector('.chapter-map-dialog[open]');
   if(shots)await p.screenshot({path:`${shots}/chapter-${viewport.width}-map.png`});
   await p.locator('.chapter-dialog[open] button',{hasText:'닫기'}).click();
-  // The old free forest is for the teacher (관리자 모드) only.
-  assert.ok(await p.locator('#chapter-menu button',{hasText:'기존 숲으로'}).isHidden());
-  await p.evaluate(()=>localStorage.setItem('eco-system:admin','on'));await p.reload();await p.waitForSelector('.chapter-hud');await p.evaluate(()=>document.querySelectorAll('dialog[open]').forEach(d=>d.close()));
-  await menu(p,'기존 숲으로');await p.waitForSelector('#chapter-open');
-  assert.equal(await p.locator('.chapter-hud').count(),0);
+  // No way back to the old free forest, not even in 관리자 모드.
+  await p.evaluate(()=>localStorage.setItem('eco-system:admin','on'));await p.reload();await p.waitForSelector('.chapter-hud');
+  assert.equal(await p.locator('#chapter-menu button',{hasText:'기존 숲'}).count(),0);
   assert.deepEqual(errors,[],errors.join('\n'));
   await p.evaluate(()=>{localStorage.removeItem('eco-system:chapter-progress');});
   await p.close();console.log(`PASS chapter mode ${viewport.width}x${viewport.height}`);
