@@ -42,7 +42,7 @@ for(const id of stillSpecies)test(id+': stands still, one frame per state, while
  assert.deepEqual([...seen],['idle-0']);
 });
 test('painted sprites: every species has one; growth stages use their painted picture',()=>{
- assert.equal(rasterSpecies.size,24);
+ assert.equal(rasterSpecies.size,24+13,'24 forest + 13 river pond');
  for(const id of rasterSpecies){assert(existsSync(new URL('../assets/images/species-raster/'+id+'.webp',import.meta.url)),id);assert.equal(visualAsset(id,'idle',1),'./assets/images/species-raster/'+id+'.webp');}
  assert.equal(visualAsset('rabbit','idle',0,'baby'),'./assets/images/species-raster/rabbit.webp','baby rabbit: same picture, scaled by CSS');
  for(const [id,stage] of [['grass','sprout'],['mushroom','mycelium']])assert.equal(visualAsset(id,'idle',0,stage),`./assets/images/species-raster/${id}-${stage}.webp`,`${id} ${stage}: painted since motion-04`);
