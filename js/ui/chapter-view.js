@@ -147,13 +147,17 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
  const chimney=element('img',{className:'forest-chimney',src:'./assets/images/backgrounds/chimney.svg',alt:'멀리 보이는 공장 굴뚝',hidden:true});
  forest.querySelector('.forest-art')?.after(chimney,pond,nursery,log,litter);
  function renderPond(s){
-  const show=stageById[s.chapter.stageId].chapter.number>=2;if(pond.hidden===show)pond.hidden=!show;if(!show)return;
+  const show=theme==='forest'&&stageById[s.chapter.stageId].chapter.number>=2;if(pond.hidden===show)pond.hidden=!show;if(!show)return;
   const water=factorValue(s.environment,'water'),scale=(.4+.6*water).toFixed(2);
   if(pond.style.getPropertyValue('--pond')!==scale)pond.style.setProperty('--pond',scale);
   const dry=String(water<.4);if(pond.dataset.dry!==dry)pond.dataset.dry=dry;
  }
+ // Another ecosystem's chapter brings its own picture and none of the forest's objects.
+ const art=forest.querySelector('.forest-art');
  function renderScene(s){
-  const number=stageById[s.chapter.stageId].chapter.number,c=s.chapter,event=currentEnvironmentEvent(s);
+  const chapter=stageById[s.chapter.stageId].chapter;
+  if(chapter.art){if(art&&art.getAttribute('src')!==chapter.art.src){Object.assign(art,chapter.art);const soil=forest.querySelector('.soil-label');if(soil)soil.hidden=true;}return;}
+  const number=chapter.number,c=s.chapter,event=currentEnvironmentEvent(s);
   if(log.hidden!==(number<3))log.hidden=number<3;
   if(litter.hidden!==(number<3))litter.hidden=number<3;
   if(number>=3){
@@ -495,8 +499,8 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
   const current=theme;
   show([element('h2',{textContent:'어떤 생태계를 탐험할까요?'}),element('p',{textContent:'생태계마다 깬 스테이지가 따로 남아요.'}),
    element('div',{className:'theme-list'},themes.map(t=>{
-    const button=element('button',{type:'button',className:`theme-card${t.id===current?' current':''}`,disabled:!t.ready,onclick:()=>{themeStore.set(t.id);dialog.close();if(t.id!==current)location.reload();}},
-     [element('span',{className:'theme-icon',textContent:t.icon}),element('strong',{textContent:t.name}),element('span',{className:'theme-note',textContent:t.ready?t.description:'준비 중이에요.'})]);
+    const button=element('button',{type:'button',className:`theme-card${t.id===current?' current':''}`,disabled:!(t.ready||admin.isOn()),onclick:()=>{themeStore.set(t.id);dialog.close();if(t.id!==current)location.reload();}},
+     [element('span',{className:'theme-icon',textContent:t.icon}),element('strong',{textContent:t.name}),element('span',{className:'theme-note',textContent:t.ready?t.description:admin.isOn()?'준비 중이에요. 관리자 모드에서 미리 해 볼 수 있어요.':'준비 중이에요.'})]);
     button.setAttribute('aria-label',`${t.name}${t.ready?'':' (준비 중)'}${t.id===current?' (지금 탐험 중)':''}`);return button;})),
    actions([['닫기',()=>dialog.close()]])],'chapter-theme-dialog');
  }

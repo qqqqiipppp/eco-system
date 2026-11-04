@@ -8,6 +8,15 @@ export const rasterSpecies=new Set([
  'bulbul','tit','chipmunk','rabbit','frog','grasshopper','grass','mushroom',
  'field-mouse','caterpillar','aphid','snail','spider','ladybird','snake','weasel','goshawk','earthworm',
  'oak','pine','hazel','raspberry','litter-mold','soil-bacteria',
+ // The river pond (data/river.js), 2026-11-04.
+ 'algae','duckweed','water-lily','cattail','daphnia','medaka','pond-snail','water-strider',
+ 'diving-beetle','catfish','frog-tadpole','bullfrog','red-swamp-crayfish',
+ // The river upstream, and the water decomposer shared by every river chapter.
+ 'stone-diatom','water-dropwort','pussy-willow','caddisfly-larva','melania-snail','amphipod',
+ 'minnow','native-crayfish','korean-catfish','aucha-perch','water-decomposer',
+ // The river midstream.
+ 'hornwort','tape-grass','pale-chub','crucian-carp','sand-gudgeon','dark-sleeper',
+ 'mandarin-fish','otter','largemouth-bass','bluegill',
 ]);
 export const rasterAsset=id=>`./assets/images/species-raster/${id}.webp`;
 // Painted motion frames and growth-stage pictures come from the generated

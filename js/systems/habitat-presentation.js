@@ -57,7 +57,9 @@ export function createHabitatPresentation({provider=provideHabitatAnchors}={}){
   const occupied=[],usage=new Map();
   const ordered=[...items].sort((a,b)=>(organismById[a.speciesId].role==='producer'?0:1)-(organismById[b.speciesId].role==='producer'?0:1)||a.instanceId.localeCompare(b.instanceId,'en'));
   const producerPositions=new Map();
-  for(const o of ordered.filter(o=>organismById[o.speciesId].role==='producer')){
+  // The river's organisms are drawn where they are (data/river.js).
+  for(const o of ordered.filter(o=>speciesHabitats[o.speciesId].direct))offsets.set(o.instanceId,{x:0,y:0,anchorId:null,zone:speciesHabitats[o.speciesId].primary,fallback:false,attached:false});
+  for(const o of ordered.filter(o=>organismById[o.speciesId].role==='producer'&&!speciesHabitats[o.speciesId].direct)){
    const origin={x:o.position.x*layout.width,y:o.position.y*layout.height},candidates=[];
    for(const dx of [0,-24,24,-48,48,-68,68]){
     const x=clamp(origin.x+dx,0,layout.width),p=safe(o,{x,y:forestGroundHeight(x/layout.width)*layout.height}),box=bounds(o,p);
@@ -70,7 +72,7 @@ export function createHabitatPresentation({provider=provideHabitatAnchors}={}){
    producerPositions.set(o.instanceId,{x:p.x/layout.width,y:p.y/layout.height});occupied.push(bounds(o,p));
   }
   anchors=(provider(items,geometry,producerPositions)||[]).filter(a=>validHabitatAnchor(a,byId));
-  for(const o of ordered.filter(o=>organismById[o.speciesId].role!=='producer')){
+  for(const o of ordered.filter(o=>organismById[o.speciesId].role!=='producer'&&!speciesHabitats[o.speciesId].direct)){
    const origin={x:o.position.x*layout.width,y:o.position.y*layout.height},rule=speciesHabitats[o.speciesId];
    let possible=anchors.filter(a=>{anchorChecks++;return eligible(o,a)&&(usage.get(a.id)||0)<a.capacity;});
    const supports=possible.filter(a=>a.kind!=='activity-area');if(supports.length)possible=supports;

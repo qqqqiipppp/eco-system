@@ -18,7 +18,19 @@ SOURCES = {
     'forest-sprites-8-v3-final': ['bulbul', 'tit', 'chipmunk', 'rabbit', 'frog', 'grasshopper', 'grass', 'mushroom'],
     'forest-sprites-animals-10-v1': ['field-mouse', 'caterpillar', 'aphid', 'snail', 'spider', 'ladybird', 'snake', 'weasel', 'goshawk', 'earthworm'],
     'forest-sprites-batch3-plants-decomposers': ['oak', 'pine', 'hazel', 'raspberry', 'litter-mold', 'soil-bacteria'],
+    # 2026-11-04 river pond batch (artwork/2026-11-04/river-pond-wetland-batch1).
+    'river-pond-wetland-batch1': ['algae', 'duckweed', 'water-lily', 'cattail', 'daphnia', 'medaka', 'pond-snail', 'water-strider',
+                                  'diving-beetle', 'catfish', 'frog-tadpole', 'bullfrog', 'red-swamp-crayfish'],
+    # 2026-11-04 river upstream batch (artwork/2026-11-04/river-upstream-batch2), named by species id.
+    'river-upstream-batch2': ['stone-diatom', 'water-dropwort', 'pussy-willow', 'caddisfly-larva', 'melania-snail', 'amphipod',
+                              'minnow', 'native-crayfish', 'korean-catfish', 'aucha-perch', 'water-decomposer'],
+    # 2026-11-04 river midstream batch (artwork/2026-11-04/river-midstream-batch3), named by species id.
+    'river-midstream-batch3': ['hornwort', 'tape-grass', 'pale-chub', 'crucian-carp', 'sand-gudgeon', 'dark-sleeper',
+                               'mandarin-fish', 'otter', 'largemouth-bass', 'bluegill'],
 }
+# A delivered file named other than its species id (the river batch's names).
+FILES = {'algae': 'algae-filament', 'daphnia': 'water-flea', 'medaka': 'killifish', 'pond-snail': 'snail-pond',
+         'frog-tadpole': 'tadpole', 'red-swamp-crayfish': 'crayfish-invasive'}
 W, H, GROUND, MARGIN = 256, 192, 174, 8
 VISIBLE = 16  # alpha below this is antialiasing dust, not part of the outline
 
@@ -27,7 +39,7 @@ def build(art: Path, out: Path):
     manifest = {'frame': [W, H], 'logicalFrame': [128, 96], 'groundY': GROUND, 'species': {}}
     for folder, ids in SOURCES.items():
         for sid in ids:
-            src = art / folder / f'{sid}.png'
+            src = art / folder / f'{FILES.get(sid, sid)}.png'
             raw = src.read_bytes()
             im = Image.open(src).convert('RGBA')
             canvas, box, placed = place(im)

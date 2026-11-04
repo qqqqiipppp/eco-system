@@ -1,6 +1,6 @@
 import {ECOLOGY_REVISION} from './species-taxonomy.js';
 // Eaten -> eater. Revision IDs distinguish old observations from current facts.
-const edge=(sourceSpeciesId,targetSpeciesId,foodPart,evidenceId,evidenceLevel='B',core=false)=>({
+export const edge=(sourceSpeciesId,targetSpeciesId,foodPart,evidenceId,evidenceLevel='B',core=false)=>({
  relationId:`v${ECOLOGY_REVISION}_${sourceSpeciesId.replaceAll('-','_')}_to_${targetSpeciesId.replaceAll('-','_')}`,
  ecologyRevision:ECOLOGY_REVISION,sourceSpeciesId,targetSpeciesId,type:'food',foodPart,
  feedingMode:foodPart==='animal'?'predation':'resource',evidenceId,evidenceLevel,core,
@@ -57,8 +57,10 @@ export const chapterFoodRelations=[
  edge('earthworm','frog','animal','C4'),
  edge('raspberry','rabbit','fruit','C4'),
 ];
-export function useChapterFoodRelations(){
- for(const r of chapterFoodRelations){
+export const useChapterFoodRelations=()=>addFoodRelations(chapterFoodRelations);
+// Meals added at start (chapter mode, the river theme) join every index.
+export function addFoodRelations(list){
+ for(const r of list){
   if(foodRelationById[r.relationId])continue;
   foodRelations.push(r);foodRelationById[r.relationId]=r;relationByPair.set(`${r.sourceSpeciesId}:${r.targetSpeciesId}`,r);
   const list=relationsByConsumer.get(r.targetSpeciesId)||[];list.push(r);relationsByConsumer.set(r.targetSpeciesId,list);
