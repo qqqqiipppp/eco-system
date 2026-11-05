@@ -26,6 +26,7 @@ const blockerText={
  noDecomposition:()=>'낙엽과 죽은 나무가 분해되지 않고 있어요. 분해자가 일할 수 있게 해요.',
  noMeal:()=>'아직 먹는 모습이 보이지 않아요. 소비자가 먹이를 찾을 때까지 지켜봐요.',
  needObserve:b=>{const r=foodRelationById[b.relationId];return `세 번째 숲 별은 ${particle(name(r.targetSpeciesId),'이','가')} ${particle(name(r.sourceSpeciesId),'을','를')} 먹는 모습을 관찰해야 차올라요. 사냥하면 뜨는 💡를 눌러요.`;},
+ invader:b=>`외래종 ${particle(name(b.speciesId),'이','가')} 토종 생물을 잡아먹고 있어요! 빨간 고리를 여러 번 눌러 내보내요.`,
  needGrow:(b,s)=>{const young=Object.keys(growth).find(id=>growth[id].into===b.speciesId),n=name(young),has=s.organisms.some(o=>o.speciesId===young);
   return `세 번째 별은 ${particle(n,'이','가')} 자라 ${particle(name(b.speciesId),'이','가')} 되어야 차올라요. `+(has?`${particle(n,'이','가')} 배고프지 않게 먹이를 넉넉히 둬요.`:`${particle(n,'을','를')} 놓아요.`);},
  needBirth:(b,s)=>{const n=name(b.speciesId),count=s.organisms.filter(o=>o.speciesId===b.speciesId).length;

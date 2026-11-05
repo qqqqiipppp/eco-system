@@ -15,9 +15,10 @@ import {speciesCards} from './species-cards.js';
 import {foodEvidence} from './food-evidence.js';
 import {edge,addFoodRelations,foodPartLabels} from './food-relations.js';
 import {addDiscoveryEvent,addShortageEvent} from './event-config.js';
-import {chapters,stages,stageById,stageConfig,breeding,growth as stageGrowth} from './chapters.js';
+import {chapters,stages,stageById,stageConfig,breeding,growth as stageGrowth,invaderPrey} from './chapters.js';
 import {ecologySeconds,ecologyRate,scaleFields} from './pacing-config.js';
 import {survivalConfig} from './survival-config.js';
+import {crisisQuestions} from './crisis-reflection.js';
 
 // Living spaces on the river picture (2400 x 940, assets/images/backgrounds):
 // the waterline at y 423 (.45), the riverbed band from y 799 (.85). The bank
@@ -134,14 +135,12 @@ export const riverFoodRelations = [
   edge('medaka', 'catfish', 'animal', 'R7', 'B', true),
   edge('frog-tadpole', 'catfish', 'animal', 'R7'),
   edge('diving-beetle', 'catfish', 'animal', 'R7'),
-  // Invaders: what they eat in the pond (the boss eats these natives).
-  edge('frog-tadpole', 'bullfrog', 'animal', 'R8'),
-  edge('medaka', 'bullfrog', 'animal', 'R8'),
-  edge('frog', 'bullfrog', 'animal', 'R8'),
-  edge('frog-tadpole', 'red-swamp-crayfish', 'animal', 'R9'),
-  edge('pond-snail', 'red-swamp-crayfish', 'animal', 'R9'),
-  edge('medaka', 'red-swamp-crayfish', 'animal', 'R9'),
 ];
+// What an invader eats while it stays (the boss rule, not the feeding system).
+export const riverInvaderPrey = {
+  bullfrog: ['frog-tadpole', 'medaka', 'frog', 'diving-beetle'],
+  'red-swamp-crayfish': ['frog-tadpole', 'pond-snail', 'medaka', 'daphnia'],
+};
 const riverEvidence = {
   R1: {url: 'https://species.nibr.go.kr/', location: '물벼룩류 > 먹이', note: '물벼룩은 물속의 작은 조류를 걸러 먹어요. 특정 조류 종과의 쌍은 단순화했어요.'},
   R2: {url: 'https://species.nibr.go.kr/', location: '송사리 > 먹이', note: '송사리는 물벼룩 같은 작은 동물성 플랑크톤을 먹어요.'},
@@ -149,8 +148,6 @@ const riverEvidence = {
   R4: {url: 'https://species.nibr.go.kr/', location: '참개구리 올챙이 > 먹이', note: '올챙이는 물속의 조류와 물풀을 갉아 먹어요.'},
   R5: {url: 'https://genebank.rda.go.kr/PB/jw/insectView.bo?page=1&species_id=ZO1CR0046&use_kind=03', location: '물방개 > 먹이', note: '물방개는 올챙이와 작은 물고기 같은 물속 동물을 잡아먹어요.'},
   R7: {url: 'https://www.gb.go.kr/Main/marinefishery/page.do?mnu_uid=15943', location: '메기 > 먹이', note: '메기는 밤에 바닥 근처에서 작은 물고기와 개구리, 물속 곤충을 잡아먹어요.'},
-  R8: {url: 'https://species.nibr.go.kr/', location: '황소개구리 > 생태계 교란 생물', note: '황소개구리는 곤충, 올챙이, 물고기, 개구리까지 잡아먹어요.'},
-  R9: {url: 'https://species.nibr.go.kr/', location: '미국가재 > 생태계 교란 생물', note: '미국가재는 물풀과 올챙이, 우렁이, 작은 물고기를 먹어요.'},
   R6: {url: 'https://www.honda.co.jp/outdoor/adventure/tonosamagaeru.html', location: '참개구리 > 먹이', note: '참개구리는 물가와 물 위의 곤충을 잡아먹어요. 소금쟁이 특정 쌍은 단순화했어요.'},
 };
 
@@ -191,6 +188,36 @@ export const riverChapters = [
   ]},
 ];
 
+// The question after each river crisis: river organisms and the abiotic
+// factor that changed (the forest's ask about grasshoppers and grass).
+export const riverQuestions = {
+  drought: [
+    {question: '가뭄으로 연못의 물이 줄면 왜 송사리 같은 소비자도 힘들어질까요?',
+      choices: ['물이 줄면 송사리의 몸 색깔이 바뀌어서', '사는 물이 좁아지고, 먹이인 물벼룩과 작은 조류도 줄어서', '물이 줄면 분해자가 너무 많아져서'], answer: 1,
+      explanation: '연못의 생물은 물속에서 살아요. 물이 줄면 사는 곳이 좁아지고, 생산자인 작은 조류가 줄어 먹이 관계를 따라 물벼룩과 송사리까지 영향을 받아요.'},
+    {question: '가뭄이 오기 전에 연못 생태계를 튼튼하게 하려면 어떻게 하면 좋을까요?',
+      choices: ['생산자인 작은 조류와 물풀을 넉넉히 길러 둬요', '송사리를 더 많이 놓아요', '물벼룩을 모두 없애요'], answer: 0,
+      explanation: '생산자가 넉넉하면 물이 줄어 생산자가 덜 자라는 동안에도 물벼룩과 논우렁이가 먹을 것이 남아요.'},
+  ],
+  // After tapping an invader out (kind invader:<species>).
+  'invader:bullfrog': [
+    {question: '황소개구리가 연못에 들어오면 왜 토종 생물이 줄어들까요?',
+      choices: ['황소개구리가 토종 생물을 많이 잡아먹고, 먹이를 두고 다투어서', '황소개구리가 물을 깨끗하게 해서', '황소개구리는 작은 조류만 먹어서'], answer: 0,
+      explanation: '황소개구리는 원래 우리나라에 살지 않던 외래종이에요. 몸집이 크고 무엇이든 잘 먹어 올챙이, 물고기, 참개구리까지 잡아먹어요. 천적도 적어서 빨리 늘어나요.'},
+    {question: '외래종이 늘어나지 않게 하려면 어떻게 해야 할까요?',
+      choices: ['기르던 생물을 강이나 연못에 함부로 놓아주지 않아요', '외래종을 더 많이 데려와요', '토종 생물을 다른 곳으로 모두 옮겨요'], answer: 0,
+      explanation: '집에서 기르던 생물을 자연에 풀어 주면 생태계 교란 생물이 될 수 있어요. 함부로 놓아주지 않는 것이 가장 중요해요.'},
+  ],
+  'invader:red-swamp-crayfish': [
+    {question: '미국가재가 연못에 많아지면 어떤 일이 생길까요?',
+      choices: ['물풀을 자르고 올챙이와 우렁이를 먹어 토종 생물이 줄어요', '물이 더 맑아지고 토종 생물이 늘어요', '아무 변화가 없어요'], answer: 0,
+      explanation: '미국가재는 생태계 교란 생물이에요. 물풀을 잘라 먹고 올챙이, 우렁이, 작은 물고기를 먹어서 연못의 먹이그물이 흔들려요.'},
+    {question: '기르던 가재를 더 기를 수 없게 되면 어떻게 해야 할까요?',
+      choices: ['가까운 개울에 놓아줘요', '자연에 풀어 주지 않고 어른이나 기관에 물어봐요', '아파트 연못에 넣어 줘요'], answer: 1,
+      explanation: '외래종을 자연에 풀어 주면 토종 생물을 먹고 빠르게 퍼질 수 있어요. 버리지 말고 어른이나 관련 기관에 도움을 청해요.'},
+  ],
+};
+
 // Breeding in a stage, as in the forest: two fed parents make a young one.
 const riverBreeding = {
   daphnia: {healthySeconds: 30, waitSeconds: 15, sign: '알', young: '새끼', cycle: '어미 몸속의 알주머니에서 새끼가 나와 금방 자라요.'},
@@ -230,8 +257,10 @@ export function useRiverTheme() {
   // A tadpole fed for a while grows into a frog on the bank. The frog keeps
   // its forest data, living here at the water's edge and eating water striders.
   stageGrowth['frog-tadpole'] = {into: 'frog', seconds: 40};
+  Object.assign(invaderPrey, riverInvaderPrey);
   Object.assign(speciesProfiles.frog, {zone: 'frogShore'});
   speciesHabitats.frog = {...speciesHabitats.frog, primary: 'frogShore', additional: [], direct: true};
+  Object.assign(crisisQuestions, riverQuestions);
   // The water decomposer breaks down plant and animal remains.
   decompositionConfig.rates['water-decomposer'] = {litter: ecologyRate(.006), remains: ecologyRate(.006)};
   organicWorkers.litter.push('water-decomposer'); organicWorkers.remains.push('water-decomposer');

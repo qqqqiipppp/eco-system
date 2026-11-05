@@ -197,6 +197,8 @@ export const breeding = {
 // a frog): fed for seconds, it becomes the grown species in that one's own
 // living space. Filled by a theme (data/river.js); the forest has none.
 export const growth = {};
+// What each invader (stage.boss) eats while it stays: species -> native prey ids.
+export const invaderPrey = {};
 
 export const crisisForFactor = factor => Object.values(crises).find(c => c.factor === factor);
 

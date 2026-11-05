@@ -9,7 +9,7 @@ import {foodResourceConfig} from '../../data/ecology-config.js';
 import {managementActions} from '../../data/management-actions.js';
 import {foodRelations} from '../../data/food-relations.js';
 import {organismById} from '../../data/organisms.js';
-import {stageConfig as config,stageById,crises,crisisForFactor,breeding,growth} from '../../data/chapters.js';
+import {stageConfig as config,stageById,crises,crisisForFactor,breeding,growth,invaderPrey} from '../../data/chapters.js';
 import {placementConfig,speciesProfiles} from '../../data/interaction-config.js';
 
 // A fresh stage forest. Chapter mode never writes the regular forest save.
@@ -204,7 +204,11 @@ export function updateStage(s, seconds, feedingEvents = []) {
   c.foodRecovery = event?.phase === 'active' && !crises[event.kind]?.human ? config.crisisFoodRecovery : 1;
   const result = growSeeds(s);
   if (!c.cleared) result.eventStarted = startDueEvent(s) || result.eventStarted;
-  result.born = [...born, ...grew.added, ...boss.added];
+  // born: young from two parents (told as births); grown and arrived (an
+  // invader) are new organisms too, told their own way.
+  result.born = born;
+  result.grown = grew.added;
+  result.arrived = boss.added;
   result.removed = [...grew.removed, ...boss.removed];
   result.bossAte = boss.ate;
   return result;
@@ -431,7 +435,7 @@ function updateBoss(s) {
   if (active && time >= active.nextEatAt) {
     active.nextEatAt = time + config.bossEatSeconds;
     const me = s.organisms.find(o => o.instanceId === active.instanceId);
-    const prey = new Set(foodRelations.filter(r => r.targetSpeciesId === active.speciesId).map(r => r.sourceSpeciesId));
+    const prey = new Set(invaderPrey[active.speciesId] || []);
     const target = s.organisms.filter(o => prey.has(o.speciesId)).sort((a, b) => Math.hypot(a.position.x - me.position.x, a.position.y - me.position.y) - Math.hypot(b.position.x - me.position.x, b.position.y - me.position.y))[0];
     if (target) {
       removeOrganism(s, target.instanceId, 'predation', {consumerSpeciesId: active.speciesId});
