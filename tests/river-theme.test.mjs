@@ -9,6 +9,7 @@ import {placementConfig,speciesProfiles} from '../data/interaction-config.js';
 import {foodRelations} from '../data/food-relations.js';
 import {discoveryEvents} from '../data/event-config.js';
 import {mealSentence} from '../data/student-text.js';
+import {crisisQuestions} from '../data/crisis-reflection.js';
 import {isPositionAllowed} from '../js/systems/placement-rules.js';
 import {placeOrganism} from '../js/systems/placement.js';
 import {createFeedingSystem} from '../js/systems/feeding.js';
@@ -78,4 +79,16 @@ test('a fed tadpole grows into a frog on the bank, which eats water striders',()
  assert.ok(isPositionAllowed('frog',grown.position,layout),'on the bank');
  assert.ok(taskDone(s,{grow:'frog'}));
  assert.ok(foodRelations.some(r=>r.sourceSpeciesId==='water-strider'&&r.targetSpeciesId==='frog'));
+});
+
+test('the question after a river crisis is about the river, not the forest',()=>{
+ const forest=Object.values(organismById).filter(o=>!riverSpecies.some(s=>s.id===o.id)).map(o=>o.name);
+ for(const kind of new Set(chapters.flatMap(c=>c.events))){
+  assert.ok(crisisQuestions[kind]?.length,kind);
+  for(const q of crisisQuestions[kind]){
+   const text=[q.question,...q.choices,q.explanation].join(' ');
+   assert.ok(!forest.some(name=>text.includes(name)),`${kind}: ${text}`);
+   assert.ok(!text.includes('숲'),`${kind}: ${text}`);
+  }
+ }
 });

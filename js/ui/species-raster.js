@@ -17,6 +17,8 @@ export const rasterSpecies=new Set([
  // The river midstream.
  'hornwort','tape-grass','pale-chub','crucian-carp','sand-gudgeon','dark-sleeper',
  'mandarin-fish','otter','largemouth-bass','bluegill',
+ // The river downstream.
+ 'reed','water-chestnut','freshwater-clam','common-carp','reeves-turtle','grey-heron','nutria','snapping-turtle',
 ]);
 export const rasterAsset=id=>`./assets/images/species-raster/${id}.webp`;
 // Painted motion frames and growth-stage pictures come from the generated

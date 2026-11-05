@@ -17,6 +17,7 @@ import {addDiscoveryEvent,addShortageEvent} from './event-config.js';
 import {chapters,stages,stageById,stageConfig,breeding,growth as stageGrowth} from './chapters.js';
 import {ecologySeconds,ecologyRate,scaleFields} from './pacing-config.js';
 import {survivalConfig} from './survival-config.js';
+import {crisisQuestions} from './crisis-reflection.js';
 
 // Living spaces on the river picture (2400 x 940, assets/images/backgrounds):
 // the waterline at y 423 (.45), the riverbed band from y 799 (.85). The bank
@@ -149,6 +150,19 @@ export const riverChapters = [
   ]},
 ];
 
+// The question after each river crisis: river organisms and the abiotic
+// factor that changed (the forest's ask about grasshoppers and grass).
+export const riverQuestions = {
+  drought: [
+    {question: '가뭄으로 연못의 물이 줄면 왜 송사리 같은 소비자도 힘들어질까요?',
+      choices: ['물이 줄면 송사리의 몸 색깔이 바뀌어서', '사는 물이 좁아지고, 먹이인 물벼룩과 작은 조류도 줄어서', '물이 줄면 분해자가 너무 많아져서'], answer: 1,
+      explanation: '연못의 생물은 물속에서 살아요. 물이 줄면 사는 곳이 좁아지고, 생산자인 작은 조류가 줄어 먹이 관계를 따라 물벼룩과 송사리까지 영향을 받아요.'},
+    {question: '가뭄이 오기 전에 연못 생태계를 튼튼하게 하려면 어떻게 하면 좋을까요?',
+      choices: ['생산자인 작은 조류와 물풀을 넉넉히 길러 둬요', '송사리를 더 많이 놓아요', '물벼룩을 모두 없애요'], answer: 0,
+      explanation: '생산자가 넉넉하면 물이 줄어 생산자가 덜 자라는 동안에도 물벼룩과 논우렁이가 먹을 것이 남아요.'},
+  ],
+};
+
 // Breeding in a stage, as in the forest: two fed parents make a young one.
 const riverBreeding = {
   daphnia: {healthySeconds: 30, waitSeconds: 15, sign: '알', young: '새끼', cycle: '어미 몸속의 알주머니에서 새끼가 나와 금방 자라요.'},
@@ -190,6 +204,7 @@ export function useRiverTheme() {
   stageGrowth['frog-tadpole'] = {into: 'frog', seconds: 40};
   Object.assign(speciesProfiles.frog, {zone: 'frogShore'});
   speciesHabitats.frog = {...speciesHabitats.frog, primary: 'frogShore', additional: [], direct: true};
+  Object.assign(crisisQuestions, riverQuestions);
   // The river's cards only (the forest's stay known by id).
   organisms.splice(0, organisms.length, ...riverSpecies.map(s => organismById[s.id]));
   const riverStages = riverChapters.flatMap(chapter => chapter.stages.map(stage => ({...stage, chapter, events: chapter.events, seedSeconds: chapter.seedSeconds})));
