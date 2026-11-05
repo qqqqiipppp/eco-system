@@ -68,7 +68,7 @@ const careful=s=>{
 };
 
 test('a careful student clears the pond stages; waiting alone does not',()=>{
- for(const id of ['1-1','1-2','1-3','1-4','2-1','2-2','2-3','2-4']){
+ for(const id of ['1-1','1-2','1-3','1-4','2-1','2-2','2-3','2-4','3-1','3-2','3-3','3-4']){
   const s=play(id,careful);
   assert.ok(s.chapter.cleared,`${id} cleared`);
   assert.ok(stageById[id].tasks.every(t=>taskDone(s,t)),`${id} tasks`);
@@ -117,13 +117,13 @@ test('an invader comes after a star, eats natives until tapped out, and stalls t
  assert.ok(!stageBlockers(s).some(b=>b.id==='invader'));
 });
 
-test('a people-made river crisis asks how to stop it before the litter can be cleaned up',()=>{
- const s=createStageGameState(stageById['2-4']),f=createFeedingSystem(0),events=createEventSystem(0);
+for(const [stageId,kind] of [['2-4','valley-trash'],['3-3','sewage']])test(`${kind}: a people-made river crisis asks how to stop it before it can be cleaned up`,()=>{
+ const s=createStageGameState(stageById[stageId]),f=createFeedingSystem(0),events=createEventSystem(0);
  let open=null,next=0;
  for(let t=0;t<9000&&!open;t++){
   if(s.simulationTime>=next){next=s.simulationTime+5;for(const o of [...s.chapter.offers])catchObservation(s,o.offerId);for(const b of stageBlockers(s))if(b.id==='missing')for(const m of b.species)place(s,m.id);}
   const r=f.update(s,.1,layout);if(!r.ticked)continue;events.update(s,.5,r.feedingEvents);s.metrics.stability=evaluateStability(s).score;updateStage(s,.5,r.feedingEvents);open=crisisChoice(s);}
- assert.ok(open&&open.record.kind==='valley-trash','the litter crisis asks first');
+ assert.ok(open&&open.record.kind===kind,'the crisis asks first');
  for(let t=0;t<200&&!s.chapter.trash.length;t++){const r=f.update(s,.1,layout);if(r.ticked)updateStage(s,.5,r.feedingEvents);}
  assert.equal(collectTrash(s,s.chapter.trash[0].trashId).reason,'choose','no cleaning before choosing');
  const wrong=open.crisis.choices.findIndex(c=>!c.right),right=open.crisis.choices.findIndex(c=>c.right);
