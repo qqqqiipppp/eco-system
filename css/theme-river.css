@@ -1,0 +1,51 @@
+/* The river theme (강): the same screen in soft blues, sky and cobalt, as the
+   forest is in greens. Only colours change, and gently (low saturation, the
+   same contrast as the forest), so the screen stays easy on the eyes.
+   Colours that carry meaning stay as they are: producer/consumer/decomposer
+   labels, the good/fair/bad abiotic bars, stars, warnings. Set by main.js:
+   body[data-theme=river]. */
+body[data-theme=river]{
+  --ink:#1f3a4e;--muted:#6a7c8a;--green:#2c5f8a;--line:#d8e3eb;--paper:#f5f9fb;--white:#fdfefe;
+  --river-dark:#1f4e78;--river-mid:#2f6ea3;--river-border:#b4c8d7;--river-soft:#e4eef5;--river-pale:#f6fafd;--river-meter:#3c7db5;
+  background:#ecf2f6;color:var(--ink);
+}
+/* Top row: the dark card and the menu. */
+body[data-theme=river] .stability{background:var(--river-dark);border-color:var(--river-dark)}
+body[data-theme=river] .stability h2,body[data-theme=river] .stability .metric-caption{color:#cfe0ec}
+body[data-theme=river] .stability .metric-icon{background:#386791;color:#e2eef7}
+body[data-theme=river] .metric{border-color:var(--river-border)}
+body[data-theme=river] .chapter-menu-button,body[data-theme=river] .chapter-screen-button,body[data-theme=river] .chapter-menu{border-color:var(--river-border)}
+body[data-theme=river] .chapter-menu-button[aria-expanded=true]{background:var(--river-dark);border-color:var(--river-dark)}
+body[data-theme=river] .chapter-menu button,body[data-theme=river] .chapter-menu .header-actions button{border-color:#d3e0ea}
+body[data-theme=river] .chapter-menu #names-toggle[aria-pressed=true]{background:#cfe2f0!important}
+/* Stage goals. */
+body[data-theme=river] .chapter-hud{background:var(--river-pale);border-color:var(--river-border)}
+body[data-theme=river].chapter-mode .chapter-title h2{color:var(--river-dark)}
+body[data-theme=river] .chapter-tasks li{background:#2b5f8e}
+body[data-theme=river] .chapter-tasks li[data-done=true]{background:#e2eef7;color:#2b5f8e;box-shadow:inset 0 0 0 2px #6fa3cc}
+body[data-theme=river] .chapter-tasks .task-icon{background:var(--river-pale)}
+body[data-theme=river] .chapter-tasks .task-check{color:var(--river-dark)}
+body[data-theme=river] .chapter-progress progress{accent-color:var(--river-meter)}
+body[data-theme=river] .chapter-progress progress::-webkit-progress-value{background:var(--river-meter)}
+/* The scene's frame, the cards and the points. */
+body[data-theme=river] .forest{background:#d6e6ef;border-color:#c3d6e2}
+body[data-theme=river] .chapter-wallet,body[data-theme=river].chapter-mode .organism-card[data-price]::after{background:var(--river-dark)}
+body[data-theme=river] .organism-card[aria-pressed=true]{border-color:var(--river-dark);background:var(--river-soft)}
+body[data-theme=river] .placement-feedback{color:#1e4e74}
+body[data-theme=river] .placing-band{background:var(--river-pale);border-color:var(--river-dark);color:var(--river-dark)}
+/* Dialogs: frames and the main button. */
+body[data-theme=river] .chapter-dialog,body[data-theme=river] .chapter-actions button,body[data-theme=river] .chapter-stage-list button,
+body[data-theme=river] .map-area,body[data-theme=river] .theme-card,body[data-theme=river] .web-node,body[data-theme=river] .web-close,body[data-theme=river] .web-reference{border-color:var(--river-border)}
+body[data-theme=river] .chapter-dialog .chapter-actions button:first-child,body[data-theme=river] .web-steps li.now{background:var(--river-dark);border-color:var(--river-dark)}
+body[data-theme=river] .map-progress,body[data-theme=river] .theme-card strong{color:var(--river-dark)}
+body[data-theme=river] .map-stone{background:var(--river-pale)}
+body[data-theme=river] .map-stone.done,body[data-theme=river] .map-web{background:var(--river-mid)}
+body[data-theme=river] .theme-card.current{border-color:var(--river-mid);box-shadow:inset 0 0 0 2px var(--river-mid)}
+body[data-theme=river] .map-progress progress{accent-color:var(--river-mid)}
+/* The organism window (생물 살펴보기) and the card count. */
+body[data-theme=river] #population-dialog button,body[data-theme=river] #population-dialog select,body[data-theme=river] #population-nearby button{border-color:var(--river-border);background:var(--river-soft)}
+body[data-theme=river] #population-individual,body[data-theme=river] #population-close{background:var(--river-soft)}
+body[data-theme=river] #population-nearby button{color:var(--river-dark)}
+body[data-theme=river] .species-card-facts>div{background:#eef4f8}
+body[data-theme=river] .species-card-facts dt{color:#34536b}
+body[data-theme=river] .inventory-heading h2 span{background:#d9e6ef;color:#2b4f6b}
