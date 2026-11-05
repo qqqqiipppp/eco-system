@@ -23,7 +23,7 @@ function layout(nodes){
 }
 
 // "나의 먹이그물": sort roles, draw arrows, then see how one change spreads.
-export function createChapterWebView(progress,{onComplete=()=>{},onGuide=null}={}){
+export function createChapterWebView(progress,{onComplete=()=>{},onGuide=null,onReference=null}={}){
  const dialog=element('dialog',{className:'chapter-dialog chapter-web-dialog'});document.body.append(dialog);
  let chapterNumber=1,selected=null,picks=new Set(),stepNote='';
  // Guidance: a hand points where to start (never at an answer); mistakes flash
@@ -81,7 +81,9 @@ export function createChapterWebView(progress,{onComplete=()=>{},onGuide=null}={
    ...(guideFor&&onGuide?[element('button',{type:'button',className:'web-guide-hint',textContent:`📖 ${name(guideFor)} 도감 보기`,onclick:()=>onGuide(guideFor)})]:[])]));
   if(lockedUntil>Date.now())panel.prepend(element('p',{className:'web-note wrong web-lock',textContent:'잠깐! 연달아 틀렸어요. 5초 동안 생물을 다시 살펴보고 생각해 봐요.'}));
   dialog.replaceChildren(
-   element('div',{className:'web-head'},[element('h2',{textContent:`나의 먹이그물 · 챕터 ${chapterNumber}`}),element('ol',{className:'web-steps'},steps),element('button',{type:'button',className:'web-close',textContent:'닫기',onclick:()=>dialog.close()})]),
+   element('div',{className:'web-head'},[element('h2',{textContent:`나의 먹이그물 · 챕터 ${chapterNumber}`}),element('ol',{className:'web-steps'},steps),
+    // The whole reference food web, to look things up while building.
+    ...(onReference?[element('button',{type:'button',className:'web-reference',textContent:'📚 먹이그물 참고',onclick:()=>onReference()})]:[]),element('button',{type:'button',className:'web-close',textContent:'닫기',onclick:()=>dialog.close()})]),
    ...(guide?[element('p',{className:'web-guide',textContent:guide})]:[]),
    board,panel,
   );

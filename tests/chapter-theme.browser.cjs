@@ -1,4 +1,4 @@
-// 생태계 연구소: the game's new name, and "생태계 바꾸기" in the menu with one
+// 생태계 연구소: the game's new name, and "생태계 바꾸기" on the 탐험 지도 with one
 // card per ecosystem. The river is shown as coming soon until it is ready.
 const assert=require('node:assert/strict');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
@@ -14,7 +14,7 @@ const menu=async(p,text)=>{await p.locator('.chapter-menu-button').click();await
  // With one ready ecosystem nothing is asked at the start.
  assert.equal(await p.locator('.chapter-theme-dialog[open]').count(),0);
  await p.evaluate(()=>document.querySelectorAll('dialog[open]').forEach(d=>d.close()));
- await menu(p,'생태계 바꾸기');await p.waitForSelector('.chapter-theme-dialog[open]');
+ await menu(p,'탐험 지도');await p.locator('.chapter-map-dialog button',{hasText:'생태계 바꾸기'}).click();await p.waitForSelector('.chapter-theme-dialog[open]');
  const cards=await p.$$eval('.theme-card',l=>l.map(c=>({name:c.querySelector('strong').textContent,disabled:c.disabled,current:c.classList.contains('current'),note:c.querySelector('.theme-note').textContent})));
  assert.deepEqual(cards.map(c=>c.name),['숲','강']);
  assert.ok(cards[0].current&&!cards[0].disabled,'exploring the forest');
