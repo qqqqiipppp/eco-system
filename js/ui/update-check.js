@@ -1,3 +1,4 @@
+import {themeWords as W} from '../../data/themes.js';
 // A deployed page carries its version (tools/stamp_version.mjs). Every few
 // minutes, and when the tablet wakes, it asks the server for the current one;
 // if a new version is out, a bar offers to reload. Reloading keeps the forest:
@@ -12,7 +13,7 @@ export function watchForUpdates({every=180000,fetchVersion=()=>fetch('./version.
  }
  function show(){
   bar=document.createElement('div');bar.className='update-bar';bar.setAttribute('role','status');
-  const text=document.createElement('span');text.textContent='게임이 새로 바뀌었어요. 지금 숲은 그대로 남아요.';
+  const text=document.createElement('span');text.textContent=`게임이 새로 바뀌었어요. 지금 ${W.place}은 그대로 남아요.`;
   const button=document.createElement('button');button.type='button';button.textContent='새로 고치기';button.onclick=()=>location.reload();
   bar.append(text,button);document.body.append(bar);
  }

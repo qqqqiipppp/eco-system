@@ -34,3 +34,12 @@ exports.assertReadablePage=async page=>{
  const floors={'1280x800':333,'1138x712':247,'960x600':224,'1366x768':301,'412x915':378};
  assert(!v.horizontal);assert(v.forestHeight>=(floors[v.width+'x'+v.height]||200)-.1);assert(v.footerEnd<=v.documentHeight+1);assert(v.documentHeight<=v.height*2);assert.notEqual(v.overflowY,'hidden');return v;
 };
+// A student who explores the forest: with two ecosystems ready the first start
+// asks which one, so pages opened by this browser start as the forest's.
+exports.asForestStudent=browser=>{
+ const forest=()=>{if(!localStorage.getItem('eco-system:theme'))localStorage.setItem('eco-system:theme','forest');};
+ const page=browser.newPage.bind(browser),context=browser.newContext.bind(browser);
+ browser.newPage=async(...a)=>{const p=await page(...a);await p.addInitScript(forest);return p;};
+ browser.newContext=async(...a)=>{const c=await context(...a);await c.addInitScript(forest);return c;};
+ return browser;
+};

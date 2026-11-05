@@ -1,6 +1,7 @@
 import {createHabitatPresentation} from '../systems/habitat-presentation.js';
 import {speciesHabitats} from '../../data/habitats.js';
 import { organismById } from '../../data/organisms.js';
+import {themeWords as W} from '../../data/themes.js';
 import { speciesProfiles } from '../../data/interaction-config.js';
 import { DEBUG_MODE, foodResourceConfig, feedingConfig } from '../../data/ecology-config.js';
 import {survivalStage} from '../systems/population.js';
@@ -185,10 +186,10 @@ export function createOrganismLayer(forest, getOrganisms) {
     forest.classList.toggle('is-placing', Boolean(profile));
     if (!profile) {
       cursor.hidden = true;
-      surface.setAttribute('aria-label', '숲 배치 영역. 먼저 아래에서 생물 카드를 선택하세요.');
+      surface.setAttribute('aria-label', `${W.place} 배치 영역. 먼저 아래에서 생물 카드를 선택하세요.`);
       return;
     }
-    surface.setAttribute('aria-label', `${organismById[speciesId].name} 놓기. 숲 어디든 누르면 가까운 알맞은 자리를 찾아요. 방향키와 Enter 키로도 배치할 수 있어요.`);
+    surface.setAttribute('aria-label', `${organismById[speciesId].name} 놓기. ${W.place} 어디든 누르면 가까운 알맞은 자리를 찾아요. 방향키와 Enter 키로도 배치할 수 있어요.`);
   }
   function showFeedback(message, ok) {
     clearTimeout(feedbackTimer);

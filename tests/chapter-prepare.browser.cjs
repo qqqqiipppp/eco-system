@@ -3,11 +3,11 @@
 // "더 심기" without enough points was taken as the choice, then nothing was planted.
 const assert=require('node:assert/strict');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
-const {tapBackground}=require('./ux-browser-helpers.cjs');
+const {tapBackground,asForestStudent}=require('./ux-browser-helpers.cjs');
 const base=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/';
 const launch=process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH,headless:true,args:['--no-sandbox']}:{channel:'msedge',headless:true};
 (async()=>{
- const b=await chromium.launch(launch),p=await b.newPage({viewport:{width:1280,height:620},hasTouch:true}),errors=[];
+ const b=asForestStudent(await chromium.launch(launch)),p=await b.newPage({viewport:{width:1280,height:620},hasTouch:true}),errors=[];
  p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
  await p.goto(base);await p.evaluate(()=>localStorage.clear());await p.reload();await p.waitForSelector('.chapter-hud');
  await p.evaluate(()=>document.querySelectorAll('dialog[open]').forEach(d=>d.close()));

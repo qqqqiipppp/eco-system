@@ -1,4 +1,5 @@
 import {createGameState} from '../state/game-state.js';
+import {themeWords as W} from '../../data/themes.js';
 import {createOrganismInstance} from '../state/organism-instance.js';
 import {createPointEconomyState,recordPointChange} from '../state/point-economy-state.js';
 import {survivalStage} from './population.js';
@@ -150,7 +151,7 @@ export function collectTrash(s, trashId) {
   c.trashCollected++;
   s.metrics.points += config.trashReward;
   recordPointChange(s, 'study', config.trashReward, `chapter-trash:${trashId}`, trashId);
-  return {ok: true, item, message: crises[item.kind].collected || `${crises[item.kind].item}를 치웠어요. 치우지 않으면 숲이 계속 망가져요.`};
+  return {ok: true, item, message: crises[item.kind].collected || `${crises[item.kind].item}를 치웠어요. 치우지 않으면 ${W.place}이 계속 망가져요.`};
 }
 function growSeeds(s) {
   const c = s.chapter, seedSeconds = stageById[c.stageId].seedSeconds, result = {seedGained: false, eventStarted: null, cleared: false};
@@ -260,7 +261,7 @@ export function careFor(s, factor) {
 export const priceOf = id => config.prices[id] ?? 5;
 export function buyCheck(s, id) {
   const price = priceOf(id);
-  return s.metrics.points >= price ? {ok: true, price} : {ok: false, price, message: `포인트가 ${price - s.metrics.points}점 부족해요. 숲에서 💡를 잡아 포인트를 모아요.`};
+  return s.metrics.points >= price ? {ok: true, price} : {ok: false, price, message: `포인트가 ${price - s.metrics.points}점 부족해요. ${W.place}에서 💡를 잡아 포인트를 모아요.`};
 }
 export function payFor(s, id) {
   const price = priceOf(id);

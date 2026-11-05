@@ -3,7 +3,7 @@
 // frame must never end the game loop.
 const assert=require('node:assert/strict');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
-const {tapBackground}=require('./ux-browser-helpers.cjs');
+const {tapBackground,asForestStudent}=require('./ux-browser-helpers.cjs');
 const base=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/';
 const launch=process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH,headless:true,args:['--no-sandbox']}:{channel:'msedge',headless:true};
 async function warnedForest(b){
@@ -18,7 +18,7 @@ async function warnedForest(b){
 }
 const state=p=>p.evaluate(async()=>{const g=(await import('./js/main.js')).gameState;return {t:g.simulationTime,choice:g.chapter.crisisLog.at(-1)?.choice,open:Boolean(document.querySelector('dialog[open]'))};});
 (async()=>{
- const b=await chromium.launch(launch);
+ const b=asForestStudent(await chromium.launch(launch));
  // 1. Nobody chooses: after the countdown the forest goes on with "wait".
  let p=await warnedForest(b);
  assert.match(await p.locator('.chapter-prepare-timer').textContent(),/20초 안에 고르지 않으면/);
