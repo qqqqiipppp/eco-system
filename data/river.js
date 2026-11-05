@@ -47,6 +47,8 @@ const card = (intro, rows) => ({intro, rows: rows.map(([key, label, text]) => ({
 const producerRows = (needs, eatenBy, home) => [['role', '역할', '햇빛을 받아 스스로 양분을 만들어서 생산자예요.'], ['needs', '필요한 것', needs], ['eatenBy', '나를 먹는 것', eatenBy], ['home', '사는 곳', home]];
 
 // zone: the living space; motion: how it moves (none for a producer).
+// size: drawn size in px; animals that are big in nature (catfish, perch,
+// the invaders) are drawn bigger than their prey.
 export const riverSpecies = [
   {id: 'algae', name: '작은 조류', role: 'producer', behaviorType: 'static', zone: 'algae',
     caption: '물속에서 양분을 만들어요', description: '반달말·해캄처럼 아주 작은 조류를 묶었어요. 물속에서 햇빛으로 양분을 만들어요.', habitat: '고인 물속',
@@ -106,7 +108,7 @@ export const riverSpecies = [
   {id: 'catfish', name: '메기', role: 'consumer', behaviorType: 'forager', zone: 'bottom',
     caption: '물고기와 올챙이를 먹어요', description: '납작한 머리와 긴 수염으로 바닥 근처를 다니며 작은 물고기, 올챙이, 물방개를 잡아먹어요.', habitat: '연못과 강의 바닥',
     scientificName: 'Silurus asotus', feeding: {initialHunger: .45, hungerPerSecond: .018, hungryAt: .6, mealRelief: .75, searchRadius: .32, speed: .04},
-    motion: {speedX: .02, speedY: .004, walkSeconds: [1.5, 3], pauseSeconds: [1, 2]}, life: life(80, 110, '여러 해 사는 큰 물고기예요', '마리'), size: [60, 36],
+    motion: {speedX: .02, speedY: .004, walkSeconds: [1.5, 3], pauseSeconds: [1, 2]}, life: life(80, 110, '여러 해 사는 큰 물고기예요', '마리'), size: [88, 66],
     starvation: 600, satiety: 360, predatorSatiety: .5,
     card: card('수염 두 쌍으로 먹이를 찾는 바닥의 물고기예요.', [['role', '역할', '다른 동물을 잡아먹고 살아서 소비자예요.'], ['eats', '먹는 것', '작은 물고기, 올챙이, 개구리, 물속 곤충을 먹어요.'], ['eatenBy', '나를 먹는 것', '다 자라면 먹는 동물이 거의 없어요. 어릴 때는 큰 물고기와 새가 먹어요.'], ['home', '사는 곳', '연못과 강의 진흙 바닥']])},
   {id: 'water-decomposer', name: '물속 분해자', role: 'decomposer', behaviorType: 'static', zone: 'bottom',
@@ -117,11 +119,11 @@ export const riverSpecies = [
   // Invaders (외래종): the stage's boss, not a card. Drawn bigger (about 1.6x).
   {id: 'bullfrog', name: '황소개구리', role: 'consumer', behaviorType: 'forager', zone: 'frogShore', invader: true,
     caption: '외래종: 무엇이든 잡아먹어요', description: '북아메리카에서 들여온 큰 개구리예요. 올챙이, 물고기, 참개구리까지 잡아먹어 생태계 교란 생물로 지정되었어요.', habitat: '연못, 저수지, 느린 강',
-    scientificName: 'Lithobates catesbeianus', motion: {speedX: .02, speedY: .006, walkSeconds: [.8, 1.6], pauseSeconds: [1, 2]}, life: life(300, 400, '외래종이에요', '마리'), size: [84, 64],
+    scientificName: 'Lithobates catesbeianus', motion: {speedX: .02, speedY: .006, walkSeconds: [.8, 1.6], pauseSeconds: [1, 2]}, life: life(300, 400, '외래종이에요', '마리'), size: [104, 78],
     card: card('참개구리보다 훨씬 큰 외래종 개구리예요.', [['role', '역할', '다른 동물을 잡아먹고 살아서 소비자예요.'], ['eats', '먹는 것', '곤충, 올챙이, 물고기, 개구리, 작은 뱀까지 먹어요.'], ['eatenBy', '나를 먹는 것', '우리나라에는 천적이 적어서 빨리 늘어나요.'], ['wow', '알아 두기', '1998년에 생태계 교란 생물로 지정되었어요.']])},
   {id: 'red-swamp-crayfish', name: '미국가재', role: 'consumer', behaviorType: 'forager', zone: 'bottom', invader: true,
     caption: '외래종: 물풀을 자르고 작은 동물을 먹어요', description: '북아메리카에서 들여온 붉은 가재예요. 물풀을 잘라 먹고 올챙이, 우렁이, 작은 물고기를 먹어 생태계 교란 생물로 지정되었어요.', habitat: '연못, 논, 느린 강',
-    scientificName: 'Procambarus clarkii', motion: {speedX: .015, speedY: .003, walkSeconds: [1, 2], pauseSeconds: [1, 2]}, life: life(300, 400, '외래종이에요', '마리'), size: [84, 64],
+    scientificName: 'Procambarus clarkii', motion: {speedX: .015, speedY: .003, walkSeconds: [1, 2], pauseSeconds: [1, 2]}, life: life(300, 400, '외래종이에요', '마리'), size: [104, 78],
     card: card('붉고 오돌토돌한 큰 집게를 가진 외래종 가재예요.', [['role', '역할', '여러 생물을 먹고 살아서 소비자예요.'], ['eats', '먹는 것', '물풀, 올챙이, 우렁이, 작은 물고기를 먹어요.'], ['eatenBy', '나를 먹는 것', '천적이 적어서 빨리 늘어나요.'], ['wow', '알아 두기', '2019년에 생태계 교란 생물로 지정되었어요.']])},
   // 상류 (upstream): cold, clear, fast water over stones.
   {id: 'stone-diatom', name: '돌말', role: 'producer', behaviorType: 'static', zone: 'algae',
@@ -164,19 +166,19 @@ export const riverSpecies = [
   {id: 'native-crayfish', name: '가재', role: 'consumer', behaviorType: 'forager', zone: 'bottom',
     caption: '돌 밑에서 작은 동물을 먹어요', description: '우리나라 토종 가재예요. 맑은 계곡의 돌 밑에 숨어 살며 작은 동물을 잡아먹어요.', habitat: '맑은 계곡의 돌 밑',
     scientificName: 'Cambaroides similis', feeding: {initialHunger: .45, hungerPerSecond: .018, hungryAt: .6, mealRelief: .7, searchRadius: .3, speed: .02},
-    motion: {speedX: .01, speedY: .003, walkSeconds: [1, 2], pauseSeconds: [1, 2]}, life: life(70, 100, '여러 해 사는 가재예요', '마리'), size: [52, 38],
+    motion: {speedX: .01, speedY: .003, walkSeconds: [1, 2], pauseSeconds: [1, 2]}, life: life(70, 100, '여러 해 사는 가재예요', '마리'), size: [60, 45],
     starvation: 540, satiety: 300, predatorSatiety: .4,
     card: card('맑은 물에서만 사는 우리나라 토종 가재예요.', [['role', '역할', '여러 생물을 먹고 살아서 소비자예요.'], ['eats', '먹는 것', '날도래 애벌레, 엽새우, 가라앉은 낙엽을 먹어요.'], ['eatenBy', '나를 먹는 것', '꺽지, 수달, 새가 먹어요.'], ['home', '사는 곳', '맑은 계곡의 돌 밑']])},
   {id: 'korean-catfish', name: '미유기', role: 'consumer', behaviorType: 'forager', zone: 'bottom',
     caption: '바닥에서 작은 물고기를 먹어요', description: '우리나라에만 사는 작은 메기예요. 맑은 계곡 바닥에서 작은 물고기와 애벌레를 잡아먹어요.', habitat: '맑은 계곡의 바닥',
     scientificName: 'Silurus microdorsalis', feeding: {initialHunger: .45, hungerPerSecond: .018, hungryAt: .6, mealRelief: .75, searchRadius: .3, speed: .035},
-    motion: {speedX: .015, speedY: .003, walkSeconds: [1.5, 3], pauseSeconds: [1, 2]}, life: life(70, 100, '여러 해 사는 물고기예요', '마리'), size: [56, 32],
+    motion: {speedX: .015, speedY: .003, walkSeconds: [1.5, 3], pauseSeconds: [1, 2]}, life: life(70, 100, '여러 해 사는 물고기예요', '마리'), size: [72, 54],
     starvation: 600, satiety: 360, predatorSatiety: .5,
     card: card('메기를 닮은 작고 날씬한 우리나라 고유종이에요.', [['role', '역할', '다른 동물을 잡아먹고 살아서 소비자예요.'], ['eats', '먹는 것', '작은 물고기와 물속 애벌레를 먹어요.'], ['eatenBy', '나를 먹는 것', '수달과 큰 새가 먹어요.'], ['home', '사는 곳', '맑은 계곡의 돌 사이 바닥']])},
   {id: 'aucha-perch', name: '꺽지', role: 'consumer', behaviorType: 'forager', zone: 'water',
     caption: '물고기와 가재를 먹어요', description: '우리나라에만 사는 물고기예요. 돌 틈에 숨어 있다가 작은 물고기와 가재를 잡아먹어요.', habitat: '맑은 계곡과 개울',
     scientificName: 'Coreoperca herzi', feeding: {initialHunger: .45, hungerPerSecond: .018, hungryAt: .6, mealRelief: .75, searchRadius: .32, speed: .045},
-    motion: {speedX: .025, speedY: .006, walkSeconds: [1, 2], pauseSeconds: [1, 2]}, life: life(70, 100, '여러 해 사는 물고기예요', '마리'), size: [54, 38],
+    motion: {speedX: .025, speedY: .006, walkSeconds: [1, 2], pauseSeconds: [1, 2]}, life: life(70, 100, '여러 해 사는 물고기예요', '마리'), size: [72, 54],
     starvation: 600, satiety: 360, predatorSatiety: .5,
     card: card('아가미뚜껑에 파란 테두리의 검은 점이 있는 우리나라 고유종이에요.', [['role', '역할', '다른 동물을 잡아먹고 살아서 소비자예요.'], ['eats', '먹는 것', '작은 물고기, 가재, 물속 곤충을 먹어요.'], ['eatenBy', '나를 먹는 것', '수달과 큰 새가 먹어요.'], ['home', '사는 곳', '맑은 계곡의 돌 틈']])},
 ];
