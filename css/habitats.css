@@ -17,6 +17,6 @@
 #population-nearby button[aria-pressed=true]{background:#d8e8c4;border-color:#52764b}
 #population-individual{padding:10px;background:#edf3df;border-radius:8px;font-size:13px;line-height:1.7}
 #population-dialog{scroll-padding-bottom:70px}
-#population-close{position:sticky;bottom:0;z-index:1;background:#edf3df}
+#population-close{position:sticky;bottom:0;z-index:1;background:#edf3df;display:block;margin-left:auto}
 
 #population-dialog.is-choosing > :not(h2,#population-individual,#population-nearby,#population-close){display:none}

@@ -104,7 +104,7 @@ try {
   const populationButton=document.createElement('button');populationButton.id='population-open';populationButton.type='button';populationButton.textContent='생물 살펴보기';document.querySelector('.header-actions').append(populationButton);
   let chapterView=null;
   if(chapterMode){
-    document.body.classList.add('chapter-mode');
+    document.body.classList.add('chapter-mode');document.body.dataset.theme=theme;
     const webView=createChapterWebView(chapterProgress,{onComplete:()=>chapterView.webDone(),onGuide:id=>collectionView.openGuide(id,null),onReference:()=>collectionView.openWeb(undefined,null)});
     const recordView=createChapterRecordView(chapterProgress,{currentStageId:()=>gameState.chapter.stageId,openWeb:n=>webView.open(n)});
     chapterView=createChapterView(()=>gameState,{forest,theme,themeStore,admin,notify:(text,ok)=>important(text,ok),cleared:()=>chapterProgress.cleared(),openWeb:n=>webView.open(n),webComplete:n=>webView.isComplete(n),openRecord:()=>recordView.open(),reflections:()=>chapterProgress.read().reflections,onReflect:entry=>chapterProgress.addReflection(entry),onCatch:catchStageObservation,onCollect:collectStageTrash,onBoss:tapStageBoss,onPrepare:prepareStage,onStage:id=>{stageSave.remove();installForest(createStageGameState(stageById[id]));},onRestart:()=>{stageSave.remove();installForest(createStageGameState(stageById[gameState.chapter.stageId]));},onCare:careStageEnvironment});

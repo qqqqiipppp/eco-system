@@ -27,6 +27,9 @@ SOURCES = {
     # 2026-11-04 river midstream batch (artwork/2026-11-04/river-midstream-batch3), named by species id.
     'river-midstream-batch3': ['hornwort', 'tape-grass', 'pale-chub', 'crucian-carp', 'sand-gudgeon', 'dark-sleeper',
                                'mandarin-fish', 'otter', 'largemouth-bass', 'bluegill'],
+    # 2026-11-05 river downstream batch (artwork/2026-11-04/river-downstream-batch4), named by species id.
+    'river-downstream-batch4': ['reed', 'water-chestnut', 'freshwater-clam', 'common-carp', 'reeves-turtle', 'grey-heron',
+                                'nutria', 'snapping-turtle'],
 }
 # A delivered file named other than its species id (the river batch's names).
 FILES = {'algae': 'algae-filament', 'daphnia': 'water-flea', 'medaka': 'killifish', 'pond-snail': 'snail-pond',
