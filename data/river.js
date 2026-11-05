@@ -14,7 +14,7 @@ import {speciesCards} from './species-cards.js';
 import {foodEvidence} from './food-evidence.js';
 import {edge,addFoodRelations,foodPartLabels} from './food-relations.js';
 import {addDiscoveryEvent,addShortageEvent} from './event-config.js';
-import {chapters,stages,stageById,stageConfig,breeding} from './chapters.js';
+import {chapters,stages,stageById,stageConfig,breeding,growth as stageGrowth} from './chapters.js';
 import {ecologySeconds,ecologyRate,scaleFields} from './pacing-config.js';
 import {survivalConfig} from './survival-config.js';
 
@@ -31,8 +31,12 @@ export const riverZones = {
   algae: {left: .04, right: .6, top: .83, bottom: .88},
   bottom: {left: .04, right: .6, top: .83, bottom: .95},
   shore: {left: .74, right: .96, top: .3, bottom: .6},
+  // Plants of the bank (부들) stand on the land above the waterline.
+  bank: {left: .77, right: .95, top: .32, bottom: .44},
+  // A frog sits on the bank and the water's edge, where water striders skate.
+  frogShore: {left: .56, right: .95, top: .3, bottom: .44},
 };
-const riverHabitatZones = {surface: '수면', water: '물속', algae: '물 바닥 가까운 물속', bottom: '물 바닥', shore: '물가'};
+const riverHabitatZones = {surface: '수면', water: '물속', algae: '물 바닥 가까운 물속', bottom: '물 바닥', shore: '물가', bank: '물가 흙', frogShore: '물가와 물 가장자리'};
 
 const life = (min, max, label, unit, extra = {}) => ({model: 'individual', min: min * 60, max: max * 60, initialAge: .08, label, unit, ...extra});
 const card = (intro, rows) => ({intro, rows: rows.map(([key, label, text]) => ({key, label, text})), photos: []});
@@ -78,6 +82,23 @@ export const riverSpecies = [
     caption: '물 위에 떨어진 벌레를 먹어요', description: '긴 다리로 물 위에 서서 미끄러지듯 다녀요. 물에 떨어진 작은 벌레를 잡아먹어요. 이 게임에서는 그 먹이를 따로 보여 주지 않아요.', habitat: '연못과 개울의 수면',
     scientificName: 'Aquarius paludum', motion: {speedX: .05, speedY: .012, walkSeconds: [.4, .9], pauseSeconds: [.8, 1.6]}, life: life(30, 40, '한 해 사는 곤충이에요', '마리'), size: [52, 30],
     card: card('가늘고 긴 다리로 물 위에 떠서 다니는 곤충이에요.', [['role', '역할', '다른 동물을 먹고 살아서 소비자예요.'], ['eats', '먹는 것', '물에 떨어진 작은 곤충의 즙을 빨아 먹어요.'], ['eatenBy', '나를 먹는 것', '개구리와 물고기가 먹어요.'], ['home', '사는 곳', '연못, 논, 개울의 물 위']])},
+  {id: 'cattail', name: '부들', role: 'producer', behaviorType: 'static', zone: 'bank',
+    caption: '물가에 뿌리를 내려요', description: '물가의 축축한 흙에 뿌리를 내리고 길쭉한 잎과 소시지 모양 이삭을 올려요.', habitat: '연못과 강의 물가',
+    scientificName: 'Typha orientalis', growth: {sunlight: .4, water: .3, air: .1, soil: .2},
+    life: life(60, 90, '여러 해 사는 물가 풀이에요', '포기', {matter: 'litter', matterAmount: 1}), size: [100, 75],
+    card: card('갈색 소시지 모양 이삭이 달리는 물가 풀이에요.', producerRows('햇빛 · 물 · 공기 · 흙', '뉴트리아가 뿌리를 갉아 먹어요.', '연못과 강의 물가 흙'))},
+  // A frog's young: grows into a frog on the bank when it keeps eating (stageGrowth).
+  {id: 'frog-tadpole', name: '올챙이', role: 'consumer', behaviorType: 'forager', zone: 'water',
+    caption: '작은 조류를 먹고 자라요', description: '참개구리의 어린 시기예요. 물속에서 꼬리로 헤엄치며 작은 조류를 먹고 자라 개구리가 돼요.', habitat: '연못과 논의 물속',
+    scientificName: 'Pelophylax nigromaculatus', taxonomyNote: '참개구리의 올챙이 시기예요.', feeding: {initialHunger: .5, hungerPerSecond: .035, hungryAt: .5, mealRelief: .65, searchRadius: .34, speed: .03},
+    motion: {speedX: .02, speedY: .008, walkSeconds: [.8, 1.6], pauseSeconds: [.6, 1.2]}, life: life(30, 40, '자라서 참개구리가 되는 어린 시기예요', '마리'), size: [40, 28],
+    card: card('꼬리로 헤엄치는 참개구리의 어린 시기예요.', [['role', '역할', '작은 조류를 먹고 살아서 소비자예요.'], ['eats', '먹는 것', '물속의 작은 조류와 물풀을 갉아 먹어요.'], ['eatenBy', '나를 먹는 것', '물방개, 메기, 물고기가 먹어요.'], ['life', '한살이', '알 → 올챙이 → 뒷다리 → 앞다리 → 꼬리가 줄어 개구리 (탈바꿈)']])},
+  {id: 'diving-beetle', name: '물방개', role: 'consumer', behaviorType: 'forager', zone: 'water',
+    caption: '올챙이와 작은 물고기를 먹어요', description: '노처럼 생긴 뒷다리로 물속을 헤엄치는 곤충이에요. 올챙이와 작은 물고기를 잡아먹어요.', habitat: '연못과 논의 물속',
+    scientificName: 'Cybister chinensis', feeding: {initialHunger: .45, hungerPerSecond: .02, hungryAt: .6, mealRelief: .7, searchRadius: .3, speed: .045},
+    motion: {speedX: .03, speedY: .012, walkSeconds: [.8, 1.6], pauseSeconds: [.6, 1.4]}, life: life(50, 70, '여러 해 사는 물속 곤충이에요', '마리'), size: [44, 32],
+    starvation: 480, satiety: 300, predatorSatiety: .4,
+    card: card('매끈한 검녹색 몸에 노란 테두리가 있는 물속 곤충이에요.', [['role', '역할', '다른 동물을 잡아먹고 살아서 소비자예요.'], ['eats', '먹는 것', '올챙이, 작은 물고기, 물속 곤충을 먹어요.'], ['eatenBy', '나를 먹는 것', '메기, 새가 먹어요.'], ['home', '사는 곳', '연못과 논의 물속, 물풀 사이']])},
 ];
 
 // Eaten -> eater, like the forest's food relations. R: river sources.
@@ -85,20 +106,27 @@ export const riverFoodRelations = [
   edge('algae', 'daphnia', 'whole', 'R1', 'B', true),
   edge('daphnia', 'medaka', 'animal', 'R2', 'B', true),
   edge('algae', 'pond-snail', 'whole', 'R3'),
+  edge('algae', 'frog-tadpole', 'whole', 'R4'),
+  edge('frog-tadpole', 'diving-beetle', 'animal', 'R5', 'B', true),
+  edge('medaka', 'diving-beetle', 'animal', 'R5'),
+  edge('water-strider', 'frog', 'animal', 'R6'),
 ];
 const riverEvidence = {
   R1: {url: 'https://species.nibr.go.kr/', location: '물벼룩류 > 먹이', note: '물벼룩은 물속의 작은 조류를 걸러 먹어요. 특정 조류 종과의 쌍은 단순화했어요.'},
   R2: {url: 'https://species.nibr.go.kr/', location: '송사리 > 먹이', note: '송사리는 물벼룩 같은 작은 동물성 플랑크톤을 먹어요.'},
   R3: {url: 'https://species.nibr.go.kr/', location: '논우렁이 > 먹이', note: '우렁이는 바닥과 물풀에 붙은 조류를 갉아 먹어요.'},
+  R4: {url: 'https://species.nibr.go.kr/', location: '참개구리 올챙이 > 먹이', note: '올챙이는 물속의 조류와 물풀을 갉아 먹어요.'},
+  R5: {url: 'https://genebank.rda.go.kr/PB/jw/insectView.bo?page=1&species_id=ZO1CR0046&use_kind=03', location: '물방개 > 먹이', note: '물방개는 올챙이와 작은 물고기 같은 물속 동물을 잡아먹어요.'},
+  R6: {url: 'https://www.honda.co.jp/outdoor/adventure/tonosamagaeru.html', location: '참개구리 > 먹이', note: '참개구리는 물가와 물 위의 곤충을 잡아먹어요. 소금쟁이 특정 쌍은 단순화했어요.'},
 };
 
-export const riverPrices = {algae: 3, duckweed: 3, 'water-lily': 5, daphnia: 3, medaka: 6, 'pond-snail': 5, 'water-strider': 5};
+export const riverPrices = {algae: 3, duckweed: 3, 'water-lily': 5, cattail: 3, daphnia: 3, medaka: 6, 'pond-snail': 5, 'water-strider': 5, 'frog-tadpole': 4, 'diving-beetle': 7};
 const relation = (food, eater) => riverFoodRelations.find(r => r.sourceSpeciesId === food && r.targetSpeciesId === eater).relationId;
 
 // Organisms: [species, x, y], y on the species' living space.
 export const riverChapters = [
   {chapterId: 'river-pond', number: 1, title: '연못·습지', events: ['drought'], seedSeconds: 50,
-    newSpecies: ['algae', 'daphnia', 'medaka', 'duckweed', 'water-lily', 'pond-snail', 'water-strider'],
+    newSpecies: ['algae', 'daphnia', 'medaka', 'duckweed', 'water-lily', 'pond-snail', 'water-strider', 'cattail', 'frog-tadpole', 'diving-beetle'],
     intro: '고인 물에 사는 생산자와 소비자를 만나요.',
     art: {src: './assets/images/backgrounds/river-pond.webp', alt: '연못을 비스듬히 내려다본 수면과 물속 단면, 진흙 바닥, 오른쪽의 물가 비탈과 흙 단면.'}, stages: [
     {stageId: '1-1', title: '연못의 시작', points: 12,
@@ -112,6 +140,12 @@ export const riverChapters = [
       inventory: ['algae', 'duckweed', 'water-lily', 'daphnia', 'medaka', 'pond-snail', 'water-strider'], requiredSpecies: {daphnia: 2, medaka: 1, 'pond-snail': 1},
       organisms: [['algae', .14, .85], ['algae', .3, .86], ['algae', .5, .85], ['algae', .58, .86], ['duckweed', .3, .3], ['water-lily', .5, .36],
         ['daphnia', .24, .66], ['daphnia', .36, .74], ['daphnia', .48, .7], ['medaka', .54, .62]]},
+    {stageId: '1-3', title: '올챙이의 연못', points: 14,
+      goal: '올챙이는 작은 조류를 먹고 자라 참개구리가 돼요. 물방개는 올챙이를 잡아먹어요. 올챙이가 개구리로 자라게 해 강 별 3개를 모아요.',
+      tasks: [{text: '올챙이가 개구리로', grow: 'frog', icon: 'frog-tadpole'}, {text: '가뭄 견디기', crisis: 'drought'}],
+      inventory: ['algae', 'duckweed', 'cattail', 'daphnia', 'medaka', 'frog-tadpole', 'diving-beetle', 'water-strider'], requiredSpecies: {daphnia: 2, medaka: 1}, growRequired: 'frog',
+      organisms: [['algae', .12, .85], ['algae', .26, .86], ['algae', .4, .85], ['algae', .54, .86], ['cattail', .86, .4], ['duckweed', .34, .3], ['water-strider', .5, .34], ['water-strider', .64, .4],
+        ['daphnia', .2, .7], ['daphnia', .34, .76], ['daphnia', .46, .68], ['medaka', .3, .62], ['frog-tadpole', .16, .74], ['frog-tadpole', .44, .78], ['diving-beetle', .56, .66]]},
   ]},
 ];
 
@@ -151,6 +185,11 @@ export function useRiverTheme() {
   for (const s of riverSpecies) if (s.feeding) addShortageEvent(s.id);
   Object.assign(stageConfig.prices, riverPrices);
   Object.assign(breeding.species, riverBreeding);
+  // A tadpole fed for a while grows into a frog on the bank. The frog keeps
+  // its forest data, living here at the water's edge and eating water striders.
+  stageGrowth['frog-tadpole'] = {into: 'frog', seconds: 40};
+  Object.assign(speciesProfiles.frog, {zone: 'frogShore'});
+  speciesHabitats.frog = {...speciesHabitats.frog, primary: 'frogShore', additional: [], direct: true};
   // The river's cards only (the forest's stay known by id).
   organisms.splice(0, organisms.length, ...riverSpecies.map(s => organismById[s.id]));
   const riverStages = riverChapters.flatMap(chapter => chapter.stages.map(stage => ({...stage, chapter, events: chapter.events, seedSeconds: chapter.seedSeconds})));

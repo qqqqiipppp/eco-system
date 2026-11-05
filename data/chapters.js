@@ -189,6 +189,11 @@ export const breeding = {
   },
 };
 
+// A young animal that grows into another in a stage (the river's tadpole into
+// a frog): fed for seconds, it becomes the grown species in that one's own
+// living space. Filled by a theme (data/river.js); the forest has none.
+export const growth = {};
+
 export const crisisForFactor = factor => Object.values(crises).find(c => c.factor === factor);
 
 export const stages = chapters.flatMap(chapter => chapter.stages.map(stage => ({...stage, chapter, events: chapter.events, seedSeconds: chapter.seedSeconds})));

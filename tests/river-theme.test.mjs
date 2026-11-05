@@ -21,7 +21,7 @@ const zoneOf=id=>placementConfig.zones[speciesProfiles[id].zone];
 
 test('the river replaces the chapters and cards, and keeps the forest species known',()=>{
  assert.deepEqual(chapters.map(c=>c.chapterId),['river-pond']);
- assert.deepEqual(stages.map(s=>s.stageId),['1-1','1-2']);assert.equal(stageById['1-1'].title,'연못의 시작');
+ assert.deepEqual(stages.map(s=>s.stageId).slice(0,3),['1-1','1-2','1-3']);assert.equal(stageById['1-1'].title,'연못의 시작');
  assert.deepEqual(organisms.map(o=>o.id),riverSpecies.map(s=>s.id));
  assert.equal(organismById.grass.name,'강아지풀');
 });
@@ -63,10 +63,19 @@ const careful=s=>{
 };
 
 test('a careful student clears the pond stages; waiting alone does not',()=>{
- for(const id of ['1-1','1-2']){
+ for(const id of ['1-1','1-2','1-3']){
   const s=play(id,careful);
   assert.ok(s.chapter.cleared,`${id} cleared`);
   assert.ok(stageById[id].tasks.every(t=>taskDone(s,t)),`${id} tasks`);
  }
  assert.equal(play('1-1',()=>{}).chapter.cleared,false,'no medaka, no chain');
+});
+
+test('a fed tadpole grows into a frog on the bank, which eats water striders',()=>{
+ const s=createStageGameState(stageById['1-3']),f=createFeedingSystem(0);let grown=null,removed=[];
+ for(let t=0;t<3000&&!grown;t++){const r=f.update(s,.1,layout);if(!r.ticked)continue;const out=updateStage(s,.5,r.feedingEvents);if(out.removed?.length){removed.push(...out.removed);f.forget(out.removed);}grown=out.born.find(o=>o.speciesId==='frog')||grown;}
+ assert.ok(grown,'a frog');assert.ok(removed.length>=1,'its tadpole is gone');
+ assert.ok(isPositionAllowed('frog',grown.position,layout),'on the bank');
+ assert.ok(taskDone(s,{grow:'frog'}));
+ assert.ok(foodRelations.some(r=>r.sourceSpeciesId==='water-strider'&&r.targetSpeciesId==='frog'));
 });

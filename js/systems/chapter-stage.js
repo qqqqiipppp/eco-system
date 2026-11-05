@@ -9,7 +9,8 @@ import {foodResourceConfig} from '../../data/ecology-config.js';
 import {managementActions} from '../../data/management-actions.js';
 import {foodRelations} from '../../data/food-relations.js';
 import {organismById} from '../../data/organisms.js';
-import {stageConfig as config,stageById,crises,crisisForFactor,breeding} from '../../data/chapters.js';
+import {stageConfig as config,stageById,crises,crisisForFactor,breeding,growth} from '../../data/chapters.js';
+import {placementConfig,speciesProfiles} from '../../data/interaction-config.js';
 
 // A fresh stage forest. Chapter mode never writes the regular forest save.
 export function createStageGameState(stage) {
@@ -60,6 +61,7 @@ export function neededCards(s, blockers = stageBlockers(s)) {
     if (b.id === 'starving') { const needs = needStates(s); foodsOf(new Set(consumers(s).filter(o => needs.get(o.instanceId) === 'starving').map(o => o.speciesId))).forEach(id => cards.add(id)); }
     if (b.id === 'noDecomposition') ['mushroom', 'litter-mold', 'earthworm'].filter(owned).forEach(id => cards.add(id));
     if (b.id === 'needBirth' && owned(b.speciesId) && s.organisms.filter(o => o.speciesId === b.speciesId).length < 2) cards.add(b.speciesId);
+    if (b.id === 'needGrow') { const young = Object.keys(growth).find(id => growth[id].into === b.speciesId); if (young && owned(young) && !s.organisms.some(o => o.speciesId === young)) cards.add(young); }
     if (b.id === 'needObserve') { const r = foodRelations.find(x => x.relationId === b.relationId); for (const id of [r.sourceSpeciesId, r.targetSpeciesId]) if (owned(id) && !s.organisms.some(o => o.speciesId === id)) cards.add(id); }
   }
   return cards;
@@ -89,6 +91,8 @@ export function stageBlockers(s) {
   if (stage.birthRequired && c.seeds >= config.seedsToClear - 1 && !c.births.some(b => b.speciesId === stage.birthRequired)) list.push({id: 'needBirth', speciesId: stage.birthRequired});
   // A stage that asks to watch one meal: the third star waits for its 💡.
   if (stage.observeRequired && c.seeds >= config.seedsToClear - 1 && !(c.caught || []).includes(stage.observeRequired)) list.push({id: 'needObserve', relationId: stage.observeRequired});
+  // A stage about growing up (올챙이가 개구리로): the third star waits for it.
+  if (stage.growRequired && c.seeds >= config.seedsToClear - 1 && !(c.grown || []).some(g => g.speciesId === stage.growRequired)) list.push({id: 'needGrow', speciesId: stage.growRequired});
   return list;
 }
 
@@ -180,6 +184,7 @@ export function updateStage(s, seconds, feedingEvents = []) {
   }
   updateTrash(s, seconds);
   const born = updateBreeding(s, seconds);
+  const grew = updateGrowth(s, seconds);
   // In a shop the price limits how fast animals come back, so the regular
   // forest's wait before reintroducing an eaten species is lifted here.
   for (const intro of Object.values(s.population.introductions)) if (intro.nextAt > time) intro.nextAt = time;
@@ -195,7 +200,8 @@ export function updateStage(s, seconds, feedingEvents = []) {
   c.foodRecovery = event?.phase === 'active' && !crises[event.kind]?.human ? config.crisisFoodRecovery : 1;
   const result = growSeeds(s);
   if (!c.cleared) result.eventStarted = startDueEvent(s) || result.eventStarted;
-  result.born = born;
+  result.born = [...born, ...grew.added];
+  result.removed = grew.removed;
   return result;
 }
 
@@ -257,6 +263,7 @@ export function taskDone(s, task) {
   if (task.decomposer) return s.organisms.some(o => organismById[o.speciesId]?.role === 'decomposer');
   if (task.decomposed) return c.lastDecomposedAt !== null;
   if (task.observe) return (c.caught || []).includes(task.observe);
+  if (task.grow) return (c.grown || []).some(g => g.speciesId === task.grow);
   return false;
 }
 
@@ -374,4 +381,24 @@ function updateBreeding(s, seconds) {
     }
   }
   return born;
+}
+
+// A young one fed recently keeps growing; when grown it leaves the water (or
+// wherever it lived) and the grown animal appears in its own living space.
+function updateGrowth(s, seconds) {
+  const added = [], removed = [];
+  for (const o of [...s.organisms]) {
+    const rule = growth[o.speciesId];
+    if (!rule) continue;
+    if (o.lastSuccessfulFeedingAt !== null && o.lastSuccessfulFeedingAt !== undefined && s.simulationTime - o.lastSuccessfulFeedingAt <= config.recentMealSeconds) o.growSeconds = (o.growSeconds || 0) + seconds;
+    if ((o.growSeconds || 0) < rule.seconds) continue;
+    const zone = placementConfig.zones[speciesProfiles[rule.into].zone];
+    const at = {x: Math.min(zone.right - .02, Math.max(zone.left + .02, o.position.x)), y: (zone.top + zone.bottom) / 2};
+    const note = {mode: 'metamorphosis', fromSpeciesId: o.speciesId, intoSpeciesId: rule.into};
+    removeOrganism(s, o.instanceId, 'life_stage_exit', note);
+    removed.push(o.instanceId);
+    const grown = addOrganism(s, rule.into, at, 'reproduction', note);
+    if (grown) { added.push(grown); (s.chapter.grown ??= []).push({speciesId: rule.into, at: s.simulationTime}); }
+  }
+  return {added, removed};
 }

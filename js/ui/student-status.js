@@ -27,6 +27,8 @@ export function studentFood(id){
 }
 export function studentChange(record){
  const name=organismById[record.speciesId]?.name;if(!name)return '';
+ // A tadpole grown into a frog: one change, told the same way for both records.
+ if(record.mode==='metamorphosis')return `${particle(organismById[record.fromSpeciesId].name,'이','가')} 자라 ${particle(organismById[record.intoSpeciesId].name,'이','가')} 되었어요!`;
  if(record.cause==='natural_lifespan')return particle(name,'이','가')+' 수명을 다해 자연으로 돌아갔어요.';
  if(record.cause==='starvation')return particle(name,'이','가')+' 먹이를 오래 구하지 못해 줄었어요.';
  if(record.cause==='life_stage_exit')return name+'의 애벌레 시기가 끝났어요. 번데기와 나방 모습은 이 숲에서 생략해요.';
