@@ -2039,6 +2039,182 @@
     174
    ],
    "bytes": 10680
+  },
+  "reed": {
+   "file": "reed.webp",
+   "source": "river-downstream-batch4/reed.png",
+   "sourceSha256": "40f0cd8de0910d8275483f0afe6aeb306bbb66b7bd7439db9e8d084beacb6935",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    364,
+    125,
+    1085,
+    995
+   ],
+   "placedBox": [
+    59,
+    8,
+    197,
+    174
+   ],
+   "bytes": 16042
+  },
+  "water-chestnut": {
+   "file": "water-chestnut.webp",
+   "source": "river-downstream-batch4/water-chestnut.png",
+   "sourceSha256": "9e78ef9f45e7446b20832ac767ce80814cc91e1fbf2f8f62ddeeba257fb308bf",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    89,
+    206,
+    1359,
+    995
+   ],
+   "placedBox": [
+    8,
+    25,
+    248,
+    174
+   ],
+   "bytes": 12280
+  },
+  "freshwater-clam": {
+   "file": "freshwater-clam.webp",
+   "source": "river-downstream-batch4/freshwater-clam.png",
+   "sourceSha256": "9ac3b398cae60370f183c893b1f5036e1ae7dd0fc781fd6effc9d2e9e48133d6",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    177,
+    510,
+    1272,
+    994
+   ],
+   "placedBox": [
+    8,
+    68,
+    248,
+    174
+   ],
+   "bytes": 6842
+  },
+  "common-carp": {
+   "file": "common-carp.webp",
+   "source": "river-downstream-batch4/common-carp.png",
+   "sourceSha256": "c7340f28616239d1845d5c26922c6b0a1566a1dc6e1e97b85191f2b28825e333",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    89,
+    543,
+    1358,
+    995
+   ],
+   "placedBox": [
+    8,
+    89,
+    248,
+    174
+   ],
+   "bytes": 7788
+  },
+  "reeves-turtle": {
+   "file": "reeves-turtle.webp",
+   "source": "river-downstream-batch4/reeves-turtle.png",
+   "sourceSha256": "5eb03cf323d9e036dccb037d5c90c5189ca70b906db4905cde072b2c51c3697c",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    89,
+    560,
+    1358,
+    994
+   ],
+   "placedBox": [
+    8,
+    92,
+    248,
+    174
+   ],
+   "bytes": 7358
+  },
+  "grey-heron": {
+   "file": "grey-heron.webp",
+   "source": "river-downstream-batch4/grey-heron.png",
+   "sourceSha256": "4175e004d6d0c6e8757212731ae86d93ed9e37631279b811219f2f52dc139070",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    359,
+    125,
+    1090,
+    995
+   ],
+   "placedBox": [
+    58,
+    8,
+    197,
+    174
+   ],
+   "bytes": 8178
+  },
+  "nutria": {
+   "file": "nutria.webp",
+   "source": "river-downstream-batch4/nutria.png",
+   "sourceSha256": "b9a3989c0b9654cddb1c5d57ee0b97dd16ef28e5b0d4007844689191a87720f8",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    88,
+    549,
+    1359,
+    994
+   ],
+   "placedBox": [
+    8,
+    90,
+    248,
+    174
+   ],
+   "bytes": 6364
+  },
+  "snapping-turtle": {
+   "file": "snapping-turtle.webp",
+   "source": "river-downstream-batch4/snapping-turtle.png",
+   "sourceSha256": "8cb34c7ac8f7cf6f6da338120652eacc1f97da38130bfac8db9f70b9e9f39178",
+   "sourceSize": [
+    1448,
+    1086
+   ],
+   "visibleBox": [
+    89,
+    699,
+    1359,
+    994
+   ],
+   "placedBox": [
+    8,
+    118,
+    248,
+    174
+   ],
+   "bytes": 5846
   }
  },
  "stages": {
