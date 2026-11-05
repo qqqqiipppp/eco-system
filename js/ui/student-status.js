@@ -3,11 +3,12 @@ import {earthwormAtSurface} from '../systems/prey-access.js';
 import {survivalConfig} from '../../data/survival-config.js';
 import {relationsByConsumer} from '../../data/food-relations.js';
 import {organismById} from '../../data/organisms.js';
+import {themeWords as W} from '../../data/themes.js';
 import {mealName,particle} from '../../data/student-text.js';
 
 // Read domain state, never infer biological state from sprite coordinates.
 export function studentStatus(instance,time){
- if(!instance)return '지금 숲에는 없어요.';
+ if(!instance)return `지금 ${W.place}에는 없어요.`;
  if(instance.speciesId==='earthworm'&&survivalConfig.earthwormRefuge)return earthwormAtSurface(instance,time)?'땅 위 가까이에서 활동하고 있어요.':'흙과 낙엽 아래에서 활동하고 있어요.';
  const stage=survivalStage(instance);
  if(stage==='weak')return '먹이를 구하지 못해 힘이 없어요.';
@@ -31,8 +32,8 @@ export function studentChange(record){
  if(record.mode==='metamorphosis')return `${particle(organismById[record.fromSpeciesId].name,'이','가')} 자라 ${particle(organismById[record.intoSpeciesId].name,'이','가')} 되었어요!`;
  if(record.cause==='natural_lifespan')return particle(name,'이','가')+' 수명을 다해 자연으로 돌아갔어요.';
  if(record.cause==='starvation')return particle(name,'이','가')+' 먹이를 오래 구하지 못해 줄었어요.';
- if(record.cause==='life_stage_exit')return name+'의 애벌레 시기가 끝났어요. 번데기와 나방 모습은 이 숲에서 생략해요.';
- if(record.cause==='release')return particle(name,'을','를')+' 숲에서 돌려보냈어요.';
+ if(record.cause==='life_stage_exit')return name+`의 애벌레 시기가 끝났어요. 번데기와 나방 모습은 이 ${W.place}에서 생략해요.`;
+ if(record.cause==='release')return particle(name,'을','를')+` ${W.place}에서 돌려보냈어요.`;
  if(record.cause==='colony_decline')return name+' 군집이 나쁜 환경에서 줄었어요.';
  if(record.cause==='reproduction')return organismById[record.speciesId].role==='producer'?name+' 새싹이 났어요.':name+'의 새 세대가 태어났어요.';
  if(record.cause==='replenishment')return name+'의 새 개체가 나타났어요.';

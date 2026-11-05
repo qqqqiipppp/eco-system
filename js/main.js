@@ -12,7 +12,7 @@ import { createGuideAdapter } from './adapters/guide-preference.js';
 import { updateForestGoal } from './systems/forest-progress.js';
 import { createSaveService } from './services/save-service.js';
 import { createLocalAdapter,createNoSaveAdapter,createChapterProgressAdapter,createChapterStageAdapter,createAdminAdapter,createThemeAdapter } from './adapters/local-storage.js';
-import {themeById} from '../data/themes.js';
+import {themeById,themeWords as W} from '../data/themes.js';
 import {createStageGameState,updateStage,catchObservation,careFor,buyCheck,payFor,collectTrash,prepareFor,hitBoss,chooseCrisisAction} from './systems/chapter-stage.js';
 import {organismById as speciesById} from '../data/organisms.js';
 import {particle,mealSentence} from '../data/student-text.js';
@@ -58,6 +58,12 @@ import {capForestAspect} from './ui/forest-aspect.js';
 // Chapter mode is the game. The old free forest (?mode=forest, 2026-11-05) is
 // retired: its code below (chapterMode false) is no longer reached.
 const chapterMode=true;
+// The page's own words (index.html) say 숲; another theme's say its own place (강).
+function sayPlace(root){
+  const walk=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+  for(let node=walk.nextNode();node;node=walk.nextNode())if(node.data.includes('숲'))node.data=node.data.replaceAll('숲',W.place);
+  for(const element of root.querySelectorAll('[aria-label*="숲"],[title*="숲"]'))for(const name of ['aria-label','title'])if(element.getAttribute(name)?.includes('숲'))element.setAttribute(name,element.getAttribute(name).replaceAll('숲',W.place));
+}
 // The ecosystem being explored (숲 or 강); the forest until another is ready and
 // chosen. 관리자 모드 can already open one still being made, to try it.
 const admin=createAdminAdapter(),themeStore=createThemeAdapter(),stored=themeById[themeStore.read()];
@@ -104,7 +110,7 @@ try {
   const populationButton=document.createElement('button');populationButton.id='population-open';populationButton.type='button';populationButton.textContent='생물 살펴보기';document.querySelector('.header-actions').append(populationButton);
   let chapterView=null;
   if(chapterMode){
-    document.body.classList.add('chapter-mode');document.body.dataset.theme=theme;
+    document.body.classList.add('chapter-mode');document.body.dataset.theme=theme;if(theme!=='forest')sayPlace(document.body);
     const webView=createChapterWebView(chapterProgress,{onComplete:()=>chapterView.webDone(),onGuide:id=>collectionView.openGuide(id,null),onReference:()=>collectionView.openWeb(undefined,null)});
     const recordView=createChapterRecordView(chapterProgress,{currentStageId:()=>gameState.chapter.stageId,openWeb:n=>webView.open(n)});
     chapterView=createChapterView(()=>gameState,{forest,theme,themeStore,admin,notify:(text,ok)=>important(text,ok),cleared:()=>chapterProgress.cleared(),openWeb:n=>webView.open(n),webComplete:n=>webView.isComplete(n),openRecord:()=>recordView.open(),reflections:()=>chapterProgress.read().reflections,onReflect:entry=>chapterProgress.addReflection(entry),onCatch:catchStageObservation,onCollect:collectStageTrash,onBoss:tapStageBoss,onChoose:i=>chooseCrisisAction(gameState,i),onPrepare:prepareStage,onStage:id=>{stageSave.remove();installForest(createStageGameState(stageById[id]));},onRestart:()=>{stageSave.remove();installForest(createStageGameState(stageById[gameState.chapter.stageId]));},onCare:careStageEnvironment});
@@ -226,8 +232,8 @@ try {
       feedingSystem.forget([response.removedId]);wander.forget([response.removedId]);scene.remove([response.removedId]);
       eventSystem.refresh(gameState);stabilitySystem.update(gameState);
       scene.showFeedback(`${particle(name,'을','를')} 한 마리 돌려보냈어요. 먹이 식물을 먹는 동물이 줄었어요.`,true);
-    }else if(choice==='plant'){selectSpecies(response.speciesId);scene.showFeedback(`숲을 눌러 ${particle(name,'을','를')} 심어요.`,true);}
-    else scene.showFeedback('날씨가 어떻게 숲을 바꾸는지 지켜봐요.',true);
+    }else if(choice==='plant'){selectSpecies(response.speciesId);scene.showFeedback(`${W.place}을 눌러 ${particle(name,'을','를')} 심어요.`,true);}
+    else scene.showFeedback(`날씨가 어떻게 ${W.place}을 바꾸는지 지켜봐요.`,true);
     renderDashboard(gameState);chapterView.render();loop.refresh();
   }
   // One tap on the invader; tapped out, it leaves the scene.

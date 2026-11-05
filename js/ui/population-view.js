@@ -1,3 +1,4 @@
+import {themeWords as W} from '../../data/themes.js';
 import {activityForSpecies} from '../../data/activities.js';
 import {speciesHabitats,habitatZones,movementLabels} from '../../data/habitats.js';
 import {organisms,organismById,roleLabels} from '../../data/organisms.js';
@@ -68,7 +69,7 @@ export function createPopulationView(state,onRelease,onFocus=()=>{},onRender=()=
   const id=select.value,species=organismById[id],members=state.organisms.filter(o=>o.speciesId===id);
   const lifeRule=lifespanRules[id];
   const art=document.querySelector('#population-art');if(art.dataset.species!==id){art.src=visualAsset(id);art.alt=species.name;art.dataset.species=id;document.querySelector('#population-card').replaceChildren(speciesCardElement(id));}
-  document.querySelector('#population-role').textContent=`지금 숲: ${members.length}${lifeRule.unit}`;
+  document.querySelector('#population-role').textContent=`지금 ${W.place}: ${members.length}${lifeRule.unit}`;
   const stages=members.map(survivalStage),worst=['weak','severe','hungry','normal','static'].find(v=>stages.includes(v));
   const selected=members.find(o=>o.instanceId===selectedInstanceId)||members.find(o=>survivalStage(o)===worst)||members[0];
   onRender(id,selected);

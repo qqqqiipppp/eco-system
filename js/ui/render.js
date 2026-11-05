@@ -1,3 +1,4 @@
+import {themeWords as W} from '../../data/themes.js';
 import { activityForSpecies } from '../../data/activities.js';
 import {relationFor,foodPartLabels} from '../../data/food-relations.js';
 import { organismById, roleLabels } from '../../data/organisms.js';
@@ -81,7 +82,7 @@ export function renderSelection(uiState, onClear) {
   panel.innerHTML = `<div class="selection-topline"><img class="selected-art" src="${visualAsset(species.id)}" alt=""><h3><small>선택한 생물</small>${species.name} · 원하는 곳을 누르면 가까운 자리에 놓아요.</h3></div>`;
   if (forest) {
     if (!band) { band = document.createElement('div'); band.className = 'placing-band'; band.setAttribute('role', 'status'); forest.append(band); }
-    band.innerHTML = `<img src="${visualAsset(species.id)}" alt=""><span><b>${species.name}</b> 놓는 중 · 숲을 눌러요</span><button class="clear-selection" type="button">✕ 그만 놓기</button>`;
+    band.innerHTML = `<img src="${visualAsset(species.id)}" alt=""><span><b>${species.name}</b> 놓는 중 · ${W.place}을 눌러요</span><button class="clear-selection" type="button">✕ 그만 놓기</button>`;
     band.querySelector('button').addEventListener('click', event => { event.stopPropagation(); onClear(); });
   }
 }

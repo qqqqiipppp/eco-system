@@ -1,11 +1,12 @@
 // Home screen install opens the game full screen; in a Chrome tab the menu's
 // "전체 화면" hides the address bar.
 const assert=require('node:assert/strict');
+const {asForestStudent}=require('./ux-browser-helpers.cjs');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const base=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/';
 const launch=process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH,headless:true,args:['--no-sandbox']}:{channel:'msedge',headless:true};
 (async()=>{
- const b=await chromium.launch(launch),p=await b.newPage({viewport:{width:1280,height:650},hasTouch:true}),errors=[];p.on('pageerror',e=>errors.push(e.message));
+ const b=asForestStudent(await chromium.launch(launch)),p=await b.newPage({viewport:{width:1280,height:650},hasTouch:true}),errors=[];p.on('pageerror',e=>errors.push(e.message));
  await p.goto(base);await p.waitForSelector('.chapter-hud');
  // The manifest: Korean name, full screen, landscape, start at the chapter game, icons that load.
  const manifest=await p.evaluate(async()=>{const link=document.querySelector('link[rel=manifest]');const m=await (await fetch(link.href)).json();
