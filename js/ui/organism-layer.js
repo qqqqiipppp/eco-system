@@ -39,7 +39,8 @@ export function createOrganismLayer(forest, getOrganisms) {
   function paint(instance, direction) {
     const entry = nodes.get(instance.instanceId);
     if (!entry || !layout) return;
-    const point=habitat.position(instance),descriptor=habitat.descriptor(instance.instanceId);
+    // A visit (burrow-visits.js) draws the picture elsewhere for a while; the model point stays.
+    const point=entry.visit?{x:entry.visit.x*layout.width,y:entry.visit.y*layout.height}:habitat.position(instance),descriptor=habitat.descriptor(instance.instanceId);
     entry.point=point;
     entry.anchor.style.transform = `translate(${point.x}px, ${point.y}px)`;
     entry.anchor.dataset.habitat=speciesHabitats[instance.speciesId].primary;
@@ -258,6 +259,7 @@ export function createOrganismLayer(forest, getOrganisms) {
     getLayout: () => layout,
     getEventAnchor: instanceId => nodes.get(instanceId)?.anchor,
     paintChanges: changed => { for (const { instance, direction } of changed) paint(instance, direction); },
+    setVisit(instanceId,visit){const entry=nodes.get(instanceId),instance=getOrganisms().find(o=>o.instanceId===instanceId);if(!entry||!instance)return;entry.visit=visit;entry.anchor.classList.toggle('is-away',Boolean(visit?.hidden));paint(instance,visit?.facing);},
     dispose() { forest.removeEventListener('click',inspectInput);namesToggle.removeEventListener('click',toggleNames);observer.disconnect(); window.removeEventListener('resize', measure); clearTimeout(feedbackTimer); },
   };
 }

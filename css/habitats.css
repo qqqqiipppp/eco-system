@@ -20,3 +20,8 @@
 #population-close{position:sticky;bottom:0;z-index:1;background:#edf3df;display:block;margin-left:auto}
 
 #population-dialog.is-choosing > :not(h2,#population-individual,#population-nearby,#population-close){display:none}
+/* The otter in its burrow: its picture is away, its head peeks out of the hole. */
+.organism-object.is-away{opacity:0;pointer-events:none;transition:opacity .4s}
+.burrow-peek{position:absolute;z-index:1;pointer-events:none;overflow:hidden;clip-path:ellipse(50% 50% at 50% 50%)}
+.burrow-peek img{position:absolute;left:50%;bottom:-6%;width:88%;transform:translate(-50%,100%);transition:transform .6s ease-out}
+.burrow-peek.is-up img{transform:translate(-50%,0)}
