@@ -5,6 +5,9 @@ import assert from 'node:assert/strict';
 import {createVisualTracker,moveStyle,restingMotions,loopTiming,slowerLoops} from '../js/ui/species-visuals.js';
 import {paintedFrames} from '../js/ui/species-frames.js';
 import {survivalConfig} from '../data/survival-config.js';
+import {useRiverTheme} from '../data/river.js';
+// The river's painted animals are known too (their frames are in species-frames.js).
+useRiverTheme();
 
 // An earthworm eats litter (it shows by litterConsumed going up) and is kept on the surface here.
 const surface=survivalConfig.earthwormCycleSeconds-survivalConfig.earthwormSurfaceSeconds+.5;

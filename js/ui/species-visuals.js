@@ -46,7 +46,7 @@ export const stillSpecies=new Set(['oak','pine','hazel','raspberry','mushroom','
 // frames yet, loops its frames in place (a walk cycle). A hop takes 4 frames
 // (crouch, push off, in the air, reaching down) or 2 (on the ground, in the
 // air); the chipmunk's 2 painted frames are a walk, so it bounds only on 4.
-export const moveStyles=Object.freeze({grasshopper:'hop',frog:'hop',rabbit:'hop',chipmunk:'hop',weasel:'hop',tit:'fly',bulbul:'fly',goshawk:'fly'});
+export const moveStyles=Object.freeze({grasshopper:'hop',frog:'hop',bullfrog:'hop',rabbit:'hop',chipmunk:'hop',weasel:'hop',tit:'fly',bulbul:'fly',goshawk:'fly'});
 const hopFrom=Object.freeze({chipmunk:4});
 export const moveStyle=(id,stage)=>{const style=moveStyles[id],count=rasterFrames[frameKey(id,stage)]?.move||0;
  return style==='hop'&&count>=(hopFrom[id]||2)?'hop':style==='fly'&&count>=2?'fly':'loop';};
