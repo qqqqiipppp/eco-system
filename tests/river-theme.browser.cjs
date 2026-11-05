@@ -21,7 +21,9 @@ const closeDialogs=p=>p.evaluate(()=>document.querySelectorAll('dialog[open]').f
  assert.match(await p.locator('.forest-art').getAttribute('src'),/river-pond/);
  assert.match(await p.locator('.chapter-hud').textContent(),/연못·습지/);
  await closeDialogs(p);
- assert.deepEqual(await p.$$eval('.organism-card',l=>l.map(c=>c.dataset.speciesId)).then(ids=>ids.sort()),['algae','daphnia','duckweed','medaka','pond-snail','water-lily','water-strider'],'only river cards');
+ const cards=await p.$$eval('.organism-card',l=>l.map(c=>c.dataset.speciesId));
+ const riverIds=await p.evaluate(async()=>(await import('./data/river.js')).riverSpecies.filter(s=>!s.invader).map(s=>s.id));
+ assert.deepEqual([...cards].sort(),[...riverIds].sort(),'only river cards (no forest species, no invaders)');
  assert.equal(await p.locator('.soil-label').isVisible(),false,'no forest soil label');
  const box=await p.locator('.forest').boundingBox();
  await p.locator('.organism-card[data-species-id="medaka"]').click();

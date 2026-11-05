@@ -9,6 +9,7 @@ import {producerGrowth} from './environment-config.js';
 import {lifespanRules} from './lifespan-config.js';
 import {starvationLimits,satietySeconds,decompositionConfig} from './population-config.js';
 import {organicWorkers} from './detritus-config.js';
+import {decomposerIds} from './learning-goals.js';
 import {placementConfig,speciesProfiles} from './interaction-config.js';
 import {speciesHabitats,habitatZones} from './habitats.js';
 import {speciesCards} from './species-cards.js';
@@ -260,6 +261,34 @@ export const riverChapters = [
       organisms: [['algae', .1, .85], ['algae', .22, .86], ['algae', .34, .85], ['algae', .46, .86], ['algae', .56, .85], ['cattail', .86, .4], ['duckweed', .3, .3], ['water-strider', .52, .34],
         ['daphnia', .16, .7], ['daphnia', .28, .76], ['daphnia', .42, .68], ['daphnia', .5, .74], ['medaka', .24, .62], ['medaka', .44, .64], ['pond-snail', .12, .92], ['frog-tadpole', .36, .74], ['water-decomposer', .5, .93]]},
   ]},
+  {chapterId: 'river-upstream', number: 2, title: '상류', events: ['flood', 'valley-trash'], seedSeconds: 55,
+    newSpecies: ['stone-diatom', 'melania-snail', 'caddisfly-larva', 'pussy-willow', 'amphipod', 'minnow', 'water-dropwort', 'native-crayfish', 'korean-catfish', 'aucha-perch'],
+    intro: '차갑고 맑은 물이 빠르게 흐르는 계곡이에요. 돌에 붙은 돌말부터 꺽지까지 먹이 관계를 이어요.',
+    art: {src: './assets/images/backgrounds/river-upstream.webp', alt: '맑고 빠른 계곡물의 수면과 물속 단면, 자갈과 큰 돌이 있는 바닥, 오른쪽의 자갈 물가와 흙 단면.'}, stages: [
+    {stageId: '2-1', title: '돌 위의 조류', points: 12, events: [],
+      goal: '상류에는 물풀 대신 돌에 붙은 돌말이 생산자예요. 다슬기와 날도래 애벌레가 돌말을 먹어요. 다슬기를 길러 강 별 3개를 모아요.',
+      tasks: [{text: '다슬기 기르기', have: 'melania-snail'}, {text: '생산자·소비자 균형 잡기', balance: true}],
+      inventory: ['stone-diatom', 'melania-snail', 'caddisfly-larva'], requiredSpecies: {'caddisfly-larva': 1, 'melania-snail': 1},
+      organisms: [['stone-diatom', .12, .85], ['stone-diatom', .28, .86], ['stone-diatom', .44, .85], ['stone-diatom', .56, .86], ['caddisfly-larva', .2, .9], ['caddisfly-larva', .48, .91]]},
+    {stageId: '2-2', title: '낙엽을 먹는 엽새우', points: 14, events: [],
+      goal: '물가의 갯버들 잎이 물에 떨어지면 분해자가 분해해요. 엽새우는 돌말을 먹고, 버들치는 엽새우와 날도래 애벌레를 먹어요. 버들치를 놓아 강 별 3개를 모아요.',
+      tasks: [{text: '버들치 놓기', have: 'minnow'}, {text: '낙엽 분해하기', decomposed: true}],
+      inventory: ['stone-diatom', 'pussy-willow', 'melania-snail', 'caddisfly-larva', 'amphipod', 'minnow', 'water-decomposer'], requiredSpecies: {'caddisfly-larva': 1, amphipod: 1, minnow: 1}, needsDecomposition: true,
+      organisms: [['stone-diatom', .12, .85], ['stone-diatom', .26, .86], ['stone-diatom', .4, .85], ['stone-diatom', .54, .86], ['pussy-willow', .86, .4], ['melania-snail', .1, .92],
+        ['caddisfly-larva', .22, .9], ['caddisfly-larva', .44, .91], ['amphipod', .32, .88], ['amphipod', .5, .9]]},
+    {stageId: '2-3', title: '돌 밑의 가재', points: 16, events: ['flood'],
+      goal: '토종 가재는 돌 밑에 숨어 날도래 애벌레와 엽새우를 먹어요. 큰비로 홍수가 오기 전에 생산자를 넉넉히 길러 두고, 가재를 길러 강 별 3개를 모아요.',
+      tasks: [{text: '가재 기르기', have: 'native-crayfish'}, {text: '홍수 견디기', crisis: 'flood'}],
+      inventory: ['stone-diatom', 'water-dropwort', 'pussy-willow', 'caddisfly-larva', 'amphipod', 'minnow', 'native-crayfish', 'water-decomposer'], requiredSpecies: {'caddisfly-larva': 1, amphipod: 1, 'native-crayfish': 1},
+      organisms: [['stone-diatom', .1, .85], ['stone-diatom', .22, .86], ['stone-diatom', .34, .85], ['stone-diatom', .46, .86], ['stone-diatom', .56, .85], ['pussy-willow', .86, .4], ['water-dropwort', .8, .42],
+        ['caddisfly-larva', .16, .9], ['caddisfly-larva', .4, .91], ['amphipod', .28, .88], ['amphipod', .52, .9], ['minnow', .36, .64], ['water-decomposer', .58, .93]]},
+    {stageId: '2-4', title: '상류의 사냥꾼', points: 18, events: ['valley-trash'],
+      goal: '꺽지는 버들치와 가재를, 미유기는 버들치와 애벌레를 잡아먹는 상류의 사냥꾼이에요. 사람들이 계곡에 버린 쓰레기도 막아야 해요. 꺽지를 길러 강 별 3개를 모아요.',
+      tasks: [{text: '꺽지 기르기', have: 'aucha-perch'}, {text: '쓰레기 치우기', crisis: 'valley-trash'}],
+      inventory: ['stone-diatom', 'water-dropwort', 'pussy-willow', 'caddisfly-larva', 'amphipod', 'minnow', 'native-crayfish', 'korean-catfish', 'aucha-perch', 'water-decomposer'], requiredSpecies: {'caddisfly-larva': 2, amphipod: 1, minnow: 2, 'aucha-perch': 1},
+      organisms: [['stone-diatom', .1, .85], ['stone-diatom', .22, .86], ['stone-diatom', .34, .85], ['stone-diatom', .46, .86], ['stone-diatom', .56, .85], ['pussy-willow', .86, .4], ['water-dropwort', .8, .42],
+        ['caddisfly-larva', .14, .9], ['caddisfly-larva', .3, .91], ['caddisfly-larva', .5, .9], ['amphipod', .24, .88], ['amphipod', .42, .9], ['minnow', .2, .62], ['minnow', .46, .66], ['native-crayfish', .38, .92], ['water-decomposer', .58, .93]]},
+  ]},
 ];
 
 // The question after each river crisis: river organisms and the abiotic
@@ -272,6 +301,22 @@ export const riverQuestions = {
     {question: '가뭄이 오기 전에 연못 생태계를 튼튼하게 하려면 어떻게 하면 좋을까요?',
       choices: ['생산자인 작은 조류와 물풀을 넉넉히 길러 둬요', '송사리를 더 많이 놓아요', '물벼룩을 모두 없애요'], answer: 0,
       explanation: '생산자가 넉넉하면 물이 줄어 생산자가 덜 자라는 동안에도 물벼룩과 논우렁이가 먹을 것이 남아요.'},
+  ],
+  flood: [
+    {question: '홍수가 나면 왜 다슬기와 날도래 애벌레 같은 소비자도 힘들어질까요?',
+      choices: ['물이 불어나 몸 색깔이 바뀌어서', '흙탕물에 햇빛이 잘 들지 않고 돌말이 쓸려 가서 먹이가 줄어서', '홍수가 나면 물이 깨끗해져서'], answer: 1,
+      explanation: '큰비로 물이 불어나면 돌에 붙은 돌말이 쓸려 가고, 흙탕물 때문에 햇빛이 물속에 잘 들지 않아요. 생산자가 줄면 그것을 먹는 소비자도 먹이가 모자라요.'},
+    {question: '홍수가 지나간 뒤 계곡 생태계가 다시 회복되려면 무엇이 필요할까요?',
+      choices: ['돌말 같은 생산자가 다시 자랄 시간', '소비자를 모두 없애는 것', '물을 모두 퍼내는 것'], answer: 0,
+      explanation: '물이 맑아지고 햇빛이 들면 생산자가 다시 자라요. 생산자가 늘어나면 먹이 관계를 따라 소비자도 차례로 회복해요.'},
+  ],
+  'valley-trash': [
+    {question: '계곡에 버린 쓰레기는 강 생물에게 어떤 영향을 줄까요?',
+      choices: ['물과 물가를 더럽혀 생물이 살기 어려워져요', '물고기의 먹이가 되어 좋아요', '아무 영향이 없어요'], answer: 0,
+      explanation: '쓰레기는 물과 물가의 흙을 더럽히고, 작은 동물이 삼키거나 걸려 다칠 수 있어요. 깨끗한 물에서만 사는 가재와 다슬기가 먼저 사라져요.'},
+    {question: '계곡에 놀러 갔을 때 우리가 할 수 있는 일은 무엇일까요?',
+      choices: ['내가 만든 쓰레기를 되가져와요', '쓰레기를 돌 밑에 숨겨요', '쓰레기를 물에 흘려보내요'], answer: 0,
+      explanation: '쓰레기를 되가져오면 계곡에 쓰레기가 남지 않아요. 버려진 쓰레기를 주우면 더 좋아요.'},
   ],
   // After tapping an invader out (kind invader:<species>).
   'invader:bullfrog': [
@@ -290,6 +335,30 @@ export const riverQuestions = {
       choices: ['가까운 개울에 놓아줘요', '자연에 풀어 주지 않고 어른이나 기관에 물어봐요', '아파트 연못에 넣어 줘요'], answer: 1,
       explanation: '외래종을 자연에 풀어 주면 토종 생물을 먹고 빠르게 퍼질 수 있어요. 버리지 말고 어른이나 관련 기관에 도움을 청해요.'},
   ],
+};
+
+// The river's crises: natural ones are prepared for, people-made ones are
+// stopped by choosing the right action first, then cleaned up (pieces).
+export const riverCrises = {
+  flood: {human: false, factor: 'water', notice: '곧 큰비가 와서 강물이 불어나요!',
+    effect: '큰비로 물이 불어나고 흙탕물이 되면 돌에 붙은 돌말이 쓸려 가고, 물속에 햇빛이 잘 들지 않아 생산자가 잘 자라지 못해요. 먹이가 모자라면 강 별이 멈춰요.'},
+  'valley-trash': {human: true, factor: 'soil', notice: '사람들이 계곡에 쓰레기를 버리고 가요!', item: '쓰레기', icon: '🥤', pieces: ['bag', 'bottle', 'peel'],
+    area: {left: .08, right: .58, y: .93}, pieceAreas: {bottle: {left: .25, right: .66, y: .38}},
+    status: '계곡에 버린 쓰레기가 물가와 물을 더럽히고 있어요. 쓰레기를 눌러 치워요.', gone: '쓰레기는 다 치웠어요.', care: '계곡 물가 되살리기',
+    collected: '쓰레기를 치웠어요. 계곡에 쓰레기가 남지 않게 되가져가는 것이 가장 좋아요.',
+    question: '계곡에 쓰레기가 쌓이지 않게 하려면 어떻게 해야 할까요?',
+    choices: [
+      {text: '쓰레기를 물에 흘려보내요', why: '물에 흘려보낸 쓰레기는 하류와 바다까지 떠내려가 더 많은 생물을 해쳐요.'},
+      {text: '내가 만든 쓰레기는 되가져가고, 버려진 쓰레기는 주워요', right: true, why: '쓰레기를 남기지 않으면 계곡이 깨끗하게 유지돼요. 이제 계곡에 버려진 쓰레기를 눌러 치워요.'},
+      {text: '쓰레기를 돌 밑에 숨겨요', why: '돌 밑에 숨긴 쓰레기도 그대로 남아 물과 흙을 더럽히고, 돌 밑에 사는 가재와 애벌레가 살 곳을 잃어요.'}]},
+};
+const riverEvents = {
+  flood: {name: '홍수', factor: 'water', duration: 180, recoverySeconds: 240, magnitude: -.65,
+    cause: '큰비가 내려 강물이 갑자기 불어나고 흙탕물이 되었어요.',
+    expected: '돌말이 쓸려 가고 물속에 햇빛이 덜 들어 생산자가 잘 자라지 못해요. 물이 맑아지면 다시 회복돼요.'},
+  'valley-trash': {name: '계곡 쓰레기', factor: 'soil', duration: 180, recoverySeconds: 240, magnitude: -.65,
+    cause: '사람들이 계곡에 놀러 왔다가 쓰레기를 버리고 갔어요.',
+    expected: '쓰레기가 물가와 물을 더럽혀요. 쓰레기를 치우고 물가를 되살려요.'},
 };
 
 // Breeding in a stage, as in the forest: two fed parents make a young one.
@@ -335,9 +404,12 @@ export function useRiverTheme() {
   Object.assign(speciesProfiles.frog, {zone: 'frogShore'});
   speciesHabitats.frog = {...speciesHabitats.frog, primary: 'frogShore', additional: [], direct: true};
   Object.assign(crisisQuestions, riverQuestions);
+  Object.assign(crises, riverCrises);
+  for (const [kind, event] of Object.entries(riverEvents)) { environmentEventDefinitions[kind] = {...event}; scaleFields(environmentEventDefinitions[kind], ['duration', 'recoverySeconds']); }
   // The water decomposer breaks down plant and animal remains.
   decompositionConfig.rates['water-decomposer'] = {litter: ecologyRate(.006), remains: ecologyRate(.006)};
   organicWorkers.litter.push('water-decomposer'); organicWorkers.remains.push('water-decomposer');
+  decomposerIds.push('water-decomposer');
   // The river's cards only (the forest's stay known by id); invaders are no card.
   organisms.splice(0, organisms.length, ...riverSpecies.filter(s => !s.invader).map(s => organismById[s.id]));
   const riverStages = riverChapters.flatMap(chapter => chapter.stages.map(stage => ({...stage, chapter, events: stage.events ?? chapter.events, seedSeconds: chapter.seedSeconds})));
