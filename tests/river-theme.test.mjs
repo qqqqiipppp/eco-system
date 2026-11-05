@@ -73,7 +73,7 @@ test('a careful student clears the pond stages; waiting alone does not',()=>{
 
 test('a fed tadpole grows into a frog on the bank, which eats water striders',()=>{
  const s=createStageGameState(stageById['1-3']),f=createFeedingSystem(0);let grown=null,removed=[];
- for(let t=0;t<3000&&!grown;t++){const r=f.update(s,.1,layout);if(!r.ticked)continue;const out=updateStage(s,.5,r.feedingEvents);if(out.removed?.length){removed.push(...out.removed);f.forget(out.removed);}grown=out.born.find(o=>o.speciesId==='frog')||grown;}
+ for(let t=0;t<3000&&!grown;t++){const r=f.update(s,.1,layout);if(!r.ticked)continue;const out=updateStage(s,.5,r.feedingEvents);if(out.removed?.length){removed.push(...out.removed);f.forget(out.removed);}grown=out.grown.find(o=>o.speciesId==='frog')||grown;}
  assert.ok(grown,'a frog');assert.ok(removed.length>=1,'its tadpole is gone');
  assert.ok(isPositionAllowed('frog',grown.position,layout),'on the bank');
  assert.ok(taskDone(s,{grow:'frog'}));

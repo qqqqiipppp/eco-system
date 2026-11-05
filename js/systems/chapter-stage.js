@@ -200,7 +200,10 @@ export function updateStage(s, seconds, feedingEvents = []) {
   c.foodRecovery = event?.phase === 'active' && !crises[event.kind]?.human ? config.crisisFoodRecovery : 1;
   const result = growSeeds(s);
   if (!c.cleared) result.eventStarted = startDueEvent(s) || result.eventStarted;
-  result.born = [...born, ...grew.added];
+  // born: young from two parents (told as births); grown: a young one that
+  // grew into another (told its own way).
+  result.born = born;
+  result.grown = grew.added;
   result.removed = grew.removed;
   return result;
 }

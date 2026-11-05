@@ -180,7 +180,7 @@ try {
       result.moved.push(...wander.update(gameState.organisms, dt, scene.getLayout(), animalActivity(gameState.environment)));
       if (result.ticked) stabilitySystem.update(gameState, ecologyConfig.tickSeconds);
       result.eventTicked = result.ticked && eventSystem.update(gameState, ecologyConfig.tickSeconds, result.feedingEvents);
-      if(chapterMode&&result.ticked){const stage=updateStage(gameState,ecologyConfig.tickSeconds,result.feedingEvents);result.added.push(...stage.born);if(stage.removed?.length){result.removedIds.push(...stage.removed);feedingSystem.forget(stage.removed);wander.forget(stage.removed);}afterStageChange(stage);if(gameState.simulationTime-lastStageSave>=5)saveStage();}
+      if(chapterMode&&result.ticked){const stage=updateStage(gameState,ecologyConfig.tickSeconds,result.feedingEvents);result.added.push(...stage.born,...(stage.grown||[]));if(stage.removed?.length){result.removedIds.push(...stage.removed);feedingSystem.forget(stage.removed);wander.forget(stage.removed);}afterStageChange(stage);if(gameState.simulationTime-lastStageSave>=5)saveStage();}
       if(result.removedIds.length||result.added.length||result.developmentChanges.length){eventSystem.refresh(gameState);result.eventTicked=true;}
       if(result.ticked) {
         refreshProgress(ecologyConfig.tickSeconds);
