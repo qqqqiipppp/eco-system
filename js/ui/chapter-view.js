@@ -1,6 +1,6 @@
 import {fullscreenButton} from './screen-toggle.js';
 import {crisisQuestions} from '../../data/crisis-reflection.js';
-import {stageBlockers,isStuck,taskDone,pondStage,careOptions,needStates,neededCards,priceOf,buyCheck,prepareOptions,crisisReport,markReported,breedingState,isYoung,activeBoss,bossWarning,bossReport} from '../systems/chapter-stage.js';
+import {stageBlockers,isStuck,taskDone,pondStage,careOptions,needStates,neededCards,priceOf,buyCheck,prepareOptions,crisisReport,markReported,breedingState,isYoung,activeBoss,bossWarning,bossReport,crisisChoice} from '../systems/chapter-stage.js';
 import {currentEnvironmentEvent} from '../systems/environment-events.js';
 import {factorValue,qualityLabel} from '../systems/environment.js';
 import {stageConfig as config,chapters,stages,stageById,crises,crisisForFactor,breeding,growth} from '../../data/chapters.js';
@@ -18,7 +18,7 @@ const blockerText={
  missing:b=>`${particle(name(b.species[0].id),'이','가')} 부족해요. ${b.species[0].need}마리 이상 있어야 해요.`,
  // Litter still lying: tap it. All picked up but the soil (or air) still bad:
  // nothing left to tap, so name the care button instead.
- environment:(b,s)=>{const crisis=crisisForFactor(b.factors[0]),name=environmentFactors[b.factors[0]].name;
+ environment:(b,s)=>{const crisis=crisisForFactor(b.factors[0],stageById[s.chapter.stageId]),name=environmentFactors[b.factors[0]].name;
   if(crisis?.human&&!s.chapter.trash.length)return `${crisis.gone} ${particle(name,'이','가')} 아직 나빠요. '${crisis.care}' 버튼으로 되살려요.`;
   return crisis?.status||`${particle(b.factors.map(f=>environmentFactors[f].name).join('·'),'이','가')} 나빠요.`;},
  starving:()=>'먹이를 찾지 못해 배고픈 소비자가 있어요. 먹이가 충분한지 살펴봐요.',
@@ -53,7 +53,7 @@ const chapterNews=chapter=>[
 // Stage HUD, things to tap in the forest (💡 and litter), crisis warnings,
 // chapter dialogs and the chapter map. Create before bindDialogPause so the
 // dialogs pause the forest like the others. No sound: motion and colour only.
-export function createChapterView(getState,{forest,theme='forest',themeStore={read:()=>'forest',set(){}},admin={isOn:()=>false,set(){}},cleared,notify,onCatch,onCollect,onBoss=()=>({ok:false}),onPrepare,onStage,onRestart,onCare,openWeb,webComplete,openRecord,reflections=()=>[],onReflect=()=>{}}){
+export function createChapterView(getState,{forest,theme='forest',themeStore={read:()=>'forest',set(){}},admin={isOn:()=>false,set(){}},cleared,notify,onCatch,onCollect,onBoss=()=>({ok:false}),onChoose=()=>({ok:false}),onPrepare,onStage,onRestart,onCare,openWeb,webComplete,openRecord,reflections=()=>[],onReflect=()=>{}}){
  const seeds=Array.from({length:config.seedsToClear},()=>element('span',{className:'chapter-seed'}));
  const title=element('h2'),eyebrow=element('span',{className:'eyebrow'}),goal=element('p',{className:'chapter-goal'}),tasks=element('ul',{className:'chapter-tasks'});
  const meter=element('progress',{value:0});meter.setAttribute('aria-label','다음 숲 별까지');
@@ -135,6 +135,7 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
    const record=s.chapter.crisisLog.find(r=>r.endedAt===null);
    if(record===promptedCrisis)onPrepare('wait');else{promptedCrisis=record;openPrepare(s);}
   }
+  else if(idle&&!c.cleared&&crisisChoice(s)&&chosenFor!==crisisChoice(s).record)openChoose(s);
   else if(idle&&!c.cleared&&crisisReport(s))openReport(crisisReport(s));
   else if(idle&&bossReport(s))openBossReport(bossReport(s));
   if(c.cleared&&shownClear!==c.stageId&&!document.querySelector('dialog[open]'))openClear();
@@ -332,9 +333,9 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
    if(placed){placed.classList.toggle('is-old',old);continue;}
    const crisis=crises[item.kind];
    const button=tapButton(item.trashId,'chapter-trash',`${crisis.icon} ${crisis.item}`,`${crisis.item} 치우기`,item.x*box.width,item.y*box.height,button=>{
-    const rect=button.getBoundingClientRect(),result=onCollect(item.trashId);if(result?.ok)float(`+${config.trashReward}P`,rect,'gain');});
+    const rect=button.getBoundingClientRect(),result=onCollect(item.trashId);if(result?.ok)float(`+${config.trashReward}P`,rect,'gain');else if(result?.reason==='choose')openChoose(getState());});
    // Litter shows as the piece itself (black bag, bottle, banana peel), no label.
-   if(item.piece){button.classList.add('is-piece');button.replaceChildren(element('img',{src:`./assets/images/trash/${item.piece}.svg`,alt:''}));}
+   if(item.piece){button.classList.add('is-piece');button.replaceChildren(element('img',{src:crisis.pieceImages?.[item.piece]||`./assets/images/trash/${item.piece}.svg`,alt:''}));}
    button.classList.toggle('is-old',old);
   }
  }
@@ -384,7 +385,22 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
   if(note){note.textContent=message;note.hidden=false;}else notify(message,false);
  }
  // Before weather: it cannot be changed, but the forest can be made sturdier.
- let prepareTimer=null,promptedCrisis=null;
+ let prepareTimer=null,promptedCrisis=null,chosenFor=null;
+ // A people-made crisis (the river's): first choose how to stop it. A wrong
+ // choice says why and stays open; the right one lets the pieces be cleaned up.
+ function openChoose(s){
+  const {record,crisis}=crisisChoice(s)||{};if(!record)return;chosenFor=record;
+  const feedback=element('p',{className:'chapter-reflect-feedback'});feedback.setAttribute('aria-live','polite');
+  const next=actions([['치우러 가기',()=>dialog.close()]]);next.hidden=true;
+  const buttons=crisis.choices.map((c,i)=>element('button',{type:'button',textContent:c.text,onclick:()=>{
+   const r=onChoose(i);
+   feedback.replaceChildren(element('strong',{textContent:r.ok?'맞아요! ':'다시 골라 봐요. '}),r.why||'');feedback.className=`chapter-reflect-feedback ${r.ok?'right':'wrong'}`;
+   if(r.ok){buttons.forEach((b,k)=>{b.disabled=true;b.classList.toggle('right',k===i);});next.hidden=false;next.querySelector('button').focus();}
+   else{buttons[i].disabled=true;buttons[i].classList.add('chosen-wrong');}
+  }}));
+  show([element('span',{className:'eyebrow',textContent:'막는 방법 고르기'}),element('h2',{textContent:crisis.notice,tabIndex:-1,autofocus:true}),
+   element('p',{textContent:crisis.question}),element('div',{className:'chapter-reflect'},[element('div',{className:'chapter-reflect-choices'},buttons),feedback]),next],'chapter-choose-dialog');
+ }
  const prepareLabel={plant:id=>`${name(id)} 더 심기 (${priceOf(id)}P)`,reduce:id=>`${id?name(id):'소비자'} 한 마리 돌려보내기`,wait:()=>'그냥 기다리기'};
  const prepareChosen={plant:'생산자 더 심기',reduce:'소비자 줄이기',wait:'그냥 기다리기'};
  function openPrepare(s){

@@ -82,7 +82,7 @@ export function stageBlockers(s) {
   // Weather (sunlight, water) works through the ecology: plants grow slower and
   // food runs short. A prepared forest can ride it out, so it does not stall
   // seeds by itself. Soil and air damaged by people do, until it is cleaned up.
-  const bad = Object.keys(s.environment).filter(k => s.environment[k].value < config.minimumEnvironment && crisisForFactor(k)?.human !== false);
+  const bad = Object.keys(s.environment).filter(k => s.environment[k].value < config.minimumEnvironment && crisisForFactor(k, stage)?.human !== false);
   if (bad.length) list.push({id: 'environment', factors: bad});
   // Hungry and unable to find food for a while: visible long before starvation.
   const needs = needStates(s);
@@ -117,7 +117,9 @@ function startDueEvent(s) {
   c.warning = {kind: events[c.eventsStarted], startsAt: s.simulationTime + config.warningSeconds};
   // Every crisis is recorded and judged. A natural one cannot be stopped, only
   // prepared for (the choice is kept); a people-made one is tackled as it comes.
-  c.crisisLog.push({kind: c.warning.kind, human: Boolean(crises[c.warning.kind].human), choice: null, stalled: 0, startedAt: null, endedAt: null, outcome: null});
+  // A people-made crisis with choices (the river's) is tackled by first
+  // choosing how to stop it (solved), then cleaning up.
+  c.crisisLog.push({kind: c.warning.kind, human: Boolean(crises[c.warning.kind].human), choice: null, stalled: 0, startedAt: null, endedAt: null, outcome: null, solved: !crises[c.warning.kind].choices, tries: 0});
   return null;
 }
 
@@ -130,7 +132,10 @@ function updateTrash(s, seconds) {
     const n = ++c.trashSequence;
     // Litter comes as one of its pieces in turn; at is when it fell.
     const pieces = crisis.pieces, piece = pieces ? pieces[(n - 1) % pieces.length] : null;
-    c.trash.push({trashId: `trash-${n}`, kind: event.kind, x: .12 + .74 * ((n * .618) % 1), y: .74, ...(piece && {piece}), at: time});
+    // Where it falls: the forest floor, or the crisis's own place (an oil slick
+    // on the water, a drain pipe on the bank); a piece may have its own.
+    const area = {left: .12, right: .86, y: .74, ...crisis.area, ...(piece && crisis.pieceAreas?.[piece])};
+    c.trash.push({trashId: `trash-${n}`, kind: event.kind, x: area.left + (area.right - area.left) * ((n * .618) % 1), y: area.y, ...(piece && {piece}), at: time});
   }
   for (const item of c.trash) {
     const factor = s.environment[crises[item.kind].factor];
@@ -140,11 +145,12 @@ function updateTrash(s, seconds) {
 export function collectTrash(s, trashId) {
   const c = s.chapter, item = c?.trash.find(t => t.trashId === trashId);
   if (!item) return {ok: false};
+  if (crisisChoice(s)) return {ok: false, reason: 'choose'};
   c.trash = c.trash.filter(t => t !== item);
   c.trashCollected++;
   s.metrics.points += config.trashReward;
   recordPointChange(s, 'study', config.trashReward, `chapter-trash:${trashId}`, trashId);
-  return {ok: true, item, message: `${crises[item.kind].item}를 치웠어요. 치우지 않으면 숲이 계속 망가져요.`};
+  return {ok: true, item, message: crises[item.kind].collected || `${crises[item.kind].item}를 치웠어요. 치우지 않으면 숲이 계속 망가져요.`};
 }
 function growSeeds(s) {
   const c = s.chapter, seedSeconds = stageById[c.stageId].seedSeconds, result = {seedGained: false, eventStarted: null, cleared: false};
@@ -237,11 +243,12 @@ function careTarget(s, factor) {
   return s.events.find(e => e.status === 'active' && e.sourceType === 'environment' && e.payload?.factor === factor)?.eventId ?? null;
 }
 export function careOptions(s) {
-  return Object.keys(s.environment).filter(f => s.environment[f].value < config.minimumEnvironment && crisisForFactor(f)?.care).map(factor => {
+  const stage = stageById[s.chapter.stageId];
+  return Object.keys(s.environment).filter(f => s.environment[f].value < config.minimumEnvironment && crisisForFactor(f, stage)?.care).map(factor => {
     const actionId = careAction[factor], target = careTarget(s, factor);
     const check = target ? validateManagement(s, actionId, target) : {ok: false, message: '환경의 변화가 생물에게 나타날 때까지 조금 기다려요.'};
     const cost = managementActions.find(action => action.actionId === actionId).cost;
-    return {factor, actionId, cost, label: crisisForFactor(factor).care, ok: check.ok, message: check.ok ? '' : check.message};
+    return {factor, actionId, cost, label: crisisForFactor(factor, stage).care, ok: check.ok, message: check.ok ? '' : check.message};
   });
 }
 export function careFor(s, factor) {
@@ -455,3 +462,17 @@ export function hitBoss(s) {
   return {ok: true, done: true, left: 0, removedId: active.instanceId, boss: active};
 }
 export const bossReport = s => (s.chapter.bosses || []).find(b => b.defeatedAt !== null && !b.reported) || null;
+
+// A people-made crisis that asks how to stop it before cleaning up: the open
+// record while no right choice has been made.
+export function crisisChoice(s) {
+  const record = s.chapter && openCrisis(s.chapter), crisis = record && crises[record.kind];
+  return record && record.startedAt !== null && !record.solved && crisis?.choices ? {record, crisis} : null;
+}
+export function chooseCrisisAction(s, index) {
+  const open = crisisChoice(s), choice = open?.crisis.choices[index];
+  if (!choice) return {ok: false};
+  open.record.tries++;
+  if (choice.right) open.record.solved = true;
+  return {ok: Boolean(choice.right), why: choice.why};
+}
