@@ -73,6 +73,9 @@ const decomposerWork = s => Object.values(s.learningGoalProgress?.work || {}).re
 // Why seeds are not growing right now, most actionable first. Empty = balanced.
 export function stageBlockers(s) {
   const c = s.chapter, stage = stageById[c.stageId], list = [];
+  // An invader in the water stalls the stars until it is tapped out: said first.
+  const invader = activeBoss(c);
+  if (invader) list.push({id: 'invader', speciesId: invader.speciesId});
   if (!consumers(s).length) list.push({id: 'noConsumer'});
   const missing = Object.entries(stage.requiredSpecies || {}).filter(([id, n]) => s.organisms.filter(o => o.speciesId === id).length < n).map(([id, n]) => ({id, need: n}));
   if (missing.length && consumers(s).length) list.push({id: 'missing', species: missing});
@@ -92,9 +95,6 @@ export function stageBlockers(s) {
   // A stage that asks to watch one meal: the third star waits for its 💡.
   if (stage.observeRequired && c.seeds >= config.seedsToClear - 1 && !(c.caught || []).includes(stage.observeRequired)) list.push({id: 'needObserve', relationId: stage.observeRequired});
   // A stage about growing up (올챙이가 개구리로): the third star waits for it.
-  // An invader in the water stalls the stars until it is tapped out.
-  const invader = activeBoss(c);
-  if (invader) list.push({id: 'invader', speciesId: invader.speciesId});
   if (stage.growRequired && c.seeds >= config.seedsToClear - 1 && !(c.grown || []).some(g => g.speciesId === stage.growRequired)) list.push({id: 'needGrow', speciesId: stage.growRequired});
   return list;
 }
