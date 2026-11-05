@@ -200,7 +200,12 @@ export const growth = {};
 // What each invader (stage.boss) eats while it stays: species -> native prey ids.
 export const invaderPrey = {};
 
-export const crisisForFactor = factor => Object.values(crises).find(c => c.factor === factor);
+// The crisis that harms a factor: the stage's own when several share it (the
+// river has drought, flood and pollution on water).
+export const crisisForFactor = (factor, stage) => {
+  const all = Object.entries(crises).filter(([, c]) => c.factor === factor);
+  return (stage && all.find(([kind]) => stage.events?.includes(kind))?.[1]) || all[0]?.[1];
+};
 
 export const stages = chapters.flatMap(chapter => chapter.stages.map(stage => ({...stage, chapter, events: chapter.events, seedSeconds: chapter.seedSeconds})));
 export const stageById = Object.fromEntries(stages.map(stage => [stage.stageId, stage]));

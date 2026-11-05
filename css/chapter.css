@@ -112,6 +112,9 @@
 .forest[data-weather=drought] .forest-art{filter:sepia(.45) saturate(1.3) brightness(1.05)}
 .forest[data-weather=soil-damage] .forest-art{filter:sepia(.25) brightness(.92)}
 .forest[data-weather=air-pollution] .forest-art{filter:grayscale(.55) brightness(.85) contrast(.9)}
+/* The river's: a flood turns the water muddy; litter dulls the valley. */
+.forest[data-weather=flood] .forest-art{filter:sepia(.5) saturate(.9) brightness(.88)}
+.forest[data-weather=valley-trash] .forest-art{filter:sepia(.2) brightness(.94)}
 /* Juice: rising numbers, a seed that pops in, the points card bumping. */
 .chapter-float{position:absolute;z-index:9;transform:translate(-50%,-100%);font-size:18px;font-weight:900;pointer-events:none;text-shadow:0 1px 0 #fff,0 0 6px #fff;animation:chapter-float 1.1s ease-out forwards}
 .chapter-float.gain{color:#2f7a3c}.chapter-float.spend{color:#a8321f}

@@ -15,13 +15,13 @@ import {placeOrganism} from '../js/systems/placement.js';
 import {createFeedingSystem} from '../js/systems/feeding.js';
 import {createEventSystem} from '../js/systems/events.js';
 import {evaluateStability} from '../js/systems/stability.js';
-import {createStageGameState,updateStage,stageBlockers,catchObservation,buyCheck,payFor,prepareOptions,prepareFor,taskDone,hitBoss,activeBoss} from '../js/systems/chapter-stage.js';
+import {createStageGameState,updateStage,stageBlockers,catchObservation,buyCheck,payFor,prepareOptions,prepareFor,taskDone,hitBoss,activeBoss,crisisChoice,chooseCrisisAction,collectTrash} from '../js/systems/chapter-stage.js';
 useRiverTheme();
 const layout={footprints:Object.fromEntries(Object.keys(organismById).map(id=>[id,{halfWidth:.01,above:.1,below:.02}])),blockedRects:[]};
 const zoneOf=id=>placementConfig.zones[speciesProfiles[id].zone];
 
 test('the river replaces the chapters and cards, and keeps the forest species known',()=>{
- assert.deepEqual(chapters.map(c=>c.chapterId),['river-pond']);
+ assert.deepEqual(chapters.map(c=>c.chapterId).slice(0,2),['river-pond','river-upstream']);
  assert.deepEqual(stages.map(s=>s.stageId).slice(0,3),['1-1','1-2','1-3']);assert.equal(stageById['1-1'].title,'연못의 시작');
  assert.deepEqual(organisms.map(o=>o.id),riverSpecies.filter(s=>!s.invader).map(s=>s.id),'invaders are no card');
  assert.equal(organismById.grass.name,'강아지풀');
@@ -62,10 +62,13 @@ const careful=s=>{
  for(const t of stageById[s.chapter.stageId].tasks)if(t.have&&!taskDone(s,t))place(s,t.have);
  if(prepareOptions(s).length)prepareFor(s,'wait');
  while(activeBoss(s.chapter))hitBoss(s);
+ for(const t of stageById[s.chapter.stageId].tasks)if(t.decomposed&&!s.organisms.some(o=>o.speciesId==='water-decomposer'))place(s,'water-decomposer');
+ const ch=crisisChoice(s);if(ch)chooseCrisisAction(s,ch.crisis.choices.findIndex(c=>c.right));
+ for(const t of [...s.chapter.trash])collectTrash(s,t.trashId);
 };
 
 test('a careful student clears the pond stages; waiting alone does not',()=>{
- for(const id of ['1-1','1-2','1-3','1-4']){
+ for(const id of ['1-1','1-2','1-3','1-4','2-1','2-2','2-3','2-4']){
   const s=play(id,careful);
   assert.ok(s.chapter.cleared,`${id} cleared`);
   assert.ok(stageById[id].tasks.every(t=>taskDone(s,t)),`${id} tasks`);
@@ -112,4 +115,19 @@ test('an invader comes after a star, eats natives until tapped out, and stalls t
  let r;for(let i=0;i<15;i++)r=hitBoss(s);
  assert.ok(r.done&&!activeBoss(c)&&!s.organisms.some(o=>o.speciesId==='bullfrog'),'15 taps send it away');
  assert.ok(!stageBlockers(s).some(b=>b.id==='invader'));
+});
+
+test('a people-made river crisis asks how to stop it before the litter can be cleaned up',()=>{
+ const s=createStageGameState(stageById['2-4']),f=createFeedingSystem(0),events=createEventSystem(0);
+ let open=null,next=0;
+ for(let t=0;t<9000&&!open;t++){
+  if(s.simulationTime>=next){next=s.simulationTime+5;for(const o of [...s.chapter.offers])catchObservation(s,o.offerId);for(const b of stageBlockers(s))if(b.id==='missing')for(const m of b.species)place(s,m.id);}
+  const r=f.update(s,.1,layout);if(!r.ticked)continue;events.update(s,.5,r.feedingEvents);s.metrics.stability=evaluateStability(s).score;updateStage(s,.5,r.feedingEvents);open=crisisChoice(s);}
+ assert.ok(open&&open.record.kind==='valley-trash','the litter crisis asks first');
+ for(let t=0;t<200&&!s.chapter.trash.length;t++){const r=f.update(s,.1,layout);if(r.ticked)updateStage(s,.5,r.feedingEvents);}
+ assert.equal(collectTrash(s,s.chapter.trash[0].trashId).reason,'choose','no cleaning before choosing');
+ const wrong=open.crisis.choices.findIndex(c=>!c.right),right=open.crisis.choices.findIndex(c=>c.right);
+ const w=chooseCrisisAction(s,wrong);assert.ok(!w.ok&&w.why,'a wrong choice says why');
+ assert.ok(chooseCrisisAction(s,right).ok);assert.equal(crisisChoice(s),null);
+ assert.ok(collectTrash(s,s.chapter.trash[0].trashId).ok,'now it can be cleaned up');
 });

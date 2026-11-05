@@ -9,13 +9,15 @@ import {producerGrowth} from './environment-config.js';
 import {lifespanRules} from './lifespan-config.js';
 import {starvationLimits,satietySeconds,decompositionConfig} from './population-config.js';
 import {organicWorkers} from './detritus-config.js';
+import {decomposerIds} from './learning-goals.js';
 import {placementConfig,speciesProfiles} from './interaction-config.js';
 import {speciesHabitats,habitatZones} from './habitats.js';
 import {speciesCards} from './species-cards.js';
 import {foodEvidence} from './food-evidence.js';
 import {edge,addFoodRelations,foodPartLabels} from './food-relations.js';
 import {addDiscoveryEvent,addShortageEvent} from './event-config.js';
-import {chapters,stages,stageById,stageConfig,breeding,growth as stageGrowth,invaderPrey} from './chapters.js';
+import {chapters,stages,stageById,stageConfig,breeding,growth as stageGrowth,invaderPrey,crises} from './chapters.js';
+import {environmentEventDefinitions} from './environment-events.js';
 import {ecologySeconds,ecologyRate,scaleFields} from './pacing-config.js';
 import {survivalConfig} from './survival-config.js';
 import {crisisQuestions} from './crisis-reflection.js';
@@ -121,6 +123,62 @@ export const riverSpecies = [
     caption: '외래종: 물풀을 자르고 작은 동물을 먹어요', description: '북아메리카에서 들여온 붉은 가재예요. 물풀을 잘라 먹고 올챙이, 우렁이, 작은 물고기를 먹어 생태계 교란 생물로 지정되었어요.', habitat: '연못, 논, 느린 강',
     scientificName: 'Procambarus clarkii', motion: {speedX: .015, speedY: .003, walkSeconds: [1, 2], pauseSeconds: [1, 2]}, life: life(300, 400, '외래종이에요', '마리'), size: [84, 64],
     card: card('붉고 오돌토돌한 큰 집게를 가진 외래종 가재예요.', [['role', '역할', '여러 생물을 먹고 살아서 소비자예요.'], ['eats', '먹는 것', '물풀, 올챙이, 우렁이, 작은 물고기를 먹어요.'], ['eatenBy', '나를 먹는 것', '천적이 적어서 빨리 늘어나요.'], ['wow', '알아 두기', '2019년에 생태계 교란 생물로 지정되었어요.']])},
+  // 상류 (upstream): cold, clear, fast water over stones.
+  {id: 'stone-diatom', name: '돌말', role: 'producer', behaviorType: 'static', zone: 'algae',
+    caption: '돌에 붙어 양분을 만들어요', description: '물속 돌 표면에 얇은 막처럼 붙어 사는 아주 작은 조류예요. 햇빛으로 양분을 만들어요.', habitat: '맑은 개울의 돌 위',
+    scientificName: null, taxonKind: 'functional-group', taxonomyNote: '돌에 붙어 사는 여러 규조류를 묶었어요.',
+    food: {maximum: 3, portion: 1, recoveryPerSecond: .07, parts: ['whole']}, growth: {sunlight: .45, water: .4, air: .1, soil: .05},
+    life: life(24, 32, '빠르게 자라고 새로 생기는 조류예요', '무리', {matter: 'litter', matterAmount: 1}), size: [48, 36],
+    card: card('돌을 만지면 미끌미끌한 갈색 막이 바로 돌말이에요.', producerRows('햇빛 · 물 · 공기', '다슬기, 날도래 애벌레, 엽새우가 갉아 먹어요.', '맑은 개울의 돌 위'))},
+  {id: 'water-dropwort', name: '미나리', role: 'producer', behaviorType: 'static', zone: 'bank',
+    caption: '물가에서 자라요', description: '물가의 축축한 흙에 뿌리를 내리고 깃 모양 잎을 펼쳐요.', habitat: '개울과 논의 물가',
+    scientificName: 'Oenanthe javanica', growth: {sunlight: .4, water: .35, air: .1, soil: .15},
+    life: life(40, 60, '여러 해 사는 물가 풀이에요', '포기', {matter: 'litter', matterAmount: 1}), size: [70, 52],
+    card: card('향이 좋아 나물로도 먹는 물가 풀이에요.', producerRows('햇빛 · 물 · 공기 · 흙', '곤충과 달팽이가 잎을 갉아 먹어요.', '개울과 논의 물가'))},
+  {id: 'pussy-willow', name: '갯버들', role: 'producer', behaviorType: 'static', zone: 'bank',
+    caption: '물가의 작은 버드나무', description: '계곡 물가에 자라는 키 작은 버드나무예요. 떨어진 잎은 물속에 가라앉아 분해자와 작은 동물의 먹이가 돼요.', habitat: '계곡과 개울의 물가',
+    scientificName: 'Salix gracilistyla', growth: {sunlight: .35, water: .3, air: .1, soil: .25},
+    life: life(80, 120, '여러 해 사는 나무예요', '그루', {matter: 'litter', matterAmount: 2}), size: [96, 72],
+    card: card('봄이 오면 가지 끝에 솜털 같은 꽃이삭이 달리는 물가 나무예요.', producerRows('햇빛 · 물 · 공기 · 흙', '떨어진 잎을 엽새우와 날도래 애벌레가 먹어요.', '계곡과 개울의 물가'))},
+  {id: 'caddisfly-larva', name: '날도래 애벌레', role: 'consumer', behaviorType: 'forager', zone: 'bottom',
+    caption: '돌말과 낙엽을 갉아 먹어요', description: '작은 돌과 나뭇잎 조각으로 집을 짓고 사는 애벌레예요. 돌말과 가라앉은 낙엽을 갉아 먹어요.', habitat: '맑은 개울의 돌 밑',
+    scientificName: null, taxonKind: 'functional-group', taxonomyNote: '여러 날도래류 애벌레를 묶었어요.', feeding: {initialHunger: .45, hungerPerSecond: .03, hungryAt: .6, mealRelief: .65, searchRadius: .3, speed: .01},
+    motion: {speedX: .005, speedY: .002, walkSeconds: [2, 4], pauseSeconds: [1, 2]}, life: life(20, 30, '애벌레 시기를 물속에서 보내요', '마리'), size: [44, 30],
+    card: card('돌과 나뭇잎으로 지은 집을 지고 다니는 애벌레예요.', [['role', '역할', '돌말과 낙엽을 먹고 살아서 소비자예요.'], ['eats', '먹는 것', '돌에 붙은 돌말과 물에 가라앉은 낙엽을 먹어요.'], ['eatenBy', '나를 먹는 것', '버들치, 가재, 미유기가 먹어요.'], ['life', '한살이', '알 → 애벌레 → 번데기 → 어른벌레(물 밖으로 날아가요)']])},
+  {id: 'melania-snail', name: '다슬기', role: 'consumer', behaviorType: 'forager', zone: 'bottom',
+    caption: '돌말을 갉아 먹어요', description: '길쭉한 원뿔 껍데기를 지고 돌 위를 기어 다니며 돌말을 갉아 먹어요.', habitat: '맑은 개울과 강의 돌 위',
+    scientificName: 'Semisulcospira libertina', feeding: {initialHunger: .45, hungerPerSecond: .025, hungryAt: .6, mealRelief: .65, searchRadius: .3, speed: .01},
+    motion: {speedX: .005, speedY: .002, walkSeconds: [2, 4], pauseSeconds: [1, 2]}, life: life(50, 70, '여러 해 사는 고둥이에요', '마리'), size: [40, 34], starvation: 480,
+    card: card('맑은 물에서만 사는 길쭉한 고둥이에요.', [['role', '역할', '돌말을 먹고 살아서 소비자예요.'], ['eats', '먹는 것', '돌에 붙은 돌말을 갉아 먹어요.'], ['eatenBy', '나를 먹는 것', '가재, 물고기, 새가 먹어요.'], ['home', '사는 곳', '맑은 개울과 강의 돌 위']])},
+  {id: 'amphipod', name: '엽새우', role: 'consumer', behaviorType: 'forager', zone: 'bottom',
+    caption: '돌말과 낙엽을 먹어요', description: '옆으로 납작한 작은 새우 무리예요. 돌 밑에 살며 돌말과 가라앉은 낙엽을 먹어요.', habitat: '맑은 개울의 돌 밑',
+    scientificName: 'Gammarus sp.', feeding: {initialHunger: .45, hungerPerSecond: .035, hungryAt: .6, mealRelief: .65, searchRadius: .32, speed: .02},
+    motion: {speedX: .015, speedY: .004, walkSeconds: [.6, 1.2], pauseSeconds: [.8, 1.6]}, life: life(14, 20, '짧은 생애를 가져요', '마리'), size: [40, 30],
+    card: card('옆으로 누워 헤엄치는 작은 새우예요.', [['role', '역할', '돌말과 낙엽을 먹고 살아서 소비자예요.'], ['eats', '먹는 것', '돌말과 물속에 가라앉은 낙엽을 먹어요.'], ['eatenBy', '나를 먹는 것', '버들치, 가재가 먹어요.'], ['home', '사는 곳', '깨끗한 개울의 돌 밑']])},
+  {id: 'minnow', name: '버들치', role: 'consumer', behaviorType: 'forager', zone: 'water',
+    caption: '작은 물속 동물을 먹어요', description: '맑고 차가운 개울에 사는 작은 물고기예요. 날도래 애벌레와 엽새우를 잡아먹어요.', habitat: '계곡과 개울',
+    scientificName: 'Rhynchocypris oxycephala', feeding: {initialHunger: .45, hungerPerSecond: .02, hungryAt: .6, mealRelief: .7, searchRadius: .32, speed: .05},
+    motion: {speedX: .035, speedY: .008, walkSeconds: [1, 2], pauseSeconds: [.5, 1.2]}, life: life(40, 55, '몇 해 사는 작은 물고기예요', '마리'), size: [50, 32],
+    starvation: 420, satiety: 240, predatorSatiety: .4,
+    card: card('계곡 물웅덩이에 떼 지어 사는 갈색 물고기예요.', [['role', '역할', '작은 동물을 잡아먹고 살아서 소비자예요.'], ['eats', '먹는 것', '날도래 애벌레, 엽새우, 물에 떨어진 곤충을 먹어요.'], ['eatenBy', '나를 먹는 것', '꺽지, 미유기, 물새가 먹어요.'], ['home', '사는 곳', '맑고 차가운 계곡과 개울']])},
+  {id: 'native-crayfish', name: '가재', role: 'consumer', behaviorType: 'forager', zone: 'bottom',
+    caption: '돌 밑에서 작은 동물을 먹어요', description: '우리나라 토종 가재예요. 맑은 계곡의 돌 밑에 숨어 살며 작은 동물을 잡아먹어요.', habitat: '맑은 계곡의 돌 밑',
+    scientificName: 'Cambaroides similis', feeding: {initialHunger: .45, hungerPerSecond: .018, hungryAt: .6, mealRelief: .7, searchRadius: .3, speed: .02},
+    motion: {speedX: .01, speedY: .003, walkSeconds: [1, 2], pauseSeconds: [1, 2]}, life: life(70, 100, '여러 해 사는 가재예요', '마리'), size: [52, 38],
+    starvation: 540, satiety: 300, predatorSatiety: .4,
+    card: card('맑은 물에서만 사는 우리나라 토종 가재예요.', [['role', '역할', '여러 생물을 먹고 살아서 소비자예요.'], ['eats', '먹는 것', '날도래 애벌레, 엽새우, 가라앉은 낙엽을 먹어요.'], ['eatenBy', '나를 먹는 것', '꺽지, 수달, 새가 먹어요.'], ['home', '사는 곳', '맑은 계곡의 돌 밑']])},
+  {id: 'korean-catfish', name: '미유기', role: 'consumer', behaviorType: 'forager', zone: 'bottom',
+    caption: '바닥에서 작은 물고기를 먹어요', description: '우리나라에만 사는 작은 메기예요. 맑은 계곡 바닥에서 작은 물고기와 애벌레를 잡아먹어요.', habitat: '맑은 계곡의 바닥',
+    scientificName: 'Silurus microdorsalis', feeding: {initialHunger: .45, hungerPerSecond: .018, hungryAt: .6, mealRelief: .75, searchRadius: .3, speed: .035},
+    motion: {speedX: .015, speedY: .003, walkSeconds: [1.5, 3], pauseSeconds: [1, 2]}, life: life(70, 100, '여러 해 사는 물고기예요', '마리'), size: [56, 32],
+    starvation: 600, satiety: 360, predatorSatiety: .5,
+    card: card('메기를 닮은 작고 날씬한 우리나라 고유종이에요.', [['role', '역할', '다른 동물을 잡아먹고 살아서 소비자예요.'], ['eats', '먹는 것', '작은 물고기와 물속 애벌레를 먹어요.'], ['eatenBy', '나를 먹는 것', '수달과 큰 새가 먹어요.'], ['home', '사는 곳', '맑은 계곡의 돌 사이 바닥']])},
+  {id: 'aucha-perch', name: '꺽지', role: 'consumer', behaviorType: 'forager', zone: 'water',
+    caption: '물고기와 가재를 먹어요', description: '우리나라에만 사는 물고기예요. 돌 틈에 숨어 있다가 작은 물고기와 가재를 잡아먹어요.', habitat: '맑은 계곡과 개울',
+    scientificName: 'Coreoperca herzi', feeding: {initialHunger: .45, hungerPerSecond: .018, hungryAt: .6, mealRelief: .75, searchRadius: .32, speed: .045},
+    motion: {speedX: .025, speedY: .006, walkSeconds: [1, 2], pauseSeconds: [1, 2]}, life: life(70, 100, '여러 해 사는 물고기예요', '마리'), size: [54, 38],
+    starvation: 600, satiety: 360, predatorSatiety: .5,
+    card: card('아가미뚜껑에 파란 테두리의 검은 점이 있는 우리나라 고유종이에요.', [['role', '역할', '다른 동물을 잡아먹고 살아서 소비자예요.'], ['eats', '먹는 것', '작은 물고기, 가재, 물속 곤충을 먹어요.'], ['eatenBy', '나를 먹는 것', '수달과 큰 새가 먹어요.'], ['home', '사는 곳', '맑은 계곡의 돌 틈']])},
 ];
 
 // Eaten -> eater, like the forest's food relations. R: river sources.
@@ -135,6 +193,18 @@ export const riverFoodRelations = [
   edge('medaka', 'catfish', 'animal', 'R7', 'B', true),
   edge('frog-tadpole', 'catfish', 'animal', 'R7'),
   edge('diving-beetle', 'catfish', 'animal', 'R7'),
+  // 상류
+  edge('stone-diatom', 'caddisfly-larva', 'whole', 'R10', 'B', true),
+  edge('stone-diatom', 'melania-snail', 'whole', 'R10', 'B', true),
+  edge('stone-diatom', 'amphipod', 'whole', 'R10'),
+  edge('caddisfly-larva', 'minnow', 'animal', 'R11', 'B', true),
+  edge('amphipod', 'minnow', 'animal', 'R11'),
+  edge('caddisfly-larva', 'native-crayfish', 'animal', 'R12'),
+  edge('amphipod', 'native-crayfish', 'animal', 'R12'),
+  edge('minnow', 'korean-catfish', 'animal', 'R13'),
+  edge('caddisfly-larva', 'korean-catfish', 'animal', 'R13'),
+  edge('minnow', 'aucha-perch', 'animal', 'R13', 'B', true),
+  edge('native-crayfish', 'aucha-perch', 'animal', 'R13'),
 ];
 // What an invader eats while it stays (the boss rule, not the feeding system).
 export const riverInvaderPrey = {
@@ -148,10 +218,15 @@ const riverEvidence = {
   R4: {url: 'https://species.nibr.go.kr/', location: '참개구리 올챙이 > 먹이', note: '올챙이는 물속의 조류와 물풀을 갉아 먹어요.'},
   R5: {url: 'https://genebank.rda.go.kr/PB/jw/insectView.bo?page=1&species_id=ZO1CR0046&use_kind=03', location: '물방개 > 먹이', note: '물방개는 올챙이와 작은 물고기 같은 물속 동물을 잡아먹어요.'},
   R7: {url: 'https://www.gb.go.kr/Main/marinefishery/page.do?mnu_uid=15943', location: '메기 > 먹이', note: '메기는 밤에 바닥 근처에서 작은 물고기와 개구리, 물속 곤충을 잡아먹어요.'},
+  R10: {url: 'https://species.nibr.go.kr/', location: '다슬기·날도래류·옆새우류 > 먹이', note: '다슬기와 날도래 애벌레, 엽새우는 돌에 붙은 부착 조류(돌말)를 갉아 먹어요.'},
+  R11: {url: 'https://species.nibr.go.kr/', location: '버들치 > 먹이', note: '버들치는 물속 곤충의 애벌레와 작은 갑각류를 먹어요.'},
+  R12: {url: 'https://species.nibr.go.kr/', location: '가재 > 먹이', note: '가재는 물속 곤충 애벌레, 작은 갑각류와 가라앉은 낙엽을 먹는 잡식성이에요.'},
+  R13: {url: 'https://www.gb.go.kr/Main/marinefishery/page.do?mnu_uid=15943', location: '미유기·꺽지 > 먹이', note: '미유기와 꺽지는 작은 물고기와 물속 곤충, 갑각류를 잡아먹어요.'},
   R6: {url: 'https://www.honda.co.jp/outdoor/adventure/tonosamagaeru.html', location: '참개구리 > 먹이', note: '참개구리는 물가와 물 위의 곤충을 잡아먹어요. 소금쟁이 특정 쌍은 단순화했어요.'},
 };
 
-export const riverPrices = {algae: 3, duckweed: 3, 'water-lily': 5, cattail: 3, daphnia: 3, medaka: 6, 'pond-snail': 5, 'water-strider': 5, 'frog-tadpole': 4, 'diving-beetle': 7, catfish: 9, 'water-decomposer': 5};
+export const riverPrices = {algae: 3, duckweed: 3, 'water-lily': 5, cattail: 3, daphnia: 3, medaka: 6, 'pond-snail': 5, 'water-strider': 5, 'frog-tadpole': 4, 'diving-beetle': 7, catfish: 9, 'water-decomposer': 5,
+  'stone-diatom': 3, 'water-dropwort': 3, 'pussy-willow': 6, 'caddisfly-larva': 4, 'melania-snail': 4, amphipod: 4, minnow: 6, 'native-crayfish': 8, 'korean-catfish': 9, 'aucha-perch': 10};
 const relation = (food, eater) => riverFoodRelations.find(r => r.sourceSpeciesId === food && r.targetSpeciesId === eater).relationId;
 
 // Organisms: [species, x, y], y on the species' living space.
@@ -186,6 +261,34 @@ export const riverChapters = [
       organisms: [['algae', .1, .85], ['algae', .22, .86], ['algae', .34, .85], ['algae', .46, .86], ['algae', .56, .85], ['cattail', .86, .4], ['duckweed', .3, .3], ['water-strider', .52, .34],
         ['daphnia', .16, .7], ['daphnia', .28, .76], ['daphnia', .42, .68], ['daphnia', .5, .74], ['medaka', .24, .62], ['medaka', .44, .64], ['pond-snail', .12, .92], ['frog-tadpole', .36, .74], ['water-decomposer', .5, .93]]},
   ]},
+  {chapterId: 'river-upstream', number: 2, title: '상류', events: ['flood', 'valley-trash'], seedSeconds: 55,
+    newSpecies: ['stone-diatom', 'melania-snail', 'caddisfly-larva', 'pussy-willow', 'amphipod', 'minnow', 'water-dropwort', 'native-crayfish', 'korean-catfish', 'aucha-perch'],
+    intro: '차갑고 맑은 물이 빠르게 흐르는 계곡이에요. 돌에 붙은 돌말부터 꺽지까지 먹이 관계를 이어요.',
+    art: {src: './assets/images/backgrounds/river-upstream.webp', alt: '맑고 빠른 계곡물의 수면과 물속 단면, 자갈과 큰 돌이 있는 바닥, 오른쪽의 자갈 물가와 흙 단면.'}, stages: [
+    {stageId: '2-1', title: '돌 위의 조류', points: 12, events: [],
+      goal: '상류에는 물풀 대신 돌에 붙은 돌말이 생산자예요. 다슬기와 날도래 애벌레가 돌말을 먹어요. 다슬기를 길러 강 별 3개를 모아요.',
+      tasks: [{text: '다슬기 기르기', have: 'melania-snail'}, {text: '생산자·소비자 균형 잡기', balance: true}],
+      inventory: ['stone-diatom', 'melania-snail', 'caddisfly-larva'], requiredSpecies: {'caddisfly-larva': 1, 'melania-snail': 1},
+      organisms: [['stone-diatom', .12, .85], ['stone-diatom', .28, .86], ['stone-diatom', .44, .85], ['stone-diatom', .56, .86], ['caddisfly-larva', .2, .9], ['caddisfly-larva', .48, .91]]},
+    {stageId: '2-2', title: '낙엽을 먹는 엽새우', points: 14, events: [],
+      goal: '물가의 갯버들 잎이 물에 떨어지면 분해자가 분해해요. 엽새우는 돌말을 먹고, 버들치는 엽새우와 날도래 애벌레를 먹어요. 버들치를 놓아 강 별 3개를 모아요.',
+      tasks: [{text: '버들치 놓기', have: 'minnow'}, {text: '낙엽 분해하기', decomposed: true}],
+      inventory: ['stone-diatom', 'pussy-willow', 'melania-snail', 'caddisfly-larva', 'amphipod', 'minnow', 'water-decomposer'], requiredSpecies: {'caddisfly-larva': 1, amphipod: 1, minnow: 1}, needsDecomposition: true,
+      organisms: [['stone-diatom', .12, .85], ['stone-diatom', .26, .86], ['stone-diatom', .4, .85], ['stone-diatom', .54, .86], ['pussy-willow', .86, .4], ['melania-snail', .1, .92],
+        ['caddisfly-larva', .22, .9], ['caddisfly-larva', .44, .91], ['amphipod', .32, .88], ['amphipod', .5, .9]]},
+    {stageId: '2-3', title: '돌 밑의 가재', points: 16, events: ['flood'],
+      goal: '토종 가재는 돌 밑에 숨어 날도래 애벌레와 엽새우를 먹어요. 큰비로 홍수가 오기 전에 생산자를 넉넉히 길러 두고, 가재를 길러 강 별 3개를 모아요.',
+      tasks: [{text: '가재 기르기', have: 'native-crayfish'}, {text: '홍수 견디기', crisis: 'flood'}],
+      inventory: ['stone-diatom', 'water-dropwort', 'pussy-willow', 'caddisfly-larva', 'amphipod', 'minnow', 'native-crayfish', 'water-decomposer'], requiredSpecies: {'caddisfly-larva': 1, amphipod: 1, 'native-crayfish': 1},
+      organisms: [['stone-diatom', .1, .85], ['stone-diatom', .22, .86], ['stone-diatom', .34, .85], ['stone-diatom', .46, .86], ['stone-diatom', .56, .85], ['pussy-willow', .86, .4], ['water-dropwort', .8, .42],
+        ['caddisfly-larva', .16, .9], ['caddisfly-larva', .4, .91], ['amphipod', .28, .88], ['amphipod', .52, .9], ['minnow', .36, .64], ['water-decomposer', .58, .93]]},
+    {stageId: '2-4', title: '상류의 사냥꾼', points: 18, events: ['valley-trash'],
+      goal: '꺽지는 버들치와 가재를, 미유기는 버들치와 애벌레를 잡아먹는 상류의 사냥꾼이에요. 사람들이 계곡에 버린 쓰레기도 막아야 해요. 꺽지를 길러 강 별 3개를 모아요.',
+      tasks: [{text: '꺽지 기르기', have: 'aucha-perch'}, {text: '쓰레기 치우기', crisis: 'valley-trash'}],
+      inventory: ['stone-diatom', 'water-dropwort', 'pussy-willow', 'caddisfly-larva', 'amphipod', 'minnow', 'native-crayfish', 'korean-catfish', 'aucha-perch', 'water-decomposer'], requiredSpecies: {'caddisfly-larva': 2, amphipod: 1, minnow: 2, 'aucha-perch': 1},
+      organisms: [['stone-diatom', .1, .85], ['stone-diatom', .22, .86], ['stone-diatom', .34, .85], ['stone-diatom', .46, .86], ['stone-diatom', .56, .85], ['pussy-willow', .86, .4], ['water-dropwort', .8, .42],
+        ['caddisfly-larva', .14, .9], ['caddisfly-larva', .3, .91], ['caddisfly-larva', .5, .9], ['amphipod', .24, .88], ['amphipod', .42, .9], ['minnow', .2, .62], ['minnow', .46, .66], ['native-crayfish', .38, .92], ['water-decomposer', .58, .93]]},
+  ]},
 ];
 
 // The question after each river crisis: river organisms and the abiotic
@@ -198,6 +301,22 @@ export const riverQuestions = {
     {question: '가뭄이 오기 전에 연못 생태계를 튼튼하게 하려면 어떻게 하면 좋을까요?',
       choices: ['생산자인 작은 조류와 물풀을 넉넉히 길러 둬요', '송사리를 더 많이 놓아요', '물벼룩을 모두 없애요'], answer: 0,
       explanation: '생산자가 넉넉하면 물이 줄어 생산자가 덜 자라는 동안에도 물벼룩과 논우렁이가 먹을 것이 남아요.'},
+  ],
+  flood: [
+    {question: '홍수가 나면 왜 다슬기와 날도래 애벌레 같은 소비자도 힘들어질까요?',
+      choices: ['물이 불어나 몸 색깔이 바뀌어서', '흙탕물에 햇빛이 잘 들지 않고 돌말이 쓸려 가서 먹이가 줄어서', '홍수가 나면 물이 깨끗해져서'], answer: 1,
+      explanation: '큰비로 물이 불어나면 돌에 붙은 돌말이 쓸려 가고, 흙탕물 때문에 햇빛이 물속에 잘 들지 않아요. 생산자가 줄면 그것을 먹는 소비자도 먹이가 모자라요.'},
+    {question: '홍수가 지나간 뒤 계곡 생태계가 다시 회복되려면 무엇이 필요할까요?',
+      choices: ['돌말 같은 생산자가 다시 자랄 시간', '소비자를 모두 없애는 것', '물을 모두 퍼내는 것'], answer: 0,
+      explanation: '물이 맑아지고 햇빛이 들면 생산자가 다시 자라요. 생산자가 늘어나면 먹이 관계를 따라 소비자도 차례로 회복해요.'},
+  ],
+  'valley-trash': [
+    {question: '계곡에 버린 쓰레기는 강 생물에게 어떤 영향을 줄까요?',
+      choices: ['물과 물가를 더럽혀 생물이 살기 어려워져요', '물고기의 먹이가 되어 좋아요', '아무 영향이 없어요'], answer: 0,
+      explanation: '쓰레기는 물과 물가의 흙을 더럽히고, 작은 동물이 삼키거나 걸려 다칠 수 있어요. 깨끗한 물에서만 사는 가재와 다슬기가 먼저 사라져요.'},
+    {question: '계곡에 놀러 갔을 때 우리가 할 수 있는 일은 무엇일까요?',
+      choices: ['내가 만든 쓰레기를 되가져와요', '쓰레기를 돌 밑에 숨겨요', '쓰레기를 물에 흘려보내요'], answer: 0,
+      explanation: '쓰레기를 되가져오면 계곡에 쓰레기가 남지 않아요. 버려진 쓰레기를 주우면 더 좋아요.'},
   ],
   // After tapping an invader out (kind invader:<species>).
   'invader:bullfrog': [
@@ -216,6 +335,30 @@ export const riverQuestions = {
       choices: ['가까운 개울에 놓아줘요', '자연에 풀어 주지 않고 어른이나 기관에 물어봐요', '아파트 연못에 넣어 줘요'], answer: 1,
       explanation: '외래종을 자연에 풀어 주면 토종 생물을 먹고 빠르게 퍼질 수 있어요. 버리지 말고 어른이나 관련 기관에 도움을 청해요.'},
   ],
+};
+
+// The river's crises: natural ones are prepared for, people-made ones are
+// stopped by choosing the right action first, then cleaned up (pieces).
+export const riverCrises = {
+  flood: {human: false, factor: 'water', notice: '곧 큰비가 와서 강물이 불어나요!',
+    effect: '큰비로 물이 불어나고 흙탕물이 되면 돌에 붙은 돌말이 쓸려 가고, 물속에 햇빛이 잘 들지 않아 생산자가 잘 자라지 못해요. 먹이가 모자라면 강 별이 멈춰요.'},
+  'valley-trash': {human: true, factor: 'soil', notice: '사람들이 계곡에 쓰레기를 버리고 가요!', item: '쓰레기', icon: '🥤', pieces: ['bag', 'bottle', 'peel'],
+    area: {left: .08, right: .58, y: .93}, pieceAreas: {bottle: {left: .25, right: .66, y: .38}},
+    status: '계곡에 버린 쓰레기가 물가와 물을 더럽히고 있어요. 쓰레기를 눌러 치워요.', gone: '쓰레기는 다 치웠어요.', care: '계곡 물가 되살리기',
+    collected: '쓰레기를 치웠어요. 계곡에 쓰레기가 남지 않게 되가져가는 것이 가장 좋아요.',
+    question: '계곡에 쓰레기가 쌓이지 않게 하려면 어떻게 해야 할까요?',
+    choices: [
+      {text: '쓰레기를 물에 흘려보내요', why: '물에 흘려보낸 쓰레기는 하류와 바다까지 떠내려가 더 많은 생물을 해쳐요.'},
+      {text: '내가 만든 쓰레기는 되가져가고, 버려진 쓰레기는 주워요', right: true, why: '쓰레기를 남기지 않으면 계곡이 깨끗하게 유지돼요. 이제 계곡에 버려진 쓰레기를 눌러 치워요.'},
+      {text: '쓰레기를 돌 밑에 숨겨요', why: '돌 밑에 숨긴 쓰레기도 그대로 남아 물과 흙을 더럽히고, 돌 밑에 사는 가재와 애벌레가 살 곳을 잃어요.'}]},
+};
+const riverEvents = {
+  flood: {name: '홍수', factor: 'water', duration: 180, recoverySeconds: 240, magnitude: -.65,
+    cause: '큰비가 내려 강물이 갑자기 불어나고 흙탕물이 되었어요.',
+    expected: '돌말이 쓸려 가고 물속에 햇빛이 덜 들어 생산자가 잘 자라지 못해요. 물이 맑아지면 다시 회복돼요.'},
+  'valley-trash': {name: '계곡 쓰레기', factor: 'soil', duration: 180, recoverySeconds: 240, magnitude: -.65,
+    cause: '사람들이 계곡에 놀러 왔다가 쓰레기를 버리고 갔어요.',
+    expected: '쓰레기가 물가와 물을 더럽혀요. 쓰레기를 치우고 물가를 되살려요.'},
 };
 
 // Breeding in a stage, as in the forest: two fed parents make a young one.
@@ -261,9 +404,12 @@ export function useRiverTheme() {
   Object.assign(speciesProfiles.frog, {zone: 'frogShore'});
   speciesHabitats.frog = {...speciesHabitats.frog, primary: 'frogShore', additional: [], direct: true};
   Object.assign(crisisQuestions, riverQuestions);
+  Object.assign(crises, riverCrises);
+  for (const [kind, event] of Object.entries(riverEvents)) { environmentEventDefinitions[kind] = {...event}; scaleFields(environmentEventDefinitions[kind], ['duration', 'recoverySeconds']); }
   // The water decomposer breaks down plant and animal remains.
   decompositionConfig.rates['water-decomposer'] = {litter: ecologyRate(.006), remains: ecologyRate(.006)};
   organicWorkers.litter.push('water-decomposer'); organicWorkers.remains.push('water-decomposer');
+  decomposerIds.push('water-decomposer');
   // The river's cards only (the forest's stay known by id); invaders are no card.
   organisms.splice(0, organisms.length, ...riverSpecies.filter(s => !s.invader).map(s => organismById[s.id]));
   const riverStages = riverChapters.flatMap(chapter => chapter.stages.map(stage => ({...stage, chapter, events: stage.events ?? chapter.events, seedSeconds: chapter.seedSeconds})));
