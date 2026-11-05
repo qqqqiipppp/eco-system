@@ -3,7 +3,7 @@
 import {useChapterFoodRelations,chapterFoodRelations} from './food-relations.js';
 import {addDiscoveryEvent,discoveryEvents} from './event-config.js';
 import {satietySeconds} from './population-config.js';
-import {useGrownTrees} from './interaction-config.js';
+import {useGrownTrees,useLargeAnimals} from './interaction-config.js';
 import {sceneSpaces} from './forest-spaces.js';
 
 export function useChapterEcology(){
@@ -13,5 +13,6 @@ export function useChapterEcology(){
   satietySeconds.chipmunk ??= satietySeconds.frog;
   satietySeconds.bulbul ??= satietySeconds.frog;
   useGrownTrees();
+  useLargeAnimals();
   sceneSpaces.grownTrees = true;
 }

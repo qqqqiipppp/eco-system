@@ -48,6 +48,13 @@ export const wanderConfig = {
 // picture's 4:3 shape, so the picture fills it down to its foot (a square box
 // centred it and the tree floated). Spaced so crowns barely overlap. Forest
 // mode keeps its sizes.
+// Chapter mode also draws the animals that are big in nature bigger, so a
+// hunter is plainly larger than its prey (the teacher's request). Forest mode
+// keeps its sizes.
+export function useLargeAnimals(){
+  const sizes={rabbit:[80,60],snake:[88,66],weasel:[72,54],goshawk:[80,60]};
+  for(const [id,[width,height]] of Object.entries(sizes))Object.assign(speciesProfiles[id],{width,height});
+}
 export function useGrownTrees(){
   for(const id of ['oak','pine','hazel'])Object.assign(speciesProfiles[id],{width:277,height:208});
   placementConfig.largePlantSpacing={x:.2,y:.07};
