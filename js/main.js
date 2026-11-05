@@ -13,7 +13,7 @@ import { updateForestGoal } from './systems/forest-progress.js';
 import { createSaveService } from './services/save-service.js';
 import { createLocalAdapter,createNoSaveAdapter,createChapterProgressAdapter,createChapterStageAdapter,createAdminAdapter,createThemeAdapter } from './adapters/local-storage.js';
 import {themeById} from '../data/themes.js';
-import {createStageGameState,updateStage,catchObservation,careFor,buyCheck,payFor,collectTrash,prepareFor} from './systems/chapter-stage.js';
+import {createStageGameState,updateStage,catchObservation,careFor,buyCheck,payFor,collectTrash,prepareFor,hitBoss} from './systems/chapter-stage.js';
 import {organismById as speciesById} from '../data/organisms.js';
 import {particle,mealSentence} from '../data/student-text.js';
 import {foodRelationById} from '../data/food-relations.js';
@@ -107,7 +107,7 @@ try {
     document.body.classList.add('chapter-mode');
     const webView=createChapterWebView(chapterProgress,{onComplete:()=>chapterView.webDone(),onGuide:id=>collectionView.openGuide(id,null),onReference:()=>collectionView.openWeb(undefined,null)});
     const recordView=createChapterRecordView(chapterProgress,{currentStageId:()=>gameState.chapter.stageId,openWeb:n=>webView.open(n)});
-    chapterView=createChapterView(()=>gameState,{forest,theme,themeStore,admin,notify:(text,ok)=>important(text,ok),cleared:()=>chapterProgress.cleared(),openWeb:n=>webView.open(n),webComplete:n=>webView.isComplete(n),openRecord:()=>recordView.open(),reflections:()=>chapterProgress.read().reflections,onReflect:entry=>chapterProgress.addReflection(entry),onCatch:catchStageObservation,onCollect:collectStageTrash,onPrepare:prepareStage,onStage:id=>{stageSave.remove();installForest(createStageGameState(stageById[id]));},onRestart:()=>{stageSave.remove();installForest(createStageGameState(stageById[gameState.chapter.stageId]));},onCare:careStageEnvironment});
+    chapterView=createChapterView(()=>gameState,{forest,theme,themeStore,admin,notify:(text,ok)=>important(text,ok),cleared:()=>chapterProgress.cleared(),openWeb:n=>webView.open(n),webComplete:n=>webView.isComplete(n),openRecord:()=>recordView.open(),reflections:()=>chapterProgress.read().reflections,onReflect:entry=>chapterProgress.addReflection(entry),onCatch:catchStageObservation,onCollect:collectStageTrash,onBoss:tapStageBoss,onPrepare:prepareStage,onStage:id=>{stageSave.remove();installForest(createStageGameState(stageById[id]));},onRestart:()=>{stageSave.remove();installForest(createStageGameState(stageById[gameState.chapter.stageId]));},onCare:careStageEnvironment});
   }else{
     const chapterButton=document.createElement('button');chapterButton.id='chapter-open';chapterButton.type='button';chapterButton.textContent='챕터 모드';
     chapterButton.addEventListener('click',()=>{location.href=location.pathname;});document.querySelector('.header-actions').append(chapterButton);
@@ -229,6 +229,12 @@ try {
     }else if(choice==='plant'){selectSpecies(response.speciesId);scene.showFeedback(`숲을 눌러 ${particle(name,'을','를')} 심어요.`,true);}
     else scene.showFeedback('날씨가 어떻게 숲을 바꾸는지 지켜봐요.',true);
     renderDashboard(gameState);chapterView.render();loop.refresh();
+  }
+  // One tap on the invader; tapped out, it leaves the scene.
+  function tapStageBoss(){
+    const response=hitBoss(gameState);if(!response.ok)return response;
+    if(response.done){feedingSystem.forget([response.removedId]);wander.forget([response.removedId]);scene.remove([response.removedId]);important(`외래종 ${particle(speciesById[response.boss.speciesId].name,'을','를')} 내보냈어요!`,true);}
+    chapterView.render();return response;
   }
   function collectStageTrash(trashId){
     const response=collectTrash(gameState,trashId);if(!response.ok)return response;

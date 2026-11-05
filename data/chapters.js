@@ -46,6 +46,10 @@ export const stageConfig = {
   // A predator stays full this share of the regular forest's time (a frog 5
   // minutes there, 2 here), so hunting is seen within a stage. Shorter empties
   // the forest of prey, which does not breed in most stages (bots: 2-2, 4-1).
+  // An invader (외래종, the river's bosses): it appears after a star, warned like
+  // a crisis, eats one native animal this often until tapped out (stage.boss:
+  // {species: [...], taps}). The longer it stays, the more natives it eats.
+  bossEatSeconds: 8,
   predatorSatiety: {frog: .4, chipmunk: .4, bulbul: .4, snake: .5, weasel: .5, goshawk: .5},
   prices: {grass: 3, raspberry: 3, oak: 6, hazel: 6, grasshopper: 4, earthworm: 4, aphid: 5, rabbit: 6, chipmunk: 6, mushroom: 5, 'litter-mold': 5, frog: 8, bulbul: 8, snake: 10, weasel: 10, goshawk: 12},
 };

@@ -92,6 +92,9 @@ export function stageBlockers(s) {
   // A stage that asks to watch one meal: the third star waits for its 💡.
   if (stage.observeRequired && c.seeds >= config.seedsToClear - 1 && !(c.caught || []).includes(stage.observeRequired)) list.push({id: 'needObserve', relationId: stage.observeRequired});
   // A stage about growing up (올챙이가 개구리로): the third star waits for it.
+  // An invader in the water stalls the stars until it is tapped out.
+  const invader = activeBoss(c);
+  if (invader) list.push({id: 'invader', speciesId: invader.speciesId});
   if (stage.growRequired && c.seeds >= config.seedsToClear - 1 && !(c.grown || []).some(g => g.speciesId === stage.growRequired)) list.push({id: 'needGrow', speciesId: stage.growRequired});
   return list;
 }
@@ -185,6 +188,7 @@ export function updateStage(s, seconds, feedingEvents = []) {
   updateTrash(s, seconds);
   const born = updateBreeding(s, seconds);
   const grew = updateGrowth(s, seconds);
+  const boss = updateBoss(s);
   // In a shop the price limits how fast animals come back, so the regular
   // forest's wait before reintroducing an eaten species is lifted here.
   for (const intro of Object.values(s.population.introductions)) if (intro.nextAt > time) intro.nextAt = time;
@@ -200,8 +204,9 @@ export function updateStage(s, seconds, feedingEvents = []) {
   c.foodRecovery = event?.phase === 'active' && !crises[event.kind]?.human ? config.crisisFoodRecovery : 1;
   const result = growSeeds(s);
   if (!c.cleared) result.eventStarted = startDueEvent(s) || result.eventStarted;
-  result.born = [...born, ...grew.added];
-  result.removed = grew.removed;
+  result.born = [...born, ...grew.added, ...boss.added];
+  result.removed = [...grew.removed, ...boss.removed];
+  result.bossAte = boss.ate;
   return result;
 }
 
@@ -264,6 +269,7 @@ export function taskDone(s, task) {
   if (task.decomposed) return c.lastDecomposedAt !== null;
   if (task.observe) return (c.caught || []).includes(task.observe);
   if (task.grow) return (c.grown || []).some(g => g.speciesId === task.grow);
+  if (task.invader) return (c.bosses || []).filter(b => b.defeatedAt !== null).length >= (stageById[c.stageId].boss?.species.length || 1);
   return false;
 }
 
@@ -402,3 +408,46 @@ function updateGrowth(s, seconds) {
   }
   return {added, removed};
 }
+
+// Invaders (stage.boss): one after each of the first stars, announced
+// warningSeconds before, in their own living space. Each eats the nearest
+// native animal it preys on every bossEatSeconds until tapped out.
+export const activeBoss = c => (c.bosses || []).find(b => b.defeatedAt === null && b.instanceId) || null;
+export const bossWarning = c => (c.bosses || []).find(b => !b.instanceId) || null;
+function updateBoss(s) {
+  const c = s.chapter, plan = stageById[c.stageId].boss, out = {added: [], removed: [], ate: []};
+  if (!plan) return out;
+  c.bosses ??= [];
+  const time = s.simulationTime, next = c.bosses.length;
+  if (next < plan.species.length && c.seeds > next && !activeBoss(c) && !bossWarning(c))
+    c.bosses.push({speciesId: plan.species[next], need: plan.taps, taps: 0, instanceId: null, startsAt: time + config.warningSeconds, appearedAt: null, eaten: 0, defeatedAt: null, reported: false});
+  const coming = bossWarning(c);
+  if (coming && time >= coming.startsAt) {
+    const zone = placementConfig.zones[speciesProfiles[coming.speciesId].zone];
+    const boss = addOrganism(s, coming.speciesId, {x: (zone.left + zone.right) / 2, y: (zone.top + zone.bottom) / 2}, 'invasion');
+    if (boss) { coming.instanceId = boss.instanceId; coming.appearedAt = time; coming.nextEatAt = time + config.bossEatSeconds; out.added.push(boss); }
+  }
+  const active = activeBoss(c);
+  if (active && time >= active.nextEatAt) {
+    active.nextEatAt = time + config.bossEatSeconds;
+    const me = s.organisms.find(o => o.instanceId === active.instanceId);
+    const prey = new Set(foodRelations.filter(r => r.targetSpeciesId === active.speciesId).map(r => r.sourceSpeciesId));
+    const target = s.organisms.filter(o => prey.has(o.speciesId)).sort((a, b) => Math.hypot(a.position.x - me.position.x, a.position.y - me.position.y) - Math.hypot(b.position.x - me.position.x, b.position.y - me.position.y))[0];
+    if (target) {
+      removeOrganism(s, target.instanceId, 'predation', {consumerSpeciesId: active.speciesId});
+      active.eaten++; out.removed.push(target.instanceId); out.ate.push({bossSpeciesId: active.speciesId, speciesId: target.speciesId});
+    }
+  }
+  return out;
+}
+// One tap on the invader. Tapped enough, it leaves the water.
+export function hitBoss(s) {
+  const c = s.chapter, active = c && activeBoss(c);
+  if (!active) return {ok: false};
+  active.taps++;
+  if (active.taps < active.need) return {ok: true, done: false, left: active.need - active.taps};
+  active.defeatedAt = s.simulationTime;
+  removeOrganism(s, active.instanceId, 'invader_removed');
+  return {ok: true, done: true, left: 0, removedId: active.instanceId, boss: active};
+}
+export const bossReport = s => (s.chapter.bosses || []).find(b => b.defeatedAt !== null && !b.reported) || null;
