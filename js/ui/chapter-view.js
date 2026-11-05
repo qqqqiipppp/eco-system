@@ -3,7 +3,7 @@ import {crisisQuestions} from '../../data/crisis-reflection.js';
 import {stageBlockers,isStuck,taskDone,pondStage,careOptions,needStates,neededCards,priceOf,buyCheck,prepareOptions,crisisReport,markReported,breedingState,isYoung} from '../systems/chapter-stage.js';
 import {currentEnvironmentEvent} from '../systems/environment-events.js';
 import {factorValue,qualityLabel} from '../systems/environment.js';
-import {stageConfig as config,chapters,stages,stageById,crises,crisisForFactor,breeding} from '../../data/chapters.js';
+import {stageConfig as config,chapters,stages,stageById,crises,crisisForFactor,breeding,growth} from '../../data/chapters.js';
 import {themes,themeById} from '../../data/themes.js';
 import {environmentFactors} from '../../data/environment-config.js';
 import {environmentEventDefinitions} from '../../data/environment-events.js';
@@ -26,6 +26,8 @@ const blockerText={
  noDecomposition:()=>'낙엽과 죽은 나무가 분해되지 않고 있어요. 분해자가 일할 수 있게 해요.',
  noMeal:()=>'아직 먹는 모습이 보이지 않아요. 소비자가 먹이를 찾을 때까지 지켜봐요.',
  needObserve:b=>{const r=foodRelationById[b.relationId];return `세 번째 숲 별은 ${particle(name(r.targetSpeciesId),'이','가')} ${particle(name(r.sourceSpeciesId),'을','를')} 먹는 모습을 관찰해야 차올라요. 사냥하면 뜨는 💡를 눌러요.`;},
+ needGrow:(b,s)=>{const young=Object.keys(growth).find(id=>growth[id].into===b.speciesId),n=name(young),has=s.organisms.some(o=>o.speciesId===young);
+  return `세 번째 별은 ${particle(n,'이','가')} 자라 ${particle(name(b.speciesId),'이','가')} 되어야 차올라요. `+(has?`${particle(n,'이','가')} 배고프지 않게 먹이를 넉넉히 둬요.`:`${particle(n,'을','를')} 놓아요.`);},
  needBirth:(b,s)=>{const n=name(b.speciesId),count=s.organisms.filter(o=>o.speciesId===b.speciesId).length;
   return `세 번째 숲 별은 새로 태어난 ${particle(n,'이','가')} 있어야 차올라요. `+(count<2?`${particle(n,'이','가')} 두 마리 있어야 번식해요. 한 마리를 더 놓아요.`:breedingLine(s)||`${n} 두 마리가 배고프지 않게 지내면 ${promise(breeding.species[b.speciesId])}.`);},
 };
