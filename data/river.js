@@ -7,14 +7,15 @@ import {organisms,organismById} from './organisms.js';
 import {foodResourceConfig,feedingConfig} from './ecology-config.js';
 import {producerGrowth} from './environment-config.js';
 import {lifespanRules} from './lifespan-config.js';
-import {starvationLimits,satietySeconds} from './population-config.js';
+import {starvationLimits,satietySeconds,decompositionConfig} from './population-config.js';
+import {organicWorkers} from './detritus-config.js';
 import {placementConfig,speciesProfiles} from './interaction-config.js';
 import {speciesHabitats,habitatZones} from './habitats.js';
 import {speciesCards} from './species-cards.js';
 import {foodEvidence} from './food-evidence.js';
 import {edge,addFoodRelations,foodPartLabels} from './food-relations.js';
 import {addDiscoveryEvent,addShortageEvent} from './event-config.js';
-import {chapters,stages,stageById,stageConfig,breeding,growth as stageGrowth} from './chapters.js';
+import {chapters,stages,stageById,stageConfig,breeding,growth as stageGrowth,invaderPrey} from './chapters.js';
 import {ecologySeconds,ecologyRate,scaleFields} from './pacing-config.js';
 import {survivalConfig} from './survival-config.js';
 import {crisisQuestions} from './crisis-reflection.js';
@@ -100,6 +101,26 @@ export const riverSpecies = [
     motion: {speedX: .03, speedY: .012, walkSeconds: [.8, 1.6], pauseSeconds: [.6, 1.4]}, life: life(50, 70, '여러 해 사는 물속 곤충이에요', '마리'), size: [44, 32],
     starvation: 480, satiety: 300, predatorSatiety: .4,
     card: card('매끈한 검녹색 몸에 노란 테두리가 있는 물속 곤충이에요.', [['role', '역할', '다른 동물을 잡아먹고 살아서 소비자예요.'], ['eats', '먹는 것', '올챙이, 작은 물고기, 물속 곤충을 먹어요.'], ['eatenBy', '나를 먹는 것', '메기, 새가 먹어요.'], ['home', '사는 곳', '연못과 논의 물속, 물풀 사이']])},
+  {id: 'catfish', name: '메기', role: 'consumer', behaviorType: 'forager', zone: 'bottom',
+    caption: '물고기와 올챙이를 먹어요', description: '납작한 머리와 긴 수염으로 바닥 근처를 다니며 작은 물고기, 올챙이, 물방개를 잡아먹어요.', habitat: '연못과 강의 바닥',
+    scientificName: 'Silurus asotus', feeding: {initialHunger: .45, hungerPerSecond: .018, hungryAt: .6, mealRelief: .75, searchRadius: .32, speed: .04},
+    motion: {speedX: .02, speedY: .004, walkSeconds: [1.5, 3], pauseSeconds: [1, 2]}, life: life(80, 110, '여러 해 사는 큰 물고기예요', '마리'), size: [60, 36],
+    starvation: 600, satiety: 360, predatorSatiety: .5,
+    card: card('수염 두 쌍으로 먹이를 찾는 바닥의 물고기예요.', [['role', '역할', '다른 동물을 잡아먹고 살아서 소비자예요.'], ['eats', '먹는 것', '작은 물고기, 올챙이, 개구리, 물속 곤충을 먹어요.'], ['eatenBy', '나를 먹는 것', '다 자라면 먹는 동물이 거의 없어요. 어릴 때는 큰 물고기와 새가 먹어요.'], ['home', '사는 곳', '연못과 강의 진흙 바닥']])},
+  {id: 'water-decomposer', name: '물속 분해자', role: 'decomposer', behaviorType: 'static', zone: 'bottom',
+    caption: '죽은 생물을 분해해요', description: '물 바닥의 세균과 곰팡이를 묶었어요. 가라앉은 낙엽과 죽은 생물을 분해해 물과 흙의 양분으로 돌려보내요.', habitat: '연못과 강의 바닥',
+    scientificName: null, taxonKind: 'functional-group', taxonomyNote: '물 바닥의 여러 세균과 곰팡이를 묶은 무리예요.',
+    life: {model: 'colony', min: 8 * 60, max: 12 * 60, resource: 'litter', stressSeconds: 20 * 60, label: '죽은 생물을 이용하며 새로 자라는 군집이에요', unit: '군집'}, size: [48, 34],
+    card: card('현미경으로 보아야 보이는 세균과 하얀 실 같은 곰팡이예요.', [['role', '역할', '죽은 생물을 분해해 양분을 얻어서 분해자예요.'], ['job', '하는 일', '가라앉은 낙엽과 죽은 생물을 분해해 물과 흙의 양분으로 돌려보내요.'], ['home', '사는 곳', '연못과 강의 바닥, 썩은 낙엽 위']])},
+  // Invaders (외래종): the stage's boss, not a card. Drawn bigger (about 1.6x).
+  {id: 'bullfrog', name: '황소개구리', role: 'consumer', behaviorType: 'forager', zone: 'frogShore', invader: true,
+    caption: '외래종: 무엇이든 잡아먹어요', description: '북아메리카에서 들여온 큰 개구리예요. 올챙이, 물고기, 참개구리까지 잡아먹어 생태계 교란 생물로 지정되었어요.', habitat: '연못, 저수지, 느린 강',
+    scientificName: 'Lithobates catesbeianus', motion: {speedX: .02, speedY: .006, walkSeconds: [.8, 1.6], pauseSeconds: [1, 2]}, life: life(300, 400, '외래종이에요', '마리'), size: [84, 64],
+    card: card('참개구리보다 훨씬 큰 외래종 개구리예요.', [['role', '역할', '다른 동물을 잡아먹고 살아서 소비자예요.'], ['eats', '먹는 것', '곤충, 올챙이, 물고기, 개구리, 작은 뱀까지 먹어요.'], ['eatenBy', '나를 먹는 것', '우리나라에는 천적이 적어서 빨리 늘어나요.'], ['wow', '알아 두기', '1998년에 생태계 교란 생물로 지정되었어요.']])},
+  {id: 'red-swamp-crayfish', name: '미국가재', role: 'consumer', behaviorType: 'forager', zone: 'bottom', invader: true,
+    caption: '외래종: 물풀을 자르고 작은 동물을 먹어요', description: '북아메리카에서 들여온 붉은 가재예요. 물풀을 잘라 먹고 올챙이, 우렁이, 작은 물고기를 먹어 생태계 교란 생물로 지정되었어요.', habitat: '연못, 논, 느린 강',
+    scientificName: 'Procambarus clarkii', motion: {speedX: .015, speedY: .003, walkSeconds: [1, 2], pauseSeconds: [1, 2]}, life: life(300, 400, '외래종이에요', '마리'), size: [84, 64],
+    card: card('붉고 오돌토돌한 큰 집게를 가진 외래종 가재예요.', [['role', '역할', '여러 생물을 먹고 살아서 소비자예요.'], ['eats', '먹는 것', '물풀, 올챙이, 우렁이, 작은 물고기를 먹어요.'], ['eatenBy', '나를 먹는 것', '천적이 적어서 빨리 늘어나요.'], ['wow', '알아 두기', '2019년에 생태계 교란 생물로 지정되었어요.']])},
 ];
 
 // Eaten -> eater, like the forest's food relations. R: river sources.
@@ -111,23 +132,32 @@ export const riverFoodRelations = [
   edge('frog-tadpole', 'diving-beetle', 'animal', 'R5', 'B', true),
   edge('medaka', 'diving-beetle', 'animal', 'R5'),
   edge('water-strider', 'frog', 'animal', 'R6'),
+  edge('medaka', 'catfish', 'animal', 'R7', 'B', true),
+  edge('frog-tadpole', 'catfish', 'animal', 'R7'),
+  edge('diving-beetle', 'catfish', 'animal', 'R7'),
 ];
+// What an invader eats while it stays (the boss rule, not the feeding system).
+export const riverInvaderPrey = {
+  bullfrog: ['frog-tadpole', 'medaka', 'frog', 'diving-beetle'],
+  'red-swamp-crayfish': ['frog-tadpole', 'pond-snail', 'medaka', 'daphnia'],
+};
 const riverEvidence = {
   R1: {url: 'https://species.nibr.go.kr/', location: '물벼룩류 > 먹이', note: '물벼룩은 물속의 작은 조류를 걸러 먹어요. 특정 조류 종과의 쌍은 단순화했어요.'},
   R2: {url: 'https://species.nibr.go.kr/', location: '송사리 > 먹이', note: '송사리는 물벼룩 같은 작은 동물성 플랑크톤을 먹어요.'},
   R3: {url: 'https://species.nibr.go.kr/', location: '논우렁이 > 먹이', note: '우렁이는 바닥과 물풀에 붙은 조류를 갉아 먹어요.'},
   R4: {url: 'https://species.nibr.go.kr/', location: '참개구리 올챙이 > 먹이', note: '올챙이는 물속의 조류와 물풀을 갉아 먹어요.'},
   R5: {url: 'https://genebank.rda.go.kr/PB/jw/insectView.bo?page=1&species_id=ZO1CR0046&use_kind=03', location: '물방개 > 먹이', note: '물방개는 올챙이와 작은 물고기 같은 물속 동물을 잡아먹어요.'},
+  R7: {url: 'https://www.gb.go.kr/Main/marinefishery/page.do?mnu_uid=15943', location: '메기 > 먹이', note: '메기는 밤에 바닥 근처에서 작은 물고기와 개구리, 물속 곤충을 잡아먹어요.'},
   R6: {url: 'https://www.honda.co.jp/outdoor/adventure/tonosamagaeru.html', location: '참개구리 > 먹이', note: '참개구리는 물가와 물 위의 곤충을 잡아먹어요. 소금쟁이 특정 쌍은 단순화했어요.'},
 };
 
-export const riverPrices = {algae: 3, duckweed: 3, 'water-lily': 5, cattail: 3, daphnia: 3, medaka: 6, 'pond-snail': 5, 'water-strider': 5, 'frog-tadpole': 4, 'diving-beetle': 7};
+export const riverPrices = {algae: 3, duckweed: 3, 'water-lily': 5, cattail: 3, daphnia: 3, medaka: 6, 'pond-snail': 5, 'water-strider': 5, 'frog-tadpole': 4, 'diving-beetle': 7, catfish: 9, 'water-decomposer': 5};
 const relation = (food, eater) => riverFoodRelations.find(r => r.sourceSpeciesId === food && r.targetSpeciesId === eater).relationId;
 
 // Organisms: [species, x, y], y on the species' living space.
 export const riverChapters = [
   {chapterId: 'river-pond', number: 1, title: '연못·습지', events: ['drought'], seedSeconds: 50,
-    newSpecies: ['algae', 'daphnia', 'medaka', 'duckweed', 'water-lily', 'pond-snail', 'water-strider', 'cattail', 'frog-tadpole', 'diving-beetle'],
+    newSpecies: ['algae', 'daphnia', 'medaka', 'duckweed', 'water-lily', 'pond-snail', 'water-strider', 'cattail', 'frog-tadpole', 'diving-beetle', 'catfish', 'water-decomposer'],
     intro: '고인 물에 사는 생산자와 소비자를 만나요.',
     art: {src: './assets/images/backgrounds/river-pond.webp', alt: '연못을 비스듬히 내려다본 수면과 물속 단면, 진흙 바닥, 오른쪽의 물가 비탈과 흙 단면.'}, stages: [
     {stageId: '1-1', title: '연못의 시작', points: 12,
@@ -147,6 +177,14 @@ export const riverChapters = [
       inventory: ['algae', 'duckweed', 'cattail', 'daphnia', 'medaka', 'frog-tadpole', 'diving-beetle', 'water-strider'], requiredSpecies: {daphnia: 2, medaka: 1}, growRequired: 'frog',
       organisms: [['algae', .12, .85], ['algae', .26, .86], ['algae', .4, .85], ['algae', .54, .86], ['cattail', .86, .4], ['duckweed', .34, .3], ['water-strider', .5, .34], ['water-strider', .64, .4],
         ['daphnia', .2, .7], ['daphnia', .34, .76], ['daphnia', .46, .68], ['medaka', .3, .62], ['frog-tadpole', .16, .74], ['frog-tadpole', .44, .78], ['diving-beetle', .56, .66]]},
+    // The invaders come here instead of the chapter's drought (one event at a time).
+    {stageId: '1-4', title: '연못의 메기와 침입자', points: 16, events: [],
+      goal: '메기는 연못 바닥에서 작은 물고기를 먹고, 물속 분해자는 죽은 생물을 분해해요. 그런데 외래종이 들어와 토종 생물을 먹어요. 외래종을 빨리 내보내고 강 별 3개를 모아요.',
+      tasks: [{text: '메기 기르기', have: 'catfish'}, {text: '외래종 내보내기', invader: true, icon: 'bullfrog'}],
+      inventory: ['algae', 'duckweed', 'cattail', 'daphnia', 'medaka', 'pond-snail', 'frog-tadpole', 'water-strider', 'catfish', 'water-decomposer'], requiredSpecies: {daphnia: 2, medaka: 2, catfish: 1},
+      boss: {species: ['bullfrog', 'red-swamp-crayfish'], taps: 15},
+      organisms: [['algae', .1, .85], ['algae', .22, .86], ['algae', .34, .85], ['algae', .46, .86], ['algae', .56, .85], ['cattail', .86, .4], ['duckweed', .3, .3], ['water-strider', .52, .34],
+        ['daphnia', .16, .7], ['daphnia', .28, .76], ['daphnia', .42, .68], ['daphnia', .5, .74], ['medaka', .24, .62], ['medaka', .44, .64], ['pond-snail', .12, .92], ['frog-tadpole', .36, .74], ['water-decomposer', .5, .93]]},
   ]},
 ];
 
@@ -160,6 +198,23 @@ export const riverQuestions = {
     {question: '가뭄이 오기 전에 연못 생태계를 튼튼하게 하려면 어떻게 하면 좋을까요?',
       choices: ['생산자인 작은 조류와 물풀을 넉넉히 길러 둬요', '송사리를 더 많이 놓아요', '물벼룩을 모두 없애요'], answer: 0,
       explanation: '생산자가 넉넉하면 물이 줄어 생산자가 덜 자라는 동안에도 물벼룩과 논우렁이가 먹을 것이 남아요.'},
+  ],
+  // After tapping an invader out (kind invader:<species>).
+  'invader:bullfrog': [
+    {question: '황소개구리가 연못에 들어오면 왜 토종 생물이 줄어들까요?',
+      choices: ['황소개구리가 토종 생물을 많이 잡아먹고, 먹이를 두고 다투어서', '황소개구리가 물을 깨끗하게 해서', '황소개구리는 작은 조류만 먹어서'], answer: 0,
+      explanation: '황소개구리는 원래 우리나라에 살지 않던 외래종이에요. 몸집이 크고 무엇이든 잘 먹어 올챙이, 물고기, 참개구리까지 잡아먹어요. 천적도 적어서 빨리 늘어나요.'},
+    {question: '외래종이 늘어나지 않게 하려면 어떻게 해야 할까요?',
+      choices: ['기르던 생물을 강이나 연못에 함부로 놓아주지 않아요', '외래종을 더 많이 데려와요', '토종 생물을 다른 곳으로 모두 옮겨요'], answer: 0,
+      explanation: '집에서 기르던 생물을 자연에 풀어 주면 생태계 교란 생물이 될 수 있어요. 함부로 놓아주지 않는 것이 가장 중요해요.'},
+  ],
+  'invader:red-swamp-crayfish': [
+    {question: '미국가재가 연못에 많아지면 어떤 일이 생길까요?',
+      choices: ['물풀을 자르고 올챙이와 우렁이를 먹어 토종 생물이 줄어요', '물이 더 맑아지고 토종 생물이 늘어요', '아무 변화가 없어요'], answer: 0,
+      explanation: '미국가재는 생태계 교란 생물이에요. 물풀을 잘라 먹고 올챙이, 우렁이, 작은 물고기를 먹어서 연못의 먹이그물이 흔들려요.'},
+    {question: '기르던 가재를 더 기를 수 없게 되면 어떻게 해야 할까요?',
+      choices: ['가까운 개울에 놓아줘요', '자연에 풀어 주지 않고 어른이나 기관에 물어봐요', '아파트 연못에 넣어 줘요'], answer: 1,
+      explanation: '외래종을 자연에 풀어 주면 토종 생물을 먹고 빠르게 퍼질 수 있어요. 버리지 말고 어른이나 관련 기관에 도움을 청해요.'},
   ],
 };
 
@@ -202,12 +257,16 @@ export function useRiverTheme() {
   // A tadpole fed for a while grows into a frog on the bank. The frog keeps
   // its forest data, living here at the water's edge and eating water striders.
   stageGrowth['frog-tadpole'] = {into: 'frog', seconds: 40};
+  Object.assign(invaderPrey, riverInvaderPrey);
   Object.assign(speciesProfiles.frog, {zone: 'frogShore'});
   speciesHabitats.frog = {...speciesHabitats.frog, primary: 'frogShore', additional: [], direct: true};
   Object.assign(crisisQuestions, riverQuestions);
-  // The river's cards only (the forest's stay known by id).
-  organisms.splice(0, organisms.length, ...riverSpecies.map(s => organismById[s.id]));
-  const riverStages = riverChapters.flatMap(chapter => chapter.stages.map(stage => ({...stage, chapter, events: chapter.events, seedSeconds: chapter.seedSeconds})));
+  // The water decomposer breaks down plant and animal remains.
+  decompositionConfig.rates['water-decomposer'] = {litter: ecologyRate(.006), remains: ecologyRate(.006)};
+  organicWorkers.litter.push('water-decomposer'); organicWorkers.remains.push('water-decomposer');
+  // The river's cards only (the forest's stay known by id); invaders are no card.
+  organisms.splice(0, organisms.length, ...riverSpecies.filter(s => !s.invader).map(s => organismById[s.id]));
+  const riverStages = riverChapters.flatMap(chapter => chapter.stages.map(stage => ({...stage, chapter, events: stage.events ?? chapter.events, seedSeconds: chapter.seedSeconds})));
   chapters.splice(0, chapters.length, ...riverChapters);
   stages.splice(0, stages.length, ...riverStages);
   for (const id of Object.keys(stageById)) delete stageById[id];

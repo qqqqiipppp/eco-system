@@ -15,7 +15,7 @@ import {placeOrganism} from '../js/systems/placement.js';
 import {createFeedingSystem} from '../js/systems/feeding.js';
 import {createEventSystem} from '../js/systems/events.js';
 import {evaluateStability} from '../js/systems/stability.js';
-import {createStageGameState,updateStage,stageBlockers,catchObservation,buyCheck,payFor,prepareOptions,prepareFor,taskDone} from '../js/systems/chapter-stage.js';
+import {createStageGameState,updateStage,stageBlockers,catchObservation,buyCheck,payFor,prepareOptions,prepareFor,taskDone,hitBoss,activeBoss} from '../js/systems/chapter-stage.js';
 useRiverTheme();
 const layout={footprints:Object.fromEntries(Object.keys(organismById).map(id=>[id,{halfWidth:.01,above:.1,below:.02}])),blockedRects:[]};
 const zoneOf=id=>placementConfig.zones[speciesProfiles[id].zone];
@@ -23,7 +23,7 @@ const zoneOf=id=>placementConfig.zones[speciesProfiles[id].zone];
 test('the river replaces the chapters and cards, and keeps the forest species known',()=>{
  assert.deepEqual(chapters.map(c=>c.chapterId),['river-pond']);
  assert.deepEqual(stages.map(s=>s.stageId).slice(0,3),['1-1','1-2','1-3']);assert.equal(stageById['1-1'].title,'연못의 시작');
- assert.deepEqual(organisms.map(o=>o.id),riverSpecies.map(s=>s.id));
+ assert.deepEqual(organisms.map(o=>o.id),riverSpecies.filter(s=>!s.invader).map(s=>s.id),'invaders are no card');
  assert.equal(organismById.grass.name,'강아지풀');
 });
 
@@ -61,10 +61,11 @@ const careful=s=>{
  for(const b of stageBlockers(s))if(b.id==='missing')for(const m of b.species)place(s,m.id);
  for(const t of stageById[s.chapter.stageId].tasks)if(t.have&&!taskDone(s,t))place(s,t.have);
  if(prepareOptions(s).length)prepareFor(s,'wait');
+ while(activeBoss(s.chapter))hitBoss(s);
 };
 
 test('a careful student clears the pond stages; waiting alone does not',()=>{
- for(const id of ['1-1','1-2','1-3']){
+ for(const id of ['1-1','1-2','1-3','1-4']){
   const s=play(id,careful);
   assert.ok(s.chapter.cleared,`${id} cleared`);
   assert.ok(stageById[id].tasks.every(t=>taskDone(s,t)),`${id} tasks`);
@@ -91,4 +92,24 @@ test('the question after a river crisis is about the river, not the forest',()=>
    assert.ok(!text.includes('숲'),`${kind}: ${text}`);
   }
  }
+});
+
+test('every invader has its own question for after it is tapped out',()=>{
+ for(const stage of stages)for(const id of stage.boss?.species||[]){
+  const set=crisisQuestions['invader:'+id];assert.ok(set?.length,id);
+  for(const q of set){assert.ok(q.answer>=0&&q.answer<q.choices.length);assert.ok(!(q.question+q.explanation).includes('숲'),id);}
+ }
+});
+
+test('an invader comes after a star, eats natives until tapped out, and stalls the stars',()=>{
+ const s=createStageGameState(stageById['1-4']);let c=s.chapter;assert.ok(place(s,'catfish'));
+ // Let a star grow without tapping: the invader comes and eats.
+ const f=createFeedingSystem(0);let ate=0,seen=null;
+ for(let t=0;t<4000&&ate<2;t++){const r=f.update(s,.1,layout);if(!r.ticked)continue;const out=updateStage(s,.5,r.feedingEvents);if(out.removed?.length)f.forget(out.removed);ate+=out.bossAte?.length||0;seen=activeBoss(c)||seen;}
+ assert.ok(seen&&seen.speciesId==='bullfrog','the bullfrog came after the first star');
+ assert.ok(ate>=2&&seen.eaten>=2,'it ate natives while it stayed');
+ assert.ok(stageBlockers(s).some(b=>b.id==='invader'),'stars stall');
+ let r;for(let i=0;i<15;i++)r=hitBoss(s);
+ assert.ok(r.done&&!activeBoss(c)&&!s.organisms.some(o=>o.speciesId==='bullfrog'),'15 taps send it away');
+ assert.ok(!stageBlockers(s).some(b=>b.id==='invader'));
 });

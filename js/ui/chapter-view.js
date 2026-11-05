@@ -1,6 +1,6 @@
 import {fullscreenButton} from './screen-toggle.js';
 import {crisisQuestions} from '../../data/crisis-reflection.js';
-import {stageBlockers,isStuck,taskDone,pondStage,careOptions,needStates,neededCards,priceOf,buyCheck,prepareOptions,crisisReport,markReported,breedingState,isYoung} from '../systems/chapter-stage.js';
+import {stageBlockers,isStuck,taskDone,pondStage,careOptions,needStates,neededCards,priceOf,buyCheck,prepareOptions,crisisReport,markReported,breedingState,isYoung,activeBoss,bossWarning,bossReport} from '../systems/chapter-stage.js';
 import {currentEnvironmentEvent} from '../systems/environment-events.js';
 import {factorValue,qualityLabel} from '../systems/environment.js';
 import {stageConfig as config,chapters,stages,stageById,crises,crisisForFactor,breeding,growth} from '../../data/chapters.js';
@@ -26,6 +26,7 @@ const blockerText={
  noDecomposition:()=>'낙엽과 죽은 나무가 분해되지 않고 있어요. 분해자가 일할 수 있게 해요.',
  noMeal:()=>'아직 먹는 모습이 보이지 않아요. 소비자가 먹이를 찾을 때까지 지켜봐요.',
  needObserve:b=>{const r=foodRelationById[b.relationId];return `세 번째 숲 별은 ${particle(name(r.targetSpeciesId),'이','가')} ${particle(name(r.sourceSpeciesId),'을','를')} 먹는 모습을 관찰해야 차올라요. 사냥하면 뜨는 💡를 눌러요.`;},
+ invader:b=>`외래종 ${particle(name(b.speciesId),'이','가')} 토종 생물을 잡아먹고 있어요! 빨간 고리를 여러 번 눌러 내보내요.`,
  needGrow:(b,s)=>{const young=Object.keys(growth).find(id=>growth[id].into===b.speciesId),n=name(young),has=s.organisms.some(o=>o.speciesId===young);
   return `세 번째 별은 ${particle(n,'이','가')} 자라 ${particle(name(b.speciesId),'이','가')} 되어야 차올라요. `+(has?`${particle(n,'이','가')} 배고프지 않게 먹이를 넉넉히 둬요.`:`${particle(n,'을','를')} 놓아요.`);},
  needBirth:(b,s)=>{const n=name(b.speciesId),count=s.organisms.filter(o=>o.speciesId===b.speciesId).length;
@@ -52,7 +53,7 @@ const chapterNews=chapter=>[
 // Stage HUD, things to tap in the forest (💡 and litter), crisis warnings,
 // chapter dialogs and the chapter map. Create before bindDialogPause so the
 // dialogs pause the forest like the others. No sound: motion and colour only.
-export function createChapterView(getState,{forest,theme='forest',themeStore={read:()=>'forest',set(){}},admin={isOn:()=>false,set(){}},cleared,notify,onCatch,onCollect,onPrepare,onStage,onRestart,onCare,openWeb,webComplete,openRecord,reflections=()=>[],onReflect=()=>{}}){
+export function createChapterView(getState,{forest,theme='forest',themeStore={read:()=>'forest',set(){}},admin={isOn:()=>false,set(){}},cleared,notify,onCatch,onCollect,onBoss=()=>({ok:false}),onPrepare,onStage,onRestart,onCare,openWeb,webComplete,openRecord,reflections=()=>[],onReflect=()=>{}}){
  const seeds=Array.from({length:config.seedsToClear},()=>element('span',{className:'chapter-seed'}));
  const title=element('h2'),eyebrow=element('span',{className:'eyebrow'}),goal=element('p',{className:'chapter-goal'}),tasks=element('ul',{className:'chapter-tasks'});
  const meter=element('progress',{value:0});meter.setAttribute('aria-label','다음 숲 별까지');
@@ -135,6 +136,7 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
    if(record===promptedCrisis)onPrepare('wait');else{promptedCrisis=record;openPrepare(s);}
   }
   else if(idle&&!c.cleared&&crisisReport(s))openReport(crisisReport(s));
+  else if(idle&&bossReport(s))openBossReport(bossReport(s));
   if(c.cleared&&shownClear!==c.stageId&&!document.querySelector('dialog[open]'))openClear();
  }
  // The pond (chapter 2 on): it shrinks and dulls as water runs low, so a
@@ -247,7 +249,8 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
  function renderCrisis(s){
   const c=s.chapter,event=currentEnvironmentEvent(s),kind=c.warning?.kind||(event&&event.phase!=='ended'?event.kind:'');
   if((forest.dataset.weather||'')!==kind){if(kind)forest.dataset.weather=kind;else delete forest.dataset.weather;}
-  const text=c.warning?`⚠ ${crises[c.warning.kind].notice} ${Math.max(1,Math.ceil(c.warning.startsAt-s.simulationTime))}`:'';
+  const coming=bossWarning(c);
+  const text=c.warning?`⚠ ${crises[c.warning.kind].notice} ${Math.max(1,Math.ceil(c.warning.startsAt-s.simulationTime))}`:coming?`⚠ 외래종 ${particle(name(coming.speciesId),'이','가')} 연못에 들어오고 있어요! ${Math.max(1,Math.ceil(coming.startsAt-s.simulationTime))}`:'';
   if(warning.textContent!==text)warning.textContent=text;warning.hidden=!text;
  }
  // Badges on the animals and plants, and the cards that would help: the same
@@ -300,7 +303,7 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
  // 💡 pinned where a meal happened, and litter or smog where it fell. Both are
  // still targets: easy to tap on a tablet.
  function renderTaps(c,time){
-  const live=new Set([...c.offers.map(o=>o.offerId),...c.trash.map(t=>t.trashId)]);
+  const boss=activeBoss(c),live=new Set([...c.offers.map(o=>o.offerId),...c.trash.map(t=>t.trashId),...(boss?['boss']:[])]);
   for(const button of [...layer.children])if(!live.has(button.dataset.tapId))button.remove();
   const box=forest.getBoundingClientRect();
   for(const offer of c.offers){
@@ -311,6 +314,17 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
    const lift=['hungry','starving'].includes(animal.dataset.need)?30:0;
    tapButton(offer.offerId,'chapter-offer','💡','먹는 모습 관찰하기',r.left-box.left+r.width/2,r.top-box.top-lift,button=>{
     const rect=button.getBoundingClientRect(),result=onCatch(offer.offerId);if(result?.ok)float(`+${config.observationReward}P${result.bonus?' ★':''}`,rect,'gain');});
+  }
+  // The invader: a big ring that follows it, with the taps still needed.
+  if(boss){
+   const animal=forest.querySelector(`#organism-layer [data-instance-id="${boss.instanceId}"]`);
+   let button=layer.querySelector('[data-tap-id="boss"]');
+   if(animal){
+    const r=animal.getBoundingClientRect();
+    if(!button)button=tapButton('boss','chapter-boss','',`${name(boss.speciesId)} 내보내기`,0,0,()=>{const result=onBoss();if(result?.ok&&!result.done)pop(button,'hit');});
+    button.style.left=`${r.left-box.left+r.width/2}px`;button.style.top=`${r.top-box.top+r.height/2}px`;
+    const label=`👆 ${boss.need-boss.taps}`;if(button.textContent!==label)button.textContent=label;
+   }
   }
   for(const item of c.trash){
    // A piece left too long calls for help with a sign above it.
@@ -426,6 +440,14 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
   }}));
   return [element('div',{className:'chapter-reflect'},[element('span',{className:'eyebrow',textContent:'생각해 봐요'}),element('p',{className:'chapter-reflect-question',textContent:q.question}),
    element('div',{className:'chapter-reflect-choices'},buttons),feedback]),lesson,next];
+ }
+ // An invader tapped out: how long it took and what it ate, then a question.
+ function openBossReport(boss){
+  boss.reported=true;
+  const n=name(boss.speciesId),lesson=element('p',{className:'chapter-lesson',textContent:'외래종은 천적이 적어 빨리 늘어나요. 빨리 찾아 내보낼수록 토종 생물을 지킬 수 있어요.'});lesson.hidden=true;
+  show([element('h2',{textContent:`${particle(n,'을','를')} 내보냈어요`,tabIndex:-1,autofocus:true}),
+   element('p',{textContent:`${boss.taps}번 눌러 내보냈어요. ${n}에게 먹힌 토종 생물: ${boss.eaten}마리`}),
+   ...reflection({kind:`invader:${boss.speciesId}`},lesson)],'chapter-report-dialog');
  }
  function openReport(record){
   markReported(record);
