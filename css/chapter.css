@@ -117,6 +117,9 @@
 .forest[data-weather=valley-trash] .forest-art{filter:sepia(.2) brightness(.94)}
 /* Sewage turns the river a murky green-brown. */
 .forest[data-weather=sewage] .forest-art{filter:sepia(.4) hue-rotate(25deg) saturate(.8) brightness(.88)}
+/* Factory waste greys the water; an oil slick darkens it (less light). */
+.forest[data-weather=factory-waste] .forest-art{filter:grayscale(.5) sepia(.2) brightness(.86)}
+.forest[data-weather=oil-spill] .forest-art{filter:brightness(.76) saturate(.7) contrast(1.05)}
 /* Juice: rising numbers, a seed that pops in, the points card bumping. */
 .chapter-float{position:absolute;z-index:9;transform:translate(-50%,-100%);font-size:18px;font-weight:900;pointer-events:none;text-shadow:0 1px 0 #fff,0 0 6px #fff;animation:chapter-float 1.1s ease-out forwards}
 .chapter-float.gain{color:#2f7a3c}.chapter-float.spend{color:#a8321f}

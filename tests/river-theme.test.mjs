@@ -68,7 +68,7 @@ const careful=s=>{
 };
 
 test('a careful student clears the pond stages; waiting alone does not',()=>{
- for(const id of ['1-1','1-2','1-3','1-4','2-1','2-2','2-3','2-4','3-1','3-2','3-3','3-4']){
+ for(const id of ['1-1','1-2','1-3','1-4','2-1','2-2','2-3','2-4','3-1','3-2','3-3','3-4','4-1','4-2','4-3','4-4']){
   const s=play(id,careful);
   assert.ok(s.chapter.cleared,`${id} cleared`);
   assert.ok(stageById[id].tasks.every(t=>taskDone(s,t)),`${id} tasks`);
@@ -117,7 +117,7 @@ test('an invader comes after a star, eats natives until tapped out, and stalls t
  assert.ok(!stageBlockers(s).some(b=>b.id==='invader'));
 });
 
-for(const [stageId,kind] of [['2-4','valley-trash'],['3-3','sewage']])test(`${kind}: a people-made river crisis asks how to stop it before it can be cleaned up`,()=>{
+for(const [stageId,kind] of [['2-4','valley-trash'],['3-3','sewage'],['4-2','factory-waste'],['4-3','oil-spill']])test(`${kind}: a people-made river crisis asks how to stop it before it can be cleaned up`,()=>{
  const s=createStageGameState(stageById[stageId]),f=createFeedingSystem(0),events=createEventSystem(0);
  let open=null,next=0;
  for(let t=0;t<9000&&!open;t++){
