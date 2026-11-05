@@ -43,8 +43,9 @@ export const riverZones = {
   rooted: {left: .04, right: .6, top: .83, bottom: .88},
   // A turtle swims in the water and rests on its surface.
   turtle: {left: .2, right: .6, top: .3, bottom: .88},
-  // A heron wades at the bank's edge: the surface by the bank and the shallow water below.
-  shallows: {left: .3, right: .66, top: .3, bottom: .88},
+  // A heron wades at the water's edge: on the surface and just under the waterline,
+  // where a crucian carp comes up now and then (its motion.rise).
+  shallows: {left: .3, right: .66, top: .3, bottom: .62},
 };
 const riverHabitatZones = {surface: '수면', water: '물속', algae: '물 바닥 가까운 물속', bottom: '물 바닥', shore: '물가', bank: '물가 흙', frogShore: '물가와 물 가장자리', rooted: '물 바닥에 뿌리', turtle: '물속과 수면', shallows: '물가의 얕은 물'};
 
@@ -205,9 +206,9 @@ export const riverSpecies = [
     starvation: 420, satiety: 240, predatorSatiety: .4,
     card: card('여름에 수컷의 몸이 분홍빛과 푸른빛으로 화려해지는 물고기예요.', [['role', '역할', '돌말과 작은 동물을 먹고 살아서 소비자예요.'], ['eats', '먹는 것', '돌에 붙은 돌말과 물속 곤충을 먹어요.'], ['eatenBy', '나를 먹는 것', '쏘가리, 동사리, 수달이 먹어요.'], ['home', '사는 곳', '물살이 느린 강의 여울']])},
   {id: 'crucian-carp', name: '붕어', role: 'consumer', behaviorType: 'forager', zone: 'water',
-    caption: '물풀을 뜯어 먹어요', description: '강과 연못 어디에나 사는 물고기예요. 붕어마름과 나사말 같은 물풀과 작은 동물을 먹어요.', habitat: '강과 연못',
+    caption: '물풀을 뜯어 먹어요', description: '강과 연못 어디에나 사는 물고기예요. 붕어마름과 나사말 같은 물풀과 작은 동물을 먹어요. 물속 산소가 모자라면 가끔 수면 가까이 올라와 입을 뻐끔거려요.', habitat: '강과 연못',
     scientificName: 'Carassius auratus', feeding: {initialHunger: .45, hungerPerSecond: .02, hungryAt: .6, mealRelief: .7, searchRadius: .32, speed: .045},
-    motion: {speedX: .03, speedY: .008, walkSeconds: [1, 2], pauseSeconds: [.6, 1.4]}, life: life(60, 80, '여러 해 사는 물고기예요', '마리'), size: [60, 45],
+    motion: {speedX: .03, speedY: .008, walkSeconds: [1, 2], pauseSeconds: [.6, 1.4], rise: {chance: .35, speed: .06, staySeconds: [5, 9]}}, life: life(60, 80, '여러 해 사는 물고기예요', '마리'), size: [60, 45],
     starvation: 480, satiety: 300, predatorSatiety: .4,
     card: card('몸이 납작하고 등이 높은 우리 강의 흔한 물고기예요.', [['role', '역할', '물풀과 작은 동물을 먹고 살아서 소비자예요.'], ['eats', '먹는 것', '붕어마름, 나사말 같은 물풀과 작은 동물을 먹어요.'], ['eatenBy', '나를 먹는 것', '쏘가리, 수달, 왜가리가 먹어요.'], ['home', '사는 곳', '강과 연못, 물풀이 많은 곳']])},
   {id: 'sand-gudgeon', name: '모래무지', role: 'consumer', behaviorType: 'forager', zone: 'bottom',
@@ -275,7 +276,7 @@ export const riverSpecies = [
   // A heron wades in the shallow water by the bank and spears fish there.
   {id: 'grey-heron', name: '왜가리', role: 'consumer', behaviorType: 'forager', zone: 'shallows',
     caption: '얕은 물에서 물고기를 잡아요', description: '긴 다리로 얕은 물에 서서 기다리다가 긴 부리로 물고기를 재빨리 잡아요.', habitat: '강과 논의 얕은 물가',
-    scientificName: 'Ardea cinerea', feeding: {initialHunger: .45, hungerPerSecond: .018, hungryAt: .6, mealRelief: .75, searchRadius: .36, speed: .03},
+    scientificName: 'Ardea cinerea', feeding: {initialHunger: .45, hungerPerSecond: .014, hungryAt: .6, mealRelief: .75, searchRadius: .4, speed: .07},
     motion: {speedX: .008, speedY: .004, walkSeconds: [1, 2], pauseSeconds: [2, 4]}, life: life(90, 120, '여러 해 사는 새예요', '마리'), size: [96, 72],
     starvation: 600, satiety: 360, predatorSatiety: .5,
     card: card('목과 다리가 긴 회색 물새예요. 얕은 물에 가만히 서서 물고기를 기다려요.', [['role', '역할', '다른 동물을 잡아먹고 살아서 소비자예요.'], ['eats', '먹는 것', '붕어 같은 물고기와 개구리를 먹어요.'], ['eatenBy', '나를 먹는 것', '다 자라면 먹는 동물이 거의 없어요.'], ['home', '사는 곳', '강과 논의 얕은 물가']])},
