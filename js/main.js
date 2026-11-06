@@ -30,6 +30,7 @@ import { createOrganismLayer } from './ui/organism-layer.js';
 import {studentPlacementMessage} from './ui/student-guidance.js';
 import {placeNearestOrganism} from './systems/placement-target.js';
 import { createWanderSystem } from './systems/wander.js';
+import {createVisitPlanner,createBurrowPeek} from './ui/burrow-visits.js';
 import { createUpdateLoop } from './systems/update-loop.js';
 import { speciesProfiles } from '../data/interaction-config.js';
 import {useChapterEcology} from '../data/chapter-ecology.js';
@@ -95,6 +96,7 @@ try {
   const forest = document.querySelector('.forest');
   if(chapterMode)capForestAspect(forest);
   const scene = createOrganismLayer(forest, () => gameState.organisms);
+  const visits=createVisitPlanner(),burrowPeek=createBurrowPeek(forest.querySelector('#organism-layer'));
   let wander = createWanderSystem();
   let lastCheckpoint = gameState.simulationTime,lastStageSave=gameState.simulationTime;
   // Chapter mode keeps the stage being played: every few seconds of play and
@@ -186,7 +188,7 @@ try {
       result.moved.push(...wander.update(gameState.organisms, dt, scene.getLayout(), animalActivity(gameState.environment)));
       if (result.ticked) stabilitySystem.update(gameState, ecologyConfig.tickSeconds);
       result.eventTicked = result.ticked && eventSystem.update(gameState, ecologyConfig.tickSeconds, result.feedingEvents);
-      if(chapterMode&&result.ticked){const stage=updateStage(gameState,ecologyConfig.tickSeconds,result.feedingEvents);result.added.push(...stage.born,...(stage.grown||[]),...(stage.arrived||[]));if(stage.removed?.length){result.removedIds.push(...stage.removed);feedingSystem.forget(stage.removed);wander.forget(stage.removed);}if(stage.bossAte?.length){const a=stage.bossAte.at(-1);important(`외래종 ${particle(speciesById[a.bossSpeciesId].name,'이','가')} ${particle(speciesById[a.speciesId].name,'을','를')} 잡아먹었어요!`,false);}afterStageChange(stage);if(gameState.simulationTime-lastStageSave>=5)saveStage();}
+      if(chapterMode&&result.ticked){const stage=updateStage(gameState,ecologyConfig.tickSeconds,result.feedingEvents);result.added.push(...stage.born,...(stage.grown||[]),...(stage.arrived||[]));if(stage.removed?.length){result.removedIds.push(...stage.removed);feedingSystem.forget(stage.removed);wander.forget(stage.removed);}if(stage.bossAte?.length){const a=stage.bossAte.at(-1);important(`외래종 ${particle(speciesById[a.bossSpeciesId].name,'이','가')} ${particle(speciesById[a.speciesId].name,'을','를')} ${speciesById[a.speciesId].role==='producer'?'갉아 먹었어요':'잡아먹었어요'}!`,false);}afterStageChange(stage);if(gameState.simulationTime-lastStageSave>=5)saveStage();}
       if(result.removedIds.length||result.added.length||result.developmentChanges.length){eventSystem.refresh(gameState);result.eventTicked=true;}
       if(result.ticked) {
         refreshProgress(ecologyConfig.tickSeconds);
@@ -202,6 +204,9 @@ try {
       scene.paintChanges(result.moved);
       if (result.ticked) scene.showStates(result.updated);
       scene.paintVisuals(gameState,result.visualDelta,result.visualWork);
+      // The otter's visits to the bank and its burrow (view only).
+      const shore=gameState.chapter&&stageById[gameState.chapter.stageId]?.chapter.art?.shore;
+      for(const change of visits.update(gameState.organisms,shore,result.visualDelta||0)){scene.setVisit(change.instanceId,change.visit);burrowPeek.show(change.visit?.peek?shore.burrow:null);}
       chapterView?.render();
       if (result.ticked) { renderDashboard(gameState); activityView.render(); environmentPanel.render();populationView.render(); }
       if (result.eventTicked || result.removedIds.length) eventView.render();
@@ -366,7 +371,7 @@ try {
     feedingSystem=createFeedingSystem();eventSystem=eventMemory?createEventSystem(gameState.simulationTime,eventMemory):createEventSystem();stabilitySystem=createStabilitySystem();wander=createWanderSystem();
     lastCheckpoint=0;lastStageSave=gameState.simulationTime;lastPopulationSequence=0;selectionPlaced=false;uiState.selectedSpeciesId=null;populationView.reset();
     document.querySelectorAll('dialog[open]').forEach(dialog=>dialog.close());
-    scene.reset();activityView.reset();eventView.reset();collectionView.reset();chapterView?.reset();
+    scene.reset();visits.reset();burrowPeek.show(null);activityView.reset();eventView.reset();collectionView.reset();chapterView?.reset();
     stabilitySystem.update(gameState);refreshProgress();
     syncCollection(gameState);renderCards(gameState,selectSpecies,openLockedActivity,putCardBack);renderSelection(uiState,clearSelection);renderDashboard(gameState);
     gameState.organisms.forEach(instance=>scene.add(instance));eventSystem.refresh(gameState);eventView.render();loop.refresh();

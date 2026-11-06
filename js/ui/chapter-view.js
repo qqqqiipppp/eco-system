@@ -3,7 +3,7 @@ import {crisisQuestions} from '../../data/crisis-reflection.js';
 import {stageBlockers,isStuck,taskDone,pondStage,careOptions,needStates,neededCards,priceOf,buyCheck,prepareOptions,crisisReport,markReported,breedingState,isYoung,activeBoss,bossWarning,bossReport,crisisChoice} from '../systems/chapter-stage.js';
 import {currentEnvironmentEvent} from '../systems/environment-events.js';
 import {factorValue,qualityLabel} from '../systems/environment.js';
-import {stageConfig as config,chapters,stages,stageById,crises,crisisForFactor,breeding,growth} from '../../data/chapters.js';
+import {stageConfig as config,chapters,stages,stageById,crises,crisisForFactor,breeding,growth,invaderPrey} from '../../data/chapters.js';
 import {themes,themeById,themeWords as W} from '../../data/themes.js';
 import {environmentFactors} from '../../data/environment-config.js';
 import {environmentEventDefinitions} from '../../data/environment-events.js';
@@ -13,6 +13,8 @@ import {mealSentence,particle} from '../../data/student-text.js';
 import {visualAsset} from './species-visuals.js';
 
 const name=id=>organismById[id].name;
+// An invader that eats only plants (뉴트리아) gnaws them; the others hunt.
+const gnaws=id=>(invaderPrey[id]||[]).every(p=>organismById[p]?.role==='producer');
 const blockerText={
  noConsumer:()=>`아직 소비자가 없어요. 생산자를 먹을 동물 카드를 골라 ${W.place}에 놓아 보세요.`,
  missing:b=>`${particle(name(b.species[0].id),'이','가')} 부족해요. ${b.species[0].need}마리 이상 있어야 해요.`,
@@ -26,7 +28,7 @@ const blockerText={
  noDecomposition:()=>'낙엽과 죽은 나무가 분해되지 않고 있어요. 분해자가 일할 수 있게 해요.',
  noMeal:()=>'아직 먹는 모습이 보이지 않아요. 소비자가 먹이를 찾을 때까지 지켜봐요.',
  needObserve:b=>{const r=foodRelationById[b.relationId];return `세 번째 ${W.place} 별은 ${particle(name(r.targetSpeciesId),'이','가')} ${particle(name(r.sourceSpeciesId),'을','를')} 먹는 모습을 관찰해야 차올라요. 사냥하면 뜨는 💡를 눌러요.`;},
- invader:b=>`외래종 ${particle(name(b.speciesId),'이','가')} 토종 생물을 잡아먹고 있어요! 빨간 고리를 여러 번 눌러 내보내요.`,
+ invader:b=>`외래종 ${particle(name(b.speciesId),'이','가')} 토종 ${gnaws(b.speciesId)?'식물을 갉아 먹고':'생물을 잡아먹고'} 있어요! 빨간 고리를 여러 번 눌러 내보내요.`,
  needGrow:(b,s)=>{const young=Object.keys(growth).find(id=>growth[id].into===b.speciesId),n=name(young),has=s.organisms.some(o=>o.speciesId===young);
   return `세 번째 별은 ${particle(n,'이','가')} 자라 ${particle(name(b.speciesId),'이','가')} 되어야 차올라요. `+(has?`${particle(n,'이','가')} 배고프지 않게 먹이를 넉넉히 둬요.`:`${particle(n,'을','를')} 놓아요.`);},
  needBirth:(b,s)=>{const n=name(b.speciesId),count=s.organisms.filter(o=>o.speciesId===b.speciesId).length;
@@ -462,7 +464,7 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
   boss.reported=true;
   const n=name(boss.speciesId),lesson=element('p',{className:'chapter-lesson',textContent:'외래종은 천적이 적어 빨리 늘어나요. 빨리 찾아 내보낼수록 토종 생물을 지킬 수 있어요.'});lesson.hidden=true;
   show([element('h2',{textContent:`${particle(n,'을','를')} 내보냈어요`,tabIndex:-1,autofocus:true}),
-   element('p',{textContent:`${boss.taps}번 눌러 내보냈어요. ${n}에게 먹힌 토종 생물: ${boss.eaten}마리`}),
+   element('p',{textContent:`${boss.taps}번 눌러 내보냈어요. ${n}에게 먹힌 토종 ${gnaws(boss.speciesId)?`식물: ${boss.eaten}포기`:`생물: ${boss.eaten}마리`}`}),
    ...reflection({kind:`invader:${boss.speciesId}`},lesson)],'chapter-report-dialog');
  }
  function openReport(record){

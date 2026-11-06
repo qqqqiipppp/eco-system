@@ -1,4 +1,4 @@
-import { speciesProfiles, wanderConfig } from '../../data/interaction-config.js';
+import { speciesProfiles, wanderConfig, placementConfig } from '../../data/interaction-config.js';
 import { isPositionAllowed } from './placement.js';
 import {survivalActivity} from './population.js';
 import {developmentActivity} from './development.js';
@@ -28,9 +28,21 @@ export function createWanderSystem(random = Math.random) {
           if (motion.walking) {
             motion.dx = random() < 0.5 ? -1 : 1;
             motion.dy = random() * 2 - 1;
+            // A fish that comes up near the surface now and then (config.rise).
+            motion.rising = Boolean(config.rise && random() < config.rise.chance);
           }
         }
         if (!motion.walking) continue;
+        if (motion.rising) {
+          const top = placementConfig.zones[speciesProfiles[instance.speciesId].zone].top;
+          const up = {x: instance.position.x, y: Math.max(top, instance.position.y - config.rise.speed * dt)};
+          if (up.y > top && isPositionAllowed(instance.speciesId, up, layout)) { instance.position = up; motion.remaining = Math.max(motion.remaining, dt); changed.push({instance, direction: motion.dx}); continue; }
+          // Up there: stay a while, then wander as usual.
+          if (isPositionAllowed(instance.speciesId, up, layout)) instance.position = up;
+          motion.rising = false; motion.walking = false; motion.remaining = between(config.rise.staySeconds);
+          changed.push({instance, direction: motion.dx});
+          continue;
+        }
         const position = {
           x: instance.position.x + motion.dx * config.speedX * dt * activity * survivalActivity(instance) * developmentActivity(instance),
           y: instance.position.y + motion.dy * config.speedY * dt * activity * survivalActivity(instance) * developmentActivity(instance),

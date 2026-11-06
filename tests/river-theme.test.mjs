@@ -13,6 +13,7 @@ import {crisisQuestions} from '../data/crisis-reflection.js';
 import {isPositionAllowed} from '../js/systems/placement-rules.js';
 import {placeOrganism} from '../js/systems/placement.js';
 import {createFeedingSystem} from '../js/systems/feeding.js';
+import {createWanderSystem} from '../js/systems/wander.js';
 import {createEventSystem} from '../js/systems/events.js';
 import {evaluateStability} from '../js/systems/stability.js';
 import {createStageGameState,updateStage,stageBlockers,catchObservation,buyCheck,payFor,prepareOptions,prepareFor,taskDone,hitBoss,activeBoss,crisisChoice,chooseCrisisAction,collectTrash} from '../js/systems/chapter-stage.js';
@@ -47,11 +48,15 @@ function place(s,id){
  for(const x of [.2,.3,.4,.5,.6])if(placeOrganism(s,id,{position:{x:z.left+(z.right-z.left)*x,y:(z.top+z.bottom)/2},isPlayArea:true,isUI:false},layout).ok){payFor(s,id);return true;}
  return false;
 }
+// Animals also wander as on the screen (a seeded random).
+const seeded=(n=7)=>()=>(n=(n*16807)%2147483647)/2147483647;
 function play(stageId,student,seconds=400){
- const s=createStageGameState(stageById[stageId]),f=createFeedingSystem(0),events=createEventSystem(0);let next=0;
+ const s=createStageGameState(stageById[stageId]),f=createFeedingSystem(0),events=createEventSystem(0),wander=createWanderSystem(seeded());let next=0;
  for(let t=0;t<seconds*10&&!s.chapter.cleared;t++){
   if(s.simulationTime>=next){next=s.simulationTime+5;student(s);}
+  wander.update(s.organisms,.1,layout);
   const r=f.update(s,.1,layout);if(!r.ticked)continue;
+  if(r.removedIds?.length)wander.forget(r.removedIds);
   events.update(s,.5,r.feedingEvents);s.metrics.stability=evaluateStability(s).score;updateStage(s,.5,r.feedingEvents);
  }
  return s;
@@ -68,7 +73,7 @@ const careful=s=>{
 };
 
 test('a careful student clears the pond stages; waiting alone does not',()=>{
- for(const id of ['1-1','1-2','1-3','1-4','2-1','2-2','2-3','2-4','3-1','3-2','3-3','3-4']){
+ for(const id of ['1-1','1-2','1-3','1-4','2-1','2-2','2-3','2-4','3-1','3-2','3-3','3-4','4-1','4-2','4-3','4-4']){
   const s=play(id,careful);
   assert.ok(s.chapter.cleared,`${id} cleared`);
   assert.ok(stageById[id].tasks.every(t=>taskDone(s,t)),`${id} tasks`);
@@ -83,6 +88,15 @@ test('a fed tadpole grows into a frog on the bank, which eats water striders',()
  assert.ok(isPositionAllowed('frog',grown.position,layout),'on the bank');
  assert.ok(taskDone(s,{grow:'frog'}));
  assert.ok(foodRelations.some(r=>r.sourceSpeciesId==='water-strider'&&r.targetSpeciesId==='frog'));
+});
+
+test('a crucian carp now and then rises near the surface, where a heron at the water\'s edge catches it',()=>{
+ const heron=placementConfig.zones[speciesProfiles['grey-heron'].zone];
+ assert.ok(heron.bottom<.7,'the heron stays at the water\'s edge, not down on the bed');
+ const s=createStageGameState(stageById['4-1']),wander=createWanderSystem(seeded());
+ const carp=s.organisms.find(o=>o.speciesId==='crucian-carp');carp.position={x:.4,y:.85};let top=1;
+ for(let t=0;t<1200;t++){wander.update(s.organisms,.1,layout);top=Math.min(top,carp.position.y);}
+ assert.ok(top<=heron.bottom,`it came up within the heron's reach: ${top}`);
 });
 
 test('the question after a river crisis is about the river, not the forest',()=>{
@@ -117,7 +131,7 @@ test('an invader comes after a star, eats natives until tapped out, and stalls t
  assert.ok(!stageBlockers(s).some(b=>b.id==='invader'));
 });
 
-for(const [stageId,kind] of [['2-4','valley-trash'],['3-3','sewage']])test(`${kind}: a people-made river crisis asks how to stop it before it can be cleaned up`,()=>{
+for(const [stageId,kind] of [['2-4','valley-trash'],['3-3','sewage'],['4-2','factory-waste'],['4-3','oil-spill']])test(`${kind}: a people-made river crisis asks how to stop it before it can be cleaned up`,()=>{
  const s=createStageGameState(stageById[stageId]),f=createFeedingSystem(0),events=createEventSystem(0);
  let open=null,next=0;
  for(let t=0;t<9000&&!open;t++){
