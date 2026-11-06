@@ -235,7 +235,7 @@ export const riverSpecies = [
   {id: 'otter', name: '수달', role: 'consumer', behaviorType: 'forager', zone: 'water',
     caption: '물고기를 잡아먹어요', description: '물갈퀴 달린 발로 헤엄치는 동물이에요. 강둑의 굴에서 쉬고, 물속에서 물고기를 잡아먹어요. 천연기념물이에요.', habitat: '깨끗한 강과 강둑',
     scientificName: 'Lutra lutra', feeding: {initialHunger: .45, hungerPerSecond: .016, hungryAt: .6, mealRelief: .75, searchRadius: .36, speed: .05},
-    motion: {speedX: .03, speedY: .008, walkSeconds: [1, 2], pauseSeconds: [1, 2], visits: {everySeconds: [20, 40], staySeconds: [4, 7]}}, life: life(90, 120, '여러 해 사는 동물이에요', '마리'), size: [100, 75],
+    motion: {speedX: .03, speedY: .008, walkSeconds: [1, 2], pauseSeconds: [1, 2], visits: {everySeconds: [6, 14], staySeconds: [8, 14], burrow: true}}, life: life(90, 120, '여러 해 사는 동물이에요', '마리'), size: [100, 75],
     starvation: 660, satiety: 360, predatorSatiety: .5,
     card: card('강둑에 굴을 파고 사는 천연기념물이에요. 물이 깨끗한 강에만 살아요.', [['role', '역할', '다른 동물을 잡아먹고 살아서 소비자예요.'], ['eats', '먹는 것', '붕어, 쏘가리, 동사리 같은 물고기와 개구리, 가재를 먹어요.'], ['eatenBy', '나를 먹는 것', '다 자라면 먹는 동물이 거의 없어요.'], ['home', '사는 곳', '강물과 강둑의 굴']])},
   {id: 'largemouth-bass', name: '배스', role: 'consumer', behaviorType: 'forager', zone: 'water', invader: true,
@@ -272,7 +272,8 @@ export const riverSpecies = [
   {id: 'reeves-turtle', name: '남생이', role: 'consumer', behaviorType: 'forager', zone: 'turtle',
     caption: '물풀과 조개를 먹어요', description: '우리나라 토종 거북이에요. 물속을 헤엄치며 마름 같은 물풀과 조개를 먹어요. 천연기념물이에요.', habitat: '강 하류와 저수지',
     scientificName: 'Mauremys reevesii', feeding: {initialHunger: .45, hungerPerSecond: .016, hungryAt: .6, mealRelief: .7, searchRadius: .34, speed: .025},
-    motion: {speedX: .012, speedY: .006, walkSeconds: [1.2, 2.4], pauseSeconds: [1.5, 3]}, life: life(120, 160, '아주 오래 사는 거북이에요', '마리'), size: [72, 54],
+    // It climbs onto the bank now and then to bask (motion.visits, no burrow).
+    motion: {speedX: .012, speedY: .006, walkSeconds: [1.2, 2.4], pauseSeconds: [1.5, 3], visits: {everySeconds: [15, 30], staySeconds: [8, 14]}}, life: life(120, 160, '아주 오래 사는 거북이에요', '마리'), size: [72, 54],
     starvation: 660, satiety: 360, predatorSatiety: .4,
     card: card('등딱지에 세 줄의 솟은 줄이 있는 우리나라 토종 거북이에요.', [['role', '역할', '여러 생물을 먹고 살아서 소비자예요.'], ['eats', '먹는 것', '마름 같은 물풀, 조개, 작은 물고기를 먹어요.'], ['eatenBy', '나를 먹는 것', '다 자라면 단단한 등딱지 덕분에 먹는 동물이 거의 없어요.'], ['wow', '알아 두기', '천연기념물이자 멸종위기 야생생물이에요.']])},
   // A heron wades in the shallow water by the bank and spears fish there.
@@ -378,8 +379,9 @@ export const riverPrices = {algae: 3, duckweed: 3, 'water-lily': 5, cattail: 3, 
 const relation = (food, eater) => riverFoodRelations.find(r => r.sourceSpeciesId === food && r.targetSpeciesId === eater).relationId;
 
 // Organisms: [species, x, y], y on the species' living space.
+// ownWeb: each part of the river draws its own 나의 먹이그물; all done, they join (wholeWeb).
 export const riverChapters = [
-  {chapterId: 'river-pond', number: 1, title: '연못·습지', events: ['drought'], seedSeconds: 50,
+  {chapterId: 'river-pond', number: 1, title: '연못·습지', ownWeb: true, events: ['drought'], seedSeconds: 50,
     newSpecies: ['algae', 'daphnia', 'medaka', 'duckweed', 'water-lily', 'pond-snail', 'water-strider', 'cattail', 'frog-tadpole', 'diving-beetle', 'catfish', 'water-decomposer'],
     intro: '고인 물에 사는 생산자와 소비자를 만나요.',
     art: {src: './assets/images/backgrounds/river-pond.webp', alt: '연못을 비스듬히 내려다본 수면과 물속 단면, 진흙 바닥, 오른쪽의 물가 비탈과 흙 단면.'}, stages: [
@@ -409,7 +411,7 @@ export const riverChapters = [
       organisms: [['algae', .1, .85], ['algae', .22, .86], ['algae', .34, .85], ['algae', .46, .86], ['algae', .56, .85], ['cattail', .86, .4], ['duckweed', .3, .3], ['water-strider', .52, .34],
         ['daphnia', .16, .7], ['daphnia', .28, .76], ['daphnia', .42, .68], ['daphnia', .5, .74], ['medaka', .24, .62], ['medaka', .44, .64], ['pond-snail', .12, .92], ['frog-tadpole', .36, .74], ['water-decomposer', .5, .93]]},
   ]},
-  {chapterId: 'river-upstream', number: 2, title: '상류', events: ['flood', 'valley-trash'], seedSeconds: 55,
+  {chapterId: 'river-upstream', number: 2, title: '상류', ownWeb: true, events: ['flood', 'valley-trash'], seedSeconds: 55,
     newSpecies: ['stone-diatom', 'melania-snail', 'caddisfly-larva', 'pussy-willow', 'amphipod', 'minnow', 'water-dropwort', 'native-crayfish', 'korean-catfish', 'aucha-perch'],
     intro: '차갑고 맑은 물이 빠르게 흐르는 계곡이에요. 돌에 붙은 돌말부터 꺽지까지 먹이 관계를 이어요.',
     art: {src: './assets/images/backgrounds/river-upstream.webp', alt: '맑고 빠른 계곡물의 수면과 물속 단면, 자갈과 큰 돌이 있는 바닥, 오른쪽의 자갈 물가와 흙 단면.'}, stages: [
@@ -437,12 +439,12 @@ export const riverChapters = [
       organisms: [['stone-diatom', .1, .85], ['stone-diatom', .22, .86], ['stone-diatom', .34, .85], ['stone-diatom', .46, .86], ['stone-diatom', .56, .85], ['pussy-willow', .86, .4], ['water-dropwort', .8, .42],
         ['caddisfly-larva', .14, .9], ['caddisfly-larva', .3, .91], ['caddisfly-larva', .5, .9], ['amphipod', .24, .88], ['amphipod', .42, .9], ['minnow', .2, .62], ['minnow', .46, .66], ['native-crayfish', .38, .92], ['water-decomposer', .58, .93]]},
   ]},
-  {chapterId: 'river-midstream', number: 3, title: '중류', events: ['drought', 'sewage'], seedSeconds: 60,
+  {chapterId: 'river-midstream', number: 3, title: '중류', ownWeb: true, events: ['drought', 'sewage'], seedSeconds: 60,
     newSpecies: ['hornwort', 'tape-grass', 'crucian-carp', 'pale-chub', 'sand-gudgeon', 'dark-sleeper', 'mandarin-fish', 'otter'],
     intro: '물살이 느려지고 바닥에 모래가 쌓이는 강이에요. 물풀이 자라고 큰 물고기와 수달이 살아요.',
     art: {src: './assets/images/backgrounds/river-midstream.webp', alt: '물살이 느린 강의 수면과 물속 단면, 모래 바닥, 오른쪽의 모래 물가와 수달 굴이 있는 흙 단면.',
-      // Where an otter leaves the water, the bank's top, and the burrow (hole centre and size).
-      shore: {edge: {x: .71, y: .46}, land: {left: .8, right: .92, y: .41}, burrow: {x: .8375, y: .551, w: .071, h: .112}}}, stages: [
+      // Where an otter leaves the water, the bank's top (inside its slanted edge), and the burrow (hole centre and size).
+      shore: {edge: {x: .71, y: .46}, land: {left: .86, right: .95, top: .08, bottom: .42}, burrow: {x: .8375, y: .551, w: .071, h: .112}}}, stages: [
     {stageId: '3-1', title: '물풀 사이', points: 12, events: [],
       goal: '중류에는 붕어마름과 나사말 같은 물풀이 바닥에 뿌리를 내리고 자라요. 붕어는 물풀을 뜯어 먹어요. 붕어를 길러 강 별 3개를 모아요.',
       tasks: [{text: '붕어 기르기', have: 'crucian-carp'}, {text: '생산자·소비자 균형 잡기', balance: true}],
@@ -469,11 +471,11 @@ export const riverChapters = [
       organisms: [['stone-diatom', .1, .85], ['stone-diatom', .22, .86], ['stone-diatom', .34, .85], ['stone-diatom', .46, .86], ['stone-diatom', .56, .85], ['hornwort', .16, .86], ['tape-grass', .28, .85], ['hornwort', .4, .86], ['tape-grass', .52, .85],
         ['melania-snail', .2, .92], ['crucian-carp', .24, .66], ['crucian-carp', .46, .72], ['pale-chub', .34, .62], ['pale-chub', .54, .68], ['sand-gudgeon', .12, .91], ['dark-sleeper', .38, .92], ['mandarin-fish', .3, .76], ['water-decomposer', .58, .93]]},
   ]},
-  {chapterId: 'river-downstream', number: 4, title: '하류', events: ['factory-waste', 'oil-spill'], seedSeconds: 65,
+  {chapterId: 'river-downstream', number: 4, title: '하류', ownWeb: true, events: ['factory-waste', 'oil-spill'], seedSeconds: 65,
     newSpecies: ['reed', 'water-chestnut', 'common-carp', 'freshwater-clam', 'reeves-turtle', 'grey-heron'],
     intro: '강폭이 넓어지고 물이 느리게 흐르는 곳이에요. 진흙 바닥에 조개가 살고, 물가에는 갈대밭이 펼쳐져요.',
     art: {src: './assets/images/backgrounds/river-downstream.webp', alt: '넓고 느린 강의 수면과 물속 단면, 진흙 바닥, 오른쪽의 넓은 물가와 흙 단면.',
-      shore: {edge: {x: .71, y: .46}, land: {left: .8, right: .92, y: .41}}}, stages: [
+      shore: {edge: {x: .71, y: .46}, land: {left: .86, right: .95, top: .08, bottom: .42}}}, stages: [
     {stageId: '4-1', title: '갈대밭', points: 14, events: [],
       goal: '하류의 물가에는 갈대와 부들이, 물 위에는 마름이 자라요. 잉어는 붕어처럼 물풀을 먹는 큰 물고기예요. 잉어를 길러 강 별 3개를 모아요.',
       tasks: [{text: '잉어 기르기', have: 'common-carp'}, {text: '생산자·소비자 균형 잡기', balance: true}],
@@ -689,7 +691,7 @@ let used = false;
 export function useRiverTheme() {
   if (used) return;
   used = true;
-  Object.assign(themeWords, {place: '강', cleared: '강에 물고기가 힘차게 헤엄쳐요'});
+  Object.assign(themeWords, {place: '강', icon: '🌊', cleared: '강에 물고기가 힘차게 헤엄쳐요'});
   Object.assign(placementConfig.zones, riverZones);
   Object.assign(habitatZones, riverHabitatZones);
   Object.assign(foodPartLabels, {whole: ''});

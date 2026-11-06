@@ -67,7 +67,7 @@ export const stageConfig = {
 // decomposed (a decomposer or earthworm has broken down dead matter), observe
 // (the student caught that meal's 💡 in this stage; icon: the picture shown).
 export const chapters = [
-  {chapterId: 'meadow', number: 1, title: '풀밭', events: ['cloudy'], seedSeconds: 50, newSpecies: ['grass', 'grasshopper', 'rabbit'],
+  {chapterId: 'meadow', number: 1, title: '풀밭', ownWeb: true, events: ['cloudy'], seedSeconds: 50, newSpecies: ['grass', 'grasshopper', 'rabbit'],
     intro: '생산자인 강아지풀과 그것을 먹는 소비자를 만나요.', stages: [
     {stageId: '1-1', title: '풀밭의 시작', points: 12,
       goal: '생산자 강아지풀을 먹는 소비자 방아깨비를 놓고, 생산자와 소비자가 균형을 이루게 해 숲 별 3개를 모아요.',
@@ -85,7 +85,7 @@ export const chapters = [
       inventory: ['grass', 'grasshopper', 'rabbit'], requiredSpecies: {grasshopper: 1, rabbit: 1}, birthRequired: 'grasshopper',
       organisms: [['grass', .34], ['grass', .52], ['grasshopper', .44]]},
   ]},
-  {chapterId: 'pond', number: 2, title: '물가', events: ['drought', 'cloudy'], seedSeconds: 60, newSpecies: ['frog', 'hazel', 'aphid'],
+  {chapterId: 'pond', number: 2, title: '물가', ownWeb: true, events: ['drought', 'cloudy'], seedSeconds: 60, newSpecies: ['frog', 'hazel', 'aphid'],
     intro: '방아깨비를 먹는 참개구리가 와서 먹이사슬이 한 단계 길어지고, 물가의 팽나무에는 청동풍뎅이가 살아요.', stages: [
     {stageId: '2-1', title: '개구리가 왔어요', points: 15,
       goal: '참개구리를 놓아 강아지풀 → 방아깨비 → 참개구리로 이어지는 숲을 만들어요.',
@@ -114,7 +114,7 @@ export const chapters = [
       inventory: ['grass', 'grasshopper', 'frog'], requiredSpecies: {grasshopper: 2, frog: 2}, birthRequired: 'frog',
       organisms: [['grass', .3], ['grass', .4], ['grass', .5], ['grass', .6], ['grass', .7], ['grasshopper', .34], ['grasshopper', .44], ['grasshopper', .54], ['grasshopper', .64], ['grasshopper', .74], ['frog', .4]]},
   ]},
-  {chapterId: 'understory', number: 3, title: '나무 아래', events: ['soil-damage', 'drought'], seedSeconds: 70, newSpecies: ['oak', 'mushroom', 'litter-mold', 'earthworm', 'chipmunk', 'raspberry', 'bulbul'],
+  {chapterId: 'understory', number: 3, title: '나무 아래', ownWeb: true, events: ['soil-damage', 'drought'], seedSeconds: 70, newSpecies: ['oak', 'mushroom', 'litter-mold', 'earthworm', 'chipmunk', 'raspberry', 'bulbul'],
     intro: '분해자가 낙엽과 쓰러진 나무를 분해해 흙으로 양분을 돌려보내요.', stages: [
     {stageId: '3-1', title: '쌓이는 낙엽', points: 15,
       goal: '낙엽과 죽은 나무가 쌓이고 있어요. 분해자를 놓아 숲 바닥을 순환시켜요.',
@@ -138,7 +138,7 @@ export const chapters = [
       inventory: ['raspberry', 'hazel', 'grass', 'grasshopper', 'bulbul', 'mushroom', 'litter-mold'], requiredSpecies: {grasshopper: 1, bulbul: 1}, needsDecomposition: true, birthRequired: 'bulbul',
       organisms: [['oak', .2], ['raspberry', .36], ['raspberry', .5], ['hazel', .7], ['grass', .44], ['grasshopper', .4], ['bulbul', .56], ['litter-mold', .82]]},
   ]},
-  {chapterId: 'deep-forest', number: 4, title: '큰 숲', events: ['air-pollution', 'soil-damage'], seedSeconds: 80, newSpecies: ['snake', 'weasel', 'goshawk'],
+  {chapterId: 'deep-forest', number: 4, title: '큰 숲', ownWeb: true, events: ['air-pollution', 'soil-damage'], seedSeconds: 80, newSpecies: ['snake', 'weasel', 'goshawk'],
     intro: '먹이사슬의 꼭대기에 있는 소비자는 아래 단계가 모두 건강해야 살 수 있어요.', stages: [
     {stageId: '4-1', title: '개구리를 먹는 뱀', points: 18,
       goal: '유혈목이는 참개구리를 먹어요. 네 단계로 이어지는 먹이사슬을 지켜요.',

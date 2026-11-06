@@ -7,4 +7,4 @@ export const themes = [
 export const themeById = Object.fromEntries(themes.map(theme => [theme.id, theme]));
 // The words the screen says for the place being looked after (숲 별, 숲에 놓아요),
 // set by a theme (data/river.js). 숲 and 강 take the same particles (숲에·강에).
-export const themeWords = {place: '숲', cleared: '숲에 새싹이 돋았어요'};
+export const themeWords = {place: '숲', icon: '🌳', cleared: '숲에 새싹이 돋았어요'};

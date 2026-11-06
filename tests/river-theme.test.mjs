@@ -10,6 +10,7 @@ import {foodRelations} from '../data/food-relations.js';
 import {discoveryEvents} from '../data/event-config.js';
 import {mealSentence} from '../data/student-text.js';
 import {crisisQuestions} from '../data/crisis-reflection.js';
+import {webNodes,webRelations,wholeWeb} from '../js/systems/food-web-builder.js';
 import {isPositionAllowed} from '../js/systems/placement-rules.js';
 import {placeOrganism} from '../js/systems/placement.js';
 import {createFeedingSystem} from '../js/systems/feeding.js';
@@ -144,6 +145,21 @@ for(const [stageId,kind] of [['2-4','valley-trash'],['3-3','sewage'],['4-2','fac
  const w=chooseCrisisAction(s,wrong);assert.ok(!w.ok&&w.why,'a wrong choice says why');
  assert.ok(chooseCrisisAction(s,right).ok);assert.equal(crisisChoice(s),null);
  assert.ok(collectTrash(s,s.chapter.trash[0].trashId).ok,'now it can be cleaned up');
+});
+
+test('each part of the river has its own food web of the creatures met there; together they make one',()=>{
+ const met=c=>new Set([...c.newSpecies,...c.stages.flatMap(st=>[...st.inventory,...st.organisms.map(o=>o[0])])].filter(id=>!organismById[id].invader));
+ for(const c of chapters){
+  const nodes=webNodes(c.number);
+  assert.deepEqual(new Set(nodes),met(c),c.chapterId);
+  assert.ok(nodes.length<=14,`${c.chapterId}: ${nodes.length} fit on the board`);
+  assert.ok(webRelations(nodes).length>=9,`${c.chapterId} is a web`);
+ }
+ // The whole river: every creature once, in the part where it was first met.
+ const home=wholeWeb();
+ assert.deepEqual(new Set(Object.keys(home)),new Set(chapters.flatMap(c=>[...met(c)])));
+ assert.equal(home['stone-diatom'],2);assert.equal(home.otter,3);assert.equal(home['crucian-carp'],3);assert.equal(home.reed,4);
+ assert.ok(webRelations(Object.keys(home)).some(r=>home[r.sourceSpeciesId]!==home[r.targetSpeciesId]),'arrows cross from one part to another');
 });
 
 test('in every part of the river a food animal breeds, and a fed pair has young',()=>{

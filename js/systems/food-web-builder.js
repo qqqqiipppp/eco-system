@@ -5,6 +5,7 @@ import {foodRelations} from '../../data/food-relations.js';
 import {organismById} from '../../data/organisms.js';
 import {environmentEventDefinitions} from '../../data/environment-events.js';
 import {particle} from '../../data/student-text.js';
+import {themeWords as W} from '../../data/themes.js';
 
 const name = id => organismById[id].name;
 export const roleNames = {producer: '생산자', consumer: '소비자', decomposer: '분해자'};
@@ -14,8 +15,20 @@ export const roleMeaning = {
   decomposer: '죽은 생물과 낙엽을 분해해 양분을 흙으로 돌려보내요.',
 };
 
-// Every creature met up to and including this chapter.
-export const webNodes = chapterNumber => [...new Set(chapters.filter(c => c.number <= chapterNumber).flatMap(c => c.newSpecies))];
+// A chapter with its own web (ownWeb: the forest's and the river's chapters)
+// shows only the creatures met in it, cards and starting ones alike; without
+// it the web would grow with every creature met up to this chapter.
+const metIn = c => [...new Set([...c.newSpecies, ...c.stages.flatMap(s => [...s.inventory, ...s.organisms.map(o => o[0])])])].filter(id => !organismById[id].invader);
+export const webNodes = chapterNumber => {
+  const own = chapters.find(c => c.number === chapterNumber);
+  return own?.ownWeb ? metIn(own) : [...new Set(chapters.filter(c => c.number <= chapterNumber).flatMap(c => c.newSpecies))];
+};
+// When every own web is done they join into one: creature -> the chapter where it was first met.
+export function wholeWeb() {
+  const home = {};
+  for (const c of chapters.filter(c => c.ownWeb)) for (const id of metIn(c)) home[id] ??= c.number;
+  return home;
+}
 export const webRelations = nodes => foodRelations.filter(r => nodes.includes(r.sourceSpeciesId) && nodes.includes(r.targetSpeciesId));
 export const newNodes = chapterNumber => chapters.find(c => c.number === chapterNumber).newSpecies;
 
@@ -54,13 +67,13 @@ export function checkRole(id, role) {
 export function checkArrow(food, eater, observed = []) {
   const rel = foodRelations.find(r => r.sourceSpeciesId === food && r.targetSpeciesId === eater);
   if (rel) return {ok: true, relationId: rel.relationId, observed: observed.includes(rel.relationId),
-    message: `${particle(name(eater), '이', '가')} ${particle(name(food), '을', '를')} 먹어요.` + (observed.includes(rel.relationId) ? ' 숲에서 관찰한 관계예요.' : ' 아직 숲에서 💡로 관찰하지 못한 관계예요.')};
+    message: `${particle(name(eater), '이', '가')} ${particle(name(food), '을', '를')} 먹어요.` + (observed.includes(rel.relationId) ? ` ${W.place}에서 관찰한 관계예요.` : ` 아직 ${W.place}에서 💡로 관찰하지 못한 관계예요.`)};
   if (food === eater) return {ok: false, message: '서로 다른 두 생물을 골라요.'};
   if (foodRelations.some(r => r.sourceSpeciesId === eater && r.targetSpeciesId === food))
     return {ok: false, reversed: true, message: `거꾸로예요. ${particle(name(food), '이', '가')} ${particle(name(eater), '을', '를')} 먹어요. 화살표는 먹히는 생물에서 먹는 생물 쪽으로 그려요. 먹히는 ${particle(name(eater), '을', '를')} 먼저 눌러요.`};
   if (organismById[eater].role === 'producer') return {ok: false, message: `${particle(name(eater), '은', '는')} 생산자예요. 다른 생물을 먹지 않고 햇빛으로 양분을 만들어요.`};
   if (organismById[eater].role === 'decomposer' || organismById[food].role === 'decomposer') return {ok: false, message: '분해자는 살아 있는 생물을 먹는 대신 죽은 생물과 낙엽을 분해해요. 분해자와 이어지는 선은 저절로 그려져요.'};
-  return {ok: false, message: `${particle(name(eater), '은', '는')} ${particle(name(food), '을', '를')} 먹지 않아요. 숲에서 관찰한 먹는 모습을 떠올려 봐요.`};
+  return {ok: false, message: `${particle(name(eater), '은', '는')} ${particle(name(food), '을', '를')} 먹지 않아요. ${W.place}에서 관찰한 먹는 모습을 떠올려 봐요.`};
 }
 
 // Food chains in the web: paths from a producer to an animal nothing here eats.

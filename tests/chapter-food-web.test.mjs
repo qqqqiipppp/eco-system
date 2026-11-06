@@ -1,12 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {webNodes,webRelations,webLevels,checkRole,checkArrow,foodChains,spreadOfChange,webStatus,chapterFactor} from '../js/systems/food-web-builder.js';
+import {webNodes,webRelations,webLevels,checkRole,checkArrow,foodChains,spreadOfChange,webStatus,chapterFactor,wholeWeb} from '../js/systems/food-web-builder.js';
 
-test('the web grows chapter by chapter: one chain first, a tangled web at the end',()=>{
- const counts=[1,2,3,4].map(n=>({nodes:webNodes(n).length,relations:webRelations(webNodes(n)).length,chains:foodChains(webNodes(n)).length}));
- for(let i=1;i<4;i++){assert(counts[i].nodes>counts[i-1].nodes);assert(counts[i].relations>counts[i-1].relations);}
- assert(counts[3].chains>=6,JSON.stringify(counts));
- assert.deepEqual(foodChains(webNodes(2)).map(c=>c.join('>')).sort(),['grass>grasshopper>frog','grass>rabbit','hazel>aphid']);
+test('each chapter is its own web, from one chain to a tangle; the whole forest joins them',()=>{
+ assert.deepEqual(foodChains(webNodes(1)).map(c=>c.join('>')).sort(),['grass>grasshopper','grass>rabbit']);
+ assert.deepEqual(foodChains(webNodes(2)).map(c=>c.join('>')).sort(),['grass>grasshopper>frog','hazel>aphid']);
+ assert(foodChains(webNodes(4)).length>=4);
+ const whole=Object.keys(wholeWeb());assert(foodChains(whole).length>=6&&webRelations(whole).length>webRelations(webNodes(4)).length);
 });
 
 test('rows put producers at the bottom and each consumer above its food',()=>{
@@ -32,7 +32,7 @@ test('arrows go from the eaten to the eater, with feedback for the common mistak
 });
 
 test('a bad abiotic factor reaches every creature, plants first then along the web',()=>{
- const n=webNodes(3),f=chapterFactor(2),steps=spreadOfChange(n,'물');
+ const n=Object.keys(wholeWeb()),f=chapterFactor(2),steps=spreadOfChange(n,'물');
  assert.equal(f.name,'가뭄');assert.equal(steps.size,n.length);
  const order=[...steps.keys()];assert(order.indexOf('grass')<order.indexOf('grasshopper'));assert(order.indexOf('grasshopper')<order.indexOf('frog'));
  assert.match(steps.get('frog'),/방아깨비/);assert.match(steps.get('mushroom'),/낙엽/);

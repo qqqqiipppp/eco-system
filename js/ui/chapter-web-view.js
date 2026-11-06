@@ -1,4 +1,6 @@
-import {webNodes,webRelations,webLevels,checkRole,checkArrow,foodChains,spreadOfChange,webStatus,chapterFactor,roleNames,roleMeaning} from '../systems/food-web-builder.js';
+import {webNodes,webRelations,webLevels,checkRole,checkArrow,foodChains,spreadOfChange,webStatus,chapterFactor,roleNames,roleMeaning,wholeWeb} from '../systems/food-web-builder.js';
+import {chapters} from '../../data/chapters.js';
+import {themeWords as W} from '../../data/themes.js';
 import {organismById} from '../../data/organisms.js';
 import {foodRelationById} from '../../data/food-relations.js';
 import {environmentFactors} from '../../data/environment-config.js';
@@ -22,10 +24,31 @@ function layout(nodes){
  return pos;
 }
 
+// The whole river (own webs joined): a column per part of the river, each
+// creature in the part where it was first met; rows by level as above. A column
+// is as wide as its most crowded row, so its cards stand apart.
+function wholeLayout(home){
+ const ids=Object.keys(home),levels=webLevels(ids),top=Math.max(1,...Object.values(levels)),parts=[...new Set(Object.values(home))].sort((a,b)=>a-b);
+ const cells={};for(const id of ids)((cells[home[id]]??={})[levels[id]]??=[]).push(id);
+ const widths=parts.map(n=>Math.max(...Object.values(cells[n]).map(row=>row.length))),total=widths.reduce((a,b)=>a+b,0),pos={},columns=[];
+ let left=0;parts.forEach((n,k)=>{const w=100*widths[k]/total;columns.push({chapter:n,left,width:w});
+  for(const [level,row] of Object.entries(cells[n]))row.forEach((id,i)=>{pos[id]={x:left+w*(i+.5)/row.length,y:80-66*Number(level)/top};});
+  left+=w;});
+ return {pos,columns};
+}
+
+// How the parts join: their names, and a few creatures met in more than one.
+function joinedText(home){
+ const own=chapters.filter(c=>c.ownWeb),shared=Object.keys(home).filter(id=>own.filter(c=>webNodes(c.number).includes(id)).length>1).slice(0,3).map(name);
+ return `${own.map(c=>c.title).join(', ')}의 먹이그물이 이어져 ${W.place} 전체의 먹이그물이 되었어요.`+(shared.length?` ${shared.join('·')}처럼 여러 곳에 사는 생물이 먹이그물을 서로 이어 줘요.`:'');
+}
+
 // "나의 먹이그물": sort roles, draw arrows, then see how one change spreads.
 export function createChapterWebView(progress,{onComplete=()=>{},onGuide=null,onReference=null}={}){
  const dialog=element('dialog',{className:'chapter-dialog chapter-web-dialog'});document.body.append(dialog);
- let chapterNumber=1,selected=null,picks=new Set(),stepNote='';
+ let chapterNumber=1,selected=null,picks=new Set(),stepNote='',wasAllDone=false;
+ // Own webs (the river) join into one once every one of them is done.
+ const ownWebs=()=>chapters.filter(c=>c.ownWeb).map(c=>c.number),allDone=()=>ownWebs().length>0&&ownWebs().every(n=>webStatus(progress.read(),n).complete);
  // Guidance: a hand points where to start (never at an answer); mistakes flash
  // red and shake. Three wrong in a row pause the board for a few seconds; two
  // wrong at the same place offer the field guide.
@@ -43,7 +66,7 @@ export function createChapterWebView(progress,{onComplete=()=>{},onGuide=null,on
  const right=()=>{streak=0;wrong=null;wrongArrow=null;guideFor=null;};
 
  // Open first so the board has a size: lines are drawn in real pixels, which keeps arrowheads true.
- function open(n){chapterNumber=n;selected=null;picks=new Set();stepNote='';right();misses={};handShown=true;lastStep=0;if(!dialog.open)dialog.showModal();render();}
+ function open(n){wasAllDone=allDone();chapterNumber=n;selected=null;picks=new Set();stepNote='';right();misses={};handShown=true;lastStep=0;if(!dialog.open)dialog.showModal();render();}
  function step(status){return status.missingRoles.length?1:status.missingArrows.length?2:!status.systemDone?3:4;}
  function render(){
   const p=progress.read(),status=webStatus(p,chapterNumber),nodes=status.nodes,s=step(status),pos=layout(nodes);
@@ -76,14 +99,15 @@ export function createChapterWebView(progress,{onComplete=()=>{},onGuide=null,on
     element('div',{className:`chapter-actions${picks.size?' candidate-buttons':''}${fresh()&&wrong.ids.includes('system')?' wrong':''}`},[element('button',{type:'button',className:'web-check',textContent:`확인 (${picks.size}개 고름)`,onclick:()=>checkSystem(nodes,factor)})]));
   }
   if(s===4)panel.append(element('p',{textContent:`먹이사슬 ${chains.length}개가 ${chains.length>1?'서로 얽혀 먹이그물이 되었어요':'이어져 있어요'}. 한 생물에게 생긴 변화는 먹이그물을 따라 다른 생물에게 퍼져요.`}),element('p',{className:'web-ecosystem',textContent:ecosystem}),
-   element('div',{className:'chapter-actions'},[element('button',{type:'button',textContent:'완성!',onclick:()=>{dialog.close();onComplete(chapterNumber);}})]));
+   element('div',{className:'chapter-actions'},[element('button',{type:'button',textContent:'완성!',onclick:()=>{const joined=allDone()&&!wasAllDone;dialog.close();onComplete(chapterNumber);if(joined)openWhole();}})]));
   if(stepNote)panel.prepend(element('p',{className:`web-note${wrong?' wrong':''}`},[...(wrong?[element('strong',{textContent:'⚠ 다시 생각해 봐요 '})]:[]),stepNote,
    ...(guideFor&&onGuide?[element('button',{type:'button',className:'web-guide-hint',textContent:`📖 ${name(guideFor)} 도감 보기`,onclick:()=>onGuide(guideFor)})]:[])]));
   if(lockedUntil>Date.now())panel.prepend(element('p',{className:'web-note wrong web-lock',textContent:'잠깐! 연달아 틀렸어요. 5초 동안 생물을 다시 살펴보고 생각해 봐요.'}));
   dialog.replaceChildren(
    element('div',{className:'web-head'},[element('h2',{textContent:`나의 먹이그물 · 챕터 ${chapterNumber}`}),element('ol',{className:'web-steps'},steps),
     // The whole reference food web, to look things up while building.
-    ...(onReference?[element('button',{type:'button',className:'web-reference',textContent:'📚 먹이그물 참고',onclick:()=>onReference()})]:[]),element('button',{type:'button',className:'web-close',textContent:'닫기',onclick:()=>dialog.close()})]),
+    ...(onReference?[element('button',{type:'button',className:'web-reference',textContent:'📚 먹이그물 참고',onclick:()=>onReference()})]:[]),
+    ...(allDone()?[element('button',{type:'button',className:'web-whole-open',textContent:`${W.icon} ${W.place} 전체 먹이그물`,onclick:()=>openWhole()})]:[]),element('button',{type:'button',className:'web-close',textContent:'닫기',onclick:()=>dialog.close()})]),
    ...(guide?[element('p',{className:'web-guide',textContent:guide})]:[]),
    board,panel,
   );
@@ -132,6 +156,21 @@ export function createChapterWebView(progress,{onComplete=()=>{},onGuide=null,on
   if(!missed.length){right();progress.markSystem(chapterNumber);progress.markWebDone?.(chapterNumber);stepNote=`맞아요. 모든 생물이 영향을 받아요. ${[...steps.values()].slice(0,3).join(' ')}`;}
   else{stepNote=`아직 영향을 받는 생물이 더 있어요. 힌트: ${steps.get(missed[0])}`;noteMiss('system',['system']);}
   render();
+ }
+ // The whole river's web: to look at, nothing to sort or draw.
+ function openWhole(){
+  const home=wholeWeb(),ids=Object.keys(home),{pos,columns}=wholeLayout(home),p=progress.read(),relations=webRelations(ids);
+  const board=element('div',{className:'web-board whole'});const svg=svgElement('svg',{class:'web-lines','aria-hidden':'true'});board.append(svg);
+  for(const c of columns)board.append(element('span',{className:'web-part',textContent:chapters.find(x=>x.number===c.chapter).title,style:`left:${c.left}%;width:${c.width}%`}));
+  board.append(element('div',{className:'web-abiotic'},[element('strong',{textContent:'비생물 요소'}),...Object.values(environmentFactors).map(f=>element('span',{textContent:f.name}))]));
+  for(const id of ids){const node=element('div',{className:`web-node role-${organismById[id].role}`},[element('img',{src:visualAsset(id),alt:''}),element('span',{className:'web-node-text'},[element('span',{textContent:name(id)})])]);
+   node.style.left=pos[id].x+'%';node.style.top=pos[id].y+'%';node.dataset.speciesId=id;board.append(node);}
+  dialog.replaceChildren(
+   element('div',{className:'web-head'},[element('h2',{textContent:`${W.place} 전체 먹이그물`}),element('button',{type:'button',className:'web-close',textContent:'닫기',onclick:()=>dialog.close()})]),
+   element('p',{className:'web-guide',textContent:joinedText(home)}),
+   board);
+  if(!dialog.open)dialog.showModal();
+  drawLines(svg,board,{...p,drawn:relations.map(r=>r.relationId)},relations,[]);
  }
  return {open,isComplete:n=>webStatus(progress.read(),n).complete,dialog};
 }
