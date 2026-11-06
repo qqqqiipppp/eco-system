@@ -1,3 +1,4 @@
+import {themeWords as W} from '../../data/themes.js';
 import {syncCollection} from '../state/collection-state.js';
 import { eventConfig, shortageEvents, discoveryEvents, growthInvestigation, eventPriority } from '../../data/event-config.js';
 import {relationFor,foodRelations} from '../../data/food-relations.js';
@@ -91,7 +92,7 @@ export function createEventSystem(initialTime = 0, memory = {}) {
     for(const record of [...notices.values()].slice(-6)){
       const key=`population:${record.sequence}`;
       const natural=record.cause==='natural_lifespan'||record.cause==='life_stage_exit';
-      candidates.set(key,{key,kind:'alert',sourceType:'environment',sourceId:'forest',title:natural?'숲의 세대가 이어져요':'숲의 개체 수가 달라졌어요',message:populationMessage(record),explanation:natural?'생물은 서로 다른 생애주기를 가져요. 세대교체는 안정적인 숲에서도 일어날 수 있어요. 먹이를 주어도 수명이 무한히 늘어나지는 않아요.':record.cause==='predation'?'포식으로 먹이를 얻은 소비자와 줄어든 먹이 생물을 함께 살펴보세요.':'먹이·환경·개체 수의 관계를 살펴보세요.',payload:{populationSequence:record.sequence,urgent:record.cause==='starvation'}});
+      candidates.set(key,{key,kind:'alert',sourceType:'environment',sourceId:'forest',title:natural?`${W.place}의 세대가 이어져요`:`${W.place}의 개체 수가 달라졌어요`,message:populationMessage(record),explanation:natural?`생물은 서로 다른 생애주기를 가져요. 세대교체는 안정적인 ${W.place}에서도 일어날 수 있어요. 먹이를 주어도 수명이 무한히 늘어나지는 않아요.`:record.cause==='predation'?'포식으로 먹이를 얻은 소비자와 줄어든 먹이 생물을 함께 살펴보세요.':'먹이·환경·개체 수의 관계를 살펴보세요.',payload:{populationSequence:record.sequence,urgent:record.cause==='starvation'}});
     }
     hasConditions = candidates.size > 0 || slowSince.size > 0;
     const active = new Map(state.events.filter(event => event.status === 'active').map(event => [event.key,event]));

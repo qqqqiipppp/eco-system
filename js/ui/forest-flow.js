@@ -1,3 +1,4 @@
+import {themeWords as W} from '../../data/themes.js';
 import {activities} from '../../data/activities.js';
 import {organismById} from '../../data/organisms.js';
 import {eventPriority} from '../../data/event-config.js';
@@ -76,10 +77,10 @@ export function createForestFlow(state,{onActivity,onEvent,onPlace,onPopulation,
   for(const card of document.querySelectorAll('.organism-card')){
    const id=card.dataset.speciesId,owned=state.inventory.some(c=>c.speciesId===id&&c.acquired),activity=activities.find(a=>a.unlockSpeciesId===id),ready=!owned&&activity&&readyActivity(state,activity),count=state.organisms.filter(o=>o.speciesId===id).length;
    const check=validateIntroduction(state,id),availability=state.organisms.length>=placementConfig.maxOrganisms?'자리 필요':check.ok?'놓기 가능':check.reason==='food'?'먹이 필요':check.reason==='density'?'충분해요':'잠시 기다려요';
-   const status=owned?(count?'숲에 '+count+' · '+availability:availability):ready?'카드 얻으러 가기':'🔒 눌러서 얻는 방법';
+   const status=owned?(count?`${W.place}에 `+count+' · '+availability:availability):ready?'카드 얻으러 가기':'🔒 눌러서 얻는 방법';
    const readyValue=String(Boolean(ready));if(card.dataset.ready!==readyValue)card.dataset.ready=readyValue;
    const caption=card.querySelector('.card-caption');if(caption.textContent!==status)caption.textContent=status;
-   const label=organismById[id].name+' · '+status+' · '+(owned?'골라서 숲에 놓기':'탐구 방법 보기');if(card.getAttribute('aria-label')!==label)card.setAttribute('aria-label',label);
+   const label=organismById[id].name+' · '+status+' · '+(owned?`골라서 ${W.place}에 놓기`:'탐구 방법 보기');if(card.getAttribute('aria-label')!==label)card.setAttribute('aria-label',label);
   }
  }
  return {render};

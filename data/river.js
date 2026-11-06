@@ -21,6 +21,7 @@ import {environmentEventDefinitions} from './environment-events.js';
 import {ecologySeconds,ecologyRate,scaleFields} from './pacing-config.js';
 import {survivalConfig} from './survival-config.js';
 import {crisisQuestions} from './crisis-reflection.js';
+import {themeWords} from './themes.js';
 
 // Living spaces on the river picture (2400 x 940, assets/images/backgrounds):
 // the waterline at y 423 (.45), the riverbed band from y 799 (.85). The bank
@@ -442,7 +443,7 @@ export const riverChapters = [
     art: {src: './assets/images/backgrounds/river-midstream.webp', alt: '물살이 느린 강의 수면과 물속 단면, 모래 바닥, 오른쪽의 모래 물가와 수달 굴이 있는 흙 단면.',
       // Where an otter leaves the water, the bank's top, and the burrow (hole centre and size).
       shore: {edge: {x: .71, y: .46}, land: {left: .8, right: .92, y: .41}, burrow: {x: .8375, y: .551, w: .071, h: .112}}}, stages: [
-    {stageId: '3-1', title: '물풀 숲', points: 12, events: [],
+    {stageId: '3-1', title: '물풀 사이', points: 12, events: [],
       goal: '중류에는 붕어마름과 나사말 같은 물풀이 바닥에 뿌리를 내리고 자라요. 붕어는 물풀을 뜯어 먹어요. 붕어를 길러 강 별 3개를 모아요.',
       tasks: [{text: '붕어 기르기', have: 'crucian-carp'}, {text: '생산자·소비자 균형 잡기', balance: true}],
       inventory: ['stone-diatom', 'hornwort', 'tape-grass', 'melania-snail', 'crucian-carp'], requiredSpecies: {'melania-snail': 1, 'crucian-carp': 1},
@@ -606,6 +607,9 @@ export const riverQuestions = {
 // The river's crises: natural ones are prepared for, people-made ones are
 // stopped by choosing the right action first, then cleaned up (pieces).
 export const riverCrises = {
+  // The forest's drought, told about the river.
+  drought: {human: false, factor: 'water', notice: '곧 가뭄이 와요!',
+    effect: '비가 오지 않아 물이 줄면 물풀과 조류 같은 생산자가 잘 자라지 못해요. 먹이가 모자라면 강 별이 멈춰요.'},
   flood: {human: false, factor: 'water', notice: '곧 큰비가 와서 강물이 불어나요!',
     effect: '큰비로 물이 불어나고 흙탕물이 되면 돌에 붙은 돌말이 쓸려 가고, 물속에 햇빛이 잘 들지 않아 생산자가 잘 자라지 못해요. 먹이가 모자라면 강 별이 멈춰요.'},
   'valley-trash': {human: true, factor: 'soil', notice: '사람들이 계곡에 쓰레기를 버리고 가요!', item: '쓰레기', icon: '🥤', pieces: ['bag', 'bottle', 'peel'],
@@ -678,6 +682,7 @@ let used = false;
 export function useRiverTheme() {
   if (used) return;
   used = true;
+  Object.assign(themeWords, {place: '강', cleared: '강에 물고기가 힘차게 헤엄쳐요'});
   Object.assign(placementConfig.zones, riverZones);
   Object.assign(habitatZones, riverHabitatZones);
   Object.assign(foodPartLabels, {whole: ''});

@@ -4,7 +4,7 @@
 // exported module state; the ecology itself runs for real.
 const assert=require('node:assert/strict');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
-const {tapBackground}=require('./ux-browser-helpers.cjs');
+const {tapBackground,asForestStudent}=require('./ux-browser-helpers.cjs');
 const base=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/';
 const launch=process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH,headless:true,args:['--no-sandbox']}:{channel:'msedge',headless:true};
 const shots=process.env.SCREENSHOT_DIR;
@@ -16,7 +16,7 @@ const chapter=p=>p.evaluate(async()=>{const m=await import('./js/main.js');retur
 async function seedsReach(p,n,ms){const end=Date.now()+ms;while((await chapter(p)).seeds<n){if(Date.now()>end)throw new Error('seeds did not reach '+n);await p.waitForTimeout(250);}}
 
 (async()=>{
- const browser=await chromium.launch(launch);
+ const browser=asForestStudent(await chromium.launch(launch));
  for(const viewport of [{width:1280,height:800},{width:960,height:600}]){
   const p=await browser.newPage({viewport,hasTouch:true}),errors=[];
   p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>{if(m.type()==='error')errors.push(m.text());});

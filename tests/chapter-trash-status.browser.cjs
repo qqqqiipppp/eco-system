@@ -2,11 +2,12 @@
 // status line still said "쓰레기를 눌러 치워요" with nothing left to tap. It
 // now says the litter is gone and points to the care button.
 const assert=require('node:assert/strict');
+const {asForestStudent}=require('./ux-browser-helpers.cjs');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const base=process.env.BASE_URL||'http://127.0.0.1:8093/eco-system/';
 const launch=process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH,headless:true,args:['--no-sandbox']}:{channel:'msedge',headless:true};
 (async()=>{
- const b=await chromium.launch(launch),p=await b.newPage({viewport:{width:1280,height:800}}),errors=[];
+ const b=asForestStudent(await chromium.launch(launch)),p=await b.newPage({viewport:{width:1280,height:800}}),errors=[];
  p.on('pageerror',e=>errors.push(e.message));
  await p.goto(base);await p.evaluate(()=>{localStorage.clear();localStorage.setItem('eco-system:chapter-progress',JSON.stringify({cleared:['1-1','1-2','1-3','2-1','2-2','2-3','2-4','2-5']}));});
  await p.reload();await p.waitForSelector('.chapter-hud');await p.evaluate(()=>document.querySelectorAll('dialog[open]').forEach(d=>d.close()));

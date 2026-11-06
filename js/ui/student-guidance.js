@@ -1,3 +1,4 @@
+import {themeWords as W} from '../../data/themes.js';
 import {organismById} from '../../data/organisms.js';
 import {foodRelationById} from '../../data/food-relations.js';
 import {activityById} from '../../data/activities.js';
@@ -42,7 +43,7 @@ export function discoveryCopy(relation){
  const food=organismById[relation.sourceSpeciesId].name,consumer=organismById[relation.targetSpeciesId].name;
  return {title:mealSentence(relation).replace(/\.$/,'!'),
   message:particle(consumer,'은','는')+' '+particle(food,'을','를')+' 먹는 소비자예요.',
-  detail:(relation.feedingMode==='resource'?'식물은 남아 있고 먹이가 된 부분은 줄었어요.':'동물 한 마리가 먹혀 숲의 개체 수가 줄었어요.')+' '+(relation.evidenceLevel==='B'?'이 게임에서는 먹이 종류를 대표하는 생물로 나타냈어요. 자연에서는 지역과 상황에 따라 달라요.':'생태 자료를 바탕으로 만든 게임 속 먹이 관계예요.')};
+  detail:(relation.feedingMode==='resource'?'식물은 남아 있고 먹이가 된 부분은 줄었어요.':`동물 한 마리가 먹혀 ${W.place}의 개체 수가 줄었어요.`)+' '+(relation.evidenceLevel==='B'?'이 게임에서는 먹이 종류를 대표하는 생물로 나타냈어요. 자연에서는 지역과 상황에 따라 달라요.':'생태 자료를 바탕으로 만든 게임 속 먹이 관계예요.')};
 }
 export function studentEvent(event){
  const relation=foodRelationById[event.payload?.relationId];
@@ -63,7 +64,7 @@ export function placementHint(speciesId){
  if(habitat.movement==='perching')return '가까운 나뭇가지에서 활동해요.';
  if(habitat.movement==='plant-surface')return '가까운 먹이 식물 주변에 놓아요.';
  if(organismById[speciesId].role==='producer')return particle(organismById[speciesId].name,'은','는')+' 땅에 뿌리를 내려요.';
- return '빈 숲을 누르면 놓고, 이미 있는 생물을 누르면 살펴봐요.';
+ return `빈 ${W.place}을 누르면 놓고, 이미 있는 생물을 누르면 살펴봐요.`;
 }
 export function studentPlacementMessage(result,speciesId){
  if(result.ok)return particle(organismById[result.instance.speciesId].name,'을','를')+' 놓았어요. '+placementHint(result.instance.speciesId);

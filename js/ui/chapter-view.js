@@ -4,7 +4,7 @@ import {stageBlockers,isStuck,taskDone,pondStage,careOptions,needStates,neededCa
 import {currentEnvironmentEvent} from '../systems/environment-events.js';
 import {factorValue,qualityLabel} from '../systems/environment.js';
 import {stageConfig as config,chapters,stages,stageById,crises,crisisForFactor,breeding,growth,invaderPrey} from '../../data/chapters.js';
-import {themes,themeById} from '../../data/themes.js';
+import {themes,themeById,themeWords as W} from '../../data/themes.js';
 import {environmentFactors} from '../../data/environment-config.js';
 import {environmentEventDefinitions} from '../../data/environment-events.js';
 import {foodRelationById} from '../../data/food-relations.js';
@@ -16,7 +16,7 @@ const name=id=>organismById[id].name;
 // An invader that eats only plants (뉴트리아) gnaws them; the others hunt.
 const gnaws=id=>(invaderPrey[id]||[]).every(p=>organismById[p]?.role==='producer');
 const blockerText={
- noConsumer:()=>'아직 소비자가 없어요. 생산자를 먹을 동물 카드를 골라 숲에 놓아 보세요.',
+ noConsumer:()=>`아직 소비자가 없어요. 생산자를 먹을 동물 카드를 골라 ${W.place}에 놓아 보세요.`,
  missing:b=>`${particle(name(b.species[0].id),'이','가')} 부족해요. ${b.species[0].need}마리 이상 있어야 해요.`,
  // Litter still lying: tap it. All picked up but the soil (or air) still bad:
  // nothing left to tap, so name the care button instead.
@@ -27,12 +27,12 @@ const blockerText={
  depleted:()=>'생산자가 거의 다 먹혔어요. 소비자에 비해 먹이가 모자라요.',
  noDecomposition:()=>'낙엽과 죽은 나무가 분해되지 않고 있어요. 분해자가 일할 수 있게 해요.',
  noMeal:()=>'아직 먹는 모습이 보이지 않아요. 소비자가 먹이를 찾을 때까지 지켜봐요.',
- needObserve:b=>{const r=foodRelationById[b.relationId];return `세 번째 숲 별은 ${particle(name(r.targetSpeciesId),'이','가')} ${particle(name(r.sourceSpeciesId),'을','를')} 먹는 모습을 관찰해야 차올라요. 사냥하면 뜨는 💡를 눌러요.`;},
+ needObserve:b=>{const r=foodRelationById[b.relationId];return `세 번째 ${W.place} 별은 ${particle(name(r.targetSpeciesId),'이','가')} ${particle(name(r.sourceSpeciesId),'을','를')} 먹는 모습을 관찰해야 차올라요. 사냥하면 뜨는 💡를 눌러요.`;},
  invader:b=>`외래종 ${particle(name(b.speciesId),'이','가')} 토종 ${gnaws(b.speciesId)?'식물을 갉아 먹고':'생물을 잡아먹고'} 있어요! 빨간 고리를 여러 번 눌러 내보내요.`,
  needGrow:(b,s)=>{const young=Object.keys(growth).find(id=>growth[id].into===b.speciesId),n=name(young),has=s.organisms.some(o=>o.speciesId===young);
   return `세 번째 별은 ${particle(n,'이','가')} 자라 ${particle(name(b.speciesId),'이','가')} 되어야 차올라요. `+(has?`${particle(n,'이','가')} 배고프지 않게 먹이를 넉넉히 둬요.`:`${particle(n,'을','를')} 놓아요.`);},
  needBirth:(b,s)=>{const n=name(b.speciesId),count=s.organisms.filter(o=>o.speciesId===b.speciesId).length;
-  return `세 번째 숲 별은 새로 태어난 ${particle(n,'이','가')} 있어야 차올라요. `+(count<2?`${particle(n,'이','가')} 두 마리 있어야 번식해요. 한 마리를 더 놓아요.`:breedingLine(s)||`${n} 두 마리가 배고프지 않게 지내면 ${promise(breeding.species[b.speciesId])}.`);},
+  return `세 번째 ${W.place} 별은 새로 태어난 ${particle(n,'이','가')} 있어야 차올라요. `+(count<2?`${particle(n,'이','가')} 두 마리 있어야 번식해요. 한 마리를 더 놓아요.`:breedingLine(s)||`${n} 두 마리가 배고프지 않게 지내면 ${promise(breeding.species[b.speciesId])}.`);},
 };
 // How far the stage's own species is along: "멧토끼 짝이 번식을 준비하고 있어요 (30초 남음)".
 // Rounded to 5 s so the spoken status does not change every second.
@@ -58,7 +58,7 @@ const chapterNews=chapter=>[
 export function createChapterView(getState,{forest,theme='forest',themeStore={read:()=>'forest',set(){}},admin={isOn:()=>false,set(){}},cleared,notify,onCatch,onCollect,onBoss=()=>({ok:false}),onChoose=()=>({ok:false}),onPrepare,onStage,onRestart,onCare,openWeb,webComplete,openRecord,reflections=()=>[],onReflect=()=>{}}){
  const seeds=Array.from({length:config.seedsToClear},()=>element('span',{className:'chapter-seed'}));
  const title=element('h2'),eyebrow=element('span',{className:'eyebrow'}),goal=element('p',{className:'chapter-goal'}),tasks=element('ul',{className:'chapter-tasks'});
- const meter=element('progress',{value:0});meter.setAttribute('aria-label','다음 숲 별까지');
+ const meter=element('progress',{value:0});meter.setAttribute('aria-label',`다음 ${W.place} 별까지`);
  const status=element('p',{className:'chapter-status'});status.setAttribute('aria-live','polite');
  const care=element('div',{className:'chapter-care'});
  const mapButton=element('button',{type:'button',textContent:'탐험 지도',onclick:()=>openMap()});
@@ -111,11 +111,11 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
   renderTasks(s,stage);
   seeds.forEach((seed,i)=>seed.classList.toggle('filled',i<c.seeds));
   if(c.seeds>lastSeeds)pop(seeds[c.seeds-1]);lastSeeds=c.seeds;
-  hud.querySelector('.chapter-seeds').setAttribute('aria-label',`숲 별 ${c.seeds}/${config.seedsToClear}`);
+  hud.querySelector('.chapter-seeds').setAttribute('aria-label',`${W.place} 별 ${c.seeds}/${config.seedsToClear}`);
   meter.max=stage.seedSeconds;meter.value=c.cleared?stage.seedSeconds:c.seedProgress;
   const blockers=c.cleared?[]:stageBlockers(s),first=blockers[0];
   const birthDone=c.births.some(b=>b.speciesId===stage.birthRequired),stuck=!c.cleared&&isStuck(s);
-  const text=c.cleared?'숲 별 3개를 모두 모았어요!':stuck?'포인트가 모자라 카드를 살 수 없고, 먹이를 먹는 소비자가 없어서 💡도 생기지 않아요. 이 스테이지를 처음부터 다시 해 봐요.':first?blockerText[first.id](first,s):'생산자와 소비자가 균형을 이뤄 숲 별이 차오르고 있어요.'+(stage.birthRequired&&!birthDone&&breedingLine(s)?' '+breedingLine(s):'');
+  const text=c.cleared?`${W.place} 별 3개를 모두 모았어요!`:stuck?'포인트가 모자라 카드를 살 수 없고, 먹이를 먹는 소비자가 없어서 💡도 생기지 않아요. 이 스테이지를 처음부터 다시 해 봐요.':first?blockerText[first.id](first,s):`생산자와 소비자가 균형을 이뤄 ${W.place} 별이 차오르고 있어요.`+(stage.birthRequired&&!birthDone&&breedingLine(s)?' '+breedingLine(s):'');
   if(status.textContent!==text)status.textContent=text;
   status.dataset.state=c.cleared?'clear':first||stuck?'blocked':'growing';
   renderCare(c.cleared?[]:careOptions(s),s.metrics.points,stuck);
@@ -243,7 +243,7 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
   const justBorn=s.chapter.births.some(x=>x.speciesId===id&&s.simulationTime-x.at<10);
   if(!b.pair.length&&before.pair.length&&!b.pending&&!justBorn&&s.simulationTime-before.at>=20){
    const parents=before.pair.map(pid=>s.organisms.find(o=>o.instanceId===pid));
-   const reason=parents.some(o=>!o)?'짝 한 마리가 숲에서 사라져서':b.count>=breeding.maximum?`숲에 ${particle(n,'이','가')} 이미 많아서`:parents.some(o=>o.hunger>.8)?`${particle(n,'이','가')} 배고파서`:`${particle(n,'이','가')} 약해져서`;
+   const reason=parents.some(o=>!o)?`짝 한 마리가 ${W.place}에서 사라져서`:b.count>=breeding.maximum?`${W.place}에 ${particle(n,'이','가')} 이미 많아서`:parents.some(o=>o.hunger>.8)?`${particle(n,'이','가')} 배고파서`:`${particle(n,'이','가')} 약해져서`;
    notify(`${reason} 번식 준비가 멈췄어요.`,false);before.at=s.simulationTime;
   }
   pairMemory[id]={pair:b.pair,at:before.at};
@@ -297,7 +297,7 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
   care.replaceChildren(...options.map(o=>{
    // Short of points: still tappable, so the student is told why (red flash).
    // (The forest's own message points to its activities, not shown here.)
-   const short=!o.ok&&/포인트가 부족/.test(o.message),message=short?'포인트가 부족해서 할 수 없어요. 숲에서 💡를 잡아 포인트를 모아요.':o.message;
+   const short=!o.ok&&/포인트가 부족/.test(o.message),message=short?`포인트가 부족해서 할 수 없어요. ${W.place}에서 💡를 잡아 포인트를 모아요.`:o.message;
    const button=element('button',{type:'button',disabled:!o.ok&&!short,textContent:`${o.label} ${o.cost}P`,onclick:()=>short?refuse(button,message):onCare(o.factor)});
    if(short)button.setAttribute('aria-disabled','true');
    if(!o.ok)button.title=message;return button;
@@ -355,14 +355,14 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
  function caughtMessage(result){
   const relation=foodRelationById[result.offer.relationId];
   const sentence=relation?mealSentence(relation)+' ':'';
-  return sentence+(result.bonus?'관찰 기록! 숲 별이 조금 더 찼어요.':'관찰 기록! 지금은 숲의 균형이 맞지 않아 숲 별이 차오르지 않아요.');
+  return sentence+(result.bonus?`관찰 기록! ${W.place} 별이 조금 더 찼어요.`:`관찰 기록! 지금은 ${W.place}의 균형이 맞지 않아 ${W.place} 별이 차오르지 않아요.`);
  }
  const actions=buttons=>element('div',{className:'chapter-actions'},buttons.map(([label,onclick])=>element('button',{type:'button',textContent:label,onclick})));
  const show=(children,cls='')=>{dialog.className=`chapter-dialog ${cls}`;dialog.replaceChildren(...children);dialog.showModal();};
  function openIntro(stage){
   shownIntro=stage.stageId;
   show([element('span',{className:'eyebrow',textContent:`챕터 ${stage.chapter.number}`}),element('h2',{textContent:stage.chapter.title}),...chapterNews(stage.chapter),
-   element('p',{className:'chapter-shop-note',textContent:'💡를 잡으면 포인트가 생겨요. 포인트로 생물 카드를 사서 숲에 놓아요.'}),actions([['시작하기',()=>dialog.close()]])]);
+   element('p',{className:'chapter-shop-note',textContent:`💡를 잡으면 포인트가 생겨요. 포인트로 생물 카드를 사서 ${W.place}에 놓아요.`}),actions([['시작하기',()=>dialog.close()]])]);
  }
  // A half-played stage came back after a reload: go on, or start it again
  // (a tablet passed to the next class should not hand over someone's forest).
@@ -370,14 +370,14 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
  function resume(save){
   const s=getState(),stage=stageById[s.chapter.stageId];shownIntro=stage.stageId;
   show([element('span',{className:'eyebrow',textContent:'이어서 하기'}),element('h2',{textContent:`${stage.stageId} ${stage.title}`}),
-   element('p',{textContent:`하던 숲이 남아 있어요. 숲 별 ${s.chapter.seeds}개 · 생물 ${s.organisms.length}개체 · ${s.metrics.points}P · ${ago(Date.now()-save.savedAt)}에 저장했어요.`}),
-   element('p',{className:'chapter-shop-note',textContent:'다른 친구가 하던 숲이라면 처음부터 시작해요.'}),
+   element('p',{textContent:`하던 ${W.place}이 남아 있어요. ${W.place} 별 ${s.chapter.seeds}개 · 생물 ${s.organisms.length}개체 · ${s.metrics.points}P · ${ago(Date.now()-save.savedAt)}에 저장했어요.`}),
+   element('p',{className:'chapter-shop-note',textContent:`다른 친구가 하던 ${W.place}이라면 처음부터 시작해요.`}),
    actions([['이어서 하기',()=>dialog.close()],['처음부터',()=>{dialog.close();onRestart();}]])],'chapter-resume-dialog');
  }
  function openRestart(){
   const stage=stageById[getState().chapter.stageId];
   show([element('h2',{textContent:`${stage.stageId} 처음부터 할까요?`}),
-   element('p',{textContent:'이 스테이지의 숲, 숲 별, 포인트가 처음으로 돌아가요. 이미 깬 스테이지와 나의 먹이그물 기록은 그대로예요.'}),
+   element('p',{textContent:`이 스테이지의 ${W.place}, ${W.place} 별, 포인트가 처음으로 돌아가요. 이미 깬 스테이지와 나의 먹이그물 기록은 그대로예요.`}),
    actions([['계속하기',()=>dialog.close()],['처음부터 하기',()=>{dialog.close();onRestart();}]])]);
  }
  // A button that costs more points than the student has: it flashes red and
@@ -417,8 +417,8 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
   clearInterval(prepareTimer);tick();prepareTimer=setInterval(()=>{left--;tick();if(left<=0)choose('wait');},1000);
   dialog.addEventListener('close',()=>choose('wait'),{once:true});
   show([element('span',{className:'eyebrow',textContent:'대비하기'}),element('h2',{textContent:crisis.notice}),
-   element('p',{textContent:`${crisis.effect} 날씨는 바꿀 수 없지만, 숲을 미리 튼튼하게 만들 수는 있어요. 무엇을 할까요?`}),
-   element('p',{className:'chapter-shop-note',textContent:`약 1분 뒤 날씨가 지나가면 판정해요. 숲 별이 거의 멈추지 않으면 튼튼한 숲 +${config.crisisStrongReward}P, 오래 멈추면 차오르던 숲 별 게이지가 절반 줄어요.`}),
+   element('p',{textContent:`${crisis.effect} 날씨는 바꿀 수 없지만, ${W.place}을 미리 튼튼하게 만들 수는 있어요. 무엇을 할까요?`}),
+   element('p',{className:'chapter-shop-note',textContent:`약 1분 뒤 날씨가 지나가면 판정해요. ${W.place} 별이 거의 멈추지 않으면 튼튼한 ${W.place} +${config.crisisStrongReward}P, 오래 멈추면 차오르던 ${W.place} 별 게이지가 절반 줄어요.`}),
    element('div',{className:'chapter-actions chapter-prepare'},options.map(o=>{
     const button=element('button',{type:'button',disabled:!o.ok,textContent:prepareLabel[o.id](o.speciesId),onclick:()=>{
      const price=o.id==='plant'?buyCheck(getState(),o.speciesId):{ok:true};
@@ -428,18 +428,18 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
  // The verdict at the end of a crisis: what was done, how long the stars
  // stalled, and the reward or the cost.
  const verdict={
-  strong:()=>({cls:'strong',title:'튼튼한 숲!',text:`숲 별이 거의 멈추지 않았어요. 보상 +${config.crisisStrongReward}P`}),
-  held:()=>({cls:'held',title:'겨우 버텼어요',text:'숲 별이 잠깐 멈췄지만 잘 견뎠어요.'}),
-  tired:()=>({cls:'tired',title:'숲이 지쳤어요',text:'숲 별이 오래 멈췄어요. 차오르던 숲 별 게이지가 절반 줄었어요.'}),
+  strong:()=>({cls:'strong',title:`튼튼한 ${W.place}!`,text:`${W.place} 별이 거의 멈추지 않았어요. 보상 +${config.crisisStrongReward}P`}),
+  held:()=>({cls:'held',title:'겨우 버텼어요',text:`${W.place} 별이 잠깐 멈췄지만 잘 견뎠어요.`}),
+  tired:()=>({cls:'tired',title:`${W.place}이 지쳤어요`,text:`${W.place} 별이 오래 멈췄어요. 차오르던 ${W.place} 별 게이지가 절반 줄었어요.`}),
  };
  function reportLines(record){
   const event=environmentEventDefinitions[record.kind],stalled=Math.round(record.stalled),v=(verdict[record.outcome]||verdict.held)(record);
   const done=record.human?`${record.kind==='air-pollution'?'걷어 낸':'치운'} ${crises[record.kind].item}: ${getState().chapter.trashCollected}개`:`고른 대비: ${prepareChosen[record.choice||'wait']}`;
   const lesson=record.human
-   ?(record.outcome==='strong'?'바로 치우고 돌봐서 숲이 덜 망가졌어요.':`${crises[record.kind].item}를 빨리 치우고 숲을 돌볼수록 숲이 덜 지쳐요.`)+' 사람이 만든 문제는 사람이 줄일 수 있어요.'
-   :(record.outcome==='strong'?'생산자가 넉넉해서 숲이 잘 버텼어요.':'먹이가 모자라 숲 별이 멈췄어요. 다음에는 날씨가 오기 전에 생산자를 늘려 봐요.')+' 날씨는 바꿀 수 없지만, 생태계를 튼튼하게 하면 더 잘 버틸 수 있어요.';
+   ?(record.outcome==='strong'?`바로 치우고 돌봐서 ${W.place}이 덜 망가졌어요.`:`${crises[record.kind].item}를 빨리 치우고 ${W.place}을 돌볼수록 ${W.place}이 덜 지쳐요.`)+' 사람이 만든 문제는 사람이 줄일 수 있어요.'
+   :(record.outcome==='strong'?`생산자가 넉넉해서 ${W.place}이 잘 버텼어요.`:`먹이가 모자라 ${W.place} 별이 멈췄어요. 다음에는 날씨가 오기 전에 생산자를 늘려 봐요.`)+' 날씨는 바꿀 수 없지만, 생태계를 튼튼하게 하면 더 잘 버틸 수 있어요.';
   return [element('p',{className:`chapter-verdict ${v.cls}`},[element('strong',{textContent:v.title}),element('span',{textContent:v.text})]),
-   element('p',{textContent:`${done} · ${particle(event.name,'이','가')} 오는 동안 숲 별이 멈춘 시간: ${stalled}초`}),
+   element('p',{textContent:`${done} · ${particle(event.name,'이','가')} 오는 동안 ${W.place} 별이 멈춘 시간: ${stalled}초`}),
    element('p',{className:'chapter-lesson',textContent:lesson})];
  }
  // One question to think back: why it happened or what people can do. The
@@ -487,9 +487,9 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
    planting(),
    element('h2',{textContent:chapterDone?`챕터 ${stage.chapter.number} ${stage.chapter.title} 완료!`:`${c.stageId} 완료!`}),
    ...getState().chapter.crisisLog.filter(r=>!r.reported).flatMap(r=>{markReported(r);return reportLines(r);}),
-   element('p',{textContent:`숲 별 ${config.seedsToClear}개를 모아 숲에 새싹이 돋았어요. 걸린 시간 ${time(c.clearedAt)} · 관찰 ${c.observations}번${c.trashCollected?` · 치운 ${crises[stage.events.find(k=>crises[k].human)]?.item||'쓰레기'} ${c.trashCollected}개`:''}`}),
+   element('p',{textContent:`${W.place} 별 ${config.seedsToClear}개를 모아 ${W.cleared}. 걸린 시간 ${time(c.clearedAt)} · 관찰 ${c.observations}번${c.trashCollected?` · 치운 ${crises[stage.events.find(k=>crises[k].human)]?.item||'쓰레기'} ${c.trashCollected}개`:''}`}),
    ...(next?chapterDone?[element('h3',{textContent:`다음 챕터: ${next.chapter.title}`}),...chapterNews(next.chapter)]:[element('p',{textContent:`다음 스테이지: ${next.stageId} ${next.title}`})]
-    :[element('p',{textContent:'모든 챕터를 마쳤어요! 숲의 먹이그물을 끝까지 지켜 냈어요.'})]),
+    :[element('p',{textContent:`모든 챕터를 마쳤어요! ${W.place}의 먹이그물을 끝까지 지켜 냈어요.`})]),
    ...(webDue?[element('p',{className:'web-due',textContent:`이번 챕터에서 만난 생물로 나의 먹이그물을 이어 그려야 ${next?'다음 챕터가 열려요':'모든 챕터를 마쳐요'}.`})]:[]),
    actions([...(webDue?[['나의 먹이그물 그리기',()=>{dialog.close();openWeb(number);}]]:next?[[chapterDone?'다음 챕터로':'다음 스테이지',()=>{dialog.close();onStage(next.stageId);}]]:[]),['다시 하기',()=>{dialog.close();onStage(c.stageId);}],['탐험 지도',()=>openMap()]]),
   ]);
