@@ -235,7 +235,7 @@ export const riverSpecies = [
   {id: 'otter', name: '수달', role: 'consumer', behaviorType: 'forager', zone: 'water',
     caption: '물고기를 잡아먹어요', description: '물갈퀴 달린 발로 헤엄치는 동물이에요. 강둑의 굴에서 쉬고, 물속에서 물고기를 잡아먹어요. 천연기념물이에요.', habitat: '깨끗한 강과 강둑',
     scientificName: 'Lutra lutra', feeding: {initialHunger: .45, hungerPerSecond: .016, hungryAt: .6, mealRelief: .75, searchRadius: .36, speed: .05},
-    motion: {speedX: .03, speedY: .008, walkSeconds: [1, 2], pauseSeconds: [1, 2], visits: {everySeconds: [20, 40], staySeconds: [4, 7]}}, life: life(90, 120, '여러 해 사는 동물이에요', '마리'), size: [100, 75],
+    motion: {speedX: .03, speedY: .008, walkSeconds: [1, 2], pauseSeconds: [1, 2], visits: {everySeconds: [6, 14], staySeconds: [8, 14], burrow: true}}, life: life(90, 120, '여러 해 사는 동물이에요', '마리'), size: [100, 75],
     starvation: 660, satiety: 360, predatorSatiety: .5,
     card: card('강둑에 굴을 파고 사는 천연기념물이에요. 물이 깨끗한 강에만 살아요.', [['role', '역할', '다른 동물을 잡아먹고 살아서 소비자예요.'], ['eats', '먹는 것', '붕어, 쏘가리, 동사리 같은 물고기와 개구리, 가재를 먹어요.'], ['eatenBy', '나를 먹는 것', '다 자라면 먹는 동물이 거의 없어요.'], ['home', '사는 곳', '강물과 강둑의 굴']])},
   {id: 'largemouth-bass', name: '배스', role: 'consumer', behaviorType: 'forager', zone: 'water', invader: true,
@@ -272,7 +272,8 @@ export const riverSpecies = [
   {id: 'reeves-turtle', name: '남생이', role: 'consumer', behaviorType: 'forager', zone: 'turtle',
     caption: '물풀과 조개를 먹어요', description: '우리나라 토종 거북이에요. 물속을 헤엄치며 마름 같은 물풀과 조개를 먹어요. 천연기념물이에요.', habitat: '강 하류와 저수지',
     scientificName: 'Mauremys reevesii', feeding: {initialHunger: .45, hungerPerSecond: .016, hungryAt: .6, mealRelief: .7, searchRadius: .34, speed: .025},
-    motion: {speedX: .012, speedY: .006, walkSeconds: [1.2, 2.4], pauseSeconds: [1.5, 3]}, life: life(120, 160, '아주 오래 사는 거북이에요', '마리'), size: [72, 54],
+    // It climbs onto the bank now and then to bask (motion.visits, no burrow).
+    motion: {speedX: .012, speedY: .006, walkSeconds: [1.2, 2.4], pauseSeconds: [1.5, 3], visits: {everySeconds: [15, 30], staySeconds: [8, 14]}}, life: life(120, 160, '아주 오래 사는 거북이에요', '마리'), size: [72, 54],
     starvation: 660, satiety: 360, predatorSatiety: .4,
     card: card('등딱지에 세 줄의 솟은 줄이 있는 우리나라 토종 거북이에요.', [['role', '역할', '여러 생물을 먹고 살아서 소비자예요.'], ['eats', '먹는 것', '마름 같은 물풀, 조개, 작은 물고기를 먹어요.'], ['eatenBy', '나를 먹는 것', '다 자라면 단단한 등딱지 덕분에 먹는 동물이 거의 없어요.'], ['wow', '알아 두기', '천연기념물이자 멸종위기 야생생물이에요.']])},
   // A heron wades in the shallow water by the bank and spears fish there.
@@ -442,8 +443,8 @@ export const riverChapters = [
     newSpecies: ['hornwort', 'tape-grass', 'crucian-carp', 'pale-chub', 'sand-gudgeon', 'dark-sleeper', 'mandarin-fish', 'otter'],
     intro: '물살이 느려지고 바닥에 모래가 쌓이는 강이에요. 물풀이 자라고 큰 물고기와 수달이 살아요.',
     art: {src: './assets/images/backgrounds/river-midstream.webp', alt: '물살이 느린 강의 수면과 물속 단면, 모래 바닥, 오른쪽의 모래 물가와 수달 굴이 있는 흙 단면.',
-      // Where an otter leaves the water, the bank's top, and the burrow (hole centre and size).
-      shore: {edge: {x: .71, y: .46}, land: {left: .8, right: .92, y: .41}, burrow: {x: .8375, y: .551, w: .071, h: .112}}}, stages: [
+      // Where an otter leaves the water, the bank's top (inside its slanted edge), and the burrow (hole centre and size).
+      shore: {edge: {x: .71, y: .46}, land: {left: .86, right: .95, top: .08, bottom: .42}, burrow: {x: .8375, y: .551, w: .071, h: .112}}}, stages: [
     {stageId: '3-1', title: '물풀 사이', points: 12, events: [],
       goal: '중류에는 붕어마름과 나사말 같은 물풀이 바닥에 뿌리를 내리고 자라요. 붕어는 물풀을 뜯어 먹어요. 붕어를 길러 강 별 3개를 모아요.',
       tasks: [{text: '붕어 기르기', have: 'crucian-carp'}, {text: '생산자·소비자 균형 잡기', balance: true}],
@@ -474,7 +475,7 @@ export const riverChapters = [
     newSpecies: ['reed', 'water-chestnut', 'common-carp', 'freshwater-clam', 'reeves-turtle', 'grey-heron'],
     intro: '강폭이 넓어지고 물이 느리게 흐르는 곳이에요. 진흙 바닥에 조개가 살고, 물가에는 갈대밭이 펼쳐져요.',
     art: {src: './assets/images/backgrounds/river-downstream.webp', alt: '넓고 느린 강의 수면과 물속 단면, 진흙 바닥, 오른쪽의 넓은 물가와 흙 단면.',
-      shore: {edge: {x: .71, y: .46}, land: {left: .8, right: .92, y: .41}}}, stages: [
+      shore: {edge: {x: .71, y: .46}, land: {left: .86, right: .95, top: .08, bottom: .42}}}, stages: [
     {stageId: '4-1', title: '갈대밭', points: 14, events: [],
       goal: '하류의 물가에는 갈대와 부들이, 물 위에는 마름이 자라요. 잉어는 붕어처럼 물풀을 먹는 큰 물고기예요. 잉어를 길러 강 별 3개를 모아요.',
       tasks: [{text: '잉어 기르기', have: 'common-carp'}, {text: '생산자·소비자 균형 잡기', balance: true}],

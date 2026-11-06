@@ -1,4 +1,4 @@
-import {speciesProfiles} from '../../data/interaction-config.js';
+import {speciesProfiles, placementConfig} from '../../data/interaction-config.js';
 import {feedingConfig} from '../../data/ecology-config.js';
 
 // The head in the burrow: drawn in the hole (burrow: centre and size on the
@@ -25,7 +25,17 @@ export function createBurrowPeek(layer) {
 // burrow and peeks its head out. View only: the model point stays in the water,
 // so feeding, the food web and saves are unchanged; a hunt (or hunger) brings
 // the picture back at once. shore (the chapter's art): edge, where it leaves the
-// water; land, a strip of the bank's top; burrow, the hole in the bank's cut.
+// water; land, an area of the bank's top; burrow, the hole in the bank's cut.
+// A tap on the bank (anywhere right of its slanted edge, above the waterline)
+// for an animal that visits the land: it lives at the water's edge below, and
+// its picture starts on the land where it was put.
+export function landPlacement(speciesId, point, shore) {
+  const profile = speciesProfiles[speciesId];
+  if (!profile?.motion?.visits || !shore?.land || point.y > shore.edge.y || point.x < shore.land.left - .1) return null;
+  const zone = placementConfig.zones[profile.zone], {left, right, top, bottom} = shore.land, clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+  return {water: {x: zone.right - .04, y: clamp(.62, zone.top, zone.bottom)}, land: {x: clamp(point.x, left, right), y: clamp(point.y, top, bottom)}};
+}
+
 export function createVisitPlanner(random = Math.random) {
   const between = ([a, b]) => a + random() * (b - a);
   const waits = new Map();
@@ -34,18 +44,18 @@ export function createVisitPlanner(random = Math.random) {
   const home = o => ({x: o.position.x, y: o.position.y});
   function plan(o, shore, visits) {
     const legs = [{to: shore.edge, seconds: 2.5}];
-    if (shore.burrow && random() < .5) {
+    if (visits.burrow && shore.burrow && random() < .5) {
       const hole = {x: shore.burrow.x, y: shore.burrow.y};
       legs.push({to: shore.edge, seconds: 1, hidden: true}, {to: hole, seconds: between(visits.staySeconds), hidden: true, peek: true, jump: true}, {to: shore.edge, seconds: 1, hidden: true, jump: true});
     } else {
-      const x = () => shore.land.left + random() * (shore.land.right - shore.land.left);
-      const a = {x: x(), y: shore.land.y}, b = {x: x(), y: shore.land.y};
-      // On land it walks (its walk frames, when painted).
-      legs.push({to: a, seconds: 2, walk: true}, {to: b, seconds: between(visits.staySeconds), walk: true}, {to: shore.edge, seconds: 2, walk: true});
+      const stay = between(visits.staySeconds);
+      // On land it walks (its walk frames, when painted) to a few spots on the bank and back.
+      legs.push(...spots(shore, 1, 3), ...spots(shore, 2, stay / 2), {to: shore.edge, seconds: 3, walk: true});
     }
     legs.push({home: true, seconds: 2.5});
-    return {instanceId: o.instanceId, legs, leg: 0, time: 0, clock: 0, from: home(o), facing: 1};
+    return {instanceId: o.instanceId, edge: shore.edge, legs, leg: 0, time: 0, clock: 0, from: home(o), facing: 1};
   }
+  const spots = (shore, n, seconds) => Array.from({length: n}, () => ({to: {x: shore.land.left + random() * (shore.land.right - shore.land.left), y: shore.land.top + random() * (shore.land.bottom - shore.land.top)}, seconds, walk: true}));
   function frame(o) {
     const leg = trip.legs[trip.leg], to = leg.home ? home(o) : leg.to, t = leg.jump ? 1 : Math.min(1, trip.time / leg.seconds);
     const ease = t * t * (3 - 2 * t), x = trip.from.x + (to.x - trip.from.x) * ease, y = trip.from.y + (to.y - trip.from.y) * ease;
@@ -57,7 +67,12 @@ export function createVisitPlanner(random = Math.random) {
     update(organisms, shore, dt) {
       if (trip) {
         const o = organisms.find(item => item.instanceId === trip.instanceId);
-        if (!o || !free(o)) { const id = trip.instanceId; trip = null; return [{instanceId: id, visit: null}]; }
+        if (!o) { const id = trip.instanceId; trip = null; return [{instanceId: id, visit: null}]; }
+        // Hungry or hunting: hurry back by the water's edge (out of the burrow at once).
+        if (!free(o) && !trip.hurry) {
+          const at = frame(o), edge = trip.edge;
+          trip = {...trip, hurry: true, legs: [{to: edge, seconds: at.hidden ? 0 : 1.5, walk: at.walk, jump: at.hidden}, {home: true, seconds: 1.5}], leg: 0, time: 0, from: at.hidden ? edge : at};
+        }
         trip.time += dt; trip.clock += dt;
         while (trip.time >= trip.legs[trip.leg].seconds) {
           const leg = trip.legs[trip.leg];
@@ -78,6 +93,11 @@ export function createVisitPlanner(random = Math.random) {
         return [{instanceId: o.instanceId, visit: frame(o)}];
       }
       return [];
+    },
+    // Put on the land: start there with a walk, then down to the water as usual.
+    startOnLand(o, point, shore) {
+      const stay = between(speciesProfiles[o.speciesId].motion.visits.staySeconds);
+      trip = {instanceId: o.instanceId, edge: shore.edge, legs: [...spots(shore, 2, stay / 2), {to: shore.edge, seconds: 3, walk: true}, {home: true, seconds: 2.5}], leg: 0, time: 0, clock: 0, from: {...point}, facing: 1};
     },
     reset() { trip = null; waits.clear(); },
   };
