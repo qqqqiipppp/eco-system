@@ -1,5 +1,6 @@
 import {webNodes,webRelations,webLevels,checkRole,checkArrow,foodChains,spreadOfChange,webStatus,chapterFactor,roleNames,roleMeaning,wholeWeb} from '../systems/food-web-builder.js';
 import {chapters} from '../../data/chapters.js';
+import {themeWords as W} from '../../data/themes.js';
 import {organismById} from '../../data/organisms.js';
 import {foodRelationById} from '../../data/food-relations.js';
 import {environmentFactors} from '../../data/environment-config.js';
@@ -34,6 +35,12 @@ function wholeLayout(home){
   for(const [level,row] of Object.entries(cells[n]))row.forEach((id,i)=>{pos[id]={x:left+w*(i+.5)/row.length,y:80-66*Number(level)/top};});
   left+=w;});
  return {pos,columns};
+}
+
+// How the parts join: their names, and a few creatures met in more than one.
+function joinedText(home){
+ const own=chapters.filter(c=>c.ownWeb),shared=Object.keys(home).filter(id=>own.filter(c=>webNodes(c.number).includes(id)).length>1).slice(0,3).map(name);
+ return `${own.map(c=>c.title).join(', ')}의 먹이그물이 이어져 ${W.place} 전체의 먹이그물이 되었어요.`+(shared.length?` ${shared.join('·')}처럼 여러 곳에 사는 생물이 먹이그물을 서로 이어 줘요.`:'');
 }
 
 // "나의 먹이그물": sort roles, draw arrows, then see how one change spreads.
@@ -100,7 +107,7 @@ export function createChapterWebView(progress,{onComplete=()=>{},onGuide=null,on
    element('div',{className:'web-head'},[element('h2',{textContent:`나의 먹이그물 · 챕터 ${chapterNumber}`}),element('ol',{className:'web-steps'},steps),
     // The whole reference food web, to look things up while building.
     ...(onReference?[element('button',{type:'button',className:'web-reference',textContent:'📚 먹이그물 참고',onclick:()=>onReference()})]:[]),
-    ...(allDone()?[element('button',{type:'button',className:'web-whole-open',textContent:'🌊 강 전체 먹이그물',onclick:()=>openWhole()})]:[]),element('button',{type:'button',className:'web-close',textContent:'닫기',onclick:()=>dialog.close()})]),
+    ...(allDone()?[element('button',{type:'button',className:'web-whole-open',textContent:`${W.icon} ${W.place} 전체 먹이그물`,onclick:()=>openWhole()})]:[]),element('button',{type:'button',className:'web-close',textContent:'닫기',onclick:()=>dialog.close()})]),
    ...(guide?[element('p',{className:'web-guide',textContent:guide})]:[]),
    board,panel,
   );
@@ -159,8 +166,8 @@ export function createChapterWebView(progress,{onComplete=()=>{},onGuide=null,on
   for(const id of ids){const node=element('div',{className:`web-node role-${organismById[id].role}`},[element('img',{src:visualAsset(id),alt:''}),element('span',{className:'web-node-text'},[element('span',{textContent:name(id)})])]);
    node.style.left=pos[id].x+'%';node.style.top=pos[id].y+'%';node.dataset.speciesId=id;board.append(node);}
   dialog.replaceChildren(
-   element('div',{className:'web-head'},[element('h2',{textContent:'강 전체 먹이그물'}),element('button',{type:'button',className:'web-close',textContent:'닫기',onclick:()=>dialog.close()})]),
-   element('p',{className:'web-guide',textContent:'연못·습지, 상류, 중류, 하류의 먹이그물이 이어져 강 전체의 먹이그물이 되었어요. 돌말·붕어·수달처럼 여러 곳에 사는 생물이 먹이그물을 서로 이어 줘요.'}),
+   element('div',{className:'web-head'},[element('h2',{textContent:`${W.place} 전체 먹이그물`}),element('button',{type:'button',className:'web-close',textContent:'닫기',onclick:()=>dialog.close()})]),
+   element('p',{className:'web-guide',textContent:joinedText(home)}),
    board);
   if(!dialog.open)dialog.showModal();
   drawLines(svg,board,{...p,drawn:relations.map(r=>r.relationId)},relations,[]);

@@ -683,7 +683,7 @@ let used = false;
 export function useRiverTheme() {
   if (used) return;
   used = true;
-  Object.assign(themeWords, {place: '강', cleared: '강에 물고기가 힘차게 헤엄쳐요'});
+  Object.assign(themeWords, {place: '강', icon: '🌊', cleared: '강에 물고기가 힘차게 헤엄쳐요'});
   Object.assign(placementConfig.zones, riverZones);
   Object.assign(habitatZones, riverHabitatZones);
   Object.assign(foodPartLabels, {whole: ''});
