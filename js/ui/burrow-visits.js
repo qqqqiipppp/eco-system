@@ -40,16 +40,17 @@ export function createVisitPlanner(random = Math.random) {
     } else {
       const x = () => shore.land.left + random() * (shore.land.right - shore.land.left);
       const a = {x: x(), y: shore.land.y}, b = {x: x(), y: shore.land.y};
-      legs.push({to: a, seconds: 2}, {to: b, seconds: between(visits.staySeconds)}, {to: shore.edge, seconds: 2});
+      // On land it walks (its walk frames, when painted).
+      legs.push({to: a, seconds: 2, walk: true}, {to: b, seconds: between(visits.staySeconds), walk: true}, {to: shore.edge, seconds: 2, walk: true});
     }
     legs.push({home: true, seconds: 2.5});
-    return {instanceId: o.instanceId, legs, leg: 0, time: 0, from: home(o), facing: 1};
+    return {instanceId: o.instanceId, legs, leg: 0, time: 0, clock: 0, from: home(o), facing: 1};
   }
   function frame(o) {
     const leg = trip.legs[trip.leg], to = leg.home ? home(o) : leg.to, t = leg.jump ? 1 : Math.min(1, trip.time / leg.seconds);
     const ease = t * t * (3 - 2 * t), x = trip.from.x + (to.x - trip.from.x) * ease, y = trip.from.y + (to.y - trip.from.y) * ease;
     if (Math.abs(to.x - trip.from.x) > .005) trip.facing = Math.sign(to.x - trip.from.x);
-    return {x, y, facing: trip.facing, hidden: Boolean(leg.hidden), peek: Boolean(leg.peek)};
+    return {x, y, facing: trip.facing, hidden: Boolean(leg.hidden), peek: Boolean(leg.peek), walk: Boolean(leg.walk), frame: Math.floor(trip.clock / .18)};
   }
   return {
     // Returns what changed: [{instanceId, visit}] with visit null when the picture is back.
@@ -57,7 +58,7 @@ export function createVisitPlanner(random = Math.random) {
       if (trip) {
         const o = organisms.find(item => item.instanceId === trip.instanceId);
         if (!o || !free(o)) { const id = trip.instanceId; trip = null; return [{instanceId: id, visit: null}]; }
-        trip.time += dt;
+        trip.time += dt; trip.clock += dt;
         while (trip.time >= trip.legs[trip.leg].seconds) {
           const leg = trip.legs[trip.leg];
           trip.time -= leg.seconds; trip.from = leg.home ? home(o) : leg.to;

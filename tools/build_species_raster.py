@@ -59,7 +59,7 @@ def build(art: Path, out: Path):
 
 # Growth stages painted as their own base picture (game stage names).
 STAGES = ('nymph', 'sprout', 'mycelium')
-STATES = ('move', 'eat', 'sense', 'leaf-turn')
+STATES = ('move', 'eat', 'sense', 'leaf-turn', 'walk')
 # Animals whose move frames leave the ground (hop or flight; see moveStyles in
 # js/ui/species-visuals.js): their move frames are not held to the ground line.
 AIRBORNE = {'grasshopper', 'frog', 'rabbit', 'chipmunk', 'weasel', 'tit', 'bulbul', 'goshawk'}

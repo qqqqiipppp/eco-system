@@ -246,7 +246,7 @@ export function createOrganismLayer(forest, getOrganisms) {
     setInspectHandler:handler=>{inspectHandler=handler;},setFocused,
     getPresentation:instance=>habitat.position(instance),getHabitatDiagnostics:()=>habitat.diagnostics(),
     reset() { visuals.reset();focusedId=null;membership='';remove([...nodes.keys()]); clearTimeout(feedbackTimer); feedback.hidden=true; keyboardPosition={x:0.4,y:0.72}; namesToggle.setAttribute('aria-pressed','false');layer.classList.remove('show-names');showSelection(null); },
-    paintVisuals: (state,delta,work)=>{for(const frame of visuals.sample(state,delta,work)){const entry=nodes.get(frame.instanceId);if(!entry)continue;if(entry.facing!==frame.facing){entry.image.style.setProperty('--facing',frame.facing);entry.facing=frame.facing;}const key=frame.src+'|'+frame.motion+'|'+frame.frame;if(entry.visualKey!==key){entry.visualKey=key;entry.anchor.dataset.visualState=frame.motion;entry.anchor.dataset.visualFrame=frame.frame;if(entry.image.getAttribute('src')!==frame.src)entry.image.src=frame.src;}if(frame.hop||entry.hopOffset||entry.hopLift)paintHop(entry,frame.hop);}},
+    paintVisuals: (state,delta,work)=>{for(const frame of visuals.sample(state,delta,work)){const entry=nodes.get(frame.instanceId);if(!entry)continue;if(entry.facing!==frame.facing){entry.image.style.setProperty('--facing',frame.facing);entry.facing=frame.facing;}const key=frame.src+'|'+frame.motion+'|'+frame.frame;if(entry.visualKey!==key&&!entry.visit?.walk){entry.visualKey=key;entry.anchor.dataset.visualState=frame.motion;entry.anchor.dataset.visualFrame=frame.frame;if(entry.image.getAttribute('src')!==frame.src)entry.image.src=frame.src;}if(frame.hop||entry.hopOffset||entry.hopLift)paintHop(entry,frame.hop);}},
     showStates: instances => {
       const nextTargets=new Set(instances.filter(o=>feedingConfig[o.speciesId]?.huntMode==='ambush'&&['moveToFood','eat'].includes(o.behaviorState)).map(o=>o.targetInstanceId).filter(Boolean));
       for (const instance of instances) {
@@ -260,7 +260,8 @@ export function createOrganismLayer(forest, getOrganisms) {
     getLayout: () => layout,
     getEventAnchor: instanceId => nodes.get(instanceId)?.anchor,
     paintChanges: changed => { for (const { instance, direction } of changed) paint(instance, direction); },
-    setVisit(instanceId,visit){const entry=nodes.get(instanceId),instance=getOrganisms().find(o=>o.instanceId===instanceId);if(!entry||!instance)return;entry.visit=visit;entry.anchor.classList.toggle('is-away',Boolean(visit?.hidden));paint(instance,visit?.facing);},
+    // On land the visit shows the walk frames; back in the water the usual frames return.
+    setVisit(instanceId,visit){const entry=nodes.get(instanceId),instance=getOrganisms().find(o=>o.instanceId===instanceId);if(!entry||!instance)return;entry.visit=visit;entry.anchor.classList.toggle('is-away',Boolean(visit?.hidden));paint(instance,visit?.facing);if(visit?.walk){const src=visualAsset(instance.speciesId,'walk',visit.frame);if(entry.image.getAttribute('src')!==src)entry.image.src=src;entry.visualKey='';}},
     dispose() { forest.removeEventListener('click',inspectInput);namesToggle.removeEventListener('click',toggleNames);observer.disconnect(); window.removeEventListener('resize', measure); clearTimeout(feedbackTimer); },
   };
 }
