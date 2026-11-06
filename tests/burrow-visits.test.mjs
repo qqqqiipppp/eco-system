@@ -23,6 +23,9 @@ test('a midstream otter visits the bank and peeks out of its burrow, then swims 
  assert.ok(frames.some(f=>f.visit?.peek),'its head peeks out of the burrow');
  assert.ok(frames.some(f=>f.visit&&!f.visit.hidden&&inside(bank,f.visit)),'it walks on the bank');
  for(const f of frames.filter(f=>f.visit?.peek))assert.ok(f.visit.hidden,'its body is hidden while the head peeks');
+ // On the bank it walks (its walk frames); in the water it swims as always.
+ for(const f of frames.filter(f=>f.visit&&!f.visit.hidden)){if(inside(bank,f.visit))assert.ok(f.visit.walk&&f.visit.frame>=0,'walks on the bank');if(f.visit.y>=water.top)assert.ok(!f.visit.walk,'swims in the water');}
+ assert.ok(new Set(frames.filter(f=>f.visit?.walk).map(f=>f.visit.frame)).size>=4,'all four walk frames');
  // Every trip ends where the otter really is, in the water.
  const ends=frames.filter((f,i)=>f.visit===null&&frames[i-1]?.visit);assert.ok(ends.length>=2,'several trips');
  for(const e of ends){const last=frames[frames.indexOf(e)-1].visit;assert.ok(Math.hypot(last.x-o.position.x,last.y-o.position.y)<.02&&inside(water,last),'back home');}

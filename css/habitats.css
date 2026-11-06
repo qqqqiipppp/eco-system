@@ -23,5 +23,7 @@
 /* The otter in its burrow: its picture is away, its head peeks out of the hole. */
 .organism-object.is-away{opacity:0;pointer-events:none;transition:opacity .4s}
 .burrow-peek{position:absolute;z-index:1;pointer-events:none;overflow:hidden;clip-path:ellipse(50% 50% at 50% 50%)}
-.burrow-peek img{position:absolute;left:50%;bottom:-6%;width:88%;transform:translate(-50%,100%);transition:transform .6s ease-out}
-.burrow-peek.is-up img{transform:translate(-50%,0)}
+/* The square head picture is as wide as the hole and starts a little above it
+   (as in the art's own burrow check); its neck stays below, out of the hole. */
+.burrow-peek img{position:absolute;left:0;top:-26%;width:100%;transform:translateY(100%);transition:transform .6s ease-out}
+.burrow-peek.is-up img{transform:translateY(0)}

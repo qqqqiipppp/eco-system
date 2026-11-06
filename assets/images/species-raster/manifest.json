@@ -2385,7 +2385,92 @@
     248,
     174
    ],
-   "bytes": 5048
+   "bytes": 5048,
+   "frames": {
+    "eat-0": {
+     "file": "otter-eat-0.webp",
+     "source": "otter-eat-0.png",
+     "sourceSha256": "6cba1341f38e6c4f42a1dba4b1315978fba99e77247ecbd3f637b93f12a83779",
+     "checks": [],
+     "bytes": 5422
+    },
+    "eat-1": {
+     "file": "otter-eat-1.webp",
+     "source": "otter-eat-1.png",
+     "sourceSha256": "32583fe1bdd13b0a0cf192da1dbc1a02543c26063ef5039f2a303c3fcca48e43",
+     "checks": [],
+     "bytes": 5468
+    },
+    "eat-2": {
+     "file": "otter-eat-2.webp",
+     "source": "otter-eat-2.png",
+     "sourceSha256": "40ce97c2f12c042c14e7d90179eee5e79b5b52072cf1e887bbd89f89434d09a5",
+     "checks": [],
+     "bytes": 5290
+    },
+    "move-0": {
+     "file": "otter-move-0.webp",
+     "source": "otter-move-0.png",
+     "sourceSha256": "3844d4939f94424c47651e50f3f4c722ccc9f98b35005d40071f526ebb553773",
+     "checks": [],
+     "bytes": 5342
+    },
+    "move-1": {
+     "file": "otter-move-1.webp",
+     "source": "otter-move-1.png",
+     "sourceSha256": "69255c9ed8c8054f099ea2b585610daf4c18d58c360edb1f15779b11d64e9b7f",
+     "checks": [],
+     "bytes": 5554
+    },
+    "move-2": {
+     "file": "otter-move-2.webp",
+     "source": "otter-move-2.png",
+     "sourceSha256": "5a54aabd7be62cc0f140b61b0e187929e88c9e5f0687efce2e8e44acefd7f418",
+     "checks": [],
+     "bytes": 5490
+    },
+    "move-3": {
+     "file": "otter-move-3.webp",
+     "source": "otter-move-3.png",
+     "sourceSha256": "70eb8a0c04af80eabbb1b56a4353a5bda2e38590525269ee141c3677bfe3109d",
+     "checks": [],
+     "bytes": 5376
+    },
+    "walk-0": {
+     "file": "otter-walk-0.webp",
+     "source": "otter-walk-0.png",
+     "sourceSha256": "60598522c6c6452a93da0aea5fb74cbc770850bcb52c84fb05448a88e50e07a1",
+     "checks": [
+      "발 높이가 기본 그림과 +7px 달라요"
+     ],
+     "bytes": 6242
+    },
+    "walk-1": {
+     "file": "otter-walk-1.webp",
+     "source": "otter-walk-1.png",
+     "sourceSha256": "c15c7fa1927c5631f34374b51ab46ce5d20a10a6e3b72d63d72945101a72c01f",
+     "checks": [],
+     "bytes": 6130
+    },
+    "walk-2": {
+     "file": "otter-walk-2.webp",
+     "source": "otter-walk-2.png",
+     "sourceSha256": "65e56babdffb0513334b04755328f41bd61380f07c668d96300913209fca49ff",
+     "checks": [
+      "발 높이가 기본 그림과 +5px 달라요"
+     ],
+     "bytes": 5918
+    },
+    "walk-3": {
+     "file": "otter-walk-3.webp",
+     "source": "otter-walk-3.png",
+     "sourceSha256": "ed780660cf6e8188448b7f032f18a6931556547edec6ce45a10be438ae6710ed",
+     "checks": [
+      "발 높이가 기본 그림과 +5px 달라요"
+     ],
+     "bytes": 6084
+    }
+   }
   },
   "largemouth-bass": {
    "file": "largemouth-bass.webp",
