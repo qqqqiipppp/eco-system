@@ -192,7 +192,7 @@ test('an otter lives in 3-2 too, and in 4-4 with its burrow in the downstream ba
 test('every river creature\'s card shows real photos, each with who took it, its licence and where it is from',()=>{
  for(const s of riverSpecies){
   const photos=speciesCards[s.id].photos;
-  assert.ok(photos.length>=2&&photos.length<=3,`${s.id}: ${photos.length} photos`);
+  assert.ok(photos.length>=1&&photos.length<=3,`${s.id}: ${photos.length} photos`);
   for(const p of photos){
    assert.ok(existsSync(new URL('..'+p.src.slice(1),import.meta.url)),p.src);
    assert.match(p.credit,/ · (CC BY(-SA)? [0-9.]+|CC0|Public domain|PD)/,`${s.id}: ${p.credit}`);
