@@ -15,9 +15,9 @@ export const roleMeaning = {
   decomposer: '죽은 생물과 낙엽을 분해해 양분을 흙으로 돌려보내요.',
 };
 
-// Every creature met up to and including this chapter: the forest's web grows.
-// A chapter with its own web (ownWeb: each part of the river is its own place)
-// shows only the creatures met in it, cards and starting ones alike.
+// A chapter with its own web (ownWeb: the forest's and the river's chapters)
+// shows only the creatures met in it, cards and starting ones alike; without
+// it the web would grow with every creature met up to this chapter.
 const metIn = c => [...new Set([...c.newSpecies, ...c.stages.flatMap(s => [...s.inventory, ...s.organisms.map(o => o[0])])])].filter(id => !organismById[id].invader);
 export const webNodes = chapterNumber => {
   const own = chapters.find(c => c.number === chapterNumber);
