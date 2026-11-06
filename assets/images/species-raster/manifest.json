@@ -2055,7 +2055,59 @@
     248,
     174
    ],
-   "bytes": 7896
+   "bytes": 7896,
+   "frames": {
+    "eat-0": {
+     "file": "caddisfly-larva-eat-0.webp",
+     "source": "caddisfly-larva-eat-0.png",
+     "sourceSha256": "696ade6e5ead6e0714f02e07437f750e018e6b0096c2942f136dac33bf473bde",
+     "checks": [
+      "발 높이가 기본 그림과 -5px 달라요"
+     ],
+     "bytes": 7958
+    },
+    "eat-1": {
+     "file": "caddisfly-larva-eat-1.webp",
+     "source": "caddisfly-larva-eat-1.png",
+     "sourceSha256": "7af245d027db7692ff365b614d1c524ec8e094411b8ce3089b28e4b7eb8530a5",
+     "checks": [
+      "발 높이가 기본 그림과 -5px 달라요"
+     ],
+     "bytes": 7798
+    },
+    "move-0": {
+     "file": "caddisfly-larva-move-0.webp",
+     "source": "caddisfly-larva-move-0.png",
+     "sourceSha256": "865fe16f06f0c944c669601dae8a68c0084bbf455f2023f9d55526fafa3c8b47",
+     "checks": [
+      "발 높이가 기본 그림과 -5px 달라요"
+     ],
+     "bytes": 7920
+    },
+    "move-1": {
+     "file": "caddisfly-larva-move-1.webp",
+     "source": "caddisfly-larva-move-1.png",
+     "sourceSha256": "3ac349658c7f2eb705cfa7d6b4ff00d9d3718e95baf10e82953e61e5242b1456",
+     "checks": [
+      "발 높이가 기본 그림과 -5px 달라요"
+     ],
+     "bytes": 7840
+    },
+    "move-2": {
+     "file": "caddisfly-larva-move-2.webp",
+     "source": "caddisfly-larva-move-2.png",
+     "sourceSha256": "3d2bcc46ec0b552a1ede5c00591516bee2fc1712d023f81e5d10920f58abe454",
+     "checks": [],
+     "bytes": 7828
+    },
+    "move-3": {
+     "file": "caddisfly-larva-move-3.webp",
+     "source": "caddisfly-larva-move-3.png",
+     "sourceSha256": "6871fcfedc860cd5f3aa73d642013f8e08c362bc5ea2f6c3439be6df06e986de",
+     "checks": [],
+     "bytes": 7726
+    }
+   }
   },
   "melania-snail": {
    "file": "melania-snail.webp",
@@ -2077,7 +2129,63 @@
     186,
     174
    ],
-   "bytes": 5552
+   "bytes": 5552,
+   "frames": {
+    "eat-0": {
+     "file": "melania-snail-eat-0.webp",
+     "source": "melania-snail-eat-0.png",
+     "sourceSha256": "ddd299231e4025420e7f91fd14eaa424b143b221653071cc83ea3751571c714f",
+     "checks": [
+      "발 높이가 기본 그림과 -7px 달라요"
+     ],
+     "bytes": 5480
+    },
+    "eat-1": {
+     "file": "melania-snail-eat-1.webp",
+     "source": "melania-snail-eat-1.png",
+     "sourceSha256": "c2b84b51772764a95db82a9f6522a8280521f40a30f6bde43b8c1af3f5f6398e",
+     "checks": [
+      "발 높이가 기본 그림과 -6px 달라요"
+     ],
+     "bytes": 5390
+    },
+    "move-0": {
+     "file": "melania-snail-move-0.webp",
+     "source": "melania-snail-move-0.png",
+     "sourceSha256": "8c704bbacd77e346d6f4c42f33d4c3426176372ccf2256a61ff7537f9ff16c20",
+     "checks": [
+      "발 높이가 기본 그림과 -6px 달라요"
+     ],
+     "bytes": 5442
+    },
+    "move-1": {
+     "file": "melania-snail-move-1.webp",
+     "source": "melania-snail-move-1.png",
+     "sourceSha256": "4163c296d226a08ad90b24b95cb97435e27d90a3511e31d2cc7d84210902666e",
+     "checks": [
+      "발 높이가 기본 그림과 -7px 달라요"
+     ],
+     "bytes": 5216
+    },
+    "move-2": {
+     "file": "melania-snail-move-2.webp",
+     "source": "melania-snail-move-2.png",
+     "sourceSha256": "c846f7b57a19c7972f944f2f65e06589fc28856827d91e21fc1027f125ab051a",
+     "checks": [
+      "발 높이가 기본 그림과 -7px 달라요"
+     ],
+     "bytes": 4830
+    },
+    "move-3": {
+     "file": "melania-snail-move-3.webp",
+     "source": "melania-snail-move-3.png",
+     "sourceSha256": "605ca4767142fdedd8984d2ab02215ed33aa92a90112e17ca63fcaf1dcfde433",
+     "checks": [
+      "발 높이가 기본 그림과 -8px 달라요"
+     ],
+     "bytes": 5386
+    }
+   }
   },
   "amphipod": {
    "file": "amphipod.webp",
@@ -2099,7 +2207,51 @@
     248,
     174
    ],
-   "bytes": 12000
+   "bytes": 12000,
+   "frames": {
+    "eat-0": {
+     "file": "amphipod-eat-0.webp",
+     "source": "amphipod-eat-0.png",
+     "sourceSha256": "9111417fe15ca066514c301c0c9577bdc24766daeb0f90b954fa42f1e834a6f1",
+     "checks": [],
+     "bytes": 11970
+    },
+    "eat-1": {
+     "file": "amphipod-eat-1.webp",
+     "source": "amphipod-eat-1.png",
+     "sourceSha256": "24941f7a60407a3f2158277348b2e874b547f87cfec27fe1f583d7651a9bbee9",
+     "checks": [],
+     "bytes": 12544
+    },
+    "move-0": {
+     "file": "amphipod-move-0.webp",
+     "source": "amphipod-move-0.png",
+     "sourceSha256": "f9cf2436d6a8839f04e74c9db170e680ee9506519b9ba425174645e3006cf9ce",
+     "checks": [],
+     "bytes": 12902
+    },
+    "move-1": {
+     "file": "amphipod-move-1.webp",
+     "source": "amphipod-move-1.png",
+     "sourceSha256": "ec8fc54ce055667f0167a09c62a1338333914751c6bd1cccd9601021962ee613",
+     "checks": [],
+     "bytes": 12730
+    },
+    "move-2": {
+     "file": "amphipod-move-2.webp",
+     "source": "amphipod-move-2.png",
+     "sourceSha256": "f9d2f573d1e820569269ad7166dfd6472f225f425c1f731ed45c94e63f4d22f0",
+     "checks": [],
+     "bytes": 12610
+    },
+    "move-3": {
+     "file": "amphipod-move-3.webp",
+     "source": "amphipod-move-3.png",
+     "sourceSha256": "cac8e41d9b3def7ca6bc860659d7b788573b2f9a3f8fb65dda5be8dddbd2e580",
+     "checks": [],
+     "bytes": 12680
+    }
+   }
   },
   "minnow": {
    "file": "minnow.webp",
@@ -2121,7 +2273,51 @@
     248,
     174
    ],
-   "bytes": 5950
+   "bytes": 5950,
+   "frames": {
+    "eat-0": {
+     "file": "minnow-eat-0.webp",
+     "source": "minnow-eat-0.png",
+     "sourceSha256": "46ff2bae4504a61955796aaa5bb0ce49bef6412b7d94d8ffb18ecaa4351b9afb",
+     "checks": [],
+     "bytes": 6054
+    },
+    "eat-1": {
+     "file": "minnow-eat-1.webp",
+     "source": "minnow-eat-1.png",
+     "sourceSha256": "6a50c866161a54c5281a3e4d101f3942540b6e7d2b71b62accfc939d566a688e",
+     "checks": [],
+     "bytes": 5990
+    },
+    "move-0": {
+     "file": "minnow-move-0.webp",
+     "source": "minnow-move-0.png",
+     "sourceSha256": "4bcd3ad9eaa5a9a33f647a4ff424d030f759eea8dd0f86ccb694840a34215035",
+     "checks": [],
+     "bytes": 6070
+    },
+    "move-1": {
+     "file": "minnow-move-1.webp",
+     "source": "minnow-move-1.png",
+     "sourceSha256": "143c022f26d6c59a0fa3d47ad399ab95df473bf11396178208e7fccf56913984",
+     "checks": [],
+     "bytes": 5710
+    },
+    "move-2": {
+     "file": "minnow-move-2.webp",
+     "source": "minnow-move-2.png",
+     "sourceSha256": "65ee0e0b726ae8307072806546885a4515bb5fb7d3a3fda6f9201ba84020a9eb",
+     "checks": [],
+     "bytes": 6022
+    },
+    "move-3": {
+     "file": "minnow-move-3.webp",
+     "source": "minnow-move-3.png",
+     "sourceSha256": "c68670bd9e8bdefe4e7f3c8b8f479a951cba38fd8b28510fa3dda7bd920f1352",
+     "checks": [],
+     "bytes": 5752
+    }
+   }
   },
   "native-crayfish": {
    "file": "native-crayfish.webp",
@@ -2143,7 +2339,58 @@
     248,
     174
    ],
-   "bytes": 11268
+   "bytes": 11268,
+   "frames": {
+    "eat-0": {
+     "file": "native-crayfish-eat-0.webp",
+     "source": "native-crayfish-eat-0.png",
+     "sourceSha256": "239e33f0fb4e20764877e1716786b4603d95613d7e4c277a17b4b1965bc85926",
+     "checks": [],
+     "bytes": 11496
+    },
+    "eat-1": {
+     "file": "native-crayfish-eat-1.webp",
+     "source": "native-crayfish-eat-1.png",
+     "sourceSha256": "b1d3af416b4339f118e233d79c95b4bc09a871ebd4495dde6851917bb353d911",
+     "checks": [],
+     "bytes": 11462
+    },
+    "eat-2": {
+     "file": "native-crayfish-eat-2.webp",
+     "source": "native-crayfish-eat-2.png",
+     "sourceSha256": "6bb59c013d4a41dcee9df8349a27c66640d8dc5f34e82c47b60ac4a2f4213a34",
+     "checks": [],
+     "bytes": 11898
+    },
+    "move-0": {
+     "file": "native-crayfish-move-0.webp",
+     "source": "native-crayfish-move-0.png",
+     "sourceSha256": "e80bbdb29c14fc1006712acbc588d189956f25f67d50d96d02e754f9b487f474",
+     "checks": [],
+     "bytes": 11728
+    },
+    "move-1": {
+     "file": "native-crayfish-move-1.webp",
+     "source": "native-crayfish-move-1.png",
+     "sourceSha256": "c62ce176e6e9e4b2e6a6d4c698fc0095fea57e13bd12670e2a48cf816d420b11",
+     "checks": [],
+     "bytes": 11266
+    },
+    "move-2": {
+     "file": "native-crayfish-move-2.webp",
+     "source": "native-crayfish-move-2.png",
+     "sourceSha256": "448c98e536370dc9538133df5e04b41d945f21f426974763a090e8e423c0b407",
+     "checks": [],
+     "bytes": 11428
+    },
+    "move-3": {
+     "file": "native-crayfish-move-3.webp",
+     "source": "native-crayfish-move-3.png",
+     "sourceSha256": "fe7091001d50f96f4cb7207d6e8857a8b728e224465ae840e64b69527851000b",
+     "checks": [],
+     "bytes": 11510
+    }
+   }
   },
   "korean-catfish": {
    "file": "korean-catfish.webp",
@@ -2165,7 +2412,58 @@
     248,
     174
    ],
-   "bytes": 5216
+   "bytes": 5216,
+   "frames": {
+    "eat-0": {
+     "file": "korean-catfish-eat-0.webp",
+     "source": "korean-catfish-eat-0.png",
+     "sourceSha256": "552fb2ba723aef427b4dc184b79ef19e937e23191ae80fdcb6467b79fc6c22e6",
+     "checks": [],
+     "bytes": 5494
+    },
+    "eat-1": {
+     "file": "korean-catfish-eat-1.webp",
+     "source": "korean-catfish-eat-1.png",
+     "sourceSha256": "767e97d08f94624d74570549e5d91d5d8383b2085bfd92b6e2f4e58862b0d007",
+     "checks": [],
+     "bytes": 5414
+    },
+    "eat-2": {
+     "file": "korean-catfish-eat-2.webp",
+     "source": "korean-catfish-eat-2.png",
+     "sourceSha256": "44f6d3840ee95652c59ee112124bb64c0701bc358a4874d741fc2351bbdf5a3b",
+     "checks": [],
+     "bytes": 5406
+    },
+    "move-0": {
+     "file": "korean-catfish-move-0.webp",
+     "source": "korean-catfish-move-0.png",
+     "sourceSha256": "c1fef3f3cde77c356c8c81f3da057c60b8294960b9d22aaecb60ca2960694880",
+     "checks": [],
+     "bytes": 5424
+    },
+    "move-1": {
+     "file": "korean-catfish-move-1.webp",
+     "source": "korean-catfish-move-1.png",
+     "sourceSha256": "ebfdf30877c04428432934808f928a47b16d5ef14a787d8ccad15b27c48da4a2",
+     "checks": [],
+     "bytes": 5326
+    },
+    "move-2": {
+     "file": "korean-catfish-move-2.webp",
+     "source": "korean-catfish-move-2.png",
+     "sourceSha256": "c218109e4f29c56f5536e3bd2420d0514b1da6d15ccc6ff67f3623b8ee58a59e",
+     "checks": [],
+     "bytes": 5460
+    },
+    "move-3": {
+     "file": "korean-catfish-move-3.webp",
+     "source": "korean-catfish-move-3.png",
+     "sourceSha256": "d75d0c4573ce70569a3e54625dd17649b1fcbf5871414f63b27b9ef15e558040",
+     "checks": [],
+     "bytes": 5248
+    }
+   }
   },
   "aucha-perch": {
    "file": "aucha-perch.webp",
@@ -2187,7 +2485,58 @@
     248,
     174
    ],
-   "bytes": 8668
+   "bytes": 8668,
+   "frames": {
+    "eat-0": {
+     "file": "aucha-perch-eat-0.webp",
+     "source": "aucha-perch-eat-0.png",
+     "sourceSha256": "515f476322a7de9f75678fa131745b2976839c90a523f1a024b3700b119ef344",
+     "checks": [],
+     "bytes": 8878
+    },
+    "eat-1": {
+     "file": "aucha-perch-eat-1.webp",
+     "source": "aucha-perch-eat-1.png",
+     "sourceSha256": "a643f9d9eedf97a81e77ff351b7729104a1c911b62908f5bf20a32e5536ce8c1",
+     "checks": [],
+     "bytes": 8974
+    },
+    "eat-2": {
+     "file": "aucha-perch-eat-2.webp",
+     "source": "aucha-perch-eat-2.png",
+     "sourceSha256": "fc14ad5dc5baf064d8054a5fff35e150cecfbc128670d48bd420ea0354cf8679",
+     "checks": [],
+     "bytes": 8848
+    },
+    "move-0": {
+     "file": "aucha-perch-move-0.webp",
+     "source": "aucha-perch-move-0.png",
+     "sourceSha256": "5eff24d81c92eaa6635a6f0b14980045c25b5af78d536573162824dc1c4df821",
+     "checks": [],
+     "bytes": 8870
+    },
+    "move-1": {
+     "file": "aucha-perch-move-1.webp",
+     "source": "aucha-perch-move-1.png",
+     "sourceSha256": "8d417bc556e6d93708d8abb48e89a7aac6fa6e1eac0ffd737a256b660ef97af5",
+     "checks": [],
+     "bytes": 8672
+    },
+    "move-2": {
+     "file": "aucha-perch-move-2.webp",
+     "source": "aucha-perch-move-2.png",
+     "sourceSha256": "4557f21cd457436499a94933bad4cea3df011ad9372dd9867a2caaf2a2b8e5b6",
+     "checks": [],
+     "bytes": 9182
+    },
+    "move-3": {
+     "file": "aucha-perch-move-3.webp",
+     "source": "aucha-perch-move-3.png",
+     "sourceSha256": "cf4ac7608f9ffcc8f1aeef103fd817f66ee0258d9b0ab2e76bfca2ee634dc3a9",
+     "checks": [],
+     "bytes": 8608
+    }
+   }
   },
   "water-decomposer": {
    "file": "water-decomposer.webp",
