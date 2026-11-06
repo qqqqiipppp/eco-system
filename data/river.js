@@ -674,8 +674,15 @@ const riverEvents = {
 };
 
 // Breeding in a stage, as in the forest: two fed parents make a young one.
+// In every part of the river a food animal breeds, so the web holds when it is eaten.
 const riverBreeding = {
   daphnia: {healthySeconds: 30, waitSeconds: 15, sign: '알', young: '새끼', cycle: '어미 몸속의 알주머니에서 새끼가 나와 금방 자라요.'},
+  medaka: {healthySeconds: 45, waitSeconds: 25, sign: '알', young: '치어', cycle: '물풀에 알을 붙여 낳으면, 알에서 치어가 깨어나 자라요.'},
+  'pond-snail': {healthySeconds: 45, waitSeconds: 25, sign: '곧 태어나요', soon: true, young: '새끼', cycle: '몸속에서 알을 품었다가 껍데기가 있는 새끼를 낳아요.'},
+  amphipod: {healthySeconds: 40, waitSeconds: 20, sign: '알주머니', young: '새끼', cycle: '암컷이 배 밑의 알주머니에 알을 품고, 새끼가 나와 자라요.'},
+  'melania-snail': {healthySeconds: 45, waitSeconds: 25, sign: '곧 태어나요', soon: true, young: '새끼', cycle: '몸속에서 알을 품었다가 작은 새끼를 낳아요.'},
+  'pale-chub': {healthySeconds: 45, waitSeconds: 25, sign: '알', young: '치어', cycle: '여울의 자갈 바닥에 알을 낳으면, 알에서 치어가 깨어나 자라요.'},
+  'crucian-carp': {healthySeconds: 50, waitSeconds: 25, sign: '알', young: '치어', cycle: '봄에 물풀에 알을 붙여 낳으면, 알에서 치어가 깨어나 자라요.'},
 };
 
 let used = false;

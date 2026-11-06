@@ -3,7 +3,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {useRiverTheme,riverSpecies,riverFoodRelations} from '../data/river.js';
-import {stages,stageById,chapters} from '../data/chapters.js';
+import {stages,stageById,chapters,breeding} from '../data/chapters.js';
 import {organisms,organismById} from '../data/organisms.js';
 import {placementConfig,speciesProfiles} from '../data/interaction-config.js';
 import {foodRelations} from '../data/food-relations.js';
@@ -144,4 +144,17 @@ for(const [stageId,kind] of [['2-4','valley-trash'],['3-3','sewage'],['4-2','fac
  const w=chooseCrisisAction(s,wrong);assert.ok(!w.ok&&w.why,'a wrong choice says why');
  assert.ok(chooseCrisisAction(s,right).ok);assert.equal(crisisChoice(s),null);
  assert.ok(collectTrash(s,s.chapter.trash[0].trashId).ok,'now it can be cleaned up');
+});
+
+test('in every part of the river a food animal breeds, and a fed pair has young',()=>{
+ for(const c of chapters){
+  const met=new Set(c.stages.flatMap(st=>[...st.inventory,...st.organisms.map(o=>o[0])]));
+  const breeders=[...met].filter(id=>breeding.species[id]&&foodRelations.some(r=>r.sourceSpeciesId===id));
+  assert.ok(breeders.length>=1,`${c.chapterId}: ${breeders}`);
+ }
+ const s=createStageGameState(stageById['1-1']),f=createFeedingSystem(0);
+ assert.ok(place(s,'medaka')&&place(s,'medaka'),'a pair of medaka');
+ let young=null;
+ for(let t=0;t<3000&&!young;t++){const r=f.update(s,.1,layout);if(!r.ticked)continue;young=updateStage(s,.5,r.feedingEvents).born?.find(o=>o.speciesId==='medaka')||young;}
+ assert.ok(young&&isPositionAllowed('medaka',young.position,layout),'a young medaka in the water');
 });
