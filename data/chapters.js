@@ -197,6 +197,8 @@ export const breeding = {
 // a frog): fed for seconds, it becomes the grown species in that one's own
 // living space. Filled by a theme (data/river.js); the forest has none.
 export const growth = {};
+// A stage's picture: its own (4-4's bank with the otter's burrow), else its chapter's.
+export const stageArt = stage => stage.art ?? stage.chapter.art;
 // What each invader (stage.boss) eats while it stays: species -> native prey ids.
 export const invaderPrey = {};
 

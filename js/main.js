@@ -20,7 +20,7 @@ import {foodRelationById} from '../data/food-relations.js';
 import {createChapterView} from './ui/chapter-view.js';
 import {createChapterWebView} from './ui/chapter-web-view.js';
 import {createChapterRecordView} from './ui/chapter-record-view.js';
-import {stages,stageById,breeding} from '../data/chapters.js';
+import {stages,stageById,breeding,stageArt} from '../data/chapters.js';
 import {sceneSpaces} from '../data/forest-spaces.js';
 import {environmentEventDefinitions} from '../data/environment-events.js';
 import { createForestView, showSaveStatus } from './ui/forest-view.js';
@@ -205,7 +205,7 @@ try {
       if (result.ticked) scene.showStates(result.updated);
       scene.paintVisuals(gameState,result.visualDelta,result.visualWork);
       // The otter's visits to the bank and its burrow (view only).
-      const shore=gameState.chapter&&stageById[gameState.chapter.stageId]?.chapter.art?.shore;
+      const shore=gameState.chapter&&stageArt(stageById[gameState.chapter.stageId])?.shore;
       for(const change of visits.update(gameState.organisms,shore,result.visualDelta||0)){scene.setVisit(change.instanceId,change.visit);burrowPeek.show(change.visit?.peek?shore.burrow:null);}
       chapterView?.render();
       if (result.ticked) { renderDashboard(gameState); activityView.render(); environmentPanel.render();populationView.render(); }
@@ -299,7 +299,7 @@ try {
     const price=chapterMode&&uiState.selectedSpeciesId?buyCheck(gameState,uiState.selectedSpeciesId):null;
     if(price&&!price.ok){scene.showFeedback(price.message,false);return;}
     // An otter or a turtle put on the bank: it lives at the water's edge and starts with a walk on land.
-    const shore=gameState.chapter&&stageById[gameState.chapter.stageId]?.chapter.art?.shore,onLand=landPlacement(uiState.selectedSpeciesId,input.position,shore);
+    const shore=gameState.chapter&&stageArt(stageById[gameState.chapter.stageId])?.shore,onLand=landPlacement(uiState.selectedSpeciesId,input.position,shore);
     const result = placeNearestOrganism(gameState, uiState.selectedSpeciesId, onLand?{...input,position:onLand.water}:input, scene.getLayout());
     scene.showFeedback(studentPlacementMessage(result,uiState.selectedSpeciesId), result.ok);
     if (!result.ok) return;

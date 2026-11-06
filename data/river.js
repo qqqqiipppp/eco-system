@@ -329,6 +329,8 @@ export const riverFoodRelations = [
   edge('crucian-carp', 'otter', 'animal', 'R25', 'B', true),
   edge('mandarin-fish', 'otter', 'animal', 'R25'),
   edge('dark-sleeper', 'otter', 'animal', 'R25'),
+  edge('pale-chub', 'otter', 'animal', 'R25'),
+  edge('sand-gudgeon', 'otter', 'animal', 'R25'),
   // 하류
   edge('hornwort', 'common-carp', 'whole', 'R26', 'B', true),
   edge('tape-grass', 'common-carp', 'whole', 'R26'),
@@ -451,11 +453,11 @@ export const riverChapters = [
       inventory: ['stone-diatom', 'hornwort', 'tape-grass', 'melania-snail', 'crucian-carp'], requiredSpecies: {'melania-snail': 1, 'crucian-carp': 1},
       organisms: [['stone-diatom', .14, .85], ['stone-diatom', .4, .86], ['hornwort', .24, .86], ['hornwort', .5, .85], ['tape-grass', .32, .85], ['tape-grass', .58, .86], ['melania-snail', .2, .92], ['melania-snail', .46, .91]]},
     {stageId: '3-2', title: '모래 바닥', points: 14, events: ['drought'],
-      goal: '피라미는 물속에서, 모래무지는 모래 바닥에서 돌말을 먹어요. 가뭄으로 물이 줄기 전에 생산자를 넉넉히 길러 두고, 모래무지를 놓아 강 별 3개를 모아요.',
+      goal: '피라미는 물속에서, 모래무지는 모래 바닥에서 돌말을 먹어요. 물고기를 잡으러 수달도 찾아와요. 가뭄으로 물이 줄기 전에 생산자를 넉넉히 길러 두고, 모래무지를 놓아 강 별 3개를 모아요.',
       tasks: [{text: '모래무지 놓기', have: 'sand-gudgeon'}, {text: '가뭄 견디기', crisis: 'drought'}],
       inventory: ['stone-diatom', 'hornwort', 'tape-grass', 'melania-snail', 'crucian-carp', 'pale-chub', 'sand-gudgeon'], requiredSpecies: {'crucian-carp': 1, 'pale-chub': 1, 'sand-gudgeon': 1},
       organisms: [['stone-diatom', .1, .85], ['stone-diatom', .26, .86], ['stone-diatom', .44, .85], ['stone-diatom', .56, .86], ['hornwort', .18, .86], ['tape-grass', .36, .85], ['hornwort', .5, .86],
-        ['melania-snail', .3, .92], ['crucian-carp', .3, .66]]},
+        ['melania-snail', .3, .92], ['crucian-carp', .3, .66], ['pale-chub', .2, .62], ['pale-chub', .46, .7], ['otter', .4, .74]]},
     {stageId: '3-3', title: '바닥의 사냥꾼', points: 16, events: ['sewage'],
       goal: '동사리는 바닥에 숨어 모래무지를, 쏘가리는 피라미와 붕어를 잡아먹어요. 마을의 생활 하수가 강으로 흘러드는 것도 막아야 해요. 쏘가리를 길러 강 별 3개를 모아요.',
       tasks: [{text: '쏘가리 기르기', have: 'mandarin-fish'}, {text: '생활 하수 막기', crisis: 'sewage'}],
@@ -494,13 +496,16 @@ export const riverChapters = [
       organisms: [['reed', .86, .4], ['water-chestnut', .3, .32], ['water-chestnut', .46, .36], ['water-chestnut', .58, .4], ['algae', .1, .85], ['algae', .26, .86], ['algae', .44, .85], ['algae', .56, .86], ['hornwort', .18, .86], ['hornwort', .36, .86], ['tape-grass', .5, .85],
         ['freshwater-clam', .2, .92], ['freshwater-clam', .48, .91], ['crucian-carp', .26, .66], ['crucian-carp', .44, .72], ['water-decomposer', .58, .93]]},
     // The invaders come here instead of the chapter's crises (one event at a time).
+    // The otter's burrow is dug into the downstream bank here (its own picture).
     {stageId: '4-4', title: '강의 주인과 침입자', points: 20, events: [],
-      goal: '하류의 먹이그물에는 조개, 붕어, 잉어, 남생이, 왜가리, 수달이 이어져 있어요. 그런데 외래종이 들어와 갈대를 갉아 먹고 물고기와 조개를 먹어요. 외래종을 빨리 내보내고 왜가리를 길러 강 별 3개를 모아요.',
+      art: {src: './assets/images/backgrounds/river-downstream-burrow.webp', alt: '넓고 느린 강의 수면과 물속 단면, 진흙 바닥, 오른쪽의 넓은 물가와 수달 굴이 있는 흙 단면.',
+        shore: {edge: {x: .71, y: .46}, land: {left: .86, right: .95, top: .08, bottom: .42}, burrow: {x: .8375, y: .551, w: .071, h: .112}}},
+      goal: '하류의 강둑에도 수달 굴이 있어요. 먹이그물에는 조개, 붕어, 잉어, 남생이, 왜가리, 수달이 이어져 있어요. 그런데 외래종이 들어와 갈대를 갉아 먹고 물고기와 조개를 먹어요. 외래종을 빨리 내보내고 왜가리를 길러 강 별 3개를 모아요.',
       tasks: [{text: '왜가리 기르기', have: 'grey-heron'}, {text: '외래종 내보내기', invader: true, icon: 'nutria'}],
       inventory: ['reed', 'cattail', 'water-chestnut', 'algae', 'hornwort', 'freshwater-clam', 'crucian-carp', 'common-carp', 'reeves-turtle', 'grey-heron', 'otter', 'water-decomposer'], requiredSpecies: {'freshwater-clam': 1, 'crucian-carp': 2, 'grey-heron': 1},
       boss: {species: ['nutria', 'snapping-turtle'], taps: 25},
       organisms: [['reed', .88, .4], ['reed', .8, .36], ['cattail', .92, .42], ['water-chestnut', .3, .32], ['water-chestnut', .46, .36], ['algae', .1, .85], ['algae', .26, .86], ['algae', .44, .85], ['algae', .56, .86], ['hornwort', .18, .86], ['hornwort', .36, .86], ['tape-grass', .5, .85],
-        ['freshwater-clam', .2, .92], ['freshwater-clam', .48, .91], ['crucian-carp', .14, .7], ['crucian-carp', .24, .66], ['crucian-carp', .4, .72], ['crucian-carp', .54, .64], ['common-carp', .32, .76], ['reeves-turtle', .4, .5], ['water-decomposer', .58, .93]]},
+        ['freshwater-clam', .2, .92], ['freshwater-clam', .48, .91], ['crucian-carp', .14, .7], ['crucian-carp', .24, .66], ['crucian-carp', .4, .72], ['crucian-carp', .54, .64], ['common-carp', .32, .76], ['reeves-turtle', .4, .5], ['otter', .5, .7], ['water-decomposer', .58, .93]]},
   ]},
 ];
 
