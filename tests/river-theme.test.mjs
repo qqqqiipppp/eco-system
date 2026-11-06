@@ -3,7 +3,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {useRiverTheme,riverSpecies,riverFoodRelations} from '../data/river.js';
-import {stages,stageById,chapters,breeding} from '../data/chapters.js';
+import {stages,stageById,chapters,breeding,stageArt} from '../data/chapters.js';
 import {organisms,organismById} from '../data/organisms.js';
 import {placementConfig,speciesProfiles} from '../data/interaction-config.js';
 import {foodRelations} from '../data/food-relations.js';
@@ -173,4 +173,16 @@ test('in every part of the river a food animal breeds, and a fed pair has young'
  let young=null;
  for(let t=0;t<3000&&!young;t++){const r=f.update(s,.1,layout);if(!r.ticked)continue;young=updateStage(s,.5,r.feedingEvents).born?.find(o=>o.speciesId==='medaka')||young;}
  assert.ok(young&&isPositionAllowed('medaka',young.position,layout),'a young medaka in the water');
+});
+
+test('an otter lives in 3-2 too, and in 4-4 with its burrow in the downstream bank',()=>{
+ for(const id of ['3-2','4-4']){
+  const stage=stageById[id],otter=stage.organisms.find(o=>o[0]==='otter');
+  assert.ok(otter,`${id} starts with an otter`);
+  const fish=new Set(stage.organisms.map(o=>o[0]));
+  assert.ok(foodRelations.filter(r=>r.targetSpeciesId==='otter'&&fish.has(r.sourceSpeciesId)).length>=2,`${id}: the otter has fish to eat`);
+ }
+ assert.match(stageArt(stageById['4-4']).src,/burrow/);assert.ok(stageArt(stageById['4-4']).shore.burrow,'4-4 draws the burrow');
+ assert.ok(!stageArt(stageById['4-1']).shore.burrow,'the other downstream stages keep their plain bank');
+ assert.equal(stageArt(stageById['3-2']),stageById['3-2'].chapter.art,'a stage without its own picture uses its chapter\'s');
 });

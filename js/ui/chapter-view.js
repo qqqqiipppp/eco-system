@@ -3,7 +3,7 @@ import {crisisQuestions} from '../../data/crisis-reflection.js';
 import {stageBlockers,isStuck,taskDone,pondStage,careOptions,needStates,neededCards,priceOf,buyCheck,prepareOptions,crisisReport,markReported,breedingState,isYoung,activeBoss,bossWarning,bossReport,crisisChoice} from '../systems/chapter-stage.js';
 import {currentEnvironmentEvent} from '../systems/environment-events.js';
 import {factorValue,qualityLabel} from '../systems/environment.js';
-import {stageConfig as config,chapters,stages,stageById,crises,crisisForFactor,breeding,growth,invaderPrey} from '../../data/chapters.js';
+import {stageConfig as config,chapters,stages,stageById,crises,crisisForFactor,breeding,growth,invaderPrey,stageArt} from '../../data/chapters.js';
 import {themes,themeById,themeWords as W} from '../../data/themes.js';
 import {environmentFactors} from '../../data/environment-config.js';
 import {environmentEventDefinitions} from '../../data/environment-events.js';
@@ -163,8 +163,8 @@ export function createChapterView(getState,{forest,theme='forest',themeStore={re
  // Another ecosystem's chapter brings its own picture and none of the forest's objects.
  const art=forest.querySelector('.forest-art');
  function renderScene(s){
-  const chapter=stageById[s.chapter.stageId].chapter;
-  if(chapter.art){if(art&&art.getAttribute('src')!==chapter.art.src){Object.assign(art,chapter.art);const soil=forest.querySelector('.soil-label');if(soil)soil.hidden=true;}return;}
+  const chapter=stageById[s.chapter.stageId].chapter,picture=stageArt(stageById[s.chapter.stageId]);
+  if(picture){if(art&&art.getAttribute('src')!==picture.src){Object.assign(art,{src:picture.src,alt:picture.alt});const soil=forest.querySelector('.soil-label');if(soil)soil.hidden=true;}return;}
   const number=chapter.number,c=s.chapter,event=currentEnvironmentEvent(s);
   if(log.hidden!==(number<3))log.hidden=number<3;
   if(litter.hidden!==(number<3))litter.hidden=number<3;

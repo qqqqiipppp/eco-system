@@ -36,7 +36,7 @@ test('a midstream otter visits the bank and peeks out of its burrow, then swims 
 });
 
 test('no burrow in the picture, no peeking; a hunt or hunger hurries the picture back to the water',()=>{
- const shore=stageById['4-4'].chapter.art.shore;
+ const shore=stageById['4-1'].chapter.art.shore;
  assert.ok(!shore.burrow);
  assert.ok(!run(shore,600).some(f=>f.visit?.peek));
  const o=otter(),plan=createVisitPlanner(seeded());let on=false;
