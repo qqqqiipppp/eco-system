@@ -378,8 +378,9 @@ export const riverPrices = {algae: 3, duckweed: 3, 'water-lily': 5, cattail: 3, 
 const relation = (food, eater) => riverFoodRelations.find(r => r.sourceSpeciesId === food && r.targetSpeciesId === eater).relationId;
 
 // Organisms: [species, x, y], y on the species' living space.
+// ownWeb: each part of the river draws its own 나의 먹이그물; all done, they join (wholeWeb).
 export const riverChapters = [
-  {chapterId: 'river-pond', number: 1, title: '연못·습지', events: ['drought'], seedSeconds: 50,
+  {chapterId: 'river-pond', number: 1, title: '연못·습지', ownWeb: true, events: ['drought'], seedSeconds: 50,
     newSpecies: ['algae', 'daphnia', 'medaka', 'duckweed', 'water-lily', 'pond-snail', 'water-strider', 'cattail', 'frog-tadpole', 'diving-beetle', 'catfish', 'water-decomposer'],
     intro: '고인 물에 사는 생산자와 소비자를 만나요.',
     art: {src: './assets/images/backgrounds/river-pond.webp', alt: '연못을 비스듬히 내려다본 수면과 물속 단면, 진흙 바닥, 오른쪽의 물가 비탈과 흙 단면.'}, stages: [
@@ -409,7 +410,7 @@ export const riverChapters = [
       organisms: [['algae', .1, .85], ['algae', .22, .86], ['algae', .34, .85], ['algae', .46, .86], ['algae', .56, .85], ['cattail', .86, .4], ['duckweed', .3, .3], ['water-strider', .52, .34],
         ['daphnia', .16, .7], ['daphnia', .28, .76], ['daphnia', .42, .68], ['daphnia', .5, .74], ['medaka', .24, .62], ['medaka', .44, .64], ['pond-snail', .12, .92], ['frog-tadpole', .36, .74], ['water-decomposer', .5, .93]]},
   ]},
-  {chapterId: 'river-upstream', number: 2, title: '상류', events: ['flood', 'valley-trash'], seedSeconds: 55,
+  {chapterId: 'river-upstream', number: 2, title: '상류', ownWeb: true, events: ['flood', 'valley-trash'], seedSeconds: 55,
     newSpecies: ['stone-diatom', 'melania-snail', 'caddisfly-larva', 'pussy-willow', 'amphipod', 'minnow', 'water-dropwort', 'native-crayfish', 'korean-catfish', 'aucha-perch'],
     intro: '차갑고 맑은 물이 빠르게 흐르는 계곡이에요. 돌에 붙은 돌말부터 꺽지까지 먹이 관계를 이어요.',
     art: {src: './assets/images/backgrounds/river-upstream.webp', alt: '맑고 빠른 계곡물의 수면과 물속 단면, 자갈과 큰 돌이 있는 바닥, 오른쪽의 자갈 물가와 흙 단면.'}, stages: [
@@ -437,7 +438,7 @@ export const riverChapters = [
       organisms: [['stone-diatom', .1, .85], ['stone-diatom', .22, .86], ['stone-diatom', .34, .85], ['stone-diatom', .46, .86], ['stone-diatom', .56, .85], ['pussy-willow', .86, .4], ['water-dropwort', .8, .42],
         ['caddisfly-larva', .14, .9], ['caddisfly-larva', .3, .91], ['caddisfly-larva', .5, .9], ['amphipod', .24, .88], ['amphipod', .42, .9], ['minnow', .2, .62], ['minnow', .46, .66], ['native-crayfish', .38, .92], ['water-decomposer', .58, .93]]},
   ]},
-  {chapterId: 'river-midstream', number: 3, title: '중류', events: ['drought', 'sewage'], seedSeconds: 60,
+  {chapterId: 'river-midstream', number: 3, title: '중류', ownWeb: true, events: ['drought', 'sewage'], seedSeconds: 60,
     newSpecies: ['hornwort', 'tape-grass', 'crucian-carp', 'pale-chub', 'sand-gudgeon', 'dark-sleeper', 'mandarin-fish', 'otter'],
     intro: '물살이 느려지고 바닥에 모래가 쌓이는 강이에요. 물풀이 자라고 큰 물고기와 수달이 살아요.',
     art: {src: './assets/images/backgrounds/river-midstream.webp', alt: '물살이 느린 강의 수면과 물속 단면, 모래 바닥, 오른쪽의 모래 물가와 수달 굴이 있는 흙 단면.',
@@ -469,7 +470,7 @@ export const riverChapters = [
       organisms: [['stone-diatom', .1, .85], ['stone-diatom', .22, .86], ['stone-diatom', .34, .85], ['stone-diatom', .46, .86], ['stone-diatom', .56, .85], ['hornwort', .16, .86], ['tape-grass', .28, .85], ['hornwort', .4, .86], ['tape-grass', .52, .85],
         ['melania-snail', .2, .92], ['crucian-carp', .24, .66], ['crucian-carp', .46, .72], ['pale-chub', .34, .62], ['pale-chub', .54, .68], ['sand-gudgeon', .12, .91], ['dark-sleeper', .38, .92], ['mandarin-fish', .3, .76], ['water-decomposer', .58, .93]]},
   ]},
-  {chapterId: 'river-downstream', number: 4, title: '하류', events: ['factory-waste', 'oil-spill'], seedSeconds: 65,
+  {chapterId: 'river-downstream', number: 4, title: '하류', ownWeb: true, events: ['factory-waste', 'oil-spill'], seedSeconds: 65,
     newSpecies: ['reed', 'water-chestnut', 'common-carp', 'freshwater-clam', 'reeves-turtle', 'grey-heron'],
     intro: '강폭이 넓어지고 물이 느리게 흐르는 곳이에요. 진흙 바닥에 조개가 살고, 물가에는 갈대밭이 펼쳐져요.',
     art: {src: './assets/images/backgrounds/river-downstream.webp', alt: '넓고 느린 강의 수면과 물속 단면, 진흙 바닥, 오른쪽의 넓은 물가와 흙 단면.',
