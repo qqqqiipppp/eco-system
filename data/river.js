@@ -13,6 +13,7 @@ import {decomposerIds} from './learning-goals.js';
 import {placementConfig,speciesProfiles} from './interaction-config.js';
 import {speciesHabitats,habitatZones} from './habitats.js';
 import {speciesCards} from './species-cards.js';
+import {riverPhotos} from './river-photos.js';
 import {foodEvidence} from './food-evidence.js';
 import {edge,addFoodRelations,foodPartLabels} from './food-relations.js';
 import {addDiscoveryEvent,addShortageEvent} from './event-config.js';
@@ -717,7 +718,7 @@ export function useRiverTheme() {
     if (starvation) starvationLimits[s.id] = ecologySeconds(starvation);
     if (satiety) satietySeconds[s.id] = ecologySeconds(satiety) * survivalConfig.satietyScale / .5;
     if (predatorSatiety) stageConfig.predatorSatiety = {...stageConfig.predatorSatiety, [s.id]: predatorSatiety};
-    speciesCards[s.id] = speciesCard;
+    speciesCards[s.id] = {...speciesCard, photos: riverPhotos[s.id] ?? []};
   }
   addFoodRelations(riverFoodRelations);
   for (const r of riverFoodRelations) addDiscoveryEvent(r);

@@ -1,6 +1,7 @@
 // The river theme (data/river.js): its organisms live in the water's spaces,
 // meet their food there, and its pond stages clear with the forest's engine.
 import test from 'node:test';
+import {existsSync} from 'node:fs';
 import assert from 'node:assert/strict';
 import {useRiverTheme,riverSpecies,riverFoodRelations} from '../data/river.js';
 import {stages,stageById,chapters,breeding,stageArt} from '../data/chapters.js';
@@ -10,6 +11,7 @@ import {foodRelations} from '../data/food-relations.js';
 import {discoveryEvents} from '../data/event-config.js';
 import {mealSentence} from '../data/student-text.js';
 import {crisisQuestions} from '../data/crisis-reflection.js';
+import {speciesCards} from '../data/species-cards.js';
 import {webNodes,webRelations,wholeWeb} from '../js/systems/food-web-builder.js';
 import {isPositionAllowed} from '../js/systems/placement-rules.js';
 import {placeOrganism} from '../js/systems/placement.js';
@@ -185,4 +187,17 @@ test('an otter lives in 3-2 too, and in 4-4 with its burrow in the downstream ba
  assert.match(stageArt(stageById['4-4']).src,/burrow/);assert.ok(stageArt(stageById['4-4']).shore.burrow,'4-4 draws the burrow');
  assert.ok(!stageArt(stageById['4-1']).shore.burrow,'the other downstream stages keep their plain bank');
  assert.equal(stageArt(stageById['3-2']),stageById['3-2'].chapter.art,'a stage without its own picture uses its chapter\'s');
+});
+
+test('every river creature\'s card shows real photos, each with who took it, its licence and where it is from',()=>{
+ for(const s of riverSpecies){
+  const photos=speciesCards[s.id].photos;
+  assert.ok(photos.length>=1&&photos.length<=3,`${s.id}: ${photos.length} photos`);
+  for(const p of photos){
+   assert.ok(existsSync(new URL('..'+p.src.slice(1),import.meta.url)),p.src);
+   assert.match(p.credit,/ · (CC BY(-SA)? [0-9.]+|CC0|Public domain|PD)/,`${s.id}: ${p.credit}`);
+   assert.match(p.source,/^https:\/\/commons\.wikimedia\.org\/wiki\/File:/);
+   assert.ok(p.w>0&&p.h>0);
+  }
+ }
 });
