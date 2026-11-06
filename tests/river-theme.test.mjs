@@ -3,7 +3,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {useRiverTheme,riverSpecies,riverFoodRelations} from '../data/river.js';
-import {stages,stageById,chapters} from '../data/chapters.js';
+import {stages,stageById,chapters,breeding} from '../data/chapters.js';
 import {organisms,organismById} from '../data/organisms.js';
 import {placementConfig,speciesProfiles} from '../data/interaction-config.js';
 import {foodRelations} from '../data/food-relations.js';
@@ -160,4 +160,17 @@ test('each part of the river has its own food web of the creatures met there; to
  assert.deepEqual(new Set(Object.keys(home)),new Set(chapters.flatMap(c=>[...met(c)])));
  assert.equal(home['stone-diatom'],2);assert.equal(home.otter,3);assert.equal(home['crucian-carp'],3);assert.equal(home.reed,4);
  assert.ok(webRelations(Object.keys(home)).some(r=>home[r.sourceSpeciesId]!==home[r.targetSpeciesId]),'arrows cross from one part to another');
+});
+
+test('in every part of the river a food animal breeds, and a fed pair has young',()=>{
+ for(const c of chapters){
+  const met=new Set(c.stages.flatMap(st=>[...st.inventory,...st.organisms.map(o=>o[0])]));
+  const breeders=[...met].filter(id=>breeding.species[id]&&foodRelations.some(r=>r.sourceSpeciesId===id));
+  assert.ok(breeders.length>=1,`${c.chapterId}: ${breeders}`);
+ }
+ const s=createStageGameState(stageById['1-1']),f=createFeedingSystem(0);
+ assert.ok(place(s,'medaka')&&place(s,'medaka'),'a pair of medaka');
+ let young=null;
+ for(let t=0;t<3000&&!young;t++){const r=f.update(s,.1,layout);if(!r.ticked)continue;young=updateStage(s,.5,r.feedingEvents).born?.find(o=>o.speciesId==='medaka')||young;}
+ assert.ok(young&&isPositionAllowed('medaka',young.position,layout),'a young medaka in the water');
 });
