@@ -30,7 +30,7 @@ import { createOrganismLayer } from './ui/organism-layer.js';
 import {studentPlacementMessage} from './ui/student-guidance.js';
 import {placeNearestOrganism} from './systems/placement-target.js';
 import { createWanderSystem } from './systems/wander.js';
-import {createVisitPlanner,createBurrowPeek} from './ui/burrow-visits.js';
+import {createVisitPlanner,createBurrowPeek,landPlacement} from './ui/burrow-visits.js';
 import { createUpdateLoop } from './systems/update-loop.js';
 import { speciesProfiles } from '../data/interaction-config.js';
 import {useChapterEcology} from '../data/chapter-ecology.js';
@@ -298,12 +298,15 @@ try {
     // Chapter mode is a shop: a card costs points, charged only once it is placed.
     const price=chapterMode&&uiState.selectedSpeciesId?buyCheck(gameState,uiState.selectedSpeciesId):null;
     if(price&&!price.ok){scene.showFeedback(price.message,false);return;}
-    const result = placeNearestOrganism(gameState, uiState.selectedSpeciesId, input, scene.getLayout());
+    // An otter or a turtle put on the bank: it lives at the water's edge and starts with a walk on land.
+    const shore=gameState.chapter&&stageById[gameState.chapter.stageId]?.chapter.art?.shore,onLand=landPlacement(uiState.selectedSpeciesId,input.position,shore);
+    const result = placeNearestOrganism(gameState, uiState.selectedSpeciesId, onLand?{...input,position:onLand.water}:input, scene.getLayout());
     scene.showFeedback(studentPlacementMessage(result,uiState.selectedSpeciesId), result.ok);
     if (!result.ok) return;
     if(price){payFor(gameState,uiState.selectedSpeciesId);chapterView.spent(price.price,result.instance);}
     selectionPlaced=true;
     scene.add(result.instance, true);
+    if(onLand){visits.startOnLand(result.instance,onLand.land,shore);scene.setVisit(result.instance.instanceId,visits.update(gameState.organisms,shore,0)[0]?.visit||null);}
     eventSystem.refresh(gameState);
     eventView.render();
     stabilitySystem.update(gameState);

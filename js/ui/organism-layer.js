@@ -7,6 +7,7 @@ import { DEBUG_MODE, foodResourceConfig, feedingConfig } from '../../data/ecolog
 import {survivalStage} from '../systems/population.js';
 import {developmentStage,stageLabel} from '../systems/development.js';
 import {visualAsset,createVisualTracker} from './species-visuals.js';
+import {rasterFrames} from './species-raster.js';
 
 // Short teaching labels fit the existing placeholder footprints.
 const youngNames={grass:{sprout:'강아지풀 새싹',grown:'자란 강아지풀'},grasshopper:{nymph:'방아깨비 약충'},rabbit:{baby:'새끼 멧토끼',juvenile:'어린 멧토끼'},mushroom:{mycelium:'버섯 균사체','spore-ready':'버섯 포자 준비'}};
@@ -260,8 +261,8 @@ export function createOrganismLayer(forest, getOrganisms) {
     getLayout: () => layout,
     getEventAnchor: instanceId => nodes.get(instanceId)?.anchor,
     paintChanges: changed => { for (const { instance, direction } of changed) paint(instance, direction); },
-    // On land the visit shows the walk frames; back in the water the usual frames return.
-    setVisit(instanceId,visit){const entry=nodes.get(instanceId),instance=getOrganisms().find(o=>o.instanceId===instanceId);if(!entry||!instance)return;entry.visit=visit;entry.anchor.classList.toggle('is-away',Boolean(visit?.hidden));paint(instance,visit?.facing);if(visit?.walk){const src=visualAsset(instance.speciesId,'walk',visit.frame);if(entry.image.getAttribute('src')!==src)entry.image.src=src;entry.visualKey='';}},
+    // On land the visit shows the walk frames (or its move frames if none); back in the water the usual frames return.
+    setVisit(instanceId,visit){const entry=nodes.get(instanceId),instance=getOrganisms().find(o=>o.instanceId===instanceId);if(!entry||!instance)return;entry.visit=visit;entry.anchor.classList.toggle('is-away',Boolean(visit?.hidden));paint(instance,visit?.facing);if(visit?.walk){const src=visualAsset(instance.speciesId,rasterFrames[instance.speciesId]?.walk?'walk':'move',visit.frame);if(entry.image.getAttribute('src')!==src)entry.image.src=src;entry.visualKey='';}},
     dispose() { forest.removeEventListener('click',inspectInput);namesToggle.removeEventListener('click',toggleNames);observer.disconnect(); window.removeEventListener('resize', measure); clearTimeout(feedbackTimer); },
   };
 }
