@@ -37,6 +37,8 @@ body[data-theme=river] .placing-band{background:var(--river-pale);border-color:v
 body[data-theme=river] .chapter-dialog,body[data-theme=river] .chapter-actions button,body[data-theme=river] .chapter-stage-list button,
 body[data-theme=river] .map-area,body[data-theme=river] .theme-card,body[data-theme=river] .web-node,body[data-theme=river] .web-close,body[data-theme=river] .web-reference{border-color:var(--river-border)}
 body[data-theme=river] .chapter-dialog .chapter-actions button:first-child,body[data-theme=river] .web-steps li.now{background:var(--river-dark);border-color:var(--river-dark)}
+/* The prepare window's first choice is not a main button: light sky blue, dark text. */
+body[data-theme=river] .chapter-prepare-dialog .chapter-prepare button:first-child{background:#dcedf9;border-color:#9cc5e3;color:var(--ink)}
 body[data-theme=river] .map-progress,body[data-theme=river] .theme-card strong{color:var(--river-dark)}
 body[data-theme=river] .map-stone{background:var(--river-pale)}
 body[data-theme=river] .map-stone.done,body[data-theme=river] .map-web{background:var(--river-mid)}

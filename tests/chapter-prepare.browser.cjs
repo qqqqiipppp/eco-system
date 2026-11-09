@@ -21,6 +21,13 @@ const launch=process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH
  const reduce=p.locator('.chapter-prepare button').nth(1);
  assert.ok(await reduce.isDisabled(),'nothing to send back: the button is off');
  assert.match(await reduce.textContent(),/돌려보내기/);
+ // At the river the first choice is a light sky blue with dark text, easy to read
+ // (it was the river's dark main-button blue under dark text).
+ const river=await p.locator('.chapter-prepare button').first().evaluate(b=>{document.body.dataset.theme='river';
+  const s=getComputedStyle(b),rgb=c=>c.match(/\d+/g).slice(0,3).map(Number),lum=c=>{const [r,g,b]=rgb(c).map(v=>{v/=255;return v<=.03928?v/12.92:((v+.055)/1.055)**2.4;});return .2126*r+.7152*g+.0722*b;};
+  const bg=lum(s.backgroundColor),fg=lum(s.color),out={bg:s.backgroundColor,blue:rgb(s.backgroundColor)[2]>rgb(s.backgroundColor)[0],light:bg,ratio:(Math.max(bg,fg)+.05)/(Math.min(bg,fg)+.05)};
+  delete document.body.dataset.theme;return out;});
+ assert.ok(river.light>.7&&river.blue&&river.ratio>=7,`river's first choice: ${JSON.stringify(river)}`);
  // Not enough points: the button flashes red and says so; the window stays and nothing is chosen.
  await p.evaluate(async()=>{(await import('./js/main.js')).gameState.metrics.points=0;});
  const plant=p.locator('.chapter-prepare button').first();await plant.click();
